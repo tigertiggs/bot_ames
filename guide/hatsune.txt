@@ -1,0 +1,30 @@
+{
+'name': "Hatsune",
+'pos':	"Rearguard",
+'role':	"MDEF DB/ Physical killer",
+'rank': (5, 13),
+'ue':	2,
+
+'brief': 
+"Hatsune is the only unit to target based on opponent's highest physical stats. Both of her skills targets the highest physical stats and with UE, her first skill gives her additional damage and MDEF debuff on the target. Her AOE UB hits all and does additional damage if they are a physical attacker.",
+
+'strat': 
+"She's good in Arena with other AOE",
+
+'do': 
+[
+"Put her in arena team with other AOEs",
+"Give her time to chill :hatsunexD:"
+],
+
+
+'dont': 
+[
+"Wake her up from her sleep",
+"Feed TP"
+],
+
+
+'team': 
+"Any other AOE in arena, really. Main point is to help kill the physical attacker Hatsune is aiming at, else she will just be feeding TP."
+}

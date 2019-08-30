@@ -1,0 +1,6 @@
+# ignore these
+_pass/*
+_log/*
+
+**/.vscode/*
+**/__pycache__/*

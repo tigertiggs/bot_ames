@@ -1,0 +1,28 @@
+{
+'name':		"Onion",
+'pos':		"Somewhere in your kitchen",
+'role':		"Making you cry",
+'rank': 	(6, -1),
+'ue':		-1,
+
+'brief':	
+"You were planning to look up ONinon, but instead looked up Onion, and this is why you are here. Such a childish mistake, you should be very embarrassed",
+
+'strat':
+"Apply force to onion in the direction of enemy",
+
+'do': 
+[
+"improve your spelling"
+],
+
+
+'dont': 
+[
+"spell things wrong"
+],
+
+
+'team':
+"Goes well with Stews, BBQs, in snags"
+}
