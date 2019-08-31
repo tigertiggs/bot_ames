@@ -217,13 +217,16 @@ async def hatsune_chara(ctx, name, flags, emj, client, cmode="", mode="Profile")
     uedata = _ue_data(target, flags)
 
     # skill data
+    ddata = get_stats(target_id, flags)
+    ddata['uname_eng'] = cdata['uname_eng']
+    ddata['im'] = cdata['im']
 
     # equipment data
 
     # create page embeds
     c_embed = charaembed(cdata, cmode, skills, page_headings.copy(), 0)
     ue_embed = ueembed(uedata, skills, page_headings.copy(), 1)
-    d_embed = skillsembed(page_headings.copy(), 2)
+    d_embed = skillsembed(ddata, page_headings.copy(), 2)
 
     embeds = [c_embed, ue_embed, d_embed]
 
@@ -265,47 +268,50 @@ async def hatsune_chara(ctx, name, flags, emj, client, cmode="", mode="Profile")
     print('chara: successful!')
     return
 
-    
+#############################################################################################
+# subfunctions
 
+def get_stats(target_id, flags):
+    #WIP
+    func = '_stats:'
+    data = dict()
+    data['max_rank'] = 14
+    data['active'] = False
 
+    # grab eq Rank stats
+    stats = ("SELECT rank_up from princonne.chara_data_final "
+             "WHERE unit_id = {:s}".format(target_id))
 
+    try:
+        cursor = flags['cb_db'].cursor()
+        cursor.execute(stats, )
+    except mysql.connector.Error as err:
+        print(func, err)
+        cursor.close()
+        return data
+    else:
+        for rank in cursor:
+            rank = str(rank[0])
+            if rank == "Yes":
+                data['rank'] = str(data['max_rank'])
+            elif rank == 'Maybe':
+                data['rank'] = "-".join([str(data['max_rank'] - 1), str(data['max_rank'])])
+            elif rank == 'No':
+                data['rank'] = str(data['max_rank']-1)
+            else:
+                data['rank'] = '??'
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-def get_stats(target, flags):
-    pass
+    return data
 
 #
-def skillsembed(page_h, ind):
+def skillsembed(data, page_h, ind):
     page_h[ind] = '**[{:s}]**'.format(page_h[ind])
-    star = '⭐'
+    #star = '⭐'
+    uncap = '??'
 
     embed = discord.Embed(
-        title="Test title",
-        description="Test description",
+        title="{:s}'s Data".format(data['uname_eng']),
+        description="WIP",
         timestamp=datetime.datetime.utcnow(),
         colour=rc())
 
@@ -316,11 +322,11 @@ def skillsembed(page_h, ind):
 
     embed.set_author(name="Hatsune's Copied Notes")
     embed.set_footer(text='Data page')
-    embed.set_thumbnail(url='https://redive.estertion.win/icon/item/31000.webp')
+    embed.set_thumbnail(url=data['im'])
 
     embed.add_field(
         name="Rec. Setup",
-        value="0⭐ - eq rank",
+        value=" ⭐ Rank ".join([uncap, data['rank']]),
         inline=True)
 
     embed.add_field(
@@ -489,7 +495,8 @@ def _chara_data(target_id, flags):
     get_chara_data = ("SELECT image, unit_name_eng, "
                       "ub_trans, skill_1_translation, skill_2_trans, "
                       "comment_trans, tag, skill_1_plus_trans, "
-                      "unit_name, union_burst, skill_1, skill_1_plus, skill_2, comment "
+                      "unit_name, union_burst, skill_1, skill_1_plus, skill_2, comment, "
+                      "image_2, union_burst_2, ub_2_trans "
                       "FROM princonne.chara_data_final "
                       "WHERE unit_id = {:d}".format(int(target_id)))
     try:
@@ -502,7 +509,7 @@ def _chara_data(target_id, flags):
         return False
     else:
         data = dict()
-        for (_i, _name, _ub, _sk1, _sk2, _c, _t, _sk1p, unjp, ubjp, sk1jp, sk1pjp, sk2jp, cjp) in cursor:
+        for (_i, _name, _ub, _sk1, _sk2, _c, _t, _sk1p, unjp, ubjp, sk1jp, sk1pjp, sk2jp, cjp, _i2, ub2jp, _ub2) in cursor:
             
             name = str(_name)
             if name[1].isupper():
@@ -534,16 +541,30 @@ def _chara_data(target_id, flags):
             data['sk1p'] =          str(sk1pjp)
             data['sk2'] =           str(sk2jp)
             data['comment'] =       str(cjp)
+            data['im2'] =           str(_i2)
+            data['ub2'] =           str(ub2jp)
+            data['ub2_eng'] =       str(_ub2)
         cursor.close()
 
     return data
 
 def charaembed(data, ue, skills, page_h, ind):
     remark, *comment = data['comment_eng'].replace('\t',"").replace('\n','').split('*')[:2]
-
-    #print(remark,comment)
     
-    embed = discord.Embed(title="{1:s}\n{0:s}".format(data['uname_eng'],data['uname']),
+    if remark == "":
+        remark = "Soon"
+    if comment == []:
+        comment = "Soon"
+    else:
+        comment = comment[0]
+    #print(remark,comment)
+
+    if ue == "mlb":
+        title = "{1:s} 6⭐\n{0:s} MLB".format(data['uname_eng'],data['uname'])
+    else:
+        title = "{1:s}\n{0:s}".format(data['uname_eng'],data['uname'])
+        
+    embed = discord.Embed(title=title,
                           description=remark,
                           timestamp=datetime.datetime.utcnow(),
                           colour=rc())
@@ -559,12 +580,21 @@ def charaembed(data, ue, skills, page_h, ind):
         inline=False)
 
     embed.add_field(name='Comment\n'+data['comment'],value=comment,inline=False)
+
     
     if data['im'] != 'None':
-        embed.set_thumbnail(url=data['im'])
+        if ue == "mlb":
+            embed.set_thumbnail(url=data['im2'])
+        else:
+            embed.set_thumbnail(url=data['im'])
+    
 
     if data['uname_eng'] != 'Onion':
-        embed.add_field(name="\n".join(["Union Burst "+skills['ub'],data['ub']]), value=data['ub_eng'])
+        if ue == "mlb":
+            embed.add_field(name="\n".join(["Union Burst +",data['ub2']]), value=data['ub2_eng'])
+        else:
+            embed.add_field(name="\n".join(["Union Burst "+skills['ub'],data['ub']]), value=data['ub_eng'])
+            
     else:
         embed.add_field(name="\n".join(["Onion Burst "+skills['ub'],data['ub']]), value=data['ub_eng'])
     

@@ -105,6 +105,7 @@ __chara =           True and _hatsune
 __ue =              True and _hatsune
 __tag =             True and _hatsune
 __pos =             True and _hatsune
+__data =            True and _hatsune
 
 _guide =            True
 
@@ -386,8 +387,8 @@ async def police(ctx, *user:discord.Member):
 # GACHA
 @client.command(enabled=_gacha)
 @commands.cooldown(1, 2, commands.BucketType.guild)
-async def gacha(ctx, t=10):
-    await roll.roll(ctx, emj, t)
+async def gacha(ctx, t=10, mode=''):
+    await roll.roll(ctx, emj, t, mode)
 
 # SPARK
 @client.command(enabled=_gacha)
@@ -414,6 +415,14 @@ async def chara(ctx, name="", cmode=""):
 async def ue(ctx, name:str):
     if flags['db_isconnected']:
         await hatsune_new.hatsune_chara(ctx, name, flags, emj, client, mode="UE")
+    else:
+        await ctx.channel.send(emj['sarenf']+'The database isn\'t connected!')
+
+# HATSUNE - DATA
+@client.command(enabled=__data, aliases=['r14'])
+async def data(ctx, name:str):
+    if flags['db_isconnected']:
+        await hatsune_new.hatsune_chara(ctx, name, flags, emj, client, mode="Data")
     else:
         await ctx.channel.send(emj['sarenf']+'The database isn\'t connected!')
     

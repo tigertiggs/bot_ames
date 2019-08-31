@@ -1,6 +1,29 @@
-# ignore these
+# ignore these for reasons
 _pass/*
 _log/*
 
+# these are junk
 **/.vscode/*
 **/__pycache__/*
+
+# ignore output images
+threaten/threat.png
+spray/sp.png
+police/pol.gif
+nerosays.png
+nerosayse.jpg
+nerosayse.gif
+mind/changemymind.png
+location/loc.png
+jsays/*
+gacha/gresult.jpg
+enty/_entychase.jpg
+enty/_entydejavu.jpg
+_entyraid.jpg
+dumb/dumbass.jpg
+
+
+
+# misc
+panda/*
+old_code/*

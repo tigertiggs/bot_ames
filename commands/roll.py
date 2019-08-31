@@ -17,7 +17,7 @@ from discord.ext import commands
 from misc import randcolour as rc
 from prototype import get_team as gt
 
-async def roll(ctx, emj, t=10):
+async def roll(ctx, emj, t=10, mode=''):
     channel = ctx.channel
     author = ctx.message.author
     if t > 10:
@@ -28,7 +28,7 @@ async def roll(ctx, emj, t=10):
         print('gacha: invalid roll input')
         await channel.send('<:shioread:449255102721556490>')
         return
-    raw_result = gacha_result(t)
+    raw_result = gacha_result(t, mode)
     async with ctx.typing():
         create_gacha_result(raw_result)
         result = discord.File("gacha/gresult.jpg", filename="gresult.jpg")
@@ -129,37 +129,44 @@ def create_gacha_result(result):
     print('cgr: success - {:f}s'.format(time.time() - st))
     return
 
-def gacha_result(t=10):
+def gacha_result(t=10, mode=''):
     r_pool, sr_pool, ssr_pool = read_pool()
-    ssr_rate = 0.025
+    ssr_rate = 0.05
     sr_rate = 0.18
     r_rate = 1 - ssr_rate - sr_rate
 
     # LIMITED/SEASONAL ADDITION - PLEASE MANUALLY FILL
     # DOES NOT APPLY TO RATEUPS FOR NORMAL POOL CHARAS!
-    ssr_up = ['ilya']
-    ssr_up_rate_indiv = 0.007
+    ssr_up = ['neneka', 'christina', 'muimi']
+    ssr_up_rate_indiv = 0.005
     
     rolls = []
     grain = 100000
-    for i in range(t):
-        roll = random.randint(0,grain)
-        if (i+1)%10 != 0:
-            if roll < (r_rate * grain):
-                chara = random.choice(r_pool)
-                rolls.append((chara,1))
-            elif roll < ((r_rate + sr_rate) * grain):
-                chara = random.choice(sr_pool)
-                rolls.append((chara,2))
+
+    if mode == '':
+        for i in range(t):
+            roll = random.randint(0,grain)
+            if (i+1)%10 != 0:
+                if roll < (r_rate * grain):
+                    chara = random.choice(r_pool)
+                    rolls.append((chara,1))
+                elif roll < ((r_rate + sr_rate) * grain):
+                    chara = random.choice(sr_pool)
+                    rolls.append((chara,2))
+                else:
+                    chara = random.choice(ssr_pool)
+                    rolls.append(tier(3, ssr_pool, ssr_rate, ssr_up, ssr_up_rate_indiv))
             else:
-                chara = random.choice(ssr_pool)
-                rolls.append(tier(3, ssr_pool, ssr_rate, ssr_up, ssr_up_rate_indiv))
-        else:
-            if roll < ((r_rate + sr_rate) * grain):
-                chara = random.choice(sr_pool)
-                rolls.append((chara,2))
-            else:
-                rolls.append(tier(3, ssr_pool, ssr_rate, ssr_up, ssr_up_rate_indiv))
+                if roll < ((r_rate + sr_rate) * grain):
+                    chara = random.choice(sr_pool)
+                    rolls.append((chara,2))
+                else:
+                    rolls.append(tier(3, ssr_pool, ssr_rate, ssr_up, ssr_up_rate_indiv))
+    elif mode == 'test':
+        for i in range(t):
+            roll = random.randint(0,grain)
+            rolls.append(tier(3, ssr_pool, ssr_rate, ssr_up, ssr_up_rate_indiv))
+        
     return rolls
 
 def tier(pool_rarity, pool, pool_rate ,pool_limited, limited_rate_indiv):
@@ -194,25 +201,32 @@ async def spark(ctx, emj, client):
     sr_tier = 0
     ssr_tier = []
 
+    spec = []
     for chara, rarity in rolls:
-        if rarity == 1:
+        if abs(rarity) == 1:
             r_tier += 1
-        elif rarity == 2:
+        elif abs(rarity) == 2:
             sr_tier += 1
-        else:
+        elif abs(rarity) == 3:
             ssr_tier.append(chara)
+        else:
+            #ssr_tier.append(chara)
+            pass
 
-    unique_set = set(ssr_tier)
-    unique_set = list(unique_set)
+        if rarity < 0:
+            spec.append(chara)
+
+    unique_set = list(set(ssr_tier))
+    #unique_set = list(unique_set)
     unique_set.sort()
     teams = gt(client)
     
     count = [(chara, ssr_tier.count(chara)) for chara in unique_set]
 
-    await channel.send(embed=spark_embed(author, count, r_tier, sr_tier, len(ssr_tier), teams))
+    await channel.send(embed=spark_embed(author, count, r_tier, sr_tier, len(ssr_tier), teams, spec))
     return
 
-def spark_embed(author, count, r, sr, ssr, teams):
+def spark_embed(author, count, r, sr, ssr, teams, spec):
     embed = discord.Embed(
         title="Spark Summary",
         description="Prepare for salt, {:s}".format(author.name),
@@ -246,13 +260,24 @@ def spark_embed(author, count, r, sr, ssr, teams):
         value='**{:s}**'.format(str(tears)),
         inline=True
         )
+
+    ssrlist = []
+    for chara, order in count:
+        if chara in spec:
+            temp = chara.join(['**', '**'])
+            ssrlist.append('> '+\
+                " ".join([teams['template'].format(chara,teams[chara]),
+                       temp,
+                       'x'+str(order)]))
+        else:
+            ssrlist.append(
+                " ".join([teams['template'].format(chara,teams[chara]),
+                          chara,
+                          'x'+str(order)]))
+    
     embed.add_field(
         name="SSR Rolled",
-        value="\n".join(
-            [" ".join([teams['template'].format(chara,teams[chara]),
-                       chara,
-                       'x'+str(order)]) for chara, order in count]
-            ),
+        value="\n".join(ssrlist),
         inline=False
         )
     return embed
