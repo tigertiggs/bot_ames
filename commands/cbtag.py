@@ -121,7 +121,10 @@ async def cbtag(ctx, options, emj, client):
                     if str(role.id) in bosses:
                         await author.remove_roles(role)
             elif args[0] == 'all':
-                pass
+                for member in guild.members:
+                    for role in member.roles:
+                        if str(role.id) in bosses:
+                            await member.remove_roles(role)
             else:
                 pass
 
@@ -235,6 +238,7 @@ def cbtag_embed(author,guild, mode=""):
         value="\n".join(num)
         )
     """
+    print(names, waiting)
     embed.add_field(
         name="Boss name",
         value="\n".join(names),

@@ -185,7 +185,7 @@ emj = {
     }
 
 # BOT PREFERENCES
-BOT_PREFIX = (".")
+BOT_PREFIX = (".", "$")
 client = Bot(command_prefix = BOT_PREFIX)
 client.remove_command('help')
 
@@ -643,6 +643,7 @@ async def find(ctx, target=""):
 async def reload_emotes(ctx):
     await proto.reload_emotes(client)
 
+"""
 @client.event
 async def on_command_error(ctx, error):
     ignored = (commands.CommandNotFound, commands.UserInputError)
@@ -655,7 +656,7 @@ async def on_command_error(ctx, error):
         return await ctx.channel.send('I\'m currently taking a break '+emj['dead'])
     else:
         await ctx.channel.send(emj['shiori'])
-
+"""
 
 # RUN
 client.run(token)

@@ -539,7 +539,9 @@ def _chara_data(target_id, flags):
     return data
 
 def charaembed(data, ue, skills, page_h, ind):
-    remark, comment = data['comment_eng'].replace('\t',"").replace('\n','').split('*')[:2]
+    remark, *comment = data['comment_eng'].replace('\t',"").replace('\n','').split('*')[:2]
+
+    #print(remark,comment)
     
     embed = discord.Embed(title="{1:s}\n{0:s}".format(data['uname_eng'],data['uname']),
                           description=remark,
