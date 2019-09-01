@@ -207,14 +207,15 @@ async def spark(ctx, emj, client):
             r_tier += 1
         elif abs(rarity) == 2:
             sr_tier += 1
-        elif abs(rarity) == 3:
+        elif abs(rarity) == 3 and rarity > 0:
             ssr_tier.append(chara)
+        elif abs(rarity) == 3 and rarity < 0:
+            ssr_tier.append("_"+chara)
+            spec.append("_"+chara)
         else:
             #ssr_tier.append(chara)
             pass
 
-        if rarity < 0:
-            spec.append(chara)
 
     unique_set = list(set(ssr_tier))
     #unique_set = list(unique_set)
@@ -264,8 +265,9 @@ def spark_embed(author, count, r, sr, ssr, teams, spec):
     ssrlist = []
     for chara, order in count:
         if chara in spec:
+            chara = chara[1:]
             temp = chara.join(['**', '**'])
-            ssrlist.append('> '+\
+            ssrlist.append('> ' +\
                 " ".join([teams['template'].format(chara,teams[chara]),
                        temp,
                        'x'+str(order)]))
