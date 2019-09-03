@@ -173,6 +173,7 @@ maki =          '<:tamakiS:595054639309651978> '
 zeik =          '<:feelszeik:606111207287422979> '
 dead =          '<:makotodead:610417622655172608> '
 sarenf =        '<:SarenFall:604557991617888256> '
+panda =         '<:feelspanda:588405851505819682> '
 emj = {
     'shiori':   shiori,
     'kasumi':   kasumi,
@@ -181,7 +182,8 @@ emj = {
     'maki':     maki,
     'zeik':     zeik,
     'dead':     dead,
-    'sarenf':   sarenf
+    'sarenf':   sarenf,
+    'panda':    panda
     }
 
 # BOT PREFERENCES
@@ -633,6 +635,10 @@ async def read(ctx):
 async def dead(ctx):
     await ctx.message.delete()
     await ctx.channel.send(emj['dead'])
+
+@client.command()
+async def panda(ctx):
+    await ctx.channel.send(emj['panda'])
     
 # test
 @client.command()
