@@ -131,14 +131,14 @@ def create_gacha_result(result):
 
 def gacha_result(t=10, mode=''):
     r_pool, sr_pool, ssr_pool = read_pool()
-    ssr_rate = 0.05
+    ssr_rate = 0.025
     sr_rate = 0.18
     r_rate = 1 - ssr_rate - sr_rate
 
     # LIMITED/SEASONAL ADDITION - PLEASE MANUALLY FILL
     # DOES NOT APPLY TO RATEUPS FOR NORMAL POOL CHARAS!
-    ssr_up = ['neneka', 'christina', 'muimi']
-    ssr_up_rate_indiv = 0.005
+    ssr_up = ['uaoi']
+    ssr_up_rate_indiv = 0.007
     
     rolls = []
     grain = 100000

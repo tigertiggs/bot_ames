@@ -148,7 +148,8 @@ _help =             "\nIn case you forgot, the prefixes are:\n"\
                     "`x` for Christmas i.e. `xayane`\n"\
                     "`o` for Ouedo i.e. `oninon`\n"\
                     "`v` for Valentines i.e. `vshizuru`\n"\
-                    "`s` for Summer i.e. `sio`"
+                    "`s` for Summer i.e. `sio`\n"\
+                    "`u` for Uniform i.e. `uaoi`"
 
 no_input =          'There was no input'+_help
 search_fail =       'Did not find character'+_help
@@ -520,6 +521,7 @@ def _chara_data(target_id, flags):
                 elif    prefix == 'N':  limited = 'New Year'
                 elif    prefix == 'O':  limited = 'Ouedo'
                 elif    prefix == 'V':  limited = 'Valentine'
+                elif    prefix == 'U':  limited = 'Uniform'
                 
                 else:
                     print(func, 'no valid prefix matched')

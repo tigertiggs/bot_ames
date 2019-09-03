@@ -135,6 +135,13 @@ def get_skill_names(target, flags):
         skills['sk1p'] = temp[:-1]+'+'+temp[-1:]
     return skills
 
+HELP = "`n` for New year i.e. `nrei`\n"\
+       "`x` for Christmas i.e. `xayane`\n"\
+       "`o` for Ouedo i.e. `oninon`\n"\
+       "`v` for Valentines i.e. `vshizuru`\n"\
+       "`s` for Summer i.e. `sio`\n"\
+       "`u` for Uniform i.e. `uaoi`"
+
 async def hatsune_chara(ctx, name, ue, flags, emj, client):
     channel = ctx.channel
     func = 'chara:'
@@ -153,11 +160,7 @@ async def hatsune_chara(ctx, name, ue, flags, emj, client):
     if name == "":
         await channel.send(emj['maki']+'Where was no input\n'+
                            "In case you forgot, the prefixes are:\n"+
-                           "`n` for New year i.e. `nrei`\n"+
-                           "`x` for Christmas i.e. `xayane`\n"+
-                           "`o` for Ouedo i.e. `oninon`\n"+
-                           "`v` for Valentines i.e. `vshizuru`\n"+
-                           "`s` for Summer i.e. `sio`")
+                           HELP)
         return
     else:
         #name = name[0]
@@ -172,11 +175,7 @@ async def hatsune_chara(ctx, name, ue, flags, emj, client):
         print(func, 'did not find character')
         await channel.send(emj['maki']+'I did not find that character\n'+
                            "Make sure you used prefixes correctly:\n"+
-                           "`n` for New year i.e. `nrei`\n"+
-                           "`x` for Christmas i.e. `xayane`\n"+
-                           "`o` for Ouedo i.e. `oninon`\n"+
-                           "`v` for Valentines i.e. `vshizuru`\n"+
-                           "`s` for Summer i.e. `sio`")
+                           HELP)
         return
 
     skills = get_skill_names(chara_list_jp[ind], flags)
@@ -322,13 +321,8 @@ async def hatsune_ue(ctx, chara, flags, emj, mode=False):
     """
 
     if len(chara)==0:
-        await channel.send(emj['maki']+"There was no input.\n"\
-                           "In case you forgot, the prefixes are:\n"+
-                           "`n` for New year i.e. `nrei`\n"+
-                           "`x` for Christmas i.e. `xayane`\n"+
-                           "`o` for Ouedo i.e. `oninon`\n"+
-                           "`v` for Valentines i.e. `vshizuru`\n"+
-                           "`s` for Summer i.e. `sio`")
+        await channel.send(emj['maki']+"There was no input.\n"+
+                           HELP)
         return
     else:
         chara = chara[0]
@@ -343,11 +337,7 @@ async def hatsune_ue(ctx, chara, flags, emj, mode=False):
         await channel.send(emj['maki']+"I did not find that character. "\
                            "Either check your spelling, or the character doesn\'t have UE yet.\n"+
                            "Make sure you used prefixes correctly:\n"+
-                           "`n` for New year i.e. `nrei`\n"+
-                           "`x` for Christmas i.e. `xayane`\n"+
-                           "`o` for Ouedo i.e. `oninon`\n"+
-                           "`v` for Valentines i.e. `vshizuru`\n"+
-                           "`s` for Summer i.e. `sio`")
+                           HELP)
         return
 
     skills = get_skill_names(chara_list_jp[ind], flags)
@@ -510,6 +500,7 @@ async def hatsune_tag(ctx, tags, flags, emj, client):
                 elif    prefix == 'N':  limited = 'New Year'
                 elif    prefix == 'O':  limited = 'Ouedo'
                 elif    prefix == 'V':  limited = 'Valentine'
+                elif    prefix == 'U':  limited = 'Uniform'
                 
                 else:
                     print(func, 'no valid prefix matched')
@@ -672,6 +663,7 @@ async def hatsune_pos(ctx, guard, flags, emj, client):
                 elif    prefix == 'N':  limited = 'New Year'
                 elif    prefix == 'O':  limited = 'Ouedo'
                 elif    prefix == 'V':  limited = 'Valentine'
+                elif    prefix == 'U':  limited = 'Uniform'
                 
                 else:
                     print(func, 'no valid prefix matched')
@@ -730,33 +722,4 @@ def pos_embed(names, mode, p, target=""):
     return embed
     
         
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
