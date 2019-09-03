@@ -6,6 +6,8 @@ import discord
 import datetime, time
 import random
 from misc import randcolour as rc
+from io import BytesIO
+import requests
 
 s1 = 'A checkup?'
 s2 = 'Overtime again?'
@@ -17,6 +19,11 @@ st = [s1,s2,s3,s4]
 async def status(ctx, flags, client, s_time, cc):
     channel = ctx.channel
     author = client.user
+
+    with open('version.txt', 'r') as f:
+        c_version = f.read()
+
+    print(c_version)
 
     uptime = int(round(time.time() - s_time))
     uptime = str(datetime.timedelta(seconds=uptime))
@@ -35,9 +42,14 @@ async def status(ctx, flags, client, s_time, cc):
     embed.set_thumbnail(url=author.avatar_url)
 
     embed.add_field(
+        name='Version',
+        value=c_version,
+        inline=True)
+
+    embed.add_field(
         name="Uptime",
         value=uptime,
-        inline=False)
+        inline=True)
 
     embed.add_field(
         name="Database",

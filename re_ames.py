@@ -9,7 +9,6 @@ TODO:
 .cb conclude(cb_id)
 .cb quota(cb_id) - given warning on cb_concluded
 """
-
 # DEPENDENCIES
 import datetime, time
 import asyncio
@@ -28,9 +27,9 @@ from mysql.connector import errorcode
 
 import ast
 
+# set local dir as cd for import
 import os
 dir_path = os.path.dirname(os.path.realpath(__file__))
-
 import sys
 sys.path.insert(1, dir_path+'/commands')
 sys.path.insert(1, dir_path+'/commands/CB')
@@ -310,7 +309,7 @@ async def kill(ctx):
         await client.logout()
     else:
         print(func+'user has no authorisation')
-        await channel.send(emj['mako'])
+        await channel.send(emj['maki'])
         return
 
 # HELP
