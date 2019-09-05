@@ -12,6 +12,7 @@ from discord.ext import commands
 import mysql.connector
 from mysql.connector import errorcode
 from misc import randcolour as rc
+from misc import alias_check as alias
 from prototype import get_team as gt
 import asyncio
 
@@ -155,14 +156,16 @@ no_input =          'There was no input'+_help
 search_fail =       'Did not find character'+_help
 
 
-
+"""
 ALIAS = {
     'peco':     'pecorine',
     'pudding':  'miyako',
     'illya':    'ilya'
     }
+"""
 
 LR = ['⬅','➡']
+MODES = ['ue', 'mlb']
 
 # new chara
 async def hatsune_chara(ctx, name, flags, emj, client, cmode="", mode="Profile"):
@@ -180,18 +183,25 @@ async def hatsune_chara(ctx, name, flags, emj, client, cmode="", mode="Profile")
         #print('chara: hatsune offline')
 
     # check input
-    if name == "":
+    if len(name) == 0:
         print(func, 'no input')
         await channel.send(emj['maki']+no_input)
         return
     
     # lower case
-    target = name.lower()
+    target = [kw.lower() for kw in name]
     print(func, 'target:', target)
 
     # check for alias
+    """
     try:    target = ALIAS[target]
     except: pass
+    """
+    al, cmode = alias(target, MODES)
+    if al is None:
+        target = target[0]
+    else:
+        target = al
 
     # get chara list and then chara id
     chara_list, chara_list_jp, id_list =    get_chara(flags)

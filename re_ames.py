@@ -405,9 +405,9 @@ async def chara(ctx, name="", ue=""):
 
 # HATSUNE - CHARA
 @client.command(aliases=['c'], enabled=__chara)
-async def chara(ctx, name="", cmode=""):
+async def chara(ctx, *name:str):
     if flags['db_isconnected']:
-        await hatsune_new.hatsune_chara(ctx, name, flags, emj, client, cmode=cmode)
+        await hatsune_new.hatsune_chara(ctx, name, flags, emj, client)
     else:
         await ctx.channel.send(emj['sarenf']+'The database isn\'t connected!')
 

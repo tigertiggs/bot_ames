@@ -12,6 +12,7 @@ import mysql.connector
 from mysql.connector import errorcode
 
 from misc import randcolour as rc
+from misc import alias_check as alias
 from prototype import get_team as gt
 
 import asyncio
@@ -566,9 +567,17 @@ async def hatsune_pos(ctx, guard, flags, emj, client):
                            'Use v for vanguard, m for midguard and r for rearguard'
                            )
         return
+
+    
     
     # check if guard is a character
-    guard = guard[0].lower()
+    guard = [kw.lower() for kw in guard]
+
+    al, mode = alias(guard)
+    if al is None:
+        guard = guard[0]
+    else:
+        guard = al
     
     chara_list, chara_list_jp, id_list = get_chara(flags)
     target_id, ind = get_id(guard, chara_list, chara_list_jp, id_list)

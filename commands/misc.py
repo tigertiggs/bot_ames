@@ -5,6 +5,7 @@ Misc
 import random
 import discord
 import datetime
+import ast
 
 async def kill(ctx, flags, emj):
     func = '_kill: '
@@ -52,4 +53,29 @@ def _errlog(message,err, log):
 
     flog.close()
         
+def alias_check(message, modes=[]):
+    with open('commands/_alias.txt', 'r') as file:
+        aliasraw = file.read()
+        alias = ast.literal_eval(aliasraw)
+        
+    # check mode
+    kw = message
+    if kw[-1] in modes:
+        kw = kw[:-1]
+        mode = kw[-1]
+    else:
+        mode = ""
+
+    # iterate through
+    found = []
+    for word in kw:
+        try:
+            found.append(alias[word])
+        except:
+            pass
     
+    if found == []:
+        return (None, mode)
+    else:
+        found = "".join(found)
+        return (found, mode)
