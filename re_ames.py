@@ -413,7 +413,7 @@ async def chara(ctx, *name:str):
 
 # HATSUNE - UE
 @client.command(enabled=__ue)
-async def ue(ctx, name:str):
+async def ue(ctx, *name:str):
     if flags['db_isconnected']:
         await hatsune_new.hatsune_chara(ctx, name, flags, emj, client, mode="UE")
     else:
@@ -421,7 +421,7 @@ async def ue(ctx, name:str):
 
 # HATSUNE - DATA
 @client.command(enabled=__data, aliases=['r14'])
-async def data(ctx, name:str):
+async def data(ctx, *name:str):
     if flags['db_isconnected']:
         await hatsune_new.hatsune_chara(ctx, name, flags, emj, client, mode="Data")
     else:
