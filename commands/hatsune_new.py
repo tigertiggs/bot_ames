@@ -203,6 +203,8 @@ async def hatsune_chara(ctx, name, flags, emj, client, cmode="", mode="Profile")
     else:
         target = al
 
+    print(target, cmode)
+
     # get chara list and then chara id
     chara_list, chara_list_jp, id_list =    get_chara(flags)
     target_id, ind =                        get_id(target, chara_list, chara_list_jp, id_list)

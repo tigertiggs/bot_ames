@@ -61,8 +61,8 @@ def alias_check(message, modes=[]):
     # check mode
     kw = message
     if kw[-1] in modes:
-        kw = kw[:-1]
         mode = kw[-1]
+        kw = kw[:-1]
     else:
         mode = ""
 
