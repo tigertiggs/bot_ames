@@ -42,12 +42,14 @@ import roll         as roll
 import hatsune      as hatsune
 import hatsune_new  as hatsune_new
 import guide        as gd
-from misc          import _log, _errlog
+from misc           import _log, _errlog
 import spray        as sp
 import dumb         as dumb
 import entypol      as entypol
+import muimi        as mmi
 
 import prototype    as proto
+import gulag        as redclan
 
 import cb_help
 from cb_init        import *
@@ -95,6 +97,7 @@ __enty =            True and _shitpost
 __enty1 =           True and _shitpost
 __enty2 =           True and _shitpost
 __enty3 =           True and _shitpost
+__muimi =           True and _shitpost
 
 # pcrd
 _gacha =            True
@@ -174,6 +177,7 @@ zeik =          '<:feelszeik:606111207287422979> '
 dead =          '<:makotodead:610417622655172608> '
 sarenf =        '<:SarenFall:604557991617888256> '
 panda =         '<:feelspanda:588405851505819682> '
+ames =          '<:amesStare:621378193021992961> '
 emj = {
     'shiori':   shiori,
     'kasumi':   kasumi,
@@ -183,7 +187,8 @@ emj = {
     'zeik':     zeik,
     'dead':     dead,
     'sarenf':   sarenf,
-    'panda':    panda
+    'panda':    panda,
+    'ames':     ames
     }
 
 # BOT PREFERENCES
@@ -318,6 +323,16 @@ async def kill(ctx):
 @client.command(enabled=_help)
 async def help(ctx, *inp:str):
     await ames_help(ctx, inp, emj)
+
+# GULAG
+@client.command(aliases=['gulag'])
+async def jail(ctx, user):
+    await redclan.jail(ctx, user, emj, client)
+
+# MUIMI THIS
+@client.command(enabled=__muimi)
+async def muimi(ctx, *links:str):
+    await mmi.muimi(ctx, links, emj)
 
 # ENTY ROULETTE
 @client.command(enabled = __enty)

@@ -11,10 +11,13 @@ import requests
 #import urllib.request
 #import numpy as np
 
-s1 = 'A checkup?'
+s1 = 'A checkup? I\'m doing fine.'
 s2 = 'Overtime again?'
-s3 = 'I\'m not getting paid enough for this'
-s4 = 'I can do with a coffee about now'
+s3 = 'I\'m not getting paid enough for this. In fact, I\'m not getting paid at all.'
+s4 = 'I can do with a coffee about now.'
+s5 = 'Things not the same now that Hatsune is gone...'
+s6 = 'It wasn\'t meant to end like this... Hatsune, I...'
+s7 = 'I still have nightmares of the day Hatsune parted.'
 
 st = [s1,s2,s3,s4]
 
@@ -97,8 +100,8 @@ async def status(ctx, flags, client, s_time, cc):
 
 async def intro(guild, emj):
     print('joined', guild.name)
-    hello = emj['sarenh']+'Thank\'s for having me here!\n'\
-              'My prefix is `.` - Please use `.help` to get started!'
+    hello = emj['sarenh']+'Thanks for having me here!\n'\
+              'My prefix is `.` and `$` - Please use `$help` or `.help` to get started!'
     
     general = discord.utils.find(lambda x: x.name == 'general', guild.text_channels)
     
