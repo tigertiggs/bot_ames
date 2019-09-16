@@ -178,6 +178,7 @@ dead =          '<:makotodead:610417622655172608> '
 sarenf =        '<:SarenFall:604557991617888256> '
 panda =         '<:feelspanda:588405851505819682> '
 ames =          '<:amesStare:621378193021992961> '
+amesyan =       '<:amesYan:621378194112512030> '
 emj = {
     'shiori':   shiori,
     'kasumi':   kasumi,
@@ -188,7 +189,8 @@ emj = {
     'dead':     dead,
     'sarenf':   sarenf,
     'panda':    panda,
-    'ames':     ames
+    'ames':     ames,
+    'amesyan':  amesyan
     }
 
 # BOT PREFERENCES
@@ -208,7 +210,7 @@ async def on_ready():
 
     # loop status
     client.loop.create_task(playing())
-    client.loop.create_task(expression())
+    #client.loop.create_task(expression())
 
     #time = datetime.datetime.utcnow()
     #date = time.strftime("%Y-%m-%d")
@@ -420,8 +422,8 @@ async def gacha(ctx, t=10, mode=''):
 
 # SPARK
 @client.command(enabled=_gacha)
-async def spark(ctx):
-    await roll.spark(ctx, emj, client)
+async def spark(ctx, *t):
+    await roll.spark(ctx, t, emj, client)
 
 """
 # HATSUNE - CHARA

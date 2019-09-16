@@ -22,6 +22,7 @@
 'kamenrider':	'jun'		,
 'fakeloli':	'ilya'		,
 'kkr':		'kokkoro'	,
-'trap':		'yuki'		
+'trap':		'yuki'		,
+'kasumeme':	'kasumi'	
 }
 

@@ -137,7 +137,7 @@ def gacha_result(t=10, mode=''):
 
     # LIMITED/SEASONAL ADDITION - PLEASE MANUALLY FILL
     # DOES NOT APPLY TO RATEUPS FOR NORMAL POOL CHARAS!
-    ssr_up = ['arisa', 'djeeta']
+    ssr_up = ['chloe']
     ssr_up_rate_indiv = 0.007
     
     rolls = []
@@ -191,12 +191,30 @@ def read_pool():
         ssr_pool = file.read().splitlines()
     return r_pool, sr_pool, ssr_pool
 
-async def spark(ctx, emj, client):
+async def spark(ctx, t, emj, client):
     channel = ctx.channel
     author = ctx.message.author
     func = 'spark:'
+    LIMIT = 1000000
+    SPARK = 300
     
-    rolls = gacha_result(t=300)
+    try:
+        if len(t) == 0:
+            t = SPARK
+        elif t[0] == 'limit':
+            t = LIMIT
+        else:
+            t = abs(int(t[0]))
+        
+        if t > LIMIT:
+            await channel.send(emj['amesyan'])
+            return 
+    except Exception as err:
+        print(func, err)
+        await channel.send(emj['ames'])
+        return
+    
+    rolls = gacha_result(t)
     r_tier = 0
     sr_tier = 0
     ssr_tier = []
@@ -224,21 +242,21 @@ async def spark(ctx, emj, client):
     
     count = [(chara, ssr_tier.count(chara)) for chara in unique_set]
 
-    await channel.send(embed=spark_embed(author, count, r_tier, sr_tier, len(ssr_tier), teams, spec))
+    await channel.send(embed=spark_embed(author, count, r_tier, sr_tier, len(ssr_tier), teams, spec, t))
     return
 
-def spark_embed(author, count, r, sr, ssr, teams, spec):
+def spark_embed(author, count, r, sr, ssr, teams, spec, t):
     embed = discord.Embed(
-        title="Spark Summary",
+        title="Spark Summary" if t == 300 else "Roll Summary",
         description="Prepare for salt, {:s}".format(author.name),
         timestamp=datetime.datetime.utcnow(),
         colour=rc())
     
     embed.set_footer(text="still in testing")
 
-    r_pc = ' ({:.2f}\%)'.format(r/300*100)
-    sr_pc = ' ({:.2f}\%)'.format(sr/300*100)
-    ssr_pc = ' ({:.2f}\%)'.format(ssr/300*100)
+    r_pc = ' ({:.2f}\%)'.format(r/t*100)
+    sr_pc = ' ({:.2f}\%)'.format(sr/t*100)
+    ssr_pc = ' ({:.2f}\%)'.format(ssr/t*100)
 
     tears = r + sr*10 + ssr*50
     
@@ -256,12 +274,7 @@ def spark_embed(author, count, r, sr, ssr, teams, spec):
         name="SSR Tier",
         value=str(ssr)+ssr_pc,
         inline=True)
-    embed.add_field(
-        name="Total P.Tears",
-        value='**{:s}**'.format(str(tears)),
-        inline=True
-        )
-
+    
     ssrlist = []
     for chara, order in count:
         if chara in spec:
@@ -280,6 +293,18 @@ def spark_embed(author, count, r, sr, ssr, teams, spec):
     embed.add_field(
         name="SSR Rolled",
         value="\n".join(ssrlist),
-        inline=False
+        inline=True
         )
+
+    embed.add_field(
+        name="Total Rolls",
+        value="Spark (300)" if t == 300 else str(t),
+        inline=True)
+    
+    embed.add_field(
+        name="Total P.Tears",
+        value='**{:s}**'.format(str(tears)),
+        inline=True
+        )
+
     return embed
