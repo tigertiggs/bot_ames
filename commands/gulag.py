@@ -12,10 +12,11 @@ no = ['n', 'н']
 red = '547685646001504256'
 yellow = '435067668241055785'
 green = '435067795919863808'
+admin = '622997371294318613'
 
 test = '580517346016362518'
 
-perms = [red, yellow, green, test]
+perms = [admin]
 
 async def jail(ctx, prisoner, emj, client):
     func = 'jail:'
@@ -31,12 +32,14 @@ async def jail(ctx, prisoner, emj, client):
         await channel.send(emj['ames'])
         return
 
+    """
     # check if the person is in jail
     locked = discord.utils.find(
         lambda m: str(m.id) == gulag_id, author.roles)
     if locked != None:
         await channel.send(emj['ames'])
         return
+    """
 
     # verify user
     try:
@@ -53,6 +56,12 @@ async def jail(ctx, prisoner, emj, client):
     if user == None:
         await channel.send(
             emj['ames']+'I did not find the suspect.')
+        return
+
+    # check if target is an admin
+    if discord.utils.find(
+        lambda m: str(m.id) in perms, user.roles) != None:
+        await channel.send(emj['ames'] + 'You may not jail your comrades')
         return
 
     jailed = discord.utils.find(
