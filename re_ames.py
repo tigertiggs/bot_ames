@@ -208,6 +208,7 @@ async def on_ready():
 
     # loop status
     client.loop.create_task(playing())
+    client.loop.create_task(expression())
 
     #time = datetime.datetime.utcnow()
     #date = time.strftime("%Y-%m-%d")
@@ -241,6 +242,17 @@ async def playing():
         await asyncio.sleep(random.randrange(DURATION-60*5,DURATION+60*20))
         await client.change_presence(activity=None)
         await asyncio.sleep(random.randrange(COOLDOWN-60*5,COOLDOWN+60*15))
+
+EXPRESSIONS = [
+    'ames.png',
+    'ames_yan.png'
+    ]
+
+async def expression():
+    while True:
+        dp = open(random.choice(EXPRESSIONS), 'rb')
+        await client.user.edit(avatar=dp.read())
+        await asyncio.sleep(random.randrange(60*60, 90*60))
 
 # MAIN
 @client.event
