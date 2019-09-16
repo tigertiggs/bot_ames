@@ -210,7 +210,7 @@ async def on_ready():
 
     # loop status
     client.loop.create_task(playing())
-    #client.loop.create_task(expression())
+    client.loop.create_task(expression())
 
     #time = datetime.datetime.utcnow()
     #date = time.strftime("%Y-%m-%d")
