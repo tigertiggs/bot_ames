@@ -292,7 +292,7 @@ def spark_embed(author, count, r, sr, ssr, teams, spec, t):
     
     embed.add_field(
         name="SSR Rolled",
-        value="\n".join(ssrlist),
+        value="\n".join(ssrlist) if len(ssrlist) != 0 else 'sadness',
         inline=True
         )
 
