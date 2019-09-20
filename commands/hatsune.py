@@ -35,11 +35,11 @@ def get_chara(flags, ue=False):
     # this should always return something
     if ue:
         get_chara_list = ("SELECT unit_id, unit_name_eng , unit_name "
-                          "FROM princonne.chara_data_final "
+                          "FROM hatsune_bot.charadata "
                           "WHERE tag LIKE '%ue%'")
     else:
         get_chara_list = ("SELECT unit_id, unit_name_eng , unit_name "
-                          "FROM princonne.chara_data_final")
+                          "FROM hatsune_bot.charadata")
     
     try:
         cursor = flags['cb_db'].cursor()
@@ -186,7 +186,7 @@ async def hatsune_chara(ctx, name, ue, flags, emj, client):
                       "ub_trans, skill_1_translation, skill_2_trans, "
                       "comment_trans, tag, skill_1_plus_trans, "
                       "unit_name, union_burst, skill_1, skill_1_plus, skill_2, comment "
-                      "FROM princonne.chara_data_final "
+                      "FROM hatsune_bot.charadata "
                       "WHERE unit_id = {:d}".format(int(target_id)))
     try:
         cursor = flags['cb_db'].cursor()
@@ -344,7 +344,7 @@ async def hatsune_ue(ctx, chara, flags, emj, mode=False):
     skills = get_skill_names(chara_list_jp[ind], flags)
 
     # this should always return 1 row
-    get_ue_data = ("SELECT * FROM princonne.chara_unique_equipment "
+    get_ue_data = ("SELECT * FROM hatsune_bot.charaUE "
                    "WHERE unit_id = {:s}".format(target_id))
 
     try:
@@ -390,7 +390,7 @@ async def hatsune_ue(ctx, chara, flags, emj, mode=False):
     # get skills
     get_chara_data = ("SELECT skill_1_translation, skill_1_plus_trans, "
                       "skill_1, skill_1_plus "
-                      "FROM princonne.chara_data_final "
+                      "FROM hatsune_bot.charadata "
                       "WHERE unit_id = {:s}".format(target_id))
     try:
         cursor.execute(get_chara_data, )
@@ -468,7 +468,7 @@ async def hatsune_tag(ctx, tags, flags, emj, client):
     tags = " AND tag LIKE ".join(tags)
     
     get_charas = ("SELECT unit_name, unit_name_eng "
-                  "FROM princonne.chara_data_final "
+                  "FROM hatsune_bot.charadata "
                   "WHERE tag LIKE "+tags+
                   " ORDER BY unit_name_eng")
 
@@ -598,7 +598,7 @@ async def hatsune_pos(ctx, guard, flags, emj, client):
     else:
         # chara - find position
         mode = 'chara'
-        get_pos = ("SELECT tag FROM princonne.chara_data_final WHERE unit_id = {:s}".format(str(target_id)))
+        get_pos = ("SELECT tag FROM hatsune_bot.charadata WHERE unit_id = {:s}".format(str(target_id)))
 
         try:
             cursor = flags['cb_db'].cursor()
@@ -619,7 +619,7 @@ async def hatsune_pos(ctx, guard, flags, emj, client):
             else:                   p = 'rear'
 
     get = ("SELECT unit_name_eng, pos "
-            "FROM princonne.chara_data_final "
+            "FROM hatsune_bot.charadata "
             "WHERE tag LIKE '%{:s}%' ORDER BY pos".format(p))
     
     try:

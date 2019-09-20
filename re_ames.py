@@ -112,7 +112,7 @@ __data =            True and _hatsune
 _guide =            True
 
 # cb
-_cb =               True
+_cb =               False
 __pcb =             True and _cb
 __startday =        True and _cb
 __log =             True and _cb

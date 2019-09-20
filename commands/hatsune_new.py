@@ -39,11 +39,11 @@ def get_chara(flags, ue=False):
     # this should always return something
     if ue:
         get_chara_list = ("SELECT unit_id, unit_name_eng , unit_name "
-                          "FROM princonne.chara_data_final "
+                          "FROM hatsune_bot.charadata "
                           "WHERE tag LIKE '%ue%'")
     else:
         get_chara_list = ("SELECT unit_id, unit_name_eng , unit_name "
-                          "FROM princonne.chara_data_final")
+                          "FROM hatsune_bot.charadata")
     
     try:
         cursor = flags['cb_db'].cursor()
@@ -292,7 +292,7 @@ def get_stats(target_id, flags):
     data['active'] = False
 
     # grab eq Rank stats
-    stats = ("SELECT rank_up from princonne.chara_data_final "
+    stats = ("SELECT rank_up from hatsune_bot.charadata "
              "WHERE unit_id = {:s}".format(target_id))
 
     try:
@@ -375,7 +375,7 @@ def _ue_data(target, flags):
         data['active'] = False
         return data
 
-    get_ue_data = ("SELECT * FROM princonne.chara_unique_equipment "
+    get_ue_data = ("SELECT * FROM hatsune_bot.charaUE "
                    "WHERE unit_id = {:s}".format(target_id))
 
     try:
@@ -421,7 +421,7 @@ def _ue_data(target, flags):
     # get skills
     get_chara_data = ("SELECT skill_1_translation, skill_1_plus_trans, "
                       "skill_1, skill_1_plus "
-                      "FROM princonne.chara_data_final "
+                      "FROM hatsune_bot.charadata "
                       "WHERE unit_id = {:s}".format(target_id))
     try:
         cursor.execute(get_chara_data, )
@@ -510,7 +510,7 @@ def _chara_data(target_id, flags):
                       "comment_trans, tag, skill_1_plus_trans, "
                       "unit_name, union_burst, skill_1, skill_1_plus, skill_2, comment, "
                       "image_2, union_burst_2, ub_2_trans "
-                      "FROM princonne.chara_data_final "
+                      "FROM hatsune_bot.charadata "
                       "WHERE unit_id = {:d}".format(int(target_id)))
     try:
         cursor = flags['cb_db'].cursor()
