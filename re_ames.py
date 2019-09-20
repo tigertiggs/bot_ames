@@ -254,7 +254,7 @@ async def expression():
     while True:
         dp = open(random.choice(EXPRESSIONS), 'rb')
         await client.user.edit(avatar=dp.read())
-        await asyncio.sleep(random.randrange(60*60, 90*60))
+        await asyncio.sleep(random.randrange(240*60, 300*60))
 
 # MAIN
 @client.event
