@@ -27,6 +27,8 @@ def version_compare(c, o):
     #o = '10.3.12'
     c_num = [int(v) for v in c.split('.')]
     o_num = [int(v) for v in o.split('.')]
+
+    #print(o_num, c_num)
     
     update_status = [z > x for z,x in list(zip(o_num, c_num))]
     #print(update_status)
