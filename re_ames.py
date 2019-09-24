@@ -80,7 +80,7 @@ _dcon =             True
 
 # auth
 _kill =             True
-_help =             True
+_help =             False
 
 # shen
 _shitpost =         True
@@ -293,6 +293,20 @@ async def status(ctx):
     await st.status(ctx, flags, client, start, cc)
 
 # DATABASE RELATED
+@client.command(enabled=_con and _dcon)
+async def resetdb(ctx):
+    func = 'resetdb: '
+    channel = ctx.message.channel
+    try:
+        await _disconnectdb.invoke(ctx)
+        await _connectdb.invoke(ctx)
+    except Exception as err:
+        print(func, err)
+        await channel.send(emj['ames']+'Connection reset unsuccessful')
+        return
+    else:
+        await channel.send('Database connection successfully reset!')
+
 @client.command(enabled=_con)
 async def _connectdb(ctx):
     global flags
