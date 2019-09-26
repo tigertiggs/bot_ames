@@ -37,7 +37,7 @@ sys.path.insert(1, dir_path+'/commands/CB')
 # SUBHEADERS
 from _help          import *
 from connection     import *
-from shen           import *
+import shen         as sh
 import roll         as roll
 import hatsune      as hatsune
 import hatsune_new  as hatsune_new
@@ -396,37 +396,37 @@ async def spray(ctx, *member:discord.Member):
 @client.command(enabled=__mind)
 @commands.cooldown(1, 5, commands.BucketType.guild)
 async def mind(ctx, *text:str):
-    await changemymind(ctx, text, emj)
+    await sh.changemymind(ctx, text, emj)
 
 # THREAT
 @client.command(enabled=__threat)
 @commands.cooldown(1, 5, commands.BucketType.guild)
 async def threat(ctx, *user:discord.Member):
-    await kalina(ctx, user)
+    await sh.kalina(ctx, user)
 
 # NEROE
 @client.command(enabled=__neroe)
 @commands.cooldown(1, 1, commands.BucketType.guild)
 async def neroe(ctx, emoji:str):
-    await nero_emoji(ctx, emoji)
+    await sh.nero_emoji(ctx, emoji)
 
 # NERO
 @client.command(enabled=__nero)
 @commands.cooldown(1, 5, commands.BucketType.guild)
 async def nero(ctx, *text:str):
-    await nero_says(ctx, text, emj)
+    await sh.nero_says(ctx, text, emj)
 
 # LOCATION
 @client.command(aliases=['loc'],enabled=__loc)
 @commands.cooldown(1, 5, commands.BucketType.guild)
 async def location(ctx, *user:discord.Member):
-    await knowyour(ctx, user)
+    await sh.knowyour(ctx, user)
 
 # POLICE
 @client.command(aliases=['pol','lolipol'],enabled=__pol)
 @commands.cooldown(1, 5, commands.BucketType.guild)
 async def police(ctx, *user:discord.Member):
-    await jail(ctx, user)
+    await sh.jail(ctx, user)
 
 # GACHA
 @client.command(enabled=_gacha)
