@@ -180,7 +180,23 @@ async def cbtag(ctx, options, emj, client):
 
 def cbtag_embed(author,guild, mode=""):
     func = 'cbt embed:'
-    top_role = guild_d[str(author.top_role.id)]
+    #CRIMINAL = '620624824540069899'
+    try:
+        top_role = guild_d[str(author.top_role.id)]
+    except Exception as err:
+        # workaround for criminal scum tag taking the top hierachy
+        print(func, "top role did not match guild role id dictionary "\
+              "attempting to find guild role by iterating through author hierachy "
+              "and taking topmost role\n", author.name, err)
+        for role in author.roles:
+            try:
+                top_role = guild_d[str(role.id)]
+            except Exception as err:
+                #print(func, 'invalid guild role id match for', err)
+                continue
+            else:
+                print(func, 'matched guild:', guild_n[top_role])
+                break
     
     #current = []
     names = []
@@ -206,7 +222,14 @@ def cbtag_embed(author,guild, mode=""):
                     if str(role.id) == str(boss_role.id):
 
                         # check if we are in 'post' guild-restricted mode
-                        if guild_d[str(member.top_role.id)] == top_role and mode=='post':
+                        for role in member.roles:
+                            try:
+                                member_clan = guild_d[str(member.top_role.id)]
+                            except:
+                                continue
+                            else:
+                                break
+                        if member_clan == top_role and mode=='post':
                             count += 1
                             print(member.name)
                             break
