@@ -80,7 +80,7 @@ _dcon =             True
 
 # auth
 _kill =             True
-_help =             False
+_help =             True
 
 # shen
 _shitpost =         True
@@ -110,6 +110,7 @@ __pos =             True and _hatsune
 __data =            True and _hatsune
 
 _guide =            True
+__cbtag =           True
 
 # cb
 _cb =               False
@@ -489,7 +490,7 @@ async def pos(ctx, *tags:str):
 # BIG
 @client.command(aliases=['b'], enabled=__big)
 async def big(ctx, emoji:str):
-    await enlarge(ctx, emoji, emj)
+    await sh.enlarge(ctx, emoji, emj)
 
 # GUIDE
 @client.command(enabled=_guide)
@@ -504,7 +505,7 @@ async def guide(ctx, chara=""):
         await ctx.channel.send(emj['sarenf']+'The database isn\'t connected!')
 
 # CBTAG
-@client.command()
+@client.command(enabled=__cbtag)
 async def cbtag(ctx, *options):
     await cbt.cbtag(ctx, options, emj, client)
 
