@@ -296,8 +296,8 @@ async def status(ctx):
 # DATABASE RELATED
 @client.command(enabled=_con and _dcon)
 async def resetdb(ctx):
-    func = 'resetdb: '
-    channel = ctx.message.channel
+    #func = 'resetdb: '
+    #channel = ctx.message.channel
     try:
         await _disconnectdb.invoke(ctx)
         await _connectdb.invoke(ctx)
@@ -306,7 +306,7 @@ async def resetdb(ctx):
         await channel.send(emj['ames']+'Connection reset unsuccessful')
         return
     else:
-        await channel.send('Database connection successfully reset!')
+        #await channel.send('Database connection successfully reset!')
 
 @client.command(enabled=_con)
 async def _connectdb(ctx):
@@ -451,6 +451,7 @@ async def chara(ctx, name="", ue=""):
 @client.command(aliases=['c'], enabled=__chara)
 async def chara(ctx, *name:str):
     if flags['db_isconnected']:
+        await resetdb.invoke(ctx)
         await hatsune_new.hatsune_chara(ctx, name, flags, emj, client)
     else:
         await ctx.channel.send(emj['sarenf']+'The database isn\'t connected!')
@@ -459,6 +460,7 @@ async def chara(ctx, *name:str):
 @client.command(enabled=__ue)
 async def ue(ctx, *name:str):
     if flags['db_isconnected']:
+        await resetdb.invoke(ctx)
         await hatsune_new.hatsune_chara(ctx, name, flags, emj, client, mode="UE")
     else:
         await ctx.channel.send(emj['sarenf']+'The database isn\'t connected!')
@@ -467,6 +469,7 @@ async def ue(ctx, *name:str):
 @client.command(enabled=__data, aliases=['r14'])
 async def data(ctx, *name:str):
     if flags['db_isconnected']:
+        await resetdb.invoke(ctx)
         await hatsune_new.hatsune_chara(ctx, name, flags, emj, client, mode="Data")
     else:
         await ctx.channel.send(emj['sarenf']+'The database isn\'t connected!')
@@ -475,6 +478,7 @@ async def data(ctx, *name:str):
 @client.command(enabled=__tag)
 async def tag(ctx, *tags:str):
     if flags['db_isconnected']:
+        await resetdb.invoke(ctx)
         await hatsune.hatsune_tag(ctx, tags, flags, emj, client)
     else:
         await ctx.channel.send(emj['sarenf']+'The database isn\'t connected!')
@@ -483,6 +487,7 @@ async def tag(ctx, *tags:str):
 @client.command(enabled=__pos)
 async def pos(ctx, *tags:str):
     if flags['db_isconnected']:
+        await resetdb.invoke(ctx)
         await hatsune.hatsune_pos(ctx, tags, flags, emj, client)
     else:
         await ctx.channel.send(emj['sarenf']+'The database isn\'t connected!')
