@@ -307,6 +307,7 @@ async def resetdb(ctx):
         return
     else:
         #await channel.send('Database connection successfully reset!')
+        pass
 
 @client.command(enabled=_con)
 async def _connectdb(ctx):
