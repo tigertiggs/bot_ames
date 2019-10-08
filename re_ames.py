@@ -180,6 +180,9 @@ sarenf =        '<:SarenFall:604557991617888256> '
 panda =         '<:feelspanda:588405851505819682> '
 ames =          '<:amesStare:621378193021992961> '
 amesyan =       '<:amesYan:621378194112512030> '
+yuimi =         '<:feelsgrawlix:630271772432007192> '
+hiyogi =        '<:Hiyogi:630338604605898752> '
+reika =         '<:Reika:630296190428381185> '
 emj = {
     'shiori':   shiori,
     'kasumi':   kasumi,
@@ -191,7 +194,10 @@ emj = {
     'sarenf':   sarenf,
     'panda':    panda,
     'ames':     ames,
-    'amesyan':  amesyan
+    'amesyan':  amesyan,
+    'yuimi':    yuimi,
+    'hiyogi':   hiyogi,
+    'reika':    reika
     }
 
 # BOT PREFERENCES
@@ -283,7 +289,30 @@ async def on_message(message):
             return
         
         msg = message.content.strip("".join(BOT_PREFIX))
-        await client.process_commands(message)
+        if await emote_shortcut(msg, message): return
+        else:
+            await client.process_commands(message)
+
+shortcuts = {
+    'read': 'shiori'}
+
+async def emote_shortcut(msg, ctx):
+    msg = msg.split()
+    print(msg)
+    if len(msg) > 1:
+        return False
+    else:
+        msg = msg[0]
+        
+    if msg in list(shortcuts.keys()):
+        msg = shortcuts[msg]
+
+    if msg in list(emj.keys()):
+        await ctx.delete()
+        await ctx.channel.send(emj[msg])
+        return True
+    else:
+        return False
 
 @client.event
 async def on_guild_join(guild):
