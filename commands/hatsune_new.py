@@ -476,12 +476,12 @@ def ueembed(data, skills, page_h, ind):
         embed.add_field(
             name='\n'.join(['Skill 1 '+skills['sk1'], data['sk_1']]),
             value=data['sk_1_eng'],
-            inline=True)
+            inline=False)
 
         embed.add_field(
             name='\n'.join(['Skill 1+ '+skills['sk1p'],data['sk_1p']]),
             value=data['sk_1p_eng'],
-            inline=True)
+            inline=False)
         
     else:
         embed = discord.Embed(title='No Data',
