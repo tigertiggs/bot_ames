@@ -565,7 +565,7 @@ async def on_reaction_add(reaction, user):
     if reaction.message.id in post_id:
         #print(reaction.emoji)
         if reaction.emoji in re:
-            await cbt.assign(user,
+            await cbt.assign(emj, user,
                              reaction.message.guild,
                              reaction.message.channel,
                              str(re.index(reaction.emoji)+1),

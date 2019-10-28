@@ -35,11 +35,13 @@ guild_n['red'] = '進撃の怠け'
 REPEAT = '\U0001f501'
 STOP = '\U0001f6d1'
 
-async def assign(author, guild, channel, *options, _mode=""):
+async def assign(emj,author, guild, channel, options, _mode=""):
     func = 'assign:'
     for mode in options:
         try:
+            print(mode, options)
             boss_id, boss_n = BOSS[int(mode)-1]
+            print(boss_id, boss_n)
             add_boss = guild.get_role(int(boss_id))
         except Exception as err:
             print(func, err)
@@ -81,7 +83,8 @@ async def cbtag(ctx, options, emj, client):
 
         if mode in num:
             # assign role
-            await assign(author, guild, channel, options)
+            print(options)
+            await assign(emj, author, guild, channel, options)
             return
             
         elif mode == 'reset':
@@ -173,7 +176,8 @@ async def cbtag(ctx, options, emj, client):
             file.close()
 
             return
-            
+        else:
+            return
 
     await channel.send(emj['sarenh']+'success!')
     return
@@ -231,10 +235,10 @@ def cbtag_embed(author,guild, mode=""):
                                 break
                         if member_clan == top_role and mode=='post':
                             count += 1
-                            print(member.name)
+                            #print(member.name)
                             break
                         elif mode == "":
-                            print(member.name)
+                            #print(member.name)
                             count += 1
                             break
             waiting.append(str(count))
