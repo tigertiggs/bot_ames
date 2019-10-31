@@ -96,10 +96,12 @@ async def reload_emotes(client):
 def get_team(client):
     shed1 = '613628290023948288'
     shed2 = '613628508689793055'
+    shed3 = '639337169508630528'
+    sheds = [shed1, shed2, shed3]
     # get dict
     team = dict()
     for guild in client.guilds:
-        if str(guild.id) == shed1 or str(guild.id) == shed2:
+        if str(guild.id) in sheds:
             for emoji in guild.emojis:
                     team[str(emoji.name)] = str(emoji.id)
                 
