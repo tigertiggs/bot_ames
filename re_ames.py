@@ -330,6 +330,11 @@ async def resetdb(ctx):
     try:
         await _disconnectdb.invoke(ctx)
         await _connectdb.invoke(ctx)
+        var = 'SHOW SESSION VARIABLES LIKE "%wait%";'
+        cursor = flags['cb_db'].cursor()
+        cursor.execute(var,)
+        for ret in cursor:
+            print(ret)
     except Exception as err:
         print(func, err)
         await channel.send(emj['ames']+'Connection reset unsuccessful')

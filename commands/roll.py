@@ -137,7 +137,7 @@ def gacha_result(t=10, mode=''):
 
     # LIMITED/SEASONAL ADDITION - PLEASE MANUALLY FILL
     # DOES NOT APPLY TO RATEUPS FOR NORMAL POOL CHARAS!
-    ssr_up = ['luna']
+    ssr_up = ['kaya']
     ssr_up_rate_indiv = 0.007
     
     rolls = []

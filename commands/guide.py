@@ -15,7 +15,7 @@ async def guide(ctx, chara, flags, emj):
 
     # get icon
     get_chara_list = ("SELECT unit_name_eng , unit_name, image "
-                      "FROM princonne.chara_data_final")
+                      "FROM hatsune_bot.charadata")
 
     try:
         cursor = flags['cb_db'].cursor()
