@@ -102,7 +102,7 @@ __muimi =           True and _shitpost
 # pcrd
 _gacha =            True
 
-_hatsune =          True
+_hatsune =          False
 __chara =           True and _hatsune
 __ue =              True and _hatsune
 __tag =             True and _hatsune
