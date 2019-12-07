@@ -1,0 +1,52 @@
+{
+    "jp":       "JP Name",
+    "en":       "EN Name",
+    "im":       "Icon URL",
+    "comment":  "Year Month Clan Battle Boss #",
+    "multi":    1,
+    "def":      [
+                    [0,0],
+                    [0,0],
+                    [0,0]
+    ],
+    "cyc":      [
+                    [],
+                    []
+    ],
+    "ub":       [
+                    [
+                        "JP Text",
+                        "EN Text."
+                    ]
+    ],
+    "sk":       [
+                    [
+                        "JP Text",
+                        "EN Text."
+                    ]
+    ],
+    "mode1":    [
+                    {
+                        "type":     "physical|magic",
+                        "auto":     None|True|False,
+                        "score":    [0,0],
+                        "team":     ["Char","Char","Char","Char","Char"]
+                    }
+    ],
+    "mode2":    [
+                    {
+                        "type":     "physical|magic",
+                        "auto":     None|True|False,
+                        "score":    [0,0],
+                        "team":     ["Char","Char","Char","Char","Char"]
+                    }
+    ],
+    "mode3":    [
+                    {
+                        "type":     "physical|magic",
+                        "auto":     None|True|False,
+                        "score":    [0,0],
+                        "team":     ["Char","Char","Char","Char","Char"]
+                    }
+    ]
+}

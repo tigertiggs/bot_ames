@@ -1,5 +1,4 @@
 commands/_pass
-commands/
 .vscode
 __pycache__
 old
