@@ -1,34 +1,7 @@
-# ignore these for reasons
-_pass/*
-_log/*
-
-# these are junk
-**/.vscode/*
-**/__pycache__/*
-
-# ignore output images
-threaten/threat.png
-spray/sp.png
-police/pol.gif
-nerosays.png
-nerosayse.jpg
-nerosayse.gif
-mind/changemymind.png
-location/loc.png
-jsays/*
-gacha/gresult.jpg
-enty/_entychase.jpg
-enty/_entydejavu.jpg
-enty/_entyraid.jpg
-_entyraid.jpg
-dumb/dumbass.jpg
-gacha/gresult.jpg
-location/loc.png
-spray/sp.png
-
-
-
-# misc
-panda/*
-old_code/*
-commands/_post.txt
+commands/_pass
+commands/
+.vscode
+__pycache__
+old
+gresult.jpg
+commands/shen/post

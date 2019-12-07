@@ -1,30 +1,24 @@
 # bot_ames
-A handy Discord bot for PC:RD stuff. Mostly.
+A discord bot used for fetching character information in Princess Connect! Re:Dive by CyGames. Ames is planned to provide QoL functions for Clan Battles in the near future. Apart from PCR:D functions, Ames also provides some miscellaneous functions too.
 
-Ames is coded on the rewrite branch of Discord's python API using Python3.7
+Ames is written in Python 3.7.4 utilising the [`rewrite`](https://github.com/Rapptz/discord.py) branch of Discord's Python API and makes use of `cogs` and `extensions` to integrate commands.
 
-~~The code is pretty messy~~
-
-Note: Ames loses a lot of her functionality without access to private database.
-
-## main.py
-Run `re_ames.py`
-
-## bot prefix
-Ames' prefix is `.` and `$`. Use `.help` to get started.
+Although Pull requests are welcome, please note that much of Ames' lookup function relies on a privately maintained database.
 
 ## Dependencies
-Here are the python headers used
-* asyncio
-* PIL
-* discord
-* mysql connector
-* ast
+Ames requires a few packages to run. You can install her dependencies with
+* `pip3 install -r requirements.txt`
 
-## Database
-Ames uses a private database along with [Hatsune Note's PrincessGuide Database](https://github.com/superk589/PrincessGuide).
+## Run
+To start Ames, run `ames_new.py`. Use `.help` to see what she can do.
 
-All assets and data are property of their rightful owners.
+## Prefix
+Ames' prefix is `.`,  but can be changed in `ames_new.py` under `BOT_PREFIX` should it conflict. 
 
-# Author
+## Disclaimer
+As mentioned already, `Ames` uses a privately maintained database, and additionally cross references data from an unofficial database known as [Hatsune Note's PrincessGuide Database](https://github.com/superk589/PrincessGuide). Many thanks to them for relieving much of the time that would've needed to fetch data.
+
+All art assets used by `Ames` are not my creation and are property of their rightful owners.
+
+## Author
 Find me on discord: `tigertiggs#5376`
