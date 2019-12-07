@@ -4,7 +4,7 @@ import datetime, time, os, sys, requests, random, ast
 dir = os.path.dirname(__file__)
 
 def compare(client):
-    git = 'https://raw.githubusercontent.com/tigertiggs/bot_ames/master/version.txt'
+    git = 'https://raw.githubusercontent.com/tigertiggs/bot_ames/master/version'
     c = client.version
     o = str(requests.get(git).text)
     c_num = [int(v) for v in c.split('.')]
