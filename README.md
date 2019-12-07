@@ -10,7 +10,7 @@ Ames requires a few packages to run. You can install her dependencies with
 * `pip3 install -r requirements.txt`
 
 ## Run
-To start Ames, run `ames_new.py`. Use `.help` to see what she can do.
+To start Ames, run `re_ames.py`. Use `.help` to see what she can do.
 
 ## Prefix
 Ames' prefix is `.`,  but can be changed in `ames_new.py` under `BOT_PREFIX` should it conflict. 
