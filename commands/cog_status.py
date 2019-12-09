@@ -7,9 +7,11 @@ def compare(client):
     git = 'https://raw.githubusercontent.com/tigertiggs/bot_ames/master/version'
     c = client.version
     o = str(requests.get(git).text)
+    print(c, o)
     c_num = [int(v) for v in c.split('.')]
     o_num = [int(v) for v in o.split('.')]
     update_status = [x - y for x,y in list(zip(o_num, c_num))]
+    print(update_status)
     for num in update_status:
         if num > 0:
             return '{0:s} (update available: {1:s})'.format(c,o)
@@ -17,6 +19,7 @@ def compare(client):
             return '{0:s} {1:s}'.format(c, '(Unstable)')
         else:
             continue
+    return f"{c} (current)"
 
 class statusCog(commands.Cog):
     def __init__(self, client):
