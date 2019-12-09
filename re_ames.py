@@ -1,7 +1,7 @@
 # dependencies
 import datetime, time
 import os, sys, traceback
-import ast, aiohttp
+import ast, aiohttp, asyncio, random
 import discord
 from discord.ext.commands import Bot
 from discord.ext import commands
@@ -137,6 +137,7 @@ class Ames(commands.AutoShardedBot):
         self.load_resource()
         print(f'Ready: {self.user} (ID: {self.user.id})')
         await self.log.send(self.name,'I\'m back!')
+        self.loop.create_task(self.st())
 
     async def on_guild_join(self, guild):
         await self.log.send(self.name, 'joined', guild.name)
@@ -190,6 +191,24 @@ class Ames(commands.AutoShardedBot):
         error_msg['inactive'] = 'This command is currently disabled '+self.emj['maki']
         return error_msg
 
+    async def st(self):
+        switchtime =    60*60
+        playing =       0
+        #streaming =     1
+        #listening =     2
+        #watching =      3
+        default =       discord.Activity(name="Use .help",      type=discord.ActivityType(playing))
+        act_list = [
+            discord.Activity(name='with Hatsune',               type=discord.ActivityType(playing)),
+            discord.Activity(name='with gacha rates',           type=discord.ActivityType(playing)),
+            discord.Activity(name='PrincessConnectReDive',      type=discord.ActivityType(playing))
+        ]
+        while True:
+            await self.change_presence(activity=default)
+            await asyncio.sleep(switchtime)
+            await self.change_presence(activity=random.choice(act_list))
+            await asyncio.sleep(switchtime)
+    
 if __name__ == "__main__":
     AmesBot = Ames()
     AmesBot.run()

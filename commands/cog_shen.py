@@ -191,7 +191,5 @@ class shenCog(commands.Cog):
         else:
             await channel.send('https://cdn.discordapp.com/emojis/617546206662623252.png')
 
-            
-
 def setup(client):
     client.add_cog(shenCog(client))
