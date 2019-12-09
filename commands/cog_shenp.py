@@ -37,8 +37,9 @@ class shenpCog(commands.Cog):
                 try:
                     user = requests.get(user.avatar_url)
                     user = Image.open(BytesIO(user.content))
-                except:
+                except Exception as e:
                     await channel.send(self.client.emj['shiori'])
+                    await self.logger.send(self.name, 'failed to fetch image', e)
                     return
                 else:
                     if user.is_animated:

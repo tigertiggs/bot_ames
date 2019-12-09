@@ -59,6 +59,21 @@ class Ames(commands.AutoShardedBot):
                     self.cogs_status[str(extension)] = False
                 else:
                     self.cogs_status[str(extension)] = True 
+        
+        # final check
+        self.check_init()
+
+    def check_init(self):
+        # check if commands/shen/post exists
+        print('checking folders...')
+        if not os.path.exists(os.path.join(dir_path,'commands/shen/post')):
+            print('creating commands/shen/post...')
+            try:
+                os.makedirs(os.path.join(dir_path,'commands/shen/post'))
+            except:
+                traceback.print_exc()
+        print('finshed!')
+        # add more checks here
 
     def get_config(self, option):
         self.config[option] = self.config.get(option, True)
@@ -72,24 +87,37 @@ class Ames(commands.AutoShardedBot):
         #    return False
         #else:
         #    self.config[config] = status
+
+        # note that this does not perform the check that the config key requested is actually valid.
+        # since its a dict the following will add the key nevertheless
         self.config[config] = status
         with open('commands/_config/active_cmd.txt', 'w') as cmdf:
             cmdf.write(str(self.config))
         return True
     
-    def update_cogs_status(self, cog, status:bool):
+    async def update_cogs_status(self, cog, status:bool):
         self.cogs_status[f"commands.cog_{cog}"] = status
-        if status:
-            self.load_extension(f"commands.cog_{cog}")
-        else:
-            self.unload_extension(f"commands.cog_{cog}")
+        try:
+            if status:
+                self.load_extension(f"commands.cog_{cog}")
+                await self.log.send(self.name, 'loaded', cog)
+            else:
+                self.unload_extension(f"commands.cog_{cog}")
+                await self.log.send(self.name, 'unloaded', cog)
+        except Exception as e:
+            self.log.send(self.name, 'failed to update cog status', e)
     
-    def reload_cog(self, cog):
+    async def reload_cog(self, cog):
         if not self.cogs_status[f"commands.cog_{cog}"]:
             return
         else:
-            self.unload_extension(f"commands.cog_{cog}")
-            self.load_extension(f"commands.cog_{cog}")
+            try:
+                self.unload_extension(f"commands.cog_{cog}")
+                self.load_extension(f"commands.cog_{cog}")
+            except Exception as e:
+                await self.log.send(self.name, 'failed to reload', e)
+            else:
+                await self.log.send(self.name, 'reloaded', cog)
     
     def get_cogs_status(self):
         return self.cogs_status
@@ -132,8 +160,8 @@ class Ames(commands.AutoShardedBot):
         #
         try:
             await self.invoke(ctx)
-        except:
-            pass
+        except Exception as e:
+            await self.log.send(self.name, 'failed to process command', e)
         finally:
             pass
             #await ctx.release()

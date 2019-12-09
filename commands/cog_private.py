@@ -76,7 +76,7 @@ class privateCog(commands.Cog):
             return
         else:
             current = self.client.get_cogs_status()[f"commands.cog_{name}"]
-            self.client.update_cogs_status(name, not current)
+            await self.client.update_cogs_status(name, not current)
     
     @config.command(
         aliases=['reload']
@@ -94,9 +94,8 @@ class privateCog(commands.Cog):
             await channel.send(self.client.emj['ames'])
             return
         else:
-            self.client.reload_cog(name)
-
-
+            await self.client.reload_cog(name)
+        return
 
 def setup(client):
     client.add_cog(privateCog(client))
