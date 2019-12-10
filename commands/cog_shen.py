@@ -67,10 +67,11 @@ class shenCog(commands.Cog):
         embed = discord.Embed()
         embed.set_author(name=f"{author.name} sent:",icon_url=author.avatar_url)
         embed.set_image(url=link)
+        await ctx.message.delete()
         await channel.send(embed=embed)
 
     @commands.command(
-        name=".find [emote|optional]",
+        usage=".find [emote|optional]",
         aliases=['f'],
         help='List all emotes available to Ames or search for an emote.'
     )
@@ -165,7 +166,7 @@ class shenCog(commands.Cog):
         return embed
 
     @commands.command(
-        name=".emoji [emote]",
+        usage=".emoji [emote]",
         aliases=['e'],
         help='Have Ames send an emote she has access to on your behalf.'
     )
@@ -187,9 +188,20 @@ class shenCog(commands.Cog):
             embed = discord.Embed()
             embed.set_author(name=f"{author.name} sent:",icon_url=author.avatar_url)
             embed.set_image(url=link)
+            await ctx.message.delete()
             await channel.send(embed=embed)
         else:
             await channel.send('https://cdn.discordapp.com/emojis/617546206662623252.png')
+
+    @commands.command(
+        usage="REDACTED",
+        help="YABAI"
+    )
+    async def cal(self,ctx):
+        embed=discord.Embed()
+        embed.set_image(url='https://cdn.discordapp.com/icons/419624511189811201/a_7a7c06c8c403d9886a9b1fd26981126e.gif')
+        await ctx.message.delete()
+        await ctx.channel.send(embed=embed)
 
 def setup(client):
     client.add_cog(shenCog(client))

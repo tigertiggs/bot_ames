@@ -115,9 +115,9 @@ class statusCog(commands.Cog):
         if not check:
             return
         t1 = time.perf_counter()
-        await ctx.channel.trigger_typing()
+        pong = await channel.send('Pong!')
         t2 = time.perf_counter()
-        await channel.send('Pong! ({}ms)'.format(round((t2-t1)*1000)))
+        await pong.edit(content='Pong! ({}ms)'.format(round((t2-t1)*1000)))
     
     @commands.command(
         hidden=True,
@@ -135,6 +135,21 @@ class statusCog(commands.Cog):
             await self.logger.send(self.name, 'shutting down...')
             await self.client.close()
             return
+
+    @commands.command(
+        usage='.purge [depth=100]',
+        help='Look through [depth] most recent messages and delete Ames\' messages.'
+    )
+    async def purge(self, ctx, depth:int=100):
+        channel = ctx.channel
+        check = await self.active_check(channel)
+        if not check:
+            return
+        
+        def is_me(message):
+            return message.author == self.client.user
+        
+        await channel.purge(limit=depth, check=is_me)
 
 def setup(client):
     client.add_cog(statusCog(client))
