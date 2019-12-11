@@ -95,6 +95,13 @@ class Ames(commands.AutoShardedBot):
             cmdf.write(str(self.config))
         return True
     
+    async def reload_help(self):
+        try:
+            self.unload_extension('commands.cog_help')
+            self.load_extension('commands.cog_help')
+        except Exception as e:
+            await self.log.send(self.name, 'Failed to refresh help cog', e)
+
     async def update_cogs_status(self, cog, status:bool):
         self.cogs_status[f"commands.cog_{cog}"] = status
         try:
@@ -105,7 +112,9 @@ class Ames(commands.AutoShardedBot):
                 self.unload_extension(f"commands.cog_{cog}")
                 await self.log.send(self.name, 'unloaded', cog)
         except Exception as e:
-            self.log.send(self.name, 'failed to update cog status', e)
+            await self.log.send(self.name, 'failed to update cog status', e)
+        finally:
+            await self.reload_help()
     
     async def reload_cog(self, cog):
         if not self.cogs_status[f"commands.cog_{cog}"]:
@@ -118,6 +127,8 @@ class Ames(commands.AutoShardedBot):
                 await self.log.send(self.name, 'failed to reload', e)
             else:
                 await self.log.send(self.name, 'reloaded', cog)
+            finally:
+                await self.reload_help()
     
     def get_cogs_status(self):
         return self.cogs_status

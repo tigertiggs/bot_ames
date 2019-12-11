@@ -180,7 +180,7 @@ class shenpCog(commands.Cog):
     @commands.command(
         usage=".enty [user|optional]",
         aliases=['enty1','enty2','enty3'],
-        help="Call someone out for being an Ark Royal. Defauls to self!"
+        help="Call someone out for being an Ark Royal. Defaults to self!"
     )
     async def enty(self, ctx, user:str=None):
         channel = ctx.channel
@@ -300,7 +300,7 @@ class shenpCog(commands.Cog):
     @commands.command(
         usage='.location [user|optional]',
         aliases=['loc'],
-        help="placeholder"
+        help="No description... yet."
     )
     async def location(self, ctx, user:str=None):
         channel = ctx.channel
@@ -332,7 +332,7 @@ class shenpCog(commands.Cog):
     @commands.command(
         usage='.police [user|optional]',
         aliases=['pol','loli','lolipol'],
-        help='placeholder'
+        help='Call someone out for being a lolicon. Defaults to self!'
     )
     async def police(self, ctx, user:str=None):
         channel = ctx.channel
@@ -429,7 +429,7 @@ class shenpCog(commands.Cog):
 
     @commands.command(
         usage='.nero [text]',
-        help="placeholder"
+        help="Have Nero say something."
     )
     async def nero(self, ctx, *, txt:str):
         channel = ctx.channel
@@ -528,7 +528,7 @@ class shenpCog(commands.Cog):
 
     @commands.command(
         usage='.neroe [emote]',
-        help="placeholder"
+        help="Have Nero share an emote."
     )
     async def neroe(self, ctx, emoji:str):
         channel = ctx.channel
@@ -633,7 +633,7 @@ class shenpCog(commands.Cog):
 
     @commands.command(
         usage='.threat [user]',
-        help='placeholder'
+        help='Coax someone with a P5 Compact.'
     )
     async def threat(self, ctx, user:str=None):
         channel = ctx.channel
@@ -650,7 +650,7 @@ class shenpCog(commands.Cog):
                 if threatened == None:
                     await channel.send('https://cdn.discordapp.com/emojis/617546206662623252.png')
                     return
-                check = await self.ames_check(user, channel)
+                check = await self.ames_check(threatened, channel)
                 if check:
                     return
 
@@ -690,7 +690,7 @@ class shenpCog(commands.Cog):
 
     @commands.command(
         usage='.mind [text]',
-        help='placeholder'
+        help='No description... yet.'
     )
     async def mind(self, ctx, *, text):
         channel = ctx.channel
@@ -781,8 +781,8 @@ class shenpCog(commands.Cog):
         await channel.send(file=discord.File(os.path.join(dir,'shen/post/changemymind.png')))
 
     @commands.command(
-        usage=".muimi [image_url] / attachment",
-        help="placeholder"
+        usage=".muimi [image_url] / [attachment]",
+        help="No description... yet."
     )
     async def muimi(self, ctx, url:str=None):
         channel = ctx.channel
