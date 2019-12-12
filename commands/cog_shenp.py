@@ -789,12 +789,10 @@ class shenpCog(commands.Cog):
         check = await self.active_check(channel)
         if not check:
             return
-        #func = 'muimi:'
 
         # attachment takes priority
         # check msg for link
         if url != None:
-            #print('link found', msg[0])
             link = url
 
         # check msg for attachment
@@ -802,93 +800,106 @@ class shenpCog(commands.Cog):
             #print('att found', ctx.message.attachments[0].filename)
             link = ctx.message.attachments[0].url
         
-        if not self.muimi_embed(ctx, link) is None:
-            await channel.send(file=self.muimi_embed(ctx, link))
-        else:
-            await channel.send(self.client.emj['maki'])
-        
-        # delete the message prompt
-        await ctx.message.delete()
-        return
+        async with ctx.typing():
+            if not self.muimi_embed(ctx, link) is None:
+                await ctx.message.delete()
+                await channel.send(file=self.muimi_embed(ctx, link))
+            else:
+                await channel.send(self.client.emj['maki'])
 
     def muimi_embed(self, ctx, url):
         OUT = os.path.join(dir,'shen/post/muimi.png')
-        response = requests.get(url)
-        func = 'muimi_embed:'
-        
+        response = requests.get(url)        
         # attempt to open image
         try:
             bg = Image.open(BytesIO(response.content))
         except Exception as err:
-            print(func, err)
+            print(err)
             return None
-
         try:
             if bg.is_animated:
                 #print(func, 'bg is animated - no support yet')
                 return None
         except Exception as err:
             # may not support .is_animated
-            print(func, err)
             pass
 
         # image augmentation
         muimi_fg = Image.open(os.path.join(dir,'shen/assets/muimi_this_c.png'))
         fg_size = muimi_fg.size
-        fg_ratio = fg_size[0]/fg_size[1]
+        #fg_ratio = fg_size[0]/fg_size[1]
+
+        # muimi size
+        # fg_size -> (1280, 894)
+        # fg_ratio -> 1.43177
 
         # size -> (width, height)
-        
         bg_size = bg.size
         bg_ratio = bg_size[0]/bg_size[1]   
 
-        """
-        okay, so there are a lot of conditions to check right now.
-        """
+        # okay, so there are a lot of conditions to check right now.
 
-        # check size
-        LIMIT = 125
+        # check size - cannot be smaller than this for upscalling reasons
+        LIMIT = 300
         if bg_size[0] < LIMIT or bg_size[1] < LIMIT:
-            print(func, 'limit reached')
+            print('limit reached')
             return None
-        
         # check aspect ratio
-        #print(bg_size, bg_ratio)
-        if bg_ratio < 0.2 or bg_ratio > 3:
-            print(func, 'AR beyond tolerance')
+        elif bg_ratio < 0.2 or bg_ratio > 3:
+            print('AR beyond tolerance')
             return None
 
-        #print('fg bg', fg_size, bg_size)
-        # if bg is smaller than muimi than just resize muimi
-        #if (bg_size[0] < fg_size[0] and bg_size[1] < fg_size[1]) or (bg_size[0] > fg_size[0] and bg_size[1] > fg_size[1]):
-        # rescale to 150% of input bg
-        #scale = 1.5
-        max_axis = max(bg_size)
-        axis = bg_size.index(max_axis)
+        # to mitigate an image getting bigger and bigger with following recursions, each image will be scaled to muimi size
+        # always scale height to muimi height
+        target_size = (int(fg_size[1]*bg_ratio), fg_size[1])
+        bg = bg.resize(target_size, resample=Image.ANTIALIAS)
 
-        target = int(1.5*max_axis)
-        if axis == 0:
-            target_size = (target, int(target/fg_ratio))
-        else:
-            target_size = (int(target*fg_ratio), target)
+        # target pos - line up with x=400 as close as possible
+        left_clearance =    400
+        right_clearance =   fg_size[0] - left_clearance
+        bg_half_width =     int(bg_size[0]/2)
 
-        muimi_fg = muimi_fg.resize(target_size, resample=Image.ANTIALIAS)
-
-        #pos_x = ((target_size[0] - bg_size[0]) // 2)
-        pos_x = 0
-        pos_y = ((target_size[1] - bg_size[1]) // 2)
-
-        fg = muimi_fg.copy()
+        # case 1 - bg half width clearance smaller than muimi left clearance
+        if bg_half_width <= left_clearance:
+            pos_x = 0
+            pos_y = left_clearance - bg_half_width
+            fg = muimi_fg.copy()
         
-        try:
-            muimi_fg.paste(bg, (pos_x, pos_y), bg)
-        except Exception as err:
-            print(func, err)
-            muimi_fg.paste(bg, (pos_x, pos_y))
-            
-        muimi_fg.paste(fg, (0,0), fg)
-        muimi_fg.save(OUT)
+            try:
+                muimi_fg.paste(bg, (pos_x, pos_y), bg)
+            except Exception as err:
+                muimi_fg.paste(bg, (pos_x, pos_y))
+            finally:
+                muimi_fg.paste(fg, (0,0), fg)
+
+            muimi_fg.save(OUT)
+            fg.close()
+        # case 2 - bg half width clearance larger than muimi left clearance but smaller than muimi right clearance
+        elif bg_half_width <= right_clearance:
+            base = Image.new('RGBA', ( bg_half_width + right_clearance, fg_size[1]), (255,0,0,0))
+            try:
+                base.paste(bg, (0,0), bg)
+            except Exception as err:
+                base.paste(bg, (0,0))
+            finally:
+                base.paste(muimi_fg, (bg_half_width - left_clearance,0), muimi_fg)
+
+            base.save(OUT)
+            base.close()
+        # case 3 - bg half clearance larger than muimi
+        elif bg_half_width > right_clearance:
+            bg.paste(muimi_fg, (bg_half_width - left_clearance,0), muimi_fg)
+            bg.save(OUT)
+        # somthing wrong happened
+        else:
+            muimi_fg.close()
+            bg.close()
+            return None
+
+        muimi_fg.close()
+        bg.close()
         return discord.File(OUT, filename=OUT)
+
 
 def setup(client):
     client.add_cog(shenpCog(client))

@@ -194,7 +194,7 @@ class shenCog(commands.Cog):
             await channel.send('https://cdn.discordapp.com/emojis/617546206662623252.png')
 
     @commands.command(
-        usage=".REDACTED",
+        usage=".[REDACTED]",
         help="YABAI"
     )
     async def cal(self,ctx):
