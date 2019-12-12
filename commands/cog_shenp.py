@@ -801,9 +801,10 @@ class shenpCog(commands.Cog):
             link = ctx.message.attachments[0].url
         
         async with ctx.typing():
-            if not self.muimi_embed(ctx, link) is None:
+            fp = self.muimi_embed(ctx, link)
+            if not fp is None:
                 await ctx.message.delete()
-                await channel.send(file=self.muimi_embed(ctx, link))
+                await channel.send(file=fp)
             else:
                 await channel.send(self.client.emj['maki'])
 
@@ -861,6 +862,7 @@ class shenpCog(commands.Cog):
 
         # case 1 - bg half width clearance smaller than muimi left clearance
         if bg_half_width <= left_clearance:
+            #print('case 1')
             pos_x = 0
             pos_y = left_clearance - bg_half_width
             fg = muimi_fg.copy()
@@ -876,6 +878,7 @@ class shenpCog(commands.Cog):
             fg.close()
         # case 2 - bg half width clearance larger than muimi left clearance but smaller than muimi right clearance
         elif bg_half_width <= right_clearance:
+            #rint('case 2')
             base = Image.new('RGBA', ( bg_half_width + right_clearance, fg_size[1]), (255,0,0,0))
             try:
                 base.paste(bg, (0,0), bg)
@@ -888,6 +891,7 @@ class shenpCog(commands.Cog):
             base.close()
         # case 3 - bg half clearance larger than muimi
         elif bg_half_width > right_clearance:
+            #print('case 3')
             bg.paste(muimi_fg, (bg_half_width - left_clearance,0), muimi_fg)
             bg.save(OUT)
         # somthing wrong happened
@@ -898,7 +902,7 @@ class shenpCog(commands.Cog):
 
         muimi_fg.close()
         bg.close()
-        return discord.File(OUT, filename=OUT)
+        return discord.File(OUT, filename='muimi.png')
 
 
 def setup(client):
