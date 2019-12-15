@@ -134,12 +134,24 @@ class Ames(commands.AutoShardedBot):
         return self.cogs_status
 
     def load_resource(self):
-        servers = [613628290023948288,613628508689793055,639337169508630528]
+        servers = []
+        with open('commands/_config/res.txt') as rf:
+            for res_id in rf:
+                servers.append(int(res_id))
+
         team = dict()
         for server in servers:
             for emj in super().get_guild(server).emojis:
                 team[emj.name] = f"<:{emj.name}:{emj.id}>"
+
         self.team = team
+        self.res_servers = servers
+    
+    def get_team(self):
+        return self.team
+    
+    def team_append(self, name, id):
+        self.team[name] = id
 
     async def on_ready(self):
         self.init_time = datetime.datetime.utcnow()

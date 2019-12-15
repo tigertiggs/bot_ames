@@ -584,9 +584,9 @@ class hatsuneCog(commands.Cog):
                 i += 1
 
             if target_id != None and en == name:
-                    names.append(f"> **{self.client.team[str(en).lower()]} {j} {self.get_full_name(str(en))}**")
+                    names.append(f"> **{self.client.get_team()[str(en).lower()]} {j} {self.get_full_name(str(en))}**")
             else:
-                names.append(f"{self.client.team[str(en).lower()]} {j} {self.get_full_name(str(en))}")
+                names.append(f"{self.client.get_team()[str(en).lower()]} {j} {self.get_full_name(str(en))}")
 
         cursor.close()
 
@@ -693,7 +693,7 @@ class hatsuneCog(commands.Cog):
         for names in list(self.chunks(charas,20)):
             embed.add_field(
                 name="Characters",
-                value="\n".join([f"{self.client.team[en.lower()]} {self.get_full_name(en)}" for en in names]),
+                value="\n".join([f"{self.client.get_team()[en.lower()]} {self.get_full_name(en)}" for en in names]),
                 inline=True
             )
         return embed
@@ -902,7 +902,7 @@ class hatsuneCog(commands.Cog):
                         [
                             "".join(meta), 
                             "".join(
-                                [self.client.team[name.lower()] for name in setup['team']]
+                                [self.client.get_team()[name.lower()] for name in setup['team']]
                                 )
                         ]
                     )

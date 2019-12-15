@@ -54,6 +54,8 @@ class pool:
 
         # rate ups
         self.up_ssr =   0.007
+        if PRIFES:
+            self.up_ssr = self.up_ssr * 2
         self.up_sr =    0
         self.up_r =     0
 
@@ -64,9 +66,9 @@ class pool:
         self.sr_threshold =         round(self.grain * self.rate_r)
         self.ssr_threshold =        round(self.grain * self.rate_sr + self.sr_threshold)
 
-        self.up_r_threshold =       round(self.grain * self.up_r * len(self.r_pool['lim']))
-        self.up_sr_threshhold =     round(self.grain * self.up_sr * len(self.sr_pool['lim'])+ self.sr_threshold)
-        self.up_ssr_threshhold =    round(self.grain * self.up_ssr * len(self.ssr_pool['lim'])+ self.ssr_threshold)
+        self.up_r_threshold =       round(self.grain * self.up_r)
+        self.up_sr_threshhold =     round(self.grain * self.up_sr + self.sr_threshold)
+        self.up_ssr_threshhold =    round(self.grain * self.up_ssr + self.ssr_threshold)
 
     def load_pools(self):
         self.ssr_pool =     {'norm':[], 'lim':[]}
@@ -247,14 +249,14 @@ class gachaCog(commands.Cog):
         if len(summary['lim']) > 0:
             lim_pulls = list(summary['lim'].values())
             lim_pulls.sort(key=lambda x: x[0].name)
-            lim_pulls = [f"> {self.client.team[ch.name]} **{ch.full_name}** x{n}" for ch, n in lim_pulls]
+            lim_pulls = [f"> {self.client.get_team()[ch.name]} **{ch.full_name}** x{n}" for ch, n in lim_pulls]
         else:
             lim_pulls = []
 
         if len(summary['norm']) > 0:
             ssr_pulls = list(summary['norm'].values())
             ssr_pulls.sort(key=lambda x: x[0].name)
-            ssr_pulls = [f" {self.client.team[ch.name]} {ch.full_name} x{n}" for ch, n in ssr_pulls]
+            ssr_pulls = [f" {self.client.get_team()[ch.name]} {ch.full_name} x{n}" for ch, n in ssr_pulls]
         else:
             ssr_pulls = []
         
@@ -343,14 +345,14 @@ class gachaCog(commands.Cog):
         if len(summary['lim']) > 0:
             lim_pulls = list(summary['lim'].values())
             lim_pulls.sort(key=lambda x: x[0].name)
-            lim_pulls = [f"> {self.client.team[ch.name]} **{ch.full_name}** x{n}" for ch, n in lim_pulls]
+            lim_pulls = [f"> {self.client.get_team()[ch.name]} **{ch.full_name}** x{n}" for ch, n in lim_pulls]
         else:
             lim_pulls = []
 
         if len(summary['norm']) > 0:
             ssr_pulls = list(summary['norm'].values())
             ssr_pulls.sort(key=lambda x: x[0].name)
-            ssr_pulls = [f" {self.client.team[ch.name]} {ch.full_name} x{n}" for ch, n in ssr_pulls]
+            ssr_pulls = [f" {self.client.get_team()[ch.name]} {ch.full_name} x{n}" for ch, n in ssr_pulls]
         else:
             ssr_pulls = []
         
@@ -449,9 +451,7 @@ class gachaCog(commands.Cog):
         srare.close()
         ssrare.close()
         new.close()
-        #none.close()
-        
-        
+        #none.close()   
 
 def setup(client):
     client.add_cog(gachaCog(client))
