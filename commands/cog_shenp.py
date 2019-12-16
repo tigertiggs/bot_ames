@@ -841,7 +841,7 @@ class shenpCog(commands.Cog):
         # okay, so there are a lot of conditions to check right now.
 
         # check size - cannot be smaller than this for upscalling reasons
-        LIMIT = 300
+        LIMIT = 200
         if bg_size[0] < LIMIT or bg_size[1] < LIMIT:
             print('limit reached')
             return None
