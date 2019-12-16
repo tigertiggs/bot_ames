@@ -72,6 +72,12 @@ class Ames(commands.AutoShardedBot):
                 os.makedirs(os.path.join(dir_path,'commands/shen/post'))
             except:
                 traceback.print_exc()
+        if not os.path.exists(os.path.join(dir_path,'commands/gacha/assets/units/png')):
+            print('commands/gacha/assets/units/png...')
+            try:
+                os.makedirs(os.path.join(dir_path,'commands/gacha/assets/units/png'))
+            except:
+                traceback.print_exc()
         print('finshed!')
         # add more checks here
 

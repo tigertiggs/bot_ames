@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-import datetime, glob, os, asyncio
+import datetime, glob, os, asyncio, traceback
 from PIL import Image
 dir = os.path.dirname(__file__)
 
@@ -141,7 +141,7 @@ class resCog(commands.Cog):
     def fetch_res_local(self):
         local_list = []
         for filename in glob.glob(os.path.join(dir,'gacha/assets/units/*.webp')):
-            local_list.append(filename)
+            local_list.append(filename.split('\\')[-1].split('.')[0])
         return local_list
     
     @res.command(aliases=['u'])
@@ -157,32 +157,40 @@ class resCog(commands.Cog):
 
         for loc_emote in loc_list:
             if not loc_emote in emotes:
+                temp = Image.open(os.path.join(dir,f"gacha/assets/units/{loc_emote}.webp"))
+                temp.save(os.path.join(dir,f"gacha/assets/units/png/{loc_emote}.png"))
+                temp.close()
                 new.append(loc_emote)
-        
+
         if len(loc_list) == 0:
             await channel.send('No new asset detected - servers are up-to-date!')
             return
         
         for update_emote_name in new:
-            update_emote = Image.open(os.path.join(dir, f'gacha/assets/units/{update_emote_name}.webp'))
+            update_emote = open(os.path.join(dir,f"gacha/assets/units/png/{update_emote_name}.png"),"rb").read()
 
             flag = False
             for server in ser_list:
                 if server.emoji_limit == len(server.emojis):
-                    await self.logger.send(self.name, 'server full', server.name)
+                    await self.logger.send(self.name, 'server full', server.name,"\n")
                 else:
-                    await self.logger.send(self.name, 'creating', update_emote_name, 'in', server.name, f"{server.emoji_limit} ({len(server.emojis)})")
+                    await self.logger.send(self.name, 'creating', update_emote_name, 'in', server.name, f"{server.emoji_limit} ({len(server.emojis)})","\n")
                     try:
-                        await server.create_custom_emoji(update_emote_name, update_emote)
+                        await server.create_custom_emoji(name=update_emote_name, image=update_emote)
                     except Exception as e:
-                        await self.logger.send('failed to upload', e)
+                        await self.logger.send('failed to upload', e,"\n")
+                        traceback.print_exc()
                     else:
-                        await self.logger.send('success')
+                        await self.logger.send('success',"\n")
                         flag = True
+
+            update_emote.close()
         
             if not flag:
                 await self.logger.send(self.name, 'update failed')
                 await channel.send(f"Failed to add {update_emote_name}")
+            else:
+                await channel.send(f"Added {update_emote_name}")
         
         
         
