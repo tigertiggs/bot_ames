@@ -120,7 +120,7 @@ class shenCog(commands.Cog):
                     else:
                         continue
         else:
-            cutoff = 0.6
+            cutoff = 0.25
             max = 20
             approx = list(filter(lambda x: sm(None, option.lower(), x.name.lower(), None).ratio() >= cutoff and option in x.name.lower(), emotes))[:max]
 
@@ -176,7 +176,7 @@ class shenCog(commands.Cog):
         if not check:
             return
         
-        targets = list(filter(lambda x: not x.guild_id in [r1,r2,r3] and sm(None, emote.lower(), x.name.lower(), None).ratio() >= 0.6 and emote.lower() in x.name.lower(), self.client.emojis))
+        targets = list(filter(lambda x: not x.guild_id in [r1,r2,r3] and sm(None, emote.lower(), x.name.lower(), None).ratio() >= 0.4 and emote.lower() in x.name.lower(), self.client.emojis))
         if len(targets) > 0:
             emote = targets[0]
             if not emote.animated:
