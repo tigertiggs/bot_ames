@@ -6,7 +6,7 @@ from PIL import Image, GifImagePlugin, ImageDraw, ImageSequence, ImageOps, Image
 dir = os.path.dirname(__file__)
 
 SPACE = '\u200B'
-PRIFES = False
+PRIFES = True
 
 def get_full_name(target):
     if target[1].isupper():
@@ -46,7 +46,7 @@ class pool:
         self.grain =    grain
 
         # normal rates
-        self.rate_ssr = 0.025
+        self.rate_ssr = 0.05
         if PRIFES:
             self.rate_ssr = self.rate_ssr * 2
         self.rate_sr =  0.18

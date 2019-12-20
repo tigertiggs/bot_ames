@@ -146,6 +146,7 @@ class resCog(commands.Cog):
     
     @res.command(aliases=['u'])
     async def update(self, ctx):
+        #print('here')
         channel = ctx.channel
         active = await self.active_check(channel)
         if not active:
@@ -174,6 +175,7 @@ class resCog(commands.Cog):
                 if server.emoji_limit == len(server.emojis):
                     await self.logger.send(self.name, 'server full', server.name,"\n")
                 else:
+                    #print('here')
                     await self.logger.send(self.name, 'creating', update_emote_name, 'in', server.name, f"{server.emoji_limit} ({len(server.emojis)})","\n")
                     try:
                         await server.create_custom_emoji(name=update_emote_name, image=update_emote)
@@ -184,12 +186,13 @@ class resCog(commands.Cog):
                         await self.logger.send('success',"\n")
                         flag = True
 
-            update_emote.close()
+            #update_emote.close()
         
             if not flag:
                 await self.logger.send(self.name, 'update failed')
                 await channel.send(f"Failed to add {update_emote_name}")
             else:
+                print('here')
                 await channel.send(f"Added {update_emote_name}")
         
         
