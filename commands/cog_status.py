@@ -37,6 +37,7 @@ class statusCog(commands.Cog):
 
     @commands.command(
         usage='.status',
+        aliases=['toirland'],
         help='Use this to get Ames\' current status.',
         hidden=False
         )
