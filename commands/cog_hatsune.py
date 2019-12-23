@@ -67,12 +67,34 @@ class hatsuneCog(commands.Cog):
         else:
             request = request[:-1]
         for arg in request:
-            processed.append(self.preprocessor.get(arg, arg))
+            processed.append(self.preprocessor.get(arg, arg).lower())
         return "".join(processed), option
     
     def get_full_name(self, target):
-        if target[1].isupper():
-            prefix = target[0].lower()
+        if len(target) > 1:
+            if target[1].isupper():
+                prefix = target[0].lower()
+                if prefix ==    'n': 
+                    prefix =        'New Year'
+                elif prefix ==  'x':
+                    prefix =        'Xmas'
+                elif prefix ==  'o':
+                    prefix =        'Ouedo'
+                elif prefix ==  'v':
+                    prefix =        'Valentine'
+                elif prefix ==  's':
+                    prefix =        'Summer'
+                elif prefix ==  'h':
+                    prefix =       'Halloween'
+                elif prefix ==  'u':
+                    prefix = '      Uniform'
+                else:
+                    prefix =        "???"
+                return " ".join([prefix, target[1:]])
+            else:
+                return target
+        else:
+            prefix = target.lower()
             if prefix ==    'n': 
                 prefix =        'New Year'
             elif prefix ==  'x':
@@ -89,9 +111,7 @@ class hatsuneCog(commands.Cog):
                 prefix = '      Uniform'
             else:
                 prefix =        "???"
-            return " ".join([prefix, target[1:]])
-        else:
-            return target
+            return prefix
     
     def fetch_list(self, conn):
         chara_list, chara_list_jp, id_list = [], [], []
@@ -915,6 +935,80 @@ class hatsuneCog(commands.Cog):
             )
 
         return embed
+
+    @commands.command(
+        usage='.alias [alias|optional]',
+        help='No description... yet'
+    )
+    async def alias(self, ctx, *request):
+        channel = ctx.channel
+        author = ctx.message.author
+        active = await self.active_check(channel)
+        if not active:
+            return
+        with open(os.path.join(dir, '_config/alias.txt')) as af:
+            alias_list = list(ast.literal_eval(af.read()).items())
+            alias_list.sort(key=lambda x: x[1])
+
+        if len(request) == 0:
+            embeds = []
+            for chunk in self.chunks(alias_list, 20):
+                embeds.append(self.make_alias_embed([item[0] for item in chunk], [item[1] for item in chunk]))
+            
+            page = await channel.send(embed=embeds[0])
+            if len(embeds) < 2:
+                return
+            else:
+                for arrow in ['⬅','➡']:
+                    await page.add_reaction(arrow)
+                
+                def author_check(reaction, user):
+                    return str(user.id) == str(author.id) and\
+                        reaction.emoji in ['⬅','➡'] and\
+                        str(reaction.message.id) == str(page.id)
+                
+                while True:
+                    try:
+                        reaction, user = await self.client.wait_for('reaction_add', timeout=30.0, check=author_check)
+                    except asyncio.TimeoutError:
+                        for arrow in ['⬅','➡']:
+                            await page.remove_reaction(arrow, self.client.user)
+                        break
+                    else:
+                        if reaction.emoji == '⬅':
+                            embeds = embeds[-1:] + embeds[:-1]
+                            await reaction.message.remove_reaction('⬅', user)
+                            await reaction.message.edit(embed=embeds[0])
+
+                        elif reaction.emoji == '➡':
+                            embeds = embeds[1:] + embeds[:1]
+                            await reaction.message.remove_reaction('➡', user)
+                            await reaction.message.edit(embed=embeds[0])
+
+                        else:
+                            continue
+        else:
+            pass
+    
+    def make_alias_embed(self, alias, pointer):
+        embed = discord.Embed(
+            title="Alias List",
+            description="Lists all current recorded aliases.",
+            timestamp=datetime.datetime.utcnow()
+        )
+        embed.set_footer(text="Alias | SHIN Ames", icon_url=self.client.user.avatar_url)
+        
+        embed.add_field(
+            name="Alias",
+            value="\n".join(alias),
+            inline=True
+        )
+        embed.add_field(
+            name="Character",
+            value="\n".join([self.get_full_name(target) for target in pointer])
+        )
+        return embed
+            
 
 def setup(client):
     client.add_cog(hatsuneCog(client))
