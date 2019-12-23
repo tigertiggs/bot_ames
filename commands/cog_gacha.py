@@ -46,7 +46,7 @@ class pool:
         self.grain =    grain
 
         # normal rates
-        self.rate_ssr = 0.05
+        self.rate_ssr = 0.025
         if PRIFES:
             self.rate_ssr = self.rate_ssr * 2
         self.rate_sr =  0.18
