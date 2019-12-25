@@ -1,62 +1,45 @@
 {
-    "jp":       "サジタリウス",
-    "en":       "Sagittarius",
-    "im":       "https://redive.estertion.win/icon/unit/301801.webp",
-    "comment":  "2019 November Clan Battle Boss 5",
-    "multi":    2,
+    "jp":       "アルゲティ",
+    "en":       "Argeti",
+    "im":       "https://redive.estertion.win/icon/unit/300400.webp",
+    "comment":  "2019 December Clan Battle Boss 5",
+    "multi":    1,
     "def":      [
-                    [320340,365364],
-                    [408384,416392],
-                    [449370,483471]
+                    [142,188],
+                    [-1,-1],
+                    [-1,-1]
     ],
     "cyc":      [
                     [],
-                    [-1, 0, 1, 0, -1, 1]
+                    [-1,1,-1,0,1,0,-1,1]
     ],
     "ub":       [
                     [
-                        "敵全体に最大HPに応じた魔法ダメージを与え、魔法攻撃力を特大ダウンさせる。さらに、暗闇状態の敵はダメージが3倍になる。",
-                        "Inflict magic damage on all allies proportional to their maximum HP and inflict massive magic attack down. Damage inflicted is increased 3x on allies affected by [Blind]."
+                        "敵全体に魔法大ダメージを与える。さらに物理攻撃キャラは物理攻撃力をダウン、魔法攻撃キャラは魔法防御力をダウン。",
+                        "Inflict large magic damage to all allies and then inflict physical attack down to allied physical attacks and magic def down to all allied magic attackers."
                     ]
     ],
     "sk":       [
                     [
-                        "敵全体に魔法中ダメージを与え、さらに残りHP割合が最も少ない敵1キャラに強力な暗闇状態を付与。",
-                        "Inflict medium magic damage on all allies and inflict a strong [Blind] to the ally with the lowest HP.",
+                        "前から1キャラに魔法特大ダメージを与え沈黙状態を付与する。",
+                        "Inflict massive magic damage on the frontmost ally and inflict mute."
                     ],
                     [
-                        "前方の3キャラに物理ダメージを与える。",
-                        "Inflict physical damage to the 3 frontmost allies."
+                        "最も物理攻撃力の高い1キャラに魔法大ダメージを与え、さらにTPダウン。",
+                        "Infict large magic damage and TP down to the ally with the highest physical attack stat."
                     ]
     ],
     "mode1":    [
                     {
-                        "type":     "magic",
-                        "auto":     None,
+                        "type":     "physical",
+                        "auto":     True,
                         "score":    [750,1125],
-                        "team":     ["HKyouka","SKyaru","Luna","Neneka","Ilya"]
+                        "team":     ["XChristina","Djeeta","Eriko","XAyane","Makoto"]
                     }
     ],
     "mode2":    [
-                    {
-                        "type":     "physical",
-                        "auto":     None,
-                        "score":    [650,1300],
-                        "team":     ["HKyouka","SKyaru","Kyaru","Neneka","Ilya"]
-                    }
+
     ],
     "mode3":    [
-                    {
-                        "type":     "physical",
-                        "auto":     None,
-                        "score":    [600,1560],
-                        "team":     ["UAoi","Kokkoro","HMimi","Makoto","Muimi"]
-                    },
-                    {
-                        "type":     "physical",
-                        "auto":     True,
-                        "score":    [650,1300],
-                        "team":     ["Kokkoro","Shinobu","Djeeta","Makoto","Muimi"]
-                    }
     ]
 }

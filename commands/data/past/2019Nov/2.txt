@@ -1,0 +1,49 @@
+{
+    "jp":       "ワイルドグリフォン",
+    "en":       "Wild Griffin",
+    "im":       "https://redive.estertion.win/icon/unit/302001.webp",
+    "comment":  "2019 November Clan Battle Boss 2",
+    "multi":    1,
+    "def":      [
+                    [200,200],
+                    [250,200],
+                    [470,430]
+    ],
+    "cyc":      [
+                    [],
+                    [-1]
+    ],
+    "ub":       [
+                    [
+                        "前方範囲内の敵に魔法中ダメージ。",
+                        "Inflict medium magic damage to all allies."
+                    ]
+    ],
+    "sk":       [
+
+    ],
+    "mode1":    [
+                    {
+                        "type":     "physical",
+                        "auto":     None,
+                        "score":    [650,-1],
+                        "team":     ["Shiori","Christina","Djeeta","Eriko","SMakoto"]
+                    }
+    ],
+    "mode2":    [
+                    {
+                        "type":     "physical",
+                        "auto":     None,
+                        "score":    [650,-1],
+                        "team":     ["Shiori","Christina","Djeeta","Eriko","SMakoto"]
+                    }
+    ],
+    "mode3":    [
+                    {
+                        "type":     "physical",
+                        "auto":     None,
+                        "score":    [500,1000],
+                        "team":     ["VShizuru","Christina","Eriko","SMakoto","Makoto"]
+                    }
+    ]
+}

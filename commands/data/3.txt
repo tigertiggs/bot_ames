@@ -1,52 +1,42 @@
 {
-    "jp":       "スカイワルキューレ",
-    "en":       "Sky Valkyrie",
-    "im":       "https://redive.estertion.win/icon/unit/309201.webp",
-    "comment":  "2019 November Clan Battle Boss 3",
+    "jp":       "ムシュフシュ",
+    "en":       "Mashufushu",
+    "im":       "https://redive.estertion.win/icon/unit/303500.webp",
+    "comment":  "2019 December Clan Battle Boss 3",
     "multi":    1,
     "def":      [
-                    [175,251],
-                    [180,374],
-                    [261,442]
+                    [261,193],
+                    [-1,-1],
+                    [-1,-1]
     ],
     "cyc":      [
                     [],
-                    [-1, 0, -1]
+                    [0,-1]
     ],
     "ub":       [
                     [
-                        "前方範囲内の敵4キャラに特大ダメージを与え、TPを特大ダウン、行動速度をダウンさせる。",
-                        "Inflict massive damage to max 4 allies in range and inflict massive TP down and movement speed down."
+                        "敵全体に魔法中ダメージを与え、魔法攻撃をする敵すべてのTPを下げる。",
+                        "Inflict medium magic damage on all allies, additionally inflict TP down on all allied magic attackers."
                     ]
     ],
     "sk":       [
                     [
-                        "前から3キャラに中ダメージを与え、自身の行動速度をアップさせる。",
-                        "Inflict medium damage to the 3 frontmost allies and gain movement speed up.",
+                        "前方2キャラに魔法中ダメージを与え、魔法防御力を下げる。",
+                        "Inflict medium magic damage to the 2 frontmost allies and inflict magic def down."
                     ]
     ],
     "mode1":    [
                     {
-                        "type":     "magic",
-                        "auto":     None,
-                        "score":    [630,630],
-                        "team":     ["HKyouka","Kyouka","Luna","Neneka","Anna"]
+                        "type":     "physical",
+                        "auto":     True,
+                        "score":    [700,910],
+                        "team":     ["Christina","Djeeta","XAyane","SMakoto","Muimi"]
                     }
     ],
     "mode2":    [
-                    {
-                        "type":     "physical",
-                        "auto":     None,
-                        "score":    [600,1080],
-                        "team":     ["SSaren","Djeeta","Eriko","STamaki","SMakoto"]
-                    }
+                    
     ],
     "mode3":    [
-                    {
-                        "type":     "magic",
-                        "auto":     None,
-                        "score":    [480,1152],
-                        "team":     ["HKyouka","Skyaru","Luna","Neneka","Akari"]
-                    },
+                    
     ]
 }

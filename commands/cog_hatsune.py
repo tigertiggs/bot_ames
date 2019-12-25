@@ -927,12 +927,12 @@ class hatsuneCog(commands.Cog):
                         ]
                     )
                 )
-
-            embed.add_field(
-                name=f"Mode {mode}",
-                value="\n".join(teams),
-                inline=True
-            )
+            if len(teams) > 0:
+                embed.add_field(
+                    name=f"Mode {mode}",
+                    value="\n".join(teams),
+                    inline=True
+                )
 
         return embed
 
