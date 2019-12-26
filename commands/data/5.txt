@@ -6,7 +6,7 @@
     "multi":    1,
     "def":      [
                     [142,188],
-                    [-1,-1],
+                    [176,245],
                     [-1,-1]
     ],
     "cyc":      [
@@ -38,7 +38,12 @@
                     }
     ],
     "mode2":    [
-
+                    {
+                        "type":     "magic",
+                        "auto":     True,
+                        "score":    [650,1300],
+                        "team":     ["HKyouka","Kyouka","SKyaru","Luna","Neneka"]
+                    }
     ],
     "mode3":    [
     ]

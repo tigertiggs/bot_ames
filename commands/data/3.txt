@@ -34,7 +34,12 @@
                     }
     ],
     "mode2":    [
-                    
+                    {
+                        "type":     "physical",
+                        "auto":     True,
+                        "score":    [650,910],
+                        "team":     ["Christina","Djeeta","XAyane","SMakoto","Makoto"]
+                    }
     ],
     "mode3":    [
                     

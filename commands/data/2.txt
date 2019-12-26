@@ -39,6 +39,12 @@
                         "auto":     True,
                         "score":    [700,980],
                         "team":     ["HKyouka","Kyouka","SKyaru","Neneka","Anne"]
+                    },
+                    {
+                        "type":     "physocal",
+                        "auto":     True,
+                        "score":    [720,1152],
+                        "team":     ["XChristina","Djeeta","XAyane","SMakoto","Makoto"]
                     }
     ],
     "mode3":    [

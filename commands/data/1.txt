@@ -34,7 +34,7 @@
                         "type":     "magic",
                         "auto":     True,
                         "score":    [600,840],
-                        "team":     ["HKyouka","Kyouka","SKyaru","Neneka","Anne"]
+                        "team":     ["HKyouka","Kyouka","SKyaru","Luna","Neneka"]
                     }
     ],
     "mode3":    [
