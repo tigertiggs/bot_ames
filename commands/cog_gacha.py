@@ -53,7 +53,7 @@ class pool:
         self.rate_r =   1 - self.rate_ssr - self.rate_sr
 
         # rate ups
-        self.up_ssr =   0.007
+        self.up_ssr =   0.008
         if PRIFES:
             self.up_ssr = self.up_ssr * 2
         self.up_sr =    0
