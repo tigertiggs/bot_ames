@@ -45,6 +45,9 @@ class Ames(commands.AutoShardedBot):
         with open('commands/_config/active_cmd.txt') as cmdf:
             self.config = ast.literal_eval(cmdf.read())
 
+        # check folders
+        self.check_init()
+
         # load cogs
         self.cogs_status = dict()
         with open('cogs') as COGS:
@@ -59,9 +62,6 @@ class Ames(commands.AutoShardedBot):
                     self.cogs_status[str(extension)] = False
                 else:
                     self.cogs_status[str(extension)] = True 
-        
-        # final check
-        self.check_init()
 
     def check_init(self):
         # check if commands/shen/post exists
@@ -73,11 +73,15 @@ class Ames(commands.AutoShardedBot):
             except:
                 traceback.print_exc()
         if not os.path.exists(os.path.join(dir_path,'commands/gacha/assets/units/png')):
-            print('commands/gacha/assets/units/png...')
+            print('creating commands/gacha/assets/units/png...')
             try:
                 os.makedirs(os.path.join(dir_path,'commands/gacha/assets/units/png'))
             except:
                 traceback.print_exc()
+        if not os.path.exists(os.path.join(dir_path, 'commands/_config/alias_local.txt')):
+            print('creating commands/_config/alias_local.txt...')
+            with open(os.path.join(dir_path,'commands/_config/alias_local.txt'), 'w+') as alf:
+                alf.write('{}')
         print('finshed!')
         # add more checks here
 

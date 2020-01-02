@@ -26,8 +26,11 @@ class hatsuneCog(commands.Cog):
                         "`h` for Halloween i.e. `hmiyako`\n"\
                         "`u` for Uniform i.e. `uaoi`"
         self.options =  ['flb']
+        with open(os.path.join(dir, '_config/alias_local.txt')) as alf:
+            alocal = ast.literal_eval(alf.read())
         with open(os.path.join(dir,'_config/alias.txt')) as af:
             self.preprocessor = ast.literal_eval(af.read())
+            self.preprocessor.update(alocal)
     
     async def active_check(self, channel):
         if self.client.get_config('hatsune') is False:
@@ -231,8 +234,8 @@ class hatsuneCog(commands.Cog):
         return info
 
     @commands.command(
-        usage = '.chara [name] [*options]', 
-        aliases=['c','ue'],
+        usage = '.character [name] [*options]', 
+        aliases=['c','ue', 'chara'],
         help='Have Ames fetch information on the specified character. Options include: flb'
         )
     async def character(self, ctx, *request):
@@ -936,21 +939,25 @@ class hatsuneCog(commands.Cog):
 
         return embed
 
-    @commands.command(
-        usage='.alias [alias|optional]',
-        help='No description... yet'
+    @commands.group(
+        invoke_without_command=True
     )
-    async def alias(self, ctx, *request):
+    async def alias(self, ctx):
         channel = ctx.channel
         author = ctx.message.author
         active = await self.active_check(channel)
         if not active:
             return
-        with open(os.path.join(dir, '_config/alias.txt')) as af:
-            alias_list = list(ast.literal_eval(af.read()).items())
-            alias_list.sort(key=lambda x: x[1])
+        
+        if ctx.invoked_subcommand is None:
+            with open(os.path.join(dir, '_config/alias_local.txt')) as alf:
+                alocal = ast.literal_eval(alf.read())
+            with open(os.path.join(dir, '_config/alias.txt')) as af:
+                alias_list = ast.literal_eval(af.read())
+                alias_list.update(alocal)
+                alias_list = list(alias_list.items())
+                alias_list.sort(key=lambda x: x[1])
 
-        if len(request) == 0:
             embeds = []
             for chunk in self.chunks(alias_list, 20):
                 embeds.append(self.make_alias_embed([item[0] for item in chunk], [item[1] for item in chunk]))
@@ -1008,7 +1015,64 @@ class hatsuneCog(commands.Cog):
             value="\n".join([self.get_full_name(target) for target in pointer])
         )
         return embed
-            
+    
+    @alias.command()
+    async def add(self, ctx, kw, arg):
+        channel = ctx.channel
+        with open(os.path.join(dir, '_config/alias_local.txt')) as alf:
+            alocal = ast.literal_eval(alf.read())
+        with open(os.path.join(dir, '_config/alias.txt')) as af:
+            alias_list = ast.literal_eval(af.read())
+        
+        if not kw in alocal and not kw in alias_list:
+            alocal[kw] = arg
+            with open(os.path.join(dir, '_config/alias_local.txt'), 'w') as alf:
+                alf.write(str(alocal))
+            self.preprocessor.update(alocal)
+            await channel.send(f"Successfully added alias `{kw}` -> `{arg}` local")
+        elif kw in alocal:
+            await channel.send(f"Alias already exists in local: `{kw}` -> `{alocal[kw]}`")
+        elif kw in alias_list:
+            await channel.send(F"Alias already exists in tracked: `{kw}` -> `{alias_list[kw]}`\nThis cannot be edited")
+        else:
+            pass
+    
+    @alias.command(aliases=['rm'])
+    async def remove(self, ctx, kw):
+        channel = ctx.channel
+        with open(os.path.join(dir,'_config/alias_local.txt'), 'r') as alf:
+            alocal = ast.literal_eval(alf.read())
+        if kw in alocal:
+            arg = alocal[kw]
+            del alocal[kw]
+            del self.preprocessor[kw]
+            with open(os.path.join(dir,'_config/alias_local.txt'), 'w') as alf:
+                alf.write(str(alocal))
+            await channel.send(f"Successfully removed `{kw}` -> `{arg}` local")
+        else:
+            await channel.send(f"No local alias with `{kw}` found.")
+    
+    @alias.command(aliases=['ed'])
+    async def edit(self, ctx, kw, arg):
+        channel = ctx.channel
+        with open(os.path.join(dir,'_config/alias_local.txt'),'r') as alf:
+            alocal = ast.literal_eval(alf.read())
+        if kw in alocal:
+            alocal[kw] = arg
+            self.preprocessor[kw] = arg
+            with open(os.path.join(dir,'_config/alias_local.txt'), 'w') as alf:
+                alf.write(str(alocal))
+            await channel.send(f"Successfully changed alias `{kw}` -> `{arg}` local")
+        else:
+            await channel.send(f"No local alias with `{kw}` found.")
+    
+    @alias.command(aliases=['ck'])
+    async def check(self, ctx, kw):
+        channel = ctx.channel
+        if kw in self.preprocessor:
+            await channel.send(f"Alias `{kw}` -> `{self.preprocessor[kw]}`")
+        else:
+            await channel.send(f"No alias `{kw}` found")
 
 def setup(client):
     client.add_cog(hatsuneCog(client))
