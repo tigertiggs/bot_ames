@@ -1016,6 +1016,34 @@ class hatsuneCog(commands.Cog):
         )
         return embed
     
+    async def kwargcheck(self, kw, arg, channel):
+        maxlen = 12
+        try:
+            kw = kw.lower()
+            arg = arg.lower()
+        except:
+            return False
+
+        if len(kw) > maxlen:
+            await channel.send(f"Key exceeds maximum allowed length ({maxlen})")
+            return False
+        
+        # fetch pointer and check if its connected
+        conn = self.db.db_pointer.get_connection()
+        if not conn.is_connected():
+            await channel.send(self.error()['conn_fail'])
+            await self.logger.send(self.name,'DB connection failed')
+            return False
+
+        # fetch the character lists to check if target is in them
+        c_list, c_jp_list, id_list = self.fetch_list(conn)
+
+        if not arg in c_list and not arg in c_jp_list:
+            await channel.send(f"`{arg}` is not a valid database entry")
+            return False
+        
+        return True
+        
     @alias.command()
     async def add(self, ctx, kw, arg):
         channel = ctx.channel
@@ -1024,7 +1052,13 @@ class hatsuneCog(commands.Cog):
         with open(os.path.join(dir, '_config/alias.txt')) as af:
             alias_list = ast.literal_eval(af.read())
         
-        if not kw in alocal and not kw in alias_list:
+        kw = kw.lower()
+        arg = arg.lower()
+        valid = await self.kwargcheck(kw, arg, channel)
+
+        if not valid:
+            return
+        elif not kw in alocal and not kw in alias_list:
             alocal[kw] = arg
             with open(os.path.join(dir, '_config/alias_local.txt'), 'w') as alf:
                 alf.write(str(alocal))
