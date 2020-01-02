@@ -27,6 +27,10 @@ default_additional = [
     proxyCommand(
         '.help tag',
         'Bring up tag-related help.'
+    ),
+    proxyCommand(
+        '.help alias',
+        'Bring up alias-related help.'
     )
 ]
 
@@ -63,6 +67,31 @@ cb_additional = [
     )
 ]
 
+alias = [
+    proxyCommand(
+        '.alias',
+        'List all local aliases.'
+    ),
+    proxyCommand(
+        '.alias add [keyword] [character]',
+        'Add the following alias to the character. Keyword is case-insensitive and character must match a valid name in the database. The keyword must not already exist.'
+    ),
+    proxyCommand(
+        '.alias remove [keyword]',
+        'Remove the alias.',
+        aliases=['rm']
+    ),
+    proxyCommand(
+        '.alias check [keyword]',
+        'Search for the alias.',
+        aliases=['ck']
+    ),
+    proxyCommand(
+        '.alias edit [keyword] [character]',
+        'Edit the character pointer. Basically functions the same way as .alias add',
+        aliases=['ed']
+    )
+]
 class helpCog(commands.Cog):
     def __init__(self, client):
         self.client = client
@@ -144,6 +173,11 @@ class helpCog(commands.Cog):
         functions = await self.construct_functions(cb, cb_additional)
         await ctx.channel.send(embed=self.make_help_embed(functions,"Clan Battle"))
     
+    @help.command()
+    async def alias(self, ctx):
+        functions = await self.construct_functions([], alias)
+        await ctx.channel.send(embed=self.make_help_embed(functions,"Alias"))
+
     @help.group(
         invoke_without_command=True,
         case_sensitive=False

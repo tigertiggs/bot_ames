@@ -1037,11 +1037,14 @@ class hatsuneCog(commands.Cog):
 
         # fetch the character lists to check if target is in them
         c_list, c_jp_list, id_list = self.fetch_list(conn)
-
+        del id_list
+        
         if not arg in c_list and not arg in c_jp_list:
             await channel.send(f"`{arg}` is not a valid database entry")
+            conn.close()
             return False
-        
+
+        conn.close()
         return True
         
     @alias.command()
