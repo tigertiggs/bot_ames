@@ -696,13 +696,13 @@ class hatsuneCog(commands.Cog):
                 name=   'Description',
                 value=  f"{info['ub2tl']}" if option == 'flb' else 
                         f"{info['ubtl']}",
-                inline= False
+                inline= True
             )
             embed.add_field(
                 name=   'Effect',
                 value=  f"```glsl\n{sk_info['ub2']}```" if option == 'flb' else
                         f"```glsl\n{sk_info['ub']}```",
-                inline= False
+                inline= True
             )
 
             # Skill 1
@@ -715,12 +715,12 @@ class hatsuneCog(commands.Cog):
                 embed.add_field(
                     name=   "Description",
                     value=  f"{info['sk1tl']}",
-                    inline= False
+                    inline= True
                 )
                 embed.add_field(
                     name=   "Effect",
                     value=  f"```glsl\n{sk_info['sk1']}```",
-                    inline= False
+                    inline= True
                 )
             
             # Skill 1+
@@ -733,12 +733,12 @@ class hatsuneCog(commands.Cog):
                 embed.add_field(
                     name=   "Description",
                     value=  f"{info.get('sk1ptl','This character does not have an UE')}",
-                    inline= False
+                    inline= True
                 )
                 embed.add_field(
                     name=   "Effect",
                     value=  f"```glsl\n{sk_info.get('sk1p','N/A')}```",
-                    inline= False
+                    inline= True
                 )
 
             # Skill 2
@@ -750,12 +750,12 @@ class hatsuneCog(commands.Cog):
             embed.add_field(
                 name=   "Description",
                 value=  f"{info['sk2tl']}",
-                inline= False
+                inline= True
             )
             embed.add_field(
                 name=   "Effect",
                 value=  f"```glsl\n{sk_info['sk2']}```",
-                inline= False
+                inline= True
             )
 
         return embed   
