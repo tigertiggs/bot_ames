@@ -1,7 +1,7 @@
 import datetime
 import discord
 from discord.ext import commands
-import asyncio, os, ast
+import asyncio, os, ast, traceback
 dir = os.path.dirname(__file__)
 
 MAX_LEVEL = 140
@@ -233,6 +233,118 @@ class hatsuneCog(commands.Cog):
         cursor.close()
         return info
 
+    def process_sk(self, ski:dict):
+        pski = dict()
+        for key, value in list(ski.items()):
+            if key == 'pro' or key == 'con':
+                if len(value) != 0:
+                    if key == 'pro':
+                        pski[key] = ''.join(['\n+ ' + reason for reason in value])
+                    else:
+                        pski[key] = ''.join(['\n- ' + reason for reason in value])
+                else:
+                    pski[key] = None
+            elif key == 'cyc':
+                pski[key] = ski[key]
+            else:
+                pski[key] = self.read_skill(value)
+        
+        return pski
+
+    def read_skill(self, skills):
+        text = []
+        for skill in skills:
+            typ = skill['type']
+
+            if typ == 'atk':
+                aff, pos = skill['tgt'].split('.')
+                if pos == 'front':
+                    pos = 'frontmost'
+                    if aff == 'a':
+                        aff = 'ally'
+                    else:
+                        aff = 'enemy'
+                elif pos == 'all' or pos == 'range':
+                    if aff == 'a':
+                        aff = 'allies'
+                    else:
+                        aff = 'enemies'
+
+                if pos == 'range':
+                    skt = f"> Inflict {skill['dmg']} {'magic' if skill['attr'] == 'mag' else 'physical'} damage on all {aff} in {pos}"
+                else:
+                    skt = f"> Inflict {skill['dmg']} {'magic' if skill['attr'] == 'mag' else 'physical'} damage on the {pos} {aff}"
+                text.append(skt)
+
+            elif typ == 'buff':
+                for indiv, strength in list(zip(skill['attr'], skill['str'])):
+                    if skill['tgt'] == 'self':
+                        skt = f"> Gain {strength if strength != -1 else ''} {self.get_buff(indiv)} {'up' if strength != -1 else ''} for {skill['dur'] if skill['dur'] != -1 else 'TBC'} seconds"
+                    elif skill['tgt'] == 'all':
+                        skt = f"> Grant {strength if strength != -1 else ''} {self.get_buff(indiv)} {'up' if strength != -1 else ''} for {skill['dur'] if skill['dur'] != -1 else 'TBC'} seconds to all allies"
+                    else:
+                        skt = 'Unknown Skill'
+                    text.append(skt)
+            
+            elif typ == 'debuff':
+                for indiv, strength in list(zip(skill['attr'], skill['str'])):
+
+                    pos = skill['tgt'].split('.')
+                    if len(pos) > 1:
+                        aff, pos = pos
+                        if pos == 'front':
+                            pos = 'frontmost'
+                            if aff == 'a':
+                                aff = 'ally'
+                            else:
+                                aff = 'enemy'
+                        elif pos == 'all' or pos == 'range':
+                            if aff == 'a':
+                                aff = 'allies'
+                            else:
+                                aff = 'enemies'
+                    
+                    if pos == 'self':
+                        pass
+                    elif pos == 'frontmost':
+                        skt = f"> Inflict {strength if strength != -1 else ''} {self.get_buff(indiv)} {'down' if strength != -1 else ''} for {skill['dur'] if skill['dur'] != -1 else 'TBC'} seconds to the frontmost {aff}"
+                    elif pos == 'all':
+                        skt = f"> Inflict {strength if strength != -1 else ''} {self.get_buff(indiv)} {'down' if strength != -1 else ''} for {skill['dur'] if skill['dur'] != -1 else 'TBC'} seconds to all {aff}"
+                    elif pos == 'range':
+                        skt = f"> Inflict {strength if strength != -1 else ''} {self.get_buff(indiv)} {'down' if strength != -1 else ''} for {skill['dur'] if skill['dur'] != -1 else 'TBC'} seconds to all {aff} in range"
+                    else:
+                        skt = 'Unknown Skill'
+                    text.append(skt)
+                    
+            elif typ == 'shield':
+                if skill['tgt'] == 'self':
+                    skt = 'Incomplete Skill'
+                elif skill['tgt'] == 'all':
+                    skt = f"> Deploy a {skill['str']} buffer {'physical' if skill['attr'] == 'phys' else 'magic'} nullification shield to all allies for {skill['dur'] if skill['dur'] != -1 else 'TBC'} seconds"
+                else:
+                    skt = 'Unknown Skill'
+                text.append(skt)
+            
+            else:
+                skt = 'Unknown Skill'
+                text.append(skt)
+
+        return '\n'.join(text)
+            
+    def get_buff(self, cd):
+        return cd.upper()
+
+        """
+        if cd == 'matk':
+            return 'magic attack'
+        elif cd == 'mdef':
+            return 'magic def',
+        elif cd == 'pdef':
+            return 'physical def'
+        else:
+            return cd.upper()
+        """
+
     @commands.command(
         usage = '.character [name] [*options]', 
         aliases=['c','ue', 'chara'],
@@ -278,13 +390,17 @@ class hatsuneCog(commands.Cog):
         pages_title = ['Chara','UE', 'Stats']
         pages = []
         chara_p = [self.make_chara(info, None, pages_title.copy())]
+        stats_p = [self.make_stats(info, pages_title.copy())]
         if 'flb' in info['tag']:
             chara_p.append(self.make_chara(info, 'flb', pages_title.copy()))
+            stats_p.append(self.make_stats(info, pages_title.copy(), 'flb'))
         else:
             chara_p.append(None)
+            stats_p.append(None)
 
         pages.append(chara_p)
         pages.append([self.make_ue(info, pages_title.copy())]*2)
+        pages.append(stats_p)
 
         # check display page
         if ctx.invoked_with == 'ue':
@@ -404,21 +520,22 @@ class hatsuneCog(commands.Cog):
             )
         
         # Skill 1 +
-        embed.add_field(
-            name=   "> **Skill 1+**",
-            value=  f"「{info.get('sk1pjp','soon:tm:')}」",
-            inline= False
-        )
-        embed.add_field(
-            name=   "Description",
-            value=  f"{info.get('sk1p','なし')}",
-            inline= True
-        )
-        embed.add_field(
-            name=   SPACE,
-            value=  f"{info.get('sk1ptl','This character does not have an UE')}",
-            inline= True
-        )
+        if not 'soon' in info.get('sk1ptl', None):
+            embed.add_field(
+                name=   "> **Skill 1+**",
+                value=  f"「{info.get('sk1pjp','soon:tm:')}」",
+                inline= False
+            )
+            embed.add_field(
+                name=   "Description",
+                value=  f"{info.get('sk1p','なし')}",
+                inline= True
+            )
+            embed.add_field(
+                name=   SPACE,
+                value=  f"{info.get('sk1ptl','This character does not have an UE')}",
+                inline= True
+            )
 
         # Skill 2
         embed.add_field(
@@ -520,6 +637,128 @@ class hatsuneCog(commands.Cog):
             embed.set_thumbnail(url='https://redive.estertion.win/icon/equipment/999999.webp')
         
         return embed
+
+    def make_stats(self, info, ph, option=None):
+        ph[ph.index('Stats')] = '**Stats**'
+        try:
+            with open(os.path.join(dir,f"skill/{info['en'].lower()}.txt")) as sf:
+                sk_info = self.process_sk(ast.literal_eval(sf.read()))
+        except Exception as e:
+            print(e)
+            traceback.print_exc()
+            sk_info = None
+        
+        embed = discord.Embed(
+            title="Page Unavailable",
+            description=f"{self.get_full_name(info['en'])}\'s stats page is not available at the moment.",
+            timestamp=datetime.datetime.utcnow()
+        )
+        embed.set_thumbnail(url=info['im'] if option == None else info['im6'])
+        embed.set_author(name='ハツネのメモ帳',icon_url='https://cdn.discordapp.com/avatars/580194070958440448/c0491c103169d0aa99027b2216ee7708.jpg')
+        embed.set_footer(text='Stats Page | SHIN Ames',icon_url=info['im6'] if option == 'flb' else info['im'])
+
+        embed.add_field(
+            name='Section',
+            value=' - '.join(ph),
+            inline=False
+        )
+
+        if sk_info != None:
+            embed.title = "Statistics"
+            embed.description = f"{self.get_full_name(info['en'])}\'s skill and misc stats."
+
+            pattern = []
+            if len(sk_info['cyc'][0]) != 0:
+                pattern.append("Opening\n" + " -> ".join([f"Sk{num+1}" if num != -1 else "Atk" for num in sk_info['cyc'][0]]))
+            if len(sk_info['cyc'][1]) != 0:
+                pattern.append("Loop\n" + " -> ".join([f"Sk{num+1}" if num != -1 else "Atk" for num in sk_info['cyc'][1]]))
+
+            embed.add_field(
+                name="Attack Pattern",
+                value="\n".join(pattern),
+                inline=False
+            )
+
+            embed.add_field(
+                name="Strengths and Weaknesses",
+                value=f"```diff{sk_info['pro'] if sk_info['pro'] != None else ''} {sk_info['con'] if sk_info != None else ''}```",
+                inline=False
+            )
+
+            # UB
+            embed.add_field(
+                name=   "> **Union Burst+**" if option == 'flb' else "> **Union Burst**",
+                value=  f"「{info.get('ub2jp','soon:tm:')}」" if option == 'flb' else 
+                        f"「{info.get('ubjp','soon:tm:')}」",
+                inline= False
+            )
+            embed.add_field(
+                name=   'Description',
+                value=  f"{info['ub2tl']}" if option == 'flb' else 
+                        f"{info['ubtl']}",
+                inline= False
+            )
+            embed.add_field(
+                name=   'Effect',
+                value=  f"```glsl\n{sk_info['ub2']}```" if option == 'flb' else
+                        f"```glsl\n{sk_info['ub']}```",
+                inline= False
+            )
+
+            # Skill 1
+            if option != 'flb':
+                embed.add_field(
+                    name=   "> **Skill 1**",
+                    value=  f"「{info.get('sk1jp','soon:tm:')}」",
+                    inline= False
+                )
+                embed.add_field(
+                    name=   "Description",
+                    value=  f"{info['sk1tl']}",
+                    inline= False
+                )
+                embed.add_field(
+                    name=   "Effect",
+                    value=  f"```glsl\n{sk_info['sk1']}```",
+                    inline= False
+                )
+            
+            # Skill 1+
+            if not 'soon' in info.get('sk1ptl', None):
+                embed.add_field(
+                    name=   "> **Skill 1+**",
+                    value=  f"「{info.get('sk1pjp','soon:tm:')}」",
+                    inline= False
+                )
+                embed.add_field(
+                    name=   "Description",
+                    value=  f"{info.get('sk1ptl','This character does not have an UE')}",
+                    inline= False
+                )
+                embed.add_field(
+                    name=   "Effect",
+                    value=  f"```glsl\n{sk_info.get('sk1p','N/A')}```",
+                    inline= False
+                )
+
+            # Skill 2
+            embed.add_field(
+                name=   "> **Skill 2**",
+                value=  f"「{info.get('sk2jp','soon:tm:')}」",
+                inline= False
+            )
+            embed.add_field(
+                name=   "Description",
+                value=  f"{info['sk2tl']}",
+                inline= False
+            )
+            embed.add_field(
+                name=   "Effect",
+                value=  f"```glsl\n{sk_info['sk2']}```",
+                inline= False
+            )
+
+        return embed   
 
     @commands.command(
         usage='.pos [option]',
@@ -803,10 +1042,10 @@ class hatsuneCog(commands.Cog):
     def make_boss_embed(self, data):
         embed = discord.Embed(
             title=f"{data['jp']}\n{data['en']}",
-            description=data["comment"] if data.get("comment","") is not "" else "No comment as of yet",
+            description=data["comment"] if data.get("comment","") != "" else "No comment as of yet",
             timestamp=datetime.datetime.utcnow()
         )
-        embed.set_thumbnail(url=data["im"] if data.get("im","") is not "" else "https://redive.estertion.win/icon/unit/000001.webp")
+        embed.set_thumbnail(url=data["im"] if data.get("im","") != "" else "https://redive.estertion.win/icon/unit/000001.webp")
         embed.set_author(name='ハツネのメモ帳',icon_url='https://cdn.discordapp.com/avatars/580194070958440448/c0491c103169d0aa99027b2216ee7708.jpg')
         embed.set_footer(text='Boss Info | SHIN Ames')
 

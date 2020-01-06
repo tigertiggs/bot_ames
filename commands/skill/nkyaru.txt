@@ -1,0 +1,52 @@
+{
+    'pro':  [
+        "Attack buff that scales with damage",
+        "Team buff and physical shield"
+    ],
+    'con': [
+        "Hard to improve DPS if cannot UB before buff ends"
+    ],
+    'cyc': [
+        [1,0],
+        [-1,0,1,-1,0,-1]
+    ],
+    'ub': [
+        {
+            'type':     'atk',
+            'attr':     'mag',
+            'dmg':      46372,
+            'tgt':      'e.front',
+        },
+        {
+            'type':      'buff',
+            'attr':     ['matk'],
+            'str':      [1520],
+            'dur':      -1,
+            'tgt':      'self'
+        }
+    ],
+    'sk1': [
+        {
+            'type':     'atk',
+            'attr':     'mag',
+            'dmg':      15457,
+            'tgt':      'e.front'
+        }
+    ],
+    'sk2': [
+        {
+            'type':     'buff',
+            'attr':     ['matk'],
+            'str':      [912],
+            'dur':      -1,
+            'tgt':      'all'
+        },
+        {
+            'type':     'shield',
+            'attr':     'phys',
+            'str':      456,
+            'dur':      -1,
+            'tgt':      'all'
+        }
+    ]
+}

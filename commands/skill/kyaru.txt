@@ -1,0 +1,75 @@
+{
+    'pro': [
+        "High MATK stat",
+        "Multi-purpose debuffs"
+    ],
+    'con': [
+        "Base rarity 1 star",
+        "Niche debuff"
+    ],
+    'cyc': [
+        [1,0],
+        [-1,-1,1,-1,0]
+    ],
+    'ub': [
+        {
+            'type':     'atk',
+            'attr':     'mag',
+            'dmg':      6788,
+            'tgt':      'e.all'
+        }
+    ],
+    'ub2': [
+        {
+            'type':     'atk',
+            'attr':     'mag',
+            'dmg':      'TBC',
+            'tgt':      'e.all'
+        },
+        {
+            'type':     'debuff',
+            'attr':     ['fear'],
+            'str':      [-1],
+            'dur':      'TBC',
+            'tgt':      'e.all'
+        }
+    ],
+    'sk1': [
+        {
+            'type':     'atk',
+            'attr':     'mag',
+            'dmg':      12031,
+            'tgt':      'e.front'
+        }
+    ],
+    'sk1p': [
+        {
+            'type':     'atk',
+            'attr':     'mag',
+            'dmg':      12031,
+            'tgt':      'e.front'
+        },
+        {
+            'type':     'atk',
+            'attr':     'mag',
+            'dmg':      'TBC',
+            'tgt':      'e.range'
+        },
+        {
+            'type':     'debuff',
+            'attr':     ['mdef'],
+            'str':      ['TBC'],
+            'dur':      'TBC',
+            'tgt':      'e.range'
+        }
+    ],
+    'sk2': [
+        {
+            'type':     'debuff',
+            'attr':     ['mdef', 'pdef'],
+            'str':      [44,44],
+            'dur':      'TBC',
+            'tgt':      'e.front'
+        }
+    ]
+}
