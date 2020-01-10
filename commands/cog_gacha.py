@@ -6,7 +6,7 @@ from PIL import Image, GifImagePlugin, ImageDraw, ImageSequence, ImageOps, Image
 dir = os.path.dirname(__file__)
 
 SPACE = '\u200B'
-PRIFES = True
+PRIFES = False
 
 def get_full_name(target):
     if target[1].isupper():
