@@ -334,16 +334,16 @@ class hatsuneCog(commands.Cog):
     def get_buff(self, cd):
         return cd.upper()
 
-        """
-        if cd == 'matk':
-            return 'magic attack'
-        elif cd == 'mdef':
-            return 'magic def',
-        elif cd == 'pdef':
-            return 'physical def'
-        else:
-            return cd.upper()
-        """
+    """
+    if cd == 'matk':
+        return 'magic attack'
+    elif cd == 'mdef':
+        return 'magic def',
+    elif cd == 'pdef':
+        return 'physical def'
+    else:
+        return cd.upper()
+    """
 
     @commands.command(
         usage = '.character [name] [*options]', 
@@ -1253,6 +1253,14 @@ class hatsuneCog(commands.Cog):
             name="Character",
             value="\n".join([self.get_full_name(target) for target in pointer])
         )
+        with open(os.path.join(dir, '_config/alias_local.txt')) as alf:
+            alocal = ast.literal_eval(alf.read())
+
+        embed.add_field(
+            name="Location",
+            value="\n".join(["local" if key in alocal else "master" for key in alias]),
+            inline=True
+        )
         return embed
     
     async def kwargcheck(self, kw, arg, channel):
@@ -1349,6 +1357,27 @@ class hatsuneCog(commands.Cog):
             await channel.send(f"Alias `{kw}` -> `{self.preprocessor[kw]}`")
         else:
             await channel.send(f"No alias `{kw}` found")
+
+    @alias.command()
+    async def prune(self, ctx):
+        channel = ctx.channel
+        with open(os.path.join(dir, '_config/alias.txt')) as af:
+            alias_list = ast.literal_eval(af.read())
+        with open(os.path.join(dir,'_config/alias_local.txt')) as alf:
+            alocal = ast.literal_eval(alf.read())
+        await channel.send('Pruning local list...')
+        for key in list(alias_list.keys()):
+            if key in alocal:
+                await channel.send(f"Deleting master-local conflict `{key}` -> `{alocal[key]}` local")
+                del alocal[key]
+
+        await channel.send('Complete! Reloading dictionary and saving amended local...')
+        self.preprocessor = alias_list
+        self.preprocessor.update(alocal)
+        with open(os.path.join(dir,'_config/alias_local.txt'), 'w') as alf:
+            alf.write(str(alocal))
+
+        await channel.send('Complete!')
 
 def setup(client):
     client.add_cog(hatsuneCog(client))

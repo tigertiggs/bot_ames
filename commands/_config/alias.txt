@@ -26,6 +26,7 @@
 'kasumeme':	    'Kasumi'	,
 'boobs':        'Pecorine'  ,
 'imouto':       'Rino'      ,
-'illya':        'Ilya'
+'illya':        'Ilya'      ,
+'nnk':          'Neneka'    
 }
 
