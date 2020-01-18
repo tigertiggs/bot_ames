@@ -210,6 +210,7 @@ class hatsuneCog(commands.Cog):
             info['ue'] =        ue
         
         # fetch skill names
+        print(info['hnote_id'])
         prefix =    info.get('hnote_id','000000')[:4]
         ub =        '001'
         sk1 =       '002'
@@ -387,20 +388,24 @@ class hatsuneCog(commands.Cog):
         self.db.release(conn)
 
         # construct pages
-        pages_title = ['Chara','UE', 'Stats']
+        pages_title = ['Chara','UE', 'Stats', 'Card']
         pages = []
         chara_p = [self.make_chara(info, None, pages_title.copy())]
         stats_p = [self.make_stats(info, pages_title.copy())]
+        cards_p = [self.make_card(info, pages_title.copy())]
         if 'flb' in info['tag']:
             chara_p.append(self.make_chara(info, 'flb', pages_title.copy()))
             stats_p.append(self.make_stats(info, pages_title.copy(), 'flb'))
+            cards_p.append(self.make_card(info, pages_title.copy(), 'flb'))
         else:
             chara_p.append(None)
             stats_p.append(None)
+            cards_p.append(None)
 
         pages.append(chara_p)
         pages.append([self.make_ue(info, pages_title.copy())]*2)
         pages.append(stats_p)
+        pages.append(cards_p)
 
         # check display page
         if ctx.invoked_with == 'ue':
@@ -639,7 +644,7 @@ class hatsuneCog(commands.Cog):
         return embed
 
     def make_stats(self, info, ph, option=None):
-        ph[ph.index('Stats')] = '**Stats**'
+        ph[ph.index('Stats')] = '**[Stats]**'
         try:
             with open(os.path.join(dir,f"skill/{info['en'].lower()}.txt")) as sf:
                 sk_info = self.process_sk(ast.literal_eval(sf.read()))
@@ -759,6 +764,37 @@ class hatsuneCog(commands.Cog):
             )
 
         return embed   
+
+    def make_card(self, info, ph, option=None):
+        ph[ph.index('Card')] = '**[Card]**'
+
+        embed = discord.Embed(
+            description=f"{info['en']}'s card is currently unavailable {self.emj['dead']}" if option == None else f"{info['en']}'s FLB card is currently unavailable {self.emj['dead']}",
+            title="Card unavailble",
+            timestamp=datetime.datetime.utcnow()
+        )
+        embed.set_thumbnail(url=info['im'] if option == None else info['im6'])
+        embed.set_footer(text='Unit Card Page | SHIN Ames',icon_url=info['im'] if option == None else info['im6'])
+        embed.set_author(name='ハツネのメモ帳',icon_url='https://cdn.discordapp.com/avatars/580194070958440448/c0491c103169d0aa99027b2216ee7708.jpg')
+        embed.add_field(
+            name='Section',
+            value=' - '.join(ph),
+            inline=False
+        )
+        print(info['hnote_id'], type(info['hnote_id']))
+        if info['hnote_id'] != 'None':
+            embed.title = "Unit Card"
+            if option == None:
+                embed.description = f"{info['en']}'s card."
+                link = f"https://redive.estertion.win/card/full/{info['hnote_id'][:4]}31.webp"
+            else:
+                embed.description = f"{info['en']}'s FLB card."
+                link = f"https://redive.estertion.win/card/full/{info['hnote_id'][:4]}61.webp"
+
+            embed.set_image(url=link)
+        
+        return embed
+
 
     @commands.command(
         usage='.pos [option]',
