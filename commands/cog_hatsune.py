@@ -769,7 +769,7 @@ class hatsuneCog(commands.Cog):
         ph[ph.index('Card')] = '**[Card]**'
 
         embed = discord.Embed(
-            description=f"{info['en']}'s card is currently unavailable {self.emj['dead']}" if option == None else f"{info['en']}'s FLB card is currently unavailable {self.emj['dead']}",
+            description=f"{self.get_full_name(info['en'])}'s card is currently unavailable {self.emj['dead']}",
             title="Card unavailble",
             timestamp=datetime.datetime.utcnow()
         )
@@ -785,10 +785,10 @@ class hatsuneCog(commands.Cog):
         if info['hnote_id'] != 'None':
             embed.title = "Unit Card"
             if option == None:
-                embed.description = f"{info['en']}'s card."
+                embed.description = f"{self.get_full_name(info['en'])}'s card."
                 link = f"https://redive.estertion.win/card/full/{info['hnote_id'][:4]}31.webp"
             else:
-                embed.description = f"{info['en']}'s FLB card."
+                embed.description = f"{self.get_full_name(info['en'])}'s FLB (6:star:) card."
                 link = f"https://redive.estertion.win/card/full/{info['hnote_id'][:4]}61.webp"
 
             embed.set_image(url=link)
