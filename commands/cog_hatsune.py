@@ -146,8 +146,8 @@ class hatsuneCog(commands.Cog):
                 "eq_patk, eq_pcrit, eq_matk, eq_mcrit, "
                 "eq_tp_up, eq_tp_cost, eq_hp, eq_pdef, eq_mdef, "
                 "eq_dodge, eq_accuracy, eq_recovery, eq_auto_heal "
-                "FROM hatsune_bot.charadata AS hc LEFT JOIN (hnote.unit_data AS hd JOIN hatsune_bot.charaUE AS hu) "
-                "ON hc.unit_name = hd.unit_name AND hu.unit_id = hc.unit_id "
+                "FROM (hatsune_bot.charadata AS hc LEFT JOIN hatsune_bot.charaUE AS hu ON hu.unit_id = hc.unit_id) LEFT JOIN hnote_test.unit_data AS hd "
+                "ON hc.unit_name = hd.unit_name "
                 "WHERE hc.unit_id = {} "
                 "ORDER BY hd.unit_id ASC LIMIT 1".format(id)
                 )

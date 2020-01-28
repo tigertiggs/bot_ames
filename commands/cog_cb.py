@@ -72,7 +72,7 @@ class cbCog(commands.Cog):
             elif guild_d.get(str(member.top_role.id), None) is 'green':
                 for role in member.roles:
                     if role.id in bosses:
-                        green[f"boss{bosses.index(role.id)+1}"] += green[f"boss{bosses.index(role.id)+1}"] + 1
+                        green[f"boss{bosses.index(role.id)+1}"] = green[f"boss{bosses.index(role.id)+1}"] + 1
             else:
                 continue
                 #print(f"invalid top role {member.top_role.name}")
