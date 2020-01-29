@@ -965,5 +965,66 @@ class shenpCog(commands.Cog):
 
             await channel.send(file=discord.File(os.path.join(dir,'shen/post/bless.png')))
 
+    @commands.command(
+        usage=".amesbless [user|optional]",
+        help="Have Ames bless the specified user. Defaults to self!"
+    )
+    async def amesbless(self, ctx, user:str=None):
+        channel = ctx.channel
+        active = await self.active_check(channel)
+        if not active:
+            return
+        
+        author = ctx.message.author
+        # get user
+        if user != None:
+            target = await self.find_user(ctx.message.guild, user)
+            if target == None:
+                await channel.send('https://cdn.discordapp.com/emojis/617546206662623252.png')
+                return
+            url = target.avatar_url
+        elif user == None:
+            url = author.avatar_url
+        else:
+            await channel.send(self.client.emj['ames'])
+            return
+        
+        async with ctx.typing():
+            ames1 = Image.open(os.path.join(dir,'shen/assets/amesbless_2.png'))
+            ames2 = Image.open(os.path.join(dir,'shen/assets/amesbless_fg.png'))
+
+            avatar = requests.get(url)
+            avatar = Image.open(BytesIO(avatar.content))
+            
+            if avatar.is_animated:
+                avatar.seek(avatar.n_frames//2)
+                avatar = avatar.convert(mode="RGB")
+
+            # mask
+            size = (285,285)
+            #size = (147,147)
+            mask = Image.new('L', size, 0)
+            draw = ImageDraw.Draw(mask) 
+            draw.ellipse((0, 0) + size, fill=255)
+
+            # resize
+            avatar.resize(size, resample=Image.ANTIALIAS)
+
+            # fit mask
+            avatar = ImageOps.fit(avatar, mask.size, centering=(0.5, 0.5))
+            avatar.putalpha(mask)
+
+            # paste and save
+            ames1.paste(avatar, (168,374), avatar)
+            #nozo1.paste(avatar, (80,200), avatar)
+            ames1.paste(ames2, (0,0), ames2)
+            ames1.save(os.path.join(dir,'shen/post/amesbless.png'))
+
+            ames1.close()
+            ames2.close()
+            avatar.close()
+
+            await channel.send(file=discord.File(os.path.join(dir,'shen/post/amesbless.png')))
+
 def setup(client):
     client.add_cog(shenpCog(client))
