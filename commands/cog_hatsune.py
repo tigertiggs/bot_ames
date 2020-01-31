@@ -24,7 +24,8 @@ class hatsuneCog(commands.Cog):
                         "`v` for Valentines i.e. `vshizuru`\n"\
                         "`s` for Summer i.e. `sio`\n"\
                         "`h` for Halloween i.e. `hmiyako`\n"\
-                        "`u` for Uniform i.e. `uaoi`"
+                        "`u` for Uniform i.e. `uaoi`\n"\
+                        "`m` for Magical Girl i.e. `mshiori`"
         self.options =  ['flb']
         with open(os.path.join(dir, '_config/alias_local.txt')) as alf:
             alocal = ast.literal_eval(alf.read())
@@ -90,7 +91,9 @@ class hatsuneCog(commands.Cog):
                 elif prefix ==  'h':
                     prefix =       'Halloween'
                 elif prefix ==  'u':
-                    prefix = '      Uniform'
+                    prefix =        'Uniform'
+                elif prefix ==  'm':
+                    prefix =        'Magical Girl'
                 else:
                     prefix =        "???"
                 return " ".join([prefix, target[1:]])

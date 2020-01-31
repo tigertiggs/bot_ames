@@ -24,7 +24,9 @@ def get_full_name(target):
         elif prefix ==  'h':
             prefix =       'Halloween'
         elif prefix ==  'u':
-            prefix = '      Uniform'
+            prefix =        'Uniform'
+        elif prefix ==  'm':
+            prefix =        'Magical Girl'
         else:
             prefix =        "???"
         return " ".join([prefix, target[1:]])
