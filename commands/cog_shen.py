@@ -44,28 +44,36 @@ class shenCog(commands.Cog):
     
     @commands.command(
         usage='.big [emote]',
-        aliases=['b'],
+        aliases=['b', 'e', 'emote'],
         help='Enlarge the emote.'
     )
     async def big(self, ctx, emote:str=None):
         channel = ctx.channel
         check = await self.active_check(channel)
-        if not check or emote is None:
+        if not check or emote == None:
             return
+        
+        # try extracting id
+        emote1 = emote[1:-1].split(':')
+        if emote1[0] == '' and len(emote1) > 1:
+            link = f"https://cdn.discordapp.com/emojis/{emote1[-1]}.png"
+        elif emote1[0] == 'a' and len(emote1) > 1:
+            link = f"https://cdn.discordapp.com/emojis/{emote1[-1]}.gif"
         else:
-            emote = emote[1:-1].split(':')
-            if emote[0] == '' and len(emote) > 1:
-                link = f"https://cdn.discordapp.com/emojis/{emote[-1]}.png"
-            elif emote[0] == 'a' and len(emote) > 1:
-                link = f"https://cdn.discordapp.com/emojis/{emote[-1]}.gif"
+            targets = list(filter(lambda x: not x.guild_id in [r1,r2,r3] and sm(None, emote.lower(), x.name.lower(), None).ratio() >= 0.4 and emote.lower() in x.name.lower(), self.client.emojis))
+            if len(targets) > 0:
+                emote = targets[0]
+                if not emote.animated:
+                    link = f"https://cdn.discordapp.com/emojis/{emote.id}.png"
+                else:
+                    link = f"https://cdn.discordapp.com/emojis/{emote.id}.gif"
             else:
-                await ctx.message.delete()
-                await channel.send(self.client.emj['ames'])
+                await channel.send('https://cdn.discordapp.com/emojis/617546206662623252.png')
                 return
-
         author = ctx.message.author
         embed = discord.Embed()
         embed.set_author(name=f"{author.name} sent:",icon_url=author.avatar_url)
+        print(link)
         embed.set_image(url=link)
         await ctx.message.delete()
         await channel.send(embed=embed)
@@ -165,6 +173,7 @@ class shenCog(commands.Cog):
         
         return embed
 
+    """
     @commands.command(
         usage=".emoji [emote]",
         aliases=['e'],
@@ -192,6 +201,7 @@ class shenCog(commands.Cog):
             await channel.send(embed=embed)
         else:
             await channel.send('https://cdn.discordapp.com/emojis/617546206662623252.png')
+    """
 
     @commands.command(
         usage=".[REDACTED]",
