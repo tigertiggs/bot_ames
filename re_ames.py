@@ -209,7 +209,8 @@ class Ames(commands.AutoShardedBot):
             await self.process_commands(message)
 
     async def close(self):
-        #await self.session.close()
+        #await super().session.close()
+        #self.database.db_pointer.end()
         await super().close()
 
     def run(self):

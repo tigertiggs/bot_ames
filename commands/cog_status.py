@@ -116,9 +116,9 @@ class statusCog(commands.Cog):
         if not check:
             return
         t1 = time.perf_counter()
-        pong = await channel.send('Pong!')
+        pong = await channel.send(self.client.emj['ames'])
         t2 = time.perf_counter()
-        await pong.edit(content='Pong! ({}ms)'.format(round((t2-t1)*1000)))
+        await pong.edit(content='{} ({}ms)'.format(self.client.emj['ames'], round((t2-t1)*1000)))
     
     @commands.command(
         hidden=True,
@@ -152,6 +152,13 @@ class statusCog(commands.Cog):
             return message.author == self.client.user
         
         await channel.purge(limit=depth, check=is_me)
+    
+    @commands.Cog.listener()
+    async def on_message(self, message):
+        if message.author.bot:
+            return
+        elif self.client.user in message.mentions:
+            await message.channel.send(self.client.emj['ames'])
 
 def setup(client):
     client.add_cog(statusCog(client))

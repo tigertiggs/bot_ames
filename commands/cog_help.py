@@ -122,7 +122,7 @@ class helpCog(commands.Cog):
             timestamp=datetime.datetime.utcnow()
             )
         embed.set_footer(text="Help | SHIN Ames", icon_url=self.client.user.avatar_url)
-        return embed
+        return f"{name}\n{help_embed}"
 
     async def construct_functions(self, cogs:list, cog_additional:list=[], **kwargs):
         functions = []
@@ -161,7 +161,7 @@ class helpCog(commands.Cog):
         
         if ctx.invoked_subcommand is None:
             functions = await self.construct_functions(default, default_additional)
-            await ctx.channel.send(embed=self.make_help_embed(functions, "Active Commands"))
+            await ctx.channel.send(self.make_help_embed(functions, "Active Commands"))
 
     @help.command()
     async def shitpost(self, ctx):
