@@ -1,11 +1,31 @@
 import datetime
 import discord
 from discord.ext import commands
-import asyncio, os, ast, traceback
+import asyncio, os, ast, traceback, time, json, requests
+from io import BytesIO
 dir = os.path.dirname(__file__)
 
 MAX_LEVEL = 140
 SPACE = '\u200B'
+ue_prop = [
+    "hp",
+    "atk",
+    "matk",
+    "def",
+    "mdef",
+    "pCrit",
+    "mCrit",
+    "wHpRec",
+    "wTpRec",
+    "dodge",
+    "pPen",
+    "mPen",
+    "lifesteal",
+    "hpRec",
+    "tpRec",
+    "tpSave",
+    "acc"
+]
 
 class hatsuneCog(commands.Cog):
     def __init__(self, client):
@@ -115,10 +135,46 @@ class hatsuneCog(commands.Cog):
                 prefix =       'Halloween'
             elif prefix ==  'u':
                 prefix = '      Uniform'
+            elif prefix ==  'm':
+                prefix =        'Magical Girl'
             else:
                 prefix =        "???"
             return prefix
     
+    @commands.command()
+    async def updateindex(self, ctx):
+        channel = ctx.channel
+        conn = self.db.db_pointer.get_connection()
+
+        if not conn.is_connected():
+            await channel.send(self.error()['conn_fail'])
+            await self.logger.send(self.name,'DB connection failed')
+            return
+        
+        query = "SELECT unit_id, unit_name, unit_name_eng FROM hatsune_bot.charadata"
+
+        id_list, name_list, nametl_list = [], [], []
+
+        cursor = conn.cursor()
+        cursor.execute(query)
+        for uid, name, nametl in cursor:
+            id_list.append(uid)
+            name_list.append(name.lower())
+            nametl_list.append(nametl.lower())
+        
+        self.db.release(conn)
+        
+        with open(os.path.join(dir, 'data/unit_list/uid.txt'), 'w+') as uf:
+            uf.write(str(id_list))
+        with open(os.path.join(dir, 'data/unit_list/name.txt'), 'w+') as nf:
+            nf.write(str(name_list))
+        with open(os.path.join(dir, 'data/unit_list/nametl.txt'), 'w+') as ntf:
+            ntf.write(str(nametl_list))
+        
+        await channel.send('Updated master index')
+
+    # outdated
+    """
     def fetch_list(self, conn):
         chara_list, chara_list_jp, id_list = [], [], []
         cursor = conn.cursor()
@@ -131,7 +187,117 @@ class hatsuneCog(commands.Cog):
             id_list.append(str(id))
         cursor.close()
         return chara_list, chara_list_jp, id_list
-    
+    """
+
+    async def validate_entry(self, target, channel):
+        with open(os.path.join(dir,'data/unit_list/name.txt')) as nf:
+            jp_list = ast.literal_eval(nf.read())
+
+        with open(os.path.join(dir,'data/unit_list/nametl.txt')) as nf:
+            en_list = ast.literal_eval(nf.read())
+
+        with open(os.path.join(dir,'data/unit_list/uid.txt')) as nf:
+            id_list = ast.literal_eval(nf.read())
+        
+        #print(target, type(en_list))
+
+        if not target in jp_list and not target in en_list:
+            await channel.send(self.error()['search_fail'])
+            await self.logger.send(self.name, 'failed to find', target)
+            return False
+        elif target in en_list:
+            pos = en_list.index(target)
+            target_id = id_list[en_list.index(target)]
+        else:
+            pos = jp_list.index(target)
+            target_id = id_list[jp_list.index(target)]
+        
+        return {'id':target_id, 'en':en_list[pos], 'jp':jp_list[pos]}
+
+    async def fetch_data_kai(self, info, conn):
+        global MAX_LEVEL
+        #ue = dict()
+        t0 = time.perf_counter()
+        query = ("SELECT "
+                    "hc.unit_name_eng, ub_trans, ub_2_trans, "
+                    "skill_1_translation, skill_1_plus_trans, skill_2_trans, "
+                    "comment_trans, tag, "
+                    "eq_name_trans, eq_rank "
+                "FROM "
+                    "hatsune_bot.charadata AS hc LEFT JOIN hatsune_bot.charaUE AS hu "
+                "ON "
+                    "hu.unit_id = hc.unit_id "
+                "WHERE "
+                    "hc.unit_id = {} "
+                "LIMIT 1")
+        cursor = conn.cursor(buffered=True)
+        cursor.execute(query.format(info['id']))
+
+        for (en, ubtl, ub2tl, sk1tl, sk1ptl, sk2tl, cmtl, tag, ueen, uerank) in cursor:
+            info['en'] =            en
+            info['ubtl'] =          ubtl
+            info['ub2tl'] =         ub2tl
+            info['sk1tl'] =         sk1tl
+            info['sk1ptl'] =        sk1ptl
+            info['sk2tl'] =         sk2tl
+            info['cmtl'] =          cmtl
+            info['tag'] =           [c.strip() for c in tag.split(',')]
+            info['ue_en'] =         ueen
+            info['ue_rank'] =       uerank
+
+        print(f"Fetch TL data - {(time.perf_counter()-t0)*1000}ms")
+        t0 = time.perf_counter()
+
+        with open(os.path.join(dir, '_config/port.txt'), 'r') as pf:
+            port = pf.read().strip()
+
+        name = info['jp']
+        if port != 'default':
+            request = f"http://localhost:{port}/FagUtils/gateway.php?cmd=priconne.api&call=api.fetch&name={name}"
+        else:
+            request = f"http://localhost/FagUtils/gateway.php?cmd=priconne.api&call=api.fetch&name={name}"
+        
+        try:
+            result = requests.get(request)
+            raw = json.load(BytesIO(result.content))
+        except Exception as e:
+            await self.logger.send('failed to fetch data: ', e)
+            return False
+        
+        MAX_LEVEL =             raw['config']['UE_MAX']
+        info['hnote_id'] =      raw['data']['unit_profile']['id']
+        info['cm'] =            raw['data']['unit_profile']['comment'].replace('\\n', '')
+
+        # UE
+        info['ue'] =            raw['data']['unique_equipment']
+        #info['ue_id'] =         ue_raw.gets('ue_id', None)
+        #info['ue_jp'] =         ue_raw.gets('ue_name', None)
+
+        # Skills
+        sk_raw =                raw['data']['skill_data']
+        info['ubjp'] =          sk_raw['Union Burst']['skill_name']
+        info['ub'] =            sk_raw['Union Burst']['description']
+        info['sk1jp'] =         sk_raw['Skill 1']['skill_name']
+        info['sk1'] =           sk_raw['Skill 1']['description']
+        info['sk2jp'] =         sk_raw['Skill 2']['skill_name']
+        info['sk2'] =           sk_raw['Skill 2']['description']
+
+        ub2_raw =               sk_raw.get('Union Burst+', dict())
+        info['ub2jp'] =         ub2_raw.get('skill_name', None)
+        info['ub2'] =           ub2_raw.get('description', None)
+
+        sk1p_raw =              sk_raw.get("Skill 1+", dict())
+        info['sk1pjp'] =        sk1p_raw.get("skill_name", None)
+        info['sk1p'] =          sk1p_raw.get("description", None)
+
+        info['im'] =            'https://redive.estertion.win/icon/unit/{}31.webp'.format(info['hnote_id'])
+        info['im6'] =           'https://redive.estertion.win/icon/unit/{}61.webp'.format(info['hnote_id']) if 'flb' in info['tag'] else None
+        info['ue_im'] =         'https://redive.estertion.win/icon/equipment/{}.webp'.format(info['ue']['ue_id']) if info['ue'].get('ue_id', None) != None else None
+
+        print(f"Fetch JSON data - {(time.perf_counter()-t0)*1000}ms")
+        return info
+
+    """
     def fetch_data(self, id, conn):
         # fetch all data except skill names
         query = ("SELECT "
@@ -237,6 +403,7 @@ class hatsuneCog(commands.Cog):
         cursor.close()
         return info
 
+    
     def process_sk(self, ski:dict):
         pski = dict()
         for key, value in list(ski.items()):
@@ -338,7 +505,6 @@ class hatsuneCog(commands.Cog):
     def get_buff(self, cd):
         return cd.upper()
 
-    """
     if cd == 'matk':
         return 'magic attack'
     elif cd == 'mdef':
@@ -357,24 +523,21 @@ class hatsuneCog(commands.Cog):
     async def character(self, ctx, *request):
         channel = ctx.channel
         author = ctx.message.author
+
         request = [i.lower() for i in request]
         #print(request)
         # check if command is enabled
+
         check = await self.active_check(channel)
         if not check:
             return
 
-        # fetch pointer and check if its connected
-        conn = self.db.db_pointer.get_connection()
-        if not conn.is_connected():
-            await channel.send(self.error()['conn_fail'])
-            await self.logger.send(self.name,'DB connection failed')
-            return
-        
+        t0 = time.perf_counter()
         # preprocess the args - check for aliases
         target, option = await self.process_input(request,channel)
 
         # fetch the character lists to check if target is in them
+        """
         c_list, c_jp_list, id_list = self.fetch_list(conn)
         if not target in c_list and not target in c_jp_list:
             await channel.send(self.error()['search_fail'])
@@ -384,30 +547,52 @@ class hatsuneCog(commands.Cog):
             target_id = id_list[c_list.index(target)]
         else:
             target_id = id_list[c_jp_list.index(target)]
+        """
+        chara = await self.validate_entry(target, channel)
+        if chara == False:
+            return
         
+        print(f"Verify input - {(time.perf_counter()-t0)*1000}ms")
+        t0 = time.perf_counter()
+        
+        # fetch pointer and check if its connected
+        t0 = time.perf_counter()
+        conn = self.db.db_pointer.get_connection()
+        if not conn.is_connected():
+            await channel.send(self.error()['conn_fail'])
+            await self.logger.send(self.name,'DB connection failed')
+            return
+        
+        print(f"Acquiring connection - {(time.perf_counter()-t0)*1000}ms")
+    
         # fetch all information
-        print(target_id)
-        info = self.fetch_data(target_id, conn)
-        self.db.release(conn)
+        #print(target_id)
+        #info = self.fetch_data(target_id, conn)
+        info = await self.fetch_data_kai(chara, conn)
+        if info == False:
+            await channel.send('Failed to acquire data ' + self.client.emj['sarens'])
+            self.db.release(conn)
+            return
 
+        t0 = time.perf_counter()
         # construct pages
         pages_title = ['Chara','UE', 'Stats', 'Card']
         pages = []
         chara_p = [self.make_chara(info, None, pages_title.copy())]
-        stats_p = [self.make_stats(info, pages_title.copy())]
+        #stats_p = [self.make_stats(info, pages_title.copy())]
         cards_p = [self.make_card(info, pages_title.copy())]
         if 'flb' in info['tag']:
             chara_p.append(self.make_chara(info, 'flb', pages_title.copy()))
-            stats_p.append(self.make_stats(info, pages_title.copy(), 'flb'))
+            #stats_p.append(self.make_stats(info, pages_title.copy(), 'flb'))
             cards_p.append(self.make_card(info, pages_title.copy(), 'flb'))
         else:
             chara_p.append(None)
-            stats_p.append(None)
+            #stats_p.append(None)
             cards_p.append(None)
 
         pages.append(chara_p)
         pages.append([self.make_ue(info, pages_title.copy())]*2)
-        pages.append(stats_p)
+        #pages.append(stats_p)
         pages.append(cards_p)
 
         # check display page
@@ -422,10 +607,15 @@ class hatsuneCog(commands.Cog):
         else:
             flbmode = 0
 
+        print(f"Ready to send - {(time.perf_counter()-t0)*1000}ms")
+        #t0 = time.perf_counter()
+
         if front == 'Chara':
             page = await channel.send(embed=pages[0][flbmode])
         else:
             page = await channel.send(embed=pages[1][flbmode])
+        
+        self.db.release(conn)
         
         reactions = ['⬅','➡','⭐'] if 'flb' in info['tag'] else ['⬅','➡']
         for arrow in reactions:
@@ -570,6 +760,47 @@ class hatsuneCog(commands.Cog):
         )
         return embed
     
+    def ue_abbrev(self, abbr):
+        #abbr = abbr.lower()
+        if abbr ==      'hp':
+            return              'HP'
+        elif abbr ==    'atk':
+            return              'PHYS ATK'
+        elif abbr ==    'matk':
+            return              'MAG ATK'
+        elif abbr ==    'def':
+            return              'PHYS DEF'
+        elif abbr ==    'mdef':
+            return              'MAG DEF'
+        elif abbr ==    'pCrit':
+            return              'PHYS CRIT'
+        elif abbr ==    'mCrit':
+            return              'MAG CRIT'
+        elif abbr ==    'wHpRec':
+            return              'HP RECV (p/wave)'
+        elif abbr ==    'wTpRec':
+            return              'TP RECV (p/wave)'
+        elif abbr ==    'dodge':
+            return              'DODGE'
+        elif abbr ==    'pPen':
+            return              'PHYS PENETRATION'
+        elif abbr ==    'mPen':
+            return              'MAG PENETRATION'
+        elif abbr ==    'lifesteal':
+            return              'HP STEAL'
+        elif abbr ==    'hpRec':
+            return              'HP RECV'
+        elif abbr ==    'tpRec':
+            return              'TP RECV'
+        elif abbr ==    'tpSave':
+            return              'UB EFFCY'
+        elif abbr ==    'acc':
+            return              'ACCURACY'
+        else:
+            return      abbr.upper()
+        
+
+
     def make_ue(self, info, ph):
         ph[ph.index('UE')] = '**[UE]**'
 
@@ -582,7 +813,7 @@ class hatsuneCog(commands.Cog):
             inline=False
         )
         if 'ue' in info['tag']:
-            embed.title=        f"{info['ue_jp']}\n{info['ue_en']}"
+            embed.title=        f"{info['ue']['ue_name']}\n{info['ue_en']}"
             embed.description=  f"{self.get_full_name(info['en'])}\'s unique equipment."
             embed.set_thumbnail(url=info['ue_im'])
 
@@ -600,12 +831,18 @@ class hatsuneCog(commands.Cog):
 
             # STATS
             for field, value in list(info['ue'].items()):
-                if value != None:
+                if field in ue_prop:
+                    try:
+                        final_val = round(float(value) + float(info['ue'][f"{field.lower()}_growth"]) * (MAX_LEVEL-1))
+                    except:
+                        final_val = round(float(value) + float(info['ue'][f"{field}_growth"]) * (MAX_LEVEL-1))
+
                     embed.add_field(
-                        name=field,
-                        value=value,
+                        name=self.ue_abbrev(field),
+                        value=f"{value}/{final_val}",
                         inline=True
                     )
+            
 
             # Skill 1
             embed.add_field(
@@ -646,6 +883,7 @@ class hatsuneCog(commands.Cog):
         
         return embed
 
+    """
     def make_stats(self, info, ph, option=None):
         ph[ph.index('Stats')] = '**[Stats]**'
         try:
@@ -767,6 +1005,7 @@ class hatsuneCog(commands.Cog):
             )
 
         return embed   
+    """
 
     def make_card(self, info, ph, option=None):
         ph[ph.index('Card')] = '**[Card]**'
@@ -784,7 +1023,7 @@ class hatsuneCog(commands.Cog):
             value=' - '.join(ph),
             inline=False
         )
-        print(info['hnote_id'], type(info['hnote_id']))
+        #print(info['hnote_id'], type(info['hnote_id']))
         if info['hnote_id'] != 'None':
             embed.title = "Unit Card"
             if option == None:
@@ -825,6 +1064,7 @@ class hatsuneCog(commands.Cog):
         target = target[0]
 
         # fetch the character lists to check if target is in them
+        """
         c_list, c_jp_list, id_list = self.fetch_list(conn)
         if target in c_list:
             target_id = id_list[c_list.index(target)]
@@ -832,6 +1072,11 @@ class hatsuneCog(commands.Cog):
             target_id = id_list[c_jp_list.index(target)]
         else:
             target_id = None
+        """
+        chara = await self.validate_entry(target, channel)
+        if chara == False:
+            return
+        target_id = chara['id']
         
         # check if 
         if target_id == None:
@@ -935,6 +1180,7 @@ class hatsuneCog(commands.Cog):
         target, option = await self.process_input(request,channel)
 
         # fetch the character lists to check if target is in them
+        """
         c_list, c_jp_list, id_list = self.fetch_list(conn)
         if target in c_list:
             target_id = id_list[c_list.index(target)]
@@ -942,6 +1188,11 @@ class hatsuneCog(commands.Cog):
             target_id = id_list[c_jp_list.index(target)]
         else:
             target_id = None
+        """
+        chara = await self.validate_entry(target, channel)
+        if chara == False:
+            return
+        target_id = chara['id']
 
         if target_id == None:
             await channel.send(embed=self.tag_search(conn, request))
@@ -1322,9 +1573,21 @@ class hatsuneCog(commands.Cog):
             return False
 
         # fetch the character lists to check if target is in them
+        """
         c_list, c_jp_list, id_list = self.fetch_list(conn)
         del id_list
+        """
+        chara = await self.validate_entry(arg, channel)
+        if chara == False:
+            await channel.send(f"`{arg}` is not a valid database entry")
+            conn.close()
+            return
+        else:
+            conn.close()
+            return True
         
+
+        """
         if not arg in c_list and not arg in c_jp_list:
             await channel.send(f"`{arg}` is not a valid database entry")
             conn.close()
@@ -1332,6 +1595,7 @@ class hatsuneCog(commands.Cog):
 
         conn.close()
         return True
+        """
         
     @alias.command()
     async def add(self, ctx, kw, arg):
