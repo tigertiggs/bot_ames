@@ -212,10 +212,23 @@ class Ames(commands.AutoShardedBot):
                 self, datetime.datetime.now(), message))
             await self.process_commands(message)
 
-    async def close(self):
-        #await super().session.close()
-        #self.database.db_pointer.end()
-        await super().close()
+    async def on_command_error(self, ctx, error):
+        ignored = (commands.CommandNotFound, commands.UserInputError)
+        error = getattr(error, 'original', error)
+        #print(error)
+        #_errlog(ctx, str(error), __log)
+        if isinstance(error, ignored):
+            return
+        elif isinstance(error, commands.DisabledCommand):
+            await ctx.channel.send('I\'m currently taking a break '+emj['dead'])
+            return
+        else:
+            await self.log.send('command error:', error)
+
+        async def close(self):
+            #await super().session.close()
+            #self.database.db_pointer.end()
+            await super().close()
 
     def run(self):
         try:
@@ -246,7 +259,7 @@ class Ames(commands.AutoShardedBot):
             await asyncio.sleep(switchtime)
             await self.change_presence(activity=random.choice(act_list))
             await asyncio.sleep(switchtime)
-    
+
 if __name__ == "__main__":
     AmesBot = Ames()
     AmesBot.run()
