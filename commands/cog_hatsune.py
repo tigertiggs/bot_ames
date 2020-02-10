@@ -217,7 +217,7 @@ class hatsuneCog(commands.Cog):
     async def fetch_data_kai(self, info, conn):
         global MAX_LEVEL
         #ue = dict()
-        t0 = time.perf_counter()
+        #t0 = time.perf_counter()
         query = ("SELECT "
                     "hc.unit_name_eng, ub_trans, ub_2_trans, "
                     "skill_1_translation, skill_1_plus_trans, skill_2_trans, "
@@ -245,17 +245,16 @@ class hatsuneCog(commands.Cog):
             info['ue_en'] =         ueen
             info['ue_rank'] =       uerank
 
-        print(f"Fetch TL data - {(time.perf_counter()-t0)*1000}ms")
-        t0 = time.perf_counter()
-
-        with open(os.path.join(dir, '_config/port.txt'), 'r') as pf:
-            port = pf.read().strip()
+        #print(f"Fetch TL data - {(time.perf_counter()-t0)*1000}ms")
+        #t0 = time.perf_counter()
 
         name = info['jp']
-        if port != 'default':
-            request = f"http://localhost:{port}/FagUtils/gateway.php?cmd=priconne.api&call=api.fetch&name={name}"
-        else:
-            request = f"http://localhost/FagUtils/gateway.php?cmd=priconne.api&call=api.fetch&name={name}"
+        with open(os.path.join(dir, '_config/port.txt'), 'r') as pf:
+            port = pf.read().strip()
+            if port != 'default':
+                request = f"http://localhost:{port}/FagUtils/gateway.php?cmd=priconne.api&call=api.fetch&name={name}"
+            else:
+                request = f"http://localhost/FagUtils/gateway.php?cmd=priconne.api&call=api.fetch&name={name}"
         
         try:
             result = requests.get(request)
@@ -294,7 +293,8 @@ class hatsuneCog(commands.Cog):
         info['im6'] =           'https://redive.estertion.win/icon/unit/{}61.webp'.format(info['hnote_id']) if 'flb' in info['tag'] else None
         info['ue_im'] =         'https://redive.estertion.win/icon/equipment/{}.webp'.format(info['ue']['ue_id']) if info['ue'].get('ue_id', None) != None else None
 
-        print(f"Fetch JSON data - {(time.perf_counter()-t0)*1000}ms")
+        #print(f"Fetch JSON data - {(time.perf_counter()-t0)*1000}ms")
+        #print(f"target: {info['en']} {info['jp']} {info['hnote_id']}")
         return info
 
     """
@@ -532,7 +532,7 @@ class hatsuneCog(commands.Cog):
         if not check:
             return
 
-        t0 = time.perf_counter()
+        #t0 = time.perf_counter()
         # preprocess the args - check for aliases
         target, option = await self.process_input(request,channel)
 
@@ -552,8 +552,8 @@ class hatsuneCog(commands.Cog):
         if chara == False:
             return
         
-        print(f"Verify input - {(time.perf_counter()-t0)*1000}ms")
-        t0 = time.perf_counter()
+        #print(f"Verify input - {(time.perf_counter()-t0)*1000}ms")
+        #t0 = time.perf_counter()
         
         # fetch pointer and check if its connected
         t0 = time.perf_counter()
@@ -563,7 +563,7 @@ class hatsuneCog(commands.Cog):
             await self.logger.send(self.name,'DB connection failed')
             return
         
-        print(f"Acquiring connection - {(time.perf_counter()-t0)*1000}ms")
+        #print(f"Acquiring connection - {(time.perf_counter()-t0)*1000}ms")
     
         # fetch all information
         #print(target_id)
@@ -607,7 +607,7 @@ class hatsuneCog(commands.Cog):
         else:
             flbmode = 0
 
-        print(f"Ready to send - {(time.perf_counter()-t0)*1000}ms")
+        #print(f"Ready to send - {(time.perf_counter()-t0)*1000}ms")
         #t0 = time.perf_counter()
 
         if front == 'Chara':
@@ -798,8 +798,6 @@ class hatsuneCog(commands.Cog):
             return              'ACCURACY'
         else:
             return      abbr.upper()
-        
-
 
     def make_ue(self, info, ph):
         ph[ph.index('UE')] = '**[UE]**'
@@ -832,10 +830,13 @@ class hatsuneCog(commands.Cog):
             # STATS
             for field, value in list(info['ue'].items()):
                 if field in ue_prop:
+                    #print(info['ue'])
                     try:
                         final_val = round(float(value) + float(info['ue'][f"{field.lower()}_growth"]) * (MAX_LEVEL-1))
                     except:
-                        final_val = round(float(value) + float(info['ue'][f"{field}_growth"]) * (MAX_LEVEL-1))
+                        final_val = round(float(value) + float(info['ue'].get(f"{field}_growth",0)) * (MAX_LEVEL-1))
+                        if info['ue'].get(f"{field}_growth",0) == 0:
+                            print(f"ue - {field} growth stat is 0 or not found: {info['en']}")
 
                     embed.add_field(
                         name=self.ue_abbrev(field),

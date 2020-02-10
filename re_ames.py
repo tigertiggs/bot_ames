@@ -82,6 +82,10 @@ class Ames(commands.AutoShardedBot):
             print('creating commands/_config/alias_local.txt...')
             with open(os.path.join(dir_path,'commands/_config/alias_local.txt'), 'w+') as alf:
                 alf.write('{}')
+        if not os.path.exists(os.path.join(dir_path,'commands/_config/port.txt')):
+            print('creating commands/_config/port.txt...')
+            with open(os.path.join(dir_path,'commands/_config/port.txt'), 'w+') as pf:
+                pf.write('default')
         print('finshed!')
         # add more checks here
 
