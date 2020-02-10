@@ -160,7 +160,7 @@ class hatsuneCog(commands.Cog):
             cursor.execute(query)
             for uid, name, nametl in cursor:
                 id_list.append(uid)
-                name_list.append(name.lower())
+                name_list.append(name)
                 nametl_list.append(nametl.lower())
         except Exception as e:
             await channel.send('Failed to update index')
@@ -170,7 +170,7 @@ class hatsuneCog(commands.Cog):
         
         with open(os.path.join(dir, 'data/unit_list/uid.txt'), 'w+') as uf:
             uf.write(str(id_list))
-        with open(os.path.join(dir, 'data/unit_list/name.txt'), 'w+') as nf:
+        with open(os.path.join(dir, 'data/unit_list/name.txt'), 'w+', encoding="utf-8") as nf:
             nf.write(str(name_list))
         with open(os.path.join(dir, 'data/unit_list/nametl.txt'), 'w+') as ntf:
             ntf.write(str(nametl_list))

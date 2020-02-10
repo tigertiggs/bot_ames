@@ -223,7 +223,7 @@ class Ames(commands.AutoShardedBot):
             await ctx.channel.send('I\'m currently taking a break '+self.emj['dead'])
             return
         else:
-            await self.log.send('command error in', ctx.command.name, "-", error, '\n', traceback.format_exc())
+            await self.log.send('command error in', ctx.command.name, "-", error)
 
     async def close(self):
         #await super().session.close()
