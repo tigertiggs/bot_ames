@@ -155,14 +155,18 @@ class hatsuneCog(commands.Cog):
 
         id_list, name_list, nametl_list = [], [], []
 
-        cursor = conn.cursor()
-        cursor.execute(query)
-        for uid, name, nametl in cursor:
-            id_list.append(uid)
-            name_list.append(name.lower())
-            nametl_list.append(nametl.lower())
-        
-        self.db.release(conn)
+        try:
+            cursor = conn.cursor()
+            cursor.execute(query)
+            for uid, name, nametl in cursor:
+                id_list.append(uid)
+                name_list.append(name.lower())
+                nametl_list.append(nametl.lower())
+        except Exception as e:
+            await channel.send('Failed to update index')
+            await self.logger.send('updateindex - ', e)
+            self.db.release(conn)
+            return
         
         with open(os.path.join(dir, 'data/unit_list/uid.txt'), 'w+') as uf:
             uf.write(str(id_list))
@@ -548,6 +552,7 @@ class hatsuneCog(commands.Cog):
         else:
             target_id = id_list[c_jp_list.index(target)]
         """
+
         chara = await self.validate_entry(target, channel)
         if chara == False:
             return
@@ -556,7 +561,7 @@ class hatsuneCog(commands.Cog):
         #t0 = time.perf_counter()
         
         # fetch pointer and check if its connected
-        t0 = time.perf_counter()
+        #t0 = time.perf_counter()
         conn = self.db.db_pointer.get_connection()
         if not conn.is_connected():
             await channel.send(self.error()['conn_fail'])
@@ -568,13 +573,16 @@ class hatsuneCog(commands.Cog):
         # fetch all information
         #print(target_id)
         #info = self.fetch_data(target_id, conn)
-        info = await self.fetch_data_kai(chara, conn)
+        try:
+            info = await self.fetch_data_kai(chara, conn)
+        except Exception as e:
+            await self.logger.send('chara - ', e)
         if info == False:
             await channel.send('Failed to acquire data ' + self.client.emj['sarens'])
             self.db.release(conn)
             return
 
-        t0 = time.perf_counter()
+        #t0 = time.perf_counter()
         # construct pages
         pages_title = ['Chara','UE', 'Stats', 'Card']
         pages = []
