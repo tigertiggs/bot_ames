@@ -220,15 +220,15 @@ class Ames(commands.AutoShardedBot):
         if isinstance(error, ignored):
             return
         elif isinstance(error, commands.DisabledCommand):
-            await ctx.channel.send('I\'m currently taking a break '+emj['dead'])
+            await ctx.channel.send('I\'m currently taking a break '+self.emj['dead'])
             return
         else:
-            await self.log.send('command error:', error)
+            await self.log.send('command error:', ctx.command.name, error)
 
-        async def close(self):
-            #await super().session.close()
-            #self.database.db_pointer.end()
-            await super().close()
+    async def close(self):
+        #await super().session.close()
+        #self.database.db_pointer.end()
+        await super().close()
 
     def run(self):
         try:
