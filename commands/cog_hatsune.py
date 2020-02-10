@@ -194,7 +194,7 @@ class hatsuneCog(commands.Cog):
     """
 
     async def validate_entry(self, target, channel):
-        with open(os.path.join(dir,'data/unit_list/name.txt')) as nf:
+        with open(os.path.join(dir,'data/unit_list/name.txt'), encoding="utf-8") as nf:
             jp_list = ast.literal_eval(nf.read())
 
         with open(os.path.join(dir,'data/unit_list/nametl.txt')) as nf:
@@ -298,7 +298,7 @@ class hatsuneCog(commands.Cog):
         info['ue_im'] =         'https://redive.estertion.win/icon/equipment/{}.webp'.format(info['ue']['ue_id']) if info['ue'].get('ue_id', None) != None else None
 
         #print(f"Fetch JSON data - {(time.perf_counter()-t0)*1000}ms")
-        #print(f"target: {info['en']} {info['jp']} {info['hnote_id']}")
+        await self.logger.send(f"target: {info['en']} {info['jp']} {info['hnote_id']}")
         return info
 
     """
