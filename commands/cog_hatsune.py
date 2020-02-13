@@ -193,7 +193,7 @@ class hatsuneCog(commands.Cog):
         return chara_list, chara_list_jp, id_list
     """
 
-    async def validate_entry(self, target, channel):
+    async def validate_entry(self, target, channel, suppress=False):
         with open(os.path.join(dir,'data/unit_list/name.txt'), encoding="utf-8") as nf:
             jp_list = ast.literal_eval(nf.read())
 
@@ -206,8 +206,9 @@ class hatsuneCog(commands.Cog):
         #print(target, type(en_list))
 
         if not target in jp_list and not target in en_list:
-            await channel.send(self.error()['search_fail'])
-            await self.logger.send(self.name, 'failed to find', target)
+            if not suppress:
+                await channel.send(self.error()['search_fail'])
+                await self.logger.send(self.name, 'failed to find', target)
             return False
         elif target in en_list:
             pos = en_list.index(target)
@@ -407,7 +408,6 @@ class hatsuneCog(commands.Cog):
         cursor.close()
         return info
 
-    
     def process_sk(self, ski:dict):
         pski = dict()
         for key, value in list(ski.items()):
@@ -1198,15 +1198,11 @@ class hatsuneCog(commands.Cog):
         else:
             target_id = None
         """
-        chara = await self.validate_entry(target, channel)
+        chara = await self.validate_entry(target, channel, True)
         if chara == False:
-            return
-        target_id = chara['id']
-
-        if target_id == None:
             await channel.send(embed=self.tag_search(conn, request))
         else:
-            await channel.send(embed=self.tag_chara(conn, target_id, option))
+            await channel.send(embed=self.tag_chara(conn, chara['id'], option))
         
         self.db.release(conn)
         
@@ -1254,7 +1250,7 @@ class hatsuneCog(commands.Cog):
         for names in list(self.chunks(charas,20)):
             embed.add_field(
                 name="Characters",
-                value="\n".join([f"{self.client.get_team()[en.lower()]} {self.get_full_name(en)}" for en in names]),
+                value="\n".join([f"{self.client.get_team().get(en.lower(),':question:')} {self.get_full_name(en)}" for en in names]),
                 inline=True
             )
         return embed
