@@ -225,7 +225,7 @@ class hatsuneCog(commands.Cog):
         #t0 = time.perf_counter()
         query = ("SELECT "
                     "hc.unit_name_eng, ub_trans, ub_2_trans, "
-                    "skill_1_translation, skill_1_plus_trans, skill_2_trans, "
+                    "skill_1_translation, skill_1_plus_trans, skill_2_trans, sk1a_trans, sk2a_trans, "
                     "comment_trans, tag, "
                     "eq_name_trans, eq_rank "
                 "FROM "
@@ -238,13 +238,15 @@ class hatsuneCog(commands.Cog):
         cursor = conn.cursor(buffered=True)
         cursor.execute(query.format(info['id']))
 
-        for (en, ubtl, ub2tl, sk1tl, sk1ptl, sk2tl, cmtl, tag, ueen, uerank) in cursor:
+        for (en, ubtl, ub2tl, sk1tl, sk1ptl, sk2tl, sk1atl, sk2atl, cmtl, tag, ueen, uerank) in cursor:
             info['en'] =            en
             info['ubtl'] =          ubtl
             info['ub2tl'] =         ub2tl
             info['sk1tl'] =         sk1tl
             info['sk1ptl'] =        sk1ptl
             info['sk2tl'] =         sk2tl
+            info['sk1atl'] =        sk1atl
+            info['sk2atl'] =        sk2atl
             info['cmtl'] =          cmtl
             info['tag'] =           [c.strip() for c in tag.split(',')]
             info['ue_en'] =         ueen
@@ -271,6 +273,9 @@ class hatsuneCog(commands.Cog):
         MAX_LEVEL =             raw['config']['UE_MAX']
         info['hnote_id'] =      raw['data']['unit_profile']['id']
         info['cm'] =            raw['data']['unit_profile']['comment'].replace('\\n', '')
+        info['stats'] =         raw['data']['stats']
+        info['max_lvl'] =       raw['config']['LEVEL_MAX']
+        info['max_rk'] =        raw['config']['RANK_MAX']
 
         # UE
         info['ue'] =            raw['data']['unique_equipment']
@@ -281,18 +286,35 @@ class hatsuneCog(commands.Cog):
         sk_raw =                raw['data']['skill_data']
         info['ubjp'] =          sk_raw['Union Burst']['skill_name']
         info['ub'] =            sk_raw['Union Burst']['description']
+        info['ubaction'] =      sk_raw['Union Burst']['actions']
+
         info['sk1jp'] =         sk_raw['Skill 1']['skill_name']
         info['sk1'] =           sk_raw['Skill 1']['description']
+        info['sk1action'] =     sk_raw['Skill 1']['actions']
+
         info['sk2jp'] =         sk_raw['Skill 2']['skill_name']
         info['sk2'] =           sk_raw['Skill 2']['description']
+        info['sk2action'] =     sk_raw['Skill 2']['actions']
 
         ub2_raw =               sk_raw.get('Union Burst+', dict())
         info['ub2jp'] =         ub2_raw.get('skill_name', None)
         info['ub2'] =           ub2_raw.get('description', None)
+        info['ub2action'] =     ub2_raw.get('actions', [None])
 
         sk1p_raw =              sk_raw.get("Skill 1+", dict())
         info['sk1pjp'] =        sk1p_raw.get("skill_name", None)
         info['sk1p'] =          sk1p_raw.get("description", None)
+        info['sk1paction'] =    sk1p_raw.get('actions', [None])
+
+        sk1a_raw =              sk_raw.get('Skill 1 Alt', dict())
+        info['sk1ajp'] =        sk1a_raw.get('skill_name', None)
+        info['sk1a'] =          sk1a_raw.get('description', None)
+        info['sk1aaction'] =    sk1a_raw.get('actions', [None])
+
+        sk2a_raw =              sk_raw.get('Skill 2 Alt', dict())
+        info['sk2ajp'] =        sk2a_raw.get('skill_name', None)
+        info['sk2a'] =          sk2a_raw.get('description', None)
+        info['sk2aaction'] =    sk2a_raw.get('actions', [None])
 
         info['im'] =            'https://redive.estertion.win/icon/unit/{}31.webp'.format(info['hnote_id'])
         info['im6'] =           'https://redive.estertion.win/icon/unit/{}61.webp'.format(info['hnote_id']) if 'flb' in info['tag'] else None
@@ -301,223 +323,6 @@ class hatsuneCog(commands.Cog):
         #print(f"Fetch JSON data - {(time.perf_counter()-t0)*1000}ms")
         await self.logger.send(f"target: {info['en']} {info['jp']} {info['hnote_id']}")
         return info
-
-    """
-    def fetch_data(self, id, conn):
-        # fetch all data except skill names
-        query = ("SELECT "
-                "hc.unit_name, hc.unit_name_eng, " 
-                "image, image_2, "
-                "union_burst, ub_trans, "
-                "union_burst_2, ub_2_trans, "
-                "skill_1, skill_1_translation, "
-                "skill_1_plus, skill_1_plus_trans, "
-                "skill_2, skill_2_trans, "
-                "hd.comment, comment_trans, "
-                "tag, "
-                "hd.unit_id, "
-                "image_link, eq_name, eq_name_trans, eq_rank, "
-                "eq_patk, eq_pcrit, eq_matk, eq_mcrit, "
-                "eq_tp_up, eq_tp_cost, eq_hp, eq_pdef, eq_mdef, "
-                "eq_dodge, eq_accuracy, eq_recovery, eq_auto_heal "
-                "FROM (hatsune_bot.charadata AS hc LEFT JOIN hatsune_bot.charaUE AS hu ON hu.unit_id = hc.unit_id) LEFT JOIN hnote_test.unit_data AS hd "
-                "ON hc.unit_name = hd.unit_name "
-                "WHERE hc.unit_id = {} "
-                "ORDER BY hd.unit_id ASC LIMIT 1".format(id)
-                )
-        cursor = conn.cursor(buffered=True)
-        cursor.execute(query)
-        info =  dict()
-        ue =    dict()
-        for (jp, en,
-            im, im2, 
-            ub, ubtl,
-            ub2, ub2tl,
-            sk1, sk1tl,
-            sk1p, sk1ptl,
-            sk2, sk2tl,
-            cm, cmtl,
-            tag,
-            hnid,
-            ueim, uejp, ueen, uerank, 
-            patk, pcrit, matk, mcrit, 
-            tpup, tpcost, hp, pdef, mdef,
-            dodge, acc, rec, aheal) in cursor:
-        
-            info['en'] =        str(en)
-            info['jp'] =        str(jp)
-            info['im'] =        str(im)     if im != "-" else None
-            info['im6'] =       str(im2)    if im != "-" else None
-            info['ub'] =        str(ub)
-            info['ubtl'] =      str(ubtl)
-            info['ub2'] =       str(ub2)    if ub2 != "-" else None 
-            info['ub2tl'] =     str(ub2tl)  if ub2tl != "-" else None
-            info['sk1'] =       str(sk1)
-            info['sk1tl'] =     str(sk1tl)
-            info['sk1p'] =      str(sk1p)   if sk1p != "-" else None
-            info['sk1ptl'] =    str(sk1ptl) if sk1ptl != "-" else None
-            info['sk2'] =       str(sk2)
-            info['sk2tl'] =     str(sk2tl)
-            info['cm'] =        str(cm).replace('\\n','')
-            info['cmtl'] =      str(cmtl).strip()
-            info['tag'] =       [c.strip() for c in tag.split(',')]
-            info['hnote_id'] =  str(hnid)   if hnid != "-" else None
-            info['ue_en'] =     str(ueen)   if ueen != "-" else None
-            info['ue_jp'] =     str(uejp)   if uejp != "-" else None
-            info['ue_im'] =     str(ueim)   if ueim != "-" else None 
-            info['ue_rank'] =   str(uerank) if uerank != "-" else None 
-
-            ue['PATK'] =        str(patk)   if patk != "-" else None
-            ue['PCRIT'] =       str(pcrit)  if pcrit != "-" else None
-            ue['MATK'] =        str(matk)   if matk != "-" else None
-            ue['MCRIT'] =       str(mcrit)  if mcrit != "-" else None
-            ue['TP UP'] =       str(tpup)   if tpup != "-" else None
-            ue['TP COST'] =     str(tpcost) if tpcost != "-" else None
-            ue['HP'] =          str(hp)     if hp != "-" else None
-            ue['PDEF'] =        str(pdef)   if pdef != "-" else None
-            ue['MDEF'] =        str(mdef)   if mdef != "-" else None
-            ue['EVA'] =         str(dodge)  if dodge != "-" else None
-            ue['ACC'] =         str(acc)    if acc != "-" else None
-            ue['RECV'] =        str(rec)    if rec != "-" else None
-            ue['HEAL'] =        str(aheal)  if aheal != "-" else None
-
-            info['ue'] =        ue
-        
-        # fetch skill names
-        print(info['hnote_id'])
-        prefix =    info.get('hnote_id','000000')[:4]
-        ub =        '001'
-        sk1 =       '002'
-        sk2 =       '003'
-        sk1p =      '012'
-        query =     ("SELECT skill_id, name FROM hnote.skill_data "
-                    "WHERE skill_id REGEXP '{}...'".format(prefix))
-
-        cursor.execute(query)
-        for id, sk in cursor:
-            suffix = str(id)[-3:]
-            if suffix == ub:
-                info['ubjp'] = str(sk)
-            elif suffix == sk1:
-                info['sk1jp'] = str(sk)
-            elif suffix == sk2:
-                info['sk2jp'] = str(sk)
-            elif suffix == sk1p:
-                info['sk1pjp'] = str(sk)
-        
-        cursor.close()
-        return info
-
-    def process_sk(self, ski:dict):
-        pski = dict()
-        for key, value in list(ski.items()):
-            if key == 'pro' or key == 'con':
-                if len(value) != 0:
-                    if key == 'pro':
-                        pski[key] = ''.join(['\n+ ' + reason for reason in value])
-                    else:
-                        pski[key] = ''.join(['\n- ' + reason for reason in value])
-                else:
-                    pski[key] = None
-            elif key == 'cyc':
-                pski[key] = ski[key]
-            else:
-                pski[key] = self.read_skill(value)
-        
-        return pski
-
-    def read_skill(self, skills):
-        text = []
-        for skill in skills:
-            typ = skill['type']
-
-            if typ == 'atk':
-                aff, pos = skill['tgt'].split('.')
-                if pos == 'front':
-                    pos = 'frontmost'
-                    if aff == 'a':
-                        aff = 'ally'
-                    else:
-                        aff = 'enemy'
-                elif pos == 'all' or pos == 'range':
-                    if aff == 'a':
-                        aff = 'allies'
-                    else:
-                        aff = 'enemies'
-
-                if pos == 'range':
-                    skt = f"> Inflict {skill['dmg']} {'magic' if skill['attr'] == 'mag' else 'physical'} damage on all {aff} in {pos}"
-                else:
-                    skt = f"> Inflict {skill['dmg']} {'magic' if skill['attr'] == 'mag' else 'physical'} damage on the {pos} {aff}"
-                text.append(skt)
-
-            elif typ == 'buff':
-                for indiv, strength in list(zip(skill['attr'], skill['str'])):
-                    if skill['tgt'] == 'self':
-                        skt = f"> Gain {strength if strength != -1 else ''} {self.get_buff(indiv)} {'up' if strength != -1 else ''} for {skill['dur'] if skill['dur'] != -1 else 'TBC'} seconds"
-                    elif skill['tgt'] == 'all':
-                        skt = f"> Grant {strength if strength != -1 else ''} {self.get_buff(indiv)} {'up' if strength != -1 else ''} for {skill['dur'] if skill['dur'] != -1 else 'TBC'} seconds to all allies"
-                    else:
-                        skt = 'Unknown Skill'
-                    text.append(skt)
-            
-            elif typ == 'debuff':
-                for indiv, strength in list(zip(skill['attr'], skill['str'])):
-
-                    pos = skill['tgt'].split('.')
-                    if len(pos) > 1:
-                        aff, pos = pos
-                        if pos == 'front':
-                            pos = 'frontmost'
-                            if aff == 'a':
-                                aff = 'ally'
-                            else:
-                                aff = 'enemy'
-                        elif pos == 'all' or pos == 'range':
-                            if aff == 'a':
-                                aff = 'allies'
-                            else:
-                                aff = 'enemies'
-                    
-                    if pos == 'self':
-                        pass
-                    elif pos == 'frontmost':
-                        skt = f"> Inflict {strength if strength != -1 else ''} {self.get_buff(indiv)} {'down' if strength != -1 else ''} for {skill['dur'] if skill['dur'] != -1 else 'TBC'} seconds to the frontmost {aff}"
-                    elif pos == 'all':
-                        skt = f"> Inflict {strength if strength != -1 else ''} {self.get_buff(indiv)} {'down' if strength != -1 else ''} for {skill['dur'] if skill['dur'] != -1 else 'TBC'} seconds to all {aff}"
-                    elif pos == 'range':
-                        skt = f"> Inflict {strength if strength != -1 else ''} {self.get_buff(indiv)} {'down' if strength != -1 else ''} for {skill['dur'] if skill['dur'] != -1 else 'TBC'} seconds to all {aff} in range"
-                    else:
-                        skt = 'Unknown Skill'
-                    text.append(skt)
-                    
-            elif typ == 'shield':
-                if skill['tgt'] == 'self':
-                    skt = 'Incomplete Skill'
-                elif skill['tgt'] == 'all':
-                    skt = f"> Deploy a {skill['str']} buffer {'physical' if skill['attr'] == 'phys' else 'magic'} nullification shield to all allies for {skill['dur'] if skill['dur'] != -1 else 'TBC'} seconds"
-                else:
-                    skt = 'Unknown Skill'
-                text.append(skt)
-            
-            else:
-                skt = 'Unknown Skill'
-                text.append(skt)
-
-        return '\n'.join(text)
-            
-    def get_buff(self, cd):
-        return cd.upper()
-
-    if cd == 'matk':
-        return 'magic attack'
-    elif cd == 'mdef':
-        return 'magic def',
-    elif cd == 'pdef':
-        return 'physical def'
-    else:
-        return cd.upper()
-    """
 
     @commands.command(
         usage = '.character [name] [*options]', 
@@ -585,29 +390,48 @@ class hatsuneCog(commands.Cog):
         #t0 = time.perf_counter()
         # construct pages
         pages_title = ['Chara','UE', 'Stats', 'Card']
-        pages = []
+
+        #pages = []
+
         chara_p = [self.make_chara(info, None, pages_title.copy())]
-        #stats_p = [self.make_stats(info, pages_title.copy())]
+        stats_p = [self.make_stats(info, pages_title.copy())]
         cards_p = [self.make_card(info, pages_title.copy())]
+
         if 'flb' in info['tag']:
             chara_p.append(self.make_chara(info, 'flb', pages_title.copy()))
-            #stats_p.append(self.make_stats(info, pages_title.copy(), 'flb'))
+            stats_p.append(self.make_stats(info, pages_title.copy(), 'flb'))
             cards_p.append(self.make_card(info, pages_title.copy(), 'flb'))
         else:
             chara_p.append(None)
-            #stats_p.append(None)
+            stats_p.append(None)
             cards_p.append(None)
+        
+        if info['sk1a'] != None or info['sk2a'] != None:
+            alt = 0
+            alt_i = [0,2]
+            chara_p.append(self.make_chara(info, 'alt', pages_title.copy()))
+            stats_p.append(self.make_stats(info, pages_title.copy(), 'alt'))
+        else:
+            alt = -1
+            alt_i = [0,0]
+            chara_p.append(None)
+            stats_p.append(None)
+        
+        chara_p.append(chara_p[-1])
+        stats_p.append(stats_p[-1])
 
-        pages.append(chara_p)
-        pages.append([self.make_ue(info, pages_title.copy())]*2)
+        #pages.append(chara_p)
+        #pages.append([self.make_ue(info, pages_title.copy())]*2)
         #pages.append(stats_p)
-        pages.append(cards_p)
+        #pages.append(cards_p)
+
+        ue_p = [self.make_ue(info, pages_title.copy())]*2
 
         # check display page
         if ctx.invoked_with == 'ue':
-            front = 'UE'
+            front = ue_p
         else:
-            front = 'Chara'
+            front = chara_p
 
         # display
         if option == 'flb' and option in info['tag']:
@@ -618,21 +442,29 @@ class hatsuneCog(commands.Cog):
         #print(f"Ready to send - {(time.perf_counter()-t0)*1000}ms")
         #t0 = time.perf_counter()
 
-        if front == 'Chara':
-            page = await channel.send(embed=pages[0][flbmode])
-        else:
-            page = await channel.send(embed=pages[1][flbmode])
+        page = await channel.send(embed=front[alt_i[alt]-flbmode])
+
+        #if front == 'Chara':
+        #    page = await channel.send(embed=pages[0][flbmode])
+        #else:
+        #    page = await channel.send(embed=pages[1][flbmode])
         
         self.db.release(conn)
         
-        reactions = ['⬅','➡','⭐'] if 'flb' in info['tag'] else ['⬅','➡']
+        #reactions = ['⬅','➡','⭐'] if 'flb' in info['tag'] else ['⬅','➡']
+        reactions = ['<:_chara:677763373739409436>', '<:_ue:677763400713109504>', '<:_card:677763353069879306>', '<:_stats:678081583995158538>'] 
+        if 'flb' in info['tag']:
+            reactions.append('⭐')
+        if alt == 0:
+            reactions.append('\U0001F500')
         for arrow in reactions:
             await page.add_reaction(arrow)
 
         # def check
         def author_check(reaction, user):
+            #print(str(reaction.emoji))
             return str(user.id) == str(author.id) and\
-                reaction.emoji in reactions and\
+                str(reaction.emoji) in reactions and\
                 str(reaction.message.id) == str(page.id)
         
         # wait
@@ -644,6 +476,7 @@ class hatsuneCog(commands.Cog):
                     await page.remove_reaction(arrow, self.client.user)
                 break
             else:
+                """
                 if reaction.emoji == '⬅':
                     pages = pages[-1:] + pages[:-1]
                     await reaction.message.remove_reaction('⬅', user)
@@ -661,15 +494,62 @@ class hatsuneCog(commands.Cog):
 
                 else:
                     continue
+                """
+                #print(reaction.emoji == '<:_chara:677763373739409436>', reaction.emoji in reactions)
+                emote_check = str(reaction.emoji)
+
+                if emote_check == '<:_chara:677763373739409436>' and emote_check in reactions:
+                    front = chara_p
+                    await reaction.message.remove_reaction('<:_chara:677763373739409436>', user)
+                    await reaction.message.edit(embed=front[alt_i[alt]-flbmode])
+
+                elif emote_check == '<:_stats:678081583995158538>' and emote_check in reactions:
+                    front = stats_p
+                    await reaction.message.remove_reaction('<:_stats:678081583995158538>', user)
+                    await reaction.message.edit(embed=front[alt_i[alt]-flbmode])
+
+                elif emote_check == '<:_ue:677763400713109504>' and emote_check in reactions:
+                    front = ue_p
+                    alt = 0
+                    await reaction.message.remove_reaction('<:_ue:677763400713109504>', user)
+                    await reaction.message.edit(embed=front[alt_i[alt]-flbmode])
+                
+                elif emote_check == '<:_card:677763353069879306>' and emote_check in reactions:
+                    front = cards_p
+                    alt = 0
+                    await reaction.message.remove_reaction('<:_card:677763353069879306>', user)
+                    await reaction.message.edit(embed=front[alt_i[alt]-flbmode])
+                
+                elif emote_check == '⭐' and emote_check in reactions:
+                    flbmode = ~flbmode
+                    alt = 0
+                    await reaction.message.remove_reaction('⭐', user)
+                    await reaction.message.edit(embed=front[alt_i[alt]-flbmode])
+                
+                elif reaction.emoji == '\U0001F500' and reaction.emoji in reactions:
+                    alt = ~alt
+                    #front = chara_p
+                    await reaction.message.remove_reaction('\U0001F500', user)
+                    await reaction.message.edit(embed=front[alt_i[alt]-flbmode])
+                
+                else:
+                    continue          
 
     def make_chara(self, info, option, ph):
         ph[ph.index('Chara')] = '**[Chara]**'
 
+        if option == 'flb':
+            title = f"{info['jp']} 6⭐\n{info['en']} FLB"
+        elif option == 'alt':
+            title = f"{info['jp']}\n{self.get_full_name(info['en'])} (Special Mode)"
+        else:
+            title = f"{info['jp']}\n{self.get_full_name(info['en'])}"
+
         embed = discord.Embed(
-            title=f"{info['jp']}\n{self.get_full_name(info['en'])}" if option == None else f"{info['jp']} 6⭐\n{info['en']} FLB",
+            title=title,
             timestamp=datetime.datetime.utcnow()
         )
-        embed.set_thumbnail(url=info['im'] if option == None else info['im6'])
+        embed.set_thumbnail(url=info['im6'] if option == 'flb' else info['im'])
         embed.set_author(name='ハツネのメモ帳',icon_url='https://cdn.discordapp.com/avatars/580194070958440448/c0491c103169d0aa99027b2216ee7708.jpg')
         embed.set_footer(text='Character Info Page | SHIN Ames',icon_url=info['im6'] if option == 'flb' else info['im'])
 
@@ -708,7 +588,8 @@ class hatsuneCog(commands.Cog):
         )
 
         # Skill 1
-        if option != 'flb':
+        #print(info['sk1atl'], type(info['sk1atl']))
+        if option != 'flb' and option != 'alt':
             embed.add_field(
                 name=   "> **Skill 1**",
                 value=  f"「{info.get('sk1jp','soon:tm:')}」",
@@ -722,6 +603,22 @@ class hatsuneCog(commands.Cog):
             embed.add_field(
                 name=   SPACE,
                 value=  f"{info['sk1tl']}",
+                inline= True
+            )
+        elif option == 'alt' and info['sk1a'] != None:
+            embed.add_field(
+                name=   "> **Skill 1 Special**",
+                value=  f"「{info.get('sk1ajp','soon:tm:')}」",
+                inline= False
+            )
+            embed.add_field(
+                name=   "Description",
+                value=  f"{info['sk1a']}",
+                inline= True
+            )
+            embed.add_field(
+                name=   SPACE,
+                value=  f"{info['sk1atl']}",
                 inline= True
             )
         
@@ -744,21 +641,38 @@ class hatsuneCog(commands.Cog):
             )
 
         # Skill 2
-        embed.add_field(
-            name=   "> **Skill 2**",
-            value=  f"「{info.get('sk2jp','soon:tm:')}」",
-            inline= False
-        )
-        embed.add_field(
-            name=   "Description",
-            value=  f"{info['sk2']}",
-            inline= True
-        )
-        embed.add_field(
-            name=   SPACE,
-            value=  f"{info['sk2tl']}",
-            inline= True
-        )
+        if option != 'alt':
+            embed.add_field(
+                name=   "> **Skill 2**",
+                value=  f"「{info.get('sk2jp','soon:tm:')}」",
+                inline= False
+            )
+            embed.add_field(
+                name=   "Description",
+                value=  f"{info['sk2']}",
+                inline= True
+            )
+            embed.add_field(
+                name=   SPACE,
+                value=  f"{info['sk2tl']}",
+                inline= True
+            )
+        elif option == 'alt' and info['sk2a'] != None:
+            embed.add_field(
+                name=   "> **Skill 2 Special**",
+                value=  f"「{info.get('sk2ajp','soon:tm:')}」",
+                inline= False
+            )
+            embed.add_field(
+                name=   "Description",
+                value=  f"{info['sk2a']}",
+                inline= True
+            )
+            embed.add_field(
+                name=   SPACE,
+                value=  f"{info['sk2atl']}",
+                inline= True
+            )
 
         # Tags
         embed.add_field(
@@ -773,37 +687,37 @@ class hatsuneCog(commands.Cog):
         if abbr ==      'hp':
             return              'HP'
         elif abbr ==    'atk':
-            return              'PHYS ATK'
+            return              'PATK'
         elif abbr ==    'matk':
-            return              'MAG ATK'
+            return              'MATK'
         elif abbr ==    'def':
-            return              'PHYS DEF'
+            return              'PDEF'
         elif abbr ==    'mdef':
-            return              'MAG DEF'
+            return              'MDEF'
         elif abbr ==    'pCrit':
-            return              'PHYS CRIT'
+            return              'PCRIT'
         elif abbr ==    'mCrit':
-            return              'MAG CRIT'
+            return              'MCRIT'
         elif abbr ==    'wHpRec':
-            return              'HP RECV (p/wave)'
+            return              'HP REC (p/w)'
         elif abbr ==    'wTpRec':
-            return              'TP RECV (p/wave)'
+            return              'TP REC (p/w)'
         elif abbr ==    'dodge':
             return              'DODGE'
         elif abbr ==    'pPen':
-            return              'PHYS PENETRATION'
+            return              'PHYS PEN'
         elif abbr ==    'mPen':
-            return              'MAG PENETRATION'
+            return              'MAG PEN'
         elif abbr ==    'lifesteal':
             return              'HP STEAL'
         elif abbr ==    'hpRec':
-            return              'HP RECV'
+            return              'HP REC'
         elif abbr ==    'tpRec':
-            return              'TP RECV'
+            return              'TP REC'
         elif abbr ==    'tpSave':
             return              'UB EFFCY'
         elif abbr ==    'acc':
-            return              'ACCURACY'
+            return              'ACC'
         else:
             return      abbr.upper()
 
@@ -892,23 +806,15 @@ class hatsuneCog(commands.Cog):
         
         return embed
 
-    """
     def make_stats(self, info, ph, option=None):
         ph[ph.index('Stats')] = '**[Stats]**'
-        try:
-            with open(os.path.join(dir,f"skill/{info['en'].lower()}.txt")) as sf:
-                sk_info = self.process_sk(ast.literal_eval(sf.read()))
-        except Exception as e:
-            print(e)
-            traceback.print_exc()
-            sk_info = None
         
         embed = discord.Embed(
             title="Page Unavailable",
             description=f"{self.get_full_name(info['en'])}\'s stats page is not available at the moment.",
             timestamp=datetime.datetime.utcnow()
         )
-        embed.set_thumbnail(url=info['im'] if option == None else info['im6'])
+        embed.set_thumbnail(url=info['im6'] if option == 'flb' else info['im'])
         embed.set_author(name='ハツネのメモ帳',icon_url='https://cdn.discordapp.com/avatars/580194070958440448/c0491c103169d0aa99027b2216ee7708.jpg')
         embed.set_footer(text='Stats Page | SHIN Ames',icon_url=info['im6'] if option == 'flb' else info['im'])
 
@@ -918,103 +824,118 @@ class hatsuneCog(commands.Cog):
             inline=False
         )
 
-        if sk_info != None:
-            embed.title = "Statistics"
-            embed.description = f"{self.get_full_name(info['en'])}\'s skill and misc stats."
+        #if info != None:
+        embed.title = "Statistics"
+        embed.description = f"{self.get_full_name(info['en'])}\'s skill and misc stats. All stats assumes **LV{info['max_lvl']}** **RANK{info['max_rk']}** with **MAX BOND** across all character variants. `Disclaimer: This page is a WIP and displayed stats may be inaccurate`"
 
-            pattern = []
-            if len(sk_info['cyc'][0]) != 0:
-                pattern.append("Opening\n" + " -> ".join([f"Sk{num+1}" if num != -1 else "Atk" for num in sk_info['cyc'][0]]))
-            if len(sk_info['cyc'][1]) != 0:
-                pattern.append("Loop\n" + " -> ".join([f"Sk{num+1}" if num != -1 else "Atk" for num in sk_info['cyc'][1]]))
-
+        for chunk in self.chunks(list(info['stats'].items()), 6):
             embed.add_field(
-                name="Attack Pattern",
-                value="\n".join(pattern),
-                inline=False
+                name=f"Stats",
+                value="\n".join([f"{self.ue_abbrev(key)}: {arg}" for key, arg in chunk])
             )
 
-            embed.add_field(
-                name="Strengths and Weaknesses",
-                value=f"```diff{sk_info['pro'] if sk_info['pro'] != None else ''} {sk_info['con'] if sk_info != None else ''}```",
-                inline=False
-            )
+        """
+        pattern = []
+        if len(sk_info['cyc'][0]) != 0:
+            pattern.append("Opening\n" + " -> ".join([f"Sk{num+1}" if num != -1 else "Atk" for num in sk_info['cyc'][0]]))
+        if len(sk_info['cyc'][1]) != 0:
+            pattern.append("Loop\n" + " -> ".join([f"Sk{num+1}" if num != -1 else "Atk" for num in sk_info['cyc'][1]]))
 
-            # UB
-            embed.add_field(
-                name=   "> **Union Burst+**" if option == 'flb' else "> **Union Burst**",
-                value=  f"「{info.get('ub2jp','soon:tm:')}」" if option == 'flb' else 
-                        f"「{info.get('ubjp','soon:tm:')}」",
-                inline= False
-            )
-            embed.add_field(
-                name=   'Description',
-                value=  f"{info['ub2tl']}" if option == 'flb' else 
-                        f"{info['ubtl']}",
-                inline= True
-            )
-            embed.add_field(
-                name=   'Effect',
-                value=  f"```glsl\n{sk_info['ub2']}```" if option == 'flb' else
-                        f"```glsl\n{sk_info['ub']}```",
-                inline= True
-            )
+        embed.add_field(
+            name="Attack Pattern",
+            value="\n".join(pattern),
+            inline=False
+        )
 
-            # Skill 1
-            if option != 'flb':
-                embed.add_field(
-                    name=   "> **Skill 1**",
-                    value=  f"「{info.get('sk1jp','soon:tm:')}」",
-                    inline= False
-                )
-                embed.add_field(
-                    name=   "Description",
-                    value=  f"{info['sk1tl']}",
-                    inline= True
-                )
-                embed.add_field(
-                    name=   "Effect",
-                    value=  f"```glsl\n{sk_info['sk1']}```",
-                    inline= True
-                )
-            
-            # Skill 1+
-            if not 'soon' in info.get('sk1ptl', None):
-                embed.add_field(
-                    name=   "> **Skill 1+**",
-                    value=  f"「{info.get('sk1pjp','soon:tm:')}」",
-                    inline= False
-                )
-                embed.add_field(
-                    name=   "Description",
-                    value=  f"{info.get('sk1ptl','This character does not have an UE')}",
-                    inline= True
-                )
-                embed.add_field(
-                    name=   "Effect",
-                    value=  f"```glsl\n{sk_info.get('sk1p','N/A')}```",
-                    inline= True
-                )
+        embed.add_field(
+            name="Strengths and Weaknesses",
+            value=f"```diff{sk_info['pro'] if sk_info['pro'] != None else ''} {sk_info['con'] if sk_info != None else ''}```",
+            inline=False
+        )
+        """
 
-            # Skill 2
+        # UB
+        embed.add_field(
+            name=   "> **Union Burst+**" if option == 'flb' else "> **Union Burst**",
+            value=  f"「{info.get('ub2jp','soon:tm:')}」" if option == 'flb' else 
+                    f"「{info.get('ubjp','soon:tm:')}」",
+            inline= False
+        )
+        embed.add_field(
+            name=   'Description',
+            value=  f"{info['ub2tl']}" if option == 'flb' else 
+                    f"{info['ubtl']}",
+            inline= True
+        )
+        embed.add_field(
+            name=   'Effect',
+            value=  "```glsl\n{}```".format('\n'.join(info['ub2action'])) if option == 'flb' else
+                    "```glsl\n{}```".format('\n'.join(info['ubaction'])),
+            inline= True
+        )
+
+        # Skill 1
+        if option != 'flb':
             embed.add_field(
-                name=   "> **Skill 2**",
-                value=  f"「{info.get('sk2jp','soon:tm:')}」",
+                name=   "> **Skill 1 Special**" if option == 'alt' else 
+                        f"> **Skill 1**",
+                value=  f"「{info.get('sk1ajp','soon:tm:')}」" if option == 'alt' else
+                        f"「{info.get('sk1jp','soon:tm:')}」",
                 inline= False
             )
             embed.add_field(
                 name=   "Description",
-                value=  f"{info['sk2tl']}",
+                value=  f"{info['sk1atl']}" if option == 'alt' else
+                        f"{info['sk1tl']}",
                 inline= True
             )
             embed.add_field(
                 name=   "Effect",
-                value=  f"```glsl\n{sk_info['sk2']}```",
+                value=  "```glsl\n{}```".format('\n'.join(info['sk1aaction'])) if option == 'alt' else
+                        "```glsl\n{}```".format('\n'.join(info['sk1action'])),
+                inline= True
+            )
+        
+        # Skill 1+
+        if not 'soon' in info.get('sk1ptl', None):
+            embed.add_field(
+                name=   "> **Skill 1+**",
+                value=  f"「{info.get('sk1pjp','soon:tm:')}」",
+                inline= False
+            )
+            embed.add_field(
+                name=   "Description",
+                value=  f"{info.get('sk1ptl','This character does not have an UE')}",
+                inline= True
+            )
+            embed.add_field(
+                name=   "Effect",
+                value=  "```glsl\n{}```".format('\n'.join(info.get('sk1paction','N/A'))),
                 inline= True
             )
 
+        # Skill 2
+        embed.add_field(
+            name=   "> **Skill 2 Special**" if option == 'alt' else 
+                    "> **Skill 2**",
+            value=  f"「{info.get('sk2ajp','soon:tm:')}」" if option == 'alt' else
+                    f"「{info.get('sk2jp','soon:tm:')}」",
+            inline= False
+        )
+        embed.add_field(
+            name=   "Description",
+            value=  f"{info['sk2atl']}" if option == 'alt' else
+                    f"{info['sk2tl']}",
+            inline= True
+        )
+        embed.add_field(
+            name=   "Effect",
+            value=  "```glsl\n{}```".format('\n'.join(info['sk2aaction'])) if option == 'alt' else
+                    "```glsl\n{}```".format('\n'.join(info['sk2action'])),
+            inline= True
+        )
+
         return embed   
-    """
 
     def make_card(self, info, ph, option=None):
         ph[ph.index('Card')] = '**[Card]**'
