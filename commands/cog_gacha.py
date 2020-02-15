@@ -6,7 +6,7 @@ from PIL import Image, GifImagePlugin, ImageDraw, ImageSequence, ImageOps, Image
 dir = os.path.dirname(__file__)
 
 SPACE = '\u200B'
-PRIFES = False
+PRIFES = True
 
 def get_full_name(target):
     if target[1].isupper():
@@ -27,6 +27,8 @@ def get_full_name(target):
             prefix =        'Uniform'
         elif prefix ==  'm':
             prefix =        'Magical Girl'
+        elif prefix ==  'p':
+            prefix =        'Princess'
         else:
             prefix =        "???"
         return " ".join([prefix, target[1:]])

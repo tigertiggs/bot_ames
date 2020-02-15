@@ -45,7 +45,8 @@ class hatsuneCog(commands.Cog):
                         "`s` for Summer i.e. `sio`\n"\
                         "`h` for Halloween i.e. `hmiyako`\n"\
                         "`u` for Uniform i.e. `uaoi`\n"\
-                        "`m` for Magical Girl i.e. `mshiori`"
+                        "`m` for Magical Girl i.e. `mshiori`\n"\
+                        "`p` for Princess i.e. `ppeco`"
         self.options =  ['flb']
         with open(os.path.join(dir, '_config/alias_local.txt')) as alf:
             alocal = ast.literal_eval(alf.read())
@@ -114,6 +115,8 @@ class hatsuneCog(commands.Cog):
                     prefix =        'Uniform'
                 elif prefix ==  'm':
                     prefix =        'Magical Girl'
+                elif prefix ==  'p':
+                    prefix =        'Princess'
                 else:
                     prefix =        "???"
                 return " ".join([prefix, target[1:]])
@@ -137,6 +140,8 @@ class hatsuneCog(commands.Cog):
                 prefix = '      Uniform'
             elif prefix ==  'm':
                 prefix =        'Magical Girl'
+            elif prefix ==  'p':
+                    prefix =    'Princess'
             else:
                 prefix =        "???"
             return prefix
@@ -967,7 +972,6 @@ class hatsuneCog(commands.Cog):
         
         return embed
 
-
     @commands.command(
         usage='.pos [option]',
         help="Enter a [name] to have Ames fetch the relative position of the specified character. "\
@@ -1178,7 +1182,8 @@ class hatsuneCog(commands.Cog):
         
     @commands.command(
         usage=".boss [num]",
-        help="Have Ames fetch boss data of current CB."
+        help="Have Ames fetch boss data of current CB.",
+        hidden=True
     )
     async def boss(self, ctx, request:int):
         channel = ctx.channel
