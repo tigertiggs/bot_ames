@@ -22,7 +22,7 @@ default_additional = [
     ),
     proxyCommand(
         '.help cb',
-        'Bring up CB-related help.'
+        'Bring up CB-related help. This command is currently guild restricted and WIP, but may expand to include other guilds with due time.'
     ),
     proxyCommand(
         '.help tag',
@@ -70,7 +70,7 @@ cb_additional = [
 alias = [
     proxyCommand(
         '.alias',
-        'List all local aliases.'
+        'List all local and master aliases.'
     ),
     proxyCommand(
         '.alias add [keyword] [character]',
@@ -160,23 +160,23 @@ class helpCog(commands.Cog):
             return
         
         if ctx.invoked_subcommand is None:
-            functions = await self.construct_functions(default, default_additional)
+            functions = await self.construct_functions(default.copy(), default_additional.copy())
             await ctx.channel.send(self.make_help_embed(functions, "Active Commands"))
 
     @help.command()
     async def shitpost(self, ctx):
-        functions = await self.construct_functions(shitpost)
-        await ctx.channel.send(embed=self.make_help_embed(functions,"Shitpost"))
+        functions = await self.construct_functions(shitpost.copy())
+        await ctx.channel.send(self.make_help_embed(functions,"Shitpost"))
 
     @help.command()
     async def cb(self, ctx):
-        functions = await self.construct_functions(cb, cb_additional)
-        await ctx.channel.send(embed=self.make_help_embed(functions,"Clan Battle"))
+        functions = await self.construct_functions(cb.copy(), cb_additional.copy())
+        await ctx.channel.send(self.make_help_embed(functions,"Clan Battle"))
     
     @help.command()
     async def alias(self, ctx):
-        functions = await self.construct_functions([], alias)
-        await ctx.channel.send(embed=self.make_help_embed(functions,"Alias"))
+        functions = await self.construct_functions([], alias.copy())
+        await ctx.channel.send(self.make_help_embed(functions,"Alias"))
 
     @help.group(
         invoke_without_command=True,
@@ -184,24 +184,24 @@ class helpCog(commands.Cog):
     )
     async def tag(self, ctx):
         if ctx.invoked_subcommand is None:
-            functions = await self.construct_functions([], tag_additional)
-            await ctx.channel.send(embed=self.make_help_embed(functions, "Tag Help"))
+            functions = await self.construct_functions([], tag_additional.copy())
+            await ctx.channel.send(self.make_help_embed(functions, "Tag Help"))
     
     @tag.command()
     async def basic(self, ctx):
-        functions = await self.construct_functions(TAGS_BASIC, [], tag=True)
+        functions = await self.construct_functions(TAGS_BASIC.copy(), [], tag=True)
         print(functions)
-        await ctx.channel.send(embed=self.make_help_embed(functions, "Basic Tags", tag=True))
+        await ctx.channel.send(self.make_help_embed(functions, "Basic Tags", tag=True))
     
     @tag.command()
     async def atk(self, ctx):
-        functions = await self.construct_functions(TAGS_ATK, [], tag=True)
-        await ctx.channel.send(embed=self.make_help_embed(functions, "Attack Tags", tag=True))
+        functions = await self.construct_functions(TAGS_ATK.copy(), [], tag=True)
+        await ctx.channel.send(self.make_help_embed(functions, "Attack Tags", tag=True))
     
     @tag.command()
     async def buff(self, ctx):
-        functions = await self.construct_functions(TAGS_BUFF, [], tag=True)
-        await ctx.channel.send(embed=self.make_help_embed(functions, "Buff/Debuff Tags", tag=True))
+        functions = await self.construct_functions(TAGS_BUFF.copy(), [], tag=True)
+        await ctx.channel.send(self.make_help_embed(functions, "Buff/Debuff Tags", tag=True))
     
 tag_additional = [
     proxyCommand(

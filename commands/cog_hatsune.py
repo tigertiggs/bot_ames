@@ -27,6 +27,8 @@ ue_prop = [
     "acc"
 ]
 
+
+
 class hatsuneCog(commands.Cog):
     def __init__(self, client):
         self.client =   client
@@ -37,16 +39,20 @@ class hatsuneCog(commands.Cog):
         self.emj =      client.emj
         #self.active =   client.get_config('hatsune')
 
-        self.help =     "\nIn case you forgot, the prefixes are:\n"\
-                        "`n` for New year i.e. `nrei`\n"\
-                        "`x` for Christmas i.e. `xayane`\n"\
-                        "`o` for Ouedo i.e. `oninon`\n"\
-                        "`v` for Valentines i.e. `vshizuru`\n"\
-                        "`s` for Summer i.e. `sio`\n"\
-                        "`h` for Halloween i.e. `hmiyako`\n"\
-                        "`u` for Uniform i.e. `uaoi`\n"\
-                        "`m` for Magical Girl i.e. `mshiori`\n"\
-                        "`p` for Princess i.e. `ppeco`"
+        self.help =     ("In case you forgot, the input syntax is:\n"
+                            "> `.c(haracter) [character_name] [*option]`\n"
+                            "i.e. `.c skyaru ue` `.c maho flb`\n\n"
+                        "the seasonal prefixes are:\n"
+                            "> `n` for New year i.e. `nrei`\n"
+                            "> `x` for Christmas i.e. `xayane`\n"
+                            "> `o` for Ouedo i.e. `oninon`\n"
+                            "> `v` for Valentines i.e. `vshizuru`\n"
+                            "> `s` for Summer i.e. `sio`\n"
+                            "> `h` for Halloween i.e. `hmiyako`\n"
+                            "> `u` for Uniform i.e. `uaoi`\n"
+                            "> `m` for Magical Girl i.e. `mshiori`\n"
+                            "> `p` for Princess i.e. `ppeco`")
+
         self.options =  ['flb']
         with open(os.path.join(dir, '_config/alias_local.txt')) as alf:
             alocal = ast.literal_eval(alf.read())
@@ -70,20 +76,21 @@ class hatsuneCog(commands.Cog):
     
     def error(self):
         error_msg = dict()
-        error_msg['no_input'] =     'There was no input'+self.help
-        error_msg['search_fail'] =  'Did not find character'+self.help
+        error_msg['no_input'] =     'There was no input\n\n'+self.help
+        error_msg['search_fail'] =  f"{self.client.emj['ames']} I didn\'t find the requested character\n\n"+self.help
         error_msg['conn_fail'] =    'Failed to connect to database!'
         error_msg['pos_fail'] =     'Invalid input! Use `v` for vanguard, `m` for midguard or `r` for rearguard. '\
                                     'Alternatively enter a character name to find their positioning.'
         return error_msg
 
-    async def process_input(self, request, channel):
+    async def process_input(self, request, channel, verbose=True):
         processed = []
         option = request[-1]
         deprec = ['ue', 'mlb']
         if option not in self.options:
             if option in deprec:
-                await channel.send(f'Warning: option `{option}` has depreciated! See `.help` for more details.')
+                if verbose:
+                    await channel.send(f'Warning: option `{option}` has depreciated! See `.help` for more details.')
                 request = request[:-1]
                 if option == 'mlb':
                     option = 'flb'
@@ -1111,7 +1118,7 @@ class hatsuneCog(commands.Cog):
         
         # check if input is a chara
         # preprocess the args - check for aliases
-        target, option = await self.process_input(request,channel)
+        target, option = await self.process_input(request,channel, verbose=False)
 
         # fetch the character lists to check if target is in them
         """

@@ -1,10 +1,12 @@
 # dependencies
 import datetime, time
 import os, sys, traceback
-import ast, aiohttp, asyncio, random
+import ast, aiohttp, asyncio, random, traceback
 import discord
 from discord.ext.commands import Bot
 from discord.ext import commands
+
+#debug = True
 
 # add ames dir into search path
 dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -213,6 +215,7 @@ class Ames(commands.AutoShardedBot):
             await self.process_commands(message)
 
     async def on_command_error(self, ctx, error):
+        #if debug == False:
         ignored = (commands.CommandNotFound, commands.UserInputError)
         error = getattr(error, 'original', error)
         #print(error)
@@ -223,7 +226,7 @@ class Ames(commands.AutoShardedBot):
             await ctx.channel.send('I\'m currently taking a break '+self.emj['dead'])
             return
         else:
-            await self.log.send('command error in', ctx.command.name, "-", error)
+            await self.log.send('<@235361069202145280> command error in', ctx.command.name, f"```prolog\n{''.join(traceback.format_exception(type(error), error, error.__traceback__))}```")
 
     async def close(self):
         #await super().session.close()
