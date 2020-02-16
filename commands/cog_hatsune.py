@@ -27,8 +27,6 @@ ue_prop = [
     "acc"
 ]
 
-
-
 class hatsuneCog(commands.Cog):
     def __init__(self, client):
         self.client =   client
@@ -484,8 +482,11 @@ class hatsuneCog(commands.Cog):
             try:
                 reaction, user = await self.client.wait_for('reaction_add', timeout=30.0, check=author_check)
             except asyncio.TimeoutError:
+                """
                 for arrow in reactions:
                     await page.remove_reaction(arrow, self.client.user)
+                """
+                await page.add_reaction('\U0001f6d1')
                 break
             else:
                 """
@@ -1504,11 +1505,13 @@ class hatsuneCog(commands.Cog):
             return False
         
         # fetch pointer and check if its connected
+        """
         conn = self.db.db_pointer.get_connection()
         if not conn.is_connected():
             await channel.send(self.error()['conn_fail'])
             await self.logger.send(self.name,'DB connection failed')
             return False
+        """
 
         # fetch the character lists to check if target is in them
         """
@@ -1518,10 +1521,10 @@ class hatsuneCog(commands.Cog):
         chara = await self.validate_entry(arg, channel)
         if chara == False:
             await channel.send(f"`{arg}` is not a valid database entry")
-            conn.close()
+            #conn.close()
             return
         else:
-            conn.close()
+            #conn.close()
             return True
         
 
