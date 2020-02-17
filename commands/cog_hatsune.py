@@ -602,23 +602,7 @@ class hatsuneCog(commands.Cog):
 
         # Skill 1
         #print(info['sk1atl'], type(info['sk1atl']))
-        if option != 'flb' and option != 'alt':
-            embed.add_field(
-                name=   "> **Skill 1**",
-                value=  f"「{info.get('sk1jp','soon:tm:')}」",
-                inline= False
-            )
-            embed.add_field(
-                name=   "Description",
-                value=  f"{info['sk1']}",
-                inline= True
-            )
-            embed.add_field(
-                name=   SPACE,
-                value=  f"{info['sk1tl']}",
-                inline= True
-            )
-        elif option == 'alt' and info['sk1a'] != None:
+        if option == 'alt' and info['sk1a'] != None:
             embed.add_field(
                 name=   "> **Skill 1 Special**",
                 value=  f"「{info.get('sk1ajp','soon:tm:')}」",
@@ -632,6 +616,22 @@ class hatsuneCog(commands.Cog):
             embed.add_field(
                 name=   SPACE,
                 value=  f"{info['sk1atl']}",
+                inline= True
+            )
+        elif option != 'flb' or info['sk1a'] == None:
+            embed.add_field(
+                name=   "> **Skill 1**",
+                value=  f"「{info.get('sk1jp','soon:tm:')}」",
+                inline= False
+            )
+            embed.add_field(
+                name=   "Description",
+                value=  f"{info['sk1']}",
+                inline= True
+            )
+            embed.add_field(
+                name=   SPACE,
+                value=  f"{info['sk1tl']}",
                 inline= True
             )
         
@@ -654,23 +654,7 @@ class hatsuneCog(commands.Cog):
             )
 
         # Skill 2
-        if option != 'alt':
-            embed.add_field(
-                name=   "> **Skill 2**",
-                value=  f"「{info.get('sk2jp','soon:tm:')}」",
-                inline= False
-            )
-            embed.add_field(
-                name=   "Description",
-                value=  f"{info['sk2']}",
-                inline= True
-            )
-            embed.add_field(
-                name=   SPACE,
-                value=  f"{info['sk2tl']}",
-                inline= True
-            )
-        elif option == 'alt' and info['sk2a'] != None:
+        if option == 'alt' and info['sk2a'] != None:
             embed.add_field(
                 name=   "> **Skill 2 Special**",
                 value=  f"「{info.get('sk2ajp','soon:tm:')}」",
@@ -684,6 +668,22 @@ class hatsuneCog(commands.Cog):
             embed.add_field(
                 name=   SPACE,
                 value=  f"{info['sk2atl']}",
+                inline= True
+            )
+        elif option != 'alt' or info['sk2a'] == None:
+            embed.add_field(
+                name=   "> **Skill 2**",
+                value=  f"「{info.get('sk2jp','soon:tm:')}」",
+                inline= False
+            )
+            embed.add_field(
+                name=   "Description",
+                value=  f"{info['sk2']}",
+                inline= True
+            )
+            embed.add_field(
+                name=   SPACE,
+                value=  f"{info['sk2tl']}",
                 inline= True
             )
 
@@ -889,23 +889,36 @@ class hatsuneCog(commands.Cog):
 
         # Skill 1
         if option != 'flb':
-            embed.add_field(
-                name=   "> **Skill 1 Special**" if option == 'alt' else 
-                        f"> **Skill 1**",
-                value=  f"「{info.get('sk1ajp','soon:tm:')}」" if option == 'alt' else
-                        f"「{info.get('sk1jp','soon:tm:')}」",
+            if option == 'alt' and info['sk1ajp'] != None:
+                embed.add_field(
+                    name=   "> **Skill 1 Special**",
+                    value=  f"「{info.get('sk1ajp','soon:tm:')}」",
+                    inline= False
+                )
+                embed.add_field(
+                    name=   "Description",
+                    value=  f"{info['sk1atl']}",
+                    inline= True
+                )
+                embed.add_field(
+                    name=   "Effect",
+                    value=  "```glsl\n{}```".format('\n'.join(info['sk1aaction'])),
+                    inline= True
+                )
+            else:
+                embed.add_field(
+                name=   f"> **Skill 1**",
+                value=  f"「{info.get('sk1jp','soon:tm:')}」",
                 inline= False
             )
             embed.add_field(
                 name=   "Description",
-                value=  f"{info['sk1atl']}" if option == 'alt' else
-                        f"{info['sk1tl']}",
+                value=  f"{info['sk1tl']}",
                 inline= True
             )
             embed.add_field(
                 name=   "Effect",
-                value=  "```glsl\n{}```".format('\n'.join(info['sk1aaction'])) if option == 'alt' else
-                        "```glsl\n{}```".format('\n'.join(info['sk1action'])),
+                value=  "```glsl\n{}```".format('\n'.join(info['sk1action'])),
                 inline= True
             )
         
@@ -928,25 +941,38 @@ class hatsuneCog(commands.Cog):
             )
 
         # Skill 2
-        embed.add_field(
-            name=   "> **Skill 2 Special**" if option == 'alt' else 
-                    "> **Skill 2**",
-            value=  f"「{info.get('sk2ajp','soon:tm:')}」" if option == 'alt' else
-                    f"「{info.get('sk2jp','soon:tm:')}」",
-            inline= False
-        )
-        embed.add_field(
-            name=   "Description",
-            value=  f"{info['sk2atl']}" if option == 'alt' else
-                    f"{info['sk2tl']}",
-            inline= True
-        )
-        embed.add_field(
-            name=   "Effect",
-            value=  "```glsl\n{}```".format('\n'.join(info['sk2aaction'])) if option == 'alt' else
-                    "```glsl\n{}```".format('\n'.join(info['sk2action'])),
-            inline= True
-        )
+        if option == 'alt' and info['sk2ajp'] != None:
+            embed.add_field(
+                name=   "> **Skill 2 Special**",
+                value=  f"「{info.get('sk2ajp','soon:tm:')}」",
+                inline= False
+            )
+            embed.add_field(
+                name=   "Description",
+                value=  f"{info['sk2atl']}",
+                inline= True
+            )
+            embed.add_field(
+                name=   "Effect",
+                value=  "```glsl\n{}```".format('\n'.join(info['sk2aaction'])),
+                inline= True
+            )
+        else:
+            embed.add_field(
+                name=   "> **Skill 2**",
+                value=  f"「{info.get('sk2jp','soon:tm:')}」",
+                inline= False
+            )
+            embed.add_field(
+                name=   "Description",
+                value=  f"{info['sk2tl']}",
+                inline= True
+            )
+            embed.add_field(
+                name=   "Effect",
+                value=  "```glsl\n{}```".format('\n'.join(info['sk2action'])),
+                inline= True
+            )
 
         return embed   
 
