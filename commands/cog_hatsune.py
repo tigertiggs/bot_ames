@@ -399,7 +399,7 @@ class hatsuneCog(commands.Cog):
 
         #t0 = time.perf_counter()
         # construct pages
-        pages_title = ['Chara','UE', 'Stats', 'Card']
+        pages_title = ['<:_chara:677763373739409436> Chara','<:_ue:677763400713109504> UE', '<:_stats:678081583995158538> Stats', '<:_card:677763353069879306> Card']
 
         #pages = []
 
@@ -549,7 +549,7 @@ class hatsuneCog(commands.Cog):
                     continue          
 
     def make_chara(self, info, option, ph):
-        ph[ph.index('Chara')] = '**[Chara]**'
+        ph[ph.index('<:_chara:677763373739409436> Chara')] = '<:_chara:677763373739409436> **Chara**'
 
         if option == 'flb':
             title = f"{info['jp']} 6⭐\n{info['en']} FLB"
@@ -735,7 +735,7 @@ class hatsuneCog(commands.Cog):
             return      abbr.upper()
 
     def make_ue(self, info, ph):
-        ph[ph.index('UE')] = '**[UE]**'
+        ph[ph.index('<:_ue:677763400713109504> UE')] = '<:_ue:677763400713109504> **[UE]**'
 
         embed = discord.Embed(title="No Data",timestamp=datetime.datetime.utcnow())
         embed.set_footer(text='Unique Equipment Page | SHIN Ames',icon_url=info['im'])
@@ -820,7 +820,7 @@ class hatsuneCog(commands.Cog):
         return embed
 
     def make_stats(self, info, ph, option=None):
-        ph[ph.index('Stats')] = '**[Stats]**'
+        ph[ph.index('<:_stats:678081583995158538> Stats')] = '**<:_stats:678081583995158538> [Stats]**'
         
         embed = discord.Embed(
             title="Page Unavailable",
@@ -951,7 +951,7 @@ class hatsuneCog(commands.Cog):
         return embed   
 
     def make_card(self, info, ph, option=None):
-        ph[ph.index('Card')] = '**[Card]**'
+        ph[ph.index('<:_card:677763353069879306> Card')] = '<:_card:677763353069879306> **[Card]**'
 
         embed = discord.Embed(
             description=f"{self.get_full_name(info['en'])}'s card is currently unavailable {self.emj['dead']}",
