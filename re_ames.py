@@ -223,8 +223,15 @@ class Ames(commands.AutoShardedBot):
         if isinstance(error, ignored):
             return
         elif isinstance(error, commands.DisabledCommand):
-            await ctx.channel.send('I\'m currently taking a break '+self.emj['dead'])
+            await ctx.channel.send(f"I\'m currently taking a break from this command {self.emj['dead']} `(Command Disabled)`")
+            await self.log.send(f"Disabled command: {ctx.command.name}")
             return
+        elif isinstance(error, discord.Forbidden):
+            try:
+                await ctx.channel.send(f"{self.emj['ames']} I don\'t have the required permission(s) to perform/finish this command `(Missing Permissions)`")
+            except Exception as e:
+                await self.log.send("Failed to send error alert", ''.join(traceback.format_exception(type(e), e, e.__traceback__)))
+            await self.log.send(f"Ames is missing permissions in: {ctx.command.name}")
         else:
             await self.log.send('<@235361069202145280> command error in', ctx.command.name, f"```prolog\n{''.join(traceback.format_exception(type(error), error, error.__traceback__))}```")
 

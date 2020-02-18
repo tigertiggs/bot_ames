@@ -549,7 +549,7 @@ class hatsuneCog(commands.Cog):
                     continue          
 
     def make_chara(self, info, option, ph):
-        ph[ph.index('<:_chara:677763373739409436> Chara')] = '<:_chara:677763373739409436> **Chara**'
+        ph[ph.index('<:_chara:677763373739409436> Chara')] = '<:_chara:677763373739409436> **[Chara]**'
 
         if option == 'flb':
             title = f"{info['jp']} 6⭐\n{info['en']} FLB"
