@@ -1041,13 +1041,11 @@ class hatsuneCog(commands.Cog):
         else:
             target_id = None
         """
-        chara = await self.validate_entry(target, channel)
-        if chara == False:
-            return
-        target_id = chara['id']
-        
+        chara = await self.validate_entry(target, channel, suppress=True)
+    
         # check if 
-        if target_id == None:
+        if chara == False:
+            target_id = None
             pos =   {"v":           "front",
                     "vanguard":     "front",
                     "m":            "mid",
@@ -1059,6 +1057,8 @@ class hatsuneCog(commands.Cog):
                     "rear":         "rearguard"}
             pos = pos.get(request[0], None)
             request = [real[pos]]
+        else:
+            target_id = chara['id']
         
         # error check
         if target_id == None and pos == None:
