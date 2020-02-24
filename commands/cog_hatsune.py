@@ -1217,7 +1217,8 @@ class hatsuneCog(commands.Cog):
     @commands.command(
         usage=".boss [num]",
         help="Have Ames fetch boss data of current CB.",
-        hidden=True
+        hidden=True,
+        enabled=False
     )
     async def boss(self, ctx, request:int):
         channel = ctx.channel
@@ -1230,6 +1231,10 @@ class hatsuneCog(commands.Cog):
         # read meta
         with open(os.path.join(dir,'data/_meta.txt')) as mf:
             current_bosses = ast.literal_eval(mf.read())['active']
+        
+        if len(current_bosses) == 0:
+            await channel.send(self.client.emj['ames']+' Unable to fetch boss data - either no CB is currently active or no boss data is available')
+            return
         
         data = []
         for boss in current_bosses:
