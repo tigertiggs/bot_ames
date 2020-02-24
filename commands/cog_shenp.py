@@ -70,9 +70,9 @@ class shenpCog(commands.Cog):
             return True
     
     @commands.command(
-        name=".spray [user|optional]",
+        name=".spray [user:discord_user|optional]",
         aliases=['s'],
-        help="For bullying"
+        help="For bullying. type:discord_user can be either a mention/ping or their partial name/nick without the discriminator."
     )
     async def spray(self, ctx, user:discord.User=None):
         channel = ctx.channel
@@ -117,8 +117,8 @@ class shenpCog(commands.Cog):
         await channel.send(file=send)
 
     @commands.command(
-        usage=".dumb [user|optional]",
-        help="Call someone out for being a dumbass. Defaults to self!"
+        usage=".dumb [user:discord_user=self]",
+        help="Call someone out for being a dumbass. type:discord_user can be either a mention/ping or their partial name/nick without the discriminator. Defaults to self!"
     )
     async def dumb(self, ctx, user:str=None):
         channel = ctx.channel
@@ -178,9 +178,9 @@ class shenpCog(commands.Cog):
         await channel.send(file=discord.File(os.path.join(dir,'shen/post/dumbass.jpg')))
 
     @commands.command(
-        usage=".enty [user|optional]",
+        usage=".enty [user:discord_user=self]",
         aliases=['enty1','enty2','enty3'],
-        help="Call someone out for being an Ark Royal. Defaults to self!"
+        help="Call someone out for being an Ark Royal. type:discord_user can be either a mention/ping or their partial name/nick without the discriminator. Defaults to self!"
     )
     async def enty(self, ctx, user:str=None):
         channel = ctx.channel
@@ -298,7 +298,7 @@ class shenpCog(commands.Cog):
         return discord.File(os.path.join(dir,'shen/post/entydejavu.jpg'))
             
     @commands.command(
-        usage='.location [user|optional]',
+        usage='.location [user:discord_user=self]',
         aliases=['loc'],
         help="No description... yet."
     )
@@ -330,9 +330,9 @@ class shenpCog(commands.Cog):
         await channel.send(file=discord.File(os.path.join(dir,'shen/post/loc.png')))
 
     @commands.command(
-        usage='.police [user|optional]',
+        usage='.police [user:discord_user=self]',
         aliases=['pol','loli','lolipol'],
-        help='Call someone out for being a lolicon. Defaults to self!'
+        help='Call someone out for being a lolicon. type:discord_user can be either a mention/ping or their partial name/nick without the discriminator. Defaults to self!'
     )
     async def police(self, ctx, user:str=None):
         channel = ctx.channel
@@ -428,8 +428,8 @@ class shenpCog(commands.Cog):
         await channel.send(file=result, embed=embed)
 
     @commands.command(
-        usage='.nero [text]',
-        help="Have Nero say something."
+        usage='.nero [*text]',
+        help="Have Nero say something. The input text cannot be too long. Functions best with no newline characters."
     )
     async def nero(self, ctx, *, txt:str):
         channel = ctx.channel
@@ -527,8 +527,8 @@ class shenpCog(commands.Cog):
         await channel.send(file=result, embed=embed)
 
     @commands.command(
-        usage='.neroe [emote]',
-        help="Have Nero share an emote."
+        usage='.neroe [emote:discord_emote_animated_okay]',
+        help="Have Nero share an emote. type:discord_emote must be an emote you have access to. Accepts animated emotes, but will be resource intensive. Use with caution if you have limited data."
     )
     async def neroe(self, ctx, emoji:str):
         channel = ctx.channel
@@ -632,8 +632,8 @@ class shenpCog(commands.Cog):
         await channel.send(file=result, embed=embed)
 
     @commands.command(
-        usage='.threat [user]',
-        help='Coax someone with a P5 Compact.'
+        usage='.threat [user:discord_user=self]',
+        help='Coax someone with a P5 Compact. type:discord_user can be either a mention/ping or their partial name/nick without the discriminator. Defaults to self!'
     )
     async def threat(self, ctx, user:str=None):
         channel = ctx.channel
@@ -689,7 +689,7 @@ class shenpCog(commands.Cog):
         await channel.send(file=discord.File(os.path.join(dir,'shen/post/threat.png')))
 
     @commands.command(
-        usage='.mind [text]',
+        usage='.mind [*text]',
         help='No description... yet.'
     )
     async def mind(self, ctx, *, text):
@@ -781,7 +781,7 @@ class shenpCog(commands.Cog):
         await channel.send(file=discord.File(os.path.join(dir,'shen/post/changemymind.png')))
 
     @commands.command(
-        usage=".muimi [image_url] / [attachment]",
+        usage=".muimi [image_url OR attachment]",
         help="No description... yet."
     )
     async def muimi(self, ctx, url:str=None):
@@ -905,8 +905,8 @@ class shenpCog(commands.Cog):
         return discord.File(OUT, filename='muimi.png')
 
     @commands.command(
-        usage=".bless [user|optional]",
-        help="Have Nozomi bless the specified user. Defaults to self!"
+        usage=".bless [user:discord_user=self]",
+        help="Have Nozomi bless the specified user. type:discord_user can be either a mention/ping or their partial name/nick without the discriminator. Defaults to self!"
     )
     async def bless(self, ctx, user:str=None):
         channel = ctx.channel
@@ -966,8 +966,8 @@ class shenpCog(commands.Cog):
             await channel.send(file=discord.File(os.path.join(dir,'shen/post/bless.png')))
 
     @commands.command(
-        usage=".amesbless [user|optional]",
-        help="Have Ames bless the specified user. Defaults to self!"
+        usage=".amesbless [user:discord_user=self]",
+        help="Have Ames bless the specified user. type:discord_user can be either a mention/ping or their partial name/nick without the discriminator. Defaults to self!"
     )
     async def amesbless(self, ctx, user:str=None):
         channel = ctx.channel

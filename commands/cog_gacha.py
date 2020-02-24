@@ -187,7 +187,7 @@ class gachaCog(commands.Cog):
     
     @commands.command(
         usage='.roll [num=10]',
-        help='Have Ames simulate your gacha luck on the current banner.'
+        help='Have Ames simulate your gacha luck on the current banner. [num] cannot be too big.'
     )
     async def roll(self, ctx, *roll):
         channel = ctx.channel
@@ -374,7 +374,7 @@ class gachaCog(commands.Cog):
 
     @commands.command(
         usage='.gacha [num=10]',
-        help='Have Ames do a 10 roll. This command is resource intensive.'
+        help='Have Ames do a 10 roll. This command is resource intensive (data warning: image <=200kB). [num] must be an integer between 1 and 10.'
     )
     async def gacha(self, ctx, num=10, *test):
         #print(num,test)

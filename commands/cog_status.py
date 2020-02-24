@@ -107,7 +107,7 @@ class statusCog(commands.Cog):
     
     @commands.command(
         usage='.ping',
-        help='Get Ames\' current latency.',
+        help='Get Ames\' current latency in milliseconds.',
         hidden=False
     )
     async def ping(self, ctx):
@@ -140,7 +140,7 @@ class statusCog(commands.Cog):
     @commands.command(
         hidden=True,
         usage='.purge [depth=100]',
-        help='Look through [depth] most recent messages and delete Ames\' messages.'
+        help='Look through [depth] most recent messages in the current channel and delete Ames\' messages.'
     )
     async def purge(self, ctx, depth:int=100):
         channel = ctx.channel

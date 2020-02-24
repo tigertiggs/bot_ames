@@ -74,11 +74,11 @@ alias = [
     ),
     proxyCommand(
         '.alias add [keyword] [character]',
-        'Add the following alias to the character. Keyword is case-insensitive and character must match a valid name in the database. The keyword must not already exist.'
+        'Add the following alias to the character. Keyword is case-insensitive and character must match a valid name in the database. The keyword must not already exist. The keyword cannot be in the master alias list.'
     ),
     proxyCommand(
         '.alias remove [keyword]',
-        'Remove the alias.',
+        'Remove the local alias.',
         aliases=['rm']
     ),
     proxyCommand(
@@ -88,7 +88,7 @@ alias = [
     ),
     proxyCommand(
         '.alias edit [keyword] [character]',
-        'Edit the character pointer. Basically functions the same way as .alias add',
+        'Edit the character alias. Basically functions the same way as .alias add. Master aliases cannot be edited.',
         aliases=['ed']
     )
 ]
@@ -107,6 +107,21 @@ class helpCog(commands.Cog):
         else:
             return True
     
+    def make_hhelp(self):
+        text1 = "**How to interpret the documentation [README]**\n"
+        embed = ("In the documentation you will encounter any combination of the notations explained below. This small help segment only appear with `.help`\n"
+                "```css\n"
+                    "[Square brackets used in documentation] only serve as a visual guide (only noticable on discord desktop) and is not part of the input\n\n"
+                    ".example_0 something\nenter [.example_0 something] to use this command\n\n"
+                    ".example_1 [argument]\nThis command will not function unless an [argument] is specified\n\n"
+                    ".example_2 [*arguments]\nThis command accepts multiple [arguments] separated by a space\n\n"
+                    ".example_3 [argument = default value]\nThis command accepts an [argument] but will assume a default value if left blank\n\n"
+                    ".example_4 [argument|optional]\n This command's input argument is optional and will work if left blank\n\n"
+                    ".example_5\n[Aliases]: tiggsisdumb\nthis command can be called with .tiggsisdumb\n\n"
+                    ".example_6 [argument:type]\nThis command accept an argument of a particular type; for example: text, URL, :discord_emote:, @user_ping, etc.\n\n"
+                "```")
+        return text1+embed
+
     def make_help_embed(self, functions, name, **kwargs):
         functions.sort(key=lambda x: x[1])
 
@@ -161,6 +176,7 @@ class helpCog(commands.Cog):
         
         if ctx.invoked_subcommand is None:
             functions = await self.construct_functions(default.copy(), default_additional.copy())
+            await ctx.channel.send(self.make_hhelp())
             await ctx.channel.send(self.make_help_embed(functions, "Active Commands"))
 
     @help.command()

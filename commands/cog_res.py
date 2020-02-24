@@ -194,10 +194,6 @@ class resCog(commands.Cog):
             else:
                 print('here')
                 await channel.send(f"Added {update_emote_name}")
-        
-        
-        
-
 
 def setup(client):
     client.add_cog(resCog(client))

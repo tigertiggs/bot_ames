@@ -43,7 +43,7 @@ class shenCog(commands.Cog):
                 await message.channel.send(self.client.emj[message.content.strip("".join(self.client.BOT_PREFIX))])
     
     @commands.command(
-        usage='.big [emote]',
+        usage='.big [arg:discord_emote_animated_okay]',
         aliases=['b', 'e', 'emote'],
         help='Enlarge the emote.'
     )

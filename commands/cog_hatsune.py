@@ -335,21 +335,25 @@ class hatsuneCog(commands.Cog):
         return info
 
     @commands.command(
-        usage = '.character [name] [*options]', 
+        usage = '.character [name] [*options|optional]', 
         aliases=['c','ue', 'chara'],
-        help='Have Ames fetch information on the specified character. Options include: flb'
+        help='Have Ames fetch information on the specified character. [Options include]: flb'
         )
     async def character(self, ctx, *request):
         channel = ctx.channel
         author = ctx.message.author
 
-        request = [i.lower() for i in request]
-        #print(request)
-        # check if command is enabled
-
         check = await self.active_check(channel)
         if not check:
             return
+        
+        if len(request) == 0:
+            await channel.send(self.error()['no_input'])
+            return
+
+        request = [i.lower() for i in request]
+        #print(request)
+        # check if command is enabled
 
         #t0 = time.perf_counter()
         # preprocess the args - check for aliases
@@ -1009,15 +1013,21 @@ class hatsuneCog(commands.Cog):
     @commands.command(
         usage='.pos [option]',
         help="Enter a [name] to have Ames fetch the relative position of the specified character. "\
-            "Otherwise, use either [v(anguard)], [m(idguard)] or [r(earguard)] to list their respective positioning."
+            "Otherwise, use either [v(anguard)], [m(idguard)] or [r(earguard)] to list their respective lineup."
     )
     async def pos(self, ctx, *request):
         channel = ctx.channel
-        request = [i.lower() for i in request]
         # check if command is enabled
         check = await self.active_check(channel)
         if not check:
             return
+        
+        if len(request) == 0:
+            await channel.send(self.error()['pos_fail'])
+            return
+
+
+        request = [i.lower() for i in request]
         
         # fetch pointer and check if its connected
         conn = self.db.db_pointer.get_connection()
@@ -1126,15 +1136,20 @@ class hatsuneCog(commands.Cog):
 
     @commands.command(
         usage='.tag [*option]',
-        help='Enter tags to search all characters that qualify for those tags. Alternatively, search a character to return their tags.'
+        help='Enter tags to search all characters that qualify. Alternatively, search a character to return their tags.'
     )
     async def tag(self, ctx, *request):
         channel = ctx.channel
-        request = [i.lower() for i in request]
         # check if command is enabled
         check = await self.active_check(channel)
         if not check:
             return
+
+        if len(request) == 0:
+            await channel.send("There was no input. Use `.help tag` if you're stuck.")
+            return 
+            
+        request = [i.lower() for i in request]
         
         # fetch pointer and check if its connected
         conn = self.db.db_pointer.get_connection()
@@ -1216,7 +1231,7 @@ class hatsuneCog(commands.Cog):
         
     @commands.command(
         usage=".boss [num]",
-        help="Have Ames fetch boss data of current CB.",
+        help="Have Ames fetch boss data of current CB. [Num] must be an integer between 1 and 5.",
         hidden=True,
         enabled=False
     )

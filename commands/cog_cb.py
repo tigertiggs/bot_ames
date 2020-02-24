@@ -154,7 +154,7 @@ class cbCog(commands.Cog):
     @commands.group(
         invoke_without_command=True,
         case_insensitive=True,
-        usage='.cbtag [*options]',
+        usage='.cbtag [*options|optional]',
         help='This command is restricted to a certain server only. Show waiting list for all 3 guilds.'
     )
     async def cbtag(self, ctx, *options):
