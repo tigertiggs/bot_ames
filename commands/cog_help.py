@@ -165,7 +165,7 @@ class helpCog(commands.Cog):
 
     @help.command()
     async def shitpost(self, ctx):
-        functions = await self.construct_functions(shitpost.copy())
+        functions = await self.construct_functions(shitpost.copy(), [])
         await ctx.channel.send(self.make_help_embed(functions,"Shitpost"))
 
     @help.command()
