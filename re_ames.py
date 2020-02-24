@@ -1,12 +1,10 @@
 # dependencies
 import datetime, time
 import os, sys, traceback
-import ast, aiohttp, asyncio, random, traceback
+import ast, aiohttp, asyncio, random, traceback, json
 import discord
 from discord.ext.commands import Bot
 from discord.ext import commands
-
-#debug = True
 
 # add ames dir into search path
 dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -48,7 +46,14 @@ class Ames(commands.AutoShardedBot):
             self.config = ast.literal_eval(cmdf.read())
 
         # check folders
-        self.check_init()
+        self.init_success = self.check_init()
+        if not self.init_success:
+            print('Failed to create a critical component, aborting startup!')
+            return
+
+        # check debug
+        with open(os.path.join(dir_path,'commands/_config/debug.json')) as df:
+            self.debug = json.load(df)
 
         # load cogs
         self.cogs_status = dict()
@@ -56,10 +61,11 @@ class Ames(commands.AutoShardedBot):
             for extension in COGS:
                 extension = extension.strip()
                 try:
-                    print('loading',extension)
+                    print('loading',extension,end=' ')
                     self.load_extension(extension)
+                    print('\tsuccess!',flush=True)
                 except Exception as err:
-                    print('{0} failed to load:'.format(str(extension)),err)
+                    print('{0} failed to load:'.format(str(extension)),err,flush=True)
                     traceback.print_exc()
                     self.cogs_status[str(extension)] = False
                 else:
@@ -67,29 +73,61 @@ class Ames(commands.AutoShardedBot):
 
     def check_init(self):
         # check if commands/shen/post exists
+        success = True
         print('checking folders...')
+
         if not os.path.exists(os.path.join(dir_path,'commands/shen/post')):
-            print('creating commands/shen/post...')
+            print('creating commands/shen/post...', end='')
             try:
                 os.makedirs(os.path.join(dir_path,'commands/shen/post'))
+                print('success!', flush=True)
             except:
+                success = False
                 traceback.print_exc()
+
+
         if not os.path.exists(os.path.join(dir_path,'commands/gacha/assets/units/png')):
-            print('creating commands/gacha/assets/units/png...')
+            print('creating commands/gacha/assets/units/png...',end='')
             try:
                 os.makedirs(os.path.join(dir_path,'commands/gacha/assets/units/png'))
+                print('success!', flush=True)
             except:
+                success = False
                 traceback.print_exc()
+
         if not os.path.exists(os.path.join(dir_path, 'commands/_config/alias_local.txt')):
-            print('creating commands/_config/alias_local.txt...')
-            with open(os.path.join(dir_path,'commands/_config/alias_local.txt'), 'w+') as alf:
-                alf.write('{}')
+            print('creating commands/_config/alias_local.txt...',end='')
+            try:
+                with open(os.path.join(dir_path,'commands/_config/alias_local.txt'), 'w+') as alf:
+                    alf.write('{}')
+                print('success!', flush=True)
+            except:
+                success = False
+                traceback.print_exc()
+
         if not os.path.exists(os.path.join(dir_path,'commands/_config/port.txt')):
-            print('creating commands/_config/port.txt...')
-            with open(os.path.join(dir_path,'commands/_config/port.txt'), 'w+') as pf:
-                pf.write('default')
+            print('creating commands/_config/port.txt...',end='')
+            try:
+                with open(os.path.join(dir_path,'commands/_config/port.txt'), 'w+') as pf:
+                    pf.write('default')
+                print('success!', flush=True)
+            except:
+                success = False
+                traceback.print_exc()
+        
+        if not os.path.exists(os.path.join(dir_path,'commands/_config/debug.json')):
+            print('creating commands/_config/debug.json...',end='')
+            try:
+                with open(os.path.join(dir_path,'commands/_config/debug.json'), 'w+') as df:
+                    json.dump({"debugmode":1}, df)
+                print('success!', flush=True)
+            except:
+                success = False
+                traceback.print_exc()
+
         print('finshed!')
         # add more checks here
+        return success
 
     def get_config(self, option):
         self.config[option] = self.config.get(option, True)
@@ -175,6 +213,8 @@ class Ames(commands.AutoShardedBot):
         await self.database.connect()
         self.load_resource()
         print(f'Ready: {self.user} (ID: {self.user.id})')
+        if self.debug['debugmode'] == 1:
+            print('----Ames is in debug mode----')
         await self.log.send(self.name,'I\'m back!')
         self.loop.create_task(self.st())
 
@@ -198,21 +238,34 @@ class Ames(commands.AutoShardedBot):
         #
         # currently empty put is availble for expansion
         #
-        try:
-            await self.invoke(ctx)
-        except Exception as e:
-            await self.log.send(self.name, 'failed to process command', e)
-        finally:
-            pass
-            #await ctx.release()
+        if self.debug['debugmode'] == 1:
+            if message.author.id == 235361069202145280:
+                await self.invoke(ctx)
+            else:
+                pass
+        else:
+            try:
+                await self.invoke(ctx)
+            except Exception as e:
+                await self.log.send(self.name, 'failed to process command', e)
+            finally:
+                pass
+                #await ctx.release()
 
     async def on_message(self,message):
         if message.author.bot:
             return
-        elif message.content.startswith(BOT_PREFIX):
-            await self.log.send('[{0.user.name}] `{1}` `{2.channel.guild.name}` `{2.channel.name}` `{2.author.name}` `{2.content}`'.format(
-                self, datetime.datetime.now(), message))
-            await self.process_commands(message)
+
+        if message.content.startswith(BOT_PREFIX):
+            if self.debug['debugmode'] == 1:
+                if message.author.id == 235361069202145280:
+                    await self.log.send('DEBUG MODE [{0.user.name}] `{1}` `{2.channel.guild.name}` `{2.channel.name}` `{2.author.name}` `{2.content}`'.format(
+                        self, datetime.datetime.now(), message))
+                    await self.process_commands(message)
+            else:
+                await self.log.send('[{0.user.name}] `{1}` `{2.channel.guild.name}` `{2.channel.name}` `{2.author.name}` `{2.content}`'.format(
+                    self, datetime.datetime.now(), message))
+                await self.process_commands(message)
 
     async def on_command_error(self, ctx, error):
         #if debug == False:
@@ -241,11 +294,14 @@ class Ames(commands.AutoShardedBot):
         await super().close()
 
     def run(self):
-        try:
-            with open('commands/_pass/token') as tf:
-                super().run(tf.read().strip(), bot=True, reconnect=True)
-        except:
-            traceback.print_exc()
+        if self.init_success:
+            try:
+                with open('commands/_pass/token') as tf:
+                    super().run(tf.read().strip(), bot=True, reconnect=True)
+            except:
+                traceback.print_exc()
+        else:
+            pass
     
     def error(self):
         error_msg = dict()

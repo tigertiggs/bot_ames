@@ -71,7 +71,12 @@ class statusCog(commands.Cog):
         embed.add_field(
             name='Version',
             value=v,
-            inline=False
+            inline=True
+        )
+        embed.add_field(
+            name="Creator",
+            value="tigertiggs#5376",
+            inline=True
         )
         embed.add_field(
             name="Uptime",
@@ -95,14 +100,16 @@ class statusCog(commands.Cog):
         )
         embed.add_field(
             name='Command Group',
-            value='\n'.join([item.split('.')[1] for item in cogs]),
+            value='\n'.join([f"{':green_circle:' if state else ':red_circle:'} {item}" for item, status in list(zip([item.split('_')[-1] for item in cogs], ['Loaded' if status else 'Not Loaded' for status in state]))]),
             inline=True
         )
+        """
         embed.add_field(
             name='Status',
             value='\n'.join(['Loaded' if status else 'Not Loaded' for status in state]),
             inline=True
         )
+        """
         await channel.send(embed=embed)
     
     @commands.command(
