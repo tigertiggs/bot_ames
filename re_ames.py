@@ -119,7 +119,7 @@ class Ames(commands.AutoShardedBot):
             print('creating commands/_config/debug.json...',end='')
             try:
                 with open(os.path.join(dir_path,'commands/_config/debug.json'), 'w+') as df:
-                    json.dump({"debugmode":1}, df)
+                    json.dump({"debugmode":0}, df)
                 print('success!', flush=True)
             except:
                 success = False
