@@ -37,19 +37,20 @@ class hatsuneCog(commands.Cog):
         self.emj =      client.emj
         #self.active =   client.get_config('hatsune')
 
-        self.help =     ("In case you forgot, the input syntax is:\n"
-                            "> `.c(haracter) [character_name] [*option]`\n"
-                            "i.e. `.c skyaru ue` `.c maho flb`\n\n"
+        self.help =     ("In case you forgot, the input syntax is:"
+                            "> `.c(haracter) [version|optional].[character_name] [*option|optional]`\n"
+                            "i.e. `.c s.kyaru` `.c maho flb`\n"
                         "the seasonal prefixes are:\n"
-                            "> `n` for New year i.e. `nrei`\n"
-                            "> `x` for Christmas i.e. `xayane`\n"
-                            "> `o` for Ouedo i.e. `oninon`\n"
-                            "> `v` for Valentines i.e. `vshizuru`\n"
-                            "> `s` for Summer i.e. `sio`\n"
-                            "> `h` for Halloween i.e. `hmiyako`\n"
-                            "> `u` for Uniform i.e. `uaoi`\n"
-                            "> `m` for Magical Girl i.e. `mshiori`\n"
-                            "> `p` for Princess i.e. `ppeco`")
+                            "> `n` for New year i.e. `n.rei`\n"
+                            "> `x` for Christmas i.e. `x.ayane`\n"
+                            "> `o` for Ouedo i.e. `o.ninon`\n"
+                            "> `v` for Valentines i.e. `v.shizuru`\n"
+                            "> `s` for Summer i.e. `s.io`\n"
+                            "> `h` for Halloween i.e. `h.miyako`\n"
+                            "> `u` for Uniform i.e. `u.aoi`\n"
+                            "> `m` for Magical Girl i.e. `m.shiori`\n"
+                            "> `p` for Princess i.e. `p.peco`\n"
+                            "> `cg` for DereSuTe i.e. `cg.uzuki")
 
         self.options =  ['flb']
         with open(os.path.join(dir, '_config/alias_local.txt')) as alf:
@@ -96,59 +97,68 @@ class hatsuneCog(commands.Cog):
                     option = None
         else:
             request = request[:-1]
-        for arg in request:
+
+        for arg in self.prefix_id(request):
             processed.append(self.preprocessor.get(arg, arg).lower())
         return "".join(processed), option
-    
+
+    def prefix_id(self, request):
+        processed = []
+        for item in request:
+            temp = item.split('.')
+
+            if len(temp) == 2:
+                processed.append(self.prefixes_new(temp[0].lower()))
+                processed.append(temp[1])
+            else:
+                processed.append(item)
+        return processed
+
+    def prefixes_new(self, pf):
+        old_prefixes = [
+            'n', 'x', 'o', 'v', 's', 'h', 'u', 'm', 'p', 'd'
+        ]
+        if pf in old_prefixes:
+            return pf
+        #elif pf in ['cg', 'imas', 'i']:
+        #    return 'd'
+        else:
+            return pf
+
+    def prefixes(self, pf):
+        if pf ==    'n': 
+            return          'New Year'
+        elif pf ==  'x':
+            return          'Xmas'
+        elif pf ==  'o':
+            return          'Ouedo'
+        elif pf ==  'v':
+            return          'Valentines'
+        elif pf ==  's':
+            return          'Summer'
+        elif pf ==  'h':
+            return          'Halloween'
+        elif pf ==  'u':
+            return          'Uniform'
+        elif pf ==  'm':
+            return          'Magical Girl'
+        elif pf ==  'p':
+            return          'Princess'
+        elif pf ==  'd':
+            return          'Cinderella Girls'
+        else:
+            return          "???"
+
     def get_full_name(self, target):
         if len(target) > 1:
             if target[1].isupper():
-                prefix = target[0].lower()
-                if prefix ==    'n': 
-                    prefix =        'New Year'
-                elif prefix ==  'x':
-                    prefix =        'Xmas'
-                elif prefix ==  'o':
-                    prefix =        'Ouedo'
-                elif prefix ==  'v':
-                    prefix =        'Valentine'
-                elif prefix ==  's':
-                    prefix =        'Summer'
-                elif prefix ==  'h':
-                    prefix =       'Halloween'
-                elif prefix ==  'u':
-                    prefix =        'Uniform'
-                elif prefix ==  'm':
-                    prefix =        'Magical Girl'
-                elif prefix ==  'p':
-                    prefix =        'Princess'
-                else:
-                    prefix =        "???"
-                return " ".join([prefix, target[1:]])
+                prefix = self.prefixes(target[0].lower())
+                #return " ".join([prefix, target[1:]])
+                return f"{target[1:]} ({prefix})"
             else:
                 return target
         else:
-            prefix = target.lower()
-            if prefix ==    'n': 
-                prefix =        'New Year'
-            elif prefix ==  'x':
-                prefix =        'Xmas'
-            elif prefix ==  'o':
-                prefix =        'Ouedo'
-            elif prefix ==  'v':
-                prefix =        'Valentine'
-            elif prefix ==  's':
-                prefix =        'Summer'
-            elif prefix ==  'h':
-                prefix =       'Halloween'
-            elif prefix ==  'u':
-                prefix = '      Uniform'
-            elif prefix ==  'm':
-                prefix =        'Magical Girl'
-            elif prefix ==  'p':
-                    prefix =    'Princess'
-            else:
-                prefix =        "???"
+            prefix = self.prefixes(target.lower())
             return prefix
     
     @commands.command()
@@ -697,6 +707,11 @@ class hatsuneCog(commands.Cog):
             value=', '.join(info['tag']),
             inline=False
         )
+        embed.add_field(
+            name="> Aliases",
+            value=", ".join([key for key, value in list(self.preprocessor.items()) if value.lower() == info['en'].lower()]),
+            inline=False
+        )
         return embed
     
     def ue_abbrev(self, abbr):
@@ -1026,7 +1041,6 @@ class hatsuneCog(commands.Cog):
             await channel.send(self.error()['pos_fail'])
             return
 
-
         request = [i.lower() for i in request]
         
         # fetch pointer and check if its connected
@@ -1213,6 +1227,10 @@ class hatsuneCog(commands.Cog):
         charas = []
         for en in cursor:
             charas.append(str(en[0]))
+
+        charas = list(zip(charas, [self.get_full_name(en) for en in charas]))
+        charas.sort(key=lambda x: x[1])
+
         cursor.close()
         embed = discord.Embed(
             title=          "Tag Search",
@@ -1224,7 +1242,7 @@ class hatsuneCog(commands.Cog):
         for names in list(self.chunks(charas,20)):
             embed.add_field(
                 name="Characters",
-                value="\n".join([f"{self.client.get_team().get(en.lower(),':question:')} {self.get_full_name(en)}" for en in names]),
+                value="\n".join([f"{self.client.get_team().get(en.lower(),':question:')} {full_en}" for en, full_en in names]),
                 inline=True
             )
         return embed
