@@ -707,9 +707,12 @@ class hatsuneCog(commands.Cog):
             value=', '.join(info['tag']),
             inline=False
         )
+
+        # Aliases
+        falias = [key for key, value in list(self.preprocessor.items()) if value.lower() == info['en'].lower()]
         embed.add_field(
             name="> Aliases",
-            value=", ".join([key for key, value in list(self.preprocessor.items()) if value.lower() == info['en'].lower()]),
+            value=", ".join(falias) if len(falias)!= 0 else "None",
             inline=False
         )
         return embed
