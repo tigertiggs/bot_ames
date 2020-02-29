@@ -50,7 +50,7 @@ class hatsuneCog(commands.Cog):
                             "> `u` for Uniform i.e. `u.aoi`\n"
                             "> `m` for Magical Girl i.e. `m.shiori`\n"
                             "> `p` for Princess i.e. `p.peco`\n"
-                            "> `cg` for DereSuTe i.e. `cg.uzuki")
+                            "> `cg` for DereSuTe i.e. `cg.uzuki`")
 
         self.options =  ['flb']
         with open(os.path.join(dir, '_config/alias_local.txt')) as alf:
@@ -120,8 +120,8 @@ class hatsuneCog(commands.Cog):
         ]
         if pf in old_prefixes:
             return pf
-        #elif pf in ['cg', 'imas', 'i']:
-        #    return 'd'
+        elif pf in ['cg', 'imas', 'i', 'deremasu', 'dm']:
+            return 'd'
         else:
             return pf
 

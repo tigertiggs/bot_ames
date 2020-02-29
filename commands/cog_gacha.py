@@ -5,33 +5,37 @@ import random, datetime
 from PIL import Image, GifImagePlugin, ImageDraw, ImageSequence, ImageOps, ImageFont
 dir = os.path.dirname(__file__)
 
+def prefixes(pf):
+    if pf ==    'n': 
+        return          'New Year'
+    elif pf ==  'x':
+        return          'Xmas'
+    elif pf ==  'o':
+        return          'Ouedo'
+    elif pf ==  'v':
+        return          'Valentines'
+    elif pf ==  's':
+        return          'Summer'
+    elif pf ==  'h':
+        return          'Halloween'
+    elif pf ==  'u':
+        return          'Uniform'
+    elif pf ==  'm':
+        return          'Magical Girl'
+    elif pf ==  'p':
+        return          'Princess'
+    elif pf ==  'd':
+        return          'Cinderella Girls'
+    else:
+        return          "???"
+
 SPACE = '\u200B'
 PRIFES = False
 
 def get_full_name(target):
     if target[1].isupper():
-        prefix = target[0].lower()
-        if prefix ==    'n': 
-            prefix =        'New Year'
-        elif prefix ==  'x':
-            prefix =        'Xmas'
-        elif prefix ==  'o':
-            prefix =        'Ouedo'
-        elif prefix ==  'v':
-            prefix =        'Valentine'
-        elif prefix ==  's':
-            prefix =        'Summer'
-        elif prefix ==  'h':
-            prefix =       'Halloween'
-        elif prefix ==  'u':
-            prefix =        'Uniform'
-        elif prefix ==  'm':
-            prefix =        'Magical Girl'
-        elif prefix ==  'p':
-            prefix =        'Princess'
-        else:
-            prefix =        "???"
-        return " ".join([prefix, target[1:]])
+        pf = prefixes(target[0].lower())
+        return f"{target[1:]} ({pf})"
     else:
         return target
 
@@ -252,14 +256,14 @@ class gachaCog(commands.Cog):
 
         if len(summary['lim']) > 0:
             lim_pulls = list(summary['lim'].values())
-            lim_pulls.sort(key=lambda x: x[0].name)
+            lim_pulls.sort(key=lambda x: x[0].full_name)
             lim_pulls = [f"> {self.client.get_team()[ch.name]} **{ch.full_name}** x{n}" for ch, n in lim_pulls]
         else:
             lim_pulls = []
 
         if len(summary['norm']) > 0:
             ssr_pulls = list(summary['norm'].values())
-            ssr_pulls.sort(key=lambda x: x[0].name)
+            ssr_pulls.sort(key=lambda x: x[0].full_name)
             ssr_pulls = [f" {self.client.get_team()[ch.name]} {ch.full_name} x{n}" for ch, n in ssr_pulls]
         else:
             ssr_pulls = []
@@ -348,14 +352,14 @@ class gachaCog(commands.Cog):
 
         if len(summary['lim']) > 0:
             lim_pulls = list(summary['lim'].values())
-            lim_pulls.sort(key=lambda x: x[0].name)
+            lim_pulls.sort(key=lambda x: x[0].full_name)
             lim_pulls = [f"> {self.client.get_team()[ch.name]} **{ch.full_name}** x{n}" for ch, n in lim_pulls]
         else:
             lim_pulls = []
 
         if len(summary['norm']) > 0:
             ssr_pulls = list(summary['norm'].values())
-            ssr_pulls.sort(key=lambda x: x[0].name)
+            ssr_pulls.sort(key=lambda x: x[0].full_name)
             ssr_pulls = [f" {self.client.get_team()[ch.name]} {ch.full_name} x{n}" for ch, n in ssr_pulls]
         else:
             ssr_pulls = []
