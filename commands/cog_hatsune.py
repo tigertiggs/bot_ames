@@ -86,7 +86,7 @@ class hatsuneCog(commands.Cog):
         processed = []
         option = request[-1]
         deprec = ['ue', 'mlb']
-        if option not in self.options:
+        if not option in self.options:
             if option in deprec:
                 if verbose:
                     await channel.send(f'Warning: option `{option}` has depreciated! See `.help` for more details.')
@@ -108,8 +108,8 @@ class hatsuneCog(commands.Cog):
             temp = item.split('.')
 
             if len(temp) == 2:
-                processed.append(self.prefixes_new(temp[0].lower()))
-                processed.append(temp[1])
+                processed.append("".join([self.prefixes_new(temp[0].lower()), temp[1]]))
+                #processed.append(temp[1])
             else:
                 processed.append(item)
         return processed
@@ -1056,6 +1056,7 @@ class hatsuneCog(commands.Cog):
         # check if input is a chara
         # preprocess the args - check for aliases
         target = await self.process_input(request,channel)
+        print(target)
         target = target[0]
 
         # fetch the character lists to check if target is in them
@@ -1068,6 +1069,7 @@ class hatsuneCog(commands.Cog):
         else:
             target_id = None
         """
+        print(target)
         chara = await self.validate_entry(target, channel, suppress=True)
     
         # check if 
@@ -1585,16 +1587,18 @@ class hatsuneCog(commands.Cog):
         c_list, c_jp_list, id_list = self.fetch_list(conn)
         del id_list
         """
-        chara = await self.validate_entry(arg, channel)
+        chara = await self.validate_entry(arg, channel, suppress=False)
         if chara == False:
             await channel.send(f"`{arg}` is not a valid database entry")
             #conn.close()
-            return
+            return False
+        elif await self.validate_entry(kw, channel, suppress=True) != False:
+            await channel.send(f"{kw} cannot be already a valid database entry")
+            return False
         else:
             #conn.close()
             return True
         
-
         """
         if not arg in c_list and not arg in c_jp_list:
             await channel.send(f"`{arg}` is not a valid database entry")
