@@ -632,7 +632,7 @@ class hatsuneCog(commands.Cog):
                 value=  f"{info['sk1atl']}",
                 inline= True
             )
-        elif option != 'flb' or info['sk1a'] == None:
+        elif option != 'flb':
             embed.add_field(
                 name=   "> **Skill 1**",
                 value=  f"「{info.get('sk1jp','soon:tm:')}」",
