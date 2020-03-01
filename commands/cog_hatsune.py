@@ -37,10 +37,10 @@ class hatsuneCog(commands.Cog):
         self.emj =      client.emj
         #self.active =   client.get_config('hatsune')
 
-        self.help =     ("In case you forgot, the input syntax is:"
+        self.help =     ("**In case you forgot, the input syntax is:**\n"
                             "> `.c(haracter) [version|optional].[character_name] [*option|optional]`\n"
-                            "i.e. `.c s.kyaru` `.c maho flb`\n"
-                        "the seasonal prefixes are:\n"
+                            "> i.e. `.c s.kyaru` `.c maho flb`\n"
+                        "**The seasonal prefixes are:**\n"
                             "> `n` for New year i.e. `n.rei`\n"
                             "> `x` for Christmas i.e. `x.ayane`\n"
                             "> `o` for Ouedo i.e. `o.ninon`\n"
@@ -50,7 +50,12 @@ class hatsuneCog(commands.Cog):
                             "> `u` for Uniform i.e. `u.aoi`\n"
                             "> `m` for Magical Girl i.e. `m.shiori`\n"
                             "> `p` for Princess i.e. `p.peco`\n"
-                            "> `cg` for DereSuTe i.e. `cg.uzuki`")
+                            "> `cg` for DereMasu i.e. `cg.uzuki`\n"
+                        "**The following icons at the bottom of the embed allows you to navigate between different pages:**\n"
+                            "> <:_chara:677763373739409436> to access chara and skill info\n"
+                            "> <:_ue:677763400713109504> to access UE info and data\n"
+                            "> <:_stats:678081583995158538> to access detailed character and skill stats (WIP)\n"
+                            "> <:_card:677763353069879306> to access pretty pictures")
 
         self.options =  ['flb']
         with open(os.path.join(dir, '_config/alias_local.txt')) as alf:
@@ -75,11 +80,11 @@ class hatsuneCog(commands.Cog):
     
     def error(self):
         error_msg = dict()
-        error_msg['no_input'] =     'There was no input\n\n'+self.help
-        error_msg['search_fail'] =  f"{self.client.emj['ames']} I didn\'t find the requested character\n\n"+self.help
+        error_msg['no_input'] =     'There was no input\n'+self.help
+        error_msg['search_fail'] =  f"{self.client.emj['ames']} I didn\'t find the requested character\n"+self.help
         error_msg['conn_fail'] =    'Failed to connect to database!'
         error_msg['pos_fail'] =     'Invalid input! Use `v` for vanguard, `m` for midguard or `r` for rearguard. '\
-                                    'Alternatively enter a character name to find their positioning.'
+                                    'Alternatively enter a character name to find their lineup.'
         return error_msg
 
     async def process_input(self, request, channel, verbose=True):
@@ -1587,7 +1592,8 @@ class hatsuneCog(commands.Cog):
         c_list, c_jp_list, id_list = self.fetch_list(conn)
         del id_list
         """
-        chara = await self.validate_entry(arg, channel, suppress=False)
+        #print("".join(self.prefix_id(arg)))
+        chara = await self.validate_entry("".join(self.prefix_id([arg])), channel, suppress=False)
         if chara == False:
             await channel.send(f"`{arg}` is not a valid database entry")
             #conn.close()
@@ -1657,6 +1663,12 @@ class hatsuneCog(commands.Cog):
         with open(os.path.join(dir,'_config/alias_local.txt'),'r') as alf:
             alocal = ast.literal_eval(alf.read())
         if kw in alocal:
+
+            arg = arg.lower()
+            valid = await self.kwargcheck(kw, arg, channel)
+            if not valid:
+                return
+
             alocal[kw] = arg
             self.preprocessor[kw] = arg
             with open(os.path.join(dir,'_config/alias_local.txt'), 'w') as alf:
