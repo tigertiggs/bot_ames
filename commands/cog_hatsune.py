@@ -55,7 +55,9 @@ class hatsuneCog(commands.Cog):
                             "> <:_chara:677763373739409436> to access chara and skill info\n"
                             "> <:_ue:677763400713109504> to access UE info and data\n"
                             "> <:_stats:678081583995158538> to access detailed character and skill stats (WIP)\n"
-                            "> <:_card:677763353069879306> to access pretty pictures")
+                            "> <:_card:677763353069879306> to access pretty pictures\n"
+                            "> <:twisted_rightwards_arrows:> to access character's special mode\n"
+                            "> <:stop_sign:> Ames will no longer respond to buttons on this embed")
 
         self.options =  ['flb']
         with open(os.path.join(dir, '_config/alias_local.txt')) as alf:
@@ -1630,11 +1632,12 @@ class hatsuneCog(commands.Cog):
         if not valid:
             return
         elif not kw in alocal and not kw in alias_list:
-            alocal[kw] = arg
+            chara = "".join(self.prefix_id([arg]))
+            alocal[kw] = chara
             with open(os.path.join(dir, '_config/alias_local.txt'), 'w') as alf:
                 alf.write(str(alocal))
             self.preprocessor.update(alocal)
-            await channel.send(f"Successfully added alias `{kw}` -> `{arg}` local")
+            await channel.send(f"Successfully added alias `{kw}` -> `{chara}` local")
         elif kw in alocal:
             await channel.send(f"Alias already exists in local: `{kw}` -> `{alocal[kw]}`")
         elif kw in alias_list:
@@ -1668,12 +1671,12 @@ class hatsuneCog(commands.Cog):
             valid = await self.kwargcheck(kw, arg, channel)
             if not valid:
                 return
-
-            alocal[kw] = arg
+            chara = "".join(self.prefix_id([arg]))
+            alocal[kw] = chara
             self.preprocessor[kw] = arg
             with open(os.path.join(dir,'_config/alias_local.txt'), 'w') as alf:
                 alf.write(str(alocal))
-            await channel.send(f"Successfully changed alias `{kw}` -> `{arg}` local")
+            await channel.send(f"Successfully changed alias `{kw}` -> `{chara}` local")
         else:
             await channel.send(f"No local alias with `{kw}` found.")
     
