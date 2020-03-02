@@ -51,13 +51,14 @@ class hatsuneCog(commands.Cog):
                             "> `m` for Magical Girl i.e. `m.shiori`\n"
                             "> `p` for Princess i.e. `p.peco`\n"
                             "> `cg` for DereMasu i.e. `cg.uzuki`\n"
-                        "**The following icons at the bottom of the embed allows you to navigate between different pages:**\n"
-                            "> <:_chara:677763373739409436> to access chara and skill info\n"
-                            "> <:_ue:677763400713109504> to access UE info and data\n"
-                            "> <:_stats:678081583995158538> to access detailed character and skill stats (WIP)\n"
-                            "> <:_card:677763353069879306> to access pretty pictures\n"
-                            "> <:twisted_rightwards_arrows:> to access character's special mode\n"
-                            "> <:stop_sign:> Ames will no longer respond to buttons on this embed")
+                        "**The following icons at the bottom of the embed have the following meaning:**\n"
+                            "> <:_chara:677763373739409436> react to access chara and skill info\n"
+                            "> <:_ue:677763400713109504> react to access UE info and data\n"
+                            "> <:_stats:678081583995158538> react to access detailed character and skill stats (WIP)\n"
+                            "> <:_card:677763353069879306> react to access pretty pictures\n"
+                            "> :star: react to access the character's FLB variant\n"
+                            "> :twisted_rightwards_arrows: react to access character's special/alternate skills\n"
+                            "> :stop_sign: Ames will no longer respond to reacts on this embed")
 
         self.options =  ['flb']
         with open(os.path.join(dir, '_config/alias_local.txt')) as alf:
