@@ -912,8 +912,8 @@ class hatsuneCog(commands.Cog):
         )
         embed.add_field(
             name=   'Effect',
-            value=  "```glsl\n{}```".format('\n'.join(info['ub2action'])) if option == 'flb' else
-                    "```glsl\n{}```".format('\n'.join(info['ubaction'])),
+            value=  "```glsl\n-{}```".format('\n-'.join(info['ub2action'])) if option == 'flb' else
+                    "```glsl\n-{}```".format('\n-'.join(info['ubaction'])),
             inline= True
         )
 
@@ -932,7 +932,7 @@ class hatsuneCog(commands.Cog):
                 )
                 embed.add_field(
                     name=   "Effect",
-                    value=  "```glsl\n{}```".format('\n'.join(info['sk1aaction'])),
+                    value=  "```glsl\n-{}```".format('\n-'.join(info['sk1aaction'])),
                     inline= True
                 )
             else:
@@ -948,7 +948,7 @@ class hatsuneCog(commands.Cog):
             )
             embed.add_field(
                 name=   "Effect",
-                value=  "```glsl\n{}```".format('\n'.join(info['sk1action'])),
+                value=  "```glsl\n-{}```".format('\n-'.join(info['sk1action'])),
                 inline= True
             )
         
@@ -966,7 +966,7 @@ class hatsuneCog(commands.Cog):
             )
             embed.add_field(
                 name=   "Effect",
-                value=  "```glsl\n{}```".format('\n'.join(info.get('sk1paction','N/A'))),
+                value=  "```glsl\n-{}```".format('\n-'.join(info.get('sk1paction','N/A'))),
                 inline= True
             )
 
@@ -984,7 +984,7 @@ class hatsuneCog(commands.Cog):
             )
             embed.add_field(
                 name=   "Effect",
-                value=  "```glsl\n{}```".format('\n'.join(info['sk2aaction'])),
+                value=  "```glsl\n-{}```".format('\n-'.join(info['sk2aaction'])),
                 inline= True
             )
         else:
@@ -1000,7 +1000,7 @@ class hatsuneCog(commands.Cog):
             )
             embed.add_field(
                 name=   "Effect",
-                value=  "```glsl\n{}```".format('\n'.join(info['sk2action'])),
+                value=  "```glsl\n-{}```".format('\n-'.join(info['sk2action'])),
                 inline= True
             )
 

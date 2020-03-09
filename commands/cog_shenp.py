@@ -1026,5 +1026,122 @@ class shenpCog(commands.Cog):
 
             await channel.send(file=discord.File(os.path.join(dir,'shen/post/amesbless.png')))
 
+    @commands.command(
+        usage=".kira [user:discord_user=self]",
+        help="No description... yet."
+        )
+    async def kira(self, ctx, user:str=None):
+        channel = ctx.channel
+        active = await self.active_check(channel)
+        if not active:
+            return
+        
+        author = ctx.message.author
+        # get user
+        if user != None:
+            target = await self.find_user(ctx.message.guild, user)
+            if target == None:
+                await channel.send('https://cdn.discordapp.com/emojis/617546206662623252.png')
+                return
+            url = target.avatar_url
+        elif user == None:
+            url = author.avatar_url
+        else:
+            await channel.send(self.client.emj['ames'])
+            return
+        
+        async with ctx.typing():
+            uzuki = Image.open(os.path.join(dir,'shen/assets/uzuki.png'))
+            uzuki_fg = Image.open(os.path.join(dir,'shen/assets/uzuki_2.png'))
+
+            avatar = requests.get(url)
+            avatar = Image.open(BytesIO(avatar.content))
+            
+            if avatar.is_animated:
+                avatar.seek(avatar.n_frames//2)
+                avatar = avatar.convert(mode="RGB")
+
+            # mask
+            size = (250,250)
+            #size = (147,147)
+            mask = Image.new('L', size, 0)
+            draw = ImageDraw.Draw(mask) 
+            draw.ellipse((0, 0) + size, fill=255)
+
+            # resize
+            avatar.resize(size, resample=Image.ANTIALIAS)
+
+            # fit mask
+            avatar = ImageOps.fit(avatar, mask.size, centering=(0.5, 0.5))
+            avatar.putalpha(mask)
+
+            # paste and save
+            uzuki.paste(avatar, (206,70), avatar)
+            uzuki.paste(uzuki_fg, (0,0), uzuki_fg)
+            uzuki.save(os.path.join(dir,'shen/post/uzuki.png'))
+
+            uzuki.close()
+            uzuki_fg.close()
+            avatar.close()
+
+            await channel.send(file=discord.File(os.path.join(dir,'shen/post/uzuki.png')))
+
+    @commands.command(
+        usage=".kiran [user:discord_user=self]",
+        help="No description... yet."
+        )
+    async def kiran(self, ctx, user:str=None):
+        channel = ctx.channel
+        active = await self.active_check(channel)
+        if not active:
+            return
+        
+        author = ctx.message.author
+        # get user
+        if user != None:
+            target = await self.find_user(ctx.message.guild, user)
+            if target == None:
+                await channel.send('https://cdn.discordapp.com/emojis/617546206662623252.png')
+                return
+            url = target.avatar_url
+        elif user == None:
+            url = author.avatar_url
+        else:
+            await channel.send(self.client.emj['ames'])
+            return
+        
+        async with ctx.typing():
+            hatsune = Image.open(os.path.join(dir,'shen/assets/hatsuneblind.png'))
+
+            avatar = requests.get(url)
+            avatar = Image.open(BytesIO(avatar.content))
+            
+            if avatar.is_animated:
+                avatar.seek(avatar.n_frames//2)
+                avatar = avatar.convert(mode="RGB")
+
+            # mask
+            size = (500,500)
+            #size = (147,147)
+            mask = Image.new('L', size, 0)
+            draw = ImageDraw.Draw(mask) 
+            draw.ellipse((0, 0) + size, fill=255)
+
+            # resize
+            avatar.resize(size, resample=Image.ANTIALIAS)
+
+            # fit mask
+            avatar = ImageOps.fit(avatar, mask.size, centering=(0.5, 0.5))
+            avatar.putalpha(mask)
+
+            # paste and save
+            hatsune.paste(avatar, (870,43), avatar)
+            hatsune.save(os.path.join(dir,'shen/post/hatsuneblind.png'))
+
+            hatsune.close()
+            avatar.close()
+
+            await channel.send(file=discord.File(os.path.join(dir,'shen/post/hatsuneblind.png')))
+
 def setup(client):
     client.add_cog(shenpCog(client))
