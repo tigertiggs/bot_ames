@@ -203,7 +203,7 @@ class helpCog(commands.Cog):
             "+ update assets from redive.estertion",
             "+ update gacha lim",
             "+ update resources .res update",
-            "+ update local and master hnote",
+            "+ update local and master hnote (start fag)",
             "+ update skills_tl_index", 
             "+ merge and prune alias list after deploy (if applicable)"
         ]
