@@ -181,8 +181,9 @@ class helpCog(commands.Cog):
 
     @help.command()
     async def shitpost(self, ctx):
-        functions = await self.construct_functions(shitpost.copy(), [])
-        await ctx.channel.send(self.make_help_embed(functions,"Shitpost"))
+        #functions = await self.construct_functions(shitpost.copy(), [])
+        #await ctx.channel.send(self.make_help_embed(functions,"Shitpost"))
+        await ctx.channel.send("This command is broken and will remain broken until tiggs' lazy ass decides to fix it "+self.client.emj['dead'])
 
     @help.command()
     async def cb(self, ctx):
@@ -193,6 +194,20 @@ class helpCog(commands.Cog):
     async def alias(self, ctx):
         functions = await self.construct_functions([], alias.copy())
         await ctx.channel.send(self.make_help_embed(functions,"Alias"))
+    
+    @commands.command(aliases=['tiggsisdumb'])
+    async def amesupdate(self, ctx):
+        todo = [
+            "- todos for update",
+            "+ update pandaDB charadata/pos/uedata",
+            "+ update assets from redive.estertion",
+            "+ update gacha lim",
+            "+ update resources .res update",
+            "+ update local and master hnote",
+            "+ update skills_tl_index", 
+            "+ merge and prune alias list after deploy (if applicable)"
+        ]
+        await ctx.channel.send("```diff\n{}```".format('\n'.join(todo)))
 
     @help.group(
         invoke_without_command=True,
