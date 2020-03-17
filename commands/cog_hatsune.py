@@ -361,6 +361,9 @@ class hatsuneCog(commands.Cog):
         channel = ctx.channel
         author = ctx.message.author
 
+        if await self.zeik_bully(channel, author):
+            return
+
         check = await self.active_check(channel)
         if not check:
             return
@@ -1043,6 +1046,10 @@ class hatsuneCog(commands.Cog):
     )
     async def pos(self, ctx, *request):
         channel = ctx.channel
+
+        if await self.zeik_bully(channel, ctx.message.author):
+            return
+
         # check if command is enabled
         check = await self.active_check(channel)
         if not check:
@@ -1167,6 +1174,10 @@ class hatsuneCog(commands.Cog):
     )
     async def tag(self, ctx, *request):
         channel = ctx.channel
+
+        if await self.zeik_bully(channel, ctx.message.author):
+            return
+
         # check if command is enabled
         check = await self.active_check(channel)
         if not check:
@@ -1709,6 +1720,14 @@ class hatsuneCog(commands.Cog):
             alf.write(str(alocal))
 
         await channel.send('Complete!')
+
+    async def zeik_bully(self, channel, author):
+        mode = True
+        if mode:
+            if str(author.id) == '277335263477366785' and str(channel.id) == '620625432865144862':
+                await channel.send('<:feelszeik:606111207287422979>')
+                return True
+        return False
 
 def setup(client):
     client.add_cog(hatsuneCog(client))

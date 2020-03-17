@@ -1143,5 +1143,66 @@ class shenpCog(commands.Cog):
 
             await channel.send(file=discord.File(os.path.join(dir,'shen/post/hatsuneblind.png')))
 
+    @commands.command(
+        usage=".chenhug [user:discord_user=self]",
+        alias=['chen'],
+        help="No description... yet."
+        )
+    async def chenhug(self, ctx, user:str=None):
+        channel = ctx.channel
+        active = await self.active_check(channel)
+        if not active:
+            return
+        
+        author = ctx.message.author
+        # get user
+        if user != None:
+            target = await self.find_user(ctx.message.guild, user)
+            if target == None:
+                await channel.send('https://cdn.discordapp.com/emojis/617546206662623252.png')
+                return
+            url = target.avatar_url
+        elif user == None:
+            url = author.avatar_url
+        else:
+            await channel.send(self.client.emj['ames'])
+            return
+        
+        async with ctx.typing():
+            chen1 = Image.open(os.path.join(dir,'shen/assets/chen1.png'))
+            chen2 = Image.open(os.path.join(dir,'shen/assets/chen2.png'))
+
+            avatar = requests.get(url)
+            avatar = Image.open(BytesIO(avatar.content))
+            
+            if avatar.is_animated:
+                avatar.seek(avatar.n_frames//2)
+                avatar = avatar.convert(mode="RGB")
+
+            # mask
+            size = (300,300)
+            #size = (147,147)
+            mask = Image.new('L', size, 0)
+            draw = ImageDraw.Draw(mask) 
+            draw.ellipse((0, 0) + size, fill=255)
+
+            # resize
+            avatar.resize(size, resample=Image.ANTIALIAS)
+
+            # fit mask
+            avatar = ImageOps.fit(avatar, mask.size, centering=(0.5, 0.5))
+            avatar.putalpha(mask)
+
+            # paste and save
+            chen1.paste(avatar, (478,310), avatar)
+            chen1.paste(chen2, (0,0), chen2)
+            chen1.save(os.path.join(dir,'shen/post/chenhug.png'))
+
+            chen1.close()
+            chen2.close()
+            avatar.close()
+
+            await channel.send(file=discord.File(os.path.join(dir,'shen/post/chenhug.png')))
+
 def setup(client):
     client.add_cog(shenpCog(client))
