@@ -240,11 +240,15 @@ class Ames(commands.AutoShardedBot):
         #
         if self.debug['debugmode'] == 1:
             if message.author.id == 235361069202145280:
+                await self.log.send(str(ctx.command))
                 await self.invoke(ctx)
             else:
                 pass
         else:
             try:
+                if ctx.command != None:
+                    await self.log.send('[{0.user.name}] `{1}` `{2.channel.guild.name}` `{2.channel.name}` `{2.author.name}` `{2.content}`'.format(
+                        self, datetime.datetime.now(), message))
                 await self.invoke(ctx)
             except Exception as e:
                 await self.log.send(self.name, 'failed to process command', e)
@@ -259,12 +263,10 @@ class Ames(commands.AutoShardedBot):
         if message.content.startswith(BOT_PREFIX):
             if self.debug['debugmode'] == 1:
                 if message.author.id == 235361069202145280:
-                    await self.log.send('DEBUG MODE [{0.user.name}] `{1}` `{2.channel.guild.name}` `{2.channel.name}` `{2.author.name}` `{2.content}`'.format(
+                    await self.log.send('`[DEBUG MODE]` [{0.user.name}] `{1}` `{2.channel.guild.name}` `{2.channel.name}` `{2.author.name}` `{2.content}`'.format(
                         self, datetime.datetime.now(), message))
                     await self.process_commands(message)
             else:
-                await self.log.send('[{0.user.name}] `{1}` `{2.channel.guild.name}` `{2.channel.name}` `{2.author.name}` `{2.content}`'.format(
-                    self, datetime.datetime.now(), message))
                 await self.process_commands(message)
 
     async def on_command_error(self, ctx, error):
