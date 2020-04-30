@@ -26,6 +26,8 @@ def prefixes(pf):
         return          'Princess'
     elif pf ==  'd':
         return          'Cinderella Girls'
+    elif pf ==  'r':
+        return          'Ranger'
     else:
         return          "???"
 

@@ -51,6 +51,7 @@ class hatsuneCog(commands.Cog):
                             "> `m` for Magical Girl i.e. `m.shiori`\n"
                             "> `p` for Princess i.e. `p.peco`\n"
                             "> `cg` for DereMasu i.e. `cg.uzuki`\n"
+                            "> `r` for ranger i.e. `r.rin`\n"
                         "**The following icons at the bottom of the embed have the following meaning:**\n"
                             "> <:_chara:677763373739409436> react to access chara and skill info\n"
                             "> <:_ue:677763400713109504> react to access UE info and data\n"
@@ -124,12 +125,14 @@ class hatsuneCog(commands.Cog):
 
     def prefixes_new(self, pf):
         old_prefixes = [
-            'n', 'x', 'o', 'v', 's', 'h', 'u', 'm', 'p', 'd'
+            'n', 'x', 'o', 'v', 's', 'h', 'u', 'm', 'p', 'd', 'r'
         ]
         if pf in old_prefixes:
             return pf
         elif pf in ['cg', 'imas', 'i', 'deremasu', 'dm']:
             return 'd'
+        elif pf == 'ny':
+            return 'n'
         else:
             return pf
 
@@ -154,6 +157,8 @@ class hatsuneCog(commands.Cog):
             return          'Princess'
         elif pf ==  'd':
             return          'Cinderella Girls'
+        elif pf == 'r':
+            return          'Ranger'
         else:
             return          "???"
 
