@@ -285,7 +285,7 @@ TAGS_BUFF = [
     ('# atkspd_down', 'Attack speed down'),
     ('# movespd_up',  'Movement speed up'),
     ('# movespd_down','Movement speed down'),
-    ('# tp_up',       'Recover TP'),
+    ('# tp_up',       'Recover TP (self)'),
     ('# tp_down',     'Penalize TP'),
     ('# tp_steal',    'tp_down on target and tp_up on self'),
     ('# pshield',     'Physical shield (damage nullification)'),
@@ -293,7 +293,8 @@ TAGS_BUFF = [
     ('# pbarrier',    'Physical barrier (damage to HP conversion)'),
     ('# mbarrier',    'Magic barrier (damage to HP conversion)'),
     ('# heal',        'Recover HP'),
-    ('# taunt',       'Applies taunt on self')
+    ('# taunt',       'Gains taunt'),
+    ('# battery',     'Gives TP to ally/allies')
 ]
 
 def setup(client):

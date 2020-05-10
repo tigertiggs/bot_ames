@@ -37,7 +37,7 @@ class hatsuneCog(commands.Cog):
         self.emj =      client.emj
         #self.active =   client.get_config('hatsune')
 
-        self.help =     ("**In case you forgot, the input syntax is:**\n"
+        self.full_help =     ("**In case you forgot, the input syntax is:**\n"
                             "> `.c(haracter) [version|optional].[character_name] [*option|optional]`\n"
                             "> i.e. `.c s.kyaru` `.c maho flb`\n"
                         "**The seasonal prefixes are:**\n"
@@ -60,6 +60,8 @@ class hatsuneCog(commands.Cog):
                             "> :star: react to access the character's FLB variant\n"
                             "> :twisted_rightwards_arrows: react to access character's special/alternate skills\n"
                             "> :stop_sign: Ames will no longer respond to reacts on this embed")
+        
+        self.help =             ("If you need help, try `.c(haracter) help` "+self.emj['ames'])
 
         self.options =  ['flb']
         with open(os.path.join(dir, '_config/alias_local.txt')) as alf:
@@ -380,6 +382,10 @@ class hatsuneCog(commands.Cog):
         request = [i.lower() for i in request]
         #print(request)
         # check if command is enabled
+
+        if request[0] == 'help':
+            await channel.send(self.full_help)
+            return
 
         #t0 = time.perf_counter()
         # preprocess the args - check for aliases
