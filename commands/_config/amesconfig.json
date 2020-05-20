@@ -27,7 +27,7 @@
 
     ],
     "required_files":   [
-
+        "commands/hatsune_data/alias_local.json"
     ],
 
     "command_cogs":     [
