@@ -39,7 +39,7 @@ class coreCog(commands.Cog):
             git_version = json.loads(requests.get(self.client.version['tracker']).text)
         except:
             return clientv, "(check failed)"
-        gitv =      ".".join([git_version[p] for p in keys])
+        gitv =      ".".join([str(git_version[p]) for p in keys])
         
         for key in keys:
             if self.version[key] < git_version[key]:
