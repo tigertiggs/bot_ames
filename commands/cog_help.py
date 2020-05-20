@@ -1,301 +1,214 @@
+# contains all of Ames' help functions
 import discord
 from discord.ext import commands
-import datetime, time, os, sys, requests, random, ast
-dir = os.path.dirname(__file__)
+import datetime, time, os, sys, json, asyncio
 
-class proxyCommand:
-    def __init__(self, usage:str, help:str, **kwargs):
-        self.usage = usage
-        self.help = help
-        self.aliases = kwargs.get('aliases', [])
-        self.hidden = kwargs.get('hidden', False)
-
-default = [
-    'hatsuneCog',
-    'gachaCog',
-    'statusCog'
-]
-default_additional = [
-    proxyCommand(
-        '.help shitpost',
-        'Ames doesn\'t like it, but she has no choice. Bring up shitpost commands.',
-    ),
-    proxyCommand(
-        '.help cb',
-        'Bring up CB-related help. This command is currently guild restricted and WIP, but may expand to include other guilds with due time.'
-    ),
-    proxyCommand(
-        '.help tag',
-        'Bring up tag-related help.'
-    ),
-    proxyCommand(
-        '.help alias',
-        'Bring up alias-related help.'
-    )
-]
-
-shitpost = [
-    'shenCog',
-    'shenpCog'
-]
-
-cb = [
-    'cbCog'
-]
-cb_additional = [
-    proxyCommand(
-        '.cbtag [*boss_num]',
-        'Toggle the following boss numbers from yourself.'
-    ),
-    proxyCommand(
-        '.cbtag post',
-        'Have Ames send a report for the boss wait list for your guild. Further instructions on embed.'
-    ),
-    proxyCommand(
-        '.cbtag purge',
-        'Remove all boss tags from yourself.'
-    ),
-    proxyCommand(
-        '.cbtag edit [boss_n] [descr]',
-        'Edit the specified boss\'s tag name',
-        hidden=True
-    ),
-    proxyCommand(
-        '.cbtag reset',
-        'Reset all boss names',
-        hidden=True
-    )
-]
-
-alias = [
-    proxyCommand(
-        '.alias',
-        'List all local and master aliases.'
-    ),
-    proxyCommand(
-        '.alias add [keyword] [character]',
-        'Add the following alias to the character. Keyword is case-insensitive and character must match a valid name in the database. The keyword must not already exist. The keyword cannot be in the master alias list.'
-    ),
-    proxyCommand(
-        '.alias remove [keyword]',
-        'Remove the local alias.',
-        aliases=['rm']
-    ),
-    proxyCommand(
-        '.alias check [keyword]',
-        'Search for the alias.',
-        aliases=['ck']
-    ),
-    proxyCommand(
-        '.alias edit [keyword] [character]',
-        'Edit the character alias. Basically functions the same way as .alias add. Master aliases cannot be edited.',
-        aliases=['ed']
-    )
-]
 class helpCog(commands.Cog):
     def __init__(self, client):
         self.client = client
+        self.name = "[help]"
         self.logger = client.log
-        self.name = '[Help]'
-        #self.active = client.config.get('help',True)
+        self.colour = discord.Colour.from_rgb(*client.config['command_colour']['cog_help'])
+
+        with open(os.path.join(self.client.dir,self.client.config['help_path'])) as hf:
+            self.help_config = json.load(hf)
+            self.help_text = self.help_config["commands"]
+            self.command_tags = self.help_config["help_tags"]
+        
+        with open(os.path.join(self.client.dir, self.client.config['tags_index_path'])) as tf:
+            self.help_tag = json.load(tf)
     
-    async def active_check(self, channel):
-        if self.client.get_config('help') is False:
-            await channel.send(self.client.error()['inactive'])
-            await self.logger.send(self.name, 'command disabled')
-            return False
-        else:
-            return True
-    
-    def make_hhelp(self):
-        text1 = "**How to interpret the documentation [README]**\n"
-        embed = ("In the documentation you will encounter any combination of the notations explained below. This small help segment only appear with `.help`\n"
-                "```css\n"
-                    "[Square brackets used in documentation] only serve as a visual guide (only noticable on discord desktop) and is not part of the input\n\n"
-                    ".example_0 something\nenter [.example_0 something] to use this command\n\n"
-                    ".example_1 [argument]\nThis command will not function unless an [argument] is specified\n\n"
-                    ".example_2 [*arguments]\nThis command accepts multiple [arguments] separated by a space\n\n"
-                    ".example_3 [argument = default value]\nThis command accepts an [argument] but will assume a default value if left blank\n\n"
-                    ".example_4 [argument|optional]\n This command's input argument is optional and will work if left blank\n\n"
-                    ".example_5\n[Aliases]: tiggsisdumb\nthis command can be called with .tiggsisdumb\n\n"
-                    ".example_6 [argument:type]\nThis command accept an argument of a particular type; for example: text, URL, :discord_emote:, @user_ping, etc.\n\n"
-                "```")
-        return text1+embed
+    def filter_commands(self, target, perm=False):
+        temp = [item for item in list(self.help_text.values()) if target in item['flags'] and (not item['hidden'] or perm)]
+        return temp if len(temp)>0 else ["empty"]
 
-    def make_help_embed(self, functions, name, **kwargs):
-        functions.sort(key=lambda x: x[1])
-
-        tag = kwargs.get('tag', False)
-        if not tag:
-            help_embed = '```css\n{}```'.format("\n\n".join(functions))
-        else:
-            help_embed = '```md\n{}```'.format("\n".join(functions))
-
-        embed = discord.Embed(
-            title="Ames Help",
-            description=f"{name}\n{help_embed}",
-            timestamp=datetime.datetime.utcnow()
-            )
-        embed.set_footer(text="Help | SHIN Ames", icon_url=self.client.user.avatar_url)
-        return f"{name}\n{help_embed}"
-
-    async def construct_functions(self, cogs:list, cog_additional:list=[], **kwargs):
-        functions = []
-        tag = kwargs.get('tag', False)
-        if not tag:
-            for cogName in cogs:
-                cog = self.client.get_cog(cogName)
-                if cog != None:
-                    for cmd in cog.get_commands():
-                        cog_additional.append(cmd)
-                else:
-                    await self.logger.send(self.name, 'failed to load commands from', cogName)
-            
-            for cmd in cog_additional:
-                if not cmd.hidden and not cmd.usage is None:
-                    if len(cmd.aliases) != 0:
-                        txt = f'{cmd.usage}\n[Aliases]: {" ".join(cmd.aliases)}\n{cmd.help}'
+    def make_help_text(self, data):
+        txt = []
+        keys = ['usage', 'aliases', 'help']
+        for cmd in data:
+            temp = []
+            if cmd == "empty":
+                return ["No eligible commands matched input flag"]
+            for key in keys:
+                if cmd[key] != None:
+                    #print(cmd[key])
+                    if key == 'aliases':
+                        temp.append(f"[Aliases]: {' '.join(cmd[key])}")
                     else:
-                        txt = f"{cmd.usage}\n{cmd.help}"
-                    functions.append(txt)
-        else:
-            for (tagName, descr) in cogs:
-                txt = f"{tagName}\n\t{descr}"
-                functions.append(txt)
+                        temp.append(cmd[key])
+            #print(temp)
+            txt.append("\n".join(temp))
+        txt.sort(key=lambda x: x[1])
 
-        return functions
+        return txt
 
-    @commands.group(
-        invoke_without_command=True,
-        case_sensitive=False
-    )
-    async def help(self, ctx):
-        active = await self.active_check(ctx.channel)
-        if not active:
-            return
+    @commands.group(invoke_without_command=True)
+    async def help(self, ctx, *options):
+        channel=ctx.channel
+        author=ctx.message.author
+        if not self.client.command_status['help'] == 1:
+            raise commands.DisabledCommand
         
         if ctx.invoked_subcommand is None:
-            functions = await self.construct_functions(default.copy(), default_additional.copy())
-            await ctx.channel.send(self.make_hhelp())
-            await ctx.channel.send(self.make_help_embed(functions, "Active Commands"))
+            perm = self.client._check_author(ctx.message.author)
+            if len(options) == 0:
+                data = self.filter_commands("normal", perm)
+            else:
+                option = options[0]
+                if option in ["normal", "shitpost", "restricted", "core", "hatsune", "_update", "_gacha", "cb"]:
+                    data = self.filter_commands(option, perm)
+                else:
+                    await self.process_options(channel, options, perm)
+                    return
+            
+            help_page_controller = self.client.page_controller(self.client, self.make_help_embed, data, 12, True)
+            page = await channel.send(embed=help_page_controller.start())
+            for arrow in help_page_controller.arrows:
+                await page.add_reaction(arrow)
+            
+            def author_check(reaction, user):
+                return str(user.id) == str(author.id) and str(reaction.emoji) in help_page_controller.arrows and str(reaction.message.id) == str(page.id)
+            
+            while True:
+                try:
+                    reaction, user = await self.client.wait_for('reaction_add', timeout=60.0, check=author_check)
+                except asyncio.TimeoutError:
+                    await page.add_reaction('\U0001f6d1')
+                    return
+                else:
+                    emote_check = str(reaction.emoji)
+                    await reaction.message.remove_reaction(reaction.emoji, user)
+                    if emote_check in help_page_controller.arrows:
+                        if emote_check == help_page_controller.arrows[0]:
+                            mode = 'l'
+                        else:
+                            mode = 'r'     
+                        await reaction.message.edit(embed=help_page_controller.flip(mode))
 
-    @help.command()
-    async def shitpost(self, ctx):
-        #functions = await self.construct_functions(shitpost.copy(), [])
-        #await ctx.channel.send(self.make_help_embed(functions,"Shitpost"))
-        await ctx.channel.send("This command is broken and will remain broken until tiggs' lazy ass decides to fix it "+self.client.emj['dead'])
+    @help.command(aliases=["d"])
+    async def definitions(self, ctx, *option):
+        channel = ctx.channel
+        author = ctx.message.author
+        if not self.client.command_status["help"] == 1:
+            raise commands.DisabledCommand
+        elif len(option) == 0:
+            txt = (
+                "> `.help d basic`\n"
+                "Fetch basic tag definitions\n"
+                "> `.help d atk`\n"
+                "Fetch attack tag definitions\n"
+                "> `.help d buff`\n"
+                "Fetch (de)buff tag definitions"
+            )
+            await channel.send(txt)
+        else:
+            option = option[0]
+            if option in ['basic', 'atk', 'buff']:
+                data = list(self.help_tag[option].items())
+            else:
+                await channel.send(self.client.emotes['ames'])
+                return
+            
+            tag_page_controller = self.client.page_controller(self.client, self.make_tag_embed, data, 15, True)
+            page = await channel.send(embed=tag_page_controller.start())
+            for arrow in tag_page_controller.arrows:
+                await page.add_reaction(arrow)
+            
+            def author_check(reaction, user):
+                return str(user.id) == str(author.id) and str(reaction.emoji) in tag_page_controller.arrows and str(reaction.message.id) == str(page.id)
+            
+            while True:
+                try:
+                    reaction, user = await self.client.wait_for('reaction_add', timeout=60.0, check=author_check)
+                except asyncio.TimeoutError:
+                    await page.add_reaction('\U0001f6d1')
+                    return
+                else:
+                    emote_check = str(reaction.emoji)
+                    await reaction.message.remove_reaction(reaction.emoji, user)
+                    if emote_check in tag_page_controller.arrows:
+                        if emote_check == tag_page_controller.arrows[0]:
+                            mode = 'l'
+                        else:
+                            mode = 'r'     
+                        await reaction.message.edit(embed=tag_page_controller.flip(mode))
+            
+    def make_tag_text(self, data):
+        temp = [f"# {key}\n\t{value}" for key, value in data]
+        temp.sort(key=lambda x: x[2])
+        return temp
+    
+    def make_tag_embed(self, data, index):
+        embed = discord.Embed(
+            title=f"Tag Definitions (page {index[0]} of {index[1]})",
+            description="A list of tag definitnions that are used in `.tag`.\n```md\n{}```".format("\n".join(self.make_tag_text(data))),
+            timestamp=datetime.datetime.utcnow(),
+            colour=self.colour
+        )
+        embed.set_footer(text="Tag Definitions | Re:Re:Write Ames", icon_url=self.client.user.avatar_url)
+        return embed
 
-    @help.command()
-    async def cb(self, ctx):
-        functions = await self.construct_functions(cb.copy(), cb_additional.copy())
-        await ctx.channel.send(self.make_help_embed(functions,"Clan Battle"))
-    
-    @help.command()
-    async def alias(self, ctx):
-        functions = await self.construct_functions([], alias.copy())
-        await ctx.channel.send(self.make_help_embed(functions,"Alias"))
-    
-    @commands.command(aliases=['tiggsisdumb'])
-    async def amesupdate(self, ctx):
-        todo = [
-            "- todos for update",
-            "+ update pandaDB charadata/pos/uedata",
-            "+ update assets from redive.estertion",
-            "+ update gacha lim",
-            "+ update resources .res update",
-            "+ update local and master hnote (start fag)",
-            "+ update skills_tl_index", 
-            "+ merge and prune alias list after deploy (if applicable)"
-        ]
-        await ctx.channel.send("```diff\n{}```".format('\n'.join(todo)))
+    def make_help_embed(self, data, index):
+        embed = discord.Embed(
+            title=f"Help (page {index[0]} of {index[1]})",
+            description="Command documentation and usage.\nMost commands have their own command page with more detailed instructions and you can access them via `.help [full_command]`.\nYou can view group commands entering `.help [group=normal]`. Current groups are: {}.\n```css\n{}```".format(" ".join([f"`{i}`" for i in self.command_tags]),"\n\n".join(self.make_help_text(data))),
+            timestamp=datetime.datetime.utcnow(),
+            colour=self.colour
+        )
+        embed.set_footer(text="Help | Re:Re:Write Ames", icon_url=self.client.user.avatar_url)
+        return embed
 
-    @help.group(
-        invoke_without_command=True,
-        case_sensitive=False
-    )
-    async def tag(self, ctx):
-        if ctx.invoked_subcommand is None:
-            functions = await self.construct_functions([], tag_additional.copy())
-            await ctx.channel.send(self.make_help_embed(functions, "Tag Help"))
-    
-    @tag.command()
-    async def basic(self, ctx):
-        functions = await self.construct_functions(TAGS_BASIC.copy(), [], tag=True)
-        print(functions)
-        await ctx.channel.send(self.make_help_embed(functions, "Basic Tags", tag=True))
-    
-    @tag.command()
-    async def atk(self, ctx):
-        functions = await self.construct_functions(TAGS_ATK.copy(), [], tag=True)
-        await ctx.channel.send(self.make_help_embed(functions, "Attack Tags", tag=True))
-    
-    @tag.command()
-    async def buff(self, ctx):
-        functions = await self.construct_functions(TAGS_BUFF.copy(), [], tag=True)
-        await ctx.channel.send(self.make_help_embed(functions, "Buff/Debuff Tags", tag=True))
-    
-tag_additional = [
-    proxyCommand(
-        '.help tag basic',
-        'Bring up basic tag definitions.'
-    ),
-    proxyCommand(
-        '.help tag atk',
-        'Bring up attack tag definitions.'
-    ),
-    proxyCommand(
-        '.help tag buff',
-        'Bring up buff/debuff tag characteristics.'
-    )
-]
-TAGS_BASIC = [
-    ('# physical',    'Physical attacker'),
-    ('# magic',       'Magic attacker'),
-    ('# front',       'Vanguard position'),
-    ('# mid',         'Midguard position'),
-    ('# rear',        'Rearguard position'),
-    ('# ue',          'Unique Equipment/Character Weapon available'),
-    ('# limited',     'Character availability limited to special events'),
-    ('# seasonal',    'Character availability limited to seasonal events'),
-    ('# prinfes',     'Character availability limited to Princess Festivals')
-]
-TAGS_ATK = [
-    ('# aoe',         'Union Burst is AOE'),
-    ('# ranged',      'Skills target past the frontmost enemy'),
-    ('# p_target',    'UB/skills target the strongest enemy physical attacker'),
-    ('# m_target',    'UB/skills target the strongest enemy magic attacker'),
-    ('# self_harm',   'UB/skills consume HP and/or inflict self debuffs'),
-    ('# self_sust',   'UB/skills recover caster\'s HP'),
-    ('# self_buff',   'UB/skills buff the caster'),
-    ('# ailment',     'UB/skills inflict status ailment(s)'),
-    ('# special',     'UB/skills have special mechanics not covered by tags')
-]
-TAGS_BUFF = [
-    ('# matk_up',     'Magic attack up'),
-    ('# patk_up',     'Physical attack up'),
-    ('# mcrit_up',    'Magic critical chance up'),
-    ('# pcrit_up',    'Physical critical chance up'),
-    ('# matk_down',   'Magic attack down'),
-    ('# patk_down',   'Physical attack down'),
-    ('# mdef_up',     'Magic defense up'),
-    ('# pdef_up',     'Physical defense up'),
-    ('# mdef_down',   'Magic defense down'),
-    ('# pdef_down',   'Physical defense down'),
-    ('# atkspd_up',   'Attack speed up'),
-    ('# atkspd_down', 'Attack speed down'),
-    ('# movespd_up',  'Movement speed up'),
-    ('# movespd_down','Movement speed down'),
-    ('# tp_up',       'Recover TP (self)'),
-    ('# tp_down',     'Penalize TP'),
-    ('# tp_steal',    'tp_down on target and tp_up on self'),
-    ('# pshield',     'Physical shield (damage nullification)'),
-    ('# mshield',     'Magic shield (damage nullification)'),
-    ('# pbarrier',    'Physical barrier (damage to HP conversion)'),
-    ('# mbarrier',    'Magic barrier (damage to HP conversion)'),
-    ('# heal',        'Recover HP'),
-    ('# taunt',       'Gains taunt'),
-    ('# battery',     'Gives TP to ally/allies')
-]
+    def make_extended_help(self, command):
+        embed=discord.Embed(
+            title="Extended Command Documentation",
+            timestamp=datetime.datetime.utcnow(),
+            color=self.colour
+        )
+        embed.set_footer(text="EX Help | Re:Re:Write Ames", icon_url=self.client.user.avatar_url)
+        embed.add_field(
+            name="> **Usage**",
+            value=f"`{command['usage']}`",
+            inline=False
+        )
+        embed.add_field(
+            name="Aliases",
+            value="None" if command['aliases'] == None else ", ".join(command['aliases']),
+            inline=True
+        )
+        embed.add_field(
+            name="Flags",
+            value="".join([f"[{flag}]" for flag in command['flags']]),
+            inline=True
+        )
+        #embed.add_field(
+        #    name="Hidden",
+        #    value="Yes" if command['hidden'] else "No",
+        #    inline=True
+        #)
+        embed.add_field(
+            name="Subcommands",
+            value="None" if command['subcmd'] == None else ", ".join(command['subcmd']),
+            inline=True
+        )
+        embed.add_field(
+            name="> **Help** ",
+            value=command['help'],
+            inline=False
+        )
+        embed.add_field(
+            name="> **Extended Help**",
+            value="Nothing 'ere" if command['help_ex'] == None else command['help_ex']
+        )
+        return embed
+
+    async def process_options(self, channel, options, perm=False):
+        option = options[0]
+        command = self.help_text.get(option, None)
+        if command != None:
+            if not (command['hidden'] or "restricted" in command['flags']) or perm:
+                await channel.send(embed=self.make_extended_help(command))
+            else:
+                await channel.send("Command is restricted "+self.client.emotes['ames'])
 
 def setup(client):
     client.add_cog(helpCog(client))

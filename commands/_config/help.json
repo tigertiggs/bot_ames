@@ -1,0 +1,286 @@
+{
+    "help_tags": [
+        "normal", "shitpost", "restricted", "core", "hatsune", "_update", "_gacha", "cb"
+    ],
+    "commands": {
+        "template": {
+            "flags":    ["placeholder"],
+            "hidden":   false,
+            "usage":    ".function",
+            "subcmd":   null,
+            "aliases":  null,
+            "help":     "help",
+            "help_ex":  "help extended"
+        },
+        "character": {
+            "flags":    ["normal", "hatsune"],
+            "hidden":   false,
+            "usage":    ".character [character] [options]",
+            "subcmd":   ["help"],
+            "aliases":  ["chara", "c", "ue", "card", "stats", "pic"],
+            "help":     "Fetch data on the specified character.",
+            "help_ex":  "Search HNoteDB for character entry. \n\nUse `.character help` for more in-depth help. `[character]` follows format of `(prefix.)name`, for example, `.c s.kyaru` for Kyaru (Summer). \n\n`[options]` currently only accepts `flb` which fetches the FLB variant of the character, for example, `.c kyaru flb`. \n\nListed aliases will bring you to the specified page when called."
+        },
+        "position": {
+            "flags":    ["normal", "hatsune"],
+            "hidden":   false,
+            "usage":    ".position [character/lineup]",
+            "subcmd":   null,
+            "aliases":  ["pos"],
+            "help":     "Fetch the lineup of a specific formation, or enter a character to show their relative position to other characters in their formation.",
+            "help_ex":  "Fetch the lineup of specific formation. Lineups are: `vanguard`, `midguard` and `rearguard`. Entering a `character` will automatically list the lineup their are in and their position will be bolded."
+        },
+        "tag": {
+            "flags":    ["normal", "hatsune"],
+            "hidden":   false,
+            "usage":    ".tag [*tags]",
+            "subcmd":   null,
+            "aliases":  null,
+            "help":     "Fetch all characters that satisfies the given tags.",
+            "help_ex":  "Enter in tags separated by a space to search for character(s) that satisfy the tags. Use `.help definitions` to learn more."
+        },
+        "alias": {
+            "flags":    ["normal", "hatsune"],
+            "hidden":   false,
+            "usage":    ".alias [*options]",
+            "subcmd":   ["add", "edit", "delete"],
+            "aliases":  null,
+            "help":     "View, add, edit, or delete a cjaracter alias depending on the option specified. Use `.help alias` for more details.",
+            "help_ex":  "`.help [alias/character]` - the former will check what the `alias` is linked to, and the latter will list all aliases tied to the specified `character`.\n`.help add [alias] [character]`\n`.help edit [alias] [character]`\n`.help delete [alias]`\nIn all cases `[alias]` is case-insensitive and cannot already exist unless editing, and `[character]` must be a valid character in the database."
+        },
+        "cbtag": {
+            "flags":    ["normal", "cb"],
+            "hidden":   false,
+            "usage":    ".cbtag [*options]",
+            "subcmd":   ["post", "purge", "edit", "reset"],
+            "aliases":  null,
+            "help":     "Toggle boss role/view current boss waits. Use `.help cbtag` for more information.",
+            "help_ex":  "`.cbtag [*boss_number]`\nToggle the boss role on yourself.\n`.cbtag post`\nPost a signboard for which you can view all waits in your guild and react to emotes on the bottom to toggle the specific boss. Only 1 of these signboards will be active at any one time and this command will not work if you're not in a guild.\n `.cbtag purge`\nRemove all boss roles from yourself.\n`.cbtag edit [boss_num] [name]`\nEdit the boss name for the specific boss number.\n`.cbtag reset`\nClears all boss names, restricted."
+        },
+        "kill": {
+            "flags":    ["core", "restricted"],
+            "hidden":   true,
+            "usage":    ".kill",
+            "subcmd":   null,
+            "aliases":  ["kys"],
+            "help":     "Bury Ames",
+            "help_ex":  null
+        },
+        "status": {
+            "flags":    ["normal", "core"],
+            "hidden":   false,
+            "usage":    ".status [*options]",
+            "subcmd":   ["cmd"],
+            "aliases":  ["toirland"],
+            "help":     "Ames' Status report",
+            "help_ex":  null
+        },
+        "command_set": {
+            "flags":    ["core", "restricted"],
+            "hidden":   true,
+            "usage":    ".command_set [command] [state:int]",
+            "subcmd":   null,
+            "aliases":  ["cs"],
+            "help":     "Turn a command on/off. Command keys can be found in `amesconfig.json`.",
+            "help_ex":  null
+        },
+        "ping": {
+            "flags":    ["normal", "core"],
+            "hidden":   false,
+            "usage":    ".ping",
+            "subcmd":   null,
+            "aliases":  null,
+            "help":     "Get Ames' live latency in miliseconds.",
+            "help_ex":  null
+        },
+        "purge": {
+            "flags":    ["core", "restricted"],
+            "hidden":   true,
+            "usage":    ".purge [depth=100]",
+            "subcmd":   null,
+            "aliases":  null,
+            "help":     "Delete all Ames' messages in the current channel up to specified depth.",
+            "help_ex":  null
+        },
+        "resetdb": {
+            "flags":    ["normal", "core", "hatsune"],
+            "hidden":   false,
+            "usage":    ".resetdb",
+            "subcmd":   null,
+            "aliases":  null,
+            "help":     "Use this command should HNoteDB connection pool be exhausted.",
+            "help_ex":  null
+        },
+        "reload": {
+            "flags":    ["core", "restricted"],
+            "hidden":   true,
+            "usage":    ".reload [cog]",
+            "subcmd":   null,
+            "aliases":  ["refresh"],
+            "help":     "Reload a cog. Saves time restarting Ames. Some cogs cannot be refreshed. Cog names are simply the filenames after `cog_`.",
+            "help_ex":  null
+        },
+        "ext_set": {
+            "flags":    ["core", "restricted"],
+            "hidden":   true,
+            "usage":    ".ext_set [cog] [state:int]",
+            "subcmd":   null,
+            "aliases":  ["es"],
+            "help":     "Load/unload a cog. Cog names are simply the filenames after `cog_`.",
+            "help_ex":  null
+        },
+        "say": {
+            "flags":    ["core", "restricted"],
+            "hidden":   true,
+            "usage":    ".say [message] [*location_key]",
+            "subcmd":   null,
+            "aliases":  null,
+            "help":     "Have Ames say something. Command will be deleted on call. Ames will be able to use all emotes she has access to.",
+            "help_ex":  "Will default to the current channel if `[location_key]` is left blank. Otherwise, the syntax is `#(guild_id).channel_id`. If `guild_id` is left blank it will default to the current guild."
+        },
+        "debug": {
+            "flags":    ["core", "restricted"],
+            "hidden":   true,
+            "usage":    ".debug [state:int]",
+            "subcmd":   null,
+            "aliases":  null,
+            "help":     "Switch debug mode on/off.",
+            "help_ex":  null
+        },
+        "choose": {
+            "flags":    ["normal", "core"],
+            "hidden":   false,
+            "usage":    ".choose [*items]",
+            "subcmd":   null,
+            "aliases":  null,
+            "help":     "Have Ames choose something from a list of items separated by a comma (`,`).",
+            "help_ex":  null
+        },
+        "gacha": {
+            "flags":    ["normal", "_gacha"],
+            "hidden":   false,
+            "usage":    ".gacha [num=10]",
+            "subcmd":   null,
+            "aliases":  null,
+            "help":     "Do a gacha roll. The number must be between 0 and 10. Heavy on data.",
+            "help_ex":  null
+        },
+        "roll": {
+            "flags":    ["normal", "_gacha"],
+            "hidden":   false,
+            "usage":    ".roll [num=10]",
+            "subcmd":   null,
+            "aliases":  null,
+            "help":     "Do `num` gacha pulls and have Ames summarize them. `num` cannot be negative nor can it be too big (>10000).",
+            "help_ex":  null
+        },
+        "spark": {
+            "flags":    ["normal", "_gacha"],
+            "hidden":   false,
+            "usage":    ".spark [limit=300]",
+            "subcmd":   null,
+            "aliases":  null,
+            "help":     "Try to obtain a rateup character in the pool. Functions like `.roll` but will stop once you get a rate up or stop at the specified `limit`. This function will not work if the rate-up pool is empty.",
+            "help_ex":  null
+        },
+        "update": {
+            "flags":    ["_update","restricted"],
+            "hidden":   true,
+            "usage":    ".update [*options]",
+            "subcmd":   null,
+            "aliases":  null,
+            "help":     "Update assets and resources. Use `.help update` for more information.",
+            "help_ex":  "`.update`\nThis command will attempt to update all assets automatically with some manual prompts.\n`.update hatsune [command]`\nUpdates `prefix_title` and `prefix_new` in `hatsune_config.json`. Command syntax is: `p.(-)key(=Name),*;pn.prefix=(prefix_alias_new,)` e.g. `p.r=Ranger;pn.r=ranger`\n`.update index`\nUpdate the local index with index in the database.\n`.update res`\nUpdate the local `.png` assets.\n`.update server`\nUpdates all server icon assets.\n`.update gacha [command]`\nUpdates the gacha config. Command syntax is: `pool.(-)(character,);lim.(character,)` e.g. `ssr.rrin,rmahiru;lim.`"
+        },
+        "big": {
+            "flags":    ["shitpost"],
+            "hidden":   false,
+            "usage":    ".big [emote]",
+            "subcmd":   null,
+            "aliases":  ["e","b"],
+            "help":     "Enlarge the emote.",
+            "help_ex":  "`[emote]` can be a full emote. If `[emote]` is an emote name, then the emote must be an emote Ames has access to and the name must be partially correct. There is little to no fault tolerance in emote searching. The function currently cannot pick a specific emote should more than one emotes satisfy the substring."
+        },
+        "find": {
+            "flags":    ["shitpost"],
+            "hidden":   false,
+            "usage":    ".find [*emote_name]",
+            "subcmd":   null,
+            "aliases":  ["f"],
+            "help":     "List all emotes Ames has access to/try to find the specified emote.",
+            "help_ex":  null
+        },
+        "spray":    {
+            "flags":    ["shitpost"],
+            "hidden":   false,
+            "usage":    ".spray [*@user]",
+            "subcmd":   null,
+            "aliases":  ["s"],
+            "help":     "For bullying. `@user` must be a mention but can be left blank.",
+            "help_ex":  "Geik"
+        },
+        "dumb": {
+            "flags":    ["shitpost"],
+            "hidden":   false,
+            "usage":    ".dumb [*user]",
+            "subcmd":   null,
+            "aliases":  null,
+            "help":     "Someone is a dumbass. `User` can be a (partial) string or a mention. If left blank it will default to the person who invoked this command.",
+            "help_ex":  null
+        },
+        "enty": {
+            "flags":    ["shitpost"],
+            "hidden":   false,
+            "usage":    ".enty [*user]",
+            "subcmd":   null,
+            "aliases":  ["enty1", "enty2", "enty3"],
+            "help":     "WEE WOO WEE WOO MOU OWARI DA <:Owarida:570461350996738058>",
+            "help_ex":  null
+        },
+        "bless": {
+            "flags":    ["shitpost"],
+            "hidden":   false,
+            "usage":    ".bless [*user]",
+            "subcmd":   null,
+            "aliases":  null,
+            "help":     "Have Nozomi bless the specified user. `User` can be a (partial) string or a mention. If left blank it will default to the person who invoked this command.",
+            "help_ex":  null
+        },
+        "amesbless": {
+            "flags":    ["shitpost"],
+            "hidden":   false,
+            "usage":    ".amesbless [*user]",
+            "subcmd":   null,
+            "aliases":  null,
+            "help":     "Have Ames bless the specified user. `User` can be a (partial) string or a mention. If left blank it will default to the person who invoked this command.",
+            "help_ex":  null
+        },
+        "kiran": {
+            "flags":    ["shitpost"],
+            "hidden":   false,
+            "usage":    ".kiran [*user]",
+            "subcmd":   null,
+            "aliases":  null,
+            "help":     "This command is cursed please don't use this command.",
+            "help_ex":  "Please."
+        },
+        "kira": {
+            "flags":    ["shitpost"],
+            "hidden":   false,
+            "usage":    ".kira [*user]",
+            "subcmd":   null,
+            "aliases":  null,
+            "help":     "AAAH IT'S TOO BRIGHT -Hatsune",
+            "help_ex":  "kira~"
+        },
+        "chenhug": {
+            "flags":    ["shitpost"],
+            "hidden":   false,
+            "usage":    ".chenhug [*user]",
+            "subcmd":   null,
+            "aliases":  ["chen"],
+            "help":     "Have Ch'en hug the specified user. `User` can be a (partial) string or a mention. If left blank it will default to the person who invoked this command.",
+            "help_ex":  null
+        }
+    }
+}

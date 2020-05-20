@@ -1,0 +1,50 @@
+{
+    "basic":{
+        "physical": "Physical attacker",
+        "magic":    "Magic attacker",
+        "front":    "Vanguard position",
+        "mid":      "Midguard position",
+        "rear":     "Rearguard position",
+        "ue":       "Unique Equipment/Character Weapon available",
+        "limited":  "Character availability limited to special events",
+        "seasonal": "Character availability limited to seasonal events",
+        "prinfes":  "Character availability limited to Princess Festivals"
+    },
+    "atk": {
+        "aoe":      "Union Burst is AOE",
+        "ranged":   "Skills target past the frontmost enemy",
+        "p_target": "UB/skills target the strongest enemy physical attacker",
+        "m_target": "UB/skills target the strongest enemy magic attacker",
+        "self_harm":"UB/skills consume HP and/or inflict self debuffs",
+        "self_sust":"UB/skills recover caster's HP",
+        "self_buff":"UB/skills buff the caster",
+        "ailment":  "UB/skills inflict status ailment(s)",
+        "special":  "UB/skills have special mechanics not covered by tags"
+    },
+    "buff": {
+        "matk_up":      "Magic attack up",
+        "patk_up":      "Physical attack up",
+        "mcrit_up":     "Magic critical chance up",
+        "pcrit_up":     "Physical critical chance up",
+        "matk_down":    "Magic attack down",
+        "patk_down":    "Physical attack down",
+        "mdef_up":      "Magic defense up",
+        "pdef_up":      "Physical defense up",
+        "mdef_down":    "Magic defense down",
+        "pdef_down":    "Physical defense down",
+        "atkspd_up":    "Attack speed up",
+        "atkspd_down":  "Attack speed down",
+        "movespd_up":   "Movement speed up",
+        "movespd_down": "Movement speed down",
+        "tp_up":        "Recover TP (self)",
+        "tp_down":      "Penalize TP",
+        "tp_steal":     "tp_down on target and tp_up on self",
+        "pshield":      "Physical shield (damage nullification)",
+        "mshield":      "Magic shield (damage nullification)",
+        "pbarrier":     "Physical barrier (damage to HP conversion)",
+        "mbarrier":     "Magic barrier (damage to HP conversion)",
+        "heal":         "Recovers HP",
+        "taunt":        "Gain taunt",
+        "battery":      "Gives TP to ally/allies"
+    }
+}

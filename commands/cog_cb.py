@@ -1,81 +1,111 @@
-import ast
+# this module takes care of cb functions
 import discord
 from discord.ext import commands
 import datetime
-import os, sys
-dir = os.path.dirname(__file__)
+import os, sys, json, asyncio
 
-# Boss Roles IDs
-BOSS_1 =                616120855277076490
-BOSS_2 =                616121000228290561
-BOSS_3 =                616121101604618259
-BOSS_4 =                616121290243178497
-BOSS_5 =                616121405423091723
-bosses =                [BOSS_1,BOSS_2,BOSS_3,BOSS_4,BOSS_5]
-#rbosses =               {str(BOSS_1):1,str(BOSS_2):2,str(BOSS_3):3,str(BOSS_4):4,str(BOSS_5):5}
-
-num_emj =               ['1\u20E3','2\u20E3','3\u20E3','4\u20E3','5\u20E3']
-#num =                   ['1','2','3','4','5']
-guild_name = dict()
-guild_name['green'] =   '進撃のロリ'
-guild_name['yellow'] =  '進撃の熟女'
-guild_name['red'] =     '進撃の怠け'
-
-# guild ID
-guild_d = dict()
-guild_d['435067795919863808'] = 'green'
-guild_d['435067668241055785'] = 'yellow'
-guild_d['547685646001504256'] = 'red'
-guild_d['434628129357824000'] = 'green'
-guild_d['434628671387467788'] = 'yellow'
-guild_d['547686074302857218'] = 'red'
-
-# reacts
-REPEAT =    '\U0001f501'
-#STOP =      '\U0001f6d1'
-
-# target guild
-target_guild = 419624511189811201
+num_emj = ['1\u20E3','2\u20E3','3\u20E3','4\u20E3','5\u20E3']
+REPEAT =  '\U0001f501'
 
 class cbCog(commands.Cog):
     def __init__(self, client):
-        self.client = client
-        self.last_message = None
-        self.name = '[cb]'
-        #self.active = client.get_config('cb')
-        self.logger = client.log
-        with open(os.path.join(dir,'_config/cbtag.txt')) as cf:
-            self.last_embed = ast.literal_eval(cf.read())
+        self.client =   client
+        self.name =     "[cb]"
+        self.logger =   client.log
+        self.colour =   discord.Colour.from_rgb(*client.config['command_colour']['cog_cb'])
+        
+        with open(os.path.join(self.client.dir, self.client.config['cbtag_config_path']), encoding='utf-8') as ccf:
+            self.config = json.load(ccf)
+            #self.last_message = self.config['guilds']
     
-    async def active_check(self, channel):
-        if self.client.get_config('cb') is False:
-            await channel.send(self.client.error()['inactive'])
-            await self.logger.send(self.name, 'command disabled')
-            return False
-        else:
-            return True
+    def write_to_config(self):
+        #self.config['guilds'] = guilds
+        with open(os.path.join(self.client.dir, self.client.config['cbtag_config_path']), 'w') as ccf:
+            ccf.write(json.dumps(self.config, indent=4))
     
-    def collate(self, guild='all'):
+    @commands.group(
+        invoke_without_command=True,
+        case_insensitive=True,
+        usage=".cbtag [*options|optional]",
+        help='This command is restricted to a certain server only. Show waiting list for all 3 guilds.'
+    )
+    async def cbtag(self, ctx, *options):
+        channel = ctx.channel
+        if not self.client.command_status['cb'] == 1:
+            raise commands.DisabledCommand
+
+        if ctx.invoked_subcommand is None:
+            if len(options) != 0:
+                await self.toggle_boss(ctx.message.author, channel, options)
+
+            else:
+                r, y, g = self.collect_data()
+                embed = discord.Embed(
+                    title="CB Tag",
+                    description='Displaying waits for all 3 guilds.',
+                    timestamp=datetime.datetime.utcnow(),
+                    colour=self.colour
+                )
+                embed.set_footer(text='CB Tag | Re:Re:Write Ames',icon_url=self.client.user.avatar_url)
+                embed.add_field(
+                    name="No.",
+                    value="\n".join([str(i) for i in range(1,6)]),
+                    inline=True
+                )
+                embed.add_field(
+                    name="Boss Name",
+                    value="\n".join(self.get_boss_name(self.config['boss_roles'])),
+                    inline=True
+                )
+                embed.add_field(
+                    name='Awaiting',
+                    value='\n'.join([str(r[boss] + y[boss] + g[boss]) for boss in list(r.keys())]),
+                    inline=True
+                )
+                await ctx.channel.send(embed=embed)
+
+    def get_role(self, id):
+        return self.client.get_guild(self.config['target_guild']).get_role(id)
+
+    async def toggle_boss(self, user, channel, requests):
+        for boss_num in requests:
+            try:
+                boss_num = int(boss_num)
+            except:
+                await channel.send(f"Failed to toggle `{boss_num}`")
+            else:
+                request = self.config['boss_roles'][boss_num]
+                if request in [role.id for role in user.roles]:
+                    await user.remove_roles(self.get_role(request))
+                    if channel != None:
+                        await channel.send(f"Successfully removed `{self.get_role(request).name}`")
+                else:
+                    await user.add_roles(self.get_role(request))
+                    if channel != None:
+                        await channel.send(f"Successfully added `{self.get_role(request).name}`")
+        return True
+
+    def collect_data(self, guild='all'):
+        target_guild = self.config['target_guild']
+        bosses = self.config['boss_roles']
+
         red =       {'boss1':0,'boss2':0,'boss3':0,'boss4':0,'boss5':0}
         yellow =    red.copy()
         green =     red.copy()
 
         for member in self.client.get_guild(target_guild).members:
-            if guild_d.get(str(member.top_role.id), None) is 'red':
+            cguild = self.get_member_guild(member)
+            if cguild != None:
+                if cguild['colour'].startswith('r'):
+                    temp = red
+                elif cguild['colour'].startswith('g'):
+                    temp = green
+                else:
+                    temp = yellow
+                
                 for role in member.roles:
                     if role.id in bosses:
-                        red[f"boss{bosses.index(role.id)+1}"] = red[f"boss{bosses.index(role.id)+1}"] + 1
-            elif guild_d.get(str(member.top_role.id), None) is 'yellow':
-                for role in member.roles:
-                    if role.id in bosses:
-                        yellow[f"boss{bosses.index(role.id)+1}"] = yellow[f"boss{bosses.index(role.id)+1}"] + 1
-            elif guild_d.get(str(member.top_role.id), None) is 'green':
-                for role in member.roles:
-                    if role.id in bosses:
-                        green[f"boss{bosses.index(role.id)+1}"] = green[f"boss{bosses.index(role.id)+1}"] + 1
-            else:
-                continue
-                #print(f"invalid top role {member.top_role.name}")
+                        temp[f"boss{bosses.index(role.id)+1}"] += 1
         
         if guild is 'all':
             return red, yellow, green 
@@ -89,148 +119,49 @@ class cbCog(commands.Cog):
             print('invalid guild option in collate')
 
     def get_boss_name(self, boss_id):
-        return [self.client.get_guild(target_guild).get_role(bid).name.split('-')[-1].strip() for bid in boss_id]
+        return [self.client.get_guild(self.config['target_guild']).get_role(bid).name.split('-')[-1].strip() for bid in boss_id]
 
-    @commands.Cog.listener()
-    async def on_raw_reaction_add(self, payload):
-        if payload.user_id == self.client.user.id:
-            return
+    def get_member_guild(self, author):
+        top_id = author.top_role.id
+        alt = [[key, value['id']] for key, value in list(self.config['guilds'].items())]
+        for guild_name, ids in alt:
+            if top_id in ids:
+                return self.config['guilds'][guild_name]
+        return None
 
-        user = self.client.get_guild(payload.guild_id).get_member(payload.user_id)
-        emote = payload.emoji
-        message_id = payload.message_id
-
-        last_message_ids = [self.last_embed['r']['message'], 
-                            self.last_embed['g']['message'], 
-                            self.last_embed['y']['message']]
-        if message_id in last_message_ids:
-            message = await self.client.get_guild(payload.guild_id).get_channel(payload.channel_id).fetch_message(message_id)
-            if emote.name in num_emj:
-                await self.toggle_boss(user, None, num_emj.index(emote.name))
-                await message.edit(embed=self.refresh_embed(message.embeds[0]))
-            elif emote.name == REPEAT:
-                await message.edit(embed=self.refresh_embed(message.embeds[0]))
-            else:
-                pass
-            await message.remove_reaction(emote, user)
-    
-    def get_role(self, boss_id):
-        return self.client.get_guild(target_guild).get_role(boss_id)
-
-    def refresh_embed(self, embed):
-        if '進撃のロリ' in embed.title:
-            mode = 'g'
-        elif '進撃の熟女' in embed.title:
-            mode = 'y'
-        elif '進撃の怠け' in embed.title:
-            mode = 'r'
-        else:
-            print(self.name, 'refresh_embed: Failed to read embed title')
-            return embed
-        clan = self.collate(mode)
-        embed_dict = embed.to_dict()
-        embed_dict['fields'][1]['value'] = "\n".join(self.get_boss_name(bosses))
-        embed_dict['fields'][2]['value'] = '\n'.join([str(val) for val in list(clan.values())])
-        return embed.from_dict(embed_dict)
-
-    async def toggle_boss(self, user, channel=None, *num):
-        for boss_num in num:
-            try:
-                boss_num = int(boss_num)
-            except:
-                if channel != None:
-                    await channel.send(f"I failed to toggle boss {boss_num} {self.client.emj['ames']}")
-            else:
-                request = bosses[boss_num]
-                if request in [role.id for role in user.roles]:
-                    await user.remove_roles(self.get_role(request))
-                    if channel != None:
-                        await channel.send(f"Successfully removed {self.get_role(request).name}!")
-                else:
-                    await user.add_roles(self.get_role(request))
-                    if channel != None:
-                        await channel.send(f"Successfully added {self.get_role(request).name}!")
-
-    @commands.group(
-        invoke_without_command=True,
-        case_insensitive=True,
-        usage='.cbtag [*options|optional]',
-        help='This command is restricted to a certain server only. Show waiting list for all 3 guilds.'
-    )
-    async def cbtag(self, ctx, *options):
-        check = await self.active_check(ctx.channel)
-        if not check:
-            return
-        
-        if ctx.invoked_subcommand is None:
-            if len(options) != 0:
-                for i in options:
-                    try:
-                        await self.toggle_boss(ctx.message.author, ctx.channel, int(i)-1)
-                    except:
-                        continue
-            else:
-                red, yellow, green = self.collate()
-                embed = discord.Embed(
-                    title="CB Tag",
-                    description='Displaying waits for all 3 guilds.',
-                    timestamp=datetime.datetime.utcnow()
-                )
-                embed.set_footer(text='CB Tag | SHIN Ames',icon_url=self.client.user.avatar_url)
-                embed.add_field(
-                    name="No.",
-                    value="\n".join([str(i) for i in range(1,6)]),
-                    inline=True
-                )
-                embed.add_field(
-                    name="Boss Name",
-                    value="\n".join(self.get_boss_name(bosses)),
-                    inline=True
-                )
-                embed.add_field(
-                    name='Awaiting',
-                    value='\n'.join([str(red[boss] + yellow[boss] + green[boss]) for boss in list(red.keys())]),
-                    inline=True
-                )
-                await ctx.channel.send(embed=embed)
-    
     @cbtag.command(
-        usage='.cbtag post',
+        usage=".cbtag post",
         help='Have Ames send an embed where you can assign yourself a boss role by reacting to the corresponding number.'
     )
+    @commands.cooldown(1, 5, commands.BucketType.default)
     async def post(self, ctx):
         channel = ctx.channel
         author = ctx.message.author
 
-        # read last message
-        with open(os.path.join(dir,'_config/cbtag.txt')) as cf:
-            self.last_embed = ast.literal_eval(cf.read())
-        
-        # get author top role
-        top = guild_d.get(str(author.top_role.id), None)
-        if top is None:
-            await channel.send(f"I did not find your guild role {self.client.emj['ames']}")
+        if not self.client.command_status['cb'] == 1:
+            raise commands.DisabledCommand
+
+        guild = self.get_member_guild(author)
+        if guild == None:
+            await channel.send(f"I did not find your guild role {self.client.emotes['ames']}")
             await self.logger.send(self.name,'Invalid top role for post',author.top_role.name)
             return
-
-        # invalidate last post
-        try:
-            last_channel = self.last_embed[top[0]].get('channel', None)
-            last_message = self.last_embed[top[0]].get('message', None)
-            if last_channel != None and last_message != None:
-                msg = await channel.guild.get_channel(self.last_embed[top[0]]['channel']).fetch_message(self.last_embed[top[0]]['message'])
-                await msg.edit(content=f"There used to be a `cbtag post` here, but now there isn't {self.client.emj['ames']}",embed=None)
-        except Exception as e:
-            await self.logger.send(self.name, 'Failed to invalidate last post:', e)
         
-        # post
-        clan = self.collate(top)
+        try:
+            if not None in list(guild['last_message'].values()):
+                msg = await channel.guild.get_channel(guild['last_message']['channel']).fetch_message(guild['last_message']['message'])
+                await msg.edit(embed=None, content="This `cbtag post` has been invalidated; please use the most recent post message "+self.client.emotes['ames'])
+        except Exception as e:
+            await self.logger.send(self.name, e)
+        
+        clan = self.collect_data(guild['colour'][0])
         embed = discord.Embed(
-                title=f"{guild_name[top]}'s Boss reminders",
+                title=f"{guild['name']}'s Boss reminders",
                 description=f'React to a number to add/remove that boss tag.\nReact to {REPEAT} to refresh the list.',
-                timestamp=datetime.datetime.utcnow()
+                timestamp=datetime.datetime.utcnow(),
+                colour=self.colour
             )
-        embed.set_footer(text='CB Tag Post | SHIN Ames',icon_url=self.client.user.avatar_url)
+        embed.set_footer(text='CB Tag Post | Re:Re:Write Ames',icon_url=self.client.user.avatar_url)
         embed.add_field(
             name="No.",
             value="\n".join([str(i) for i in range(1,6)]),
@@ -238,7 +169,7 @@ class cbCog(commands.Cog):
         )
         embed.add_field(
             name="Boss Name",
-            value="\n".join(self.get_boss_name(bosses)),
+            value="\n".join(self.get_boss_name(self.config['boss_roles'])),
             inline=True
         )
         embed.add_field(
@@ -249,31 +180,69 @@ class cbCog(commands.Cog):
         post = await ctx.channel.send(embed=embed)
         for emj in [*num_emj, REPEAT]:
             await post.add_reaction(emj)
-        
-        self.last_embed[top[0]]['message'] = post.id
-        self.last_embed[top[0]]['channel'] = post.channel.id
 
-        with open(os.path.join(dir,'_config/cbtag.txt'), 'w') as cf:
-            cf.write(str(self.last_embed))
+        guild['last_message']['message'] = post.id
+        guild['last_message']['channel'] = post.channel.id
+        self.config['guilds'][guild['colour']] = guild
+        self.write_to_config()
+
+        await ctx.message.delete()
+
+    @commands.Cog.listener()
+    async def on_raw_reaction_add(self, payload):
+        user = self.client.get_guild(payload.guild_id).get_member(payload.user_id)
+        if user.bot:
+            return
+        
+        emote = payload.emoji
+        message_id = payload.message_id
+
+        last_message_ids = [value['last_message']['message'] for value in list(self.config['guilds'].values())]
+
+        if message_id in last_message_ids:
+            message = await self.client.get_guild(payload.guild_id).get_channel(payload.channel_id).fetch_message(message_id)
+            if emote.name in num_emj:
+                complete = await self.toggle_boss(user, None, [num_emj.index(emote.name)])
+                if complete:
+                    await message.edit(embed=self.refresh_embed(message.embeds[0]))
+            elif emote.name == REPEAT:
+                await message.edit(embed=self.refresh_embed(message.embeds[0]))
+            await message.remove_reaction(emote, user)
     
+    def refresh_embed(self, embed):
+        if '進撃のロリ' in embed.title:
+            mode = 'g'
+        elif '進撃の熟女' in embed.title:
+            mode = 'y'
+        elif '進撃の怠け' in embed.title:
+            mode = 'r'
+        else:
+            print(self.name, 'refresh_embed: Failed to read embed title')
+            return embed
+        clan = self.collect_data(mode)
+        embed_dict = embed.to_dict()
+        embed_dict['fields'][1]['value'] = "\n".join(self.get_boss_name(self.config['boss_roles']))
+        embed_dict['fields'][2]['value'] = '\n'.join([str(val) for val in list(clan.values())])
+        return embed.from_dict(embed_dict)
+        
     @cbtag.command(
-        usage='.cbtag purge',
+        usage=".cbtag purge",
         help='Remove all boss roles from yourself.'
     )
     async def purge(self, ctx, *options):
         channel = ctx.channel
-        if len(options) != 0:
-            if options[0] == 'all':
-                for member in self.client.get_guild(target_guild).members:
-                    for role in member.roles:
-                        if role.id in bosses:
-                            await member.remove_roles(role)
-                await channel.send(self.client.emj['sarenh'])
-        else:
+        if len(options) == 0:
             for role in ctx.message.author.roles:
-                if role.id in bosses:
+                if role.id in self.config['boss_roles']:
                     await ctx.message.author.remove_roles(role)
-            await ctx.channel.send(self.client.emj['sarenh'])
+            await ctx.channel.send(self.client.emotes['sarenh'])
+
+        elif options[0] == 'all' and self.client._check_author(ctx.message.author):
+            for member in self.client.get_guild(self.config['target_guild']).members:
+                for role in member.roles:
+                    if role.id in self.config['boss_roles']:
+                        await member.remove_roles(role)
+            await channel.send(self.client.emotes['sarenh'])
     
     @cbtag.command(
         usage='.cbtag edit [boss_num] [name]',
@@ -282,16 +251,16 @@ class cbCog(commands.Cog):
     async def edit(self, ctx, boss_num:int, *name):
         channel = ctx.channel
         try:
-            role = self.get_role(bosses[boss_num-1])
+            role = self.get_role(self.config['boss_roles'][boss_num-1])
             old_name = role.name.split(' - ')
             new_name = [old_name[0], " ".join(name)]
             await role.edit(name=" - ".join(new_name))
-            await channel.send(self.client.emj['sarenh'])
+            await channel.send(self.client.emotes['sarenh'])
         except Exception as e:
-            print(e)
-            await channel.send(self.client.emj['ames'])
+            await self.logger.send(self.name, e)
+            await channel.send(self.client.emotes['ames'])
             return
-    
+
     @cbtag.command(
         usage=".cbtag reset",
         help="Reset all boss names.",
@@ -300,10 +269,10 @@ class cbCog(commands.Cog):
     async def reset(self, ctx):
         channel = ctx.channel
         reset_names = [f'boss {i} - N/A' for i in range(1,6)]
-        for i, boss_id in enumerate(bosses):
+        for i, boss_id in enumerate(self.config['boss_roles']):
             role = self.get_role(boss_id)
             await role.edit(name=reset_names[i])
-            await channel.send(self.client.emj['sarenh'])
+        await channel.send(self.client.emotes['sarenh'])
 
 def setup(client):
     client.add_cog(cbCog(client))

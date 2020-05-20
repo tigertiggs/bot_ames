@@ -1,0 +1,89 @@
+{
+    "debug":                1,
+    "save_config_on_exit":  0,
+    "port":                 8000,
+
+    "emote_path":           "commands/_config/emoji.json",
+    "private_path":         "commands/_private/private.json",
+    "status_path":          "commands/_config/status.json",
+    "gacha_config_path":    "commands/_config/gacha.json",
+    "cbtag_config_path":    "commands/_config/cbtag.json",
+    "help_path":            "commands/_config/help.json",
+
+    "hatsune_config_path":  "commands/hatsune_data/hatsune_config.json",
+    "alias_local_path":     "commands/hatsune_data/alias_local.json",
+    "tags_index_path":      "commands/hatsune_data/tags.json",
+    "unit_list_path":       "commands/hatsune_data/unit_list.json",
+
+    "fag_index_path":       "C:/laragon/www/fagutils/Priconne/data/index.json",
+    "png_path":             "commands/assets/units/png",
+    "units_path":           "commands/assets/units",
+
+    "shen_path":            "commands/assets/shen",
+    "post_path":            "commands/post",
+
+    "required_folders": [
+
+    ],
+    "required_files":   [
+
+    ],
+
+    "command_cogs":     [
+        "commands.cog_core",
+        "commands.cog_update",
+        "commands.cog_hatsune",
+        "commands.cog_gacha",
+        "commands.cog_cb",
+        "commands.cog_shen",
+        "commands.cog_shenp",
+        "commands.cog_help"
+    ],
+    "command_colour":   {
+        "cog_core":     [14, 173, 14],
+        "cog_hatsune":  [255,192,203],
+        "cog_gacha":    [240, 215, 29],
+        "cog_cb":       [70, 118, 240],
+        "cog_shen":     [146, 3, 150],
+        "cog_shenp":    [156, 14, 89],
+        "cog_help":     [7, 138, 57]
+    },
+    "command_status":   {
+        "status":   1,
+        "ping":     1,
+        "purge":    1,
+        "resetdb":  1,
+
+        "chara":    1,
+        "pos":      1,
+        "tag":      1,
+        "alias":    1,
+
+        "roll":     1,
+        "spark":    1,
+        "gacha":    1,
+
+        "cb":       1,
+
+        "emote":    1,
+        "big":      1,
+        "efinder":  1,
+
+        "spray":    1,
+        "dumb":     1,
+        "enty":     1,
+        "police":   0,
+        "loc":      0,
+        "nero":     0,
+        "neroe":    0,
+        "mind":     0,
+        "muimi":    0,
+        "bless":    1,
+        "amesbless":1,
+        "kira":     1,
+        "kiran":    1,
+        "chenhug":  1,
+
+        "help":     1
+    }
+}

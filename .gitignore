@@ -1,10 +1,18 @@
-commands/_pass
-.vscode
+# post
+commands/post/*
+!commands/post/.gitkeep
+
+# private
+commands/_private/*
+!commands/_private/.gitkeep
+
+# ames
+commands/assets/ames/*
+!commands/assets/ames/.gitkeep
+
+# other
+commands/hatsune/alias_local.json
+commands/_config/cbtag.json
 __pycache__
-old
-gresult.jpg
-commands/shen/post
-cbtag.txt
-alias_local.txt
-port.txt
-debug.json
+old/*
+.vscode

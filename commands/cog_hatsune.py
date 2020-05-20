@@ -1,42 +1,37 @@
+# cog for fetching data off custom DB
+
 import datetime
 import discord
 from discord.ext import commands
 import asyncio, os, ast, traceback, time, json, requests
 from io import BytesIO
 dir = os.path.dirname(__file__)
-
-MAX_LEVEL = 140
 SPACE = '\u200B'
-ue_prop = [
-    "hp",
-    "atk",
-    "matk",
-    "def",
-    "mdef",
-    "pCrit",
-    "mCrit",
-    "wHpRec",
-    "wTpRec",
-    "dodge",
-    "pPen",
-    "mPen",
-    "lifesteal",
-    "hpRec",
-    "tpRec",
-    "tpSave",
-    "acc"
-]
 
 class hatsuneCog(commands.Cog):
     def __init__(self, client):
-        self.client =   client
-        self.logger =   client.log
-        self.name =     '[Hatsune]'
+        self.client = client
+        self.logger = self.client.log
+        self.name = "[hatsune]"
+        self.colour = discord.Colour.from_rgb(*client.config['command_colour']['cog_hatsune'])
 
-        self.db =       client.database
-        self.emj =      client.emj
-        #self.active =   client.get_config('hatsune')
+        # load configs
+        with open(os.path.join(self.client.dir, self.client.config['hatsune_config_path'])) as hcf:
+            self.config = json.load(hcf)
+        with open(os.path.join(self.client.dir, self.client.config['tags_index_path'])) as tif:
+            self.tag_definitions = json.load(tif)
+        with open(os.path.join(self.client.dir, self.client.config['alias_local_path'])) as alf:
+            self.alocal = json.load(alf)
+        #with open(os.path.join(self.client.dir, self.client.config['unit_list_path'])) as ulf:
+        #    self.unit_list = json.load(ulf)
 
+        self.full_alias = self.config['alias_master'].copy()
+        self.full_alias.update(self.alocal)
+
+        # db stuff
+        self.db = self.client.database
+
+        # help stuff
         self.full_help =     ("**In case you forgot, the input syntax is:**\n"
                             "> `.c(haracter) [version|optional].[character_name] [*option|optional]`\n"
                             "> i.e. `.c s.kyaru` `.c maho flb`\n"
@@ -61,201 +56,107 @@ class hatsuneCog(commands.Cog):
                             "> :twisted_rightwards_arrows: react to access character's special/alternate skills\n"
                             "> :stop_sign: Ames will no longer respond to reacts on this embed")
         
-        self.help =             ("If you need help, try `.c(haracter) help` "+self.emj['ames'])
+        self.help =          ("If you need help, try `.c(haracter) help`")
 
-        self.options =  ['flb']
-        with open(os.path.join(dir, '_config/alias_local.txt')) as alf:
-            alocal = ast.literal_eval(alf.read())
-        with open(os.path.join(dir,'_config/alias.txt')) as af:
-            self.preprocessor = ast.literal_eval(af.read())
-            self.preprocessor.update(alocal)
-    
-    async def active_check(self, channel):
-        if self.client.get_config('hatsune') is False:
-            await channel.send(self.client.error()['inactive'])
-            await self.logger.send(self.name, 'command disabled')
-            return False
-        else:
-            return True
-    
-    def chunks(self, l, n):
-        # For item i in a range that is a length of l,
-        for i in range(0, len(l), n):
-            # Create an index range for l of n items:
-            yield l[i:i+n] 
-    
     def error(self):
         error_msg = dict()
         error_msg['no_input'] =     'There was no input\n'+self.help
-        error_msg['search_fail'] =  f"{self.client.emj['ames']} I didn\'t find the requested character\n"+self.help
+        error_msg['search_fail'] =  f"{self.client.emotes['ames']} I didn\'t find the requested character\n"+self.help
         error_msg['conn_fail'] =    'Failed to connect to database!'
         error_msg['pos_fail'] =     'Invalid input! Use `v` for vanguard, `m` for midguard or `r` for rearguard. '\
                                     'Alternatively enter a character name to find their lineup.'
         return error_msg
 
-    async def process_input(self, request, channel, verbose=True):
-        processed = []
-        option = request[-1]
-        deprec = ['ue', 'mlb']
-        if not option in self.options:
-            if option in deprec:
-                if verbose:
-                    await channel.send(f'Warning: option `{option}` has depreciated! See `.help` for more details.')
-                request = request[:-1]
-                if option == 'mlb':
-                    option = 'flb'
-                else:
-                    option = None
+     # to avoid connecting to pandaDB keep a local copy of the index
+    
+    def validate_entry(self, target):
+        with open(os.path.join(self.client.dir, self.client.config['unit_list_path'])) as ulf:
+            self.unit_list = json.load(ulf)
+
+        if not (target in self.unit_list['jp'] or target in self.unit_list['en']):
+            return False, None
+        elif target in self.unit_list['en']:
+            pos = self.unit_list['en'].index(target)
         else:
+            pos = self.unit_list['jp'].index(target)
+        
+        return True, {
+                        'id': self.unit_list['id'][pos], 
+                        'en': self.unit_list['en'][pos], 
+                        'jp': self.unit_list['jp'][pos]
+                    }
+        
+    async def process_request(self, ctx, request, channel, verbose=True):
+        # the goal for prerprocessing is to
+        #   1. find which mode the user wants (.c, .ue., .card, .stats)
+        #   2. find what option, if any are input: (flb)
+        #   3. find if the primary request is an alias
+        # this result is used validated with the local unit_list
+        # finally the japanese name is used to fetch the raw data off laragon and the TL data off pandaDB
+
+        # we expect the request be of the form:
+        # (prefix.chara/alias, option)
+
+        # old form:
+        # (prefixchara/alias, option)
+        processed = []
+
+        # check mode
+        invk = ctx.invoked_with
+        if invk == 'ue':
+            mode = 'ue'
+        elif invk == 'card' or invk == 'pic':
+            mode = 'card'
+        elif invk == 'stats':
+            mode = 'stats'
+        else:
+            mode = 'chara'
+        
+        # check option
+        option = request[-1]
+        if not option in self.config['options']:
+            if option in ['ue'] and verbose:
+                await channel.send(self.client.emotes['ames']+" Option `ue` is no longer in use; use `.ue` instead")
+                mode = 'ue'
+                option = None
+            else:
+                option = None
+        else:
+            # remove the option from the request
             request = request[:-1]
+        
+        # process prefix and run through master and local aliases
+        for item in self.process_prefix(request):
+            processed.append(self.full_alias.get(item, item).lower())
 
-        for arg in self.prefix_id(request):
-            processed.append(self.preprocessor.get(arg, arg).lower())
-        return "".join(processed), option
+        return mode, "".join(processed), option
 
-    def prefix_id(self, request):
+    def process_prefix(self, request):
+        # we expect request to be of the form:
+        # (prefix.name, )
+        # (prefixname, )
+
         processed = []
         for item in request:
             temp = item.split('.')
 
             if len(temp) == 2:
-                processed.append("".join([self.prefixes_new(temp[0].lower()), temp[1]]))
-                #processed.append(temp[1])
+                prefix = temp[0]
+                if prefix in list(self.config['prefix_title'].keys()):
+                    processed.append("".join(temp[:2]))
+                else:
+                    for key, value in list(self.config['prefix_new'].items()):
+                        if prefix in value:
+                            processed.append("".join([key, temp[1]]))
             else:
                 processed.append(item)
-        return processed
+        
+        return processed # vector
 
-    def prefixes_new(self, pf):
-        old_prefixes = [
-            'n', 'x', 'o', 'v', 's', 'h', 'u', 'm', 'p', 'd', 'r'
-        ]
-        if pf in old_prefixes:
-            return pf
-        elif pf in ['cg', 'imas', 'i', 'deremasu', 'dm']:
-            return 'd'
-        elif pf == 'ny':
-            return 'n'
-        else:
-            return pf
-
-    def prefixes(self, pf):
-        if pf ==    'n': 
-            return          'New Year'
-        elif pf ==  'x':
-            return          'Xmas'
-        elif pf ==  'o':
-            return          'Ouedo'
-        elif pf ==  'v':
-            return          'Valentines'
-        elif pf ==  's':
-            return          'Summer'
-        elif pf ==  'h':
-            return          'Halloween'
-        elif pf ==  'u':
-            return          'Uniform'
-        elif pf ==  'm':
-            return          'Magical Girl'
-        elif pf ==  'p':
-            return          'Princess'
-        elif pf ==  'd':
-            return          'Cinderella Girls'
-        elif pf == 'r':
-            return          'Ranger'
-        else:
-            return          "???"
-
-    def get_full_name(self, target):
-        if len(target) > 1:
-            if target[1].isupper():
-                prefix = self.prefixes(target[0].lower())
-                #return " ".join([prefix, target[1:]])
-                return f"{target[1:]} ({prefix})"
-            else:
-                return target
-        else:
-            prefix = self.prefixes(target.lower())
-            return prefix
+        # fetch raw and TL data
     
-    @commands.command()
-    async def updateindex(self, ctx):
-        channel = ctx.channel
-        conn = self.db.db_pointer.get_connection()
-
-        if not conn.is_connected():
-            await channel.send(self.error()['conn_fail'])
-            await self.logger.send(self.name,'DB connection failed')
-            return
-        
-        query = "SELECT unit_id, unit_name, unit_name_eng FROM hatsune_bot.charadata"
-
-        id_list, name_list, nametl_list = [], [], []
-
-        try:
-            cursor = conn.cursor()
-            cursor.execute(query)
-            for uid, name, nametl in cursor:
-                id_list.append(uid)
-                name_list.append(name)
-                nametl_list.append(nametl.lower())
-        except Exception as e:
-            await channel.send('Failed to update index')
-            await self.logger.send('updateindex - ', e)
-            self.db.release(conn)
-            return
-        
-        with open(os.path.join(dir, 'data/unit_list/uid.txt'), 'w+') as uf:
-            uf.write(str(id_list))
-        with open(os.path.join(dir, 'data/unit_list/name.txt'), 'w+', encoding="utf-8") as nf:
-            nf.write(str(name_list))
-        with open(os.path.join(dir, 'data/unit_list/nametl.txt'), 'w+') as ntf:
-            ntf.write(str(nametl_list))
-        
-        await channel.send('Updated master index')
-
-    # outdated
-    """
-    def fetch_list(self, conn):
-        chara_list, chara_list_jp, id_list = [], [], []
-        cursor = conn.cursor()
-        query = ("SELECT unit_id, unit_name_eng , unit_name "
-                "FROM hatsune_bot.charadata")
-        cursor.execute(query)
-        for (id, name, name_jp) in cursor:
-            chara_list.append(str(name).lower())
-            chara_list_jp.append(str(name_jp))
-            id_list.append(str(id))
-        cursor.close()
-        return chara_list, chara_list_jp, id_list
-    """
-
-    async def validate_entry(self, target, channel, suppress=False):
-        with open(os.path.join(dir,'data/unit_list/name.txt'), encoding="utf-8") as nf:
-            jp_list = ast.literal_eval(nf.read())
-
-        with open(os.path.join(dir,'data/unit_list/nametl.txt')) as nf:
-            en_list = ast.literal_eval(nf.read())
-
-        with open(os.path.join(dir,'data/unit_list/uid.txt')) as nf:
-            id_list = ast.literal_eval(nf.read())
-        
-        #print(target, type(en_list))
-
-        if not target in jp_list and not target in en_list:
-            if not suppress:
-                await channel.send(self.error()['search_fail'])
-                await self.logger.send(self.name, 'failed to find', target)
-            return False
-        elif target in en_list:
-            pos = en_list.index(target)
-            target_id = id_list[en_list.index(target)]
-        else:
-            pos = jp_list.index(target)
-            target_id = id_list[jp_list.index(target)]
-        
-        return {'id':target_id, 'en':en_list[pos], 'jp':jp_list[pos]}
-
     async def fetch_data_kai(self, info, conn):
-        global MAX_LEVEL
+        #global MAX_LEVEL
         #ue = dict()
         #t0 = time.perf_counter()
         query = ("SELECT "
@@ -291,12 +192,11 @@ class hatsuneCog(commands.Cog):
         #t0 = time.perf_counter()
 
         name = info['jp']
-        with open(os.path.join(dir, '_config/port.txt'), 'r') as pf:
-            port = pf.read().strip()
-            if port != 'default':
-                request = f"http://localhost:{port}/FagUtils/gateway.php?cmd=priconne.api&call=api.fetch&name={name}"
-            else:
-                request = f"http://localhost/FagUtils/gateway.php?cmd=priconne.api&call=api.fetch&name={name}"
+        port = self.client.config['port']
+        if port != 'default':
+            request = f"http://localhost:{port}/FagUtils/gateway.php?cmd=priconne.api&call=api.fetch&name={name}"
+        else:
+            request = f"http://localhost/FagUtils/gateway.php?cmd=priconne.api&call=api.fetch&name={name}"
         
         try:
             result = requests.get(request)
@@ -304,8 +204,8 @@ class hatsuneCog(commands.Cog):
         except Exception as e:
             await self.logger.send('failed to fetch data: ', e)
             return False
-        
-        MAX_LEVEL =             raw['config']['UE_MAX']
+
+        info['max_ue'] =        raw['config']['UE_MAX']
         info['hnote_id'] =      raw['data']['unit_profile']['id']
         info['cm'] =            raw['data']['unit_profile']['comment'].replace('\\n', '')
         info['stats'] =         raw['data']['stats']
@@ -360,252 +260,231 @@ class hatsuneCog(commands.Cog):
         return info
 
     @commands.command(
-        usage = '.character [name] [*options|optional]', 
-        aliases=['c','ue', 'chara'],
-        help='Have Ames fetch information on the specified character. [Options include]: flb'
-        )
+        usage="character [name] [*option|optional]",
+        aliases=['c','ue','chara', 'card', 'pic', 'stats'],
+        help="Have Ames fetch data on the specified character"
+    )
     async def character(self, ctx, *request):
         channel = ctx.channel
         author = ctx.message.author
 
-        if await self.zeik_bully(channel, author):
-            return
-
-        check = await self.active_check(channel)
-        if not check:
-            return
-        
-        if len(request) == 0:
+        # checks
+        if not self.client.command_status['chara'] == 1:
+            raise commands.DisabledCommand
+        elif len(request) == 0:
             await channel.send(self.error()['no_input'])
             return
-
+        
+        # uniform case
         request = [i.lower() for i in request]
-        #print(request)
-        # check if command is enabled
 
         if request[0] == 'help':
             await channel.send(self.full_help)
             return
+        
+        # preprocess the command to find what out what the request is
+        mode, request, option = await self.process_request(ctx, request, channel)
+        # request here should be a string
 
-        #t0 = time.perf_counter()
-        # preprocess the args - check for aliases
-        target, option = await self.process_input(request,channel)
-
-        # fetch the character lists to check if target is in them
-        """
-        c_list, c_jp_list, id_list = self.fetch_list(conn)
-        if not target in c_list and not target in c_jp_list:
+        # validate request
+        search_sucess, request = self.validate_entry(request)
+        if not search_sucess:
             await channel.send(self.error()['search_fail'])
-            await self.logger.send(self.name, 'failed to find', target)
             return 
-        elif target in c_list:
-            target_id = id_list[c_list.index(target)]
-        else:
-            target_id = id_list[c_jp_list.index(target)]
-        """
 
-        chara = await self.validate_entry(target, channel)
-        if chara == False:
-            return
-        
-        #print(f"Verify input - {(time.perf_counter()-t0)*1000}ms")
-        #t0 = time.perf_counter()
-        
-        # fetch pointer and check if its connected
-        #t0 = time.perf_counter()
+        # establish a db connection
         conn = self.db.db_pointer.get_connection()
         if not conn.is_connected():
             await channel.send(self.error()['conn_fail'])
-            await self.logger.send(self.name,'DB connection failed')
+            await self.logger.send(self.name, "DB connection failed")
             return
-        
-        #print(f"Acquiring connection - {(time.perf_counter()-t0)*1000}ms")
-    
-        # fetch all information
-        #print(target_id)
-        #info = self.fetch_data(target_id, conn)
+
+        # fetch the raw data and then TL data
         try:
-            info = await self.fetch_data_kai(chara, conn)
+            info = await self.fetch_data_kai(request, conn)
         except Exception as e:
-            await self.logger.send('chara - ', e)
-        if info == False:
-            await channel.send('Failed to acquire data ' + self.client.emj['sarens'])
+            await self.logger.send(self.name, e)
+            await channel.send("Failed to acquire data")
             self.db.release(conn)
             return
-
-        #t0 = time.perf_counter()
-        # construct pages
-        pages_title = ['<:_chara:677763373739409436> Chara','<:_ue:677763400713109504> UE', '<:_stats:678081583995158538> Stats', '<:_card:677763353069879306> Card']
-
-        #pages = []
-
-        chara_p = [self.make_chara(info, None, pages_title.copy())]
-        stats_p = [self.make_stats(info, pages_title.copy())]
-        cards_p = [self.make_card(info, pages_title.copy())]
-
-        if 'flb' in info['tag']:
-            chara_p.append(self.make_chara(info, 'flb', pages_title.copy()))
-            stats_p.append(self.make_stats(info, pages_title.copy(), 'flb'))
-            cards_p.append(self.make_card(info, pages_title.copy(), 'flb'))
-        else:
-            chara_p.append(None)
-            stats_p.append(None)
-            cards_p.append(None)
+        if info == False:
+            await channel.send('Failed to acquire data ' + self.client.emotes['sarens'])
+            self.db.release(conn)
+            return
         
-        if info['sk1a'] != None or info['sk2a'] != None:
-            alt = 0
-            alt_i = [0,2]
-            chara_p.append(self.make_chara(info, 'alt', pages_title.copy()))
-            stats_p.append(self.make_stats(info, pages_title.copy(), 'alt'))
-        else:
-            alt = -1
-            alt_i = [0,0]
-            chara_p.append(None)
-            stats_p.append(None)
-        
-        chara_p.append(chara_p[-1])
-        stats_p.append(stats_p[-1])
+        # construct embeds
+        embed_controller = self.chara_page_controller(info, mode, option, self)
 
-        #pages.append(chara_p)
-        #pages.append([self.make_ue(info, pages_title.copy())]*2)
-        #pages.append(stats_p)
-        #pages.append(cards_p)
-
-        ue_p = [self.make_ue(info, pages_title.copy())]*2
-
-        # check display page
-        if ctx.invoked_with == 'ue':
-            front = ue_p
-        else:
-            front = chara_p
-
-        # display
-        if option == 'flb' and option in info['tag']:
-            flbmode = -1
-        else:
-            flbmode = 0
-
-        #print(f"Ready to send - {(time.perf_counter()-t0)*1000}ms")
-        #t0 = time.perf_counter()
-
-        page = await channel.send(embed=front[alt_i[alt]-flbmode])
-
-        #if front == 'Chara':
-        #    page = await channel.send(embed=pages[0][flbmode])
-        #else:
-        #    page = await channel.send(embed=pages[1][flbmode])
-        
-        self.db.release(conn)
-        
-        #reactions = ['⬅','➡','⭐'] if 'flb' in info['tag'] else ['⬅','➡']
         reactions = ['<:_chara:677763373739409436>', '<:_ue:677763400713109504>', '<:_card:677763353069879306>', '<:_stats:678081583995158538>'] 
         if 'flb' in info['tag']:
             reactions.append('⭐')
-        if alt == 0:
+        if info['sk1a'] != None or info['sk2a'] != None:
             reactions.append('\U0001F500')
-        for arrow in reactions:
-            await page.add_reaction(arrow)
 
-        # def check
-        def author_check(reaction, user):
-            #print(str(reaction.emoji))
-            return str(user.id) == str(author.id) and\
-                str(reaction.emoji) in reactions and\
-                str(reaction.message.id) == str(page.id)
+        # make the first message
+        page = await channel.send(embed=embed_controller.first_page())
+        for react in reactions:
+            await page.add_reaction(react)
         
-        # wait
+
+        def author_check(reaction, user):
+            return str(user.id) == str(author.id) and str(reaction.emoji) in reactions and str(reaction.message.id) == str(page.id)
+        
+        # release the connection 
+        self.db.release(conn)
+
         while True:
             try:
-                reaction, user = await self.client.wait_for('reaction_add', timeout=30.0, check=author_check)
+                reaction, user = await self.client.wait_for('reaction_add', timeout=60.0, check=author_check)
             except asyncio.TimeoutError:
-                """
-                for arrow in reactions:
-                    await page.remove_reaction(arrow, self.client.user)
-                """
                 await page.add_reaction('\U0001f6d1')
-                break
+                return
             else:
-                """
-                if reaction.emoji == '⬅':
-                    pages = pages[-1:] + pages[:-1]
-                    await reaction.message.remove_reaction('⬅', user)
-                    await reaction.message.edit(embed=pages[0][flbmode])
-
-                elif reaction.emoji == '➡':
-                    pages = pages[1:] + pages[:1]
-                    await reaction.message.remove_reaction('➡', user)
-                    await reaction.message.edit(embed=pages[0][flbmode])
-
-                elif reaction.emoji == '⭐':
-                    flbmode = ~flbmode
-                    await reaction.message.remove_reaction('⭐', user)
-                    await reaction.message.edit(embed=pages[0][flbmode])
-
-                else:
-                    continue
-                """
-                #print(reaction.emoji == '<:_chara:677763373739409436>', reaction.emoji in reactions)
                 emote_check = str(reaction.emoji)
+                await reaction.message.remove_reaction(reaction.emoji, user)
+                if emote_check in reactions:
+                    if emote_check == '<:_chara:677763373739409436>':
+                        toggle = 'chara'
+                    elif emote_check == '<:_stats:678081583995158538>':
+                        toggle = 'stats'
+                    elif emote_check == '<:_ue:677763400713109504>':
+                        toggle = 'ue'
+                    elif emote_check == '<:_card:677763353069879306>':
+                        toggle = 'card'
+                    elif emote_check == '⭐':
+                        toggle = 'flb'
+                    elif emote_check == '\U0001F500':
+                        toggle = 'alt'
+                    await reaction.message.edit(embed=embed_controller.toggle(toggle))
+    
+    # page controller
+    # controls what the buttons do on the bottom of an embed
+    # should only return the correct embed
+    class chara_page_controller():
+        def __init__(self, info, mode, option, cog):
+            self.cog = cog
+            self.pages_title = ["<:_chara:677763373739409436> Chara", "<:_ue:677763400713109504> UnqEq", "<:_card:677763353069879306> Card", "<:_stats:678081583995158538> Stats"]
+            self.page_icons = []
 
-                if emote_check == '<:_chara:677763373739409436>' and emote_check in reactions:
-                    front = chara_p
-                    await reaction.message.remove_reaction('<:_chara:677763373739409436>', user)
-                    await reaction.message.edit(embed=front[alt_i[alt]-flbmode])
+            self.chara_pages =  []
+            self.ue_pages =     []
+            self.card_pages =   []
+            self.stats_pages =  []
+            self.alt_mode =     False
+            self.flb_mode =     False
+            self.current_page = None
 
-                elif emote_check == '<:_stats:678081583995158538>' and emote_check in reactions:
-                    front = stats_p
-                    await reaction.message.remove_reaction('<:_stats:678081583995158538>', user)
-                    await reaction.message.edit(embed=front[alt_i[alt]-flbmode])
+            self.info = info
+            self.mode = mode
+            self.option = option
 
-                elif emote_check == '<:_ue:677763400713109504>' and emote_check in reactions:
-                    front = ue_p
-                    alt = 0
-                    await reaction.message.remove_reaction('<:_ue:677763400713109504>', user)
-                    await reaction.message.edit(embed=front[alt_i[alt]-flbmode])
-                
-                elif emote_check == '<:_card:677763353069879306>' and emote_check in reactions:
-                    front = cards_p
-                    alt = 0
-                    await reaction.message.remove_reaction('<:_card:677763353069879306>', user)
-                    await reaction.message.edit(embed=front[alt_i[alt]-flbmode])
-                
-                elif emote_check == '⭐' and emote_check in reactions:
-                    flbmode = ~flbmode
-                    alt = 0
-                    await reaction.message.remove_reaction('⭐', user)
-                    await reaction.message.edit(embed=front[alt_i[alt]-flbmode])
-                
-                elif reaction.emoji == '\U0001F500' and reaction.emoji in reactions:
-                    alt = ~alt
-                    #front = chara_p
-                    await reaction.message.remove_reaction('\U0001F500', user)
-                    await reaction.message.edit(embed=front[alt_i[alt]-flbmode])
-                
-                else:
-                    continue          
+            self._make_embeds()
+        
+        def _make_embeds(self):
+            # standard
+            self.chara_pages.append(self.cog.make_embed_chara(self.info, self.pages_title.copy()))
+            self.ue_pages.append(self.cog.make_embed_ue(self.info, self.pages_title.copy()))
+            self.card_pages.append(self.cog.make_embed_card(self.info, self.pages_title.copy()))
+            self.stats_pages.append(self.cog.make_embed_stats(self.info, self.pages_title.copy()))
 
-    def make_chara(self, info, option, ph):
-        ph[ph.index('<:_chara:677763373739409436> Chara')] = '<:_chara:677763373739409436> **[Chara]**'
+            # flb
+            if 'flb' in self.info['tag']:
+                self.chara_pages.append(self.cog.make_embed_chara(self.info, self.pages_title.copy(), 'flb'))
+                self.stats_pages.append(self.cog.make_embed_stats(self.info, self.pages_title.copy(), 'flb'))
+                self.card_pages.append(self.cog.make_embed_card(self.info, self.pages_title.copy(), 'flb'))
+            
+            # alt
+            if 'alt' in self.info['tag']:
+                self.chara_alt = self.cog.make_embed_chara(self.info, self.pages_title.copy(), 'alt')
+                self.stats_alt = self.cog.make_embed_stats(self.info, self.pages_title.copy(), 'alt')
+        
+        def first_page(self):
+            if self.mode == 'ue':
+                self.current_page = 'ue'
+                return self.ue_pages[0]
 
+            elif self.mode == 'card':
+                self.current_page = 'card'
+                if self.option == 'flb' and self.option in self.info['tag']:
+                    self.flb_mode = True
+                    return self.card_pages[1]
+                return self.card_pages[0]
+
+            elif self.mode == 'stats':
+                self.current_page = 'stats'
+                if self.option == 'flb' and self.option in self.info['tag']:
+                    self.flb_mode = True
+                    return self.stats_pages[1]
+                return self.stats_pages[0]
+
+            else:
+                self.current_page = 'chara'
+                if self.option == 'flb' and self.option in self.info['tag']:
+                    self.flb_mode = True
+                    return self.chara_pages[1]
+                return self.chara_pages[0]
+        
+        def toggle(self, mode):
+            if mode == 'ue':
+                self.current_page = 'ue'
+                if self.flb_mode:
+                    return self.ue_pages[1]
+                return self.ue_pages[0]
+
+            elif mode == 'card':
+                self.current_page = 'card'
+                if self.flb_mode:
+                    return self.card_pages[1]
+                return self.card_pages[0]
+
+            elif mode == 'stats':
+                self.current_page = 'stats'
+                if self.alt_mode:
+                    return self.stats_alt
+                if self.flb_mode:
+                    return self.stats_pages[1]
+                return self.stats_pages[0]
+
+            elif mode == 'alt':
+                self.alt_mode = not self.alt_mode
+                return self.toggle(self.current_page)
+            
+            elif mode == 'flb':
+                self.flb_mode = not self.flb_mode
+                return self.toggle(self.current_page)
+        
+            else:
+                self.current_page = 'chara'
+                if self.alt_mode:
+                    return self.chara_alt
+                if self.flb_mode:
+                    return self.chara_pages[1]
+                return self.chara_pages[0]
+
+    # make chara
+    def make_embed_chara(self, info, section_title, option=None):
+        section_title[section_title.index("<:_chara:677763373739409436> Chara")] = "<:_chara:677763373739409436> **[Chara]**"
+        
         if option == 'flb':
             title = f"{info['jp']} 6⭐\n{info['en']} FLB"
         elif option == 'alt':
-            title = f"{info['jp']}\n{self.get_full_name(info['en'])} (Special Mode)"
+            title = f"{info['jp']}\n{self.client.get_full_name(info['en'])} (Special Mode)"
         else:
-            title = f"{info['jp']}\n{self.get_full_name(info['en'])}"
+            title = f"{info['jp']}\n{self.client.get_full_name(info['en'])}"
 
         embed = discord.Embed(
             title=title,
-            timestamp=datetime.datetime.utcnow()
+            timestamp=datetime.datetime.utcnow(),
+            colour=self.colour
         )
         embed.set_thumbnail(url=info['im6'] if option == 'flb' else info['im'])
         embed.set_author(name='ハツネのメモ帳',icon_url='https://cdn.discordapp.com/avatars/580194070958440448/c0491c103169d0aa99027b2216ee7708.jpg')
-        embed.set_footer(text='Character Info Page | SHIN Ames',icon_url=info['im6'] if option == 'flb' else info['im'])
+        embed.set_footer(text='Character Info Page | Ames Re:Re:Write',icon_url=info['im6'] if option == 'flb' else info['im'])
 
         # page section
         embed.add_field(
             name='Section',
-            value=' - '.join(ph),
+            value=' - '.join(section_title),
             inline=False
         )
 
@@ -672,7 +551,7 @@ class hatsuneCog(commands.Cog):
             )
         
         # Skill 1 +
-        if not 'soon' in info.get('sk1ptl', None):
+        if 'ue' in info['tag']:
             embed.add_field(
                 name=   "> **Skill 1+**",
                 value=  f"「{info.get('sk1pjp','soon:tm:')}」",
@@ -731,67 +610,34 @@ class hatsuneCog(commands.Cog):
         )
 
         # Aliases
-        falias = [key for key, value in list(self.preprocessor.items()) if value.lower() == info['en'].lower()]
+        falias = [key for key, value in list(self.full_alias.items()) if value.lower() == info['en'].lower()]
         embed.add_field(
             name="> Aliases",
             value=", ".join(falias) if len(falias)!= 0 else "None",
             inline=False
         )
         return embed
-    
-    def ue_abbrev(self, abbr):
-        #abbr = abbr.lower()
-        if abbr ==      'hp':
-            return              'HP'
-        elif abbr ==    'atk':
-            return              'PATK'
-        elif abbr ==    'matk':
-            return              'MATK'
-        elif abbr ==    'def':
-            return              'PDEF'
-        elif abbr ==    'mdef':
-            return              'MDEF'
-        elif abbr ==    'pCrit':
-            return              'PCRIT'
-        elif abbr ==    'mCrit':
-            return              'MCRIT'
-        elif abbr ==    'wHpRec':
-            return              'HP REC (p/w)'
-        elif abbr ==    'wTpRec':
-            return              'TP REC (p/w)'
-        elif abbr ==    'dodge':
-            return              'DODGE'
-        elif abbr ==    'pPen':
-            return              'PHYS PEN'
-        elif abbr ==    'mPen':
-            return              'MAG PEN'
-        elif abbr ==    'lifesteal':
-            return              'HP STEAL'
-        elif abbr ==    'hpRec':
-            return              'HP REC'
-        elif abbr ==    'tpRec':
-            return              'TP REC'
-        elif abbr ==    'tpSave':
-            return              'UB EFFCY'
-        elif abbr ==    'acc':
-            return              'ACC'
-        else:
-            return      abbr.upper()
 
-    def make_ue(self, info, ph):
-        ph[ph.index('<:_ue:677763400713109504> UE')] = '<:_ue:677763400713109504> **[UE]**'
+    # make ue
+    def make_embed_ue(self, info, section_title):
+        section_title[section_title.index("<:_ue:677763400713109504> UnqEq")] = "<:_ue:677763400713109504> **[UnqEq]**"
 
-        embed = discord.Embed(title="No Data",timestamp=datetime.datetime.utcnow())
-        embed.set_footer(text='Unique Equipment Page | SHIN Ames',icon_url=info['im'])
+        embed = discord.Embed(
+            title="No Data",
+            timestamp=datetime.datetime.utcnow(),
+            colour=self.colour)
+        embed.set_footer(text='Unique Equipment Page | Ames Re:Re:Write',icon_url=info['im'])
         embed.set_author(name='ハツネのメモ帳',icon_url='https://cdn.discordapp.com/avatars/580194070958440448/c0491c103169d0aa99027b2216ee7708.jpg')
         embed.add_field(
             name='Section',
-            value=' - '.join(ph),
+            value=' - '.join(section_title),
             inline=False
         )
+
+        # complete the section if chara actually have ue
         if 'ue' in info['tag']:
             embed.title=        f"{info['ue']['ue_name']}\n{info['ue_en']}"
-            embed.description=  f"{self.get_full_name(info['en'])}\'s unique equipment."
+            embed.description=  f"{self.client.get_full_name(info['en'])}\'s unique equipment."
             embed.set_thumbnail(url=info['ue_im'])
 
             # RANK
@@ -802,23 +648,23 @@ class hatsuneCog(commands.Cog):
             )
             embed.add_field(
                 name="> **UE Stats**",
-                value=f"Base/Max (lv{MAX_LEVEL})",
+                value=f"Base/Max (lv{info['max_ue']})",
                 inline=False
             )
 
             # STATS
             for field, value in list(info['ue'].items()):
-                if field in ue_prop:
+                if field in list(self.config['ue_abbrev'].keys()):
                     #print(info['ue'])
                     try:
-                        final_val = round(float(value) + float(info['ue'][f"{field.lower()}_growth"]) * (MAX_LEVEL-1))
+                        final_val = round(float(value) + float(info['ue'][f"{field.lower()}_growth"]) * (info['max_ue']-1))
                     except:
-                        final_val = round(float(value) + float(info['ue'].get(f"{field}_growth",0)) * (MAX_LEVEL-1))
+                        final_val = round(float(value) + float(info['ue'].get(f"{field}_growth",0)) * (info['max_ue']-1))
                         if info['ue'].get(f"{field}_growth",0) == 0:
                             print(f"ue - {field} growth stat is 0 or not found: {info['en']}")
 
                     embed.add_field(
-                        name=self.ue_abbrev(field),
+                        name=self.config['ue_abbrev'][field],
                         value=f"{value}/{final_val}",
                         inline=True
                     )
@@ -858,37 +704,39 @@ class hatsuneCog(commands.Cog):
                 inline= True
             )
         else:
-            embed.description=  f"{self.get_full_name(info['en'])} does not have an unique equipment."
+            embed.description=  f"{self.client.get_full_name(info['en'])} does not have an unique equipment."
             embed.set_thumbnail(url='https://redive.estertion.win/icon/equipment/999999.webp')
         
-        return embed
+        return embed        
 
-    def make_stats(self, info, ph, option=None):
-        ph[ph.index('<:_stats:678081583995158538> Stats')] = '**<:_stats:678081583995158538> [Stats]**'
-        
+    # make stats
+    def make_embed_stats(self, info, section_title, option=None):
+        section_title[section_title.index("<:_stats:678081583995158538> Stats")] = "<:_stats:678081583995158538> **[Stats]**"
+
         embed = discord.Embed(
             title="Page Unavailable",
-            description=f"{self.get_full_name(info['en'])}\'s stats page is not available at the moment.",
-            timestamp=datetime.datetime.utcnow()
+            description=f"{self.client.get_full_name(info['en'])}\'s stats page is not available at the moment.",
+            timestamp=datetime.datetime.utcnow(),
+            colour=self.colour
         )
         embed.set_thumbnail(url=info['im6'] if option == 'flb' else info['im'])
         embed.set_author(name='ハツネのメモ帳',icon_url='https://cdn.discordapp.com/avatars/580194070958440448/c0491c103169d0aa99027b2216ee7708.jpg')
-        embed.set_footer(text='Stats Page | SHIN Ames',icon_url=info['im6'] if option == 'flb' else info['im'])
+        embed.set_footer(text='Stats Page | Ames Re:Re:Write',icon_url=info['im6'] if option == 'flb' else info['im'])
 
         embed.add_field(
             name='Section',
-            value=' - '.join(ph),
+            value=' - '.join(section_title),
             inline=False
         )
 
         #if info != None:
         embed.title = "Statistics"
-        embed.description = f"{self.get_full_name(info['en'])}\'s skill and misc stats. All stats assumes **LV{info['max_lvl']}** **RANK{info['max_rk']}** with **MAX BOND** across all character variants. `Disclaimer: This page is a WIP and displayed stats may be inaccurate`"
+        embed.description = f"{self.client.get_full_name(info['en'])}\'s skill and misc stats. All stats assumes **LV{info['max_lvl']}** **RANK{info['max_rk']}** with **MAX BOND** across all character variants. `Disclaimer: This page is a WIP and displayed stats may be inaccurate`"
 
-        for chunk in self.chunks(list(info['stats'].items()), 6):
+        for chunk in self.client.chunks(list(info['stats'].items()), 6):
             embed.add_field(
                 name=f"Stats",
-                value="\n".join([f"{self.ue_abbrev(key)}: {arg}" for key, arg in chunk])
+                value="\n".join([f"{self.config['ue_abbrev'].get(key, key.upper())}: {arg}" for key, arg in chunk])
             )
 
         """
@@ -967,7 +815,7 @@ class hatsuneCog(commands.Cog):
             )
         
         # Skill 1+
-        if not 'soon' in info.get('sk1ptl', None):
+        if 'ue' in info['tag']:
             embed.add_field(
                 name=   "> **Skill 1+**",
                 value=  f"「{info.get('sk1pjp','soon:tm:')}」",
@@ -1020,155 +868,139 @@ class hatsuneCog(commands.Cog):
 
         return embed   
 
-    def make_card(self, info, ph, option=None):
-        ph[ph.index('<:_card:677763353069879306> Card')] = '<:_card:677763353069879306> **[Card]**'
+    # make card
+    def make_embed_card(self, info, section_title, option=None):
+        section_title[section_title.index('<:_card:677763353069879306> Card')] = '<:_card:677763353069879306> **[Card]**'
 
         embed = discord.Embed(
-            description=f"{self.get_full_name(info['en'])}'s card is currently unavailable {self.emj['dead']}",
+            description=f"{self.client.get_full_name(info['en'])}'s card is currently unavailable {self.client.emotes['dead']}",
             title="Card unavailble",
-            timestamp=datetime.datetime.utcnow()
+            timestamp=datetime.datetime.utcnow(),
+            colour=self.colour
         )
         embed.set_thumbnail(url=info['im'] if option == None else info['im6'])
-        embed.set_footer(text='Unit Card Page | SHIN Ames',icon_url=info['im'] if option == None else info['im6'])
+        embed.set_footer(text='Unit Card Page | Ames Re:Re:Write',icon_url=info['im'] if option == None else info['im6'])
         embed.set_author(name='ハツネのメモ帳',icon_url='https://cdn.discordapp.com/avatars/580194070958440448/c0491c103169d0aa99027b2216ee7708.jpg')
         embed.add_field(
             name='Section',
-            value=' - '.join(ph),
+            value=' - '.join(section_title),
             inline=False
         )
         #print(info['hnote_id'], type(info['hnote_id']))
         if info['hnote_id'] != 'None':
             embed.title = "Unit Card"
             if option == None:
-                embed.description = f"{self.get_full_name(info['en'])}'s card."
+                embed.description = f"{self.client.get_full_name(info['en'])}'s card."
                 link = f"https://redive.estertion.win/card/full/{info['hnote_id'][:4]}31.webp"
             else:
-                embed.description = f"{self.get_full_name(info['en'])}'s FLB (6:star:) card."
+                embed.description = f"{self.client.get_full_name(info['en'])}'s FLB (6:star:) card."
                 link = f"https://redive.estertion.win/card/full/{info['hnote_id'][:4]}61.webp"
 
             embed.set_image(url=link)
         
         return embed
 
+    # position finder
     @commands.command(
         usage='.pos [option]',
         help="Enter a [name] to have Ames fetch the relative position of the specified character. "\
-            "Otherwise, use either [v(anguard)], [m(idguard)] or [r(earguard)] to list their respective lineup."
+            "Otherwise, use either [v(anguard)], [m(idguard)] or [r(earguard)] to list their respective lineup.",
+        aliases=['pos']
     )
-    async def pos(self, ctx, *request):
+    async def position(self, ctx, *request):
         channel = ctx.channel
+        if not self.client.command_status['pos'] == 1:
+            raise commands.DisabledCommand 
 
-        if await self.zeik_bully(channel, ctx.message.author):
-            return
-
-        # check if command is enabled
-        check = await self.active_check(channel)
-        if not check:
-            return
-        
+        # checks 
         if len(request) == 0:
             await channel.send(self.error()['pos_fail'])
             return
-
-        request = [i.lower() for i in request]
         
-        # fetch pointer and check if its connected
+        # case uniformity
+        request = [i.lower() for i in request]
+
+        # DB
         conn = self.db.db_pointer.get_connection()
         if not conn.is_connected():
             await channel.send(self.error()['conn_fail'])
             await self.logger.send(self.name,'DB connection failed')
             return
-        
-        # check if input is a chara
-        # preprocess the args - check for aliases
-        target = await self.process_input(request,channel)
-        print(target)
-        target = target[0]
 
-        # fetch the character lists to check if target is in them
-        """
-        c_list, c_jp_list, id_list = self.fetch_list(conn)
-        if target in c_list:
-            target_id = id_list[c_list.index(target)]
-        elif target in c_jp_list:
-            target_id = id_list[c_jp_list.index(target)]
+        # check if input is a character
+        mode, request, option = await self.process_request(ctx, request, channel, False)
+        del mode, option
+
+        search_success, _request = self.validate_entry(request)
+
+        if not search_success:
+            try:
+                first_letter = request[0].lower()
+
+                if first_letter in ['v', 'f']:
+                    request = 'front'
+                elif first_letter in ['m']:
+                    request = 'mid'
+                elif first_letter in ['r']:
+                    request = 'rear'
+                else:
+                    request = None
+            except:
+                request = None
         else:
-            target_id = None
-        """
-        print(target)
-        chara = await self.validate_entry(target, channel, suppress=True)
-    
-        # check if 
-        if chara == False:
-            target_id = None
-            pos =   {"v":           "front",
-                    "vanguard":     "front",
-                    "m":            "mid",
-                    "midguard":     "mid",
-                    "r":            "rear",
-                    "rearguard":    "rear"}
-            real =  {"front":       "vanguard",
-                    "mid":          "midguard",
-                    "rear":         "rearguard"}
-            pos = pos.get(request[0], None)
-            request = [real[pos]]
-        else:
-            target_id = chara['id']
+            request = _request
         
-        # error check
-        if target_id == None and pos == None:
+        if not search_success and request == None:
             await channel.send(self.error()['pos_fail'])
             return
         
+        # fetch lineup
         cursor = conn.cursor()
-        if target_id != None:
+        if search_success:
             # get name and tag
-            query = (f"SELECT unit_name_eng, tag FROM hatsune_bot.charadata WHERE unit_id = {target_id}")
+            query = (f"SELECT unit_name_eng, tag FROM hatsune_bot.charadata WHERE unit_id = {request['id']}")
             cursor.execute(query)
             for en, tag in cursor:
                 name = str(en)
                 tags = str(tag).split(', ')
                 if 'front' in tags:
-                    pos = 'front'
-                    request = ['vanguard']
+                    request = 'front'
                 elif 'mid' in tags:
-                    pos = 'mid'
-                    request = ['midguard']
+                    request = 'mid'
                 else:
-                    pos = 'rear'
-                    request = ['rearguard']
-        else: 
+                    request = 'rear'
+        else:
             name = None
-            
-        # collect stats
-        query = (f"SELECT unit_name_eng, pos FROM hatsune_bot.charadata WHERE tag LIKE '%{pos}%' ORDER BY pos ASC")
+
+        lineup = []
+        query = (f"SELECT unit_name_eng, pos FROM hatsune_bot.charadata WHERE tag LIKE '%{request}%' ORDER BY pos ASC")
         cursor.execute(query)
-        names = []
-        i = 1
-        for en, pos in cursor:
+
+        for i, (en, pos) in enumerate(cursor):
             if pos == None:
-                j = '??'
+                index = '??'
             else:
-                j = str(i)
-                i += 1
-
-            if target_id != None and en == name:
-                    names.append(f"> **{self.client.get_team()[str(en).lower()]} {j} {self.get_full_name(str(en))}**")
+                index = i+1
+            
+            if en == name:
+                lineup.append(f"> **{self.client.team.get(en.lower(), 'X')} {index} {self.client.get_full_name(en)}**")
             else:
-                names.append(f"{self.client.get_team()[str(en).lower()]} {j} {self.get_full_name(str(en))}")
-
+                lineup.append(f"{self.client.team.get(en.lower(), 'X')} {index} {self.client.get_full_name(en)}")
+        
         cursor.close()
 
+        ranks = {'front':'vanguard', 'mid':'midguard', 'rear':'rearguard'}
         embed = discord.Embed(
             title=          "Lineup",
-            description=    f"Listing **{request[0].upper()}** lineup with character closest to enemy at pos `1`." if target_id == None else 
-                            f"Listing **{request[0].upper()}** lineup with character closest to enemy at pos `1`. Bolding **{self.get_full_name(name).upper()}**'s position.",
-            timestamp=      datetime.datetime.utcnow()
+            description=    f"Listing **{ranks[request].upper()}** lineup with character closest to enemy at pos `1`." if not search_success else 
+                            f"Listing **{ranks[request].upper()}** lineup with character closest to enemy at pos `1`. Bolding **{self.client.get_full_name(name).upper()}**'s position.",
+            timestamp=      datetime.datetime.utcnow(),
+            colour=         self.colour
         )
         embed.set_author(name='ハツネのメモ帳',icon_url='https://cdn.discordapp.com/avatars/580194070958440448/c0491c103169d0aa99027b2216ee7708.jpg')
-        embed.set_footer(text='Field Positions | SHIN Ames',icon_url=self.client.user.avatar_url)
+        embed.set_footer(text='Field Positions | Re:Re:Write Ames',icon_url=self.client.user.avatar_url)
 
-        for chk in list(self.chunks(names,20)):
+        for chk in list(self.client.chunks(lineup,20)):
             embed.add_field(
                 name="Character",
                 value="\n".join(chk),
@@ -1179,6 +1011,7 @@ class hatsuneCog(commands.Cog):
         self.db.release(conn)
         return
 
+    # tag searcher/fetcher
     @commands.command(
         usage='.tag [*option]',
         help='Enter tags to search all characters that qualify. Alternatively, search a character to return their tags.'
@@ -1186,74 +1019,55 @@ class hatsuneCog(commands.Cog):
     async def tag(self, ctx, *request):
         channel = ctx.channel
 
-        if await self.zeik_bully(channel, ctx.message.author):
-            return
-
-        # check if command is enabled
-        check = await self.active_check(channel)
-        if not check:
-            return
-
+        if not self.client.command_status['tag'] == 1:
+            raise commands.DisabledCommand
+        
+        # checks 
         if len(request) == 0:
             await channel.send("There was no input. Use `.help tag` if you're stuck.")
             return 
-            
-        request = [i.lower() for i in request]
         
-        # fetch pointer and check if its connected
+        # case uniformity
+        request = [i.lower() for i in request]
+
+        # DB
         conn = self.db.db_pointer.get_connection()
         if not conn.is_connected():
             await channel.send(self.error()['conn_fail'])
             await self.logger.send(self.name,'DB connection failed')
             return
-        
-        # check if input is a chara
-        # preprocess the args - check for aliases
-        target, option = await self.process_input(request,channel, verbose=False)
 
-        # fetch the character lists to check if target is in them
-        """
-        c_list, c_jp_list, id_list = self.fetch_list(conn)
-        if target in c_list:
-            target_id = id_list[c_list.index(target)]
-        elif target in c_jp_list:
-            target_id = id_list[c_jp_list.index(target)]
+        mode, _request, option = await self.process_request(ctx, request, channel, False)
+        search_success, _request = self.validate_entry(_request)
+        if search_success:
+            await channel.send(embed=await self.tag_chara(conn, _request, option))
         else:
-            target_id = None
-        """
-        chara = await self.validate_entry(target, channel, True)
-        if chara == False:
+            for tag in request:
+                if not tag in (list(self.tag_definitions['basic'].keys()) + list((self.tag_definitions['atk'].keys())) + list(self.tag_definitions['buff'].keys())):
+                    await channel.send(f"Unknown tag `{tag}`")
+                    self.db.release(conn)
+                    return
             await channel.send(embed=self.tag_search(conn, request))
-        else:
-            await channel.send(embed=self.tag_chara(conn, chara['id'], option))
         
         self.db.release(conn)
-        
-    def tag_chara(self, conn, target_id, option):
-        query = (f"SELECT unit_name_eng, tag, image, image_2 FROM hatsune_bot.charadata WHERE unit_id = {target_id}")
-        cursor = conn.cursor()
-        cursor.execute(query)
-        im = dict()
-        for en, tag, image, image2 in cursor:
-            name =          self.get_full_name(str(en))
-            tags =          str(tag).split(", ")
-            im['im'] =      str(image)
-            im['im6'] =     str(image2)
-        cursor.close()
+ 
+    async def tag_chara(self, conn, request, option):
+        info = await self.fetch_data_kai(request, conn)
         embed = discord.Embed(
             title=          "Tag Search",
-            description=    f"Listing **{name}**'s tags.",
-            timestamp=      datetime.datetime.utcnow()
+            description=    f"Listing **{self.client.get_full_name(info['en'])}**'s tags.",
+            timestamp=      datetime.datetime.utcnow(),
+            colour=         self.colour
         )
-        embed.set_thumbnail(url=im['im6'] if option == 'flb' else im['im'])
+        embed.set_thumbnail(url=info['im6'] if option == 'flb' else info['im'])
         embed.set_author(name='ハツネのメモ帳',icon_url='https://cdn.discordapp.com/avatars/580194070958440448/c0491c103169d0aa99027b2216ee7708.jpg')
-        embed.set_footer(text='Tag Search | SHIN Ames',icon_url=self.client.user.avatar_url)
+        embed.set_footer(text='Tag Search | Re:Re:Write Ames',icon_url=self.client.user.avatar_url)
         embed.add_field(
             name="Tags",
-            value=" ".join([f"`{tag}`" for tag in tags])
+            value=" ".join([f"`{tag}`" for tag in info['tag']])
         )
         return embed
-    
+
     def tag_search(self, conn, request):
         join = " and tag like ".join([f"'%{tag}%'" for tag in request])
         query = ("SELECT unit_name_eng FROM hatsune_bot.charadata WHERE tag like "+join+" ORDER BY unit_name_eng")
@@ -1263,482 +1077,294 @@ class hatsuneCog(commands.Cog):
         for en in cursor:
             charas.append(str(en[0]))
 
-        charas = list(zip(charas, [self.get_full_name(en) for en in charas]))
+        charas = list(zip(charas, [self.client.get_full_name(en) for en in charas]))
         charas.sort(key=lambda x: x[1])
 
         cursor.close()
         embed = discord.Embed(
             title=          "Tag Search",
             description=    f"Found `{len(charas)}` characters with tags corresponding to `{' '.join(request)}`.",
-            timestamp=      datetime.datetime.utcnow()
+            timestamp=      datetime.datetime.utcnow(),
+            colour=         self.colour
         )
         embed.set_author(name='ハツネのメモ帳',icon_url='https://cdn.discordapp.com/avatars/580194070958440448/c0491c103169d0aa99027b2216ee7708.jpg')
-        embed.set_footer(text='Tag Search | SHIN Ames',icon_url=self.client.user.avatar_url)
-        for names in list(self.chunks(charas,20)):
+        embed.set_footer(text='Tag Search | Re:Re:Write Ames',icon_url=self.client.user.avatar_url)
+        for names in list(self.client.chunks(charas,20)):
             embed.add_field(
                 name="Characters",
-                value="\n".join([f"{self.client.get_team().get(en.lower(),':question:')} {full_en}" for en, full_en in names]),
+                value="\n".join([f"{self.client.team.get(en.lower(),':question:')} {full_en}" for en, full_en in names]),
                 inline=True
             )
         return embed
-        
-    @commands.command(
-        usage=".boss [num]",
-        help="Have Ames fetch boss data of current CB. [Num] must be an integer between 1 and 5.",
-        hidden=True,
-        enabled=False
-    )
-    async def boss(self, ctx, request:int):
-        channel = ctx.channel
-        author = ctx.message.author
-        # check if command is enabled
-        check = await self.active_check(channel)
-        if not check:
-            return
-        request = abs(request)
-        # read meta
-        with open(os.path.join(dir,'data/_meta.txt')) as mf:
-            current_bosses = ast.literal_eval(mf.read())['active']
-        
-        if len(current_bosses) == 0:
-            await channel.send(self.client.emj['ames']+' Unable to fetch boss data - either no CB is currently active or no boss data is available')
-            return
-        
-        data = []
-        for boss in current_bosses:
-            try:
-                with open(os.path.join(dir,f"data/{boss}.txt"), encoding='utf8') as bf:
-                    data.append(ast.literal_eval(bf.read()))
-            except Exception as e:
-                print(e)
-                data.append(None)
-        
-        bosses = [self.make_boss_embed(boss) if boss != None else None for boss in data]
-        
-        try:
-            if data[request-1] == None:
-                await channel.send(f'Failed to load boss {request} data')
-                return
-        except:
-            await channel.send(self.client.emj['ames'])
-            return
-        else:
-            page = await channel.send(embed=bosses[request-1])
-        
-        reactions = ['1\u20E3','2\u20E3','3\u20E3','4\u20E3','5\u20E3']
-        for i, emote in enumerate(reactions):
-            if bosses[i] != None:
-                await page.add_reaction(emote)
-        
-        # def check
-        def author_check(reaction, user):
-            return str(user.id) == str(author.id) and\
-                reaction.emoji in reactions and\
-                str(reaction.message.id) == str(page.id)
-        
-        while True:
-            try:
-                reaction, user = await self.client.wait_for('reaction_add', timeout=30.0, check=author_check)
-            except asyncio.TimeoutError:
-                for emote in reactions:
-                    await page.remove_reaction(emote, self.client.user)
-                break
-            else:
-                if reaction.emoji == '1\u20E3':
-                    await reaction.message.remove_reaction('1\u20E3', user)
-                    await reaction.message.edit(embed=bosses[0])
 
-                elif reaction.emoji == '2\u20E3':
-                    await reaction.message.remove_reaction('2\u20E3', user)
-                    await reaction.message.edit(embed=bosses[1])
-                
-                elif reaction.emoji == '3\u20E3':
-                    await reaction.message.remove_reaction('3\u20E3', user)
-                    await reaction.message.edit(embed=bosses[2])
-                
-                elif reaction.emoji == '4\u20E3':
-                    await reaction.message.remove_reaction('4\u20E3', user)
-                    await reaction.message.edit(embed=bosses[3])
-                
-                elif reaction.emoji == '5\u20E3':
-                    await reaction.message.remove_reaction('5\u20E3', user)
-                    await reaction.message.edit(embed=bosses[4])
-
-                else:
-                    continue
-
-    def make_boss_embed(self, data):
-        embed = discord.Embed(
-            title=f"{data['jp']}\n{data['en']}",
-            description=data["comment"] if data.get("comment","") != "" else "No comment as of yet",
-            timestamp=datetime.datetime.utcnow()
-        )
-        embed.set_thumbnail(url=data["im"] if data.get("im","") != "" else "https://redive.estertion.win/icon/unit/000001.webp")
-        embed.set_author(name='ハツネのメモ帳',icon_url='https://cdn.discordapp.com/avatars/580194070958440448/c0491c103169d0aa99027b2216ee7708.jpg')
-        embed.set_footer(text='Boss Info | SHIN Ames')
-
-        pattern = []
-        if len(data['cyc'][0]) != 0:
-            pattern.append("Opening\n" + " -> ".join([f"Sk{num+1}" if num != -1 else "Atk" for num in data['cyc'][0]]))
-        if len(data['cyc'][1]) != 0:
-            pattern.append("Loop\n" + " -> ".join([f"Sk{num+1}" if num != -1 else "Atk" for num in data['cyc'][1]]))
-
-        embed.add_field(
-            name="Attack Pattern",
-            value="\n".join(pattern),
-            inline=False
-        )
-        embed.add_field(
-            name="Targets",
-            value=str(data['multi']),
-            inline=False
-        )
-        embed.add_field(
-            name="Defense (Phys/Mag)",
-            value="\n".join([f"Mode {n}" for n in list(range(1,4))]),
-            inline=True
-        )
-        embed.add_field(
-            name=SPACE,
-            value="\n".join([f"{phys:,d} / {mag:,d}" for phys, mag in data['def']]),
-            inline=True
-        )
-
-        embed.add_field(
-            name=SPACE,
-            value="**Union Burst**",
-            inline=False
-        )
-        embed.add_field(
-            name='Description',
-            value=data['ub'][0][0],
-            inline=True
-        )
-        embed.add_field(
-            name=SPACE,
-            value=data['ub'][0][1],
-            inline=True
-        )
-
-        for i, (jp, en) in enumerate(data['sk']):
-            embed.add_field(
-                name=SPACE,
-                value=f"**Skill {i+1}**",
-                inline=False
-            )
-            embed.add_field(
-                name="Description",
-                value=jp,
-                inline=True
-            ),
-            embed.add_field(
-                name=SPACE,
-                value=en,
-                inline=True
-            )
-        """
-        for mode in ['1', '2', '3']:
-            key = f"mode{mode}"
-            embed.add_field(
-                name=SPACE,
-                value=f"**Mode {mode} Rec. Teams**",
-                inline=False
-            )
-            for setup in data[key]:
-                embed.add_field(
-                    name=setup['type'].capitalize(),
-                    value=" ".join([self.client.team[name.lower()] for name in setup['team']]),
-                    inline=True
-                )
-                
-                embed.add_field(
-                    name="Type",
-                    value=setup['type'].capitalize(),
-                    inline=True
-                )
-                embed.add_field(
-                    name="Auto",
-                    value="Full Auto" if setup['auto'] == True else 'N/A',
-                    inline=True
-                )
-        """
-        embed.add_field(
-            name=SPACE,
-            value="**Recommended Teams**",
-            inline=False
-        )
-        #P = ":regional_indicator_p:"
-        #M = ":regional_indicator_m:"
-        A = ":regional_indicator_a:"
-        a = ":a:"
-        for mode in ['1', '2', '3']:
-            key = f"mode{mode}"
-            teams = []
-            for setup in data[key]:
-                meta = []
-                """
-                if setup['type'] == 'physical':
-                    meta.append(P)
-                
-                else:
-                    meta.append(M)
-                """
-                if setup['auto'] == True:
-                    meta.append(A)
-                else:
-                    meta.append(a)
-                teams.append(
-                    " ".join(
-                        [
-                            "".join(meta), 
-                            "".join(
-                                [self.client.get_team()[name.lower()] for name in setup['team']]
-                                )
-                        ]
-                    )
-                )
-            if len(teams) > 0:
-                embed.add_field(
-                    name=f"Mode {mode}",
-                    value="\n".join(teams),
-                    inline=True
-                )
-
-        return embed
-
+    # alias
     @commands.group(
         invoke_without_command=True
     )
-    async def alias(self, ctx):
+    async def alias(self, ctx, *request):
         channel = ctx.channel
-        author = ctx.message.author
-        active = await self.active_check(channel)
-        if not active:
-            return
+        
+        if not self.client.command_status['alias'] == 1:
+            raise commands.DisabledCommand
         
         if ctx.invoked_subcommand is None:
-            with open(os.path.join(dir, '_config/alias_local.txt')) as alf:
-                alocal = ast.literal_eval(alf.read())
-            with open(os.path.join(dir, '_config/alias.txt')) as af:
-                alias_list = ast.literal_eval(af.read())
-                alias_list.update(alocal)
-                alias_list = list(alias_list.items())
-                alias_list.sort(key=lambda x: x[1])
+            if len(request) == 0:
+                await self.display_aliases(ctx)
+            else:
+                await self.search(ctx, request[0])
+    
+    async def display_aliases(self, ctx):
+        author = ctx.message.author
+        master =    []
+        local =     []
 
-            embeds = []
-            for chunk in self.chunks(alias_list, 20):
-                embeds.append(self.make_alias_embed([item[0] for item in chunk], [item[1] for item in chunk]))
-            
-            page = await channel.send(embed=embeds[0])
-            if len(embeds) < 2:
+        # sort the aliases by master/local
+        for a, o in list(self.full_alias.items()):
+            if len(o) > 3: # hide prefixes
+                if not self.config['alias_master'].get(a, None) is None:
+                    master.append((a, o, 'master'))
+                else:
+                    local.append((a, o, 'local'))
+        
+        # sort in alphabetical order
+        master.sort(key=lambda x: x[0])
+        local.sort(key=lambda x: x[0])
+
+        aliases_page = self.client.page_controller(self.client, self.embed_display_aliases, master+local, 15, True)
+
+        page = await ctx.channel.send(embed=aliases_page.start())
+        for arrow in aliases_page.arrows:
+            await page.add_reaction(arrow)
+
+        def check(reaction, user):
+            return str(user.id) == str(author.id) and\
+                    reaction.emoji in ['⬅','➡'] and\
+                    str(reaction.message.id) == str(page.id)
+        
+        while True:
+            try:
+                reaction, user = await self.client.wait_for('reaction_add', timeout=30.0, check=check)
+            except asyncio.TimeoutError:
+                for arrow in aliases_page.arrows:
+                    await page.remove_reaction(arrow, self.client.user)
                 return
             else:
-                for arrow in ['⬅','➡']:
-                    await page.add_reaction(arrow)
-                
-                def author_check(reaction, user):
-                    return str(user.id) == str(author.id) and\
-                        reaction.emoji in ['⬅','➡'] and\
-                        str(reaction.message.id) == str(page.id)
-                
-                while True:
-                    try:
-                        reaction, user = await self.client.wait_for('reaction_add', timeout=30.0, check=author_check)
-                    except asyncio.TimeoutError:
-                        for arrow in ['⬅','➡']:
-                            await page.remove_reaction(arrow, self.client.user)
-                        break
-                    else:
-                        if reaction.emoji == '⬅':
-                            embeds = embeds[-1:] + embeds[:-1]
-                            await reaction.message.remove_reaction('⬅', user)
-                            await reaction.message.edit(embed=embeds[0])
+                if reaction.emoji == aliases_page.arrows[0]:
+                    await reaction.message.remove_reaction(aliases_page.arrows[0], user)
+                    await reaction.message.edit(embed=aliases_page.flip('l'))
+                elif reaction.emoji == aliases_page.arrows[1]:
+                    await reaction.message.remove_reaction(aliases_page.arrows[1], user)
+                    await reaction.message.edit(embed=aliases_page.flip('r'))
 
-                        elif reaction.emoji == '➡':
-                            embeds = embeds[1:] + embeds[:1]
-                            await reaction.message.remove_reaction('➡', user)
-                            await reaction.message.edit(embed=embeds[0])
-
-                        else:
-                            continue
-        else:
-            pass
-    
-    def make_alias_embed(self, alias, pointer):
+    def embed_display_aliases(self, data, index):
         embed = discord.Embed(
-            title="Alias List",
-            description="Lists all current recorded aliases.",
-            timestamp=datetime.datetime.utcnow()
+            title=f"Alias List - Page {index[0]} of {index[1]}",
+            description="Lists all saved master and local aliases.",
+            timestamp=datetime.datetime.utcnow(),
+            colour=self.colour
         )
-        embed.set_footer(text="Alias | SHIN Ames", icon_url=self.client.user.avatar_url)
-        
+        embed.set_footer(text="Alias | Re:Re:Write Ames", icon_url=self.client.user.avatar_url)
         embed.add_field(
             name="Alias",
-            value="\n".join(alias),
+            value="\n".join([item[0] for item in data]),
             inline=True
         )
         embed.add_field(
             name="Character",
-            value="\n".join([self.get_full_name(target) for target in pointer])
+            value="\n".join([item[1] for item in data]),
+            inline=True
         )
-        with open(os.path.join(dir, '_config/alias_local.txt')) as alf:
-            alocal = ast.literal_eval(alf.read())
-
         embed.add_field(
-            name="Location",
-            value="\n".join(["local" if key in alocal else "master" for key in alias]),
+            name="perm",
+            value="\n".join([item[2] for item in data]),
             inline=True
         )
         return embed
-    
-    async def kwargcheck(self, kw, arg, channel):
-        maxlen = 12
-        try:
-            kw = kw.lower()
-            arg = arg.lower()
-        except:
-            return False
 
-        if len(kw) > maxlen:
-            await channel.send(f"Key exceeds maximum allowed length ({maxlen})")
-            return False
-        
-        # fetch pointer and check if its connected
-        """
-        conn = self.db.db_pointer.get_connection()
-        if not conn.is_connected():
-            await channel.send(self.error()['conn_fail'])
-            await self.logger.send(self.name,'DB connection failed')
-            return False
-        """
+    async def search(self, ctx, request):
+        channel = ctx.channel
+        author = ctx.message.author
 
-        # fetch the character lists to check if target is in them
-        """
-        c_list, c_jp_list, id_list = self.fetch_list(conn)
-        del id_list
-        """
-        #print("".join(self.prefix_id(arg)))
-        chara = await self.validate_entry("".join(self.prefix_id([arg])), channel, suppress=False)
-        if chara == False:
-            await channel.send(f"`{arg}` is not a valid database entry")
-            #conn.close()
-            return False
-        elif await self.validate_entry(kw, channel, suppress=True) != False:
-            await channel.send(f"{kw} cannot be already a valid database entry")
-            return False
+        # check if its an alias
+        if request.lower() in list(self.full_alias.keys()):
+            await channel.send(
+                f"Alias `{request.lower()}` -> `{self.full_alias[request.lower()]}` [{'master' if request.lower() in list(self.config['alias_master']) else 'local'}]"
+            )
+        elif request.lower() in list(self.full_alias.values()):
+            master =    []
+            local =     []
+
+            for a, o in list(self.full_alias.items()):
+                if o == request.lower():
+                    if a in list(self.config['alias_master'].keys()):
+                        master.append((a, 'master'))
+                    else:
+                        local.append((a, 'local'))
+            
+            master.sort(key=lambda x: x[0])
+            local.sort(key=lambda x: x[0])
+
+            search_page = self.client.page_controller(self.client, self.embed_search, master+local, 15, True)
+            page =  await channel.send(embed=search_page.start())
+
+            for arrow in search_page.arrows:
+                await page.add_reaction(arrow)
+
+            def check(reaction, user):
+                return str(user.id) == str(author.id) and\
+                        reaction.emoji in ['⬅','➡'] and\
+                        str(reaction.message.id) == str(page.id)
+            
+            while True:
+                try:
+                    reaction, user = await self.client.wait_for('reaction_add', timeout=30.0, check=check)
+                except asyncio.TimeoutError:
+                    for arrow in search_page.arrows:
+                        await page.remove_reaction(arrow, self.client.user)
+                    return
+                else:
+                    if reaction.emoji == search_page.arrows[0]:
+                        await reaction.message.remove_reaction(search_page.arrows[0], user)
+                        await reaction.message.edit(embed=search_page.flip('l'))
+                    elif reaction.emoji == search_page.arrows[1]:
+                        await reaction.message.remove_reaction(search_page.arrows[1], user)
+                        await reaction.message.edit(embed=search_page.flip('r'))
         else:
-            #conn.close()
-            return True
-        
-        """
-        if not arg in c_list and not arg in c_jp_list:
-            await channel.send(f"`{arg}` is not a valid database entry")
-            conn.close()
-            return False
+            await channel.send(f"No alias/character found for `{request}`")
 
-        conn.close()
-        return True
-        """
+    def embed_search(self, data, index):
+        embed = discord.Embed(
+            title=f"Alias Search Page {index[0]} of {index[1]}",
+            description="Listing search results",
+            timestamp=datetime.datetime.utcnow(),
+            colour=self.colour
+        )
+        embed.set_footer(text="Alias | Re:Re:Write Ames", icon_url=self.client.user.avatar_url)
+        embed.add_field(
+            name="Alias",
+            value="\n".join([item[0] for item in data]),
+            inline=True
+        )
+        embed.add_field(
+            name="perm",
+            value="\n".join([item[1] for item in data]),
+            inline=True
+        )
+        return embed
         
     @alias.command()
-    async def add(self, ctx, kw, arg):
+    async def add(self, ctx, alias, *character):
         channel = ctx.channel
-        with open(os.path.join(dir, '_config/alias_local.txt')) as alf:
-            alocal = ast.literal_eval(alf.read())
-        with open(os.path.join(dir, '_config/alias.txt')) as af:
-            alias_list = ast.literal_eval(af.read())
         
-        kw = kw.lower()
-        arg = arg.lower()
-        valid = await self.kwargcheck(kw, arg, channel)
+        if not self.client.command_status['alias'] == 1:
+            raise commands.DisabledCommand
+        
+        # checks
+        alias = alias.lower()
 
-        if not valid:
+        if alias in list(self.config['alias_master'].keys()):
+            await channel.send(f"`{alias}` is already an entry in the master alias record")
             return
-        elif not kw in alocal and not kw in alias_list:
-            chara = "".join(self.prefix_id([arg]))
-            alocal[kw] = chara
-            with open(os.path.join(dir, '_config/alias_local.txt'), 'w') as alf:
-                alf.write(str(alocal))
-            self.preprocessor.update(alocal)
-            await channel.send(f"Successfully added alias `{kw}` -> `{chara}` local")
-        elif kw in alocal:
-            await channel.send(f"Alias already exists in local: `{kw}` -> `{alocal[kw]}`")
-        elif kw in alias_list:
-            await channel.send(F"Alias already exists in tracked: `{kw}` -> `{alias_list[kw]}`\nThis cannot be edited")
-        else:
-            pass
-    
-    @alias.command(aliases=['rm'])
-    async def remove(self, ctx, kw):
-        channel = ctx.channel
-        with open(os.path.join(dir,'_config/alias_local.txt'), 'r') as alf:
-            alocal = ast.literal_eval(alf.read())
-        if kw in alocal:
-            arg = alocal[kw]
-            del alocal[kw]
-            del self.preprocessor[kw]
-            with open(os.path.join(dir,'_config/alias_local.txt'), 'w') as alf:
-                alf.write(str(alocal))
-            await channel.send(f"Successfully removed `{kw}` -> `{arg}` local")
-        else:
-            await channel.send(f"No local alias with `{kw}` found.")
-    
-    @alias.command(aliases=['ed'])
-    async def edit(self, ctx, kw, arg):
-        channel = ctx.channel
-        with open(os.path.join(dir,'_config/alias_local.txt'),'r') as alf:
-            alocal = ast.literal_eval(alf.read())
-        if kw in alocal:
+        elif alias in list(self.full_alias.keys()):
+            await channel.send(f"`{alias}` -> `{self.full_alias[alias]}` already exists")
+            return
+        
+        # clean input
+        for token in self.config['illegal_tokens']:
+            alias = alias.strip(token)
+        
+        # check character
+        # case uniformity
+        character = [i.lower() for i in character]
 
-            arg = arg.lower()
-            valid = await self.kwargcheck(kw, arg, channel)
-            if not valid:
-                return
-            chara = "".join(self.prefix_id([arg]))
-            alocal[kw] = chara
-            self.preprocessor[kw] = arg
-            with open(os.path.join(dir,'_config/alias_local.txt'), 'w') as alf:
-                alf.write(str(alocal))
-            await channel.send(f"Successfully changed alias `{kw}` -> `{chara}` local")
-        else:
-            await channel.send(f"No local alias with `{kw}` found.")
-    
-    @alias.command(aliases=['ck'])
-    async def check(self, ctx, kw):
+        # preprocess the command to find what out what the request is
+        mode, _character, option = await self.process_request(ctx, character, channel)
+        # request here should be a string
+
+        # validate request
+        search_sucess, _character = self.validate_entry(_character)
+        if not search_sucess:
+            await channel.send(f"No character entry matching `{character}`")
+            return 
+        character = _character
+        self.alocal[alias] =    character['en']
+        self.full_alias =       self.config['alias_master'].copy()
+        self.full_alias.update(self.alocal)
+
+        with open(os.path.join(self.client.dir, self.client.config["alias_local_path"]), 'w+') as alf:
+            alf.write(json.dumps(self.alocal, indent=4))
+        
+        await channel.send(f"Successfully added `{alias}` -> `{character['en']}`")
+        
+    @alias.command()
+    async def edit(self, ctx, alias, *character):
         channel = ctx.channel
-        if kw in self.preprocessor:
-            await channel.send(f"Alias `{kw}` -> `{self.preprocessor[kw]}`")
-        else:
-            await channel.send(f"No alias `{kw}` found")
+        
+        if not self.client.command_status['alias'] == 1:
+            raise commands.DisabledCommand
+        
+        # checks
+        alias = alias.lower()
+
+        if alias in list(self.config['alias_master'].keys()):
+            await channel.send(f"`{alias}` is already an entry in the master alias record - You may not edit a master record")
+            return
+        elif not alias in list(self.full_alias.keys()):
+            await channel.send(f"`{alias}` does not exist")
+            return
+        
+        # clean input
+        for token in self.config['illegal_tokens']:
+            alias = alias.strip(token)
+        
+        # check character
+        # case uniformity
+        character = [i.lower() for i in character]
+
+        # preprocess the command to find what out what the request is
+        mode, _character, option = await self.process_request(ctx, character, channel)
+        # request here should be a string
+
+        # validate request
+        search_sucess, _character = self.validate_entry(_character)
+        if not search_sucess:
+            await channel.send(f"No character entry matching `{character}`")
+            return 
+        character = _character
+        self.alocal[alias] =    character['en']
+        self.full_alias =       self.config['alias_master'].copy()
+        self.full_alias.update(self.alocal)
+
+        with open(os.path.join(self.client.dir, self.client.config["alias_local_path"]), 'w+') as alf:
+            alf.write(json.dumps(self.alocal, indent=4))
+        
+        await channel.send(f"Successfully edited `{alias}` -> `{character['en']}`")
 
     @alias.command()
-    async def prune(self, ctx):
+    async def delete(self, ctx, alias):
         channel = ctx.channel
-        with open(os.path.join(dir, '_config/alias.txt')) as af:
-            alias_list = ast.literal_eval(af.read())
-        with open(os.path.join(dir,'_config/alias_local.txt')) as alf:
-            alocal = ast.literal_eval(alf.read())
-        await channel.send('Pruning local list...')
-        for key in list(alias_list.keys()):
-            if key in alocal:
-                await channel.send(f"Deleting master-local conflict `{key}` -> `{alocal[key]}` local")
-                del alocal[key]
+        
+        if not self.client.command_status['alias'] == 1:
+            raise commands.DisabledCommand
+        
+        # checks
+        alias = alias.lower()
 
-        await channel.send('Complete! Reloading dictionary and saving amended local...')
-        self.preprocessor = alias_list
-        self.preprocessor.update(alocal)
-        with open(os.path.join(dir,'_config/alias_local.txt'), 'w') as alf:
-            alf.write(str(alocal))
+        if alias in list(self.config['alias_master'].keys()):
+            await channel.send(f"`{alias}` is already an entry in the master alias record - You may not delete a master record")
+            return
+        elif not alias in list(self.full_alias.keys()):
+            await channel.send(f"`{alias}` does not exist")
+            return
+        
+        self.alocal.pop(alias)
+        self.full_alias =       self.config['alias_master'].copy()
+        self.full_alias.update(self.alocal)
 
-        await channel.send('Complete!')
-
-    async def zeik_bully(self, channel, author):
-        mode = True
-        if mode:
-            if str(author.id) == '277335263477366785' and str(channel.id) == '620625432865144862':
-                await channel.send('<:feelszeik:606111207287422979>')
-                return True
-        return False
+        with open(os.path.join(self.client.dir, self.client.config["alias_local_path"]), 'w+') as alf:
+            alf.write(json.dumps(self.alocal, indent=4))
+        
+        await channel.send(f"Successfully deleted `{alias}`")
 
 def setup(client):
     client.add_cog(hatsuneCog(client))
