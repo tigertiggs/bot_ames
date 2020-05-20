@@ -184,7 +184,7 @@ class Ames(commands.AutoShardedBot):
             
             print("success", flush=True)
         
-        for file in self.config['required_files']:
+        for path in self.config['required_files']:
             print(self.name, "checking file", path, "...", end="")
         
             full_path = os.path.join(dir_path, path)
