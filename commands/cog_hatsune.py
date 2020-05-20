@@ -3,7 +3,7 @@
 import datetime
 import discord
 from discord.ext import commands
-import asyncio, os, ast, traceback, time, json, requests
+import asyncio, os, traceback, time, json, requests
 from io import BytesIO
 dir = os.path.dirname(__file__)
 SPACE = '\u200B'

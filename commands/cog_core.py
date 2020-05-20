@@ -42,10 +42,10 @@ class coreCog(commands.Cog):
         gitv =      ".".join([str(git_version[p]) for p in keys])
         
         for key in keys:
-            if self.version[key] < git_version[key]:
+            if self.client.version[key] < git_version[key]:
                 flag = 1
                 break
-            elif self.version[key] > git_version[key]:
+            elif self.client.version[key] > git_version[key]:
                 flag = -1
                 break
             else:
