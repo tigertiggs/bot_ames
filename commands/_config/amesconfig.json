@@ -2,6 +2,7 @@
     "debug":                1,
     "save_config_on_exit":  0,
     "port":                 8000,
+    "target_guild":         419624511189811201,
 
     "emote_path":           "commands/_config/emoji.json",
     "private_path":         "commands/_private/private.json",

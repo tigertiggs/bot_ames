@@ -35,9 +35,11 @@ class cbCog(commands.Cog):
             raise commands.DisabledCommand
 
         if ctx.invoked_subcommand is None:
-            if len(options) != 0:
+            if ctx.message.author.guild.id != self.client.config['target_guild']:
+                await channel.send("This command is unavailable "+self.client.emotes['ames'])
+                return
+            elif len(options) != 0:
                 await self.toggle_boss(ctx.message.author, channel, options)
-
             else:
                 r, y, g = self.collect_data()
                 embed = discord.Embed(
@@ -141,6 +143,10 @@ class cbCog(commands.Cog):
         if not self.client.command_status['cb'] == 1:
             raise commands.DisabledCommand
 
+        if ctx.message.author.guild.id != self.client.config['target_guild']:
+            await channel.send("This command is unavailable "+self.client.emotes['ames'])
+            return
+
         guild = self.get_member_guild(author)
         if guild == None:
             await channel.send(f"I did not find your guild role {self.client.emotes['ames']}")
@@ -231,6 +237,13 @@ class cbCog(commands.Cog):
     )
     async def purge(self, ctx, *options):
         channel = ctx.channel
+        if not self.client.command_status['cb'] == 1:
+            raise commands.DisabledCommand
+
+        if ctx.message.author.guild.id != self.client.config['target_guild']:
+            await channel.send("This command is unavailable "+self.client.emotes['ames'])
+            return
+
         if len(options) == 0:
             for role in ctx.message.author.roles:
                 if role.id in self.config['boss_roles']:
@@ -250,6 +263,12 @@ class cbCog(commands.Cog):
     )
     async def edit(self, ctx, boss_num:int, *name):
         channel = ctx.channel
+        if not self.client.command_status['cb'] == 1:
+            raise commands.DisabledCommand
+
+        if ctx.message.author.guild.id != self.client.config['target_guild']:
+            await channel.send("This command is unavailable "+self.client.emotes['ames'])
+            return
         try:
             role = self.get_role(self.config['boss_roles'][boss_num-1])
             old_name = role.name.split(' - ')
@@ -268,6 +287,12 @@ class cbCog(commands.Cog):
     )
     async def reset(self, ctx):
         channel = ctx.channel
+        if not self.client.command_status['cb'] == 1:
+            raise commands.DisabledCommand
+        
+        if ctx.message.author.guild.id != self.client.config['target_guild']:
+            await channel.send("This command is unavailable "+self.client.emotes['ames'])
+            return
         reset_names = [f'boss {i} - N/A' for i in range(1,6)]
         for i, boss_id in enumerate(self.config['boss_roles']):
             role = self.get_role(boss_id)
