@@ -130,7 +130,15 @@ class Ames(commands.AutoShardedBot):
         print(self.name, "starting")
         with open("commands/_config/amesconfig.json") as cf:
             self.config = json.load(cf)
-            self.command_status = self.config['command_status']
+        
+        # override config
+        if os.path.exists(os.path.join(self.dir, self.config['override'])):
+            with open(os.path.join(self.dir, self.config['override'])) as override:
+                print("Found config override - overriding")
+                for key, value in list(json.load(override).items()):
+                    self.config[key] = value
+
+        self.command_status = self.config['command_status']
 
         with open(self.config['emote_path']) as ef:
             self.emotes = json.load(ef)

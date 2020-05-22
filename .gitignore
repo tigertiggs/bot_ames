@@ -11,6 +11,7 @@ commands/assets/ames/*
 !commands/assets/ames/.gitkeep
 
 # other
+commands/_config/amesconfig_override.json
 commands/hatsune_data/alias_local.json
 commands/_config/cbtag.json
 __pycache__

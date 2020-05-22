@@ -68,7 +68,24 @@ class hatsuneCog(commands.Cog):
         return error_msg
 
      # to avoid connecting to pandaDB keep a local copy of the index
-    
+    def get_attack_pattern(self, info):
+        if "magic" in info['tag']:
+            norm_atk = '<:magatk:713288155469578272>'
+        else:
+            norm_atk = '<:_chara:677763373739409436>'
+        skills = [
+            '1\u20E3',
+            '2\u20E3'
+        ]
+        opening = info['attack_pattern']['action'][:info['attack_pattern']['loop'][0]-1]
+        loop = info['attack_pattern']['action'][info['attack_pattern']['loop'][0]-1:]
+
+        opening = "-".join([norm_atk if action == 1 else skills[action%10-1] for action in opening]) if len(opening) != 0 else "None"
+        loop = "-".join([norm_atk if action == 1 else skills[action%10-1] for action in loop]) if len(loop) != 0 else "None"
+        return "\n".join(
+            [opening, loop]
+        )
+        
     def validate_entry(self, target):
         with open(os.path.join(self.client.dir, self.client.config['unit_list_path'])) as ulf:
             self.unit_list = json.load(ulf)
@@ -211,6 +228,7 @@ class hatsuneCog(commands.Cog):
         info['stats'] =         raw['data']['stats']
         info['max_lvl'] =       raw['config']['LEVEL_MAX']
         info['max_rk'] =        raw['config']['RANK_MAX']
+        info['attack_pattern'] =raw['data']['unit_profile']['attack_pattern']
 
         # UE
         info['ue'] =            raw['data']['unique_equipment']
@@ -495,6 +513,17 @@ class hatsuneCog(commands.Cog):
             inline=False
         )
 
+        embed.add_field(
+            name="> **Attack Pattern**",
+            value="Opener:\nLoop:",
+            inline=True
+        )
+        embed.add_field(
+            name=SPACE,
+            value=self.get_attack_pattern(info),
+            inline=True
+        )
+
         # UB
         embed.add_field(
             name=   "> **Union Burst+**" if option == 'flb' else "> **Union Burst**",
@@ -758,6 +787,17 @@ class hatsuneCog(commands.Cog):
             inline=False
         )
         """
+
+        embed.add_field(
+            name="> **Attack Pattern**",
+            value="Opener:\nLoop:",
+            inline=True
+        )
+        embed.add_field(
+            name=SPACE,
+            value=self.get_attack_pattern(info),
+            inline=True
+        )
 
         # UB
         embed.add_field(

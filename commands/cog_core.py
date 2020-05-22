@@ -168,8 +168,7 @@ class coreCog(commands.Cog):
             cmd_status.sort(key=lambda x: x[0])
             for chunk in self.client.chunks(cmd_status, ceil(len(cmd_status)/3)):
                 embed.add_field(
-                    name="Command",
-                    description="Active Commands",
+                    name="Active Commands",
                     value="\n".join([f"{green if state == 1 else red} {cmd}" for cmd, state in chunk]),
                     inline=True
                 )

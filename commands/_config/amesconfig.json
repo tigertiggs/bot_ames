@@ -4,6 +4,8 @@
     "port":                 8000,
     "target_guild":         419624511189811201,
 
+    "override":             "commands/_config/amesconfig_override.json",
+
     "emote_path":           "commands/_config/emoji.json",
     "private_path":         "commands/_private/private.json",
     "status_path":          "commands/_config/status.json",
