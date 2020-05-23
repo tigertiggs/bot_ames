@@ -228,7 +228,14 @@ class hatsuneCog(commands.Cog):
         info['stats'] =         raw['data']['stats']
         info['max_lvl'] =       raw['config']['LEVEL_MAX']
         info['max_rk'] =        raw['config']['RANK_MAX']
-        info['attack_pattern'] =raw['data']['unit_profile']['attack_pattern']
+        
+        #info['attack_pattern'] =raw['data']['unit_profile']['attack_pattern']
+        atk_pattern =           raw['data']['unit_pattern']
+        loop =                  [atk_pattern['loop_start'],atk_pattern['loop_end']]
+        action =                [[key, value] for key, value in list(atk_pattern.items()) if key.startswith("action_")]
+        action.sort(key=lambda x: x[0])
+        action =                [value for key, value in action]
+        info['attack_pattern'] ={"loop":loop,"action":action}
 
         # UE
         info['ue'] =            raw['data']['unique_equipment']
