@@ -522,7 +522,7 @@ class hatsuneCog(commands.Cog):
 
         embed.add_field(
             name="> **Attack Pattern**",
-            value="Opener:\nLoop:",
+            value="Initial:\nLooping:",
             inline=True
         )
         embed.add_field(
@@ -797,7 +797,7 @@ class hatsuneCog(commands.Cog):
 
         embed.add_field(
             name="> **Attack Pattern**",
-            value="Opener:\nLoop:",
+            value="Initial:\nLooping:",
             inline=True
         )
         embed.add_field(

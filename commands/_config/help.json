@@ -46,7 +46,7 @@
             "subcmd":   ["add", "edit", "delete"],
             "aliases":  null,
             "help":     "View, add, edit, or delete a cjaracter alias depending on the option specified. Use `.help alias` for more details.",
-            "help_ex":  "`.help [alias/character]` - the former will check what the `alias` is linked to, and the latter will list all aliases tied to the specified `character`.\n`.help add [alias] [character]`\n`.help edit [alias] [character]`\n`.help delete [alias]`\nIn all cases `[alias]` is case-insensitive and cannot already exist unless editing, and `[character]` must be a valid character in the database."
+            "help_ex":  "`.help [alias/character]` - the former will check what the `alias` is linked to, and the latter will list all aliases tied to the specified `character`.\n`.help add [alias] [character]`\n`.help edit [alias] [character]`\n`.help delete [alias]`\nIn all cases `[alias]` is case-insensitive and cannot already exist unless editing, and `[character]` must be a valid character in the database. Only aliases marked with `local` may be edited."
         },
         "cbtag": {
             "flags":    ["normal", "cb"],
