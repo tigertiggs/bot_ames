@@ -1,6 +1,6 @@
 {
     "help_tags": [
-        "normal", "shitpost", "restricted", "core", "hatsune", "_update", "_gacha", "cb"
+        "normal", "shitpost", "restricted", "core", "hatsune", "_update", "_gacha", "cb", "admin", "twitter"
     ],
     "commands": {
         "template": {
@@ -19,7 +19,7 @@
             "subcmd":   ["help"],
             "aliases":  ["chara", "c", "ue", "card", "stats", "pic"],
             "help":     "Fetch data on the specified character.",
-            "help_ex":  "Search HNoteDB for character entry. \n\nUse `.character help` for more in-depth help. `[character]` follows format of `(prefix.)name`, for example, `.c s.kyaru` for Kyaru (Summer). \n\n`[options]` currently only accepts `flb` which fetches the FLB variant of the character, for example, `.c kyaru flb`. \n\nListed aliases will bring you to the specified page when called."
+            "help_ex":  "Search HNoteDB for character entry. \n\nUse `.c help` for more in-depth help. `[character]` follows format of `(prefix.)name`, for example, `.c s.kyaru` for Kyaru (Summer). \n\n`[options]` currently only accepts `flb` which fetches the FLB variant of the character, for example, `.c kyaru flb`. \n\nListed aliases will bring you to the specified page when called."
         },
         "position": {
             "flags":    ["normal", "hatsune"],
@@ -94,7 +94,7 @@
             "help_ex":  null
         },
         "purge": {
-            "flags":    ["core", "restricted"],
+            "flags":    ["core", "admin"],
             "hidden":   true,
             "usage":    ".purge [depth=100]",
             "subcmd":   null,
@@ -130,7 +130,7 @@
             "help_ex":  null
         },
         "say": {
-            "flags":    ["core", "restricted"],
+            "flags":    ["core", "admin"],
             "hidden":   true,
             "usage":    ".say [message] [*location_key]",
             "subcmd":   null,
@@ -281,6 +281,24 @@
             "aliases":  ["chen"],
             "help":     "Have Ch'en hug the specified user. `User` can be a (partial) string or a mention. If left blank it will default to the person who invoked this command.",
             "help_ex":  null
+        },
+        "permissions": {
+            "flags":    ["normal","core"],
+            "hidden":   false,
+            "usage":    ".permissions [*options]",
+            "subcmd":   ["set", "remove"],
+            "aliases":  ["perm"],
+            "help":     "Assign roles to certain permissions that allows members with the role to access certain restricted functions on Ames. Use `.help permissions` or `.perm` for more info.",
+            "help_ex":  "Assign roles to perms. You can see the list of available perms and their status by using `.perm`.\n\n> `.perm set [perm_key] [@role]`\nSet a role to a perm key. You can find perm keys and what they can do with `.perm` and `@role` must be a discord role. If a role already exists it will be replaced.\n\n> `.perm remove [perm_key]`\nRemove any role attached to the `[perm_key]`."
+        },
+        "announce": {
+            "flags":    ["twitter", "normal"],
+            "hidden":   false,
+            "usage":    ".announce [*options]",
+            "subcmd":   ["set"],
+            "aliases":  ["ann"],
+            "help":     "See which twitter listeners are active in your guild. Use `.help announce` for more details.",
+            "help_ex":  "Set up twitter listeners in your Guild. You can see available services via `.ann`.\n\n> `.announce set [service] [status]`\nSet the status of a valid service in your guild. You can find valid services at `.ann`. You must have `[admin]` permission role to use the above subcommand(s).\n`[status]` can either be a digit `1` or `0` if you want to turn the specified service on/off respectively, or `[status]` can be a `#discord_channel` where you wish for Ames to send the embeds."
         }
     }
 }

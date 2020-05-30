@@ -1,0 +1,5 @@
+{
+    "admin":{
+        "help": "Allows members with the role to access functions tagged with `admin`. Use `.help admin` for details. Server owners will have this permission by default"
+    }
+}

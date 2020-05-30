@@ -1,3 +1,6 @@
+# safety
+!.gitkeep
+
 # post
 commands/post/*
 !commands/post/.gitkeep
@@ -9,6 +12,15 @@ commands/_private/*
 # ames
 commands/assets/ames/*
 !commands/assets/ames/.gitkeep
+
+# twitter cache
+commands/twitter/guilds.json
+commands/twitter/cache/*
+!commands/twitter/cache/.gitkeep
+
+# guild perm
+commands/_config/guild/*
+!commands/_config/guild/.gitkeep
 
 # other
 commands/_config/amesconfig_override.json

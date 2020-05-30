@@ -1,0 +1,9 @@
+{
+    "timer": 60,
+    "active": true,
+    "cache_limit": 50,
+    "accounts": {
+        "pcrd_en": "962090120370376704",
+        "pcrd_jp": "765105291633405954"
+    }
+}

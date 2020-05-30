@@ -55,10 +55,10 @@ class helpCog(commands.Cog):
                 data = self.filter_commands("normal", perm)
             else:
                 option = options[0]
-                if option in ["normal", "shitpost", "restricted", "core", "hatsune", "_update", "_gacha", "cb"]:
-                    data = self.filter_commands(option, perm)
+                if option in ["normal", "shitpost", "restricted", "core", "hatsune", "_update", "_gacha", "cb", "admin", "twitter"]:
+                    data = self.filter_commands(option, self.client._check_author(ctx.message.author, option))
                 else:
-                    await self.process_options(channel, options, perm)
+                    await self.process_options(channel, options, author)
                     return
             
             help_page_controller = self.client.page_controller(self.client, self.make_help_embed, data, 12, True)
@@ -201,11 +201,13 @@ class helpCog(commands.Cog):
         )
         return embed
 
-    async def process_options(self, channel, options, perm=False):
+    async def process_options(self, channel, options, author):
         option = options[0]
         command = self.help_text.get(option, None)
         if command != None:
-            if not (command['hidden'] or "restricted" in command['flags']) or perm:
+            if self.client._check_author(author):
+                await channel.send(embed=self.make_extended_help(command))
+            elif "admin" in command['flags'] and self.client._check_author(author, "admin"):
                 await channel.send(embed=self.make_extended_help(command))
             else:
                 await channel.send("Command is restricted "+self.client.emotes['ames'])

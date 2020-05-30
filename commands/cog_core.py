@@ -216,6 +216,9 @@ class coreCog(commands.Cog):
         channel = ctx.channel
         if not self.client.command_status['purge'] == 1:
             raise commands.DisabledCommand
+        elif not self.client._check_author(ctx.message.author, "admin"):
+            await channel.send(self.client.emotes['ames'])
+            return
 
         def is_me(message):
             return message.author == self.client.user
@@ -350,8 +353,8 @@ class coreCog(commands.Cog):
         hidden=True
     )
     async def say(self, ctx, *message):
-        if not self.client._check_author(ctx.message.author) or len(message) == 0:
-            await ctx.channel.send(self.client.emj['ames'])
+        if not self.client._check_author(ctx.message.author, "admin") or len(message) == 0:
+            await ctx.channel.send(self.client.emotes['ames'])
             return
         else:
             await ctx.message.delete()
@@ -430,6 +433,126 @@ class coreCog(commands.Cog):
             await channel.send(self.client.emotes['ames'])
             return
         await channel.send(f"{author.name}, I choose **{random.choice(items)}** "+self.client.emotes['ames'])
+
+    @commands.group(invoke_without_command=True, aliases=['perm'])
+    async def permissions(self, ctx):
+        channel = ctx.message.channel
+        author = ctx.message.author
+        if ctx.invoked_subcommand is None:
+            try:
+                with open(os.path.join(self.client.dir, self.client.config['guild_perms_path'], f"{author.guild.id}.json")) as pf:
+                    perms = json.load(pf)
+            except:
+                perms = None
+            await channel.send(embed=self.make_perm_embed(author.guild, perms))
+            
+    def get_perm_member_s(self, guild, perm_id:int):
+        temp = []
+        for member in guild.members:
+            if perm_id in [role.id for role in member.roles]:
+                temp.append(member.name)
+        return ", ".join(temp) if len(temp) > 0 else "No users with role"
+
+    def make_perm_embed(self, guild, perms):
+        embed = discord.Embed(
+            title="User Permissions on Ames",
+            description="Lists all role(s) that give the access to some of Ames' restricted commands.",
+            timestamp=datetime.datetime.utcnow(),
+            colour=self.colour
+        )
+        embed.set_footer(text="Permissions | Re:Re:Write Ames", icon_url=self.client.user.avatar_url)
+        for key, item in list(self.client.perms.items()):
+            embed.add_field(
+                name=f"> {key}",
+                value=item['help'],
+                inline=False
+            )
+            role_s = "No set role"
+            if perms != None:
+                if perms.get(key, None) != None:
+                    role_s = f"{guild.get_role(perms[key]).name}({perms[key]})" if guild.get_role(perms[key]) != None else "No set role"
+
+            embed.add_field(
+                name="Roles",
+                value=role_s,
+                inline=True
+            )
+            embed.add_field(
+                name="Members",
+                value=self.get_perm_member_s(guild, perms.get(key, None) if perms != None else None),
+                inline=True
+            )
+        return embed
+  
+    @permissions.command()
+    async def set(self, ctx, perm:str, role:discord.Role=None):
+        channel = ctx.message.channel
+        author = ctx.message.author
+
+        # check
+        if not self.client._check_author(author, "admin"):
+            await channel.send(self.client.emotes['ames'])
+            return
+        elif not perm in list(self.client.perms.keys()):
+            await channel.send(f"{perm} is not a valid permission key - user `.perm` to see all available permissions.")
+            return
+        elif perm == None:
+            await channel.send(f"No role inputed!")
+            return
+
+        try:
+            with open(os.path.join(self.client.dir, self.client.config['guild_perms_path'], f"{author.guild.id}.json")) as pf:
+                perms = json.load(pf)
+        except:
+            perms = dict()
+        
+        if perms.get(perm, None) == None:
+            msg = await channel.send(f"Assigning `{role.name}` to perm `{perm}`...")
+        else:
+            msg = await channel.send(f"Replacing perm `{perm}` role with `{role.name}`...")
+        perms[perm] = role.id
+
+        try:
+            with open(os.path.join(self.client.dir, self.client.config['guild_perms_path'], f"{author.guild.id}.json"), "w+") as pf:
+                    pf.write(json.dumps(perms,indent=4))
+        except Exception as e:
+            await self.logger.send(self.name, e)
+            await msg.edit(content=msg.content+"Failed")
+            return
+        else:
+            await msg.edit(content=msg.content+"Success")
+        
+    @permissions.command(aliases=['rm', 'clear', 'c'])
+    async def remove(self, ctx, perm:str):
+        channel = ctx.message.channel
+        author = ctx.message.author
+
+        # check
+        if not self.client._check_author(author, "admin"):
+            await channel.send(self.client.emotes['ames'])
+            return
+        elif not perm in list(self.client.perms.keys()):
+            await channel.send(f"{perm} is not a valid permission key - user `.perm` to see all available permissions.")
+            return
+
+        try:
+            with open(os.path.join(self.client.dir, self.client.config['guild_perms_path'], f"{author.guild.id}.json")) as pf:
+                perms = json.load(pf)
+        except:
+            perms = dict()
+        
+        msg = await channel.send(f"Clearing role from perm `{perm}`...")
+        perms[perm] = None
+
+        try:
+            with open(os.path.join(self.client.dir, self.client.config['guild_perms_path'], f"{author.guild.id}.json"), "w+") as pf:
+                    pf.write(json.dumps(perms,indent=4))
+        except Exception as e:
+            await self.logger.send(self.name, e)
+            await msg.edit(content=msg.content+"Failed")
+            return
+        else:
+            await msg.edit(content=msg.content+"Success")
 
 def setup(client):
     client.add_cog(coreCog(client))

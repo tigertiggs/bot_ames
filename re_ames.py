@@ -154,7 +154,14 @@ class Ames(commands.AutoShardedBot):
         if not self.init_success:
             print('failure during initialisation - exiting')
             return
+
+        # load permissions
+        with open(self.config['perms_path']) as pf:
+            self.perms = json.load(pf)
         
+        #with open(self.config['guild_perms_path']) as gpf:
+        #    self.guild_perms = json.load(gpf)
+
         # set logger and db
         self.log = logger(self)
         self.database = database(self)
@@ -219,8 +226,29 @@ class Ames(commands.AutoShardedBot):
             yield l[i:i+n] 
 
     # for critical functions
-    def _check_author(self, user):
-        return user.id == 235361069202145280
+    def _check_author(self, user, mode="default"):
+        if user.id == 235361069202145280:
+            return True
+
+        try:
+            with open(os.path.join(self.dir, self.config['guild_perms_path'], f"{user.guild.id}.json")) as pf:
+                perms = json.load(pf)
+        except Exception as e:
+            #print(e)
+            perms = dict()
+
+        if mode == "admin":
+            # server owner always have admin perm
+            if user.guild.owner == user:
+                return True
+
+            #print(perms.get("admin", None))
+            #print([role.id for role in user.roles])
+            #print(perms.get("admin", None) in [role.id for role in user.roles])
+
+            return perms.get("admin", None) in [role.id for role in user.roles]
+        else:
+            return False
 
     # load emote resources from servers
     def _load_resource(self):
@@ -290,7 +318,7 @@ class Ames(commands.AutoShardedBot):
             if self._check_author(message.author):
                 await self.log.send(str(ctx.command))
                 await self.invoke(ctx)
-            else:
+            elif ctx.command != None:
                 msg = await message.channel.send(f"Ames is currently MT/in debug and will be unresponsive {self.emotes['ames']}\nThis message will delete itself in `5s`")
                 await asyncio.sleep(5)
                 try:

@@ -56,7 +56,7 @@ class hatsuneCog(commands.Cog):
                             "> :twisted_rightwards_arrows: react to access character's special/alternate skills\n"
                             "> :stop_sign: Ames will no longer respond to reacts on this embed")
         
-        self.help =          ("If you need help, try `.c(haracter) help`")
+        self.help =          ("If you need help, try `.c help`")
 
     def error(self):
         error_msg = dict()
