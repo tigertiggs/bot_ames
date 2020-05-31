@@ -5,10 +5,17 @@
     "ssr_rate_up": 0.008,
     "sr_rate_up": 0,
     "r_rate_up": 0,
-    "prifes": 0,
+    "prifes": 1,
     "pools": {
         "lim": [
-            ""
+            "3PKokkoro",
+            "3PKokkoro",
+            "3PKokkoro",
+            "3PKokkoro",
+            "3PPecorine",
+            "3Muimi",
+            "3Christina",
+            "3Neneka"
         ],
         "r": [
             "Rei",

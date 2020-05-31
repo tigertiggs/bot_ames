@@ -163,55 +163,55 @@ class updateCog(commands.Cog):
             hconfig = json.load(hcf)
         
         for command in command_line.split(';'):
-            for mode, value in command.split('.'):
-                if mode == 'p':
-                    for kv in value.split(','):
-                        if kv[0] == '-':
-                            flag = 'del'
-                            k = kv[1:]
-                        else:
-                            flag = 'add'
-                            k, v = kv.split('=')
-
-                        if k in list(hconfig['prefix_title'].keys()):
-                            if flag == 'del':
-                                await channel.send(f"removing prefix `{k}` -> `{hconfig['prefix_title'][k]}`")
-                                hconfig['prefix_title'].pop(k)
-                            elif flag == 'add':
-                                await channel.send(f"changing prefix `{k}` from `{hconfig['prefix_title'][k]}` to `{v}`")
-                                hconfig['prefix_title'][k] = v
-                        else:
-                            if flag == 'del':
-                                await channel.send(f"could not remove prefix {k} as it does not exist")
-                            elif flag == 'add':
-                                await channel.send(f"adding prefix `{k}` -> `{v}`")
-                                hconfig['prefix_title'][k] = v
-                
-                elif mode == 'pn':
-                    "pn.r=a,b,c"
-                    if value[0] == '-':
+            mode, value = command.split('.')
+            if mode == 'p':
+                for kv in value.split(','):
+                    if kv[0] == '-':
                         flag = 'del'
-                        k = value[1:]
+                        k = kv[1:]
                     else:
                         flag = 'add'
-                        k, v = value.split('=')
-                    
-                    if k in list(hconfig['prefix_new'].keys()):
+                        k, v = kv.split('=')
+
+                    if k in list(hconfig['prefix_title'].keys()):
                         if flag == 'del':
-                            await channel.send(f"Removing prefix alias {k} <- {hconfig['prefix_new'][k]}")
-                            hconfig['prefix_new'].pop(k)
+                            await channel.send(f"removing prefix `{k}` -> `{hconfig['prefix_title'][k]}`")
+                            hconfig['prefix_title'].pop(k)
                         elif flag == 'add':
-                            await channel.send(f"Setting prefix alias {k} from {hconfig['prefix_new'][k]} to {v.split(',')}")
-                            hconfig['prefixes_new'][k] = v.split(',')
+                            await channel.send(f"changing prefix `{k}` from `{hconfig['prefix_title'][k]}` to `{v}`")
+                            hconfig['prefix_title'][k] = v
                     else:
                         if flag == 'del':
-                            await channel.send(f"Could not remove prefix alias {k} as it does not exist")
+                            await channel.send(f"could not remove prefix {k} as it does not exist")
                         elif flag == 'add':
-                            await channel.send(f"Adding prefix alias {k} <- {v.split(',')}")
-                            hconfig['prefix_new'][k] = v.split(',')
-                
+                            await channel.send(f"adding prefix `{k}` -> `{v}`")
+                            hconfig['prefix_title'][k] = v
+            
+            elif mode == 'pn':
+                "pn.r=a,b,c"
+                if value[0] == '-':
+                    flag = 'del'
+                    k = value[1:]
                 else:
-                    await channel.send(f"Unknown command {command}")
+                    flag = 'add'
+                    k, v = value.split('=')
+                
+                if k in list(hconfig['prefix_new'].keys()):
+                    if flag == 'del':
+                        await channel.send(f"Removing prefix alias {k} <- {hconfig['prefix_new'][k]}")
+                        hconfig['prefix_new'].pop(k)
+                    elif flag == 'add':
+                        await channel.send(f"Setting prefix alias {k} from {hconfig['prefix_new'][k]} to {v.split(',')}")
+                        hconfig['prefixes_new'][k] = v.split(',')
+                else:
+                    if flag == 'del':
+                        await channel.send(f"Could not remove prefix alias {k} as it does not exist")
+                    elif flag == 'add':
+                        await channel.send(f"Adding prefix alias {k} <- {v.split(',')}")
+                        hconfig['prefix_new'][k] = v.split(',')
+            
+            else:
+                await channel.send(f"Unknown command {command}")
         
         with open(os.path.join(self.client.dir,self.client.config['hatsune_config_path']), 'w') as hcf:
             msg = await channel.send("Saving hatsune config file...")
@@ -393,7 +393,7 @@ class updateCog(commands.Cog):
                         
                         with open(os.path.join(self.client.dir, self.client.config['png_path'], f"{local_emote}.png"), "rb") as update_emote:
                             try:
-                                await server.create_custom_emoji(name=local_emote, image=update_emote)
+                                await server.create_custom_emoji(name=local_emote, image=update_emote.read())
                             except Exception as e:
                                 await self.logger.send(self.name, "failed to upload", e)
                                 traceback.print_exc()
