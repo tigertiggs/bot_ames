@@ -6,6 +6,7 @@ import os, sys, json, asyncio
 
 num_emj = ['1\u20E3','2\u20E3','3\u20E3','4\u20E3','5\u20E3']
 REPEAT =  '\U0001f501'
+BROOM =   '\U0001f9f9'
 
 class cbCog(commands.Cog):
     def __init__(self, client):
@@ -50,6 +51,11 @@ class cbCog(commands.Cog):
                 )
                 embed.set_footer(text='CB Tag | Re:Re:Write Ames',icon_url=self.client.user.avatar_url)
                 embed.add_field(
+                    name="Janitors",
+                    value=str(sum([clan['janitor']['janitor'] for clan in [r, g, y]])),
+                    inline=False
+                )
+                embed.add_field(
                     name="No.",
                     value="\n".join([str(i) for i in range(1,6)]),
                     inline=True
@@ -61,7 +67,7 @@ class cbCog(commands.Cog):
                 )
                 embed.add_field(
                     name='Awaiting',
-                    value='\n'.join([str(r[boss] + y[boss] + g[boss]) for boss in list(r.keys())]),
+                    value='\n'.join([str(r['bosses'][boss] + y['bosses'][boss] + g['bosses'][boss]) for boss in list(r['bosses'].keys())]),
                     inline=True
                 )
                 await ctx.channel.send(embed=embed)
@@ -71,27 +77,46 @@ class cbCog(commands.Cog):
 
     async def toggle_boss(self, user, channel, requests):
         for boss_num in requests:
-            try:
-                boss_num = int(boss_num)
-            except:
-                await channel.send(f"Failed to toggle `{boss_num}`")
-            else:
-                request = self.config['boss_roles'][boss_num]
-                if request in [role.id for role in user.roles]:
-                    await user.remove_roles(self.get_role(request))
-                    if channel != None:
-                        await channel.send(f"Successfully removed `{self.get_role(request).name}`")
+            if not boss_num.startswith('j'):
+                try:
+                    boss_num = int(boss_num)
+                except:
+                    await channel.send(f"Failed to toggle `{boss_num}`")
                 else:
-                    await user.add_roles(self.get_role(request))
+                    request = self.config['boss_roles'][boss_num]
+                    if request in [role.id for role in user.roles]:
+                        await user.remove_roles(self.get_role(request))
+                        if channel != None:
+                            await channel.send(f"Successfully removed `{self.get_role(request).name}`")
+                    else:
+                        await user.add_roles(self.get_role(request))
+                        if channel != None:
+                            await channel.send(f"Successfully added `{self.get_role(request).name}`")
+            else:
+                if self.config['janitor'][0] in [role.id for role in user.roles]:
+                    await user.remove_roles(self.get_role(self.config['janitor'][0]))
                     if channel != None:
-                        await channel.send(f"Successfully added `{self.get_role(request).name}`")
+                        await channel.send("Removed janitor role")
+                else:
+                    await user.add_roles(self.get_role(self.config['janitor'][0]))
+                    if channel != None:
+                        await channel.send("Added janitor role")
+
         return True
 
     def collect_data(self, guild='all'):
         target_guild = self.config['target_guild']
         bosses = self.config['boss_roles']
 
-        red =       {'boss1':0,'boss2':0,'boss3':0,'boss4':0,'boss5':0}
+        red =       {'bosses':
+                        {
+                        'boss1':0,'boss2':0,'boss3':0,'boss4':0,'boss5':0
+                        },
+                    'janitor':
+                    {
+                        'janitor': 0
+                    }
+        }
         yellow =    red.copy()
         green =     red.copy()
 
@@ -107,7 +132,9 @@ class cbCog(commands.Cog):
                 
                 for role in member.roles:
                     if role.id in bosses:
-                        temp[f"boss{bosses.index(role.id)+1}"] += 1
+                        temp['bosses'][f"boss{bosses.index(role.id)+1}"] += 1
+                    elif role.id in self.config['janitor']:
+                        temp['janitor']['janitor'] += 1
         
         if guild is 'all':
             return red, yellow, green 
@@ -169,6 +196,11 @@ class cbCog(commands.Cog):
             )
         embed.set_footer(text='CB Tag Post | Re:Re:Write Ames',icon_url=self.client.user.avatar_url)
         embed.add_field(
+            name="Janitors",
+            value=str(sum(list(clan['janitor'].values()))),
+            inline=False
+        )
+        embed.add_field(
             name="No.",
             value="\n".join([str(i) for i in range(1,6)]),
             inline=True
@@ -180,11 +212,11 @@ class cbCog(commands.Cog):
         )
         embed.add_field(
             name='Awaiting',
-            value='\n'.join([str(val) for val in list(clan.values())]),
+            value='\n'.join([str(val) for val in list(clan['bosses'].values())]),
             inline=True
         )
         post = await ctx.channel.send(embed=embed)
-        for emj in [*num_emj, REPEAT]:
+        for emj in [*num_emj, REPEAT, BROOM]:
             await post.add_reaction(emj)
 
         guild['last_message']['message'] = post.id
@@ -207,8 +239,8 @@ class cbCog(commands.Cog):
 
         if message_id in last_message_ids:
             message = await self.client.get_guild(payload.guild_id).get_channel(payload.channel_id).fetch_message(message_id)
-            if emote.name in num_emj:
-                complete = await self.toggle_boss(user, None, [num_emj.index(emote.name)])
+            if emote.name in num_emj or emote.name == BROOM:
+                complete = await self.toggle_boss(user, None, [num_emj.index(emote.name) if not emote.name == BROOM else 'j'])
                 if complete:
                     await message.edit(embed=self.refresh_embed(message.embeds[0]))
             elif emote.name == REPEAT:
@@ -227,8 +259,9 @@ class cbCog(commands.Cog):
             return embed
         clan = self.collect_data(mode)
         embed_dict = embed.to_dict()
-        embed_dict['fields'][1]['value'] = "\n".join(self.get_boss_name(self.config['boss_roles']))
-        embed_dict['fields'][2]['value'] = '\n'.join([str(val) for val in list(clan.values())])
+        embed_dict['fields'][0]['value'] = str(sum(list(clan['janitor'].values())))
+        embed_dict['fields'][2]['value'] = "\n".join(self.get_boss_name(self.config['boss_roles']))
+        embed_dict['fields'][3]['value'] = '\n'.join([str(val) for val in list(clan['bosses'].values())])
         return embed.from_dict(embed_dict)
         
     @cbtag.command(
@@ -246,14 +279,14 @@ class cbCog(commands.Cog):
 
         if len(options) == 0:
             for role in ctx.message.author.roles:
-                if role.id in self.config['boss_roles']:
+                if role.id in self.config['boss_roles'] or role.id in self.config['janitor']:
                     await ctx.message.author.remove_roles(role)
             await ctx.channel.send(self.client.emotes['sarenh'])
 
         elif options[0] == 'all' and self.client._check_author(ctx.message.author):
             for member in self.client.get_guild(self.config['target_guild']).members:
                 for role in member.roles:
-                    if role.id in self.config['boss_roles']:
+                    if role.id in self.config['boss_roles'] or role.id in self.config['janitor']:
                         await member.remove_roles(role)
             await channel.send(self.client.emotes['sarenh'])
     
