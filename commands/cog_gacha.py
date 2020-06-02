@@ -7,6 +7,8 @@ import random, datetime, json
 from PIL import Image, GifImagePlugin, ImageDraw, ImageSequence, ImageOps, ImageFont
 #dir = os.path.dirname(__file__)
 
+from cog_hatsune import hatsuneCog
+
 SPACE = '\u200B'
 
 class gachaCog(commands.Cog):
@@ -22,6 +24,9 @@ class gachaCog(commands.Cog):
         # laod
         self.roll_limit =   100000
         self.pool =         self.pool(self, client, config)
+
+        # cog
+        self.hatsune = hatsuneCog(client)
     
     class character:
         def __init__(self, client, name, rarity, limited=False):
@@ -144,6 +149,8 @@ class gachaCog(commands.Cog):
 
                     if mode == 'spark':
                         break
+                    elif ch.name == mode:
+                        break
             
             summary['rolls'] = i
             summary['frags'] = summary['ssr']*50 + summary['sr']*10 + summary['r']
@@ -182,11 +189,15 @@ class gachaCog(commands.Cog):
     def embed_gacha_summary(self, author, roll, summary, mode):
         # mode
         if mode == 'roll':
-            desc = f"「ステキのなかまですね、{author.name}！」" if summary['ssr'] == 0 else f"「おめでとうございます、{author.name}！」"
+            desc = f"「ステキなナカマですね、{author.name}！」" if summary['ssr'] == 0 else f"「おめでとうございます、{author.name}！」"
 
         elif mode == 'spark':
             desc = f"{author.name}, you managed to pull **{list(summary['lim'].values())[0][0].full_name}** in **{summary['rolls']}** pulls." if summary['rolls'] < roll else\
                         f"{author.name}, you did not manage to pull any rate up(s) within {summary['rolls']} rolls."
+        
+        else:
+            desc = f"{author.name}, you managed to pull **{list(summary['lim'].values())[0][-1].full_name}** in **{summary['rolls']}** pulls." if summary['rolls'] < roll else\
+                        f"{author.name}, you did not manage to pull {self.pool.ssr_pool['lim'][[chara.name for chara in self.pool.ssr_pool['lim']].index(mode)].full_name} within {summary['rolls']} rolls."
 
         embed = discord.Embed(
             title="カレンのガチャ報道",
@@ -257,31 +268,50 @@ class gachaCog(commands.Cog):
         usage='.spark [limit=300]',
         help='Have Ames test your luck to get the rate up in this current banner. [limit] cannot be greater than 300 for obvious reasons.'
     )
-    async def spark(self, ctx, *limit):
+    async def spark(self, ctx, *request):
+        # let limit be either (chara=lim_pool, limit=300), (chara, limit=300) or (chara, limit)
         channel = ctx.channel
         author = ctx.message.author
         if not self.client.command_status['spark'] == 1:
             raise commands.DisabledCommand
         
+        # checks
         if (len(self.pool.ssr_pool['lim'])) == 0:
             await channel.send('There\'s nothing to spark! '+self.client.emotes['ames']+" (empty limited pool)")
             return
         
-        if len(limit) == 0:
-            limit = 300
-        else:
-            try:
-                limit = int(limit[0])
-            except:
-                await channel.send(self.client.emotes['ames'])
-                return 
-            else:
-                if limit < 1 or limit > 300:
-                    await channel.send(self.client.emotes['ames'])
-                    return
+        limit = None
+        mode = None
+        for temp in request:
+            # see if input is a number
+            if limit == None:
+                try:
+                    limit = int(temp)
+                except:
+                    limit = None
+                else:
+                    if limit > 300 or limit < 0:
+                        await channel.send(self.client.emotes['amesyan'])
+                        return
+                    continue
+            # see if input is a chara
+            if mode == None:
+                try:
+                    x, mode, x = await self.hatsune.process_request(ctx, [temp], None, False)
+                    del x
+                except:
+                    mode = None
+                else:
+                    if not mode in [chara.name for chara in self.pool.ssr_pool['lim']]:
+                        await channel.send("This character cannot be sparked")
+                        return
+                    
+
+        limit = 300 if limit == None else limit
+        mode = "spark" if mode == None else mode
         
-        summary = self.pool.spark(limit, 'spark')
-        await channel.send(embed=self.embed_gacha_summary(author, limit, summary, "spark"))
+        summary = self.pool.spark(limit, mode)
+        await channel.send(embed=self.embed_gacha_summary(author, limit, summary, mode))
 
     @commands.command(
         usage='.gacha [num=10]',
@@ -366,6 +396,47 @@ class gachaCog(commands.Cog):
         ssrare.close()
         new.close()
         #none.close()  
+
+    @commands.command()
+    async def banner(self, ctx):
+        channel = ctx.channel
+        embed = discord.Embed(
+            title="Pool statistics",
+            description="Current pool condition",
+            timestamp=datetime.datetime.utcnow(),
+            colour=self.colour
+        )
+        embed.set_footer(text="Pool | Re:Re:Write Ames", icon_url=self.client.user.avatar_url)
+        embed.add_field(
+            name="PriFes",
+            value="Active" if self.pool.prifes else "Inactive",
+            inline=False
+        )
+        embed.add_field(
+            name="SSR Rate(rateup)",
+            value=f"{self.pool.rate_ssr*100}% ({self.pool.up_ssr*100}%)"
+        )
+        embed.add_field(
+            name="SR Rate(rateup)",
+            value=f"{self.pool.rate_sr*100}% ({self.pool.up_sr*100}%)"
+        )
+        embed.add_field(
+            name="R Rate(rateup)",
+            value=f"{self.pool.rate_r*100}% ({self.pool.up_r*100}%)"
+        )
+        pools = [
+            ("SSR", self.pool.ssr_pool['lim']),
+            ("SR", self.pool.sr_pool['lim']), 
+            ("R", self.pool.r_pool['lim'])
+        ]
+        for rarity, pool in pools:
+            temp = set([f"{self.client.team[chara.name]} {chara.full_name}" for chara in pool])
+            embed.add_field(
+                name=f"{rarity} Limited Pool",
+                value="\n".join(temp) if len(temp) != 0 else "Empty",
+                inline=True
+            )
+        await channel.send(embed=embed)
 
 def setup(client):
     client.add_cog(gachaCog(client))

@@ -33,8 +33,8 @@ class hatsuneCog(commands.Cog):
 
         # help stuff
         self.full_help =     ("**In case you forgot, the input syntax is:**\n"
-                            "> `.c(haracter) [version|optional].[character_name] [*option|optional]`\n"
-                            "> i.e. `.c s.kyaru` `.c maho flb`\n"
+                            "> `.c [version.][character_name] [*options]`\n"
+                            "> i.e. `.ue s.kyaru` `.stats maho flb`\n"
                         "**The seasonal prefixes are:**\n"
                             "> `n` for New year i.e. `n.rei`\n"
                             "> `x` for Christmas i.e. `x.ayane`\n"
@@ -46,7 +46,8 @@ class hatsuneCog(commands.Cog):
                             "> `m` for Magical Girl i.e. `m.shiori`\n"
                             "> `p` for Princess i.e. `p.peco`\n"
                             "> `cg` for DereMasu i.e. `cg.uzuki`\n"
-                            "> `r` for ranger i.e. `r.rin`\n"
+                            "> `r` for Ranger i.e. `r.rin`\n"
+                            "> `w` for Wonderland i.e. `w.ayumi`\n"
                         "**The following icons at the bottom of the embed have the following meaning:**\n"
                             "> <:_chara:677763373739409436> react to access chara and skill info\n"
                             "> <:_ue:677763400713109504> react to access UE info and data\n"
@@ -160,11 +161,11 @@ class hatsuneCog(commands.Cog):
             if len(temp) == 2:
                 prefix = temp[0]
                 if prefix in list(self.config['prefix_title'].keys()):
-                    processed.append("".join(temp[:2]))
+                    processed += temp[:2]
                 else:
                     for key, value in list(self.config['prefix_new'].items()):
                         if prefix in value:
-                            processed.append("".join([key, temp[1]]))
+                            processed += [key, temp[1]]
             else:
                 processed.append(item)
         

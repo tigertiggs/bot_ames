@@ -177,11 +177,11 @@
         "spark": {
             "flags":    ["normal", "_gacha"],
             "hidden":   false,
-            "usage":    ".spark [limit=300]",
+            "usage":    ".spark [*options]",
             "subcmd":   null,
             "aliases":  null,
-            "help":     "Try to obtain a rateup character in the pool. Functions like `.roll` but will stop once you get a rate up or stop at the specified `limit`. This function will not work if the rate-up pool is empty.",
-            "help_ex":  null
+            "help":     "Try to obtain a rateup character in the pool. Use `.help spark` for more details.",
+            "help_ex":  "Try to obtain a character in the limited pool within some roll restriction. Usage is:\n> `.spark [character] [roll_limit]`\nWhere the parameters `character` and `limit` can be entered in any order or omitted.\n`character` is a character in the rate up pool; use `.banner` to see who is available at the moment. If left blank or invalid will cause the function to stop once any rate up is rolled.\n`limit` is a positive integer between 1 and 300 where the function will stop rolling if you have not rolled your target within this number of rolls. `roll_limit` will default to 300 if left blank.\n\nThis function will not work if the limited pool is empty."
         },
         "update": {
             "flags":    ["_update","restricted"],
@@ -299,6 +299,15 @@
             "aliases":  ["ann"],
             "help":     "See which twitter listeners are active in your guild. Use `.help announce` for more details.",
             "help_ex":  "Set up twitter listeners in your Guild. You can see available services via `.ann`.\n\n> `.announce set [service] [status]`\nSet the status of a valid service in your guild. You can find valid services at `.ann`. You must have `[admin]` permission role to use the above subcommand(s).\n`[status]` can either be a digit `1` or `0` if you want to turn the specified service on/off respectively, or `[status]` can be a `#discord_channel` where you wish for Ames to send the embeds."
-        }
+        },
+        "banner": {
+                "flags":    ["_gacha","normal"],
+                "hidden":   false,
+                "usage":    ".banner",
+                "subcmd":   null,
+                "aliases":  null,
+                "help":     "See the current pool/banner conditions",
+                "help_ex":  null
+            }
     }
 }

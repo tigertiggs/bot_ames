@@ -20,6 +20,7 @@ class helpCog(commands.Cog):
     
     def filter_commands(self, target, perm=False):
         temp = [item for item in list(self.help_text.values()) if target in item['flags'] and (not item['hidden'] or perm)]
+        temp.sort(key=lambda x: x['usage'])
         return temp if len(temp)>0 else ["empty"]
 
     def make_help_text(self, data):
