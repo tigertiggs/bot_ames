@@ -19,7 +19,7 @@ class helpCog(commands.Cog):
             self.help_tag = json.load(tf)
     
     def filter_commands(self, target, perm=False):
-        temp = [item for item in list(self.help_text.values()) if target in item['flags'] and (not item['hidden'] or perm)]
+        temp = [item for item in list(self.help_text.values()) if target in item['flags'] and ((not item['hidden'] and not "restricted" in item['flags']) or perm)]
         temp.sort(key=lambda x: x['usage'])
         return temp if len(temp)>0 else ["empty"]
 
@@ -209,6 +209,8 @@ class helpCog(commands.Cog):
             if self.client._check_author(author):
                 await channel.send(embed=self.make_extended_help(command))
             elif "admin" in command['flags'] and self.client._check_author(author, "admin"):
+                await channel.send(embed=self.make_extended_help(command))
+            elif not  "admin" in command['flags']:
                 await channel.send(embed=self.make_extended_help(command))
             else:
                 await channel.send("Command is restricted "+self.client.emotes['ames'])

@@ -196,7 +196,7 @@ class gachaCog(commands.Cog):
                         f"{author.name}, you did not manage to pull any rate up(s) within {summary['rolls']} rolls."
         
         else:
-            desc = f"{author.name}, you managed to pull **{list(summary['lim'].values())[0][-1].full_name}** in **{summary['rolls']}** pulls." if summary['rolls'] < roll else\
+            desc = f"{author.name}, you managed to pull **{list(summary['lim'].values())[-1][0].full_name}** in **{summary['rolls']}** pulls." if summary['rolls'] < roll else\
                         f"{author.name}, you did not manage to pull {self.pool.ssr_pool['lim'][[chara.name for chara in self.pool.ssr_pool['lim']].index(mode)].full_name} within {summary['rolls']} rolls."
 
         embed = discord.Embed(
