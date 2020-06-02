@@ -1439,5 +1439,10 @@ class hatsuneCog(commands.Cog):
         
         await channel.send(f"Successfully deleted `{alias}`")
 
+    #@alias.after_invoke()
+    #async def refresh(self, ctx):
+    #    self.client.unload_extension("commands.cog_gacha")
+    #    self.client.load_extension("commands.cog_gacha")
+
 def setup(client):
     client.add_cog(hatsuneCog(client))

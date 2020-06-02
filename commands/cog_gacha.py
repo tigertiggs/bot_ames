@@ -7,7 +7,7 @@ import random, datetime, json
 from PIL import Image, GifImagePlugin, ImageDraw, ImageSequence, ImageOps, ImageFont
 #dir = os.path.dirname(__file__)
 
-from cog_hatsune import hatsuneCog
+#from cog_hatsune import hatsuneCog
 
 SPACE = '\u200B'
 
@@ -26,7 +26,7 @@ class gachaCog(commands.Cog):
         self.pool =         self.pool(self, client, config)
 
         # cog
-        self.hatsune = hatsuneCog(client)
+        #self.hatsune = hatsuneCog(client)
     
     class character:
         def __init__(self, client, name, rarity, limited=False):
@@ -297,7 +297,9 @@ class gachaCog(commands.Cog):
             # see if input is a chara
             if mode == None:
                 try:
-                    x, mode, x = await self.hatsune.process_request(ctx, [temp], None, False)
+                    from cog_hatsune import hatsuneCog
+                    hatsune = hatsuneCog(self.client)
+                    x, mode, x = await hatsune.process_request(ctx, [temp], None, False)
                     del x
                 except:
                     mode = None
@@ -305,6 +307,7 @@ class gachaCog(commands.Cog):
                     if not mode in [chara.name for chara in self.pool.ssr_pool['lim']]:
                         await channel.send("This character cannot be sparked")
                         return
+            del hatsune
                     
 
         limit = 300 if limit == None else limit
