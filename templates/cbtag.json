@@ -1,0 +1,22 @@
+{
+    "target_guild": null,
+    "boss_roles": [
+        null
+    ],
+    "janitor": [
+        null
+    ],
+    "guilds": {
+        "subguild_name": {
+            "name": null,
+            "colour": null,
+            "id": [
+                null,
+            ],
+            "last_message": {
+                "channel": null,
+                "message": null
+            }
+        }
+    }
+}

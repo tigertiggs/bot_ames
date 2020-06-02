@@ -59,7 +59,7 @@
         "cog_shen":     [146, 3, 150],
         "cog_shenp":    [156, 14, 89],
         "cog_help":     [7, 138, 57],
-        "cog_twitter":  [7, 138, 57]
+        "cog_twitter":  [20, 196, 245]
     },
     "command_status":   {
         "status":   1,

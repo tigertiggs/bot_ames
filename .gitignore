@@ -29,3 +29,4 @@ commands/hatsune_data/alias_local.json
 __pycache__
 old/*
 .vscode
+todo
