@@ -521,6 +521,17 @@ class hatsuneCog(commands.Cog):
             inline=False
         )
 
+        if 'mid' in info['tag']:
+            p = "Midguard"
+        elif 'front' in info['tag']:
+            p = "Rearguard"
+        else:
+            p = "Vanguard"
+        embed.add_field(
+            name="> **Position**",
+            value=p,
+            inline=False
+        )
         embed.add_field(
             name="> **Attack Pattern**",
             value="Initial:\nLooping:",
@@ -795,7 +806,17 @@ class hatsuneCog(commands.Cog):
             inline=False
         )
         """
-
+        if 'mid' in info['tag']:
+            p = "Midguard"
+        elif 'front' in info['tag']:
+            p = "Rearguard"
+        else:
+            p = "Vanguard"
+        embed.add_field(
+            name="> **Position**",
+            value=p,
+            inline=False
+        )
         embed.add_field(
             name="> **Attack Pattern**",
             value="Initial:\nLooping:",
@@ -1091,10 +1112,14 @@ class hatsuneCog(commands.Cog):
             await channel.send(embed=await self.tag_chara(conn, _request, option))
         else:
             for tag in request:
+                if tag.startswith('-'):
+                    tag = tag[1:]
+
                 if not tag in (list(self.tag_definitions['basic'].keys()) + list((self.tag_definitions['atk'].keys())) + list(self.tag_definitions['buff'].keys())):
                     await channel.send(f"Unknown tag `{tag}`")
                     self.db.release(conn)
                     return
+                
             await channel.send(embed=self.tag_search(conn, request))
         
         self.db.release(conn)
@@ -1117,8 +1142,8 @@ class hatsuneCog(commands.Cog):
         return embed
 
     def tag_search(self, conn, request):
-        join = " and tag like ".join([f"'%{tag}%'" for tag in request])
-        query = ("SELECT unit_name_eng FROM hatsune_bot.charadata WHERE tag like "+join+" ORDER BY unit_name_eng")
+        join = " and tag ".join([f" like '%{tag}%' " if not tag.startswith('-') else  f" not like '%{tag[1:]}%' " for tag in request])
+        query = ("SELECT unit_name_eng FROM hatsune_bot.charadata WHERE tag "+ join + " ORDER BY unit_name_eng")
         cursor = conn.cursor(buffered=True)
         cursor.execute(query)
         charas = []

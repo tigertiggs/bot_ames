@@ -425,10 +425,12 @@ class coreCog(commands.Cog):
         await channel.send("Changed debug state")
 
     @commands.command()
-    async def choose(self, ctx, *items):
+    async def choose(self, ctx, *, items):
         author = ctx.message.author
         channel = ctx.channel
-        items = [i.strip() for i in " ".join(items).split(',')]
+        print(items)
+        items = [i.strip() for i in items.split(',')]
+        print(items)
         if len(items) == 0:
             await channel.send(self.client.emotes['ames'])
             return
