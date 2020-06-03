@@ -152,7 +152,7 @@ class helpCog(commands.Cog):
     def make_help_embed(self, data, index):
         embed = discord.Embed(
             title=f"Help (page {index[0]} of {index[1]})",
-            description="Command documentation and usage.\nMost commands have their own command page with more detailed instructions and you can access them via `.help [full_command]`.\nYou can view group commands entering `.help [group=normal]`. Current groups are: {}.\n```css\n{}```".format(" ".join([f"`{i}`" for i in self.command_tags]),"\n\n".join(self.make_help_text(data))),
+            description="Command documentation and usage.\nMost commands have their own command page with more detailed instructions and you can access them via `.help [full_command_name]`(no aliases accepted).\nYou can view group commands entering `.help [group_name]` and will default to `.help normal` if left blank. Current groups are: {}.\n```css\n{}```".format(" ".join([f"`{i}`" for i in self.command_tags]),"\n\n".join(self.make_help_text(data))),
             timestamp=datetime.datetime.utcnow(),
             colour=self.colour
         )

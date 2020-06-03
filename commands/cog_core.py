@@ -487,7 +487,7 @@ class coreCog(commands.Cog):
         return embed
   
     @permissions.command()
-    async def set(self, ctx, perm:str, role:discord.Role=None):
+    async def set(self, ctx, perm:str=None, role:discord.Role=None):
         channel = ctx.message.channel
         author = ctx.message.author
 
@@ -498,8 +498,8 @@ class coreCog(commands.Cog):
         elif not perm in list(self.client.perms.keys()):
             await channel.send(f"{perm} is not a valid permission key - user `.perm` to see all available permissions.")
             return
-        elif perm == None:
-            await channel.send(f"No role inputed!")
+        elif perm == None or role == None:
+            await channel.send(f"Missing one or more inputs")
             return
 
         try:
