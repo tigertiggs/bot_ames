@@ -524,9 +524,9 @@ class hatsuneCog(commands.Cog):
         if 'mid' in info['tag']:
             p = "Midguard"
         elif 'front' in info['tag']:
-            p = "Rearguard"
-        else:
             p = "Vanguard"
+        else:
+            p = "Rearguard"
         embed.add_field(
             name="> **Position**",
             value=p,
@@ -809,9 +809,9 @@ class hatsuneCog(commands.Cog):
         if 'mid' in info['tag']:
             p = "Midguard"
         elif 'front' in info['tag']:
-            p = "Rearguard"
-        else:
             p = "Vanguard"
+        else:
+            p = "Rearguard"
         embed.add_field(
             name="> **Position**",
             value=p,
