@@ -328,9 +328,9 @@ class Ames(commands.AutoShardedBot):
 
         else:
             try:
-                if ctx.command != None:
-                    await self.log.send('[{0.user.name}] `{1}` `{2.channel.guild.name}` `{2.channel.name}` `{2.author.name}` `{2.content}`'.format(
-                        self, datetime.datetime.now(), message))
+                #if ctx.command != None:
+                #    await self.log.send('[{0.user.name}] `{1}` `{2.channel.guild.name}` `{2.channel.name}` `{2.author.name}` `{2.content}`'.format(
+                #        self, datetime.datetime.now(), message))
                 await self.invoke(ctx)
             except Exception as e:
                 await self.log.send(self.name, 'failed to process command', e)

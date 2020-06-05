@@ -127,6 +127,8 @@ class hatsuneCog(commands.Cog):
             mode = 'card'
         elif invk == 'stats':
             mode = 'stats'
+        elif invk == 'profile':
+            mode = 'profile'
         else:
             mode = 'chara'
         
@@ -223,6 +225,7 @@ class hatsuneCog(commands.Cog):
             await self.logger.send('failed to fetch data: ', e)
             return False
 
+        info['profile'] =       raw['data']['unit_profile']
         info['max_ue'] =        raw['config']['UE_MAX']
         info['hnote_id'] =      raw['data']['unit_profile']['id']
         info['cm'] =            raw['data']['unit_profile']['comment'].replace('\\n', '')
@@ -287,7 +290,7 @@ class hatsuneCog(commands.Cog):
 
     @commands.command(
         usage="character [name] [*option|optional]",
-        aliases=['c','ue','chara', 'card', 'pic', 'stats'],
+        aliases=['c','ue','chara', 'card', 'pic', 'stats', 'profile'],
         help="Have Ames fetch data on the specified character"
     )
     async def character(self, ctx, *request):
@@ -341,7 +344,7 @@ class hatsuneCog(commands.Cog):
         # construct embeds
         embed_controller = self.chara_page_controller(info, mode, option, self)
 
-        reactions = ['<:_chara:677763373739409436>', '<:_ue:677763400713109504>', '<:_card:677763353069879306>', '<:_stats:678081583995158538>'] 
+        reactions = ['<:_chara:677763373739409436>', '<:_ue:677763400713109504>', '<:_card:677763353069879306>', '<:_stats:678081583995158538>', '<:_profile:718471302460997674>'] 
         if 'flb' in info['tag']:
             reactions.append('⭐')
         if info['sk1a'] != None or info['sk2a'] != None:
@@ -377,6 +380,8 @@ class hatsuneCog(commands.Cog):
                         toggle = 'ue'
                     elif emote_check == '<:_card:677763353069879306>':
                         toggle = 'card'
+                    elif emote_check == '<:_profile:718471302460997674>':
+                        toggle = 'profile'
                     elif emote_check == '⭐':
                         toggle = 'flb'
                     elif emote_check == '\U0001F500':
@@ -389,13 +394,14 @@ class hatsuneCog(commands.Cog):
     class chara_page_controller():
         def __init__(self, info, mode, option, cog):
             self.cog = cog
-            self.pages_title = ["<:_chara:677763373739409436> Chara", "<:_ue:677763400713109504> UnqEq", "<:_card:677763353069879306> Card", "<:_stats:678081583995158538> Stats"]
+            self.pages_title = ["<:_chara:677763373739409436> Chara", "<:_ue:677763400713109504> UnqEq", "<:_card:677763353069879306> Card", "<:_stats:678081583995158538> Stats", "<:_profile:718471302460997674> Profile"]
             self.page_icons = []
 
             self.chara_pages =  []
             self.ue_pages =     []
             self.card_pages =   []
             self.stats_pages =  []
+            self.profile_pages =[]
             self.alt_mode =     False
             self.flb_mode =     False
             self.current_page = None
@@ -412,6 +418,7 @@ class hatsuneCog(commands.Cog):
             self.ue_pages.append(self.cog.make_embed_ue(self.info, self.pages_title.copy()))
             self.card_pages.append(self.cog.make_embed_card(self.info, self.pages_title.copy()))
             self.stats_pages.append(self.cog.make_embed_stats(self.info, self.pages_title.copy()))
+            self.profile_pages.append(self.cog.make_embed_profile(self.info, self.pages_title.copy()))
 
             # flb
             if 'flb' in self.info['tag']:
@@ -442,6 +449,10 @@ class hatsuneCog(commands.Cog):
                     self.flb_mode = True
                     return self.stats_pages[1]
                 return self.stats_pages[0]
+            
+            elif self.mode == 'profile':
+                self.current_page = 'profile'
+                return self.profile_pages[0]
 
             else:
                 self.current_page = 'chara'
@@ -453,8 +464,8 @@ class hatsuneCog(commands.Cog):
         def toggle(self, mode):
             if mode == 'ue':
                 self.current_page = 'ue'
-                if self.flb_mode:
-                    return self.ue_pages[1]
+                #if self.flb_mode:
+                #    return self.ue_pages[1]
                 return self.ue_pages[0]
 
             elif mode == 'card':
@@ -478,6 +489,10 @@ class hatsuneCog(commands.Cog):
             elif mode == 'flb':
                 self.flb_mode = not self.flb_mode
                 return self.toggle(self.current_page)
+            
+            elif mode == "profile":
+                self.current_page = "profile"
+                return self.profile_pages[0]
         
             else:
                 self.current_page = 'chara'
@@ -515,11 +530,11 @@ class hatsuneCog(commands.Cog):
         )
 
         # comment
-        embed.add_field(
-            name="Comment",
-            value=f"{info['cm']}",
-            inline=False
-        )
+        #embed.add_field(
+        #    name="Comment",
+        #    value=f"{info['cm']}",
+        #    inline=False
+        #)
 
         if 'mid' in info['tag']:
             p = "Midguard"
@@ -967,6 +982,86 @@ class hatsuneCog(commands.Cog):
 
             embed.set_image(url=link)
         
+        return embed
+
+    def make_embed_profile(self, info, section_title, option=None):
+        section_title[section_title.index("<:_profile:718471302460997674> Profile")] = "<:_profile:718471302460997674> **[Profile]**"
+        embed = discord.Embed(
+            title="Character Profile",
+            timestamp=datetime.datetime.utcnow(),
+            colour=self.colour
+        )
+        embed.set_footer(text="Profile | Re:Re:Write Ames", icon_url=self.client.user.avatar_url)
+        embed.add_field(
+            name="Section",
+            value=" - ".join(section_title),
+            inline=False
+        )
+        embed.add_field(
+            name="Comment",
+            value=info['cm'],
+            inline=False
+        )
+        embed.add_field(
+            name="Voice Actress",
+            value=info['profile']['VA'],
+            inline=True
+        )
+        #if option == None:
+
+        url = f"https://redive.estertion.win/card/actual_profile/{info['profile']['id']}32.webp"
+        if requests.get(url).status_code == 404:
+            url = f"https://redive.estertion.win/card/actual_profile/{info['profile']['id']}31.webp"
+
+        embed.set_image(url=url)
+        embed.add_field(
+            name=SPACE,
+            value="> Ingame Profile",
+            inline=False
+        )
+        embed.add_field(
+            name="Name",
+            value=f"{info['profile']['name']}({info['profile']['name_alt']})"
+        )
+        embed.add_field(
+            name="Race",
+            value=info['profile']['race']
+        )
+        embed.add_field(
+            name="Guild",
+            value=info['profile']['guild']
+        )
+        #else:
+            #embed.set_image(url=f"https://redive.estertion.win/card/profile/{info['profile']['id']}11.webp")
+        embed.add_field(
+            name=SPACE,
+            value="> IRL Profile",
+            inline=False
+        )
+        embed.add_field(
+            name="Name",
+            value=info['profile']['name_irl']
+        )
+        embed.add_field(
+            name="Age",
+            value=f"||{info['profile']['age']}||"
+        )
+        embed.add_field(
+            name="Birthday (mm/dd)",
+            value=info['profile']['bday']
+        )
+        embed.add_field(
+            name="Height (cm)",
+            value=info['profile']['height']
+        )
+        embed.add_field(
+            name="Bloodtype",
+            value=info['profile']['bloodtype']
+        )
+        embed.add_field(
+            name="Weight (kg)",
+            value=info['profile']['weight']
+        )
         return embed
 
     # position finder

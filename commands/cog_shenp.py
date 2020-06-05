@@ -22,7 +22,7 @@ class shenpCog(commands.Cog):
         else:
             return False
     
-    async def make_shenp(self, channel, users:tuple, paths:tuple, save_name:str):
+    async def make_shenp(self, channel, users:tuple, paths:tuple, save_name:str, ames=False):
         # load bg
         open_files = []
         bg = Image.open(os.path.join(self.client.dir, self.client.config['shen_path'], paths[0]))
@@ -36,6 +36,10 @@ class shenpCog(commands.Cog):
         # pharse and paste profile pics
         for user_dict in users:
             try:
+                if ames:
+                    if await self.ames_check(user_dict['user'], channel):
+                        bg.close()
+                        return False
                 temp = requests.get(user_dict['user'].avatar_url)
                 temp = Image.open(BytesIO(temp.content))
             except Exception as e:
@@ -70,16 +74,17 @@ class shenpCog(commands.Cog):
 
         return discord.File(os.path.join(self.client.dir, self.client.config['post_path'], save_name)), save_name
 
-    async def process_user(self, ctx, user, always_return:bool=True):
+    async def process_user(self, ctx, user, always_return:bool=True, ames=False):
         channel = ctx.channel
         if user != None:
             target = await self.client.find_user(ctx.message.guild, user)
             if target == None:
                 await channel.send('https://cdn.discordapp.com/emojis/617546206662623252.png')
                 return False
-            check = await self.ames_check(target, channel)
-            if check:
-                return False
+            #check = await self.ames_check(target, channel)
+            if ames:
+                if await self.ames_check(user, channel):
+                    return False
             user = target
         elif user == None and always_return:
             user = ctx.message.author
@@ -109,12 +114,12 @@ class shenpCog(commands.Cog):
                 "paste":[(50,60)],
                 "rotate":-25
             }
-            shenpf, name = await self.make_shenp(channel, [user], ["other/spray.png"], "post_spray.png")
-            del name
+            shenpf = await self.make_shenp(channel, [user], ["other/spray.png"], "post_spray.png", True)
+            print(shenpf)
             if shenpf == False:
                 return
 
-        await channel.send(file=shenpf)
+        await channel.send(file=shenpf[0])
 
     @commands.command()
     async def dumb(self, ctx, user:str=None):
@@ -133,11 +138,10 @@ class shenpCog(commands.Cog):
                     "size":(200,200),
                     "paste":[(165,365)]
                 }
-            shenpf, name = await self.make_shenp(channel, [user], ["other/dumb.jpg"], "post_dumb.jpg")
-            del name
+            shenpf = await self.make_shenp(channel, [user], ["other/dumb.jpg"], "post_dumb.jpg", True)
             if shenpf == False:
                 return
-        await channel.send(file=shenpf)
+        await channel.send(file=shenpf[0])
         
     @commands.command(aliases=['enty1', 'enty2', 'enty3'])
     async def enty(self, ctx, user:str=None):
@@ -162,17 +166,19 @@ class shenpCog(commands.Cog):
             if mode == 0:
                 user['size'] = (400,400)
                 user['paste'] = [(110,240)]
-                shenpf, name = await self.make_shenp(channel, [user], ["enty/entychase.jpg"], "post_entychase.jpg")
+                shenpf = await self.make_shenp(channel, [user], ["enty/entychase.jpg"], "post_entychase.jpg", True)
             elif mode == 1:
                 user['size'] = (270,270)
                 user['paste'] = [(90,125)]
-                shenpf, name = await self.make_shenp(channel, [user], ["enty/entyraid.jpg"], "post_entyraid.jpg")
+                shenpf = await self.make_shenp(channel, [user], ["enty/entyraid.jpg"], "post_entyraid.jpg", True)
             else:
                 user['size'] = (150,150)
                 user['paste'] = [(140,10),(115,270),(120,520)]
-                shenpf, name = await self.make_shenp(channel, [user], ["enty/entydejavu1.jpg","enty/entydejavu2.png"], "post_entydejavu.jpg")
+                shenpf = await self.make_shenp(channel, [user], ["enty/entydejavu1.jpg","enty/entydejavu2.png"], "post_entydejavu.jpg", True)
         
-        await channel.send(file=shenpf)           
+        if shenpf == False:
+            return  
+        await channel.send(file=shenpf[0])           
 
     @commands.command(aliases=['nozobless'])
     async def bless(self, ctx, user:str=None):
