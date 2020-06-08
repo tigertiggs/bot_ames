@@ -191,7 +191,7 @@ class twitterCog(commands.Cog):
         channel=ctx.message.channel
         # checks
         if not self.client._check_author(author, "admin"):
-            await channel.send(self.client.emotes['ames'])
+            await channel.send("Missing [admin] permission "+self.client.emotes['ames'])
             return
         elif not service in list(self.config['accounts'].keys()):
             await channel.send(f"`{service}` is not a valid service. Please use `.announce` to see all available services or `.help announce` for more details.")

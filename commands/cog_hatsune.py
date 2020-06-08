@@ -68,7 +68,7 @@ class hatsuneCog(commands.Cog):
                                     'Alternatively enter a character name to find their lineup.'
         return error_msg
 
-     # to avoid connecting to pandaDB keep a local copy of the index
+    # to avoid connecting to pandaDB keep a local copy of the index
     def get_attack_pattern(self, info):
         if "magic" in info['tag']:
             norm_atk = '<:magatk:713288155469578272>'

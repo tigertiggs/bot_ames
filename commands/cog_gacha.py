@@ -175,11 +175,12 @@ class gachaCog(commands.Cog):
             try:
                 roll = int(roll[0])
             except:
-                await channel.send(self.client.emotes['ames'])
+                await channel.send("Could not interpret input "+self.client.emotes['ames'])
                 return
             else:
                 if not self.roll_check(roll):
-                    await channel.send(self.client.emotes['ames'])
+                    await channel.send(self.client.emotes['amesyan'])
+                    return
         else:
             roll = 10
         
@@ -320,14 +321,19 @@ class gachaCog(commands.Cog):
         usage='.gacha [num=10]',
         help='Have Ames do a 10 roll. This command is resource intensive (data warning: image <=200kB). [num] must be an integer between 1 and 10.'
     )
-    async def gacha(self, ctx, num=10, *test):
+    async def gacha(self, ctx, num:str="10", *test):
         channel = ctx.channel
         author = ctx.message.author
         if not self.client.command_status['gacha'] == 1:
             raise commands.DisabledCommand
         
-        if num < 1 or num > 10:
-            await channel.send(self.client.emotes['amesyan'])
+        if num.isnumeric():
+            num = int(num)
+            if num < 1 or num > 10:
+                await channel.send(self.client.emotes['amesyan'])
+                return
+        else:
+            await channel.send("nonzero positive integer input between 1 and 10 please "+self.client.emotes['ames'])
             return
         
         # read input

@@ -217,7 +217,7 @@ class coreCog(commands.Cog):
         if not self.client.command_status['purge'] == 1:
             raise commands.DisabledCommand
         elif not self.client._check_author(ctx.message.author, "admin"):
-            await channel.send(self.client.emotes['ames'])
+            await channel.send("Missing [admin] permission "+self.client.emotes['ames'])
             return
 
         def is_me(message):
@@ -428,9 +428,9 @@ class coreCog(commands.Cog):
     async def choose(self, ctx, *, items):
         author = ctx.message.author
         channel = ctx.channel
-        print(items)
+        #print(items)
         items = [i.strip() for i in items.split(',')]
-        print(items)
+        #print(items)
         if len(items) == 0:
             await channel.send(self.client.emotes['ames'])
             return
@@ -493,7 +493,7 @@ class coreCog(commands.Cog):
 
         # check
         if not self.client._check_author(author, "admin"):
-            await channel.send(self.client.emotes['ames'])
+            await channel.send("Missing [admin] permission "+self.client.emotes['ames'])
             return
         elif not perm in list(self.client.perms.keys()):
             await channel.send(f"{perm} is not a valid permission key - user `.perm` to see all available permissions.")
@@ -531,7 +531,7 @@ class coreCog(commands.Cog):
 
         # check
         if not self.client._check_author(author, "admin"):
-            await channel.send(self.client.emotes['ames'])
+            await channel.send("Missing [admin] permission "+self.client.emotes['ames'])
             return
         elif not perm in list(self.client.perms.keys()):
             await channel.send(f"{perm} is not a valid permission key - user `.perm` to see all available permissions.")

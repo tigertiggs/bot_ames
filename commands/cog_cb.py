@@ -101,7 +101,6 @@ class cbCog(commands.Cog):
                     await user.add_roles(self.get_role(self.config['janitor'][0]))
                     if channel != None:
                         await channel.send("Added janitor role")
-
         return True
 
     def collect_data(self, guild='all'):

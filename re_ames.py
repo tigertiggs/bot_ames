@@ -319,8 +319,8 @@ class Ames(commands.AutoShardedBot):
                 await self.log.send(str(ctx.command))
                 await self.invoke(ctx)
             elif ctx.command != None:
-                msg = await message.channel.send(f"Ames is currently MT/in debug and will be unresponsive {self.emotes['ames']}\nThis message will delete itself in `5s`")
-                await asyncio.sleep(5)
+                msg = await message.channel.send(f"Ames is currently in debug mode for MT purposes and will not be accepting any commands {self.emotes['ames']}\nThis message will try to delete itself in `10s`")
+                await asyncio.sleep(10)
                 try:
                     await msg.delete()
                 except:
