@@ -536,6 +536,11 @@ class hatsuneCog(commands.Cog):
         #    inline=False
         #)
 
+        embed.add_field(
+            name="> **Attacker Type**",
+            value="Magic Attacker" if "magic" in info['tag'] else "Physical Attacker"
+        )
+
         if 'mid' in info['tag']:
             p = "Midguard"
         elif 'front' in info['tag']:
@@ -821,6 +826,11 @@ class hatsuneCog(commands.Cog):
             inline=False
         )
         """
+        embed.add_field(
+            name="> **Attacker Type**",
+            value="Magic Attacker" if "magic" in info['tag'] else "Physical Attacker"
+        )
+       
         if 'mid' in info['tag']:
             p = "Midguard"
         elif 'front' in info['tag']:

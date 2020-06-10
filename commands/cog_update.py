@@ -348,6 +348,9 @@ class updateCog(commands.Cog):
         if flb:
             url = f"https://redive.estertion.win/icon/unit/{hnote_id}61.webp"
             save = f"{name}6.png"
+        elif flb == None:
+            url = f"https://redive.estertion.win/icon/unit/{hnote_id}11.webp"
+            save = f"{name}.png"
         else:
             url = f"https://redive.estertion.win/icon/unit/{hnote_id}31.webp"
             save = f"{name}.png"
@@ -465,7 +468,29 @@ class updateCog(commands.Cog):
                         else:
                             await channel.send(f"adding `{chara}` to `{mode}` pool")
                             gacha_config['pools'][mode].append(chara)
+            
+            elif mode.startswith('o'):
+                msg = await channel.send("Force overwriting local assets with base rarity assets...")
+
+                with open(os.path.join(self.client.dir, self.client.config['gacha_config_path'])) as gcf:
+                    gcfg = json.load(gcf)
+
+                with open(os.path.join(self.client.dir, self.client.config['unit_list_path'])) as ulf:
+                    uindex = json.load(ulf)
+
+                for rarity, pool in list(gcfg['pools'].items()):
+                    if not rarity in ['lim', 'ssr']:
+                        for chara in pool:
+                            chara = chara.lower()
+                            try:
+                                hn_id = uindex['hn'][uindex['en'].index(chara)]
+                                self.fetch_res_estertion(chara, hn_id, None)
+                            except Exception as e:
+                                await self.logger.send(self.name, e)
+                                await channel.send(f"Failed to process `{chara}`")
                 
+                await msg.edit(content=msg.content+" **done**")
+
             else:
                 await channel.send(f"[gacha] Unknown command {command}")
             

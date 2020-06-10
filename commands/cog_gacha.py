@@ -131,21 +131,26 @@ class gachaCog(commands.Cog):
                         'norm':     dict(),
                         'ssr':      0,
                         'sr':       0,
-                        'r':        0,   
+                        'r':        0,
+                        'history':  []   
                         }
 
             for i in range(1,num+1):
                 ch = self.roll(i%10==0)
                 if ch.rarity == 1:
                     summary['r'] += 1
+                    summary['history'].append(self.config['emotes']['r'])
                 elif ch.rarity == 2:
                     summary['sr'] += 1
+                    summary['history'].append(self.config['emotes']['sr'])
                 elif ch.rarity == 3 and not ch.limited:
                     summary['norm'][ch.name] = [ch, summary['norm'].get(ch.name,[ch, 0])[1] + 1]
                     summary['ssr'] += 1
+                    summary['history'].append(self.client.team[ch.name])
                 else:
                     summary['lim'][ch.name] = [ch, summary['lim'].get(ch.name,[ch, 0])[1] + 1]
                     summary['ssr'] += 1
+                    summary['history'].append(self.client.team[ch.name])
 
                     if mode == 'spark':
                         break
@@ -154,6 +159,7 @@ class gachaCog(commands.Cog):
             
             summary['rolls'] = i
             summary['frags'] = summary['ssr']*50 + summary['sr']*10 + summary['r']
+            summary['history'] = list(self.client.chunks(summary['history'], 10))
             return summary
 
     def roll_check(self, roll:int):
@@ -315,7 +321,51 @@ class gachaCog(commands.Cog):
         mode = "spark" if mode == None else mode
         
         summary = self.pool.spark(limit, mode)
-        await channel.send(embed=self.embed_gacha_summary(author, limit, summary, mode))
+        pages = [self.embed_gacha_summary(author, limit, summary, mode)]
+        reactions = ['⬅','➡']
+        chunks = list(self.client.chunks(summary['history'], 18))
+        for x, chunk in enumerate(chunks):
+            pages.append(self.embed_gacha_history(chunk, x))
+        
+        page = await channel.send(embed=pages[0])
+        for arrow in reactions:
+            await page.add_reaction(arrow)
+
+        def author_check(reaction, user):
+            return str(user.id) == str(author.id) and str(reaction.emoji) in reactions and str(reaction.message.id) == str(page.id)
+        
+        while True:
+            try:
+                reaction, user = await self.client.wait_for('reaction_add', timeout=60.0, check=author_check)
+            except:
+                for arrow in reactions:
+                    await page.remove_reaction(arrow, self.client.user)
+                return
+            else:
+                await reaction.message.remove_reaction(reaction.emoji, user)
+                if reaction.emoji == reactions[0]:
+                    pages = [pages[-1]]+pages[:-1]
+                    #await reaction.message.edit(embed=pages[-1]+pages[:-1])
+                else:
+                    pages = pages[1:]+[pages[0]]
+                await reaction.message.edit(embed=pages[0])
+
+    def embed_gacha_history(self, history, x:int):
+        # max length = 18x10
+        embed = discord.Embed(
+            title="Roll History",
+            timestamp=datetime.datetime.utcnow(),
+            colour=self.colour
+        )
+        embed.set_footer(text="Summary | Re:Re:Write Ames", icon_url=self.client.user.avatar_url)
+        for i, chunk in enumerate(list(self.client.chunks(history, 2))):
+            embed.add_field(
+                name=f"{1+i*20 + x*180} - {i*20+20 + x*180}",
+                value="\n".join(["".join(ten) for ten in chunk]),
+                inline=False
+            )
+
+        return embed
 
     @commands.command(
         usage='.gacha [num=10]',
