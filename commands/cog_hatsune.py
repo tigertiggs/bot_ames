@@ -365,7 +365,7 @@ class hatsuneCog(commands.Cog):
         while True:
             try:
                 reaction, user = await self.client.wait_for('reaction_add', timeout=60.0, check=author_check)
-            except asyncio.TimeoutError:
+            except:
                 await page.add_reaction('\U0001f6d1')
                 return
             else:
