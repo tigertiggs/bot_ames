@@ -104,7 +104,7 @@ class coreCog(commands.Cog):
             embed.set_footer(text="Status | Ames Re:Re:Write", icon_url=self.client.user.avatar_url)
             embed.add_field(
                 name="Version",
-                value=" ".join([clientv, updatemsg]),
+                value=f"[{' '.join([clientv, updatemsg])}](https://github.com/tigertiggs/bot_ames)",
                 inline=True
             )
             embed.add_field(
