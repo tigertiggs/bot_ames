@@ -6,7 +6,7 @@ Ames is written in Python 3.7.4 utilising the [`rewrite`](https://github.com/Rap
 Although Pull requests are welcome, please note that much of Ames' lookup function relies on an privately maintained external database and much of Ames' functionality will not be available without the said database.
 
 ## Adding Ames
-You can add Ames with [this link](https://discord.com/api/oauth2/authorize?client_id=599290654878597140&permissions=1879436368&scope=bot). You will need to be a **server admininstrator** in order to add the bot. If Ames does not send anything when she joins, use `.help` to get started. Please reach out to me if something goes wrong.
+You can add Ames with [this link](https://discord.com/api/oauth2/authorize?client_id=599290654878597140&permissions=1879436368&scope=bot). You will need to have the **manage server** permission on the server you wish to add Ames. If Ames does not send anything when she joins, use `.help` to get started. Please reach out to me if something goes wrong.
 
 ## Capabilities
 Ames' current features:
