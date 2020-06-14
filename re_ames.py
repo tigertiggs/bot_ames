@@ -22,6 +22,8 @@ from mysql.connector import errorcode
 dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.insert(1, dir_path+'/commands')
 
+start_time = None
+
 # utility classes
 class logger:
     def __init__(self, client):
@@ -278,9 +280,10 @@ class Ames(commands.AutoShardedBot):
             await asyncio.sleep(switchtime)
 
     async def on_ready(self):
+        global start_time
         # uptime
         self.init_time = datetime.datetime.utcnow()
-        self.s_time = time.time()
+        self.s_time = start_time
 
         # connect the database and grab resources
         await self.database.connect()
@@ -489,5 +492,7 @@ class Ames(commands.AutoShardedBot):
         return target
 
 if __name__ == "__main__":
+    #global start_time
+    start_time = time.time()
     AmesBot = Ames()
     AmesBot.run()

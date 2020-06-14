@@ -1,7 +1,7 @@
 # this module takes care of all shitpost commands that does not require the PIL module
 import discord
 from discord.ext import commands
-import datetime, asyncio
+import datetime, asyncio, os
 from difflib import SequenceMatcher as sm
 
 class shenCog(commands.Cog):
@@ -157,6 +157,14 @@ class shenCog(commands.Cog):
             )
         
         return embed
+
+    @commands.command()
+    async def bruh(self, ctx):
+        channel=ctx.channel
+        if not self.client.command_status['bruh'] == 1:
+            raise commands.DisabledCommand
+        
+        await channel.send(file=discord.File(os.path.join(self.client.dir,self.client.config['shen_path'],"other/bruh.png")))
 
 def setup(client):
     client.add_cog(shenCog(client))

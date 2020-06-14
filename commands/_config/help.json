@@ -308,6 +308,15 @@
                 "aliases":  null,
                 "help":     "See the current pool/banner conditions",
                 "help_ex":  null
+            },
+        "bruh": {
+                "flags":    ["shitpost"],
+                "hidden":   false,
+                "usage":    ".bruh",
+                "subcmd":   null,
+                "aliases":  null,
+                "help":     "bruh",
+                "help_ex":  null
             }
     }
 }
