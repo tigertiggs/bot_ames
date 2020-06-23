@@ -1,0 +1,39 @@
+{
+    "en": "Foch",
+    "jp": "\u30d5\u30a9\u30c3\u30b7\u30e5",
+    "dname": "Foch",
+    "rarity": "SR",
+    "prefix": "FS",
+    "faction": "French",
+    "faction_jp": "\u585e\u7eb3",
+    "hull_code": "CL",
+    "ship_class": "Light Cruiser",
+    "stats": {},
+    "lb": [],
+    "traits": [
+        {
+            "name": "Coward",
+            "text": null
+        },
+        {
+            "name": "Flashbacks",
+            "text": null
+        }
+    ],
+    "skills": [
+        {
+            "name": "Counterattack of the Mook (\u7aef\u5f79\u306e\u9006\u8972)",
+            "text": "1. Reduces chance to be targeted by 90%.\n2. During battle, if Foch has not taken any damage, increases damage by 30%."
+        },
+        {
+            "name": "Special Air Orders (\u7279\u6b8a\u822a\u7a7a\u6307\u4ee4)",
+            "text": "1. At the start of [Battle], increases flagship's [Opening Airstrike] and the first [Airstrike] damage by 75%."
+        }
+    ],
+    "img_sq": "https://static.miraheze.org/blueoathwiki/8/83/Foch_Portrait_Square.png",
+    "img_rec": null,
+    "gallery": [],
+    "acquisition": null,
+    "comment": null,
+    "VA": null
+}

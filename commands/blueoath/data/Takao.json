@@ -1,0 +1,76 @@
+{
+    "en": "Takao",
+    "jp": "\u9ad8\u5c3e",
+    "dname": "Takao",
+    "rarity": "SSR",
+    "prefix": "IJN",
+    "faction": "Cherry Tree Faction",
+    "faction_jp": "\u6a31\u843d",
+    "hull_code": "CA",
+    "ship_class": "Takao-class Heavy Cruiser",
+    "stats": {
+        "general": {
+            "hp": "2621(??)",
+            "armour": "164(??)",
+            "trpdef": "165(??)",
+            "aa": "162(??)",
+            "spd": "34",
+            "fp": "158(??)"
+        },
+        "shelling": {
+            "scd": "253(??)",
+            "rld": "12",
+            "rng": "Medium"
+        },
+        "torpedo": {
+            "trp": "884(???)",
+            "stk": "1",
+            "rng": "Medium"
+        }
+    },
+    "lb": [
+        "No effect",
+        "Reduces [Main Battery] CD by 4 seconds.\nRefined Taste upgraded to Level 2.",
+        "During [Main Battery Salvo], adds a chance to activate [Cut-in].\nSecret Plan upgraded to Level 2.",
+        "Increases [Main Battery Salvo] damage by 20%.\nRefined Taste upgraded to Level 3.",
+        "Increases [Secondary Battery] damage by 50%.\nSecret Plan upgraded to Level 3.",
+        "When [Secondary Battery] is firing, firing a [Main Battery Salvo] will deal 200% more damage, will assume T-Adv for damage. Can only proc once per battle.\nRefined Taste upgraded to Level 4."
+    ],
+    "traits": [
+        {
+            "name": "Refined Taste",
+            "text": "Increase  food capacity by 2%/3%/4%/5%"
+        },
+        {
+            "name": "Secret Plan",
+            "text": "Increase Workshop and Bar production by 2%/3%/4%"
+        }
+    ],
+    "skills": [
+        {
+            "name": "Class Skill",
+            "text": "Can attack from medium range, reload time: 12s\nCan launch torpedoes from medium range; another torpedo cannot be fired unless an already launched torpedo has hit the enemy/expired\n"
+        },
+        {
+            "name": "Hazy Moon\n\u8987\u6708\u306e\u6727",
+            "text": "1. On [Main Battery Salvo], all allies gain \"Hazuki\". On [Secondary Battery Salvo], all allies gain \"Oborotsuki\".2. Every time Takao gains either \u201dHazuki\", \"Oborotsuki\" or \"Mugetsu\", increases damage by 10%.Can only proc once per battle."
+        },
+        {
+            "name": "Extermination - Violence\n\u93d6\u6bba\u30fb\u7834\u52e2",
+            "text": "1. When Takao has both \"Hazuki\" and \"Oborotsuki\", reloads [Main Battery] immediately. Afterwards, remove both \"Hazuki\" and \"Oborotsuki\".\n2. When Takao has all 3 \"Hazuki\", \"Oborotsuki\" and \"Mugetsu\", deals 100% of Takao's Firepower to the lowest health enemy. Afterwards, removes all 3 effects."
+        },
+        {
+            "name": "Full Moon\n\u6e80\u3061\u308b\u6708",
+            "text": "On [Main Battery Salvo], increases [Main Battery] damage by 6%. Stacks indefinitely and lasts until the end of battle."
+        }
+    ],
+    "img_sq": "https://static.miraheze.org/blueoathwiki/d/d0/Takao_Portrait_Square.png",
+    "img_rec": "https://static.miraheze.org/blueoathwiki/2/28/Takao_Portrait.png",
+    "gallery": [
+        "https://static.miraheze.org/blueoathwiki/f/ff/Takao_Full.png",
+        "https://static.miraheze.org/blueoathwiki/2/2b/Takao_Damaged_Full.png"
+    ],
+    "acquisition": "Gacha",
+    "comment": "Carefree and self-centered, Takao is not very interested in fighting. Is careful with her words, and smiles even when angry. Is good friends with the lazy Wasp.",
+    "VA": "Ayako Kawasumi"
+}

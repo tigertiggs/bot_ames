@@ -1,0 +1,76 @@
+{
+    "en": "Jervis",
+    "jp": "\u30b8\u30e3\u30fc\u30f4\u30a3\u30b9",
+    "dname": "Jervis",
+    "rarity": "SSR",
+    "prefix": "HMS",
+    "faction": "Imperial Faction",
+    "faction_jp": "\u72ee\u5fc3",
+    "hull_code": "DD",
+    "ship_class": "J-class Destroyer",
+    "stats": {
+        "general": {
+            "hp": "990(??)",
+            "armour": "150(??)",
+            "trpdef": "150(??)",
+            "aa": "150(??)",
+            "spd": "35",
+            "fp": "128(??)"
+        },
+        "shelling": {
+            "scd": "102(??)",
+            "rld": "6",
+            "rng": "Short"
+        },
+        "torpedo": {
+            "trp": "800(???)",
+            "stk": "2",
+            "rng": "Medium"
+        }
+    },
+    "lb": [
+        "No effect",
+        "[Torpedo Salvo] charges +1.\nRefined Taste upgraded to Level 2.",
+        "During [Main Battery Salvo], adds a chance to activate [Cut-in].\nLittle Miracle upgraded to Level 2.",
+        "Increases [Torpedo Salvo] damage by 20%.\nRefined Taste upgraded to Level 3.",
+        "During Night Battle, increases all damage by 20%.\nLittle Miracle upgraded to Level 3.",
+        "When a battle starts, launches 6 [Torpedo Salvo] in a V-shaped spread that deals 60% damage. Does not consume any [Torpedo Salvo] charges.\nRefined Taste upgraded to Level 4."
+    ],
+    "traits": [
+        {
+            "name": "Refined Taste",
+            "text": "Increase  food capacity by 2%/3%/4%/5%"
+        },
+        {
+            "name": "Little Miracle",
+            "text": "Increase  Oil production by 1%/1.5%/2%"
+        }
+    ],
+    "skills": [
+        {
+            "name": "Class Skill",
+            "text": "Can attack from close range, reload time: 6s\nCan launch torpedoes from medium range; another torpedo cannot be fired unless an already launched torpedo has hit the enemy/expired\n"
+        },
+        {
+            "name": "Pride of the Fleet\n\u65d7\u306e\u610f\u5730",
+            "text": "1. If Jervis is set as the Flagship, increase the Speed of all allied Destroyers by 10%.2. When battle starts, gains 1 [Torpedo Salvo] charge. 20% chance to gain an additional charge, +20% for every additional DD in same fleet."
+        },
+        {
+            "name": "Rebellious Charter\n\u53cd\u5f8b\u306e\u639f",
+            "text": "1. During the start of a Day/Night battle, Jervis gains an \"Umbrella\" charge, then 1 additional every 10s.2. If the number of \"Umbrella\" is above 1, firing a [Torpedo Salvo] consumes 1 charge and increases Jervis' [Torpedo Salvo] Damage by 40%."
+        },
+        {
+            "name": "Ultimate Umbrella\n\u5929\u4e0b\u306e\u5098",
+            "text": "1. If Jervis has at least 1 Umbrella charge, 100% chance to consume all \"Umbrella\" charges to let Jervis avoid a single attack."
+        }
+    ],
+    "img_sq": "https://static.miraheze.org/blueoathwiki/6/6d/Jervis_Portrait_Square.png",
+    "img_rec": "https://static.miraheze.org/blueoathwiki/3/39/Jervis_Portrait.png",
+    "gallery": [
+        "https://static.miraheze.org/blueoathwiki/c/cd/Jervis_Full.png",
+        "https://static.miraheze.org/blueoathwiki/a/a9/Jervis_Damaged_Full.png"
+    ],
+    "acquisition": "Daily EX 12\u2605 reward",
+    "comment": "A classy little lady. Acts older than her age and is capable of planning things out. Is easily fascinated by new people and things, where she'll behave closer to a child. Everyone likes to treat her with new things.",
+    "VA": "Kaori Ishihara"
+}

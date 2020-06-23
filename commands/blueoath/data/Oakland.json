@@ -1,0 +1,70 @@
+{
+    "en": "Oakland",
+    "jp": "\u30aa\u30fc\u30af\u30e9\u30f3\u30c9",
+    "dname": "Oakland",
+    "rarity": "SR",
+    "prefix": "USS",
+    "faction": "Society Faction",
+    "faction_jp": "\u5408\u4f17",
+    "hull_code": "CL",
+    "ship_class": "Atlanta-class Light Cruiser",
+    "stats": {
+        "general": {
+            "hp": "1083(??)",
+            "armour": "216(??)",
+            "trpdef": "217(??)",
+            "aa": "216(??)",
+            "spd": "32",
+            "fp": "105(??)"
+        },
+        "shelling": {
+            "scd": "157(??)",
+            "rld": "7",
+            "rng": "Medium"
+        },
+        "torpedo": {
+            "trp": "716(???)",
+            "stk": "1",
+            "rng": "Medium"
+        }
+    },
+    "lb": [
+        "No effect",
+        "[Torpedo Salvo] charges +1.\nCheerful upgraded to Level 2.",
+        "During [Main Battery Salvo], adds a chance to activate [Cut-in].",
+        "Increases [Torpedo Salvo] damage by 40%.\nCheerful upgraded to Level 3.",
+        "During Night Battle, increases all damage by 30%.",
+        "After launching a [Torpedo Salvo] and during its travel, firing a [Main Battery Salvo] will combine both attacks into one, only landing when the [Torpedo Salvo] hits a target.\nOn contact, both attacks' damages will not affect CDs, ignores range, will use T-Adv, does 300% damage and will add all other damage increasing effects. Can only proc once per battle.\nCheerful upgraded to Level 4."
+    ],
+    "traits": [
+        {
+            "name": "Cheerful",
+            "text": "Increase morale recovery by 10%/15%/20%/25%"
+        }
+    ],
+    "skills": [
+        {
+            "name": "Class Skill",
+            "text": "Can attack from medium range, reload time: 7s\nCan launch torpedoes from medium range; another torpedo cannot be fired unless an already launched torpedo has hit the enemy/expired\n"
+        },
+        {
+            "name": "Undefeated\n\u767e\u6226\u767e\u52dd",
+            "text": "1. When entering a battle, add a stack of 5% increased Crit Rate. Adds 1 stack every 10 seconds after, up to 10 times.2. On [Main Battery hit] 50% chance to set enemies on [Fire]. [Fire] deals 110% of Firepower over 10 seconds.3. On [Main Battery miss], following salvo reload reduced by 50%"
+        },
+        {
+            "name": "Elegant and Indestructible\n\u512a\u96c5\u4e0d\u7834",
+            "text": "1. Increases armour by 20%. 2. Increase all allied ships' AA stat by 30%.3. Sailing at Flank Speed increases Oakland's damage by 15%."
+        }
+    ],
+    "img_sq": "https://static.miraheze.org/blueoathwiki/9/9a/Oakland_Portrait_Square.png",
+    "img_rec": "https://static.miraheze.org/blueoathwiki/9/99/Oakland_Portrait.png",
+    "gallery": [
+        "https://static.miraheze.org/blueoathwiki/3/30/Oakland_Full.png",
+        "https://static.miraheze.org/blueoathwiki/f/fe/Oakland_Damaged_Full.png",
+        "https://static.miraheze.org/blueoathwiki/2/23/Oakland_2_Full.png",
+        "https://static.miraheze.org/blueoathwiki/1/17/Oakland_7_Full.png"
+    ],
+    "acquisition": "Gacha, construction, 2-3 drop",
+    "comment": "Honest, bright, slightly oblivious, Oakland enjoys life to its fullest both on and off the battlefield. It may be because she's a natural-born warrior, but she uses a fair amount of ammunition.",
+    "VA": "Azumi Asakura"
+}

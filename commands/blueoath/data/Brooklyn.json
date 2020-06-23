@@ -1,0 +1,35 @@
+{
+    "en": "Brooklyn",
+    "jp": "\u30d6\u30eb\u30c3\u30af\u30ea\u30f3",
+    "dname": "Brooklyn",
+    "rarity": "N",
+    "prefix": "USS",
+    "faction": "American",
+    "faction_jp": "\u5408\u4f17",
+    "hull_code": "CL",
+    "ship_class": "Light Cruiser",
+    "stats": {},
+    "lb": [],
+    "traits": [
+        {
+            "name": "Precision Crafting",
+            "text": null
+        }
+    ],
+    "skills": [
+        {
+            "name": "Combat Awareness (\u5371\u967a\u63a2\u77e5)",
+            "text": "1. During battle, if attacking with T-Disadvantage, all allies have a 100% to ignore damage debuff."
+        },
+        {
+            "name": "1. Undamaged Cannon (\u7121\u640d\u7832\u7532)",
+            "text": "When not in any damaged state, increase damage by 25%."
+        }
+    ],
+    "img_sq": "https://static.miraheze.org/blueoathwiki/4/40/Brooklyn_Portrait_Square.png",
+    "img_rec": null,
+    "gallery": [],
+    "acquisition": null,
+    "comment": null,
+    "VA": null
+}

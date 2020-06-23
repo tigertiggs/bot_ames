@@ -1,0 +1,71 @@
+{
+    "en": "Courageous",
+    "jp": "\u30ab\u30ec\u30a4\u30b8\u30e3\u30b9",
+    "dname": "Courageous",
+    "rarity": "SR",
+    "prefix": "HMS",
+    "faction": "Imperial Faction",
+    "faction_jp": "\u72ee\u5fc3",
+    "hull_code": "CV",
+    "ship_class": "Courageous-class Aircraft Carrier",
+    "stats": {
+        "general": {
+            "hp": "2700(??)",
+            "armour": "243(??)",
+            "trpdef": "243(??)",
+            "aa": "243(??)",
+            "spd": "30",
+            "fp": "116(??)"
+        },
+        "aviation": {
+            "asp": "603(??)",
+            "ap": "900(??)",
+            "rng": "Infinite",
+            "db": "0",
+            "ft": "0",
+            "tb": "0",
+            "rld": "25s"
+        }
+    },
+    "lb": [
+        "No effect",
+        "During an [Airstrike], all Squadrons will launch 10 more planes.\nCoward upgraded to Level 2.",
+        "Bombers will drop their payloads before being engaged by enemy Anti-Air fire.\nTea Time upgraded to Level 2.",
+        "During Day Battle, increases all damage by 30%.\nCoward upgraded to Level 3.",
+        "Increases aircraft reserves for all categories by 50 aircraft each.\nTea Time upgraded to Level 3.",
+        "During Day Battle, gains the ability to launch an [Airstrike] immediately that deals 50% damage. This attack will not incur any plane loss.\nCoward upgraded to Level 4."
+    ],
+    "traits": [
+        {
+            "name": "Coward",
+            "text": "Increase  Mechanical Medal production by 2%/3%/4%/5%"
+        },
+        {
+            "name": "Tea Time",
+            "text": "Increase  food capacity by 2%/3%/4%"
+        }
+    ],
+    "skills": [
+        {
+            "name": "Class Skill",
+            "text": "Airstrikes: Can launch attacks from the map and in battle, has infinite range, reload time when used on map: 60s in battle: 25\nReconnaissance: Planes can be sent when on the map to reveal the fog of war, reload time: 10s\n"
+        },
+        {
+            "name": "Erosion Torpedoes - Air\n\u7834\u8247\u9b5a\u96f7\u30fb\u7a7a",
+            "text": "1. When [Torpedo Bomber] hits a target, 100% chance to inflict [Flooding], lowering target speed by 50%, lasts 5 seconds.2. After [Flooding] ends, target will take 140% of Courageous's Firepower in damage."
+        },
+        {
+            "name": "Inspiring Presence\n\u9f13\u821e\u306e\u5fc3",
+            "text": "1. Increases [Airstrike] damage of the Flagship by 20%.2. Increases own damage by 10%."
+        }
+    ],
+    "img_sq": "https://static.miraheze.org/blueoathwiki/1/18/Courageous_Portrait_Square.png",
+    "img_rec": "https://static.miraheze.org/blueoathwiki/4/40/Courageous_Portrait.png",
+    "gallery": [
+        "https://static.miraheze.org/blueoathwiki/b/bd/Courageous_Full.png",
+        "https://static.miraheze.org/blueoathwiki/f/fe/Courageous_Damaged_Full.png"
+    ],
+    "acquisition": "Gacha",
+    "comment": "Forerunner to the other Imperial aircraft carriers. Looks serious, but screws up in important times. Despite having the most experience, Courageous is always somewhat tense, and easily gets angry. She also gets stomachaches easily...",
+    "VA": "Rena Sakutani"
+}

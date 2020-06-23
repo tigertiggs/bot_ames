@@ -133,6 +133,9 @@ class Ames(commands.AutoShardedBot):
         with open("commands/_config/amesconfig.json") as cf:
             self.config = json.load(cf)
         
+        with open(os.path.join(self.config["blueoath_path"], "config.json")) as bocf:
+            self.blueoath_config = json.load(bocf)
+        
         # override config
         if os.path.exists(os.path.join(self.dir, self.config['override'])):
             with open(os.path.join(self.dir, self.config['override'])) as override:
@@ -300,7 +303,10 @@ class Ames(commands.AutoShardedBot):
     # welcome message
     async def on_guild_join(self, guild):
         await self.log.send(self.name, 'joined', guild.name)
-        hello = self.emotes['sarenh']+'Thanks for having me here!\nMy prefix is `.` - Please use `.help` to get started!'
+        if guild.id == 598450517253029888:
+            hello = self.emotes['sarenh']+'Thanks for having me here!\nMy prefix is `.` (but all blueoath commands will start with `.bo`) - Please use `.bo help` to get started!'
+        else:
+            hello = self.emotes['sarenh']+'Thanks for having me here!\nMy prefix is `.` - Please use `.help` to get started!'
         general = discord.utils.find(lambda x: x.name == 'general', guild.text_channels)
         if general != None and general.permissions_for(guild.me).send_messages:
             await general.send(hello)
@@ -334,6 +340,21 @@ class Ames(commands.AutoShardedBot):
                 #if ctx.command != None:
                 #    await self.log.send('[{0.user.name}] `{1}` `{2.channel.guild.name}` `{2.channel.name}` `{2.author.name}` `{2.content}`'.format(
                 #        self, datetime.datetime.now(), message))
+
+                # add BO server restriction
+                #if self._check_author(message.author):
+                #    pass
+                if ctx.message.guild.id in self.blueoath_config['restricted_servers']:
+                    if not ctx.command.cog.qualified_name in self.blueoath_config['ames_allowed_cogs']:
+                        msg = await message.channel.send(f"This command is currently not available to the Blue Oath server. See `.bo help` for available functions. {self.emotes['ames']}\nThis message will try to delete itself in `10s`")
+                        await asyncio.sleep(10)
+                        try:
+                            await msg.delete()
+                        except:
+                            pass
+                        finally:
+                            return
+
                 await self.invoke(ctx)
             except Exception as e:
                 await self.log.send(self.name, 'failed to process command', e)

@@ -1,0 +1,39 @@
+{
+    "en": "New Mexico",
+    "jp": "\u30cb\u30e5\u30fc\u30e1\u30ad\u30b7\u30b3",
+    "dname": "New Mexico",
+    "rarity": "N",
+    "prefix": "USS",
+    "faction": "American",
+    "faction_jp": "\u5408\u4f17",
+    "hull_code": "BB",
+    "ship_class": "Battleship",
+    "stats": {},
+    "lb": [],
+    "traits": [
+        {
+            "name": "Active",
+            "text": null
+        },
+        {
+            "name": "Siscon",
+            "text": null
+        }
+    ],
+    "skills": [
+        {
+            "name": "Vital Parts Shelling (\u6025\u6240\u653b\u6483)",
+            "text": "1. When [Main Battery Salvo] hits a target, 100% chance to lower target speed by 50% and disables the rudder. Lasts 10 seconds, does not stack.\n2. Increases Crit Rate by 20%"
+        },
+        {
+            "name": "Aim Assist (\u6a19\u6e96\u88dc\u6b63)",
+            "text": "1. During Battle, 40% to use T-Cross Advantage buff during [Main Battery Salvo]"
+        }
+    ],
+    "img_sq": "https://static.miraheze.org/blueoathwiki/0/0f/NewMexico_Portrait_Square.png",
+    "img_rec": null,
+    "gallery": [],
+    "acquisition": null,
+    "comment": null,
+    "VA": null
+}

@@ -1,0 +1,39 @@
+{
+    "en": "North Carolina",
+    "jp": "\u30ce\u30fc\u30b9\u30ab\u30ed\u30e9\u30a4\u30ca",
+    "dname": "North Carolina",
+    "rarity": "SSR",
+    "prefix": "USS",
+    "faction": "American",
+    "faction_jp": "\u5408\u4f17",
+    "hull_code": "BB",
+    "ship_class": "Battleship",
+    "stats": {},
+    "lb": [],
+    "traits": [
+        {
+            "name": "Coward",
+            "text": null
+        }
+    ],
+    "skills": [
+        {
+            "name": "Fierce Shelling (\u71be\u70c8\u653e\u706b) ",
+            "text": "1. When entering a battle, add a stack of 5% increased Crit Rate. Adds 1 stack every 10 seconds after, up to 10 times. \n2. During a [Main Battery salvo], if an enemy is sunk, immediately repairs North Carolina by 20% of Max HP and increases damage of next [Main Battery Salvo] by 30%."
+        },
+        {
+            "name": "Protect (\u63f4\u8b77)",
+            "text": "1. If a friendly ship is under a [Main Battery] attack, and if North Carolina has at least 75% of her Max HP remaining, activate this skill. \nTakes the incoming damage instead and reduces it by 80%. Can only proc 2 times per battle."
+        },
+        {
+            "name": "Air Cover (\u822a\u7a7a\u76f4\u63a9\u968a)",
+            "text": "1. During battle, after an [Airstrike] has been launched, 100% chance to reduce North Carolina's [Main Battery] CD by 10 seconds. Can only proc 3 times per battle."
+        }
+    ],
+    "img_sq": "https://static.miraheze.org/blueoathwiki/7/7f/NorthCarolina_Portrait_Square.png",
+    "img_rec": null,
+    "gallery": [],
+    "acquisition": null,
+    "comment": null,
+    "VA": null
+}

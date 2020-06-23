@@ -1,0 +1,35 @@
+{
+    "en": "Glowworm",
+    "jp": "\u30b0\u30ed\u30fc\u30a6\u30a9\u30fc\u30e0",
+    "dname": "Glowworm",
+    "rarity": "SR",
+    "prefix": "HMS",
+    "faction": "British",
+    "faction_jp": "\u72ee\u5fc3",
+    "hull_code": "DD",
+    "ship_class": "Destroyer",
+    "stats": {},
+    "lb": [],
+    "traits": [
+        {
+            "name": "Coward",
+            "text": null
+        }
+    ],
+    "skills": [
+        {
+            "name": "Ramming Speed (\u6368\u3066\u8eab\u306e\u4f53\u5f53\u305f\u308a)",
+            "text": "1. During battle, ramming an enemy fleet will deal 180% of Glowworm's Firepower. Can only proc 3 times per battle, 5 seconds CD."
+        },
+        {
+            "name": "Disruptor (\u756a\u72c2\u308f\u305b)",
+            "text": "1. During battle when entering within Close Range, 100% to disrupt enemy [Main Battery] targeting circles and disables it for 3 seconds. Can only proc once per battle."
+        }
+    ],
+    "img_sq": "https://static.miraheze.org/blueoathwiki/4/4c/Glowworm_Portrait_Square.png",
+    "img_rec": null,
+    "gallery": [],
+    "acquisition": null,
+    "comment": null,
+    "VA": null
+}

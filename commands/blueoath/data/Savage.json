@@ -1,0 +1,43 @@
+{
+    "en": "Savage",
+    "jp": "\u30b5\u30f4\u30a7\u30fc\u30b8",
+    "dname": "Savage",
+    "rarity": "SSR",
+    "prefix": "HMS",
+    "faction": "British",
+    "faction_jp": "\u72ee\u5fc3",
+    "hull_code": "DD",
+    "ship_class": "Destroyer",
+    "stats": {},
+    "lb": [],
+    "traits": [
+        {
+            "name": "Precision Crafting",
+            "text": null
+        },
+        {
+            "name": "One for All",
+            "text": null
+        }
+    ],
+    "skills": [
+        {
+            "name": "Escort Ship (\u62a4\u822a\u4f7f\u8005)",
+            "text": "1. During battle, the first enemy attack of type (Main Battery, Airstrike, Torpedo) has a 100% chance to instantly reload 1 [Torpedo Salvo] charge."
+        },
+        {
+            "name": "Relentless Bombardment (\u594b\u8fdb\u70ae\u51fb)",
+            "text": "1. During [Main Battery Salvo], increases chance of [Cut-in] by 20%.\n2. [Cut-in] damage increased by 50%."
+        },
+        {
+            "name": "Marked by Torpedo (\u9c7c\u96f7\u70d9\u5370)",
+            "text": "During battle, Savage's [Torpedo Salvo] will prioritse target with the highest current HP.\nOn [Torpedo Salvo] hit, the target will be marked. The next [Main Battery Salvo] of the fleet will be 90% more likely to hit the same target."
+        }
+    ],
+    "img_sq": "https://static.miraheze.org/blueoathwiki/f/f7/Savage_Portrait_Square.png",
+    "img_rec": null,
+    "gallery": [],
+    "acquisition": null,
+    "comment": null,
+    "VA": null
+}

@@ -1,0 +1,72 @@
+{
+    "en": "Kaga",
+    "jp": "\u52a0\u8cc0",
+    "dname": "Kaga",
+    "rarity": "SSR",
+    "prefix": "IJN",
+    "faction": "Cherry Tree Faction",
+    "faction_jp": "\u6a31\u843d",
+    "hull_code": "CV",
+    "ship_class": "Kaga-class Aircraft Carrier",
+    "stats": {
+        "general": {
+            "hp": "2973(??)",
+            "armour": "270(??)",
+            "trpdef": "270(??)",
+            "aa": "270(??)",
+            "spd": "28",
+            "fp": "128(??)"
+        },
+        "aviation": {
+            "asp": "676(??)",
+            "ap": "1009(??)",
+            "rng": "Infinite",
+            "db": "0",
+            "ft": "0",
+            "tb": "0",
+            "rld": "25s"
+        }
+    },
+    "lb": [
+        "No effect",
+        "During an [Airstrike], all Squadrons will launch 10 more planes.\nSkillful upgraded to Level 2.",
+        "Bombers will drop their payloads before being engaged by enemy Anti-Air fire.",
+        "During Day Battle, increases all damage by 30%.\nSkillful upgraded to Level 3.",
+        "Increases aircraft reserves for all categories by 50 aircraft each.",
+        "During Day Battle, gains the ability to launch an [Airstrike] immediately that deals 50% damage. This attack will not incur any plane loss.\nSkillful upgraded to Level 4."
+    ],
+    "traits": [
+        {
+            "name": "Skillful",
+            "text": "Reduces production time for  Textbooks by 10%/15%/20%/25%"
+        }
+    ],
+    "skills": [
+        {
+            "name": "Class Skill",
+            "text": "Airstrikes: Can launch attacks from the map and in battle, has infinite range, reload time when used on map: 60s in battle: 25\nReconnaissance: Planes can be sent when on the map to reveal the fog of war, reload time: 10s\n"
+        },
+        {
+            "name": "Erosion Torpedoes - Air\n\u7834\u8247\u9b5a\u96f7\u30fb\u7a7a",
+            "text": "1. When [Torpedo Bomber] hits a target, 100% chance to inflict [Flooding], lowering target speed by 50%, lasts 5 seconds.\nIf this is the first time an enemy ship is inflicted with [Flooding] due to this skill's effect, deal an additional 140% of Kaga's Firepower after [Flooding] ends.If Akagi is in the same fleet, increases [Flooding] damage by 30%."
+        },
+        {
+            "name": "Precision Bombing\n\u7cbe\u5bc6\u7206\u6483 \u00b7",
+            "text": "1. During battle, prioritizes target with the highest current HP.2. The higher the enemy's HP, the more [Airstrike] damage Kaga deals, up to 20%."
+        },
+        {
+            "name": "First Strike Doctrine- Defensive\n\u5148\u653b\u91cd\u8996 \u00b7 \u5b88",
+            "text": "1. In Map Mode, first [Pre-emptive Airstrike] deals 150% more damage. 100 seconds after entering a map, buff will be lost.2. Increases Max HP by 20%."
+        }
+    ],
+    "img_sq": "https://static.miraheze.org/blueoathwiki/0/08/Kaga_Portrait_Square.png",
+    "img_rec": "https://static.miraheze.org/blueoathwiki/5/52/Kaga_Portrait.png",
+    "gallery": [
+        "https://static.miraheze.org/blueoathwiki/0/07/Kaga_Full.png",
+        "https://static.miraheze.org/blueoathwiki/8/8a/Kaga_Damaged_Full.png",
+        "https://static.miraheze.org/blueoathwiki/a/a4/Kaga_2_Full.png"
+    ],
+    "acquisition": "Gacha, construction",
+    "comment": "Carefree and friendly. Is good at carpentry. Although normally lighthearted, she is more motivated when things take a turn of the worse.",
+    "VA": "Eri Kitamura"
+}

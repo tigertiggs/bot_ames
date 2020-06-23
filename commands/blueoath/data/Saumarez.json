@@ -1,0 +1,39 @@
+{
+    "en": "Saumarez",
+    "jp": "\u30bd\u30fc\u30de\u30ec\u30b9",
+    "dname": "Saumarez",
+    "rarity": "SSR",
+    "prefix": "HMS",
+    "faction": "British",
+    "faction_jp": "\u72ee\u5fc3",
+    "hull_code": "DD",
+    "ship_class": "Destroyer",
+    "stats": {},
+    "lb": [],
+    "traits": [
+        {
+            "name": "Talent",
+            "text": null
+        }
+    ],
+    "skills": [
+        {
+            "name": "Ace Up The Sleeve (\u9690\u85cf\u96f7\u4ed3)",
+            "text": "1. During battle, everytime Saumarez passes by the Close Range radius, 100% chance to gain 1 [Torpedo Salvo] charge. Can only proc 2 times per battle."
+        },
+        {
+            "name": "All Out Attack (\u6e3e\u8eab\u306e\u4e00\u6483)\r",
+            "text": "1. During [Main Battery Salvo], increases chance of [Cut-in] by 20%.\n2. [Cut-in] damage increased by 50%"
+        },
+        {
+            "name": "Lethal Torpedo (\u81f4\u547d\u306e\u9b5a\u96f7)",
+            "text": "1. When [Torpedo Salvo] hits a target, 70% to inflict a stacking debuff that increases all damage taken by target by 5%."
+        }
+    ],
+    "img_sq": "https://static.miraheze.org/blueoathwiki/9/9f/Saumarez_Portrait_Square.png",
+    "img_rec": null,
+    "gallery": [],
+    "acquisition": null,
+    "comment": null,
+    "VA": null
+}

@@ -1,0 +1,100 @@
+{
+    "ship_path":        "blueoath/data",
+    "index_path":       "blueoath/data/_index.json",
+    "alias_path":       "blueoath/alias.json",
+    "alias_local_path": "blueoath/alias_local.json",
+    "ship_data_path":   "blueoath/data/_ship_data.json",   
+    "sheet_data_path":  "blueoath/data/_skills_jp.json",
+    "help_path":        "blueoath/help.json",
+    "port":             58325,
+    "override":         "blueoath/override.json",
+    "ames_allowed_cogs":[
+        "coreCog",
+        "shenCog",
+        "shenpCog",
+        "helpCog",
+        "blueoathCog"
+    ],
+    "restricted_servers": [
+        598450517253029888
+    ],
+    "illegal_tokens":   [
+        ".",
+        "-"
+    ],
+    "command_status": {
+        "update":   true,
+        "alias":    true,
+        "ship":     true,
+        "help":     true
+    },
+    "sheet_id": "1UrEFf88vjcOFRy7tFOfcedsoobXU7ZTeezFlRFVEo2Q",
+    "data": {
+        "skills_jp": {
+            "sheet_name":   "Skills JP",
+            "titles":       ["id", "nation", "img", "name", "class", "rarity", "skills", "traits"],
+            "range":        "A6:H",
+
+            "row_start":    6,
+            "row_end":      null,
+            "column_start": "A",
+            "column_end":   "H"
+        }
+    },
+    "stats_abbrev": {
+        "hp":       "HP",
+        "armour":   "Armour",
+        "trpdef":   "Torp. Def",
+        "aa":       "Anti-Air",
+        "spd":      "Speed",
+        "fp":       "Firepower",
+        "asp":      "Airstrike Pwr",
+        "ap":       "Fighter Pwr",
+        "rng":      "Range",
+        "db":       "Dive Bombers",
+        "ft":       "Fighters",
+        "tb":       "Torp. Bombers",
+        "rld":      "Reload",
+        "scd":      "Secondaries",
+        "trp":      "Torp. Pwr",
+        "stk":      "Torp. Ammo"
+    },
+    "ship_class": {
+        "DD":   "Destroyer",
+        "CL":   "Light Cruiser",
+        "CA":   "Heavy Cruiser",
+        "BC":   "Battlecruiser",
+        "BB":   "Battleship",
+        "CV":   "Aircraft Carrier"
+    },
+    "ship_prefix": {
+
+    },
+    "ship_data_template": {
+        "en":           null,
+        "jp":           null,
+        "dname":        null,
+
+        "rarity":       null,
+
+        "prefix":       null,
+        "faction":      null,
+        "faction_jp":   null,
+
+        "hull_code":    null,
+        "ship_class":   null,
+
+        "stats":        {},
+        "lb":           [],
+        "traits":       [],
+        "skills":       [],
+
+        "img_sq":       null,
+        "img_rec":      null,
+        "gallery":      [],
+
+        "acquisition":  null,
+        "comment":      null,
+        "VA":           null
+    }
+}

@@ -1,0 +1,43 @@
+{
+    "en": "Zuikaku",
+    "jp": "\u745e\u9db4",
+    "dname": "Zuikaku",
+    "rarity": "SSR",
+    "prefix": "IJN",
+    "faction": "Japanese",
+    "faction_jp": "\u6a31\u843d",
+    "hull_code": "CV",
+    "ship_class": "Aircraft Carrier",
+    "stats": {},
+    "lb": [],
+    "traits": [
+        {
+            "name": "Bizarre Thinking",
+            "text": null
+        },
+        {
+            "name": "Old-Fashioned Spirits",
+            "text": null
+        }
+    ],
+    "skills": [
+        {
+            "name": "Crane's Voice (\u9db4\u306e\u4e00\u58f0)",
+            "text": "1. During Battle, for the first 2 [Airstrike], if an Airstrike sinks an enemy ship, Zuikaku obtains a special [Airstrike] that deals 50% damage. \nIf not used within 15 seconds, this skill will disappear, [Airstrike] CD will not be affected.\nIf the first 2 [Airstrike] doesn't sink an enemy ship, the next [Airstrike] will deal 50% more damage."
+        },
+        {
+            "name": "Heat Haze (\u967d\u708e)",
+            "text": "After [Airstrike], inflicts a debuff on an enemy with the lowest current HP. Debuff increases received firepower-based damage by 50%. When debuff expires, deals an additional 100% of Zuikaku's Firepower as damage."
+        },
+        {
+            "name": "Moon Crane (\u591c\u9593\u306e\u6708\u9db4)",
+            "text": "1. 90% less chance to be targeted.\n2. Can [Airstrike] during Night Battle. If [Opening Airstrike] is unlocked, then gain the ability to do so for battle that starts at Night."
+        }
+    ],
+    "img_sq": "https://static.miraheze.org/blueoathwiki/5/53/Zuikaku_Portrait_Square.png",
+    "img_rec": null,
+    "gallery": [],
+    "acquisition": null,
+    "comment": null,
+    "VA": null
+}

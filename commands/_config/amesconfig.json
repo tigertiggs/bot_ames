@@ -32,24 +32,28 @@
     "shen_path":            "commands/assets/shen",
     "post_path":            "commands/post",
 
+    "blueoath_path":        "commands/blueoath",
+
     "required_folders": [
 
     ],
     "required_files":   [
         "commands/hatsune_data/alias_local.json",
-        "commands/twitter/guilds.json"
+        "commands/twitter/guilds.json",
+        "commands/blueoath/alias_local.json"
     ],
 
     "command_cogs":     [
         "commands.cog_core",
-        "commands.cog_update",
-        "commands.cog_hatsune",
-        "commands.cog_gacha",
         "commands.cog_cb",
+        "commands.cog_gacha",
+        "commands.cog_hatsune",
+        "commands.cog_help",
         "commands.cog_shen",
         "commands.cog_shenp",
-        "commands.cog_help",
-        "commands.cog_twitter"
+        "commands.cog_twitter",
+        "commands.cog_update",
+        "commands.cog_blueoath"
     ],
     "command_colour":   {
         "cog_core":     [14, 173, 14],
@@ -59,7 +63,8 @@
         "cog_shen":     [146, 3, 150],
         "cog_shenp":    [156, 14, 89],
         "cog_help":     [7, 138, 57],
-        "cog_twitter":  [20, 196, 245]
+        "cog_twitter":  [20, 196, 245],
+        "cog_blueoath": [20, 196, 245]
     },
     "command_status":   {
         "status":   1,

@@ -1,0 +1,35 @@
+{
+    "en": "Chicago",
+    "jp": "\u30b7\u30ab\u30b4",
+    "dname": "Chicago",
+    "rarity": "SR",
+    "prefix": "USS",
+    "faction": "American",
+    "faction_jp": "\u5408\u4f17",
+    "hull_code": "CA",
+    "ship_class": "Heavy Cruiser",
+    "stats": {},
+    "lb": [],
+    "traits": [
+        {
+            "name": "Careful",
+            "text": null
+        }
+    ],
+    "skills": [
+        {
+            "name": "Familiar Bearings (\u6163\u308c\u305f\u9593\u5408\u3044)",
+            "text": "1. During battle, when entering Medium Range, increases [Main Battery Salvo] damage by 30%, does not stack, lasts for 15 seconds."
+        },
+        {
+            "name": "Extra Firepower (\u706b\u529b\u88dc\u6b63)",
+            "text": "1. If [Main Battery Salvo] sinks a target, increases Chicago's next [Main Battery Salvo] damage by 150%. Can only proc 3 times per battle."
+        }
+    ],
+    "img_sq": "https://static.miraheze.org/blueoathwiki/f/f0/Chicago_Portrait_Square.png",
+    "img_rec": null,
+    "gallery": [],
+    "acquisition": null,
+    "comment": null,
+    "VA": null
+}

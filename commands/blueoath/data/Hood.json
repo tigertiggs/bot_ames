@@ -1,0 +1,43 @@
+{
+    "en": "Hood",
+    "jp": "\u30d5\u30c3\u30c9",
+    "dname": "Hood",
+    "rarity": "SSR",
+    "prefix": "HMS",
+    "faction": "British",
+    "faction_jp": "\u72ee\u5fc3",
+    "hull_code": "BC",
+    "ship_class": "Battlecruiser",
+    "stats": {},
+    "lb": [],
+    "traits": [
+        {
+            "name": "Diligent",
+            "text": null
+        },
+        {
+            "name": "Center Idol",
+            "text": null
+        }
+    ],
+    "skills": [
+        {
+            "name": "Lady's Fury (\u6dd1\u5973\u306e\u6012\u308a)",
+            "text": "1. After [Main Battery Salvo], 40% chance to set all enemies on [Fire], dealing 110% of Firepower over 10 seconds."
+        },
+        {
+            "name": "War Experience (\u6b74\u6226\u306e\u7d4c\u9a13)",
+            "text": "1. During battle, when an enemy ship is sunk by [Fire], 100% chance to reduce [Main Battery Salvo] reload time for all allies by 3 seconds. Can proc up to 5 times per battle."
+        },
+        {
+            "name": "Lady's Dignity(\u6dd1\u5973\u306e\u77dc\u6301)",
+            "text": "1. Increases Armour by 20%. \n2. When entering a battle, all alies obtains a barrier, equivalent to 20% of each ship Max HP, that absorbs [Torpedo Salvo] damage."
+        }
+    ],
+    "img_sq": "https://static.miraheze.org/blueoathwiki/e/e5/Hood_Portrait_Square.png",
+    "img_rec": null,
+    "gallery": [],
+    "acquisition": null,
+    "comment": null,
+    "VA": null
+}

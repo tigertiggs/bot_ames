@@ -1,0 +1,27 @@
+{
+    "sheet_id": "1b-41DmRzSk5tBKBf9eN2iUHoUr61eVAgj5i_xAOi7BU",
+    "data": {
+        "skills_jp": {
+            "sheet_name":   "Skills JP",
+            "titles":       ["id", "nation", "img", "name", "class", "rarity", "skills", "traits"],
+            "range":        "A6:H",
+
+            "row_start":    6,
+            "row_end":      null,
+            "column_start": "A",
+            "column_end":   "H"
+        }
+    },
+    "hull_codes": {
+        "CV":   "Standard Carrier",
+        "CVL":  "Light Carrier",
+        "BB":   "Battleship",
+        "BC":   "Battlecruiser",
+        "CB":   "Large Cruiser",
+        "CA":   "Heavy Cruiser",
+        "CL":   "Light Cruiser",
+        "DD":   "Destroyer",
+        "CLT":  "Torpedo Cruiser",
+        "SS":   "Submarine"
+    }
+}

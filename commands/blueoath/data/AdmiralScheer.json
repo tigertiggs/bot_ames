@@ -1,0 +1,68 @@
+{
+    "en": "Admiral Scheer",
+    "jp": "\u30a2\u30c9\u30df\u30e9\u30eb\u30fb\u30b7\u30a7\u30fc\u30a2",
+    "dname": "Admiral Scheer",
+    "rarity": "SR",
+    "prefix": "KMS",
+    "faction": "Amber Faction",
+    "faction_jp": "\u83b1\u8335",
+    "hull_code": "CA",
+    "ship_class": "Deutschland-class Heavy Cruiser",
+    "stats": {
+        "general": {
+            "hp": "2149(??)",
+            "armour": "135(??)",
+            "trpdef": "135(??)",
+            "aa": "135(??)",
+            "spd": "28",
+            "fp": "116(??)"
+        },
+        "shelling": {
+            "scd": "205(??)",
+            "rld": "12",
+            "rng": "Medium"
+        },
+        "torpedo": {
+            "trp": "792(???)",
+            "stk": "1",
+            "rng": "Medium"
+        }
+    },
+    "lb": [
+        "No effect",
+        "Reduces [Main Battery] CD by 4 seconds.\nFree Spirit upgraded to Level 2.",
+        "During [Main Battery Salvo], adds a chance to activate [Cut-in].",
+        "Increases [Main Battery Salvo] damage by 20%.\nFree Spirit upgraded to Level 3.",
+        "Increases [Secondary Battery] damage by 50%.",
+        "When [Secondary Battery] is firing, firing a [Main Battery Salvo] will deal 200% more damage, will assume T-Adv for damage. Can only proc once per battle.\nFree Spirit upgraded to Level 4."
+    ],
+    "traits": [
+        {
+            "name": "Free Spirit",
+            "text": "Increase Workshop and Bar production by 2%/3%/4%/5%"
+        }
+    ],
+    "skills": [
+        {
+            "name": "Class Skill",
+            "text": "Can attack from medium range, reload time: 12s\nCan launch torpedoes from medium range; another torpedo cannot be fired unless an already launched torpedo has hit the enemy/expired\n"
+        },
+        {
+            "name": "Survivor's Will\n\u751f\u304d\u6b8b\u308a\u306e\u610f\u5730",
+            "text": "1. On [Main Battery hit] 50% chance to set enemies on [Fire]. [Fire] dealing 110% of Firepower over 10 seconds.2. On [Main Battery hit] 100% chance to inflict [Inhibited], preventing the target from repairing for 10 seconds."
+        },
+        {
+            "name": "Oversized Main Battery\n\u89c4\u683c\u5916\u306e\u4e3b\u70ae",
+            "text": "1. Can fire [Main Battery] at Long Range.2. Damage increased by 20%."
+        }
+    ],
+    "img_sq": "https://static.miraheze.org/blueoathwiki/d/d7/AdmiralScheer_Portrait_Square.png",
+    "img_rec": "https://static.miraheze.org/blueoathwiki/4/47/AdmiralScheer_Portrait.png",
+    "gallery": [
+        "https://static.miraheze.org/blueoathwiki/5/5e/AdmiralScheer_Full.png",
+        "https://static.miraheze.org/blueoathwiki/6/60/AdmiralScheer_Damaged_Full.png"
+    ],
+    "acquisition": "Gacha",
+    "comment": "A mysteriously classy lady. Finds joy in giving others pain. Is good at planning, and prefers to control things from behind the scenes. Enjoys bullying her sister Deutschland.",
+    "VA": "Nichika Omori"
+}

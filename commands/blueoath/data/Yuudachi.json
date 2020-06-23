@@ -1,0 +1,77 @@
+{
+    "en": "Yuudachi",
+    "jp": "\u5915\u7acb",
+    "dname": "Yuudachi",
+    "rarity": "SSR",
+    "prefix": "IJN",
+    "faction": "Cherry Tree Faction",
+    "faction_jp": "\u6a31\u843d",
+    "hull_code": "DD",
+    "ship_class": "Shiratsuyu-class Destroyer",
+    "stats": {
+        "general": {
+            "hp": "990(??)",
+            "armour": "150(??)",
+            "trpdef": "150(??)",
+            "aa": "150(??)",
+            "spd": "34",
+            "fp": "128(??)"
+        },
+        "shelling": {
+            "scd": "102(??)",
+            "rld": "6",
+            "rng": "Short"
+        },
+        "torpedo": {
+            "trp": "807(???)",
+            "stk": "2",
+            "rng": "Medium"
+        }
+    },
+    "lb": [
+        "No effect",
+        "[Torpedo Salvo] charges +1.\nFree Spirit upgraded to Level 2.",
+        "During [Main Battery Salvo], adds a chance to activate [Cut-in].\nHunting Skills upgraded to Level 2.",
+        "Increases [Torpedo Salvo] damage by 20%.\nFree Spirit upgraded to Level 3.",
+        "During Night Battle, increases all damage by 20%.\nHunting Skills upgraded to Level 3.",
+        "When a battle starts, launches 6 [Torpedo Salvo] in a V-shaped spread that deals 60% damage. Does not consume any [Torpedo Salvo] charges.\nFree Spirit upgraded to Level 4."
+    ],
+    "traits": [
+        {
+            "name": "Free Spirit",
+            "text": "Increase Workshop and Bar production by 2%/3%/4%/5%"
+        },
+        {
+            "name": "Hunting Skills",
+            "text": "Increase  food capacity by 2%/3%/4%"
+        }
+    ],
+    "skills": [
+        {
+            "name": "Class Skill",
+            "text": "Can attack from close range, reload time: 6s\nCan launch torpedoes from medium range; another torpedo cannot be fired unless an already launched torpedo has hit the enemy/expired\n"
+        },
+        {
+            "name": "Torpedo Reserves\n\u4e88\u5099\u9b5a\u96f7",
+            "text": "1. [On Torpedo Salvo], 30% chance to immediately reload 1 [Torpedo Salvo] charge, can only proc 3 times per battle."
+        },
+        {
+            "name": "Surprise Salvo\n\u5947\u8972\u7832\u6483",
+            "text": "1. [On Torpedo Salvo], increases Yuudachi's next [Main Battery Salvo] damage by 220%."
+        },
+        {
+            "name": "Ambush\n\u5f85\u3061\u4f0f\u305b",
+            "text": "1. Increases HP by 20%.2. Forces the fleet to spawn in Mid Range."
+        }
+    ],
+    "img_sq": "https://static.miraheze.org/blueoathwiki/7/77/Yuudachi_Portrait_Square.png",
+    "img_rec": "https://static.miraheze.org/blueoathwiki/6/67/Yuudachi_Portrait.png",
+    "gallery": [
+        "https://static.miraheze.org/blueoathwiki/b/bb/Yuudachi_Full.png",
+        "https://static.miraheze.org/blueoathwiki/9/9a/Yuudachi_Damaged_Full.png",
+        "https://static.miraheze.org/blueoathwiki/e/ec/Yuudachi_2_Full.png"
+    ],
+    "acquisition": "Gacha, construction",
+    "comment": "A mischief maker who loves to do anything it takes to tease the adults around her. Especially the commander, who she thinks is a lolicon.",
+    "VA": "Hitomi"
+}

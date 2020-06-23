@@ -1,0 +1,63 @@
+{
+    "en": "Arizona",
+    "jp": "\u30a2\u30ea\u30be\u30ca",
+    "dname": "Arizona",
+    "rarity": "SR",
+    "prefix": "USS",
+    "faction": "Society Faction",
+    "faction_jp": "\u5408\u4f17",
+    "hull_code": "BB",
+    "ship_class": "Pennsylvania-class Battleship",
+    "stats": {
+        "general": {
+            "hp": "2681(??)",
+            "armour": "266(??)",
+            "trpdef": "271(??)",
+            "aa": "265(??)",
+            "spd": "34",
+            "fp": "116(??)"
+        },
+        "shelling": {
+            "scd": "541(??)",
+            "rld": "20",
+            "rng": "Long"
+        }
+    },
+    "lb": [
+        "No effect",
+        "Reduces [Main Battery] CD by 5 seconds.\nCoward upgraded to Level 2.",
+        "During [Main Battery Salvo], adds a chance to activate [Cut-in].",
+        "Unlocks Overshoot buff, for every [Main Battery Salvo] fired, increases the next shot's damage by 6%. Stacks up to 5 times, lasts till end of the battle.\nCoward upgraded to Level 3.",
+        "During Day Battle, increases [Main Battery Salvo] damage by 10%.",
+        "[Main Battery Salvo] now has a 50% chance to penetrate the citadel of an enemy, increasing damage done by 20%.\nIf the penetrated target sinks, target will explode, dealing 12% damage to all other enemy ships.\nCoward upgraded to Level 4."
+    ],
+    "traits": [
+        {
+            "name": "Coward",
+            "text": "Increase  Mechanical Medal production by 2%/3%/4%/5%"
+        }
+    ],
+    "skills": [
+        {
+            "name": "Class Skill",
+            "text": "Can attack from long range, reload time: 20s\n"
+        },
+        {
+            "name": "Fire All Cannons!\n\u5168\u7832\u9580\u958b\u3051\uff01",
+            "text": "1. During battle, inflict 125% of Firepower to all enemies after first [Main Battery Salvo]"
+        },
+        {
+            "name": "Fast Reload\n\u9ad8\u901f\u88c5\u586b",
+            "text": "1. During battle, every time a [Main Battery Salvo] is fired, reduces Arizona's [Main Battery] CD by 1.5 seconds. Can proc up to 15 times per battle."
+        }
+    ],
+    "img_sq": "https://static.miraheze.org/blueoathwiki/0/03/Arizona_Portrait_Square.png",
+    "img_rec": "https://static.miraheze.org/blueoathwiki/e/ed/Arizona_Portrait.png",
+    "gallery": [
+        "https://static.miraheze.org/blueoathwiki/6/6d/Arizona_Full.png",
+        "https://static.miraheze.org/blueoathwiki/6/67/Arizona_Damaged_Full.png"
+    ],
+    "acquisition": "Gacha",
+    "comment": "Quiet but motherly. She almost expresses no emotions. Although her equipment is old and she is short, she gives off a threatening aura.",
+    "VA": "Rena Sakutani"
+}

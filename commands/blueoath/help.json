@@ -1,0 +1,61 @@
+{
+    "help_tags": [
+        "normal","_update","restricted"
+    ],
+    "commands":{
+        "template": {
+            "flags":    ["placeholder"],
+            "hidden":   false,
+            "usage":    ".function",
+            "subcmd":   null,
+            "aliases":  null,
+            "help":     "help",
+            "help_ex":  "help extended"
+        },
+        "ship": {
+            "flags":    ["normal"],
+            "hidden":   false,
+            "usage":    ".bo ship [ship]",
+            "subcmd":   null,
+            "aliases":  ["s","c","stats","pic","gallery"],
+            "help":     "Fetch data on a specific ship",
+            "help_ex":  "`[ship]` entry can be an `alias`. Input is case-insensitive. Calling with different aliases have the following effects:\n-Calling with `s`, `c` or `ship` will land you on the profile page.\n-Calling with `stats` will land you on the stats page.\n-Calling with `pic` or `gallery` will land you on the gallery page.\n\nThe emotes at the bottom of the embed enable you to navigate between the pages. The arrows allows you to navigate between images, should there be more than 1.\n\nExamples:\n`.bo s lefan` `.bo pic eugen` `.bo stats mary`"
+        },
+        "alias": {
+            "flags":    ["normal"],
+            "hidden":   false,
+            "usage":    ".bo alias [*options]",
+            "subcmd":   ["add", "edit", "delete"],
+            "aliases":  null,
+            "help":     "View/search/modify aliases. See `.bo help aliases` for more details",
+            "help_ex":  "Syntax is as follows:\n`.bo alias`\nDisplay all recorded aliases.\n\n`.bo alias [ship/alias]`\nEnter a `ship` to see all aliases attached to the ship, or enter an `alias` to see who the alias is pointing to.\n\n`.bo alias add [alias] -> [ship]`\n`.bo alias edit [alias] -> [ship]`\n`.bo alias delete [alias]`\nIn all cases you may not modify a master alias."
+        },
+        "help": {
+            "flags":    ["normal"],
+            "hidden":   false,
+            "usage":    ".bo help [command]",
+            "subcmd":   null,
+            "aliases":  null,
+            "help":     "use this to see extended documentation. [command] should not be an alias and should omit the `.bo` prefix",
+            "help_ex":  null
+        },
+        "update": {
+            "flags":    ["_update","restricted"],
+            "hidden":   false,
+            "usage":    ".bo update [*options] | --sheet",
+            "subcmd":   null,
+            "aliases":  null,
+            "help":     "Use this to fetch and update ship data from the wiki. See `.bo help update`.",
+            "help_ex":  "Options are: `all` `[ship]` `index`.\n`index` option will only update the index. This is done via the Senki page on the wiki.\n`[ship]` option will only update the profile for a specific ship. Index will not be updated.\n`all` option will update the index and then attempt to fetch information for all ships in the index.\n`--sheet` option will try to suppliment ship data with that from the spreadsheet first. Fields will be overwritten by the wiki should the data be available."
+        },
+        "reload_sheet": {
+            "flags":    ["_update", "restricted"],
+            "hidden":   false,
+            "usage":    ".bo reload_sheet [sheet]",
+            "subcmd":   null,
+            "aliases":  null,
+            "help":     "Grabs data off the spreadsheet. Is quite unstable. See `.bo help reload_sheet`.",
+            "help_ex":  "Only supported sheet at the moment is `skills_jp`. May extend to other sheets first but the GoogleSheets API is quite troublesome to work with."
+        }
+    }
+}

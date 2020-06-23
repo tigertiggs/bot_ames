@@ -1,0 +1,39 @@
+{
+    "en": "Indianapolis",
+    "jp": "\u30a4\u30f3\u30c7\u30a3\u30a2\u30ca\u30dd\u30ea\u30b9",
+    "dname": "Indianapolis",
+    "rarity": "SR",
+    "prefix": "USS",
+    "faction": "American",
+    "faction_jp": "\u5408\u4f17",
+    "hull_code": "CA",
+    "ship_class": "Heavy Cruiser",
+    "stats": {},
+    "lb": [],
+    "traits": [
+        {
+            "name": "Coward",
+            "text": null
+        },
+        {
+            "name": "Dark Cuisine",
+            "text": null
+        }
+    ],
+    "skills": [
+        {
+            "name": "Thirst for Battle (\u6fc0\u6226\u3078\u306e\u6e07\u6c42)",
+            "text": "1. Prioritizes target with the highest current HP.\n2. On [Secondary Battery Activation], [Main Battery] damage increased by 50% for 10 seconds"
+        },
+        {
+            "name": "Fire Control Expert (\u7832\u6483\u5c02\u9580\u5bb6)",
+            "text": "1. During battle, when the Allied Fleet launches a [Torpedo Salvo], increases Indianapolis' next [Main Battery Salvo] damage by 100%, lasts 10 seconds.\nCan only proc 3 times per battle."
+        }
+    ],
+    "img_sq": "https://static.miraheze.org/blueoathwiki/1/1e/Indianapolis_Portrait_Square.png",
+    "img_rec": null,
+    "gallery": [],
+    "acquisition": null,
+    "comment": null,
+    "VA": null
+}
