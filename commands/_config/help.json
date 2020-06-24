@@ -195,11 +195,11 @@
         "big": {
             "flags":    ["shitpost"],
             "hidden":   false,
-            "usage":    ".big [emote]",
+            "usage":    ".big [emote] [num]",
             "subcmd":   null,
             "aliases":  ["e","b"],
             "help":     "Enlarge the emote.",
-            "help_ex":  "`[emote]` can be a full emote. If `[emote]` is an emote name, then the emote must be an emote Ames has access to and the name must be partially correct. There is little to no fault tolerance in emote searching. The function currently cannot pick a specific emote should more than one emotes satisfy the substring."
+            "help_ex":  "`[emote]` can be a full emote. If `[emote]` is an emote name, then the emote must be an emote Ames has access to and the name must be partially correct (if the latter multiple emotes will be found and the best match will be assumed). There is little to no fault tolerance in emote searching. \n`[num]` is an integer that allows you to pick which emote to use should `[emote]` search returns more than 1 result. If `[num]` is left blank or invalid the command will default to the best match."
         },
         "find": {
             "flags":    ["shitpost"],

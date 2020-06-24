@@ -41,11 +41,12 @@ class shenCog(commands.Cog):
         aliases=['b', 'e', 'emote'],
         help='Enlarge the emote.'
     )
-    async def big(self, ctx, emote:str=None):
+    async def big(self, ctx, emote:str="",num:int=1):
         channel = ctx.channel
         if not self.client.command_status['big'] == 1:
             raise commands.DisabledCommand
-        
+        elif not emote:
+            return
         # try extracting id
         emote1 = emote[1:-1].split(':')
         if emote1[0] == '' and len(emote1) > 1:
@@ -53,9 +54,12 @@ class shenCog(commands.Cog):
         elif emote1[0] == 'a' and len(emote1) > 1:
             link = f"https://cdn.discordapp.com/emojis/{emote1[-1]}.gif"
         else:
-            targets = list(filter(lambda x: not x.guild_id in self.client.private['resource_servers'] and sm(None, emote.lower(), x.name.lower(), None).ratio() >= 0.4 and emote.lower() in x.name.lower(), self.client.emojis))
+            targets = list(filter(lambda x: not x.guild_id in self.client.private['resource_servers'] and sm(None, emote.lower(), x.name.lower(), None).ratio() >= 0.25 and emote.lower() in x.name.lower(), self.client.emojis))
             if len(targets) > 0:
-                emote = targets[0]
+                try:
+                    emote = targets[num-1]
+                except:
+                    emote = targets[0]
                 if not emote.animated:
                     link = f"https://cdn.discordapp.com/emojis/{emote.id}.png"
                 else:
