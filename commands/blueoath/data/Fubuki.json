@@ -24,15 +24,23 @@
     "skills": [
         {
             "name": "Special Torpedoes (\u7279\u6b8a\u9b5a\u96f7)",
-            "text": "1. When entering a battle, gains 1 [Torpedo Salvo] charge, 40% chance to gain a further 1 [Torpedo Salvo] charge"
+            "text": [
+                "When entering a battle, gains 1 [Torpedo Salvo] charge, 40% chance to gain a further 1 [Torpedo Salvo] charge"
+            ]
         },
         {
             "name": "Combat Awareness (\u5371\u967a\u63a2\u77e5)",
-            "text": "1.Can use [Main Battery Salvo] at Medium range.\n2. During battle, when entering an enemy [Main Battery Salvo] or [Airstrike] circle, increases Fubuki's [Main Battery Salvo] Damage by 15%, stacks up to 10 times."
+            "text": [
+                "Can use [Main Battery Salvo] at Medium range.",
+                "During battle, when entering an enemy [Main Battery Salvo] or [Airstrike] circle, increases Fubuki's [Main Battery Salvo] Damage by 15%, stacks up to 10 times."
+            ]
         },
         {
             "name": "Cardiotonic (\u5f37\u5fc3\u5264)",
-            "text": "1. Increases Max HP by 20%.\n2. When entering Medium Range, increases Fleet Speed by 100% for 1 second."
+            "text": [
+                "Increases Max HP by 20%.",
+                "When entering Medium Range, increases Fleet Speed by 100% for 1 second."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/0/04/Fubuki_Portrait_Square.png",

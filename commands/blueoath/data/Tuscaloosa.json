@@ -28,11 +28,15 @@
     "skills": [
         {
             "name": "Secondary Expert (\u526f\u70ae\u624b)",
-            "text": "1. During Battle, damage of the first 2 [Secondary Battery Salvo] will be increased by 200%."
+            "text": [
+                "During Battle, damage of the first 2 [Secondary Battery Salvo] will be increased by 200%."
+            ]
         },
         {
             "name": "Full Armament (\u5b8c\u6b66\u88c5)",
-            "text": "1. On the first[Secondary Battery Salvo], increase Allied Fleet Crit Rate by 30% for 7 seconds, buff is lost after any attack is launched.\nEffect is doubled if activated in Close Range, but damage taken by Allied Fleet is increased by 15%."
+            "text": [
+                "On the first[Secondary Battery Salvo], increase Allied Fleet Crit Rate by 30% for 7 seconds, buff is lost after any attack is launched.\nEffect is doubled if activated in Close Range, but damage taken by Allied Fleet is increased by 15%."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/4/41/Tuscaloosa_Portrait_Square.png",

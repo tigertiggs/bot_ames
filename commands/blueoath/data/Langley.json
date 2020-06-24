@@ -52,14 +52,14 @@
             "text": "Airstrikes: Can launch attacks from the map and in battle, has infinite range, reload time when used on map: 60s in battle: 25\nReconnaissance: Planes can be sent when on the map to reveal the fog of war, reload time: 10s\n"
         },
         {
-            "name": "Airgroup Ambush\n\u822a\u7a7a\u968a\u5947\u8972",
+            "name": "Airgroup Ambush (\u822a\u7a7a\u968a\u5947\u8972)",
             "text": [
                 "During battle, if [Airstrike] hits, every Bomber Squadron has a 100% chance to reduce target speed by 50% and disables their rudders, lasts 20 seconds. Does not stack",
                 "Increase Crit Rate by 20%."
             ]
         },
         {
-            "name": "Airgroup Pioneer\n\u822a\u7a7a\u968a\u306e\u5148\u99c6",
+            "name": "Airgroup Pioneer (\u822a\u7a7a\u968a\u306e\u5148\u99c6)",
             "text": [
                 "Increases damage of all Allied Carriers by 5%",
                 "When entering Map Mode, all Allied Carriers gain 20 reserve planes on all slots."

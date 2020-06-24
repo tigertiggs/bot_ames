@@ -95,7 +95,7 @@ class blueoathCog(commands.Cog):
             _character = self.process_request(option)
             search_success, _character = self.validate_entry(_character)
             if search_success:
-                option = _character
+                option = _character['sname']
 
             # check
             if not option in index['search_name']:
@@ -216,7 +216,7 @@ class blueoathCog(commands.Cog):
                 if chara.lower() in skills_jp['index']['name']:
                     sheet_data = skills_jp['data'][skills_jp['index']['name'].index(chara.lower())]
                     
-                    temp['skills'] =        sheet_data['skills']
+                    temp['skills'] =        [{"name":skill['name'], "text":self.fix_skill_str(skill['text'])} for skill in sheet_data['skills']]
                     temp['faction_jp'] =    sheet_data['nation']
                     temp['traits'] =        [{"name":x, "text":None} for x in sheet_data['trait']]
                     temp['faction'] =       sheet_data['nation_en']
@@ -378,7 +378,7 @@ class blueoathCog(commands.Cog):
 
     def fix_skill_str(self, string):
         string = re.sub(r'\\n+',' ',string)
-        return [x.strip() for x in re.sub(r'(\A\d\.\s*|(\.\d\.\s*)+)', '+++', string).split('+++') if x]
+        return [x.strip() for x in re.sub(r'\A\d\.\s*|(\.\d\.\s*)+|\s\d\.', '+++', string).split('+++') if x]
 
     def read_skills_table(self, table, data):
         table_body = table.tbody.find_all("tr")
@@ -396,7 +396,11 @@ class blueoathCog(commands.Cog):
         for category in table_body:
             skill = {}
             contents = category.find_all("td")
-            skill['name'] = self.get_str("\n".join(str(contents[0]).split("<br/>")[-2:]))
+            try:
+                skill['name'] = self.get_str("{} ({})".format(*str(contents[0]).split("<br/>")[-2:]))
+            except:
+                skill['name'] = self.get_str("\n".join(str(contents[0]).split("<br/>")[-2:]))
+            skill['name'] = re.sub(r'<.*>', '', skill['name'])
             skill['text'] = self.fix_skill_str(contents[1].text)
             temp.append(skill)
 
@@ -1139,7 +1143,7 @@ class blueoathCog(commands.Cog):
         if not data['gallery']:
             embed = make_indiv_gallery(data,sections.copy())
             embed.add_field(
-                name="No pictres",
+                name="No pictures",
                 value=f"{data['dname']}\'s gallery is currently empty"
             )
             return [embed]

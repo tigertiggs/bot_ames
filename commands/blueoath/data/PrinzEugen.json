@@ -53,7 +53,7 @@
             "text": "Can attack from medium range, reload time: 12s\nCan launch torpedoes from medium range; another torpedo cannot be fired unless an already launched torpedo has hit the enemy/expired\n"
         },
         {
-            "name": "Bullet Hell\n\u5f3e\u5e55",
+            "name": "Bullet Hell (\u5f3e\u5e55)",
             "text": [
                 "[On Main Battery Salvo], prioritizes target with the lowest current HP",
                 "If a ship is sunk during a [Main Battery Salvo] that involves Prinz Eugen, instantly reloads [Main Battery]",
@@ -61,14 +61,14 @@
             ]
         },
         {
-            "name": "Resurgence\n\u9006\u5883",
+            "name": "Resurgence (\u9006\u5883)",
             "text": [
                 "[On Main Battery Salvo] if attacking with [T-Disadvantage], 100% to disregard damage debuff",
                 "If a ship is sunk during a [Main Battery Salvo] that doesn't involve Prinz Eugen, increase damage by 25% until the end of this battle."
             ]
         },
         {
-            "name": "Arrogance\n\u50b2\u6162\u306e\u5bdb\u5927",
+            "name": "Arrogance (\u50b2\u6162\u306e\u5bdb\u5927)",
             "text": [
                 "Reduces incoming damage by 20%",
                 "When the Fleet is sailing at Full Speed, fatigue buildup is reduced by 50%."

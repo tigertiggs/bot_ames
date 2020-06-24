@@ -24,11 +24,15 @@
     "skills": [
         {
             "name": "Destroyer Killer (\u99c6\u9010\u8266\u30ad\u30e9\u30fc)",
-            "text": "1. Prioritizes targeting Destroyers, [Main Battery] damage done to Destroyers increased by 40%."
+            "text": [
+                "Prioritizes targeting Destroyers, [Main Battery] damage done to Destroyers increased by 40%."
+            ]
         },
         {
             "name": "Special Torpedoes (\u7279\u7a2e\u9b5a\u96f7)",
-            "text": "1. Damage of the Flagship's first [Torpedo Salvo] deals 75% more damage."
+            "text": [
+                "Damage of the Flagship's first [Torpedo Salvo] deals 75% more damage."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/2/28/SanJuan_Portrait_Square.png",

@@ -24,11 +24,15 @@
     "skills": [
         {
             "name": "Desperation Attack(\u706b\u4e8b\u5834\u306e\u99ac\u9e7f\u529b)",
-            "text": "1. Every time an enemy hits, reduces [Main Battery Salvo] cooldown by 6 seconds.\nCan only proc 3 times per battle."
+            "text": [
+                "Every time an enemy hits, reduces [Main Battery Salvo] cooldown by 6 seconds.\nCan only proc 3 times per battle."
+            ]
         },
         {
             "name": "All Out Attack (\u6e3e\u8eab\u306e\u4e00\u6483)",
-            "text": "1. The lower the enemy's HP, the more damage Repulse deals, up to 30%."
+            "text": [
+                "The lower the enemy's HP, the more damage Repulse deals, up to 30%."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/8/8f/Repulse_Portrait_Square.png",

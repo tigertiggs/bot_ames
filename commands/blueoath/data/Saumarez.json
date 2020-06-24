@@ -24,15 +24,22 @@
     "skills": [
         {
             "name": "Ace Up The Sleeve (\u9690\u85cf\u96f7\u4ed3)",
-            "text": "1. During battle, everytime Saumarez passes by the Close Range radius, 100% chance to gain 1 [Torpedo Salvo] charge. Can only proc 2 times per battle."
+            "text": [
+                "During battle, everytime Saumarez passes by the Close Range radius, 100% chance to gain 1 [Torpedo Salvo] charge. Can only proc 2 times per battle."
+            ]
         },
         {
             "name": "All Out Attack (\u6e3e\u8eab\u306e\u4e00\u6483)\r",
-            "text": "1. During [Main Battery Salvo], increases chance of [Cut-in] by 20%.\n2. [Cut-in] damage increased by 50%"
+            "text": [
+                "During [Main Battery Salvo], increases chance of [Cut-in] by 20%.",
+                "[Cut-in] damage increased by 50%"
+            ]
         },
         {
             "name": "Lethal Torpedo (\u81f4\u547d\u306e\u9b5a\u96f7)",
-            "text": "1. When [Torpedo Salvo] hits a target, 70% to inflict a stacking debuff that increases all damage taken by target by 5%."
+            "text": [
+                "When [Torpedo Salvo] hits a target, 70% to inflict a stacking debuff that increases all damage taken by target by 5%."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/9/9f/Saumarez_Portrait_Square.png",

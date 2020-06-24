@@ -53,14 +53,14 @@
             "text": "Can attack from medium range, reload time: 12s\nCan launch torpedoes from medium range; another torpedo cannot be fired unless an already launched torpedo has hit the enemy/expired\n"
         },
         {
-            "name": "Survivor's Will\n\u751f\u304d\u6b8b\u308a\u306e\u610f\u5730",
+            "name": "Survivor's Will (\u751f\u304d\u6b8b\u308a\u306e\u610f\u5730)",
             "text": [
                 "On [Main Battery hit] 50% chance to set enemies on [Fire]. [Fire] dealing 110% of Firepower over 10 seconds",
                 "On [Main Battery hit] 100% chance to inflict [Inhibited], preventing the target from repairing for 10 seconds."
             ]
         },
         {
-            "name": "Oversized Main Battery\n\u89c4\u683c\u5916\u306e\u4e3b\u70ae",
+            "name": "Oversized Main Battery (\u89c4\u683c\u5916\u306e\u4e3b\u70ae)",
             "text": [
                 "Can fire [Main Battery] at Long Range",
                 "Damage increased by 20%."

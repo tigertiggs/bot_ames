@@ -28,15 +28,22 @@
     "skills": [
         {
             "name": "Deterrent Shelling (\u5a01\u5687\u5c04\u6483)",
-            "text": "1. When [Main Batter Salvo] hits a target, 100% chance to inflict [Flooding], lowering target speed by 50%, lasts 5 seconds.\nIf this is the first time an enemy ship is inflicted with [Flooding] due to this skill's effect, deal an additional 140% of Alabama's Firepower after [Flooding] ends."
+            "text": [
+                "When [Main Batter Salvo] hits a target, 100% chance to inflict [Flooding], lowering target speed by 50%, lasts 5 seconds.\nIf this is the first time an enemy ship is inflicted with [Flooding] due to this skill's effect, deal an additional 140% of Alabama's Firepower after [Flooding] ends."
+            ]
         },
         {
             "name": "Continuous Fire (\u6ce2\u72b6\u653b\u6483)",
-            "text": "1. Can equip up to 3 AA mount.\nDuring battle, [Main Battery Salvo] damage is increased by 15% of Alabama's AA and equipment AA stats."
+            "text": [
+                "Can equip up to 3 AA mount.\nDuring battle, [Main Battery Salvo] damage is increased by 15% of Alabama's AA and equipment AA stats."
+            ]
         },
         {
             "name": "Counterattack Signal (\u53cd\u6483\u306e\u72fc\u7159)",
-            "text": "1. All offensive capabilities of the Flagship stays fully operational regardless of her damaged state.\n2. During battle, every time the Allied Fleet is hit by an enemy attack, increases Alabama's [Main Battery Salvo] damage by 10%.\nStacks up to 3 times, lasts till the battle ends, 5s CD between stacking of the buff."
+            "text": [
+                "All offensive capabilities of the Flagship stays fully operational regardless of her damaged state.",
+                "During battle, every time the Allied Fleet is hit by an enemy attack, increases Alabama's [Main Battery Salvo] damage by 10%.\nStacks up to 3 times, lasts till the battle ends, 5s CD between stacking of the buff."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/1/12/Alabama_Portrait_Square.png",

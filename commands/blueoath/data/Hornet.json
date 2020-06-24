@@ -52,13 +52,13 @@
             "text": "Airstrikes: Can launch attacks from the map and in battle, has infinite range, reload time when used on map: 60s in battle: 25\nReconnaissance: Planes can be sent when on the map to reveal the fog of war, reload time: 10s\n"
         },
         {
-            "name": "Forward Airgroup\n\u5148\u92d2\u822a\u7a7a\u968a",
+            "name": "Forward Airgroup (\u5148\u92d2\u822a\u7a7a\u968a)",
             "text": [
                 "During map mode, increase damage of [Airstrike] by 50%."
             ]
         },
         {
-            "name": "Independent Airgroup\n\u72ec\u7acb\u822a\u7a7a\u968a",
+            "name": "Independent Airgroup (\u72ec\u7acb\u822a\u7a7a\u968a)",
             "text": [
                 "During battle, if enemy fleet launches an [Airstrike] at own fleet, Hornet obtains a special [Airstrike] that deals 50% damage.\nIf used or not used within 15 seconds,  this skill will disappear, [Airstrike] CD will not be affected. Can only proc 2 times per battle."
             ]

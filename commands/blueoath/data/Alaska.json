@@ -28,15 +28,22 @@
     "skills": [
         {
             "name": "Lock-on Cannon (\u30ed\u30c3\u30af\u30aa\u30f3\u7832)",
-            "text": "1. [On Main Battery Salvo], prioritizes target with the lowest current HP.\n2. If a ship sinks during [Main Battery Salvo], 100% chance to reduce [Main Battery] Reload on all ships in fleet by 3 seconds. Can only proc 5 times per battle."
+            "text": [
+                "[On Main Battery Salvo], prioritizes target with the lowest current HP.",
+                "If a ship sinks during [Main Battery Salvo], 100% chance to reduce [Main Battery] Reload on all ships in fleet by 3 seconds. Can only proc 5 times per battle."
+            ]
         },
         {
             "name": "Competitive (\u51f6\u6226\u306e\u610f\u5fd7)",
-            "text": "1. During Day Battle, for every ally Battlecruiser excluding self, reduces Alaska's [Main Battery] Reload by 1 second."
+            "text": [
+                "During Day Battle, for every ally Battlecruiser excluding self, reduces Alaska's [Main Battery] Reload by 1 second."
+            ]
         },
         {
             "name": "Gargantua Pressure (\u8d85\u8d8a\u8005\u306e\u5a01\u5727)",
-            "text": "1. During battle, damage dealt towards Heavy Cruisers, Light Cruisers and Destroyers is increased by 30%."
+            "text": [
+                "During battle, damage dealt towards Heavy Cruisers, Light Cruisers and Destroyers is increased by 30%."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/8/8f/Alaska_Portrait_Square.png",

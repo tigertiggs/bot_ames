@@ -48,19 +48,20 @@
             "text": "Can attack from long range, reload time: 20s\n"
         },
         {
-            "name": "<td class=\"text-center\">Full Salvo - Ultimate (\u706b\u529b\u5168\u958b \u00b7\u6975)",
+            "name": "Full Salvo - Ultimate (\u706b\u529b\u5168\u958b \u00b7\u6975)",
             "text": [
-                "During battle, inflict 125% of Firepower to all enemies 1 second after first [Main Battery Salvo].\n2. If Warspite is in the same fleet, increases damage of QE's first [Main Battery Salvo] by 20%."
+                "During battle, inflict 125% of Firepower to all enemies 1 second after first [Main Battery Salvo].",
+                "If Warspite is in the same fleet, increases damage of QE's first [Main Battery Salvo] by 20%."
             ]
         },
         {
-            "name": "<td class=\"text-center\">Protection (\u63f4\u8b77)",
+            "name": "Protection (\u63f4\u8b77)",
             "text": [
                 "If a friendly ship is under a [Main Battery] attack, and if Queen Elizabeth has at least 75% of her Max HP remaining, [Protection] can be activated:\nTakes the incoming damage instead and reduces it by 80%. Can only proc 2 times in battle."
             ]
         },
         {
-            "name": "<td class=\"text-center\">Queenly Mindseet(\u5973\u738b\u306e\u5fc3\u5883)",
+            "name": "Queenly Mindseet(\u5973\u738b\u306e\u5fc3\u5883)",
             "text": [
                 "During an Allied [Main Battery Salvo], if an enemy ship has been sunk, increases Queen Elizabeth's damage by 6%, stacks up to 10 times in the same battle."
             ]

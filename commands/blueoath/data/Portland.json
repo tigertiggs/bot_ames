@@ -52,14 +52,14 @@
             "text": "Can attack from medium range, reload time: 8s\n"
         },
         {
-            "name": "Thirst for Battle\n\u6fc0\u6226\u3078\u306e\u6e07\u6c42",
+            "name": "Thirst for Battle (\u6fc0\u6226\u3078\u306e\u6e07\u6c42)",
             "text": [
                 "Prioritizes target with the highest current HP",
                 "On [Secondary Battery Activation], [Main Battery] damage increased by 50% for 10 seconds."
             ]
         },
         {
-            "name": "Secondary Surprise\n\u526f\u7832\u306e\u610f\u5916\u6027",
+            "name": "Secondary Surprise (\u526f\u7832\u306e\u610f\u5916\u6027)",
             "text": [
                 "Damage of the first [Secondary Battery Salvo] of the battle will be increased by 400%."
             ]

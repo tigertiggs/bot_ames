@@ -52,19 +52,19 @@
             "text": "Airstrikes: Can launch attacks from the map and in battle, has infinite range, reload time when used on map: 60s in battle: 25\nReconnaissance: Planes can be sent when on the map to reveal the fog of war, reload time: 10s\n"
         },
         {
-            "name": "Obliterate\n\u6728\u3063\u7aef\u5fae\u5875",
+            "name": "Obliterate (\u6728\u3063\u7aef\u5fae\u5875)",
             "text": [
                 "If [Dive Bombing] sinks a a target, 100% chance for the target to explode after 1 second, dealing 150% of Saratoga's Firepower in damage to all enemies.\nCan only proc once per battle."
             ]
         },
         {
-            "name": "Supressive Shelling\n\u5236\u5727\u7832\u6483",
+            "name": "Supressive Shelling (\u5236\u5727\u7832\u6483)",
             "text": [
                 "During [Battle], the first time Saratoga enters within Long Range, 100% chance to activate [Carrier Salvo] on enemy Flagship, dealing 400% of Saratoga's Firepower in damage."
             ]
         },
         {
-            "name": "Night Dancer\n\u591c\u7a7a\u306e\u821e\u59eb",
+            "name": "Night Dancer (\u591c\u7a7a\u306e\u821e\u59eb)",
             "text": [
                 "When entering a [Night Battle], Saratoga obtains a special [Airstrike] that deals 100% damage. \nIf not used within 15 seconds, this skill will disappear, [Airstrike] CD will not be affected.\n\nGrants the ability to use [Opening Airstrike] during [Night Battle] if [Opening Airstrike] is unlocked."
             ]

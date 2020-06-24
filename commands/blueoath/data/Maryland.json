@@ -28,11 +28,17 @@
     "skills": [
         {
             "name": "Thirst for Battle (\u6fc0\u6226\u3078\u306e\u6e07\u6c42)",
-            "text": "1. Prioritizes target with the highest current HP.\n2. On [Secondary Battery Activation], increases [Main Battery] damage by 50% for 10 seconds."
+            "text": [
+                "Prioritizes target with the highest current HP.",
+                "On [Secondary Battery Activation], increases [Main Battery] damage by 50% for 10 seconds."
+            ]
         },
         {
             "name": "Torpedo Interceptor (\u9b5a\u96f7\u9080\u6483\u8005)",
-            "text": "1. If a friendly ship is hit by a [Torpedo Salvo], and if Maryland has at least 75% of her Max HP remaining, activate this skill: \nMaryland takes all torpedo damage during that salvo. Can only proc once per battle.\n2. At the end of [Battle], repair 50% of self HP."
+            "text": [
+                "If a friendly ship is hit by a [Torpedo Salvo], and if Maryland has at least 75% of her Max HP remaining, activate this skill: \nMaryland takes all torpedo damage during that salvo. Can only proc once per battle.",
+                "At the end of [Battle], repair 50% of self HP."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/4/42/Maryland_Portrait_Square.png",

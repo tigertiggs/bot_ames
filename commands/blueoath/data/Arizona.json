@@ -48,15 +48,16 @@
             "text": "Can attack from long range, reload time: 20s\n"
         },
         {
-            "name": "Fire All Cannons!\n\u5168\u7832\u9580\u958b\u3051\uff01",
+            "name": "Fire All Cannons! (\u5168\u7832\u9580\u958b\u3051\uff01)",
             "text": [
                 "During battle, inflict 125% of Firepower to all enemies after first [Main Battery Salvo]"
             ]
         },
         {
-            "name": "Fast Reload\n\u9ad8\u901f\u88c5\u586b",
+            "name": "Fast Reload (\u9ad8\u901f\u88c5\u586b)",
             "text": [
-                "During battle, every time a [Main Battery Salvo] is fired, reduces Arizona's [Main Battery] CD by 1.5 seconds. Can proc up to 15 times per battle."
+                "During battle, every time a [Main Battery Salvo] is fired, reduces Arizona's [Main Battery] CD by",
+                "5 seconds. Can proc up to 15 times per battle."
             ]
         }
     ],

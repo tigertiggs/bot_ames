@@ -24,11 +24,16 @@
     "skills": [
         {
             "name": "High-Explosive Battery (\u708e\u4e0a\u7832\u6483)",
-            "text": "1. On [Main Battery Salvo] hit, 50% chance to set enemies on [Fire], dealing 110% of Firepower over 10 seconds."
+            "text": [
+                "On [Main Battery Salvo] hit, 50% chance to set enemies on [Fire], dealing 110% of Firepower over 10 seconds."
+            ]
         },
         {
             "name": "Anti-Air Ship(\u5bfe\u7a7a\u9632\u885b\u8266)",
-            "text": "1. Increases Allied Fleet [Fire] damage by 25%. and reduces Allied Fleet Crit Rate by 5%.\n2. When entering a battle, provides the Flagship a shield with 20% of the Flagship's Max HP that absorbs [Airstrike] damage."
+            "text": [
+                "Increases Allied Fleet [Fire] damage by 25%. and reduces Allied Fleet Crit Rate by 5%.",
+                "When entering a battle, provides the Flagship a shield with 20% of the Flagship's Max HP that absorbs [Airstrike] damage."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/6/6d/Karlsruhe_Portrait_Square.png",

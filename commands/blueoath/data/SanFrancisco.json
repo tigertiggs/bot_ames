@@ -24,15 +24,23 @@
     "skills": [
         {
             "name": "Oversized Main Battery (\u89c4\u683c\u5916\u306e\u4e3b\u70ae)",
-            "text": "1. Can fire [Main Battery] at Long Range.\n2. Increase damage by 20%."
+            "text": [
+                "Can fire [Main Battery] at Long Range.",
+                "Increase damage by 20%."
+            ]
         },
         {
             "name": "Wrath (\u6fc0\u6012)",
-            "text": "1. When in any damaged state, all offensive capabilities stay fully operational.\n2. If in a T-Advantage Engagement, Crit Rate of [Main Battery] increased by 50%\nElse, if in a Parallel or Head-on Engagement, Crit Rate of [Main Battery] increased by 25%"
+            "text": [
+                "When in any damaged state, all offensive capabilities stay fully operational.",
+                "If in a T-Advantage Engagement, Crit Rate of [Main Battery] increased by 50%\nElse, if in a Parallel or Head-on Engagement, Crit Rate of [Main Battery] increased by 25%"
+            ]
         },
         {
             "name": "Artillery Support (\u5f3a\u88ad\u652f\u63f4)",
-            "text": "1.During battle when entering Medium Range from Long Range, cue Guadalcanal immediately deals 225% of her Firepower in damage against enemy with the highest HP.\nCan only proc 2 times per battle."
+            "text": [
+                "During battle when entering Medium Range from Long Range, cue Guadalcanal immediately deals 225% of her Firepower in damage against enemy with the highest HP.\nCan only proc 2 times per battle."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/a/af/SanFran_Portrait_Square.png",

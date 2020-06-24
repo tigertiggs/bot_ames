@@ -427,7 +427,7 @@ class hatsuneCog(commands.Cog):
                 self.card_pages.append(self.cog.make_embed_card(self.info, self.pages_title.copy(), 'flb'))
             
             # alt
-            if 'alt' in self.info['tag']:
+            if self.info['sk1ajp'] or self.info['sk2ajp']:
                 self.chara_alt = self.cog.make_embed_chara(self.info, self.pages_title.copy(), 'alt')
                 self.stats_alt = self.cog.make_embed_stats(self.info, self.pages_title.copy(), 'alt')
         
@@ -896,17 +896,17 @@ class hatsuneCog(commands.Cog):
                 name=   f"> **Skill 1**",
                 value=  f"「{info.get('sk1jp','soon:tm:')}」",
                 inline= False
-            )
-            embed.add_field(
-                name=   "Description",
-                value=  f"{info['sk1tl']}",
-                inline= True
-            )
-            embed.add_field(
-                name=   "Effect",
-                value=  "```glsl\n-{}```".format('\n-'.join(info['sk1action'])),
-                inline= True
-            )
+                )
+                embed.add_field(
+                    name=   "Description",
+                    value=  f"{info['sk1tl']}",
+                    inline= True
+                )
+                embed.add_field(
+                    name=   "Effect",
+                    value=  "```glsl\n-{}```".format('\n-'.join(info['sk1action'])),
+                    inline= True
+                )
         
         # Skill 1+
         if 'ue' in info['tag']:

@@ -24,11 +24,15 @@
     "skills": [
         {
             "name": "Ramming Speed (\u6368\u3066\u8eab\u306e\u4f53\u5f53\u305f\u308a)",
-            "text": "1. During battle, ramming an enemy fleet will deal 180% of Glowworm's Firepower. Can only proc 3 times per battle, 5 seconds CD."
+            "text": [
+                "During battle, ramming an enemy fleet will deal 180% of Glowworm's Firepower. Can only proc 3 times per battle, 5 seconds CD."
+            ]
         },
         {
             "name": "Disruptor (\u756a\u72c2\u308f\u305b)",
-            "text": "1. During battle when entering within Close Range, 100% to disrupt enemy [Main Battery] targeting circles and disables it for 3 seconds. Can only proc once per battle."
+            "text": [
+                "During battle when entering within Close Range, 100% to disrupt enemy [Main Battery] targeting circles and disables it for 3 seconds. Can only proc once per battle."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/4/4c/Glowworm_Portrait_Square.png",

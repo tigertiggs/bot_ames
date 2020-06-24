@@ -24,11 +24,18 @@
     "skills": [
         {
             "name": "Chase (\u30c1\u30a7\u30a4\u30b9\uff09\r",
-            "text": "1. [On Main Battery Salvo], prioritizes target with the lowest current HP.\n2. If a ship sinks during salvo, 100% chance to reload own [Main Battery]\n3. If Norfolk is in the same battle, increases all of Dorsetshire's damage by 12%."
+            "text": [
+                "[On Main Battery Salvo], prioritizes target with the lowest current HP.",
+                "If a ship sinks during salvo, 100% chance to reload own [Main Battery]",
+                "If Norfolk is in the same battle, increases all of Dorsetshire's damage by 12%."
+            ]
         },
         {
             "name": "Torpedo Warning (\u7740\u5f3e\u8b66\u6212\u00b7\u67d4)",
-            "text": "1. Reduces incoming [Torpedo Salvo] damage by 20%.\n2. Increases Crit Rate of Allied Fleet [Main Battery Salvo] if Dorsetshire participates in it by 10%."
+            "text": [
+                "Reduces incoming [Torpedo Salvo] damage by 20%.",
+                "Increases Crit Rate of Allied Fleet [Main Battery Salvo] if Dorsetshire participates in it by 10%."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/9/98/Dorsetshire_Portrait_Square.png",

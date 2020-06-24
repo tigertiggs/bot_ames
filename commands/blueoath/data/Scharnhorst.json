@@ -24,15 +24,24 @@
     "skills": [
         {
             "name": "Dawn of the Torpedo (\u9c7c\u96f7\u7834\u6653)",
-            "text": "1. Comes with 1 [Torpedo Salvo] charge, can use [Torpedo Salvo] attacks.\n2. [Torpedo Salvo] damage increased by 130%.\n3. When [Torpedo Salvo] hits a target, 100% chance to inflict [Flooding], lowering target speed by 50%, lasts 5 seconds.\nAfter [Flooding] ends, target will take 140% of Scharnhorst's Firepower in damage.\n4. Can fire [Torpedo Salvo] from Long Range."
+            "text": [
+                "Comes with 1 [Torpedo Salvo] charge, can use [Torpedo Salvo] attacks.",
+                "[Torpedo Salvo] damage increased by 130%.",
+                "When [Torpedo Salvo] hits a target, 100% chance to inflict [Flooding], lowering target speed by 50%, lasts 5 seconds.\nAfter [Flooding] ends, target will take 140% of Scharnhorst's Firepower in damage.",
+                "Can fire [Torpedo Salvo] from Long Range."
+            ]
         },
         {
             "name": "Undying Barrage (\u4e0d\u706d\u7684\u70ae\u706b)",
-            "text": "Can fire [Main Battery Salvo] beyond Long Range.\n[Main Battery Salvo] damage reduced by 20%.\nWhen [Main Battery Salvo] hits, sets the target on [Fire]. [Fire] deals 330% of Firepower over 40 seconds.\nIf the target on [Fire] dies by [Fire], the effect is spread to a target with the lowest current HP, duration is carried over from the previous target."
+            "text": [
+                "Can fire [Main Battery Salvo] beyond Long Range.\n[Main Battery Salvo] damage reduced by 20%.\nWhen [Main Battery Salvo] hits, sets the target on [Fire]. [Fire] deals 330% of Firepower over 40 seconds.\nIf the target on [Fire] dies by [Fire], the effect is spread to a target with the lowest current HP, duration is carried over from the previous target."
+            ]
         },
         {
             "name": "Main Battery Autoloader - Type Final (\u4e3b\u70ae\u7f13\u51b2\u7ec8\u578b)",
-            "text": "When in between Mid to Long Range, firing a [Torpedo Salvo] will reduce [Main Battery Salvo] CD by 15 seconds. Can only proc once per battle."
+            "text": [
+                "When in between Mid to Long Range, firing a [Torpedo Salvo] will reduce [Main Battery Salvo] CD by 15 seconds. Can only proc once per battle."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/5/50/Scharnhorst_Portrait_Square.png",

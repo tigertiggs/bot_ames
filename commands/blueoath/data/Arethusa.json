@@ -24,11 +24,15 @@
     "skills": [
         {
             "name": "Torpedo Reserves (\u9b5a\u96f7\u5099\u84c4)",
-            "text": "1. When a [Torpedo Salvo] hits and sinks an enemy, 100% to gain 1 [Torpedo Salvo] charge and increases next [Torpedo Salvo] damage by 30%. Can only proc once per battle."
+            "text": [
+                "When a [Torpedo Salvo] hits and sinks an enemy, 100% to gain 1 [Torpedo Salvo] charge and increases next [Torpedo Salvo] damage by 30%. Can only proc once per battle."
+            ]
         },
         {
             "name": "Torpedo Delivery (\u9b5a\u96f7\u8f93\u9001)",
-            "text": "1. Increases Flagship's [Torpedo Salvo] damage by 20%."
+            "text": [
+                "Increases Flagship's [Torpedo Salvo] damage by 20%."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/c/c1/Arethusa_Portrait_Square.png",

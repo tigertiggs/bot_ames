@@ -57,21 +57,21 @@
             "text": "Can attack from close range, reload time: 6s\nCan launch torpedoes from medium range; another torpedo cannot be fired unless an already launched torpedo has hit the enemy/expired\n"
         },
         {
-            "name": "Pride of the Fleet\n\u65d7\u306e\u610f\u5730",
+            "name": "Pride of the Fleet (\u65d7\u306e\u610f\u5730)",
             "text": [
                 "If Jervis is set as the Flagship, increase the Speed of all allied Destroyers by 10%",
                 "When battle starts, gains 1 [Torpedo Salvo] charge. 20% chance to gain an additional charge, +20% for every additional DD in same fleet."
             ]
         },
         {
-            "name": "Rebellious Charter\n\u53cd\u5f8b\u306e\u639f",
+            "name": "Rebellious Charter (\u53cd\u5f8b\u306e\u639f)",
             "text": [
                 "During the start of a Day/Night battle, Jervis gains an \"Umbrella\" charge, then 1 additional every 10s",
                 "If the number of \"Umbrella\" is above 1, firing a [Torpedo Salvo] consumes 1 charge and increases Jervis' [Torpedo Salvo] Damage by 40%."
             ]
         },
         {
-            "name": "Ultimate Umbrella\n\u5929\u4e0b\u306e\u5098",
+            "name": "Ultimate Umbrella (\u5929\u4e0b\u306e\u5098)",
             "text": [
                 "If Jervis has at least 1 Umbrella charge, 100% chance to consume all \"Umbrella\" charges to let Jervis avoid a single attack."
             ]

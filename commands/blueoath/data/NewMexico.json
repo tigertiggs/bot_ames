@@ -28,11 +28,16 @@
     "skills": [
         {
             "name": "Vital Parts Shelling (\u6025\u6240\u653b\u6483)",
-            "text": "1. When [Main Battery Salvo] hits a target, 100% chance to lower target speed by 50% and disables the rudder. Lasts 10 seconds, does not stack.\n2. Increases Crit Rate by 20%"
+            "text": [
+                "When [Main Battery Salvo] hits a target, 100% chance to lower target speed by 50% and disables the rudder. Lasts 10 seconds, does not stack.",
+                "Increases Crit Rate by 20%"
+            ]
         },
         {
             "name": "Aim Assist (\u6a19\u6e96\u88dc\u6b63)",
-            "text": "1. During Battle, 40% to use T-Cross Advantage buff during [Main Battery Salvo]"
+            "text": [
+                "During Battle, 40% to use T-Cross Advantage buff during [Main Battery Salvo]"
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/0/0f/NewMexico_Portrait_Square.png",

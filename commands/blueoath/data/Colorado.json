@@ -52,13 +52,13 @@
             "text": "Can attack from long range, reload time: 20s\n"
         },
         {
-            "name": "High-Explosive Battery\n\u708e\u4e0a\u7832\u6483",
+            "name": "High-Explosive Battery (\u708e\u4e0a\u7832\u6483)",
             "text": [
                 "On [Main Battery Salvo] hit, 100% chance to apply 1 stack of [Fire] and 50% chance to apply another stack of [Fire]. Each stack of [Fire] deals 110% of Firepower over 10 seconds."
             ]
         },
         {
-            "name": "Tactical Cover\n\u6226\u8853\u63f4\u8b77",
+            "name": "Tactical Cover (\u6226\u8853\u63f4\u8b77)",
             "text": [
                 "On [Secondary Battery Activation], increases the fleet's [Anti-Torp] by 70%, for 3 seconds",
                 "When Battle is over, repairs 30% HP of the lowest HP Allied ship in the fleet."

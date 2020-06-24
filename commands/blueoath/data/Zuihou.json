@@ -24,11 +24,16 @@
     "skills": [
         {
             "name": "Carrier Killer (\u7a7a\u6bcd\u30ad\u30e9\u30fc)",
-            "text": "1. Deals 50% more damage against Aircraft Carriers."
+            "text": [
+                "Deals 50% more damage against Aircraft Carriers."
+            ]
         },
         {
             "name": "Light Carrier Frame (\u8efd\u7a7a\u6bcd\u306e\u8eab\u8efd\u3055)",
-            "text": "1. Increases Evasion by 10%.\n2. During Battle, if Allied Flagship receives damage, Zuihou will obtain a special [Airstrike] that deals 40% damage.\nIf used or not used within 15 seconds, this skill will disappear, [Airstrike] CD will not be affected. Cannot be used in Map Mode."
+            "text": [
+                "Increases Evasion by 10%.",
+                "During Battle, if Allied Flagship receives damage, Zuihou will obtain a special [Airstrike] that deals 40% damage.\nIf used or not used within 15 seconds, this skill will disappear, [Airstrike] CD will not be affected. Cannot be used in Map Mode."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/8/8b/Zuihou_Portrait_Square.png",

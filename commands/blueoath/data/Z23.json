@@ -28,11 +28,15 @@
     "skills": [
         {
             "name": "Battleship Killer (\u6226\u8266\u30ad\u30e9\u30fc)",
-            "text": "1. Prioritizes targeting Battleships or Battlecruisers, deals 40% more damage against them."
+            "text": [
+                "Prioritizes targeting Battleships or Battlecruisers, deals 40% more damage against them."
+            ]
         },
         {
             "name": "Torpedo Delivery (\u9b5a\u96f7\u8f38\u9001)",
-            "text": "1. Increases Flagship's [Torpedo Salvo] damage by 20%."
+            "text": [
+                "Increases Flagship's [Torpedo Salvo] damage by 20%."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/4/42/Z23_Portrait_Square.png",

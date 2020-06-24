@@ -53,13 +53,13 @@
             "text": "Can attack from close range, reload time: 6s\nCan launch torpedoes from medium range; another torpedo cannot be fired unless an already launched torpedo has hit the enemy/expired\n"
         },
         {
-            "name": "Torpedo Reserves\n\u4e88\u5099\u9b5a\u96f7",
+            "name": "Torpedo Reserves (\u4e88\u5099\u9b5a\u96f7)",
             "text": [
                 "[On Torpedo Salvo], 30% chance to immediately reload 1 [Torpedo Salvo] charge, can only proc 3 times per battle."
             ]
         },
         {
-            "name": "Phantom Fleet\n\u5e7b\u5f71\u8266\u968a",
+            "name": "Phantom Fleet (\u5e7b\u5f71\u8266\u968a)",
             "text": [
                 "During a Day Battle, the enemy fleet will not attempt to attack the fleet Craven is in for 5 seconds, unless a [Torpedo Salvo] hits or [Main Battery Salvo] is fired",
                 "When battle starts, increases Allied Fleet Crit Rate by 15%. Every 5s thereafter, reduce the effect of this buff by 5% till 0%."

@@ -28,11 +28,16 @@
     "skills": [
         {
             "name": "Night Battle Elite (\u591c\u6226\u4e0a\u624b)",
-            "text": "1. During a Night Battle, increases Crit Rate by 40%."
+            "text": [
+                "During a Night Battle, increases Crit Rate by 40%."
+            ]
         },
         {
             "name": "Supplemental Nourishments (\u6804\u990a\u5264)",
-            "text": "1. Increases Max HP by 20%.\n2. When Night Battle starts, repair ally with the lowest HP by 50% of Z16's max HP."
+            "text": [
+                "Increases Max HP by 20%.",
+                "When Night Battle starts, repair ally with the lowest HP by 50% of Z16's max HP."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/c/c2/Z16_Portrait_Square.png",

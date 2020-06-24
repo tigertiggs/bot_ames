@@ -24,11 +24,15 @@
     "skills": [
         {
             "name": "Combat Awareness (\u5371\u967a\u63a2\u77e5)",
-            "text": "1. During battle, if attacking with T-Disadvantage, all allies have a 100% to ignore damage debuff."
+            "text": [
+                "During battle, if attacking with T-Disadvantage, all allies have a 100% to ignore damage debuff."
+            ]
         },
         {
             "name": "1. Undamaged Cannon (\u7121\u640d\u7832\u7532)",
-            "text": "When not in any damaged state, increase damage by 25%."
+            "text": [
+                "When not in any damaged state, increase damage by 25%."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/4/40/Brooklyn_Portrait_Square.png",

@@ -28,15 +28,24 @@
     "skills": [
         {
             "name": "Dawn of the Torpedo (\u9c7c\u96f7\u7834\u6653)",
-            "text": "1. Comes with 1 [Torpedo Salvo] charge, can use [Torpedo Salvo] attacks.\n2. [Torpedo Salvo] damage increased by 130%.\n3. When [Torpedo Salvo] hits a target, 100% chance to inflict [Flooding], lowering target speed by 50%, lasts 5 seconds.\nAfter [Flooding] ends, target will take 140% of Gneisenau's Firepower in damage.\n4. Can fire [Torpedo Salvo] from Long Range."
+            "text": [
+                "Comes with 1 [Torpedo Salvo] charge, can use [Torpedo Salvo] attacks.",
+                "[Torpedo Salvo] damage increased by 130%.",
+                "When [Torpedo Salvo] hits a target, 100% chance to inflict [Flooding], lowering target speed by 50%, lasts 5 seconds.\nAfter [Flooding] ends, target will take 140% of Gneisenau's Firepower in damage.",
+                "Can fire [Torpedo Salvo] from Long Range."
+            ]
         },
         {
             "name": "High-Explosive Shell (\u69b4\u5f39\u707c\u70e7)",
-            "text": "[Main Battery Salvo] damage reduced by 20%.\nIf [Main Battery Salvo] hits, 100% to apply 2 stacks of [Fire], dealing 110% of Firepower over 10 seconds."
+            "text": [
+                "[Main Battery Salvo] damage reduced by 20%.\nIf [Main Battery Salvo] hits, 100% to apply 2 stacks of [Fire], dealing 110% of Firepower over 10 seconds."
+            ]
         },
         {
             "name": "Main Battery Autoloader - Type Zero (\u4e3b\u70ae\u7f13\u51b2\u7ec8\u578b)",
-            "text": "When an enemy dies by [Fire], reduces [Main Battery Salvo] CD by 10 seconds, can only proc 2 times per battle."
+            "text": [
+                "When an enemy dies by [Fire], reduces [Main Battery Salvo] CD by 10 seconds, can only proc 2 times per battle."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/c/c3/Gneisenau_Portrait_Square.png",

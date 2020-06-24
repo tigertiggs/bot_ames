@@ -56,14 +56,14 @@
             "text": "Airstrikes: Can launch attacks from the map and in battle, has infinite range, reload time when used on map: 60s in battle: 25\nReconnaissance: Planes can be sent when on the map to reveal the fog of war, reload time: 10s\n"
         },
         {
-            "name": "Pre-emptive Airstrike - Inhibitor\n\u5148\u5236\u7a7a\u6483\u00b7 \u7981",
+            "name": "Pre-emptive Airstrike - Inhibitor (\u5148\u5236\u7a7a\u6483\u00b7 \u7981)",
             "text": [
                 "If [Airstrike] hits, inflicts [Inhibited] on the target, preventing the target from repairing for 20 seconds",
                 "When attacking beyond Mid Range, Crit Rate increased by 25%."
             ]
         },
         {
-            "name": "Ammunition Delivery\n\u5f3e\u85ac\u8f38\u9001",
+            "name": "Ammunition Delivery (\u5f3e\u85ac\u8f38\u9001)",
             "text": [
                 "When battle starts, increase Flagship's [Main Battery] damage by 20%."
             ]

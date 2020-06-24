@@ -24,11 +24,16 @@
     "skills": [
         {
             "name": "Heavy Cruiser Killer (\u91cd\u5de1\u30ad\u30e9\u30fc) ",
-            "text": "1. Prioritizes targeting Heavy Cruisers, deals 40% more damage against them."
+            "text": [
+                "Prioritizes targeting Heavy Cruisers, deals 40% more damage against them."
+            ]
         },
         {
             "name": "Clairvoyance (\u5e72\u91cc\u773c)",
-            "text": "1. When not Medium or Heavily damged, increases Crit Rate by 25%.\n2. During [Day Battle], reduces all incoming damage by 15%."
+            "text": [
+                "When not Medium or Heavily damged, increases Crit Rate by 25%.",
+                "During [Day Battle], reduces all incoming damage by 15%."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/6/6b/Renown_Portrait_Square.png",

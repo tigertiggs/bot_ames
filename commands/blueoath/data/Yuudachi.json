@@ -57,19 +57,19 @@
             "text": "Can attack from close range, reload time: 6s\nCan launch torpedoes from medium range; another torpedo cannot be fired unless an already launched torpedo has hit the enemy/expired\n"
         },
         {
-            "name": "Torpedo Reserves\n\u4e88\u5099\u9b5a\u96f7",
+            "name": "Torpedo Reserves (\u4e88\u5099\u9b5a\u96f7)",
             "text": [
                 "[On Torpedo Salvo], 30% chance to immediately reload 1 [Torpedo Salvo] charge, can only proc 3 times per battle."
             ]
         },
         {
-            "name": "Surprise Salvo\n\u5947\u8972\u7832\u6483",
+            "name": "Surprise Salvo (\u5947\u8972\u7832\u6483)",
             "text": [
                 "[On Torpedo Salvo], increases Yuudachi's next [Main Battery Salvo] damage by 220%."
             ]
         },
         {
-            "name": "Ambush\n\u5f85\u3061\u4f0f\u305b",
+            "name": "Ambush (\u5f85\u3061\u4f0f\u305b)",
             "text": [
                 "Increases HP by 20%",
                 "Forces the fleet to spawn in Mid Range."

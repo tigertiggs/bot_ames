@@ -53,7 +53,7 @@
             "text": "Can attack from medium range, reload time: 7s\nCan launch torpedoes from medium range; another torpedo cannot be fired unless an already launched torpedo has hit the enemy/expired\n"
         },
         {
-            "name": "Undefeated\n\u767e\u6226\u767e\u52dd",
+            "name": "Undefeated (\u767e\u6226\u767e\u52dd)",
             "text": [
                 "When entering a battle, add a stack of 5% increased Crit Rate. Adds 1 stack every 10 seconds after, up to 10 times",
                 "On [Main Battery hit] 50% chance to set enemies on [Fire]. [Fire] deals 110% of Firepower over 10 seconds",
@@ -61,9 +61,10 @@
             ]
         },
         {
-            "name": "Elegant and Indestructible\n\u512a\u96c5\u4e0d\u7834",
+            "name": "Elegant and Indestructible (\u512a\u96c5\u4e0d\u7834)",
             "text": [
-                "Increases armour by 20%. 2. Increase all allied ships' AA stat by 30%",
+                "Increases armour by 20%.",
+                "Increase all allied ships' AA stat by 30%",
                 "Sailing at Flank Speed increases Oakland's damage by 15%."
             ]
         }

@@ -24,11 +24,19 @@
     "skills": [
         {
             "name": "Veteran Fighter (\u767e\u6226\u7df4\u78e8)",
-            "text": "1. If a friendly ship is hit by a [Torpedo Salvo], and if Bl\u00fccher has at least 75% of her Max HP remaining: change all torpedo's target to Blucher:\nBlucher takes all torpedo damage during that salvo. Can only proc once per battle.\n2. When in any damaged state, Crit Rate increased by 25%.\n3. When in any damaged state, all offensive capabilities stay fully operational."
+            "text": [
+                "If a friendly ship is hit by a [Torpedo Salvo], and if Bl\u00fccher has at least 75% of her Max HP remaining: change all torpedo's target to Blucher:\nBlucher takes all torpedo damage during that salvo. Can only proc once per battle.",
+                "When in any damaged state, Crit Rate increased by 25%.",
+                "When in any damaged state, all offensive capabilities stay fully operational."
+            ]
         },
         {
             "name": "Ammo Gift (\u706b\u5668\u5fa1\u793c)",
-            "text": "1. Reduces incoming [Torpedo Salvo] damage by 20%.\n2. When entering a battle, obtains a shield with 20% of Max HP that absorbs [Torpedo Salvo] damage.\n3. Whenever Blucher is Heavily Damaged, a random ally that can arm torpedo will have a 100% chance of getting 1 additional torpedo. Proc up to 3 times per battle."
+            "text": [
+                "Reduces incoming [Torpedo Salvo] damage by 20%.",
+                "When entering a battle, obtains a shield with 20% of Max HP that absorbs [Torpedo Salvo] damage.",
+                "Whenever Blucher is Heavily Damaged, a random ally that can arm torpedo will have a 100% chance of getting 1 additional torpedo. Proc up to 3 times per battle."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/e/e5/Blucher_Portrait_Square.png",

@@ -24,11 +24,16 @@
     "skills": [
         {
             "name": "Fire All Cannon! (\u5168\u7832\u9580\u958b\u3051\uff01)",
-            "text": "1. During battle, inflict 125% of Firepower to all enemies after first [Main Battery Salvo]"
+            "text": [
+                "During battle, inflict 125% of Firepower to all enemies after first [Main Battery Salvo]"
+            ]
         },
         {
             "name": "Ambush (\u5f85\u3061\u4f0f\u305b)",
-            "text": "1. Increases HP by 20%\n2. Forces the fleet to spawn in Mid Range"
+            "text": [
+                "Increases HP by 20%",
+                "Forces the fleet to spawn in Mid Range"
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/8/8f/Pennsylvania_Portrait_Square.png",

@@ -28,15 +28,22 @@
     "skills": [
         {
             "name": "Inherited Name (\u7d99\u627f\u3059\u308b\u540d)",
-            "text": "1. After firing a [Torpedo Salvo], increases all enemies damage received by 3% for 10 seconds.\n2. After [Torpedo Salvo] hits a target, if a ship is sunk within 10 seconds, 100% chance to add an additional [Torpedo Charge] to self.\nCan only proc once per battle"
+            "text": [
+                "After firing a [Torpedo Salvo], increases all enemies damage received by 3% for 10 seconds.",
+                "After [Torpedo Salvo] hits a target, if a ship is sunk within 10 seconds, 100% chance to add an additional [Torpedo Charge] to self.\nCan only proc once per battle"
+            ]
         },
         {
             "name": "Raising Firepower (\u52a0\u7b97\u3057\u7d9a\u3051\u308b)",
-            "text": "1. During battle, increases self's [Main Battery] damage by 2% every second up to a maximum of 30 times."
+            "text": [
+                "During battle, increases self's [Main Battery] damage by 2% every second up to a maximum of 30 times."
+            ]
         },
         {
             "name": "Double-bladed Sharpness (\u4e8c\u5200\u6d41\u306e\u5207\u308c\u5473)",
-            "text": "1. When [Main Battery] hits, randomly choose between AP-shell or HE-shell. If fired after a [Torpedo Salvo], use both shells.\nAP-shell: [Main Battery] damage increases by 20%.\nHE-shell: When [Main Battery] hit, 100% chance to set target on [Fire]. [Fire] deals 110% of Firepower over 10 seconds."
+            "text": [
+                "When [Main Battery] hits, randomly choose between AP-shell or HE-shell. If fired after a [Torpedo Salvo], use both shells.\nAP-shell: [Main Battery] damage increases by 20%.\nHE-shell: When [Main Battery] hit, 100% chance to set target on [Fire]. [Fire] deals 110% of Firepower over 10 seconds."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/1/1a/MaximGorkiy_Portrait_Square.png",

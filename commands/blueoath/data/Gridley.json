@@ -28,11 +28,15 @@
     "skills": [
         {
             "name": "Torpedo Expert (\u9b5a\u96f7\u306e\u540d\u4eba)",
-            "text": "1. When entering a battle, 100% chance to gain 1 [Torpedo Salvo] charge."
+            "text": [
+                "When entering a battle, 100% chance to gain 1 [Torpedo Salvo] charge."
+            ]
         },
         {
             "name": "Spearhead (\u4e00\u756a\u69cd)",
-            "text": "1. For the first 10 seconds of a Day or Night battle, increase damage dealt by 40%."
+            "text": [
+                "For the first 10 seconds of a Day or Night battle, increase damage dealt by 40%."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/0/04/Gridley_Portrait_Square.png",

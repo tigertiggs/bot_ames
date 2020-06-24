@@ -24,11 +24,17 @@
     "skills": [
         {
             "name": "Textbook Tactics (\u6226\u8853\u306e\u624b\u672c)",
-            "text": "1. If in a T-Advantage Engagement, Crit Rate of [Main Battery] increased by 50%. If in a Parallel or Head-on Engagement, Crit Rate of [Main Battery] increased by 25%.\n2. When [Main Battery Salvo] hits, 100% to inflict [Inhibited], preventing the target from repairing for 10 seconds."
+            "text": [
+                "If in a T-Advantage Engagement, Crit Rate of [Main Battery] increased by 50%. If in a Parallel or Head-on Engagement, Crit Rate of [Main Battery] increased by 25%.",
+                "When [Main Battery Salvo] hits, 100% to inflict [Inhibited], preventing the target from repairing for 10 seconds."
+            ]
         },
         {
             "name": "Guardian (\u8b77\u885b\u306e\u6975\u610f)",
-            "text": "1. Increases Flagship's Crit Rate by 20%.\n2. After a battle ends, repairs Flagship by 20% of the Flagship's Max HP."
+            "text": [
+                "Increases Flagship's Crit Rate by 20%.",
+                "After a battle ends, repairs Flagship by 20% of the Flagship's Max HP."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/3/38/Konigsberg_Portrait_Square.png",

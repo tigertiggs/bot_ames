@@ -57,13 +57,13 @@
             "text": "Can attack from close range, reload time: 6s\nCan launch torpedoes from medium range; another torpedo cannot be fired unless an already launched torpedo has hit the enemy/expired\n"
         },
         {
-            "name": "Torpedo Expert\n\u9b5a\u96f7\u306e\u540d\u4eba",
+            "name": "Torpedo Expert (\u9b5a\u96f7\u306e\u540d\u4eba)",
             "text": [
                 "When entering a battle, 100% chance to gain 1 [Torpedo Salvo] charge."
             ]
         },
         {
-            "name": "Nightstalker\n\u95c7\u591c\u306e\u6f5c\u4f0f\u8005",
+            "name": "Nightstalker (\u95c7\u591c\u306e\u6f5c\u4f0f\u8005)",
             "text": [
                 "During a Night Battle, the enemy fleet will not attempt to attack the fleet McCall is in for 5 seconds, unless a [Torpedo Salvo] hits or [Main Battery Salvo] is fired",
                 "When battle starts, increases Allied Fleet [Torpedo Salvo] damage by 12%. Every 5s thereafter, this buff is weakened by 4% till 0%."

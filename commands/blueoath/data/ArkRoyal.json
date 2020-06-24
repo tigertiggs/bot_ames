@@ -24,15 +24,22 @@
     "skills": [
         {
             "name": "Royal Air Force (\u30ed\u30a4\u30e4\u30eb\u30a8\u30a2\u30d5\u30a9\u30fc\u30b9)",
-            "text": "1. Crit Rate increased by 20%.\n2. If an [Airstrike] hits, for every Bomber Squadron that Ark Royal has equipped, there is a 100% chance to reduce enemy fleet's Speed by 50% and disables their rudders, lasts 20 seconds. Does not stack."
+            "text": [
+                "Crit Rate increased by 20%.",
+                "If an [Airstrike] hits, for every Bomber Squadron that Ark Royal has equipped, there is a 100% chance to reduce enemy fleet's Speed by 50% and disables their rudders, lasts 20 seconds. Does not stack."
+            ]
         },
         {
             "name": "Hawkeye (\u30db\u30fc\u30af\u30a2\u30a4)",
-            "text": "1. If an [Airstrike] hits, for every Bomber Squadron that Ark Royal has equipped, there is a 70% chance to increase the target's received damage by 5%, that lasts 30 seconds and can stack. Works with [Pre-emptive Airstrike]."
+            "text": [
+                "If an [Airstrike] hits, for every Bomber Squadron that Ark Royal has equipped, there is a 70% chance to increase the target's received damage by 5%, that lasts 30 seconds and can stack. Works with [Pre-emptive Airstrike]."
+            ]
         },
         {
             "name": "Reserve Squadrons (\u4e88\u5099\u822a\u7a7a\u968a)",
-            "text": "1. Increases aircraft reserves by 50."
+            "text": [
+                "Increases aircraft reserves by 50."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/f/f7/ArkRoyal_Portrait_Square.png",

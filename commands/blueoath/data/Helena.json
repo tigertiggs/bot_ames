@@ -24,15 +24,24 @@
     "skills": [
         {
             "name": "Radar Probing (\u30ec\u30fc\u30c0\u30fc\u63a2\u77e5)",
-            "text": "1. Prioritizes target with the highest current HP.\n2. The higher the enemy's HP, the more damage Helena deals, up to 20%."
+            "text": [
+                "Prioritizes target with the highest current HP.",
+                "The higher the enemy's HP, the more damage Helena deals, up to 20%."
+            ]
         },
         {
             "name": "Wrath (\u6fc0\u6012)",
-            "text": "1. When in any damaged state, all offensive capabilities stay fully operational.\n2. If in a T-Advantage Engagement, Crit Rate of [Main Battery] increased by 50%\nElse, if in a Parallel or Head-on Engagement, Crit Rate of [Main Battery] increased by 25%"
+            "text": [
+                "When in any damaged state, all offensive capabilities stay fully operational.",
+                "If in a T-Advantage Engagement, Crit Rate of [Main Battery] increased by 50%\nElse, if in a Parallel or Head-on Engagement, Crit Rate of [Main Battery] increased by 25%"
+            ]
         },
         {
             "name": "Battle Orchestrator (\u60aa\u6226\u8abf\u5f8b)",
-            "text": "1. During Battle, obtains a shield with 50% of Max HP that absorbs [Airstrike] damage.\n2. Allied Fleet's Crit Rate of the first [Main Battery Salvo] is increased by 30%. \nIf Helena is set as Flagship, Allied Fleet's first [Main Battery Salvo] can be fired from Long Range."
+            "text": [
+                "During Battle, obtains a shield with 50% of Max HP that absorbs [Airstrike] damage.",
+                "Allied Fleet's Crit Rate of the first [Main Battery Salvo] is increased by 30%. \nIf Helena is set as Flagship, Allied Fleet's first [Main Battery Salvo] can be fired from Long Range."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/e/eb/Helena_Portrait_Square.png",

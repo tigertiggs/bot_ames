@@ -28,15 +28,22 @@
     "skills": [
         {
             "name": "Untrackable Silhouette (\u7e8f\u308f\u306a\u3044\u59ff)",
-            "text": "1. During battle, every time the enemy fleet prepares a [Main Battery Salvo], Volta's Speed increases by 100% and reduces damage taken by 50%, lasts 3 seconds.\nThis skill has a 5s CD, can only proc 6 times per battle."
+            "text": [
+                "During battle, every time the enemy fleet prepares a [Main Battery Salvo], Volta's Speed increases by 100% and reduces damage taken by 50%, lasts 3 seconds.\nThis skill has a 5s CD, can only proc 6 times per battle."
+            ]
         },
         {
             "name": "Revolutionary Modification (\u5e38\u8b58\u3092\u8986\u3059\u6539\u826f)",
-            "text": "1. Can equip up to 3 Main Battery.\n2. During battle, [Shelling] is increased by 15% of Volta's [Shelling] and equipment [Shelling] stats."
+            "text": [
+                "Can equip up to 3 Main Battery.",
+                "During battle, [Shelling] is increased by 15% of Volta's [Shelling] and equipment [Shelling] stats."
+            ]
         },
         {
             "name": "Mastercraft Ship (\u5320\u306e\u5091\u4f5c)",
-            "text": "1. During battle, increases Crit Rate of first 2 [Main Battery Salvo] by 100%, will use the T-Adv damage modifier regardless of engagement type.\nIf a ship is sunk during these 2 salvo, instantly reloads [Main Battery]."
+            "text": [
+                "During battle, increases Crit Rate of first 2 [Main Battery Salvo] by 100%, will use the T-Adv damage modifier regardless of engagement type.\nIf a ship is sunk during these 2 salvo, instantly reloads [Main Battery]."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/0/0c/Volta_Portrait_Square.png",
