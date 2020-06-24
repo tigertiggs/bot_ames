@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Portland",
+        "active": true
+    },
+    "on_sheet": true,
     "en": "Portland",
     "jp": "\u30dd\u30fc\u30c8\u30e9\u30f3\u30c9",
     "dname": "Portland",
@@ -48,11 +53,16 @@
         },
         {
             "name": "Thirst for Battle\n\u6fc0\u6226\u3078\u306e\u6e07\u6c42",
-            "text": "1. Prioritizes target with the highest current HP.2. On [Secondary Battery Activation], [Main Battery] damage increased by 50% for 10 seconds."
+            "text": [
+                "Prioritizes target with the highest current HP",
+                "On [Secondary Battery Activation], [Main Battery] damage increased by 50% for 10 seconds."
+            ]
         },
         {
             "name": "Secondary Surprise\n\u526f\u7832\u306e\u610f\u5916\u6027",
-            "text": "1. Damage of the first [Secondary Battery Salvo] of the battle will be increased by 400%."
+            "text": [
+                "Damage of the first [Secondary Battery Salvo] of the battle will be increased by 400%."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/6/63/Portland_Portrait_Square.png",

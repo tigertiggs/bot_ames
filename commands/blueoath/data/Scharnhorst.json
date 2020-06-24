@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Scharnhorst",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "Scharnhorst",
     "jp": "\u30b7\u30e3\u30eb\u30f3\u30db\u30eb\u30b9\u30c8",
     "dname": "Scharnhorst",

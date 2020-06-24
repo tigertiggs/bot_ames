@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Arizona",
+        "active": true
+    },
+    "on_sheet": true,
     "en": "Arizona",
     "jp": "\u30a2\u30ea\u30be\u30ca",
     "dname": "Arizona",
@@ -44,11 +49,15 @@
         },
         {
             "name": "Fire All Cannons!\n\u5168\u7832\u9580\u958b\u3051\uff01",
-            "text": "1. During battle, inflict 125% of Firepower to all enemies after first [Main Battery Salvo]"
+            "text": [
+                "During battle, inflict 125% of Firepower to all enemies after first [Main Battery Salvo]"
+            ]
         },
         {
             "name": "Fast Reload\n\u9ad8\u901f\u88c5\u586b",
-            "text": "1. During battle, every time a [Main Battery Salvo] is fired, reduces Arizona's [Main Battery] CD by 1.5 seconds. Can proc up to 15 times per battle."
+            "text": [
+                "During battle, every time a [Main Battery Salvo] is fired, reduces Arizona's [Main Battery] CD by 1.5 seconds. Can proc up to 15 times per battle."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/0/03/Arizona_Portrait_Square.png",

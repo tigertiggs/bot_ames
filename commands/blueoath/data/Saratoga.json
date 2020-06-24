@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Saratoga",
+        "active": true
+    },
+    "on_sheet": true,
     "en": "Saratoga",
     "jp": "\u30b5\u30e9\u30c8\u30ac",
     "dname": "Saratoga",
@@ -48,15 +53,21 @@
         },
         {
             "name": "Obliterate\n\u6728\u3063\u7aef\u5fae\u5875",
-            "text": "If [Dive Bombing] sinks a a target, 100% chance for the target to explode after 1 second, dealing 150% of Saratoga's Firepower in damage to all enemies.\nCan only proc once per battle."
+            "text": [
+                "If [Dive Bombing] sinks a a target, 100% chance for the target to explode after 1 second, dealing 150% of Saratoga's Firepower in damage to all enemies.\nCan only proc once per battle."
+            ]
         },
         {
             "name": "Supressive Shelling\n\u5236\u5727\u7832\u6483",
-            "text": "During [Battle], the first time Saratoga enters within Long Range, 100% chance to activate [Carrier Salvo] on enemy Flagship, dealing 400% of Saratoga's Firepower in damage."
+            "text": [
+                "During [Battle], the first time Saratoga enters within Long Range, 100% chance to activate [Carrier Salvo] on enemy Flagship, dealing 400% of Saratoga's Firepower in damage."
+            ]
         },
         {
             "name": "Night Dancer\n\u591c\u7a7a\u306e\u821e\u59eb",
-            "text": "When entering a [Night Battle], Saratoga obtains a special [Airstrike] that deals 100% damage. \nIf not used within 15 seconds, this skill will disappear, [Airstrike] CD will not be affected.\n\nGrants the ability to use [Opening Airstrike] during [Night Battle] if [Opening Airstrike] is unlocked."
+            "text": [
+                "When entering a [Night Battle], Saratoga obtains a special [Airstrike] that deals 100% damage. \nIf not used within 15 seconds, this skill will disappear, [Airstrike] CD will not be affected.\n\nGrants the ability to use [Opening Airstrike] during [Night Battle] if [Opening Airstrike] is unlocked."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/4/46/Saratoga_Portrait_Square.png",

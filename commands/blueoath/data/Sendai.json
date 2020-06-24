@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Sendai",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "Sendai",
     "jp": "\u5ddd\u5185",
     "dname": "Sendai",

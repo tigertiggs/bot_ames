@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Ark_Royal",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "Ark Royal",
     "jp": "\u30a2\u30fc\u30af\u30fb\u30ed\u30a4\u30e4\u30eb",
     "dname": "Ark Royal",

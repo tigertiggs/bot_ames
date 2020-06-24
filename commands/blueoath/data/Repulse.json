@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Repulse",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "Repulse",
     "jp": "\u30ec\u30d1\u30eb\u30b9",
     "dname": "Repulse",

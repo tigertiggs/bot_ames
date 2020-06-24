@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/New_Mexico",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "New Mexico",
     "jp": "\u30cb\u30e5\u30fc\u30e1\u30ad\u30b7\u30b3",
     "dname": "New Mexico",

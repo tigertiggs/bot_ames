@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Z23",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "Z23",
     "jp": "Z23",
     "dname": "Z23",

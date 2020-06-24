@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Hatsuharu",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "Hatsuharu",
     "jp": "\u521d\u6625",
     "dname": "Hatsuharu",

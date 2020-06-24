@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Le_Fantasque",
+        "active": false
+    },
+    "on_sheet": false,
     "en": "Le Fantasque",
     "jp": "\u30eb\u30fb\u30d5\u30a1\u30f3\u30bf\u30b9\u30af",
     "dname": "Le Fantasque",

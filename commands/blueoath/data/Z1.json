@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Z1",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "Z1",
     "jp": "Z1",
     "dname": "Z1",

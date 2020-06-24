@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Zuihou",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "Zuihou",
     "jp": "\u745e\u9cf3",
     "dname": "Zuihou",

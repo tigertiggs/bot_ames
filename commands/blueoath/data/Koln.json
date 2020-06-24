@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Koln",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "Koln",
     "jp": "\u30b1\u30eb\u30f3",
     "dname": "K\u00f6ln",

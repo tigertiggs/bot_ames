@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Helena",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "Helena",
     "jp": "\u30d8\u30ec\u30ca",
     "dname": "Helena",

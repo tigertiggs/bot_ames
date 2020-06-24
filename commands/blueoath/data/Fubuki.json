@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Fubuki",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "Fubuki",
     "jp": "\u5439\u96ea",
     "dname": "Fubuki",

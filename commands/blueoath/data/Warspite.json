@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Warspite",
+        "active": true
+    },
+    "on_sheet": true,
     "en": "Warspite",
     "jp": "\u30a6\u30a9\u30fc\u30b9\u30d1\u30a4\u30c8",
     "dname": "Warspite",
@@ -48,15 +53,23 @@
         },
         {
             "name": "<td class=\"text-center\"><a class=\"image\" href=\"/wiki/File:Skill_reload_red.png\"><img alt=\"Skill reload red.png\" decoding=\"async\" height=\"50\" src=\"https://static.miraheze.org/blueoathwiki/f/f9/Skill_reload_red.png\" width=\"50\"/></a>\nVeteran Sniper/br&gt;\u6b74\u6226\u306e\u5c04\u624b",
-            "text": "1. If a [Main Battery Salvo] including Warspite sinks an enemy, reduces reload of next salvo by 6 seconds.2. If Queen Elizabeth is in the same fleet, this skill is buffed by 1 extra second."
+            "text": [
+                "If a [Main Battery Salvo] including Warspite sinks an enemy, reduces reload of next salvo by 6 seconds",
+                "If Queen Elizabeth is in the same fleet, this skill is buffed by 1 extra second."
+            ]
         },
         {
             "name": "All Out Attack\n\u6e3e\u8eab\u306e\u4e00\u6483",
-            "text": "1. During [Main Battery Salvo], increases chance of [Cut-in] by 20%.\n2. The lower the enemy's HP, the more damage Warspite deals, up to 30%."
+            "text": [
+                "During [Main Battery Salvo], increases chance of [Cut-in] by 20%.\n2. The lower the enemy's HP, the more damage Warspite deals, up to 30%."
+            ]
         },
         {
             "name": "Royal Eminence\n\u738b\u5bb6\u306e\u5a01\u53b3",
-            "text": "1.Every time the fleet fires a [Main Batter Salvo], increases Warspite's [Main Battery Salvo]'s Critical Rate by 10%.Can stack up to 5 times per battle.2.When entering a battle, obtains a shield that can absorb damage equal to 20% of Warspite's Max HP"
+            "text": [
+                "Every time the fleet fires a [Main Batter Salvo], increases Warspite's [Main Battery Salvo]'s Critical Rate by 10%.Can stack up to 5 times per battle",
+                "When entering a battle, obtains a shield that can absorb damage equal to 20% of Warspite's Max HP"
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/b/bf/Warspite_Portrait_Square.png",

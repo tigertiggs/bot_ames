@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Andrea_Doria",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "Andrea Doria",
     "jp": "\u30a2\u30f3\u30c9\u30ec\u30a2\u30fb\u30c9\u30fc\u30ea\u30a2",
     "dname": "Andrea Doria",

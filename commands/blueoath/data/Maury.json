@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Maury",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "Maury",
     "jp": "\u30e2\u30fc\u30ea\u30fc",
     "dname": "Maury",

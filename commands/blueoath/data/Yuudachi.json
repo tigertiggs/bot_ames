@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Yuudachi",
+        "active": true
+    },
+    "on_sheet": true,
     "en": "Yuudachi",
     "jp": "\u5915\u7acb",
     "dname": "Yuudachi",
@@ -53,15 +58,22 @@
         },
         {
             "name": "Torpedo Reserves\n\u4e88\u5099\u9b5a\u96f7",
-            "text": "1. [On Torpedo Salvo], 30% chance to immediately reload 1 [Torpedo Salvo] charge, can only proc 3 times per battle."
+            "text": [
+                "[On Torpedo Salvo], 30% chance to immediately reload 1 [Torpedo Salvo] charge, can only proc 3 times per battle."
+            ]
         },
         {
             "name": "Surprise Salvo\n\u5947\u8972\u7832\u6483",
-            "text": "1. [On Torpedo Salvo], increases Yuudachi's next [Main Battery Salvo] damage by 220%."
+            "text": [
+                "[On Torpedo Salvo], increases Yuudachi's next [Main Battery Salvo] damage by 220%."
+            ]
         },
         {
             "name": "Ambush\n\u5f85\u3061\u4f0f\u305b",
-            "text": "1. Increases HP by 20%.2. Forces the fleet to spawn in Mid Range."
+            "text": [
+                "Increases HP by 20%",
+                "Forces the fleet to spawn in Mid Range."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/7/77/Yuudachi_Portrait_Square.png",

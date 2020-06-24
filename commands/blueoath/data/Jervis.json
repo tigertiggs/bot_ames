@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Jervis",
+        "active": true
+    },
+    "on_sheet": true,
     "en": "Jervis",
     "jp": "\u30b8\u30e3\u30fc\u30f4\u30a3\u30b9",
     "dname": "Jervis",
@@ -53,15 +58,23 @@
         },
         {
             "name": "Pride of the Fleet\n\u65d7\u306e\u610f\u5730",
-            "text": "1. If Jervis is set as the Flagship, increase the Speed of all allied Destroyers by 10%.2. When battle starts, gains 1 [Torpedo Salvo] charge. 20% chance to gain an additional charge, +20% for every additional DD in same fleet."
+            "text": [
+                "If Jervis is set as the Flagship, increase the Speed of all allied Destroyers by 10%",
+                "When battle starts, gains 1 [Torpedo Salvo] charge. 20% chance to gain an additional charge, +20% for every additional DD in same fleet."
+            ]
         },
         {
             "name": "Rebellious Charter\n\u53cd\u5f8b\u306e\u639f",
-            "text": "1. During the start of a Day/Night battle, Jervis gains an \"Umbrella\" charge, then 1 additional every 10s.2. If the number of \"Umbrella\" is above 1, firing a [Torpedo Salvo] consumes 1 charge and increases Jervis' [Torpedo Salvo] Damage by 40%."
+            "text": [
+                "During the start of a Day/Night battle, Jervis gains an \"Umbrella\" charge, then 1 additional every 10s",
+                "If the number of \"Umbrella\" is above 1, firing a [Torpedo Salvo] consumes 1 charge and increases Jervis' [Torpedo Salvo] Damage by 40%."
+            ]
         },
         {
             "name": "Ultimate Umbrella\n\u5929\u4e0b\u306e\u5098",
-            "text": "1. If Jervis has at least 1 Umbrella charge, 100% chance to consume all \"Umbrella\" charges to let Jervis avoid a single attack."
+            "text": [
+                "If Jervis has at least 1 Umbrella charge, 100% chance to consume all \"Umbrella\" charges to let Jervis avoid a single attack."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/6/6d/Jervis_Portrait_Square.png",

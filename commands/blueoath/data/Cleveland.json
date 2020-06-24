@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Cleveland",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "Cleveland",
     "jp": "\u30af\u30ea\u30fc\u30d6\u30e9\u30f3\u30c9",
     "dname": "Cleveland",

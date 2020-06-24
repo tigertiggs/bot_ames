@@ -166,5 +166,13 @@ class shenCog(commands.Cog):
         
         await channel.send(file=discord.File(os.path.join(self.client.dir,self.client.config['shen_path'],"other/bruh.png")))
 
+    @commands.command()
+    async def mem(self, ctx):
+        channel=ctx.channel
+        if ctx.message.guild.id != 419624511189811201:
+            return
+        else:
+            await channel.send(file=discord.File(os.path.join(self.client.dir,self.client.config['shen_path'],"other/mem.png")))
+
 def setup(client):
     client.add_cog(shenCog(client))

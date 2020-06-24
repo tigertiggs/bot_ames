@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Haguro",
+        "active": true
+    },
+    "on_sheet": true,
     "en": "Haguro",
     "jp": "\u7fbd\u9ed2",
     "dname": "Haguro",
@@ -49,15 +54,21 @@
         },
         {
             "name": "Torpedo Mastery\n\u96f7\u6483\u306e\u6975\u307f",
-            "text": "1. During battle, the first time Haguro enters Close Range, reduce Firepower by 90% while [Torpedo Salvo] damage is increased by 20%.Gains 1 extra [Torpedo Salvo] charge immediately and every 10 seconds thereafter. Last until the end of battle."
+            "text": [
+                "During battle, the first time Haguro enters Close Range, reduce Firepower by 90% while [Torpedo Salvo] damage is increased by 20%.Gains 1 extra [Torpedo Salvo] charge immediately and every 10 seconds thereafter. Last until the end of battle."
+            ]
         },
         {
             "name": "Battle Stance\n\u81e8\u6226\u614b\u52e2",
-            "text": "1. At the start of a battle, [Main Battery] damage increased by 50%. Buff is lost when entering Close Range."
+            "text": [
+                "At the start of a battle, [Main Battery] damage increased by 50%. Buff is lost when entering Close Range."
+            ]
         },
         {
             "name": "Fighting Spirit\n\u95d8\u9b42",
-            "text": "1. At the start of a battle, increases Crit Rate by 10%. Aterwards, increase Crit Rate by another 10% every 10 seconds, up to a maximum of 10 times."
+            "text": [
+                "At the start of a battle, increases Crit Rate by 10%. Aterwards, increase Crit Rate by another 10% every 10 seconds, up to a maximum of 10 times."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/9/90/Haguro_Portrait_Square.png",

@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Artigliere",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "Artigliere",
     "jp": "\u30a2\u30eb\u30c6\u30a3\u30ea\u30a8\u30fc\u30eb",
     "dname": "Artigliere",

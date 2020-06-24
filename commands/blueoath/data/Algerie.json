@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Algerie",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "Algerie",
     "jp": "\u30a2\u30eb\u30b8\u30a7\u30ea\u30a2",
     "dname": "Algerie",

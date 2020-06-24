@@ -8,7 +8,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 
 from bs4 import BeautifulSoup
-import os, sys, json, traceback, datetime, requests, asyncio
+import os, sys, json, traceback, datetime, requests, asyncio, re
 import discord
 from discord.ext import commands
 
@@ -84,13 +84,20 @@ class blueoathCog(commands.Cog):
             await self._update_index(session, channel)
             with open(os.path.join(dir_path, self.config['index_path'])) as inf:
                 chara_list = json.load(inf)["en"]
+        elif option == "ships":
+            with open(os.path.join(dir_path, self.config['index_path'])) as inf:
+                chara_list = json.load(inf)["en"]
         else:
             with open(os.path.join(dir_path, self.config['index_path'])) as inf:
                 index = json.load(inf)
             
             # sift alias
-            #DO SOMETHING
+            _character = self.process_request(option)
+            search_success, _character = self.validate_entry(_character)
+            if search_success:
+                option = _character
 
+            # check
             if not option in index['search_name']:
                 await channel.send(f"Did not find Senki `{option}`")
                 return
@@ -185,21 +192,27 @@ class blueoathCog(commands.Cog):
         
     async def _update_chara(self, s, charav, channel, inp):
         msg = await channel.send("Starting chara update")
+
+        # read index and data before iteration
+        if "sheet" in inp:
+            with open(os.path.join(dir_path, self.config['sheet_data_path'])) as sdf:
+                skills_jp = json.load(sdf)
+        with open(os.path.join(dir_path, self.config['index_path'])) as inf:
+                index = json.load(inf)
+
         j, k = 0, 0
         for i, chara in enumerate(charav):
             await msg.edit(content=f"Fetching `{chara}`...")
 
             # load data
-            if not os.path.exists(os.path.join(dir_path, f"blueoath/data/{''.join(chara.split(' '))}.json")):
-                temp = self.ship_template.copy()
-            else:
-                with open(os.path.join(dir_path, f"blueoath/data/{''.join(chara.split(' '))}.json")) as sdf:
-                    temp = json.load(sdf)
+            #if not os.path.exists(os.path.join(dir_path, f"blueoath/data/{''.join(chara.split(' '))}.json")):
+            temp = self.ship_template.copy()
+            #else:
+            #    with open(os.path.join(dir_path, f"blueoath/data/{''.join(chara.split(' '))}.json")) as sdf:
+            #        temp = json.load(sdf)
 
             # supplement with sheet data first before overwriting
             if "sheet" in inp:
-                with open(os.path.join(dir_path, self.config['sheet_data_path'])) as sdf:
-                    skills_jp = json.load(sdf)
                 if chara.lower() in skills_jp['index']['name']:
                     sheet_data = skills_jp['data'][skills_jp['index']['name'].index(chara.lower())]
                     
@@ -208,11 +221,11 @@ class blueoathCog(commands.Cog):
                     temp['traits'] =        [{"name":x, "text":None} for x in sheet_data['trait']]
                     temp['faction'] =       sheet_data['nation_en']
                     temp['prefix'] =        sheet_data['prefix']
+                    temp['on_sheet'] =      True
+                else:
+                    temp['on_sheet'] =      False
 
-            # write basic data from master index
-            with open(os.path.join(dir_path, self.config['index_path'])) as inf:
-                index = json.load(inf)
-            
+            # write basic data from master index            
             sid = index['en'].index(chara)
             temp['rarity'] = index['rarity'][sid]
             temp['img_sq'] = index['portrait_square'][sid]
@@ -221,6 +234,7 @@ class blueoathCog(commands.Cog):
             temp['jp'] = index['jp'][sid]
             temp['dname'] = index['display_name'][sid]
             temp['ship_class'] = self.config['ship_class'][temp['hull_code']]
+            temp['wiki'] = {"url": f"https://blueoath.miraheze.org/wiki/{'_'.join(chara.split(' '))}", "active":False}
 
             # write preliminary
             with open(os.path.join(dir_path, f"blueoath/data/{''.join(chara.split(' '))}.json"), "w+") as sdf:
@@ -261,6 +275,7 @@ class blueoathCog(commands.Cog):
             temp = self.read_traits_table(tables[2], temp)
             temp = self.read_lb_table(tables[3], temp)
             temp = self.read_gallery(soup.find_all("div", class_="tabs tabs-tabbox"), temp)
+            temp['wiki']['active'] = True
 
             with open(os.path.join(dir_path, f"blueoath/data/{''.join(chara.split(' '))}.json"), "w+") as sdf:
                 sdf.write(json.dumps(temp, indent=4))
@@ -360,7 +375,11 @@ class blueoathCog(commands.Cog):
         data["VA"] =            misc_contents[2].td.string
 
         return data
-            
+
+    def fix_skill_str(self, string):
+        string = re.sub(r'\\n+',' ',string)
+        return [x.strip() for x in re.sub(r'(\A\d\.\s*|(\.\d\.\s*)+)', '+++', string).split('+++') if x]
+
     def read_skills_table(self, table, data):
         table_body = table.tbody.find_all("tr")
 
@@ -378,7 +397,7 @@ class blueoathCog(commands.Cog):
             skill = {}
             contents = category.find_all("td")
             skill['name'] = self.get_str("\n".join(str(contents[0]).split("<br/>")[-2:]))
-            skill['text'] = contents[1].text
+            skill['text'] = self.fix_skill_str(contents[1].text)
             temp.append(skill)
 
         data['skills'] = temp
@@ -444,10 +463,15 @@ class blueoathCog(commands.Cog):
     @bo.command()
     async def reload_sheet(self, ctx, modules, **kwargs):
         channel = ctx.channel
-        #author = ctx.message.author
-
+        author = ctx.message.author
+    
         # check
-        if not modules in list(self.config['data'].keys()):
+        if not self.config['command_status']['reload_sheet']:
+            raise commands.DisabledCommand
+        elif not self.client._check_author(author):
+            await channel.send(self.client.emotes['ames'])
+            return
+        elif not modules in list(self.config['data'].keys()):
             await channel.send("Invalid section keyword "+self.client.emotes['ames'])
             return
 
@@ -514,6 +538,7 @@ class blueoathCog(commands.Cog):
                 temp['class'] = row[4]
                 temp['rarity'] =row[5]
                 skill['name'], _, skill['text'] = row[6].partition("\n")
+                skill['text'] = self.fix_skill_str(skill['text'])
                 skillsv.append(skill)
                 temp['trait'] = row[7].split("\n")
 
@@ -523,6 +548,7 @@ class blueoathCog(commands.Cog):
             # else its a skill continuation
             else:
                 skill['name'], _, skill['text'] = row[6].partition("\n")
+                skill['text'] = self.fix_skill_str(skill['text'])
                 skillsv.append(skill)
         
         # write
@@ -902,12 +928,16 @@ class blueoathCog(commands.Cog):
     def make_ship_embed(self, data, sections):
         sections[sections.index(":ship: Ship")] = ":ship: **[Ship]**"
 
+        title = f"{data['dname']}\n{data['jp']}" if data['prefix'] == None else f"{data['prefix']} {data['dname']}\n{data['jp']}"
+
         embed = discord.Embed(
-            title=f"{data['dname']}\n{data['jp']}" if data['prefix'] == None else f"{data['prefix']} {data['dname']}\n{data['jp']}",
+            title=title,
             description=data['comment'] if data['comment'] != None else "No description... yet",
             colour=self.colour,
             timestamp=datetime.datetime.utcnow()
         )
+        if data['wiki']['active']:
+            embed.url = data['wiki']['url']
         embed.set_author(name="Asahi's Report")
         embed.set_footer(text="BO Ship | Re:Re:Write Ames", icon_url=self.client.user.avatar_url)
         embed.set_thumbnail(url=data['img_sq'])
@@ -943,12 +973,12 @@ class blueoathCog(commands.Cog):
             for i, skill in enumerate(data['skills']):
                 embed.add_field(
                     name=f"> **Skill {i+1}**",
-                    value=" - ".join(skill['name'].split("\n")),
+                    value="\n".join(skill['name'].split("\n")),
                     inline=False
                 )
                 embed.add_field(
                     name="Description",
-                    value=skill['text'],
+                    value="-"+"\n-".join(skill['text']),
                     inline=False
                 )
         else:
@@ -974,12 +1004,16 @@ class blueoathCog(commands.Cog):
     def make_stats_embed(self, data, sections):
         sections[sections.index(":newspaper: Stats")] = ":newspaper: **[Stats]**"
 
+        title = f"{data['dname']}\n{data['jp']}" if data['prefix'] == None else f"{data['prefix']} {data['dname']}\n{data['jp']}"
+
         embed = discord.Embed(
-            title=f"{data['dname']}\n{data['jp']}" if data['prefix'] == None else f"{data['prefix']} {data['dname']}\n{data['jp']}",
+            title=title,
             description=f"{data['dname']}\'s detailed statistics. `this page is a WIP`.",
             colour=self.colour,
             timestamp=datetime.datetime.utcnow()
         )
+        if data['wiki']['active']:
+            embed.url = data['wiki']['url']
         embed.set_author(name="Asahi's Report")
         embed.set_footer(text="BO Stats | Re:Re:Write Ames", icon_url=self.client.user.avatar_url)
         embed.set_thumbnail(url=data['img_sq'])
@@ -1082,11 +1116,16 @@ class blueoathCog(commands.Cog):
         
         def make_indiv_gallery(data, sections):
             sections[sections.index(":frame_photo: Gallery")] = ":frame_photo: **[Gallery]**"
+
+            title = f"{data['dname']}\n{data['jp']}" if data['prefix'] == None else f"{data['prefix']} {data['dname']}\n{data['jp']}"
+
             embed = discord.Embed(
-                title=f"{data['dname']}\n{data['jp']}" if data['prefix'] == None else f"{data['prefix']} {data['dname']}\n{data['jp']}",
+                title=title,
                 colour=self.colour,
                 timestamp=datetime.datetime.utcnow()
             )
+            if data['wiki']['active']:
+                embed.url = data['wiki']['url']
             embed.set_author(name="Asahi's Report")
             embed.set_footer(text="BO Gallery | Re:Re:Write Ames", icon_url=self.client.user.avatar_url)
             embed.set_thumbnail(url=data['img_sq'])
@@ -1306,79 +1345,78 @@ class blueoathCog(commands.Cog):
         )
         return embed
 
-def setup(client):
-    client.add_cog(blueoathCog(client))
+    @bo.command(aliases=['ss'])
+    async def ship_status(self, ctx):
+        channel = ctx.channel
+        author = ctx.message.author
+        if not self.config['command_status']['ship_status']:
+            raise commands.DisabledCommand
 
-"""
-    @commands.command()
-    async def ship(self, ctx, *, request):
-        channel=ctx.channel
+        with open(os.path.join(dir_path, self.config['index_path'])) as idf:
+            index = json.load(idf)
 
-        # load
-        with open(os.path.join(self.client.dir, self.client.config['blueoath_path'], "data/skills_jp.json")) as jf:
-            data = json.load(jf)
+        data = []
+        for ship, dname in list(zip(index['en'],index['display_name'])):
+            with open(os.path.join(dir_path, self.config['ship_path'], f"{''.join(ship.split(' '))}.json")) as sh:
+                ship = json.load(sh)
+            data.append(
+                (
+                    dname,
+                    f"[{dname}]({ship['wiki']['url']})" if ship['wiki']['active'] else dname,
+                    ship['wiki']['active'],
+                    ship['on_sheet']
+                )
+            )
 
-        # process request
-        if request.isnumeric():
-            try:
-                index = data['index']['id'].index(request)
-            except ValueError:
-                await channel.send("Did not find a matching ID "+self.client.emotes['ames'])
-                return
-        else:
-            try:
-                request = request.lower()
-                index = data['index']['name'].index(request)
-            except ValueError:
-                await channel.send(f"Did not find a matching name `{request}` "+self.client.emotes['ames'])
-                return
+        data.sort(key=lambda x: x[0])
+
+        ship_status_controller = self.client.page_controller(self.client, self.make_ship_status_embed, data, 40, True)
+        page = await channel.send(embed=ship_status_controller.start())
+        for arrow in ship_status_controller.arrows:
+            await page.add_reaction(arrow)
         
-        #request = data['data'][index]
-        #print(request)
-        await channel.send(embed=self.make_ship_embed(data['data'][index]))
-    
-    def make_ship_embed(self, data):
-        embed=discord.Embed(
-            title=f"{data['prefix']} {data['name']}",
-            timestamp=datetime.datetime.utcnow(),
-            colour=self.colour
+        def author_check(reaction, user):
+            return str(user.id) == str(author.id) and str(reaction.emoji) in ship_status_controller.arrows and str(reaction.message.id) == str(page.id)
+        
+        while True:
+            try:
+                reaction, user = await self.client.wait_for('reaction_add', timeout=60.0, check=author_check)
+            except asyncio.TimeoutError:
+                await page.add_reaction('\U0001f6d1')
+                return
+            else:
+                emote_check = str(reaction.emoji)
+                await reaction.message.remove_reaction(reaction.emoji, user)
+                if emote_check in ship_status_controller.arrows:
+                    if emote_check == ship_status_controller.arrows[0]:
+                        mode = 'l'
+                    else:
+                        mode = 'r'     
+                    await reaction.message.edit(embed=ship_status_controller.flip(mode))
+
+    def make_ship_status_embed(self, data, index):
+        embed = discord.Embed(
+            title=f"Data Availability (Page {index[0]} of {index[1]})",
+            description=f":green_circle: Available \n:black_circle: Not available",
+            colour=self.colour,
+            timestamp=datetime.datetime.utcnow()
         )
         embed.set_author(name="Asahi's Report")
-        embed.set_footer(text="Ship | Re:Re:Write Ames", icon_url=self.client.user.avatar_url)
-        print(data['img'])
-        embed.set_thumbnail(url=data['img'])
+        embed.set_footer(text="Data | Re:Re:Write Ames", icon_url=self.client.user.avatar_url)
+
         embed.add_field(
-            name="ID",
-            value=data['id'],
-            inline=False
+            name="Senki",
+            value="\n".join([x[1] for x in data])
         )
         embed.add_field(
-            name="Faction",
-            value=f"{data['nation_en']} ({data['nation'] if not data['nation'] is None else '???'})"
+            name="Wiki",
+            value="\n".join([":green_circle:" if x[2] else ":black_circle:" for x in data])
         )
         embed.add_field(
-            name="Hull Class",
-            value=f"{data['class']} ({self.config['hull_codes'][data['class']]})"
-        )
-        embed.add_field(
-            name="Rarity",
-            value=data['rarity']
-        )
-        for i, skill in enumerate(data['skills']):
-            embed.add_field(
-                name=f"> **Skill {i+1}**",
-                value=skill['name'],
-                inline=False
-            )
-            embed.add_field(
-                name="Description",
-                value=skill['text'],
-                inline=False
-            )
-        embed.add_field(
-            name="Traits",
-            value="".join(f"[{trait}]" for trait in data['trait']),
-            inline=False
+            name="Spreadsheet",
+            value="\n".join([":green_circle:" if x[3] else ":black_circle:" for x in data])
         )
         return embed
-"""
+
+def setup(client):
+    client.add_cog(blueoathCog(client))

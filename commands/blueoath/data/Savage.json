@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Savage",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "Savage",
     "jp": "\u30b5\u30f4\u30a7\u30fc\u30b8",
     "dname": "Savage",

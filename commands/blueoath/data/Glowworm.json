@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Glowworm",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "Glowworm",
     "jp": "\u30b0\u30ed\u30fc\u30a6\u30a9\u30fc\u30e0",
     "dname": "Glowworm",

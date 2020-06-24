@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/San_Juan",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "San Juan",
     "jp": "\u30b5\u30f3\u30d5\u30a2\u30f3",
     "dname": "San Juan",

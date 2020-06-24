@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Volta",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "Volta",
     "jp": "\u30f4\u30a9\u30eb\u30bf",
     "dname": "Volta",

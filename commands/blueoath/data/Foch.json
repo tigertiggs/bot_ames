@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Foch",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "Foch",
     "jp": "\u30d5\u30a9\u30c3\u30b7\u30e5",
     "dname": "Foch",

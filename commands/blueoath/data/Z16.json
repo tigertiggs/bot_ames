@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Z16",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "Z16",
     "jp": "Z16",
     "dname": "Z16",

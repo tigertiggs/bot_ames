@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Colorado",
+        "active": true
+    },
+    "on_sheet": true,
     "en": "Colorado",
     "jp": "\u30b3\u30ed\u30e9\u30c9",
     "dname": "Colorado",
@@ -48,11 +53,16 @@
         },
         {
             "name": "High-Explosive Battery\n\u708e\u4e0a\u7832\u6483",
-            "text": "1. On [Main Battery Salvo] hit, 100% chance to apply 1 stack of [Fire] and 50% chance to apply another stack of [Fire]. Each stack of [Fire] deals 110% of Firepower over 10 seconds."
+            "text": [
+                "On [Main Battery Salvo] hit, 100% chance to apply 1 stack of [Fire] and 50% chance to apply another stack of [Fire]. Each stack of [Fire] deals 110% of Firepower over 10 seconds."
+            ]
         },
         {
             "name": "Tactical Cover\n\u6226\u8853\u63f4\u8b77",
-            "text": "1. On [Secondary Battery Activation], increases the fleet's [Anti-Torp] by 70%, for 3 seconds.2. When Battle is over, repairs 30% HP of the lowest HP Allied ship in the fleet."
+            "text": [
+                "On [Secondary Battery Activation], increases the fleet's [Anti-Torp] by 70%, for 3 seconds",
+                "When Battle is over, repairs 30% HP of the lowest HP Allied ship in the fleet."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/0/07/Colorado_Portrait_Square.png",

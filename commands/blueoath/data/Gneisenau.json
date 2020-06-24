@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Gneisenau",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "Gneisenau",
     "jp": "\u30b0\u30ca\u30a4\u30bc\u30ca\u30a6",
     "dname": "Gneisenau",

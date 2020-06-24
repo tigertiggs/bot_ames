@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Renown",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "Renown",
     "jp": "\u30ec\u30ca\u30a6\u30f3",
     "dname": "Renown",

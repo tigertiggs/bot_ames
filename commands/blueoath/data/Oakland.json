@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Oakland",
+        "active": true
+    },
+    "on_sheet": true,
     "en": "Oakland",
     "jp": "\u30aa\u30fc\u30af\u30e9\u30f3\u30c9",
     "dname": "Oakland",
@@ -49,11 +54,18 @@
         },
         {
             "name": "Undefeated\n\u767e\u6226\u767e\u52dd",
-            "text": "1. When entering a battle, add a stack of 5% increased Crit Rate. Adds 1 stack every 10 seconds after, up to 10 times.2. On [Main Battery hit] 50% chance to set enemies on [Fire]. [Fire] deals 110% of Firepower over 10 seconds.3. On [Main Battery miss], following salvo reload reduced by 50%"
+            "text": [
+                "When entering a battle, add a stack of 5% increased Crit Rate. Adds 1 stack every 10 seconds after, up to 10 times",
+                "On [Main Battery hit] 50% chance to set enemies on [Fire]. [Fire] deals 110% of Firepower over 10 seconds",
+                "On [Main Battery miss], following salvo reload reduced by 50%"
+            ]
         },
         {
             "name": "Elegant and Indestructible\n\u512a\u96c5\u4e0d\u7834",
-            "text": "1. Increases armour by 20%. 2. Increase all allied ships' AA stat by 30%.3. Sailing at Flank Speed increases Oakland's damage by 15%."
+            "text": [
+                "Increases armour by 20%. 2. Increase all allied ships' AA stat by 30%",
+                "Sailing at Flank Speed increases Oakland's damage by 15%."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/9/9a/Oakland_Portrait_Square.png",

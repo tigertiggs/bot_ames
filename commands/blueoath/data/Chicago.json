@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Chicago",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "Chicago",
     "jp": "\u30b7\u30ab\u30b4",
     "dname": "Chicago",

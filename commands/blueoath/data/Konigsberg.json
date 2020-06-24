@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Konigsberg",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "Konigsberg",
     "jp": "\u30b1\u30fc\u30cb\u30d2\u30b9\u30d9\u30eb\u30af",
     "dname": "K\u00f6nigsberg",

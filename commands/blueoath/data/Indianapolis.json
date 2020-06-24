@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Indianapolis",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "Indianapolis",
     "jp": "\u30a4\u30f3\u30c7\u30a3\u30a2\u30ca\u30dd\u30ea\u30b9",
     "dname": "Indianapolis",

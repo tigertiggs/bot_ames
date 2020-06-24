@@ -46,7 +46,7 @@
             "subcmd":   null,
             "aliases":  null,
             "help":     "Use this to fetch and update ship data from the wiki. See `.bo help update`.",
-            "help_ex":  "Options are: `all` `[ship]` `index`.\n`index` option will only update the index. This is done via the Senki page on the wiki.\n`[ship]` option will only update the profile for a specific ship. Index will not be updated.\n`all` option will update the index and then attempt to fetch information for all ships in the index.\n`--sheet` option will try to suppliment ship data with that from the spreadsheet first. Fields will be overwritten by the wiki should the data be available."
+            "help_ex":  "Options are: `all` `ships` `[ship]` `index`.\n`index` option will only update the index. This is done via the Senki page on the wiki.\n`ships` will update all ships in index but does not update index itself.\n`[ship]` option will only update the profile for a specific ship. Index will not be updated.\n`all` option will update the index and then attempt to fetch information for all ships in the index.\n`--sheet` option will try to suppliment ship data with that from the spreadsheet first. Fields will be overwritten by the wiki should the data be available."
         },
         "reload_sheet": {
             "flags":    ["_update", "restricted"],
@@ -56,6 +56,15 @@
             "aliases":  null,
             "help":     "Grabs data off the spreadsheet. Is quite unstable. See `.bo help reload_sheet`.",
             "help_ex":  "Only supported sheet at the moment is `skills_jp`. May extend to other sheets first but the GoogleSheets API is quite troublesome to work with."
+        },
+        "ship_status": {
+            "flags":    ["normal"],
+            "hidden":   false,
+            "usage":    ".bo ship_status",
+            "subcmd":   null,
+            "aliases":  ["ss"],
+            "help":     "Get a list of ship data availability.",
+            "help_ex":  null
         }
     }
 }

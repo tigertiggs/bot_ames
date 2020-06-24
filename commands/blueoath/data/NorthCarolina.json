@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/North_Carolina",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "North Carolina",
     "jp": "\u30ce\u30fc\u30b9\u30ab\u30ed\u30e9\u30a4\u30ca",
     "dname": "North Carolina",

@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Jintsuu",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "Jintsuu",
     "jp": "\u795e\u901a",
     "dname": "Jintsuu",

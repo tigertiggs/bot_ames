@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Norfolk",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "Norfolk",
     "jp": "\u30ce\u30fc\u30d5\u30a9\u30fc\u30af",
     "dname": "Norfolk",

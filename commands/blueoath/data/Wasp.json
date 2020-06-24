@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Wasp",
+        "active": true
+    },
+    "on_sheet": true,
     "en": "Wasp",
     "jp": "\u30ef\u30b9\u30d7",
     "dname": "Wasp",
@@ -52,11 +57,16 @@
         },
         {
             "name": "Pre-emptive Airstrike - Inhibitor\n\u5148\u5236\u7a7a\u6483\u00b7 \u7981",
-            "text": "1. If [Airstrike] hits, inflicts [Inhibited] on the target, preventing the target from repairing for 20 seconds.2. When attacking beyond Mid Range, Crit Rate increased by 25%."
+            "text": [
+                "If [Airstrike] hits, inflicts [Inhibited] on the target, preventing the target from repairing for 20 seconds",
+                "When attacking beyond Mid Range, Crit Rate increased by 25%."
+            ]
         },
         {
             "name": "Ammunition Delivery\n\u5f3e\u85ac\u8f38\u9001",
-            "text": "1. When battle starts, increase Flagship's [Main Battery] damage by 20%."
+            "text": [
+                "When battle starts, increase Flagship's [Main Battery] damage by 20%."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/5/54/Wasp_Portrait_Square.png",

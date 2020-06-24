@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Maxim_Gorky",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "Maxim Gorky",
     "jp": "\u30de\u30af\u30b7\u30e0\u30fb\u30b4\u30fc\u30ea\u30ad\u30fc",
     "dname": "Maxim Gorky",

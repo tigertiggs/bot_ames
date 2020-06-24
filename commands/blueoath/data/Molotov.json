@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Molotov",
+        "active": false
+    },
+    "on_sheet": false,
     "en": "Molotov",
     "jp": "\u30e2\u30ed\u30c8\u30d5",
     "dname": "Molotov",

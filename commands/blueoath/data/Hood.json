@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Hood",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "Hood",
     "jp": "\u30d5\u30c3\u30c9",
     "dname": "Hood",

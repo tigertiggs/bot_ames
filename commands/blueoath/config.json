@@ -23,10 +23,12 @@
         "-"
     ],
     "command_status": {
-        "update":   true,
-        "alias":    true,
-        "ship":     true,
-        "help":     true
+        "update":       true,
+        "alias":        true,
+        "ship":         true,
+        "help":         true,
+        "reload_sheet": true,
+        "ship_status":  true
     },
     "sheet_id": "1UrEFf88vjcOFRy7tFOfcedsoobXU7ZTeezFlRFVEo2Q",
     "data": {
@@ -71,6 +73,11 @@
 
     },
     "ship_data_template": {
+        "wiki":         {
+            "url":      null,
+            "active":   false
+        },
+        "on_sheet":     null,
         "en":           null,
         "jp":           null,
         "dname":        null,

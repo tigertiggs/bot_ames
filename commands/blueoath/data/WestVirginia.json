@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/West_Virginia",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "West Virginia",
     "jp": "\u30a6\u30a8\u30b9\u30c8\u30d0\u30fc\u30b8\u30cb\u30a2",
     "dname": "West Virginia",

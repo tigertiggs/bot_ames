@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Takao",
+        "active": true
+    },
+    "on_sheet": true,
     "en": "Takao",
     "jp": "\u9ad8\u5c3e",
     "dname": "Takao",
@@ -53,15 +58,22 @@
         },
         {
             "name": "Hazy Moon\n\u8987\u6708\u306e\u6727",
-            "text": "1. On [Main Battery Salvo], all allies gain \"Hazuki\". On [Secondary Battery Salvo], all allies gain \"Oborotsuki\".2. Every time Takao gains either \u201dHazuki\", \"Oborotsuki\" or \"Mugetsu\", increases damage by 10%.Can only proc once per battle."
+            "text": [
+                "On [Main Battery Salvo], all allies gain \"Hazuki\". On [Secondary Battery Salvo], all allies gain \"Oborotsuki\"",
+                "Every time Takao gains either \u201dHazuki\", \"Oborotsuki\" or \"Mugetsu\", increases damage by 10%.Can only proc once per battle."
+            ]
         },
         {
             "name": "Extermination - Violence\n\u93d6\u6bba\u30fb\u7834\u52e2",
-            "text": "1. When Takao has both \"Hazuki\" and \"Oborotsuki\", reloads [Main Battery] immediately. Afterwards, remove both \"Hazuki\" and \"Oborotsuki\".\n2. When Takao has all 3 \"Hazuki\", \"Oborotsuki\" and \"Mugetsu\", deals 100% of Takao's Firepower to the lowest health enemy. Afterwards, removes all 3 effects."
+            "text": [
+                "When Takao has both \"Hazuki\" and \"Oborotsuki\", reloads [Main Battery] immediately. Afterwards, remove both \"Hazuki\" and \"Oborotsuki\".\n2. When Takao has all 3 \"Hazuki\", \"Oborotsuki\" and \"Mugetsu\", deals 100% of Takao's Firepower to the lowest health enemy. Afterwards, removes all 3 effects."
+            ]
         },
         {
             "name": "Full Moon\n\u6e80\u3061\u308b\u6708",
-            "text": "On [Main Battery Salvo], increases [Main Battery] damage by 6%. Stacks indefinitely and lasts until the end of battle."
+            "text": [
+                "On [Main Battery Salvo], increases [Main Battery] damage by 6%. Stacks indefinitely and lasts until the end of battle."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/d/d0/Takao_Portrait_Square.png",

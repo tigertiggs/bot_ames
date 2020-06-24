@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Saumarez",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "Saumarez",
     "jp": "\u30bd\u30fc\u30de\u30ec\u30b9",
     "dname": "Saumarez",

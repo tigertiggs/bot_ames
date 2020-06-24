@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Gridley",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "Gridley",
     "jp": "\u30b0\u30ea\u30c3\u30c9\u30ec\u30a4",
     "dname": "Gridley",

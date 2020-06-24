@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Furious",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "Furious",
     "jp": "\u30d5\u30e5\u30fc\u30ea\u30a2\u30b9",
     "dname": "Furious",

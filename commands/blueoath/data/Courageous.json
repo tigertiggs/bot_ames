@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Courageous",
+        "active": true
+    },
+    "on_sheet": true,
     "en": "Courageous",
     "jp": "\u30ab\u30ec\u30a4\u30b8\u30e3\u30b9",
     "dname": "Courageous",
@@ -52,11 +57,17 @@
         },
         {
             "name": "Erosion Torpedoes - Air\n\u7834\u8247\u9b5a\u96f7\u30fb\u7a7a",
-            "text": "1. When [Torpedo Bomber] hits a target, 100% chance to inflict [Flooding], lowering target speed by 50%, lasts 5 seconds.2. After [Flooding] ends, target will take 140% of Courageous's Firepower in damage."
+            "text": [
+                "When [Torpedo Bomber] hits a target, 100% chance to inflict [Flooding], lowering target speed by 50%, lasts 5 seconds",
+                "After [Flooding] ends, target will take 140% of Courageous's Firepower in damage."
+            ]
         },
         {
             "name": "Inspiring Presence\n\u9f13\u821e\u306e\u5fc3",
-            "text": "1. Increases [Airstrike] damage of the Flagship by 20%.2. Increases own damage by 10%."
+            "text": [
+                "Increases [Airstrike] damage of the Flagship by 20%",
+                "Increases own damage by 10%."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/1/18/Courageous_Portrait_Square.png",

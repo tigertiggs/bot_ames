@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Nelson",
+        "active": false
+    },
+    "on_sheet": false,
     "en": "Nelson",
     "jp": "\u30cd\u30eb\u30bd\u30f3",
     "dname": "Nelson",

@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Karlsruhe",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "Karlsruhe",
     "jp": "\u30ab\u30fc\u30eb\u30b9\u30eb\u30fc\u30a8",
     "dname": "Karlsruhe",

@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Yorktown",
+        "active": true
+    },
+    "on_sheet": true,
     "en": "Yorktown",
     "jp": "\u30e8\u30fc\u30af\u30bf\u30a6\u30f3",
     "dname": "Yorktown",
@@ -52,15 +57,22 @@
         },
         {
             "name": "Airshow\n\u5927\u7a7a\u306e\u821e",
-            "text": "1. When [Airstrike] hits a target, if the number of ships alive on enemy fleet is equal or less than 4, obtains a [Special Airstrike] that deals 60% damage. If used or not used within 5 seconds, this skill is disabled for the rest of the battle. 2. If either Enterprise or Hornet is present in the same battle, boost [Special Airstrike] damage by 10%. If both are present, boost by 20% instead.Can only proc once per battle."
+            "text": [
+                "When [Airstrike] hits a target, if the number of ships alive on enemy fleet is equal or less than 4, obtains a [Special Airstrike] that deals 60% damage. If used or not used within 5 seconds, this skill is disabled for the rest of the battle. 2. If either Enterprise or Hornet is present in the same battle, boost [Special Airstrike] damage by 10%. If both are present, boost by 20% instead.Can only proc once per battle."
+            ]
         },
         {
             "name": "Careful Preparation\n\u6e96\u5099\u4e07\u7aef",
-            "text": "1. After ending a battle, boost damage by 5%, stacks up to 3 times. 2. In map mode, a successful [Pre-emptive Airstrike] increases damage in next battle by 15%."
+            "text": [
+                "After ending a battle, boost damage by 5%, stacks up to 3 times. 2. In map mode, a successful [Pre-emptive Airstrike] increases damage in next battle by 15%."
+            ]
         },
         {
             "name": "Unyielding Willpower\n\u4e0d\u5c48\u306e\u610f\u5fd7",
-            "text": "1. During [Battle], if Medium or Heavy damaged, repairs 50% of Max HP over 3 seconds.2. When Medium or Heavy damaged during [Day Battle], obtains a special [Airstrike] that deals 75% damage. If not used within 10 seconds, this skill will disappear, [Airstrike] CD will not be affected. Can only activate once per battle"
+            "text": [
+                "During [Battle], if Medium or Heavy damaged, repairs 50% of Max HP over 3 seconds",
+                "When Medium or Heavy damaged during [Day Battle], obtains a special [Airstrike] that deals 75% damage. If not used within 10 seconds, this skill will disappear, [Airstrike] CD will not be affected. Can only activate once per battle"
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/a/aa/Yorktown_Portrait_Square.png",

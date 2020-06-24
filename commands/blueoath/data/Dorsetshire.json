@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Dorsetshire",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "Dorsetshire",
     "jp": "\u30c9\u30fc\u30bb\u30c3\u30c8\u30b7\u30e3\u30fc",
     "dname": "Dorsetshire",

@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Zuikaku",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "Zuikaku",
     "jp": "\u745e\u9db4",
     "dname": "Zuikaku",

@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Shouhou",
+        "active": true
+    },
+    "on_sheet": true,
     "en": "Shouhou",
     "jp": "\u7965\u9cf3",
     "dname": "Shouhou",
@@ -52,11 +57,17 @@
         },
         {
             "name": "Erosion Torpedoes - Air\n\u7834\u8247\u9b5a\u96f7\u30fb\u7a7a",
-            "text": "1. When [Torpedo Bomber] hits a target, 100% chance to inflict [Flooding], lowering target speed by 50%, lasts 5 seconds.2. After [Flooding] ends, target will take 140% of Shouhou's Firepower in damage."
+            "text": [
+                "When [Torpedo Bomber] hits a target, 100% chance to inflict [Flooding], lowering target speed by 50%, lasts 5 seconds",
+                "After [Flooding] ends, target will take 140% of Shouhou's Firepower in damage."
+            ]
         },
         {
             "name": "Flagship Defense Airgroup\n\u65d7\u8266\u76f4\u63a9\u968a",
-            "text": "1. Increases Evasion by 10%.2. During [Battle], if Allied Flagship receives damage, Shouhou will obtain a special [Airstrike] that deals 75% damage.If used or not used within 15 seconds, this skill will disappear, [Airstrike] CD will not be affected. Cannot be used in Map Mode."
+            "text": [
+                "Increases Evasion by 10%",
+                "During [Battle], if Allied Flagship receives damage, Shouhou will obtain a special [Airstrike] that deals 75% damage.If used or not used within 15 seconds, this skill will disappear, [Airstrike] CD will not be affected. Cannot be used in Map Mode."
+            ]
         }
     ],
     "img_sq": "https://static.miraheze.org/blueoathwiki/3/30/Shouhou_Portrait_Square.png",

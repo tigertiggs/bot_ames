@@ -1,4 +1,9 @@
 {
+    "wiki": {
+        "url": "https://blueoath.miraheze.org/wiki/Atago",
+        "active": false
+    },
+    "on_sheet": true,
     "en": "Atago",
     "jp": "\u611b\u5b95",
     "dname": "Atago",
