@@ -56,6 +56,7 @@ class shenCog(commands.Cog):
         else:
             targets = list(filter(lambda x: not x.guild_id in self.client.private['resource_servers'] and sm(None, emote.lower(), x.name.lower(), None).ratio() >= 0.25 and emote.lower() in x.name.lower(), self.client.emojis))
             if len(targets) > 0:
+                targets.sort(key=lambda x: x.name[0])
                 try:
                     emote = targets[num-1]
                 except:
@@ -128,7 +129,7 @@ class shenCog(commands.Cog):
             if len(approx) > 0:
                 embed.add_field(
                     name='Emote',
-                    value="\n".join([f"<:{emote.name}:{emote.id}>" if not emote.animated else f"<a:{emote.name}:{emote.id}>" for emote in approx]),
+                    value="\n".join([f"<:{emote.name}:{emote.id}> [{str(i+1) if len(str(i+1)) == 2 else str(i+1)+' '}]" if not emote.animated else f"<a:{emote.name}:{emote.id}> [{str(i+1) if len(str(i+1)) == 2 else str(i+1)+' '}]" for i, emote in enumerate(approx)]),
                     inline=True
                 )
                 embed.add_field(

@@ -1,9 +1,9 @@
 # bot_ames
 A discord bot used for fetching character information in Princess Connect! Re:Dive by CyGames. Ames is planned to provide QoL functions for Clan Battles in the near future. Apart from PCR:D functions, Ames also provides some miscellaneous functions too.
 
-Ames is written in Python 3.7.4 utilising the [`rewrite`](https://github.com/Rapptz/discord.py) branch of Discord's Python API and makes use of `cogs` and `extensions` to integrate commands.
+Ames is written in Python 3.7.x utilising the [`rewrite`](https://github.com/Rapptz/discord.py) branch of Discord's Python API and makes use of `cogs` and `extensions` to integrate commands.
 
-Although Pull requests are welcome, please note that much of Ames' lookup function relies on an privately maintained external database and much of Ames' functionality will not be available without the said database.
+Although Pull requests are welcome, please note that much of Ames' lookup function relies on a privately maintained external database and much of Ames' functionality will not be available without the said database.
 
 ## Adding Ames
 You can add Ames with [this link](https://discord.com/api/oauth2/authorize?client_id=599290654878597140&permissions=1879436368&scope=bot). You will need to have the **manage server** permission on the server you wish to add Ames. If Ames does not send anything when she joins, use `.help` to get started. Please reach out to me if something goes wrong.
@@ -33,8 +33,8 @@ Ames' planned features:
 * Events (JP)
   * Show future events schedule
 
-# Pulling Ames SC
-If you wish to pull/clone and run Ames for whatever reason, you will need to read the sections below. Otherwise, you're done!
+# Pulling Ames Source Code
+If you wish to pull/clone and run Ames for whatever reason, you will need to read the sections below.
 
 ## Dependencies
 Ames requires a few packages to run. You can install her dependencies with:
