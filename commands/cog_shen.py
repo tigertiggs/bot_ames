@@ -56,7 +56,7 @@ class shenCog(commands.Cog):
         else:
             targets = list(filter(lambda x: not x.guild_id in self.client.private['resource_servers'] and sm(None, emote.lower(), x.name.lower(), None).ratio() >= 0.25 and emote.lower() in x.name.lower(), self.client.emojis))
             if len(targets) > 0:
-                targets.sort(key=lambda x: x.name[0])
+                targets.sort(key=lambda x: x.name)
                 try:
                     emote = targets[num-1]
                 except:
@@ -88,7 +88,7 @@ class shenCog(commands.Cog):
             raise commands.DisabledCommand
         # filter out restricted emojis
         emotes = list(filter(lambda x: not x.guild_id in self.client.private["resource_servers"], self.client.emojis))
-        emotes.sort(key=lambda x: x.name[0])
+        emotes.sort(key=lambda x: x.name)
 
         if option == None:
             emotes_per_column = 20
@@ -127,6 +127,7 @@ class shenCog(commands.Cog):
             embed.set_footer(text='Find Page | Re:Re:Write Ames',icon_url=self.client.user.avatar_url)
             embed.set_author(name="Emotefinder")
             if len(approx) > 0:
+                #approx.sort(key=lambda x: x.name)
                 embed.add_field(
                     name='Emote',
                     value="\n".join([f"<:{emote.name}:{emote.id}> [{str(i+1) if len(str(i+1)) == 2 else str(i+1)+' '}]" if not emote.animated else f"<a:{emote.name}:{emote.id}> [{str(i+1) if len(str(i+1)) == 2 else str(i+1)+' '}]" for i, emote in enumerate(approx)]),

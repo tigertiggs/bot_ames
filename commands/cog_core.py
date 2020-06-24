@@ -3,7 +3,7 @@
 
 import discord
 from discord.ext import commands
-import datetime, time, os, sys, requests, random, json
+import datetime, time, os, sys, requests, random, json, re
 from difflib import SequenceMatcher as sm
 from math import ceil
 
@@ -352,21 +352,31 @@ class coreCog(commands.Cog):
         help="Have Ames say something",
         hidden=True
     )
-    async def say(self, ctx, *message):
+    async def say(self, ctx, *, message):
         if not self.client._check_author(ctx.message.author, "admin") or len(message) == 0:
             await ctx.channel.send(self.client.emotes['ames'])
             return
         else:
             await ctx.message.delete()
         
-        code = message[-1]
-        if code[0] != '#':
+        # new format: string is in a single line
+        # use \n to signify line breaks
+        # channel is now indicated by --#guild_id.channel.id
+
+        # see if target channel is specified
+        print(message)
+        code = message.split("--#") # ['message', 'guild_id.channel_id']
+        if len(code) == 1:
             guild_id = ctx.message.channel.guild.id
             channel_id = ctx.message.channel.id
-        else:
-            message = message[:-1]
-            guild_id, channel_id = code[1:].split('.')
+        elif len(code) == 2:
+            guild_id, channel_id = code[-1].split('.')
             #guild_id, channel_id = int(guild_id), int(channel_id)
+        else:
+            await ctx.channel.send(self.client.emotes['ames'])
+            return
+        
+        message = code[0]
 
         guild_id = 419624511189811201
         guild = discord.utils.get(self.client.guilds, id=int(guild_id) if guild_id != '' else ctx.message.channel.guild.id)
@@ -376,8 +386,55 @@ class coreCog(commands.Cog):
         if channel == None:
             await self.client.log.send('failed to find guild')
 
+        # break message by newline characters
+        lines = message.split("\\n")
+        #print(message)
+
         temp = []
-        for section in message:
+        for line in lines:
+            #r = re.search(r'\:\:[a-zA-Z0-9]+\-*[0-9]{,2}|\@[a-zA-Z0-9]+', line)
+            #r = re.search(r'<?[<a]?\:[0-9a-zA-Z_]+\:[0-9]*>?|\@[a-zA-Z0-9]+', line)
+
+            for match in re.finditer(r'<?a?\:([-\d\w_]+)\:?(\d*)>?|\@([^!][\d\w]+)', line):
+                if match.group(3) != None: # found user
+                    user = await self.client.find_user(guild, match.group(3).strip('@'))
+                    if not user:
+                        continue
+                    else:
+                        line = line.replace(match.group(), f"<@{user.id}>")
+                else: #found emote
+                    emote = None
+                    if match.group(2): # found id
+                        result = [emote for emote in self.client.emojis if not emote.guild_id in self.client.private['resource_servers'] and str(emote.id) == match.group(2)]
+                        if result:
+                            emote = result[0]
+                    if match.group(1) and not emote: # if emote name
+                        x = match.group(1).split('--')
+                        search = x[0]
+                        ind = 0
+                        if len(x) > 1 and x[-1].isnumeric():
+                            ind = int(x[-1])-1
+
+                        result = list(filter(lambda x: not x.guild_id in self.client.private['resource_servers'] and sm(None, search.lower(), x.name.lower(), None).ratio() >= 0.25 and search.lower() in x.name.lower(), self.client.emojis))
+                        if result:
+                            result.sort(key=lambda x: x.name)
+                            try:
+                                emote = result[ind]
+                            except:
+                                emote = result[0]
+                    if not emote:
+                        continue
+
+                    if emote.animated:
+                        emote = f"<a:{emote.name}:{emote.id}>"
+                    else:
+                        emote = f"<:{emote.name}:{emote.id}>"
+
+                    line = line.replace(match.group(), emote)
+            
+            temp.append(line)
+
+        """    
             if section[0] == ':':
                 emote = section.strip(':')
                 emote = list(filter(lambda x: not x.guild_id in self.client.private['resource_servers'] and sm(None, emote.lower(), x.name.lower(), None).ratio() >= 0.4 and emote.lower() in x.name.lower(), self.client.emojis))
@@ -399,8 +456,9 @@ class coreCog(commands.Cog):
 
             else:
                 temp.append(section)
-        
-        await channel.send(' '.join(temp))
+        """
+        print(temp)
+        await channel.send('\n'.join(temp))
 
     @commands.command(
         usage=".debug [args]",
