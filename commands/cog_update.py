@@ -441,7 +441,7 @@ class updateCog(commands.Cog):
                 await channel.send(f"replacing limited pool with {value.split(',')}")
                 gacha_config['pools']['lim'] = value.split(',')
 
-            elif mode == 'r' or mode == 'sr' or mode == 'ssr':
+            elif mode in ['r','sr','ssr']:
                 for chara in value.split(','):
                     if chara.startswith('-'):
                         chara = chara[1:]
@@ -449,7 +449,7 @@ class updateCog(commands.Cog):
                     else:
                         flag = 'add'
                     
-                    if not chara in units['en']:
+                    if not chara.lower() in units['en']:
                         await channel.send(f"could not edit `{value}` - `{chara}` does not exist")
                         continue
 
