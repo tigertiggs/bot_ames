@@ -1,2 +1,5 @@
 alias_local.json
 override.json
+oil/*
+
+!.gitkeep

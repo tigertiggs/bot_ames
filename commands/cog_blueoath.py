@@ -8,9 +8,9 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 
 from bs4 import BeautifulSoup
-import os, sys, json, traceback, datetime, requests, asyncio, re
+import os, sys, json, traceback, datetime, requests, asyncio, re, pytz, glob
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 
 SPACE = '\u200B'
 dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -51,6 +51,7 @@ class blueoathCog(commands.Cog):
             self.command_tags = self.help_config["help_tags"]
 
         #self._reload_sheet()
+        self.check_oil.start()
 
     @commands.group(
         invoke_without_command=True,
@@ -1421,6 +1422,225 @@ class blueoathCog(commands.Cog):
             value="\n".join([":green_circle:" if x[3] else ":black_circle:" for x in data])
         )
         return embed
+
+    @bo.group(invoke_without_command=True,
+    case_insensitive=True)
+    async def oil(self, ctx):
+        author=ctx.message.author
+        channel=ctx.message.channel
+        if not self.config['command_status']['oil']:
+            raise commands.DisabledCommand
+        elif ctx.invoked_subcommand is None:
+            guild = ctx.message.guild
+            path = os.path.join(dir_path, self.config['oil_rem_path'], f"{guild.id}.json")
+            if not os.path.exists(path):
+                await channel.send("The daily oil reminder function have not been set on this server. See `.bo help oil` for more details.")
+            else:
+                with open(os.path.join(path)) as orf:
+                    settings = json.load(orf)
+                
+                # try to read settings
+                # should be of the form {"active":bool, "channel":Union(int,None), "role":Union(int,None)}
+                
+                # get channel
+                _channel = None
+                if settings['channel']:
+                    _channel = guild.get_channel(settings['channel'])
+                
+                # get role
+                role = None
+                if settings['role']:
+                    role = guild.get_role(settings['role'])
+                
+                report = [
+                    f"**Status:** {'`Active`' if settings['active'] else '`Inactive`'}",
+                    "**Role:** "+(f"`@{role.name}` `id={role.id}`" if role else "`No set role`"),
+                    f"**Bound Channel:** `{_channel.name if _channel else 'No set channel'}`"
+                ]
+                await channel.send(f"The oil reminder settings are:\n> "+"\n> ".join(report))
+    
+    @oil.command()
+    async def set(self, ctx, *options):
+        author=ctx.message.author
+        channel=ctx.message.channel
+        guild=ctx.message.guild
+        if not self.config['command_status']['oil']:
+            raise commands.DisabledCommand
+        elif not self.client._check_author(author,"admin"):
+            await channel.send("You do not have the permission to do that "+self.client.emotes['ames'])
+            return
+        elif not options:
+            return
+        elif len(options) > 3:
+            await channel.send("Too many inputs! "+self.client.emotes['ames'])
+            return
+        
+        # set
+        path = os.path.join(dir_path, self.config['oil_rem_path'], f"{guild.id}.json")
+        if not os.path.exists(path):
+            settings = {"active":False,"channel":None,"role":None}
+        else:
+            with open(os.path.join(path)) as orf:
+                settings = json.load(orf)
+
+        for option in [i.lower() for i in options]:
+            txt = f"Invalid option `{option}`"
+            if len(option) == 1 and option.isnumeric():
+                if option == "1":
+                    settings['active'] = True
+                elif option == "0":
+                    settings['active'] = False
+                txt = f"Set active to `{option}`"
+
+            else:
+                r = re.match(r'<([^\d]{1,2})(\d*)>',option)
+                if r:
+                    if r.group(1) == "#": # channel
+                        fchannel = guild.get_channel(int(r.group(2)))
+                        if fchannel:
+                            settings['channel'] = fchannel.id
+                            txt = f"Set channel to `#{fchannel.name}`"
+
+                    elif r.group(1) == "@&": # role
+                        frole = guild.get_role(int(r.group(2)))
+                        if frole:
+                            settings['role'] = frole.id
+                            txt = f"Set role to `@{frole.name}`"
+
+            await channel.send(txt)
+        
+        with open(path, "w+") as orf:
+            orf.write(json.dumps(settings,indent=4))
+    
+    @oil.command()
+    async def reset(self, ctx, *options):
+        author=ctx.message.author
+        channel=ctx.message.channel
+        guild=ctx.message.guild
+        if not self.config['command_status']['oil']:
+            raise commands.DisabledCommand
+        elif not self.client._check_author(author,"admin"):
+            await channel.send("You do not have the permission to do that "+self.client.emotes['ames'])
+            return
+        
+        path = os.path.join(dir_path, self.config['oil_rem_path'], f"{guild.id}.json")
+        if not os.path.exists(path):
+            await channel.send("This guild does not have an oil reminder setting!")
+            return
+        else:
+            with open(os.path.join(path)) as orf:
+                settings = json.load(orf)
+
+        if not options:
+            with open(path, "w+") as orf:
+                orf.write(json.dumps({"active":False,"channel":None,"role":None},indent=4))
+            await channel.send("Reset all settings")
+            return
+        elif len(options) > 2:
+            await channel.send("Too many inputs!")
+            return
+
+        for option in options:
+            if option == "channel":
+                settings['channel'] = None
+                await channel.send("Reset channel")
+            elif option == "role":
+                settings['role'] = None
+                await channel.send("Reset role")
+            else:
+                await channel.send(f"Invalid option `{option}`")
+        
+        with open(path, "w+") as orf:
+            orf.write(json.dumps(settings,indent=4))
+
+    @tasks.loop(seconds=10, count=1)
+    async def check_oil(self):
+        if not self.config['oil_rem']:
+            return
+        try:
+            # prep time zone
+            jp_tz = pytz.timezone('Asia/Tokyo')
+            jp_now = datetime.datetime.now(jp_tz)
+
+            # get current day
+            t_fmt = "%d-%m-%Y"
+            current_day = jp_now.strftime(t_fmt)
+
+            # get reminder times relative to today by joining today's date and scheduled time
+            rem_fmt = " ".join([t_fmt, self.config['oil_reminder_times']['format']])
+            rem_afternoon = datetime.datetime.strptime(" ".join([current_day, self.config['oil_reminder_times']['times']['afternoon']]), rem_fmt)
+            rem_night =     datetime.datetime.strptime(" ".join([current_day, self.config['oil_reminder_times']['times']['night']]), rem_fmt)
+
+            # get current reminder task
+            path = os.path.join(dir_path, self.config['oil_rem_task'])
+            if os.path.exists(path):
+                with open(path) as rf:
+                    current_task = json.load(rf)
+            else:
+                current_task = {"current": "afternoon"}
+            
+            # see if its time to do a reminder
+            if current_task['current'] == "afternoon":
+                d_time = rem_afternoon - jp_now
+            else:
+                d_time = rem_night - jp_now
+            
+            #print(d_time.total_seconds())
+
+            if d_time.total_seconds() > self.config['oil_reminder_times']['duration']: # if delta time is positive (event yet to happen) and beyond 6hrs from end time
+                if d_time.total_seconds() > 2*self.config['oil_reminder_times']['duration'] and current_task['current'] == "night": # fix
+                    current_task['current'] = "afternoon"
+                    self.save_task(current_task)
+                return
+            elif d_time.total_seconds() < 0: # if delta time is negative (past end time)
+                #if current_task['current'] == "afternoon":
+                    #current_task['current'] = "night"
+                    #self.save_task(current_task)
+                return
+            
+            # do reminder
+            for path in glob.glob(os.path.join(dir_path, self.config['oil_rem_path'], "*.json")):
+                try:
+                    guild_id = path.split("\\")[-1].split(".")[0] # grab filename .../.../guild_id.json
+                    if guild_id.isnumeric():
+                        with open(path) as f:
+                            guildf = json.load(f) # should be of the form {"active":bool, "channel":Union(int,None), "role":Union(int,None)}
+                        if guildf['active'] and guildf['channel']:
+                            guild = self.client.get_guild(int(guild_id))
+                            if guild:
+                                role = None
+                                channel = guild.get_channel(int(guildf['channel']))
+
+                                if guildf['role']:
+                                    role = guild.get_role(int(guildf['role']))
+                                if channel:
+                                    check_txt = "afternoon" if current_task['current'] == "afternoon" else "evening"
+                                    if role:
+                                        await channel.send(f"<@&{role.id}> Time to collect your {check_txt} oil, Commander "+self.client.emotes['ames'])
+                                    else:
+                                        await channel.send(f"Time to collect your {check_txt} oil, Commander "+self.client.emotes['ames'])
+                except Exception as e:
+                    await self.logger.send(self.name, "oil task", e)
+                    continue
+            
+            current_task['current'] = "night" if current_task['current'] == "afternoon" else "afternoon"
+            self.save_task(current_task)
+                    
+        except:
+            traceback.print_exc()
+
+    def save_task(self, task):
+        with open(os.path.join(dir_path, self.config['oil_rem_task']), "w+") as tf:
+            tf.write(json.dumps(task, indent=4))
+
+    @check_oil.before_loop
+    async def before_check_oil(self):
+        print(self.name, "Awaiting client...", end="")
+        await self.client.wait_until_ready()
+        print("started")
+    
+    def cog_unload(self):
+        self.check_oil.cancel()
 
 def setup(client):
     client.add_cog(blueoathCog(client))

@@ -6,6 +6,17 @@
     "ship_data_path":   "blueoath/data/_ship_data.json",   
     "sheet_data_path":  "blueoath/data/_skills_jp.json",
     "help_path":        "blueoath/help.json",
+    "oil_rem":          true,
+    "oil_rem_path":     "blueoath/oil",
+    "oil_rem_task":     "blueoath/oil/task.json",
+    "oil_reminder_times": {
+        "times": {
+            "afternoon": "17:59:59 +0900",
+            "night":     "23:59:59 +0900"
+        },
+        "duration":     21600,
+        "format":       "%H:%M:%S %z"
+    },
     "port":             58325,
     "override":         "blueoath/override.json",
     "ames_allowed_cogs":[
@@ -28,7 +39,8 @@
         "ship":         true,
         "help":         true,
         "reload_sheet": true,
-        "ship_status":  true
+        "ship_status":  true,
+        "oil":          true
     },
     "sheet_id": "1UrEFf88vjcOFRy7tFOfcedsoobXU7ZTeezFlRFVEo2Q",
     "data": {
