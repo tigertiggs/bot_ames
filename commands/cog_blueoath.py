@@ -1590,12 +1590,12 @@ class blueoathCog(commands.Cog):
             if d_time.total_seconds() > self.config['oil_reminder_times']['duration']: # if delta time is positive (event yet to happen) and beyond 6hrs from end time
                 if d_time.total_seconds() > 2*self.config['oil_reminder_times']['duration'] and current_task['current'] == "night": # fix
                     current_task['current'] = "afternoon"
-                    self.save_task(current_task)
+                self.save_task(current_task)
                 return
             elif d_time.total_seconds() < 0: # if delta time is negative (past end time)
                 #if current_task['current'] == "afternoon":
                     #current_task['current'] = "night"
-                    #self.save_task(current_task)
+                self.save_task(current_task)
                 return
             
             # do reminder
