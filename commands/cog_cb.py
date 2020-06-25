@@ -77,7 +77,7 @@ class cbCog(commands.Cog):
 
     async def toggle_boss(self, user, channel, requests):
         for boss_num in requests:
-            if not boss_num.startswith('j'):
+            if isinstance(boss_num, int):
                 try:
                     boss_num = int(boss_num)
                 except:
