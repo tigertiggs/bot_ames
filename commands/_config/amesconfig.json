@@ -32,6 +32,8 @@
     "shen_path":            "commands/assets/shen",
     "post_path":            "commands/post",
 
+    "pins_path":            "commands/_config/pins.json",
+
     "blueoath_path":        "commands/blueoath",
 
     "required_folders": [
@@ -40,7 +42,8 @@
     "required_files":   [
         "commands/hatsune_data/alias_local.json",
         "commands/twitter/guilds.json",
-        "commands/blueoath/alias_local.json"
+        "commands/blueoath/alias_local.json",
+        "commands/_config/pins.json"
     ],
 
     "command_cogs":     [
@@ -103,6 +106,8 @@
         "kiran":    1,
         "chenhug":  1,
 
-        "help":     1
+        "help":     1,
+
+        "pin":      1
     }
 }

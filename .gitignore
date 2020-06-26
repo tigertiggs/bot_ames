@@ -25,6 +25,7 @@ commands/_config/guild/*
 # other
 commands/_config/amesconfig_override.json
 commands/_config/cbtag.json
+commands/_config/pins.json
 commands/hatsune_data/alias_local.json
 __pycache__
 old/*

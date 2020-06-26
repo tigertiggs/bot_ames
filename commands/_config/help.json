@@ -45,7 +45,7 @@
             "usage":    ".alias [*options]",
             "subcmd":   ["add", "edit", "delete"],
             "aliases":  null,
-            "help":     "View, add, edit, or delete a cjaracter alias depending on the option specified. Use `.help alias` for more details.",
+            "help":     "View, add, edit, or delete a character alias depending on the option specified. Use `.help alias` for more details.",
             "help_ex":  "`.alias [alias/character]`\nThe former will check what the `alias` is linked to, and the latter will list all aliases tied to the specified `character`.\n\nOther syntax:\n`.alias add [alias] [character]`\n`.alias edit [alias] [character]`\n`.alias delete [alias]`\nIn all cases `[alias]` is case-insensitive and cannot contain special tokens nor already exist unless editing or deleting, and `[character]` must be a valid character in the database. Only aliases marked with `local` may be modified/removed."
         },
         "cbtag": {
@@ -317,6 +317,15 @@
             "aliases":  null,
             "help":     "bruh",
             "help_ex":  null
-            }
+            },
+        "pins": {
+            "flags":    ["core", "admin"],
+            "hidden":   false,
+            "usage":    ".pins [*options]",
+            "subcmd":   null,
+            "aliases":  ["pin"],
+            "help":     "See if Ames can/cannot pin a message via :pushpin:. See `.help pins` for more details",
+            "help_ex":  "Call with no options to see if Ames is allowed to pin messages via :pushpin: react. Accepted inputs are `active:int` and `prune`.\n`.pins [active]`\n`[active]` must either be `0` or `1` which turns the feature off/on respectively.\n`.pins prune`\nThis will prune the local tracker file of any messages that are invalid."
+        }
     }
 }

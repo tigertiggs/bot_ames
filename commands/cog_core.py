@@ -3,7 +3,7 @@
 
 import discord
 from discord.ext import commands
-import datetime, time, os, sys, requests, random, json, re
+import datetime, time, os, sys, requests, random, json, re, traceback
 from difflib import SequenceMatcher as sm
 from math import ceil
 
@@ -613,6 +613,140 @@ class coreCog(commands.Cog):
             return
         else:
             await msg.edit(content=msg.content+"Success")
+
+    @commands.Cog.listener()
+    async def on_raw_reaction_add(self, payload):
+        user = self.client.get_guild(payload.guild_id).get_member(payload.user_id)
+        if user.bot:
+            return
+        elif not self.client.command_status['pin']:
+            return
+
+        guild_id =      payload.guild_id
+        channel_id =    payload.channel_id
+        message_id =    payload.message_id
+        user_id =       user.id
+
+        try:
+            message = await self.client.get_guild(guild_id).get_channel(channel_id).fetch_message(message_id)
+        except:
+            traceback.print_exc()
+            return
+        with open(os.path.join(self.client.dir, self.client.config['pins_path'])) as pf:
+            pins = json.load(pf)
+        if payload.emoji.name == "\U0001F4CC" and not message.pinned and not guild_id in pins.get('no_pin', []):
+            if not str(guild_id) in pins:
+                pins[str(guild_id)] = []
+
+            # try to pin the message
+            try:
+                await message.pin()
+            except:
+                traceback.print_exc()
+                return
+            else:
+                pins[str(guild_id)].append({"channel_id":channel_id,"message_id":message_id,"user_id":user_id})
+                with open(os.path.join(self.client.dir, self.client.config['pins_path']), "w+") as pf:
+                    pf.write(json.dumps(pins,indent=4))
+    
+    @commands.Cog.listener()
+    async def on_raw_reaction_remove(self, payload):
+        user = self.client.get_guild(payload.guild_id).get_member(payload.user_id)
+        if user.bot:
+            return
+        elif not self.client.command_status['pin']:
+            return
+
+        guild_id =      payload.guild_id
+        channel_id =    payload.channel_id
+        message_id =    payload.message_id
+        user_id =       user.id
+
+        try:
+            message = await self.client.get_guild(guild_id).get_channel(channel_id).fetch_message(message_id)
+        except:
+            traceback.print_exc()
+            return
+
+        with open(os.path.join(self.client.dir, self.client.config['pins_path'])) as pf:
+            pins = json.load(pf)
+        if payload.emoji.name == "\U0001F4CC" and message.pinned and not guild_id in pins.get('no_pin', []):    
+            if not str(guild_id) in pins:
+                return
+
+            messages = list(filter(lambda x: x['message_id'] == message_id, pins[str(guild_id)]))
+            if not messages:
+                return
+            
+            pinned = messages[0]
+            if not pinned['user_id'] == user_id and not self.client._check_author(user, "admin"):
+                return
+
+            # try to unpin the message
+            try:
+                await message.unpin()
+            except:
+                traceback.print_exc()
+                return
+            else:
+                pins[str(guild_id)].pop(pins[str(guild_id)].index(pinned))
+                with open(os.path.join(self.client.dir, self.client.config['pins_path']), "w+") as pf:
+                    pf.write(json.dumps(pins,indent=4))
+
+    @commands.command(aliases=['pin'])
+    async def pins(self, ctx, option=""):
+        channel = ctx.channel
+        author = ctx.message.author
+        guild_id = ctx.message.guild.id
+
+        if not self.client.command_status['pin']:
+            raise commands.DisabledCommand
+        elif not self.client._check_author(author, "admin"):
+            await channel.send(self.client.emotes['ames'])
+        
+        with open(os.path.join(self.client.dir, self.client.config['pins_path'])) as pf:
+            all_pins = json.load(pf)
+        
+        if not all_pins.get('no_pin', None):
+            all_pins['no_pin'] = []
+        
+        if not option:
+            await channel.send(f"Ames `{'can' if not guild_id in all_pins['no_pin'] else 'cannot'}` pin messages via react")
+        elif option.isnumeric():
+            option = int(option)
+            if option == 0:
+                if not guild_id in all_pins['no_pin']:
+                    all_pins['no_pin'].append(guild_id)
+                    await channel.send("Disallow Ames to pin messages via react")
+                else:
+                    await channel.send("Ames already cannot pin messages via react")
+            elif option == 1:
+                if guild_id in all_pins['no_pin']:
+                    all_pins['no_pin'].pop(all_pins['no_pin'].index(guild_id))
+                    await channel.send("Allow Ames to pin messages via react")
+                else:
+                    await channel.send("Ames already can pin messages via react")
+        elif option.lower().startswith('p'):
+            i = 0
+            for guild_id, pins in list(all_pins.items()):
+                if guild_id.isnumeric():
+                    temp = pins.copy()
+                    for pin in pins:
+                        try:
+                            message = await self.client.get_guild(int(guild_id)).get_channel(pins['channel_id']).fetch_message(pins['message_id'])
+                            if not message.pinned:
+                                temp.pop(temp.index(pin))
+                                i += 1
+                        except:
+                            temp.pop(temp.index(pin))
+                            i += 1
+                        
+                    all_pins[guild_id] = temp
+
+            await channel.send(f"Pruned {i} pins from tracker")
+
+        with open(os.path.join(self.client.dir, self.client.config['pins_path']), "w+") as pf:
+            pf.write(json.dumps(all_pins,indent=4))
 
 def setup(client):
     client.add_cog(coreCog(client))
