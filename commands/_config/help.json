@@ -55,7 +55,7 @@
             "subcmd":   ["post", "purge", "edit", "reset"],
             "aliases":  null,
             "help":     "Toggle boss role/view current boss waits. Use `.help cbtag` for more information.",
-            "help_ex":  "`.cbtag [*boss_number]`\nToggle the boss role on yourself.\n\n`.cbtag post`\nPost a signboard for which you can view all waits in your guild and react to emotes on the bottom to toggle the specific boss. Only 1 of these signboards will be active at any one time and this command will not work if you're not in a guild.\n\n `.cbtag purge`\nRemove all boss roles from yourself.\n\n`.cbtag edit [boss_num] [name]`\nEdit the boss name for the specific boss number.\n\n`.cbtag reset`\nClears all boss names. [restricted]"
+            "help_ex":  "`.cbtag [*boss_number]`\nToggle the boss role on yourself or add the `CW Janitor` role by entering `janitor`.\n\n`.cbtag post`\nPost a signboard for which you can view all waits in your guild and react to emotes on the bottom to toggle the specific boss. Only 1 of these signboards will be active at any one time and this command will not work if you're not in a guild.\n\n `.cbtag purge`\nRemove all boss roles from yourself.\n\n`.cbtag edit [boss_num] [name]`\nEdit the boss name for the specific boss number.\n\n`.cbtag reset`\nClears all boss names. [restricted]"
         },
         "kill": {
             "flags":    ["core", "restricted"],

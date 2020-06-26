@@ -92,7 +92,7 @@ class cbCog(commands.Cog):
                         await user.add_roles(self.get_role(request))
                         if channel != None:
                             await channel.send(f"Successfully added `{self.get_role(request).name}`")
-            else:
+            elif boss_num.lower().startswith('j'):
                 if self.config['janitor'][0] in [role.id for role in user.roles]:
                     await user.remove_roles(self.get_role(self.config['janitor'][0]))
                     if channel != None:

@@ -1553,7 +1553,7 @@ class blueoathCog(commands.Cog):
         with open(path, "w+") as orf:
             orf.write(json.dumps(settings,indent=4))
 
-    @tasks.loop(seconds=10, count=1)
+    @tasks.loop(seconds=60)
     async def check_oil(self):
         if not self.config['oil_rem']:
             return
@@ -1626,8 +1626,9 @@ class blueoathCog(commands.Cog):
             current_task['current'] = "night" if current_task['current'] == "afternoon" else "afternoon"
             self.save_task(current_task)
                     
-        except:
-            traceback.print_exc()
+        except Exception as e:
+            #traceback.print_exc()
+            self.logger.send(self.name, "oil task", e)
 
     def save_task(self, task):
         with open(os.path.join(dir_path, self.config['oil_rem_task']), "w+") as tf:
