@@ -271,10 +271,11 @@ class blueoathCog(commands.Cog):
             
             tables = soup.find_all("table")
             
-            temp = self.read_stats_table(tables[0], temp)
-            temp = self.read_skills_table(tables[1], temp)
-            temp = self.read_traits_table(tables[2], temp)
-            temp = self.read_lb_table(tables[3], temp)
+            if len(tables) == 4: #FIXME
+                temp = self.read_stats_table(tables[0], temp)
+                temp = self.read_skills_table(tables[1], temp)
+                temp = self.read_traits_table(tables[2], temp)
+                temp = self.read_lb_table(tables[3], temp)
             temp = self.read_gallery(soup.find_all("div", class_="tabs tabs-tabbox"), temp)
             temp['wiki']['active'] = True
 
