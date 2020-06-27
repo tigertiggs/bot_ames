@@ -217,7 +217,7 @@ class blueoathCog(commands.Cog):
                 if chara.lower() in skills_jp['index']['name']:
                     sheet_data = skills_jp['data'][skills_jp['index']['name'].index(chara.lower())]
                     
-                    temp['skills'] =        [{"name":skill['name'], "text":self.fix_skill_str(skill['text'])} for skill in sheet_data['skills']]
+                    temp['skills'] =        [{"name":skill['name'], "text":skill['text']} for skill in sheet_data['skills']]
                     temp['faction_jp'] =    sheet_data['nation']
                     temp['traits'] =        [{"name":x, "text":None} for x in sheet_data['trait']]
                     temp['faction'] =       sheet_data['nation_en']
@@ -465,7 +465,7 @@ class blueoathCog(commands.Cog):
 
         return build('sheets', 'v4', credentials=creds)
 
-    @bo.command()
+    @bo.command(aliases=['reload_sheets', 'rs'])
     async def reload_sheet(self, ctx, modules, **kwargs):
         channel = ctx.channel
         author = ctx.message.author
@@ -513,7 +513,7 @@ class blueoathCog(commands.Cog):
             skill = {}
             if not row:
                 if not end:
-                    temp['skills'] = skillsv
+                    temp['skills'] = skillsv if skillsv else None
                     datav.append(temp)
                     temp = {}
                     skillsv = []
@@ -525,7 +525,11 @@ class blueoathCog(commands.Cog):
             elif row[0].isnumeric():
                 end = False
                 temp['id'] =    row[0]
-                
+                #print(row)
+
+                # possibility of cell not containing all data
+                length = len(row) #[id, faction, img, ship name, class, rarity, skill1, trait] = max 8 min 5
+
                 # possibility that cell only contains english and not in expected format
                 try:
                     temp['nation_en'], temp['nation'] = row[1].split('\n')
@@ -533,7 +537,14 @@ class blueoathCog(commands.Cog):
                     temp['nation_en'], temp['nation'] = row[1], None
 
                 #temp['img'] =   row[2]
-                temp['prefix'], _, name = row[3].partition(" ")
+                #temp['prefix'], _, name = row[3].partition(" ")
+                parts = row[3].partition(" ")
+                if parts[0].isupper():
+                    temp['prefix'] = parts[0]
+                    name = parts[-1]
+                else:
+                    temp['prefix'] = None
+                    name = parts[0]
 
                 temp['name'], temp['sname'] = self.clean_name(name)
 
@@ -542,10 +553,16 @@ class blueoathCog(commands.Cog):
 
                 temp['class'] = row[4]
                 temp['rarity'] =row[5]
-                skill['name'], _, skill['text'] = row[6].partition("\n")
-                skill['text'] = self.fix_skill_str(skill['text'])
-                skillsv.append(skill)
-                temp['trait'] = row[7].split("\n")
+                if length > 6:
+                    if row[6]:
+                        skill['name'], _, skill['text'] = row[6].partition("\n")
+                        skill['text'] = self.fix_skill_str(skill['text'])
+                        skillsv.append(skill)
+                
+                if length > 7:
+                    temp['trait'] = row[7].split("\n")
+                else:
+                    temp['trait'] = []
 
                 idv.append(temp['id'])
                 namev.append(temp['sname'].lower())
@@ -557,7 +574,7 @@ class blueoathCog(commands.Cog):
                 skillsv.append(skill)
         
         # write
-        temp['skills'] = skillsv
+        temp['skills'] = skillsv if skillsv else None
         datav.append(temp)
         with open(os.path.join(dir_path, self.config['sheet_data_path']), "w+") as jf:
             skill_json = {
