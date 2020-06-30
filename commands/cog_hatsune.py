@@ -181,7 +181,7 @@ class hatsuneCog(commands.Cog):
         #t0 = time.perf_counter()
         query = ("SELECT "
                     "hc.unit_name_eng, ub_trans, ub_2_trans, "
-                    "skill_1_translation, skill_1_plus_trans, skill_2_trans, sk1a_trans, sk2a_trans, "
+                    "skill_1_translation, skill_1_plus_trans, skill_2_trans, sk1a_trans, sk2a_trans, sk1ap_trans, "
                     "comment_trans, tag, "
                     "eq_name_trans, eq_rank "
                 "FROM "
@@ -194,7 +194,7 @@ class hatsuneCog(commands.Cog):
         cursor = conn.cursor(buffered=True)
         cursor.execute(query.format(info['id']))
 
-        for (en, ubtl, ub2tl, sk1tl, sk1ptl, sk2tl, sk1atl, sk2atl, cmtl, tag, ueen, uerank) in cursor:
+        for (en, ubtl, ub2tl, sk1tl, sk1ptl, sk2tl, sk1atl, sk2atl, sk1aptl, cmtl, tag, ueen, uerank) in cursor:
             info['en'] =            en
             info['ubtl'] =          ubtl
             info['ub2tl'] =         ub2tl
@@ -203,6 +203,7 @@ class hatsuneCog(commands.Cog):
             info['sk2tl'] =         sk2tl
             info['sk1atl'] =        sk1atl
             info['sk2atl'] =        sk2atl
+            info['sk1aptl'] =       sk1aptl
             info['cmtl'] =          cmtl
             info['tag'] =           [c.strip() for c in tag.split(',')]
             info['ue_en'] =         ueen
