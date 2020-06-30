@@ -117,7 +117,9 @@
         115,
         116,
         117,
-        118
+        118,
+        119,
+        120
     ],
     "hn": [
         "1040",
@@ -237,7 +239,9 @@
         "1130",
         "1805",
         "1129",
-        "1066"
+        "1066",
+        "1802",
+        "1132"
     ],
     "flb": [
         false,
@@ -308,6 +312,8 @@
         false,
         false,
         true,
+        false,
+        false,
         false,
         false,
         false,
@@ -477,7 +483,9 @@
         "wayumi",
         "pkokkoro",
         "wrino",
-        "inori"
+        "inori",
+        "pyui",
+        "sanna"
     ],
     "jp": [
         "\u30a2\u30aa\u30a4",
@@ -597,6 +605,8 @@
         "\u30a2\u30e6\u30df\uff08\u30ef\u30f3\u30c0\u30fc\uff09",
         "\u30b3\u30c3\u30b3\u30ed\uff08\u30d7\u30ea\u30f3\u30bb\u30b9\uff09",
         "\u30ea\u30ce\uff08\u30ef\u30f3\u30c0\u30fc\uff09",
-        "\u30a4\u30ce\u30ea"
+        "\u30a4\u30ce\u30ea",
+        "\u30e6\u30a4\uff08\u30d7\u30ea\u30f3\u30bb\u30b9\uff09",
+        "\u30a2\u30f3\u30ca\uff08\u30b5\u30de\u30fc\uff09"
     ]
 }

@@ -275,6 +275,11 @@ class hatsuneCog(commands.Cog):
         info['sk1a'] =          sk1a_raw.get('description', None)
         info['sk1aaction'] =    sk1a_raw.get('actions', [None])
 
+        sk1ap_raw =             sk_raw.get('Skill 1 Alt+', dict())
+        info['sk1apjp'] =        sk1ap_raw.get('skill_name', None)
+        info['sk1ap'] =          sk1ap_raw.get('description', None)
+        info['sk1apaction'] =    sk1ap_raw.get('actions', [None])
+
         sk2a_raw =              sk_raw.get('Skill 2 Alt', dict())
         info['sk2ajp'] =        sk2a_raw.get('skill_name', None)
         info['sk2a'] =          sk2a_raw.get('description', None)
@@ -620,21 +625,38 @@ class hatsuneCog(commands.Cog):
         
         # Skill 1 +
         if 'ue' in info['tag']:
-            embed.add_field(
-                name=   "> **Skill 1+**",
-                value=  f"「{info.get('sk1pjp','soon:tm:')}」",
-                inline= False
-            )
-            embed.add_field(
-                name=   "Description",
-                value=  f"{info.get('sk1p','なし')}",
-                inline= True
-            )
-            embed.add_field(
-                name=   SPACE,
-                value=  f"{info.get('sk1ptl','This character does not have an UE')}",
-                inline= True
-            )
+            if option == 'alt' and info['sk1ap'] != None:
+                embed.add_field(
+                    name=   "> **Skill 1 Special+**",
+                    value=  f"「{info.get('sk1apjp','soon:tm:')}」",
+                    inline= False
+                )
+                embed.add_field(
+                    name=   "Description",
+                    value=  f"{info.get('sk1ap','なし')}",
+                    inline= True
+                )
+                embed.add_field(
+                    name=   SPACE,
+                    value=  f"{info.get('sk1aptl','This character does not have an UE')}",
+                    inline= True
+                )
+            else:
+                embed.add_field(
+                    name=   "> **Skill 1+**",
+                    value=  f"「{info.get('sk1pjp','soon:tm:')}」",
+                    inline= False
+                )
+                embed.add_field(
+                    name=   "Description",
+                    value=  f"{info.get('sk1p','なし')}",
+                    inline= True
+                )
+                embed.add_field(
+                    name=   SPACE,
+                    value=  f"{info.get('sk1ptl','This character does not have an UE')}",
+                    inline= True
+                )
 
         # Skill 2
         if option == 'alt' and info['sk2a'] != None:
@@ -910,21 +932,38 @@ class hatsuneCog(commands.Cog):
         
         # Skill 1+
         if 'ue' in info['tag']:
-            embed.add_field(
-                name=   "> **Skill 1+**",
-                value=  f"「{info.get('sk1pjp','soon:tm:')}」",
-                inline= False
-            )
-            embed.add_field(
-                name=   "Description",
-                value=  f"{info.get('sk1ptl','This character does not have an UE')}",
-                inline= True
-            )
-            embed.add_field(
-                name=   "Effect",
-                value=  "```glsl\n-{}```".format('\n-'.join(info.get('sk1paction','N/A'))),
-                inline= True
-            )
+            if option == 'alt' and info['sk1ap'] != None:
+                embed.add_field(
+                    name=   "> **Skill 1 Special+**",
+                    value=  f"「{info.get('sk1apjp','soon:tm:')}」",
+                    inline= False
+                )
+                embed.add_field(
+                    name=   "Description",
+                    value=  f"{info.get('sk1aptl','This character does not have an UE')}",
+                    inline= True
+                )
+                embed.add_field(
+                    name=   "Effect",
+                    value=  "```glsl\n-{}```".format('\n-'.join(info.get('sk1apaction','N/A'))),
+                    inline= True
+                )
+            else:
+                embed.add_field(
+                    name=   "> **Skill 1+**",
+                    value=  f"「{info.get('sk1pjp','soon:tm:')}」",
+                    inline= False
+                )
+                embed.add_field(
+                    name=   "Description",
+                    value=  f"{info.get('sk1ptl','This character does not have an UE')}",
+                    inline= True
+                )
+                embed.add_field(
+                    name=   "Effect",
+                    value=  "```glsl\n-{}```".format('\n-'.join(info.get('sk1paction','N/A'))),
+                    inline= True
+                )
 
         # Skill 2
         if option == 'alt' and info['sk2ajp'] != None:

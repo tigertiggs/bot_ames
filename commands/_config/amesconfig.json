@@ -21,6 +21,7 @@
     "help_path":            "commands/_config/help.json",
 
     "hatsune_config_path":  "commands/hatsune_data/hatsune_config.json",
+    "hatsune_db_path":      "commands/hatsune_data/db/chara_data.json",
     "alias_local_path":     "commands/hatsune_data/alias_local.json",
     "tags_index_path":      "commands/hatsune_data/tags.json",
     "unit_list_path":       "commands/hatsune_data/unit_list.json",

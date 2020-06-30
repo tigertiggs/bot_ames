@@ -109,5 +109,184 @@
     "illegal_tokens": [
         ",",
         "."
-    ]
+    ],
+    "template": {
+        "status": {
+            "ue": null,
+            "lvl": null,
+            "rk": null
+        },
+        "tags": [],
+        "pos": null,
+        "atkptn": {
+            "loop": [],
+            "ptn": []
+        },
+        "img": null,
+        "img6": null,
+        "basic": {
+            "en": {
+                "id": null,
+                "name": null,
+                "ub": {
+                    "name": null,
+                    "text": null,
+                    "action": null
+                },
+                "ub2": {
+                    "name": null,
+                    "text": null,
+                    "action": null
+                },
+                "sk1": {
+                    "name": null,
+                    "text": null,
+                    "action": null
+                },
+                "sk1p": {
+                    "name": null,
+                    "text": null,
+                    "action": null
+                },
+                "sk1a": {
+                    "name": null,
+                    "text": null,
+                    "action": null
+                },
+                "sk1ap": {
+                    "name": null,
+                    "text": null,
+                    "action": null
+                },
+                "sk2": {
+                    "name": null,
+                    "text": null,
+                    "action": null
+                },
+                "sk2a": {
+                    "name": null,
+                    "text": null,
+                    "action": null
+                },
+                "sk2ap": {
+                    "name": null,
+                    "text": null,
+                    "action": null
+                },
+                "ex": {
+                    "name": null,
+                    "text": null,
+                    "action": null
+                },
+                "ex2": {
+                    "name": null,
+                    "text": null,
+                    "action": null
+                },
+                "comment": null
+            },
+            "jp": {
+                "id": null,
+                "name": null,
+                "ub": {
+                    "name": null,
+                    "text": null,
+                    "action": null
+                },
+                "ub2": {
+                    "name": null,
+                    "text": null,
+                    "action": null
+                },
+                "sk1": {
+                    "name": null,
+                    "text": null,
+                    "action": null
+                },
+                "sk1p": {
+                    "name": null,
+                    "text": null,
+                    "action": null
+                },
+                "sk1a": {
+                    "name": null,
+                    "text": null,
+                    "action": null
+                },
+                "sk1ap": {
+                    "name": null,
+                    "text": null,
+                    "action": null
+                },
+                "sk2": {
+                    "name": null,
+                    "text": null,
+                    "action": null
+                },
+                "sk2a": {
+                    "name": null,
+                    "text": null,
+                    "action": null
+                },
+                "sk2ap": {
+                    "name": null,
+                    "text": null,
+                    "action": null
+                },
+                "ex": {
+                    "name": null,
+                    "text": null,
+                    "action": null
+                },
+                "ex2": {
+                    "name": null,
+                    "text": null,
+                    "action": null
+                },
+                "comment": null
+            }
+        },
+        "ue": {
+            "id": null,
+            "rank": null,
+            "img": null,
+            "stats": {},
+            "en": {
+                "name": null,
+                "text": null
+            },
+            "jp": {
+                "name": null,
+                "text": null
+            }
+        },
+        "stats": {
+            "normal": {},
+            "flb": {}
+        },
+        "profile": {
+            "age": null,
+            "blood": null,
+            "weight": null,
+            "height": null,
+            "img": null,
+            "bd": null,
+            "en": {
+                "name": null,
+                "name_alt": null,
+                "irl_name": null,
+                "guild": null,
+                "race": null,
+                "va": null
+            },
+            "jp": {
+                "name": null,
+                "name_alt": null,
+                "irl_name": null,
+                "guild": null,
+                "race": null,
+                "va": null
+            }
+        }
+    }
 }
