@@ -1658,6 +1658,12 @@ class blueoathCog(commands.Cog):
         await self.client.wait_until_ready()
         print("started")
     
+    @bo.command()
+    async def wiki(self, ctx):
+        channel = ctx.channel
+        lnk = "https://blueoath.miraheze.org/wiki/Main_Page"
+        await channel.send(f"Here's the link to the wiki\n{lnk}")
+
     def cog_unload(self):
         self.check_oil.cancel()
 
