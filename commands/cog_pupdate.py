@@ -77,7 +77,7 @@ class updateCog(commands.Cog):
             skills_en['sk1ap']['text'] =    sk1aptl
             skills_en['comment'] =          cmtl if not cmtl else None
             temp['tags'] =                  [c.strip() for c in tag.split(',')]
-            temp['pos'] =                   pos
+            temp['pos'] =                   int(pos) if pos else -1
             temp['ue']['en']['name'] =      ueen
             temp['ue']['rank'] =            uerank if uerank != "-" else None
             temp['basic']['jp']['name'] =   jp.replace("（","(").replace("）",")")
@@ -155,6 +155,7 @@ class updateCog(commands.Cog):
         with open(os.path.join(self.client.dir, self.client.config['hatsune_db_path']),"w+") as dbf:
             dbf.write(json.dumps(data,indent=4))
         self.make_index()
+        await ctx.message.channel.send(".")
 
     def get_unit_status(self, raw, data):
         status = data['status']
@@ -371,8 +372,11 @@ class updateCog(commands.Cog):
             if not unit:
                 await ctx.message.channel.send(f"Failed to fetch basic data for `{chara[0]} ({chara[1]})`")
                 continue
+
             unit = await self.edit_chara(ctx, unit)
             all_data['units'].append(unit)
+            all_data = await self.edit_pos(ctx, unit, all_data)
+
 
         if forced:
             await ctx.message.channel.send("Forcing update from Hnote")
@@ -487,7 +491,6 @@ class updateCog(commands.Cog):
                     # process commands
                     chara, success = await self.process_command(cmd, cnt, chara, edit.mode, text.format(edit.mode))
                     if success:
-                        print("reloading")
                         await header_msg.edit(embed=edit.reload(chara))
                     #await cmd.edit(content="\n".join([cmd.content, f"Unknown command `{inp.content}`"]))
                 confirmation = False
@@ -805,7 +808,7 @@ class updateCog(commands.Cog):
         return embed
 
     @commands.command()
-    async def edit(self, ctx, request):
+    async def edit(self, ctx, request, *options):
         channel = ctx.message.channel
         author = ctx.message.author
         if not self.client._check_author(author):
@@ -813,6 +816,7 @@ class updateCog(commands.Cog):
             return
         elif not request:
             return
+        pos = "pos" in options
 
         # check if delete mode
         delete = request.startswith('-')
@@ -834,27 +838,203 @@ class updateCog(commands.Cog):
             all_data = json.load(dbf)
         
         # edit
-        if not delete:
-            await channel.send(f"Editing `{match['name_en']}({match['prefix']})` -> `{all_data['units'][match['index']]['basic']['en']['name']}({all_data['units'][match['index']]['basic']['en']['prefix']})`")
-            unit = await self.edit_chara(ctx, all_data['units'][match['index']])
+        if not pos:
+            if not delete:
+                await channel.send(f"Editing `{match['name_en']}({match['prefix']})` -> `{all_data['units'][match['index']]['basic']['en']['name']}({all_data['units'][match['index']]['basic']['en']['prefix']})`")
+                unit = await self.edit_chara(ctx, all_data['units'][match['index']])
 
-            # append
-            all_data['units'][match['index']] = unit
-        else:
-            await channel.send(f"Deleting `{match['name_en']}({match['prefix']})` -> `{all_data['units'][match['index']]['basic']['en']['name']}({all_data['units'][match['index']]['basic']['en']['prefix']})`")
-            del all_data['units'][match['index']]
+                # append
+                all_data['units'][match['index']] = unit
+            else:
+                await channel.send(f"Deleting `{match['name_en']}({match['prefix']})` -> `{all_data['units'][match['index']]['basic']['en']['name']}({all_data['units'][match['index']]['basic']['en']['prefix']})`")
+                del all_data['units'][match['index']]
 
-        # save db
-        msg = await ctx.message.channel.send("Saving db...")
-        with open(os.path.join(self.client.dir, self.client.config['hatsune_db_path']), "w+") as dbf:
-            dbf.write(json.dumps(all_data, indent=4))
-        await msg.edit(content=msg.content+" done")
-
-        if delete:
-            # update local index
-            msg = await ctx.message.channel.send("Making local index...")
-            self.make_index()
+            # save db
+            msg = await ctx.message.channel.send("Saving db...")
+            with open(os.path.join(self.client.dir, self.client.config['hatsune_db_path']), "w+") as dbf:
+                dbf.write(json.dumps(all_data, indent=4))
             await msg.edit(content=msg.content+" done")
+
+            if delete:
+                # update local index
+                msg = await ctx.message.channel.send("Making local index...")
+                self.make_index()
+                await msg.edit(content=msg.content+" done")
+        else:
+            # pos
+            await self.edit_pos(ctx, all_data['units'][match['index']], all_data)
+    
+    async def edit_pos(self, ctx, chara, all_data):
+        # assumes chara is already in all_data
+        def check(msg):
+            return self.client._check_author(msg.author) and msg.channel == ctx.message.channel
+
+        # premake vg, mg and rg ranks
+        def split_data(chara, units):
+            vg, mg, rg = [], [], []
+            for unit in units:
+                if not unit == chara:
+                    if "front" in unit['tags']:
+                        vg.append(unit)
+                    elif "mid" in unit['tags']:
+                        mg.append(unit)
+                    elif "rear" in unit['tags']:
+                        rg.append(unit)
+            return vg, mg, rg
         
-if __name__ == "__main__":
-    pass
+        # shifters
+        async def shift(cmd, chara, lineup, mode, field, val):
+            start, _, end = val.partition("-")
+            if mode == "front":
+                l = 100
+                u = 199
+            elif mode == "mid":
+                l = 200
+                u = 299
+            else:
+                l = 300
+                u = 399
+
+            start = int(start) if start.isnumeric() else None
+            end = int(end) if end.isnumeric() else None
+
+            # sanity check
+            if not start:
+                await cmd.edit(content="\n".join([cmd.content, f"start value not specified"]))
+                return lineup, chara
+            else:
+                if start >= u or start <= l:
+                    await cmd.edit(content="\n".join([cmd.content, f"start value out of range"]))
+                    return lineup, chara
+
+                if end:
+                    if end >= u or end <= l:
+                        await cmd.edit(content="\n".join([cmd.content, f"end value out of range"]))
+                        return lineup, chara
+                else:
+                    end = u
+            
+            # process command
+            if field in ["push", "insert"]:
+                await cmd.edit(content="\n".join([cmd.content, f"push {start}-{end}"]))
+                for i in range(len(lineup)):
+                    if lineup[i]['pos'] >= start and lineup[i]['pos'] <= end:
+                        lineup[i]['pos'] += 1
+
+            if field in ["set", "insert"]:
+                await cmd.edit(content="\n".join([cmd.content, f"set target pos {start}"]))
+                chara['pos'] = start
+
+            if field == "pull":
+                await cmd.edit(content="\n".join([cmd.content, f"pull {start}-{end}"]))
+                for i in range(len(lineup)):
+                    if lineup[i]['pos'] >= start and lineup[i]['pos'] <= end:
+                        lineup[i]['pos'] -= 1
+
+            return lineup, chara
+        
+        vg, mg, rg = split_data(chara, all_data['units'])
+
+        header = await ctx.message.channel.send(embed=self.make_pos_embed(chara, vg, mg, rg))
+        txt = "Editting character position.\nUse `tags:tag1,tag2,...` to edit tags or use `push|pull|set|insert` commands. Type `exit` to finish."
+        cmd = await ctx.message.channel.send(txt)
+        
+        while True:
+            message = await self.client.wait_for('message', check=check)
+
+            if not message.content.startswith('--'):
+                await message.delete()
+                content = message.content
+                field, _, val = content.partition(":")
+                field, val = field.strip(), val.strip()
+
+                if field == "tags":
+                    chara['tags'] = [i.strip() for i in val.split(',')] if val else []
+                    await cmd.edit(content="\n".join([txt,f"> set tags to {chara['tags']}"]))
+                elif field == "exit":
+                    break
+                elif not any([lp in chara['tags'] for lp in ['front','mid','rear']]):
+                    await cmd.edit(content="\n".join([txt,"Cannot process command: no lineup identifier found"]))
+                    continue
+                else:
+                    if field in ['push','pull','insert','set']:
+                        # these are pointers - not copied
+                        if "front" in chara['tags']:
+                            vg, chara = await shift(cmd, chara, vg, "front", field, val)
+                        elif "mid" in chara['tags']:
+                            mg, chara = await shift(cmd, chara, mg, "mid", field, val)
+                        else:
+                            rg, chara = await shift(cmd, chara, rg, "rear", field, val)
+                    
+                        # syntax
+                        # push [start(-end)] -> shifts all pos >= start +1
+                        # pull [start(-end)] -> shifts all pos >= start -1
+                        # set num -> sets target chara pos to num
+                        # insert num -> push num; set num;
+
+                        #shift(cmd, chara, lineup, mode, field, val)
+                    else:
+                        await cmd.edit(content="\n".join([txt, f"Unknown command {content}"]))
+                        continue
+                
+                await header.edit(embed=self.make_pos_embed(chara, vg, mg, rg))
+        
+        # save and whatnot
+        #do something
+        await cmd.delete()
+        await header.edit(content=f"Updated pos for `{chara['basic']['jp']['name']}`",embed=None)
+        all_data['units'] = vg+mg+rg
+        all_data['units'].append(chara)
+        return all_data
+
+    def make_pos_embed(self, chara, vg, mg, rg):
+        # should have: tags, pos, lineup
+        
+        def make_line(chara, client, active=False):
+            line = "{} {} {}" if not active else "> {} **{} {}**"
+            sname = chara['basic']['en']['prefix'].title() + chara['basic']['en']['name'].title() if chara['basic']['en']['prefix'] else chara['basic']['en']['name'].title()
+            return line.format(client.team[sname.lower()], str(chara['pos']) if chara['pos'] != -1 else '??', sname)
+        
+        lineup = None
+        if "front" in chara['tags']:
+            lineup = vg.copy()
+            mode = "Vanguard"
+        elif "mid" in chara['tags']:
+            lineup = mg.copy()
+            mode = "Midguard"
+        elif "rear" in chara['tags']:
+            lineup = rg.copy()
+            mode = "Rearguard"
+        
+        embed = discord.Embed(
+            title=f"Edit Character Position - {chara['basic']['en']['name']} ({chara['basic']['jp']['name']})",
+            timestamp=datetime.datetime.utcnow()
+        )
+        embed.set_thumbnail(url=chara['img'])
+
+        embed.add_field(
+            name="tags",
+            value=chara['tags'],
+            inline=False
+        )
+        embed.add_field(
+            name="pos",
+            value=chara['pos'] if chara['pos'] != -1 else "TBC",
+            inline=False
+        )
+
+        if lineup:
+            lineup.append(chara)
+            lineup.sort(key=lambda x: x['pos'])
+            for chunk in list(self.client.chunks(lineup, 20)):
+                embed.add_field(
+                    name=f"{mode} Lineup",
+                    value="\n".join([make_line(c, self.client, c==chara) for c in chunk])
+                )
+        else:
+            embed.add_field(
+                name="Lineup",
+                value=f"{chara['basic']['jp']['name']} is missing lineup identifier. Consider using edit or just adding it here."
+            )
+        
+        return embed
