@@ -47,9 +47,12 @@ class shenpCog(commands.Cog):
                 await self.logger.send(self.name, save_name, e)
                 return False, e
             else:
-                if temp.is_animated:
-                    temp.seek(temp.n_frames//2)
-                    temp = temp.convert(mode="RGB")
+                try:
+                    if temp.is_animated:
+                        temp.seek(temp.n_frames//2)
+                        temp = temp.convert(mode="RGB")
+                except Exception as e:
+                    await self.logger.send(self.name, "could not get attr", e)
             
             temp.resize(user_dict['size'],resample=Image.ANTIALIAS)
             mask = Image.new('L', user_dict['size'],0)

@@ -16,7 +16,7 @@ class hatsuneCog(commands.Cog):
         self.colour = discord.Colour.from_rgb(*client.config['command_colour']['cog_hatsune'])
 
         # load configs
-        with open(os.path.join(self.client.dir, self.client.config['hatsune_config_path'])) as hcf:
+        with open(os.path.join(self.client.dir, self.client.config['hatsune_config_path']),encoding='utf-8') as hcf:
             self.config = json.load(hcf)
         with open(os.path.join(self.client.dir, self.client.config['tags_index_path'])) as tif:
             self.tag_definitions = json.load(tif)

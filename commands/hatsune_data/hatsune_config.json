@@ -1,4 +1,8 @@
 {
+    "blacklist": [
+        "ホマレ",
+        "ラビリスタ"
+    ],
     "prefix_title": {
         "n": "New year",
         "x": "Christmas",
@@ -127,6 +131,7 @@
         "basic": {
             "en": {
                 "id": null,
+                "prefix": null,
                 "name": null,
                 "ub": {
                     "name": null,
@@ -288,5 +293,13 @@
                 "va": null
             }
         }
+    },
+    "template_index": {
+        "id": null,
+        "hnid": null,
+        "name_en": null,
+        "prefix": null,
+        "name_jp": null,
+        "flb": null
     }
 }

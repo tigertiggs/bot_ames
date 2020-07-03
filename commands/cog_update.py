@@ -401,7 +401,7 @@ class updateCog(commands.Cog):
                                 await self.logger.send(self.name, "failed to upload", e)
                                 traceback.print_exc()
                             else:
-                                self.logger.send(self.name, 'success')
+                                await self.logger.send(self.name, 'success')
                                 flag = True
                 if flag is True:
                     await channel.send(f"Added {local_emote}")

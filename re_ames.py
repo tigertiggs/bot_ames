@@ -504,7 +504,7 @@ class Ames(commands.AutoShardedBot):
             return None    
 
     def get_full_name(self, target):
-        with open(os.path.join(self.dir, self.config['hatsune_config_path'])) as hcf:
+        with open(os.path.join(self.dir, self.config['hatsune_config_path']), encoding='utf-8') as hcf:
             hconfig = json.load(hcf)
         if len(target) > 1:
             if target[1].isupper():
