@@ -114,7 +114,7 @@ class hatsuneCog(commands.Cog):
                                 for e in alt_emotes:
                                     await page.add_reaction(e)
                             
-                            reactions = list(alt_embeds[alt_choice].base_emotes.keys())
+                            reactions = alt_embeds[alt_choice].base_emotes
 
                     else:
                         alt_embeds[alt_choice].set(reactions[str(reaction.emoji)])
