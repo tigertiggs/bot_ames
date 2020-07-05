@@ -60,7 +60,7 @@ class hatsuneCog(commands.Cog):
             await channel.send(f"Note: {self.client.get_full_name_kai(match['name_en'],match['prefix'])} does not have a `flb` variant")
             mode = None
 
-        self.logger.send(self.name, match['sname'], match['name_jp'], match['hnid'])
+        await self.logger.send(self.name, match['sname'], match['name_jp'], match['hnid'])
 
         # load data
         with open(os.path.join(self.client.dir, self.client.config['hatsune_db_path'])) as dbf:
