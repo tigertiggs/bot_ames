@@ -1,0 +1,76 @@
+{   
+    "tags":             [],
+    "pos":              null,
+    "atkptn":           {"loop": [], "init": []},
+    "img":              null,
+    "img6":             null,
+    "skill": {
+        "en": {
+            "id":           null,
+            "name":         null,
+            "ub":           {"name": null, "decription": null, "action": null},
+            "ub2":          {"name": null, "decription": null, "action": null},
+            "sk1":          {"name": null, "decription": null, "action": null},
+            "sk1p":         {"name": null, "decription": null, "action": null},
+            "sk1a":         {"name": null, "decription": null, "action": null},
+			"sk1ap":		{"name": null, "decription": null, "action": null},
+            "sk2":          {"name": null, "decription": null, "action": null},
+            "sk2a":         {"name": null, "decription": null, "action": null},
+			"sk2ap":		{"name": null, "decription": null, "action": null},
+            "comment":      null
+        },
+        "jp": {
+            "id":           null,
+            "name":         null,
+            "ub":           {"name": null, "decription": null, "action": null},
+            "ub2":          {"name": null, "decription": null, "action": null},
+            "sk1":          {"name": null, "decription": null, "action": null},
+            "sk1p":         {"name": null, "decription": null, "action": null},
+            "sk1a":         {"name": null, "decription": null, "action": null},
+			"sk1ap":		{"name": null, "decription": null, "action": null},
+            "sk2":          {"name": null, "decription": null, "action": null},
+            "sk2a":         {"name": null, "decription": null, "action": null},
+			"sk2ap":		{"name": null, "decription": null, "action": null},
+            "comment":      null
+        }
+    },
+    "ue": {
+        "link":     null,
+        "stats": {
+        
+        },
+        "en": {
+            "name": null
+        },
+        "jp": {
+            "name": null
+        }
+    },
+    "stats": {
+        "normal": {
+
+        },
+        "flb": {
+            
+        }
+    },
+    "profile": {
+        "age":      null,
+        "blood":    null,
+        "weight":   null,
+        "height":   null,
+        "img":      null,
+        "en": {
+            "name":     null,
+            "irl_name": null,
+            "guild":    null,
+            "race":     null
+        },
+        "jp": {
+            "name":     null,
+            "irl_name": null,
+            "guild":    null,
+            "race":     null
+        }
+    }
+}

@@ -24,7 +24,7 @@
     "hatsune_db_path":      "commands/hatsune_data/db/chara_data.json",
     "alias_local_path":     "commands/hatsune_data/alias_local.json",
     "tags_index_path":      "commands/hatsune_data/tags.json",
-    "unit_list_path":       "commands/hatsune_data/unit_list.json",
+    "unit_list_path":       "commands/hatsune_data/db/index.json",
 
     "fag_index_path":       "C:/laragon/www/fagutils/Priconne/data/index.json",
     "png_path":             "commands/assets/units/png",
@@ -51,13 +51,13 @@
         "commands.cog_core",
         "commands.cog_cb",
         "commands.cog_gacha",
-        "commands.cog_hatsune",
         "commands.cog_help",
         "commands.cog_shen",
         "commands.cog_shenp",
         "commands.cog_twitter",
-        "commands.cog_update",
-        "commands.cog_blueoath"
+        "commands.cog_blueoath",
+        "commands.cog_phatsune",
+        "commands.cog_pupdate"
     ],
     "command_colour":   {
         "cog_core":     [14, 173, 14],

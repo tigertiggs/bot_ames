@@ -30,10 +30,18 @@ class gachaCog(commands.Cog):
     
     class character:
         def __init__(self, client, name, rarity, limited=False):
-            self.name =         name.lower()
-            self.full_name =    client.get_full_name(name)
+            # name = (prefix.)(name)(:rate)
+            name, _, rate = name.partition(":")
+            prefix, _, name = name.partition(".")
+            if not name:
+                name = prefix
+                prefix = ''
+
+            self.name =         "".join([prefix, name]).lower()
+            self.full_name =    client.get_full_name_kai(name.lower(), prefix.lower() if prefix else None)
             self.rarity =       rarity
             self.limited =      limited
+            self.rate =         float(rate) if rate else None
         
         def __eq__(self, c):
             return self.name == c
@@ -60,9 +68,15 @@ class gachaCog(commands.Cog):
             if self.prifes:
                 self.up_ssr *= 2
             
+            # lim pool profiles
+            self.profile_r = []
+            self.profile_sr = []
+            self.profile_ssr = []
+
             # finish init
             self.threshold()
             self.load_pools()
+            self.make_lim_profile()
         
         def threshold(self):
             self.sr_threshold =         round(self.grain * self.rate_r)
@@ -101,6 +115,62 @@ class gachaCog(commands.Cog):
                 if name.lower() not in self.r_pool['lim']:
                     self.r_pool['norm'].append(self.cog.character(self.client, name, 1))
         
+        def make_lim_profile(self):
+            for i, lim_pool in enumerate([self.r_pool['lim'], self.sr_pool['lim'], self.ssr_pool['lim']]):
+                if i == 0:
+                    rate = self.up_r
+                elif i == 1:
+                    rate = self.up_sr
+                else:
+                    rate = self.up_ssr
+                
+                temp_profile =  []
+                with_rate =     []
+                without_rate =  []
+                total =         100
+
+                for chara in lim_pool:
+                    if chara.rate:
+                        r = chara.rate/rate
+                        temp_profile.append(r)
+                        with_rate.append(chara)
+                        total -= chara.rate/rate
+                    else:
+                        without_rate.append(chara)
+                
+                if without_rate:
+                    r = total/len(without_rate)
+                    temp_profile += [r]*len(without_rate)
+
+                if i == 0:
+                    self.r_pool['lim'] = with_rate + without_rate
+                    self.profile_r = temp_profile
+                elif i == 1:
+                    self.sr_pool['lim'] = with_rate + without_rate
+                    self.profile_sr = temp_profile
+                else:
+                    self.ssr_pool['lim'] = with_rate + without_rate
+                    self.profile_ssr = temp_profile
+
+        def lim_roll(self, rarity):
+            if rarity == 0:
+                pool = self.r_pool['lim']
+                profile = self.profile_r
+            elif rarity == 1:
+                pool = self.sr_pool['lim']
+                profile = self.profile_sr
+            else:
+                pool = self.ssr_pool['lim']
+                profile = self.profile_ssr
+            
+            seed = random.randint(0,self.grain)
+            perc = seed/self.grain*100
+            threshold = 0
+            for i, next_threshold in enumerate(profile):
+                threshold += next_threshold
+                if perc < threshold:
+                    return pool[i]
+
         def roll(self, tenth=False, test=False):
             if not test:
                 seed = random.randint(0,self.grain)
@@ -109,19 +179,19 @@ class gachaCog(commands.Cog):
 
             if seed < self.sr_threshold and not tenth and not test:
                 if seed < self.up_r_threshold and len(self.r_pool['lim']) != 0:
-                    return random.choice(self.r_pool['lim'])
+                    return self.lim_roll(0)
                 else:
                     return random.choice(self.r_pool['norm'])
 
             elif seed < self.ssr_threshold and not test:
                 if seed < self.up_sr_threshhold and len(self.sr_pool['lim']) != 0:
-                    return random.choice(self.sr_pool['lim'])
+                    return self.lim_roll(1)
                 else:
                     return random.choice(self.sr_pool['norm'])
             
             else:
                 if seed < self.up_ssr_threshhold and len(self.ssr_pool['lim']) != 0:
-                    return random.choice(self.ssr_pool['lim'])
+                    return self.lim_roll(2)
                 else:
                     return random.choice(self.ssr_pool['norm'])
                       
@@ -154,7 +224,7 @@ class gachaCog(commands.Cog):
 
                     if mode == 'spark':
                         break
-                    elif ch.name == mode:
+                    elif ch.name == mode['sname']:
                         break
             
             summary['rolls'] = i
@@ -204,7 +274,7 @@ class gachaCog(commands.Cog):
         
         else:
             desc = f"{author.name}, you managed to pull **{list(summary['lim'].values())[-1][0].full_name}** in **{summary['rolls']}** pulls." if summary['rolls'] < roll else\
-                        f"{author.name}, you did not manage to pull {self.pool.ssr_pool['lim'][[chara.name for chara in self.pool.ssr_pool['lim']].index(mode)].full_name} within {summary['rolls']} rolls."
+                        f"{author.name}, you did not manage to pull {self.pool.ssr_pool['lim'][[chara.name for chara in self.pool.ssr_pool['lim']].index(mode['sname'])].full_name} within {summary['rolls']} rolls."
 
         embed = discord.Embed(
             title="カレンのガチャ報道",
@@ -303,16 +373,15 @@ class gachaCog(commands.Cog):
                     continue
             # see if input is a chara
             if mode == None:
-                try:
-                    from cog_hatsune import hatsuneCog
+                try: #FIXME
+                    from cog_phatsune import hatsuneCog
                     hatsune = hatsuneCog(self.client)
-                    x, mode, x = await hatsune.process_request(ctx, [temp], None, False)
-                    del x
+                    mode, _, _, _= await hatsune.preprocess(ctx, [temp], verbose=True)
                 except:
                     mode = None
                 else:
-                    if not mode in [chara.name for chara in self.pool.ssr_pool['lim']]:
-                        await channel.send("This character cannot be sparked")
+                    if not mode['sname'] in [chara.name for chara in self.pool.ssr_pool['lim']]:
+                        await channel.send("This character cannot be sparked in the current banner")
                         return
             del hatsune
                     

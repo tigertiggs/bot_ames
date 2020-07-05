@@ -169,8 +169,9 @@ class Ames(commands.AutoShardedBot):
 
         # set logger and db
         self.log = logger(self)
-        self.database = database(self)
-        
+        #self.database = database(self)
+        self.database = None
+
         # load cogs
         self.cogs_status = dict()
         for extension in self.config['command_cogs']:
@@ -289,7 +290,7 @@ class Ames(commands.AutoShardedBot):
         self.s_time = start_time
 
         # connect the database and grab resources
-        await self.database.connect()
+        #await self.database.connect()
         self._load_resource()
 
         print(f'Ready: {self.user} (ID: {self.user.id})')
@@ -511,6 +512,14 @@ class Ames(commands.AutoShardedBot):
                 prefix = hconfig['prefix_title'].get(target[0].lower(), '???')
                 return f"{target[1:]} ({prefix})"
         return target
+    
+    def get_full_name_kai(self, name, prefix=None):
+        with open(os.path.join(self.dir, self.config['hatsune_config_path']), encoding='utf-8') as hcf:
+            hconfig = json.load(hcf)
+        if prefix:
+            prefix = hconfig['prefix_title'].get(prefix, '???')
+            return f"{name.title()} ({prefix})"
+        return name.title()
 
 if __name__ == "__main__":
     #global start_time

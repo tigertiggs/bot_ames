@@ -80,6 +80,7 @@ class coreCog(commands.Cog):
             nguilds =   len(self.client.guilds)
             uptime =    str(datetime.timedelta(seconds=int(round(time.time() - self.client.s_time))))
             state =     [" ".join([red if v == False else green, k.split(".")[-1]]) for k,v in list(self.client.cogs_status.items())]
+            """
             try:
                 conn = self.client.database.db_pointer.get_connection()
                 if conn.is_connected():
@@ -91,6 +92,8 @@ class coreCog(commands.Cog):
             except Exception as e:
                 conn = False
                 await self.logger.send(self.name,"[status]",e)
+            """
+            conn = False
             clientv, updatemsg = self.compare_version()
 
             # make embed

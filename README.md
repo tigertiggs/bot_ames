@@ -33,6 +33,15 @@ Ames' planned features:
 * Events (JP)
   * Show future events schedule
 
+## Blue Oath JP
+As an aside, Ames also provides a small set of Blue Oath (JP) related commands by a semi-standalone module `cog_blueoath.py` with information and details provided and maintained by the EN discord community. There are 2 main sources of information; [the spreadsheet](https://docs.google.com/spreadsheets/d/1UrEFf88vjcOFRy7tFOfcedsoobXU7ZTeezFlRFVEo2Q/edit?usp=sharing) and [the EN Wiki](https://blueoath.miraheze.org/wiki/Main_Page). You're welcome to join the [Blue Oath EN discord](https://discord.gg/hzNRN2a) community!
+
+### Blue Oath Capabilities
+Use `.bo help` to see all Blue Oath related commands.
+* Ships
+  * Retrieve ship skills, stats, gallery, traits, limit break information
+* Daily Oil reminders
+
 # Pulling Ames Source Code
 If you wish to pull/clone and run Ames for whatever reason, you will need to read the sections below.
 

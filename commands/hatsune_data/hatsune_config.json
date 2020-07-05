@@ -107,7 +107,7 @@
         "lifesteal": "HP STEAL",
         "hpRec": "HP REC",
         "tpRec": "TP REC",
-        "tpSave": "UB EFC",
+        "tpSave": "UB EFFCY",
         "acc": "HIT"
     },
     "illegal_tokens": [
@@ -120,6 +120,7 @@
             "lvl": null,
             "rk": null
         },
+        "sname": null,
         "tags": [],
         "pos": -1,
         "atkptn": {
@@ -299,6 +300,7 @@
         "hnid": null,
         "name_en": null,
         "prefix": null,
+        "sname": null,
         "name_jp": null,
         "flb": null
     }
