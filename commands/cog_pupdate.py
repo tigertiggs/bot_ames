@@ -979,41 +979,51 @@ class updateCog(commands.Cog):
         elif not request:
             return
         pos = "pos" in options
-
-        # check if delete mode
-        delete = request.startswith('-')
-        if delete:
-            request = request[1:]
-        
-        # character should be proper - strict and no aliases allowed
-        prefix, _, name = request.partition(".")
-
-        # validate
-        match, _ = validate_request(self.client, {"name":name if name else prefix, "prefix":prefix if name else None})
-
-        if not match:
-            await channel.send(f"Did not find character `{request}`")
-            return
+        review = "all" in options or request == "all"
 
         # get bulk data
         with open(os.path.join(self.client.dir, self.client.config['hatsune_db_path'])) as dbf:
             all_data = json.load(dbf)
-        
-        # edit
-        if not pos:
-            if not delete:
-                await channel.send(f"Editing `{match['name_en']}({match['prefix']})` -> `{all_data['units'][match['index']]['basic']['en']['name']}({all_data['units'][match['index']]['basic']['en']['prefix']})`")
-                unit = await self.edit_chara(ctx, all_data['units'][match['index']])
 
-                # append
-                all_data['units'][match['index']] = unit
+        if not review:
+            # check if delete mode
+            delete = request.startswith('-')
+            if delete:
+                request = request[1:]
+            
+            # character should be proper - strict and no aliases allowed
+            prefix, _, name = request.partition(".")
+
+            # validate
+            match, _ = validate_request(self.client, {"name":name if name else prefix, "prefix":prefix if name else None})
+
+            if not match:
+                await channel.send(f"Did not find character `{request}`")
+                return
+            
+            # edit
+            if not pos:
+                if not delete:
+                    await channel.send(f"Editing `{match['name_en']}({match['prefix']})` -> `{all_data['units'][match['index']]['basic']['en']['name']}({all_data['units'][match['index']]['basic']['en']['prefix']})`")
+                    unit = await self.edit_chara(ctx, all_data['units'][match['index']])
+
+                    # append
+                    all_data['units'][match['index']] = unit
+                else:
+                    await channel.send(f"Deleting `{match['name_en']}({match['prefix']})` -> `{all_data['units'][match['index']]['basic']['en']['name']}({all_data['units'][match['index']]['basic']['en']['prefix']})`")
+                    del all_data['units'][match['index']]
+            # pos
             else:
-                await channel.send(f"Deleting `{match['name_en']}({match['prefix']})` -> `{all_data['units'][match['index']]['basic']['en']['name']}({all_data['units'][match['index']]['basic']['en']['prefix']})`")
-                del all_data['units'][match['index']]
-        # pos
+                all_data = await self.edit_pos(ctx, all_data['units'][match['index']], all_data)
         else:
-            all_data = await self.edit_pos(ctx, all_data['units'][match['index']], all_data)
-
+            # iterate through all_data
+            for i in range(len(all_data['units'])):
+                chara = all_data['units'][i]
+                await channel.send(f"Editing `{chara['sname']}`")
+                chara = await self.edit_chara(ctx, chara)
+                all_data['units'][i] = chara
+                all_data = await self.edit_pos(ctx, chara, all_data)
+            
         # save db
         msg = await ctx.message.channel.send("Saving db...")
         with open(os.path.join(self.client.dir, self.client.config['hatsune_db_path']), "w+") as dbf:
@@ -1021,7 +1031,7 @@ class updateCog(commands.Cog):
         await msg.edit(content=msg.content+" done")
 
         # make index only under certain conditions
-        if delete or pos:
+        if delete or pos or review:
             # update local index
             msg = await ctx.message.channel.send("Making local index...")
             self.make_index()
@@ -1504,3 +1514,93 @@ class updateCog(commands.Cog):
             await msg.edit(content=msg.content+"done")
         else:
             await channel.send("cog_hatsune is not loaded - update will not reload said cog")
+
+    @update.command(aliases=['exskills','ex'])
+    async def exskill(self, ctx):
+        channel = ctx.message.channel
+        author = ctx.message.channel
+        if not self.client._check_author(author):
+            await channel.send(self.client.emotes['ames'])
+        
+        def check(msg):
+            return self.client._check_author(msg.author) and msg.channel == ctx.message.channel
+
+        with open(os.path.join(self.client.dir, self.client.config['hatsune_db_path'])) as dbf:
+            all_data = json.load(dbf)
+        
+        with open(os.path.join(self.client.dir, self.client.config['ex_skills_path'])) as exf:
+            exskills = json.load(exf)
+        
+        untl, new = 0,0
+        for i in range(len(all_data['units'])):
+            chara = all_data['units'][i]
+
+            # ex
+            if not chara['basic']['jp']['ex']['text'] in exskills:
+                new += 1
+                exskills[chara['basic']['jp']['ex']['text']] = None
+
+            elif exskills[chara['basic']['jp']['ex']['text']]:
+                chara['basic']['en']['ex']['text'] = exskills[chara['basic']['jp']['ex']['text']]
+            
+            else:
+                untl += 1
+                chara['basic']['en']['ex']['text'] = None
+            
+            # ex2
+            if not chara['basic']['jp']['ex2']['text'] in exskills:
+                new += 1
+                exskills[chara['basic']['jp']['ex2']['text']] = None
+
+            elif exskills[chara['basic']['jp']['ex2']['text']]:
+                chara['basic']['en']['ex2']['text'] = exskills[chara['basic']['jp']['ex2']['text']]
+            
+            else:
+                untl += 1
+                chara['basic']['en']['ex2']['text'] = None
+            
+            all_data['units'][i] = chara
+        
+        with open(os.path.join(self.client.dir, self.client.config['ex_skills_path']), "w+") as exf:
+            exf.write(json.dumps(exskills, indent=4))
+        
+        await channel.send(f"Preliminary extraction and insertion done. Found `{untl}` untranslated and `{new}` new entries.")
+
+        if untl != 0 or new != 0:
+            batch = list(filter(lambda x: x[1] == None, list(exskills.items())))
+            current = await channel.send("Start")
+            for key, _ in batch:
+                txt = f"EX Skill: {key}"
+                await current.edit(content=txt)
+
+                confirm = False
+                while True:
+                    msg = await self.client.wait_for("message", check=check)
+
+                    if not msg.content.startswith('--'):
+                        await msg.delete()
+
+                        if msg == "exit":
+                            break
+
+                        if not confirm:
+                            confirm = True
+                            cnt = msg.content
+                            await current.edit(content="\n".join([txt, f"> Set to `{cnt}`? `y/n`"]))
+
+                        elif confirm and msg.content == "y":
+                            exskills[key] = cnt
+                            break
+                        
+                        else:
+                            await current.edit(content="\n".join([txt, f"cancelled"]))
+                            confirm = False
+        
+        with open(os.path.join(self.client.dir, self.client.config['hatsune_db_path']), "w+") as dbf:
+            dbf.write(json.dumps(all_data, indent=4))
+        
+        with open(os.path.join(self.client.dir, self.client.config['ex_skills_path']), "w+") as exf:
+            exf.write(json.dumps(exskills, indent=4))
+        
+        await channel.send("EX skill update complete")
+                    

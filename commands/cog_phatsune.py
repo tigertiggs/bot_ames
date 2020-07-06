@@ -832,7 +832,7 @@ class hatsuneCog(commands.Cog):
                 page = self.ue_pages
             elif self.current_page == "card":
                 page = self.card_pages[1 if self.has_flb and self.flb else 0]
-            elif self.current_pages == "stats":
+            elif self.current_page == "stats":
                 page = self.stats_pages[1 if self.has_flb and self.flb else 0]
             else:
                 page = self.profile_pages

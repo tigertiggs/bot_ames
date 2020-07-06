@@ -25,6 +25,7 @@
     "alias_local_path":     "commands/hatsune_data/alias_local.json",
     "tags_index_path":      "commands/hatsune_data/tags.json",
     "unit_list_path":       "commands/hatsune_data/db/index.json",
+    "ex_skills_path":       "commands/hatsune_data/db/ex_skills.json",
 
     "fag_index_path":       "C:/laragon/www/fagutils/Priconne/data/index.json",
     "png_path":             "commands/assets/units/png",
@@ -44,7 +45,8 @@
         "commands/hatsune_data/alias_local.json",
         "commands/twitter/guilds.json",
         "commands/blueoath/alias_local.json",
-        "commands/_config/pins.json"
+        "commands/_config/pins.json",
+        "commands/hatsune_data/db/ex_skills.json"
     ],
 
     "command_cogs":     [

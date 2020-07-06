@@ -187,7 +187,7 @@
             "flags":    ["_update","restricted"],
             "hidden":   true,
             "usage":    ".update [*options]",
-            "subcmd":   ["hatsune","index","res","server","gacha"],
+            "subcmd":   ["all", "hatsune","index","res","server","gacha","ex"],
             "aliases":  null,
             "help":     "Update assets and resources. Use `.help update` for more information.",
             "help_ex":  "`.update`\nThis command will attempt to update all assets automatically with some manual prompts.\n\n`.update hatsune [command]`\nUpdates `prefix_title` and `prefix_new` in `hatsune_config.json`. Command syntax is: `p.(-)key(=Name)(,*);pn.prefix=(prefix_alias_new,)` \ne.g. `p.r=Ranger;pn.r=ranger` sets `r` as 'Ranger' when constructing full names and adds `ranger` as one of the input aliases to be aliased to prefix `r`\n\n`.update index`\nUpdate the local index with index in the database.\n\n`.update res`\nUpdate the local `.png` assets.\n\n`.update server`\nUpdates all server icon assets.\n\n`.update gacha [command]`\nUpdates the gacha config. Command syntax is: `pool.(-)character(,*);lim.(character)(,*)` \ne.g. `prifes.1;ssr.RRin,RMahiru;lim.;f.` sets `prifes` to active, adds `RRin` and `RMahiru` to the normal SSR pool, resets the limited pool, and forces asset update to reflect character rarity."

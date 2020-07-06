@@ -101,14 +101,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle; gain small physical def up.",
                         "action": [
                             "Gain 2505 p.atk up ",
                             "Gain 30 p.def up "
@@ -346,14 +346,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle; gain small magic def up.",
                         "action": [
                             "Gain 2505 p.atk up ",
                             "Gain 30 m.def up "
@@ -591,14 +591,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -827,14 +827,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -1070,14 +1070,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic def up at the start of battle.",
                         "action": [
                             "Gain 334 m.def up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic def up at the start of battle.",
                         "action": [
                             "Gain 364 m.def up "
                         ]
@@ -1314,14 +1314,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium HP boost at the start of battle.",
                         "action": [
                             "Increase max HP by 12525 "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large HP boost at the start of battle; gain small magic def up.",
                         "action": [
                             "Increase max HP by 13725 ",
                             "Gain 30 m.def up "
@@ -1568,14 +1568,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical def up at the start of battle.",
                         "action": [
                             "Gain 334 p.def up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physica def up at the start of battle; gain small physical attack up.",
                         "action": [
                             "Gain 334 p.def up ",
                             "Gain 225 p.atk up "
@@ -1831,14 +1831,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic def up at the start of battle.",
                         "action": [
                             "Gain 334 m.def up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic def up at the start of battle.",
                         "action": [
                             "Gain 364 m.def up "
                         ]
@@ -2069,14 +2069,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -2318,14 +2318,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -2579,14 +2579,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -2829,14 +2829,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical def up at the start of battle.",
                         "action": [
                             "Gain 334 p.def up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical def up at the start of battle; gain small magic def up.",
                         "action": [
                             "Gain 334 p.def up ",
                             "Gain 30 m.def up "
@@ -3075,14 +3075,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -3344,14 +3344,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium HP boost at the start of battle.",
                         "action": [
                             "Increase max HP by 12525 "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large HP boost at the start of battle.",
                         "action": [
                             "Increase max HP by 13725 "
                         ]
@@ -3600,14 +3600,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -3840,14 +3840,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle; gain small physical def up.",
                         "action": [
                             "Gain 2505 p.atk up ",
                             "Gain 30 p.def up "
@@ -4089,14 +4089,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical def up at the start of battle.",
                         "action": [
                             "Gain 334 p.def up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical def up at the start of battle.",
                         "action": [
                             "Gain 364 p.def up "
                         ]
@@ -4348,14 +4348,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle; gain small HP boost.",
                         "action": [
                             "Gain 2505 p.atk up ",
                             "Increase max HP by 1125 "
@@ -4604,14 +4604,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -4845,14 +4845,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -5092,14 +5092,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic def up at the start of battle.",
                         "action": [
                             "Gain 334 m.def up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic def up at the start of battle.",
                         "action": [
                             "Gain 364 m.def up "
                         ]
@@ -5343,14 +5343,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -5584,14 +5584,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic def up at the start of battle.",
                         "action": [
                             "Gain 334 m.def up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic def up at the start of battle.",
                         "action": [
                             "Gain 364 m.def up "
                         ]
@@ -5837,14 +5837,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -6088,14 +6088,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical def up at the start of battle.",
                         "action": [
                             "Gain 334 p.def up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical def up at the start of battle.",
                         "action": [
                             "Gain 364 p.def up "
                         ]
@@ -6331,14 +6331,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -6580,14 +6580,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -6828,14 +6828,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -7073,14 +7073,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical def up at the start of battle.",
                         "action": [
                             "Gain 334 p.def up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physica def up at the start of battle; gain small physical attack up.",
                         "action": [
                             "Gain 334 p.def up ",
                             "Gain 225 p.atk up "
@@ -7317,14 +7317,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical def up at the start of battle.",
                         "action": [
                             "Gain 334 p.def up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical def up at the start of battle.",
                         "action": [
                             "Gain 364 p.def up "
                         ]
@@ -7568,14 +7568,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -7815,14 +7815,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic def up at the start of battle.",
                         "action": [
                             "Gain 334 m.def up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic def up at the start of battle.",
                         "action": [
                             "Gain 364 m.def up "
                         ]
@@ -8065,14 +8065,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic def up at the start of battle.",
                         "action": [
                             "Gain 334 m.def up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic def up at the start of battle.",
                         "action": [
                             "Gain 364 m.def up "
                         ]
@@ -8304,14 +8304,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -8533,14 +8533,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -8764,14 +8764,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -9002,14 +9002,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -9243,14 +9243,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -9477,14 +9477,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
                         "action": [
                             "Gain 2505 m.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic attack up at the start of battle.",
                         "action": [
                             "Gain 2730 m.atk up "
                         ]
@@ -9717,14 +9717,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical def up at the start of battle.",
                         "action": [
                             "Gain 334 p.def up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical def up at the start of battle.",
                         "action": [
                             "Gain 364 p.def up "
                         ]
@@ -9956,14 +9956,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium HP boost at the start of battle.",
                         "action": [
                             "Increase max HP by 12525 "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large HP boost at the start of battle.",
                         "action": [
                             "Increase max HP by 13725 "
                         ]
@@ -10188,14 +10188,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical def up at the start of battle.",
                         "action": [
                             "Gain 334 p.def up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical def up at the start of battle.",
                         "action": [
                             "Gain 364 p.def up "
                         ]
@@ -10424,14 +10424,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -10652,14 +10652,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -10885,14 +10885,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
                         "action": [
                             "Gain 2505 m.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic attack up at the start of battle.",
                         "action": [
                             "Gain 2730 m.atk up "
                         ]
@@ -11119,14 +11119,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
                         "action": [
                             "Gain 2505 m.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic attack up at the start of battle.",
                         "action": [
                             "Gain 2730 m.atk up "
                         ]
@@ -11359,14 +11359,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
                         "action": [
                             "Gain 2505 m.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic attack up at the start of battle.",
                         "action": [
                             "Gain 2730 m.atk up "
                         ]
@@ -11610,14 +11610,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle; gain small magic def up.",
                         "action": [
                             "Gain 2505 p.atk up ",
                             "Gain 30 m.def up "
@@ -11866,14 +11866,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -12104,14 +12104,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -12344,14 +12344,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -12581,14 +12581,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle; gain small physical def up.",
                         "action": [
                             "Gain 2505 p.atk up ",
                             "Gain 30 p.def up "
@@ -12827,14 +12827,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -13079,14 +13079,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle; gain small physical def up.",
                         "action": [
                             "Gain 2505 p.atk up ",
                             "Gain 30 p.def up "
@@ -13340,14 +13340,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle; gain small physical def up.",
                         "action": [
                             "Gain 2505 p.atk up ",
                             "Gain 30 p.def up "
@@ -13590,14 +13590,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic def up at the start of battle.",
                         "action": [
                             "Gain 334 m.def up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle; gain small physical attack up.",
                         "action": [
                             "Gain 334 m.def up ",
                             "Gain 225 p.atk up "
@@ -13850,14 +13850,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
                         "action": [
                             "Gain 2505 m.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic attack up at the start of battle.",
                         "action": [
                             "Gain 2730 m.atk up "
                         ]
@@ -14100,14 +14100,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic def up at the start of battle.",
                         "action": [
                             "Gain 334 m.def up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic def up at the start of battle.",
                         "action": [
                             "Gain 364 m.def up "
                         ]
@@ -14344,14 +14344,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical def up at the start of battle.",
                         "action": [
                             "Gain 334 p.def up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical def up at the start of battle.",
                         "action": [
                             "Gain 364 p.def up "
                         ]
@@ -14592,14 +14592,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
                         "action": [
                             "Gain 2505 m.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic attack up at the start of battle.",
                         "action": [
                             "Gain 2730 m.atk up "
                         ]
@@ -14834,14 +14834,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
                         "action": [
                             "Gain 2505 m.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic attack up at the start of battle.",
                         "action": [
                             "Gain 2730 m.atk up "
                         ]
@@ -15076,14 +15076,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic def up at the start of battle.",
                         "action": [
                             "Gain 334 m.def up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic def up at the start of battle.",
                         "action": [
                             "Gain 364 m.def up "
                         ]
@@ -15332,14 +15332,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -15576,14 +15576,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -15818,14 +15818,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -16053,14 +16053,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -16307,14 +16307,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -16548,14 +16548,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -16776,14 +16776,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
                         "action": [
                             "Gain 2505 m.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic attack up at the start of battle.",
                         "action": [
                             "Gain 2730 m.atk up "
                         ]
@@ -17019,14 +17019,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle; gain small magic def up.",
                         "action": [
                             "Gain 2505 p.atk up ",
                             "Gain 30 m.def up "
@@ -17259,14 +17259,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -17487,14 +17487,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -17721,14 +17721,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical def up at the start of battle.",
                         "action": [
                             "Gain 334 p.def up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical def up at the start of battle.",
                         "action": [
                             "Gain 364 p.def up "
                         ]
@@ -17955,14 +17955,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -18188,14 +18188,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -18422,14 +18422,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -18658,14 +18658,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical def up at the start of battle.",
                         "action": [
                             "Gain 334 p.def up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical def up at the start of battle.",
                         "action": [
                             "Gain 364 p.def up "
                         ]
@@ -18906,14 +18906,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -19140,14 +19140,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle; gain small physical def up.",
                         "action": [
                             "Gain 2505 p.atk up ",
                             "Gain 30 p.def up "
@@ -19388,14 +19388,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -19637,14 +19637,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
                         "action": [
                             "Gain 2505 m.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle; gain small magic def up.",
                         "action": [
                             "Gain 2505 m.atk up ",
                             "Gain 30 m.def up "
@@ -19901,14 +19901,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
                         "action": [
                             "Gain 2505 m.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic attack up at the start of battle.",
                         "action": [
                             "Gain 2730 m.atk up "
                         ]
@@ -20159,14 +20159,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -20402,14 +20402,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
                         "action": [
                             "Gain 2505 m.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle; gain small magic def up.",
                         "action": [
                             "Gain 2505 m.atk up ",
                             "Gain 30 m.def up "
@@ -20648,14 +20648,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
                         "action": [
                             "Gain 2505 m.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic attack up at the start of battle.",
                         "action": [
                             "Gain 2730 m.atk up "
                         ]
@@ -20907,14 +20907,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
                         "action": [
                             "Gain 2505 m.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic attack up at the start of battle.",
                         "action": [
                             "Gain 2730 m.atk up "
                         ]
@@ -21159,14 +21159,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
                         "action": [
                             "Gain 2505 m.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle; gain small magic def up.",
                         "action": [
                             "Gain 2505 m.atk up ",
                             "Gain 30 m.def up "
@@ -21426,14 +21426,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
                         "action": [
                             "Gain 2505 m.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle; gain small physical def up.",
                         "action": [
                             "Gain 2505 m.atk up ",
                             "Gain 30 p.def up "
@@ -21671,14 +21671,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -21929,14 +21929,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
                         "action": [
                             "Gain 2505 m.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic attack up at the start of battle.",
                         "action": [
                             "Gain 2730 m.atk up "
                         ]
@@ -22172,14 +22172,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic def up at the start of battle.",
                         "action": [
                             "Gain 334 m.def up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic def up at the start of battle.",
                         "action": [
                             "Gain 364 m.def up "
                         ]
@@ -22415,14 +22415,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
                         "action": [
                             "Gain 2505 m.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic attack up at the start of battle.",
                         "action": [
                             "Gain 2730 m.atk up "
                         ]
@@ -22653,14 +22653,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
                         "action": [
                             "Gain 2505 m.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic attack up at the start of battle.",
                         "action": [
                             "Gain 2730 m.atk up "
                         ]
@@ -22889,14 +22889,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -23137,14 +23137,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic def up at the start of battle.",
                         "action": [
                             "Gain 334 m.def up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic def up at the start of battle; gain small physical def up.",
                         "action": [
                             "Gain 334 m.def up ",
                             "Gain 30 p.def up "
@@ -23380,14 +23380,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
                         "action": [
                             "Gain 2505 m.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle; gain small magic def up.",
                         "action": [
                             "Gain 2505 m.atk up ",
                             "Gain 30 m.def up "
@@ -23627,14 +23627,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
                         "action": [
                             "Gain 2505 m.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle; gain small magic def up.",
                         "action": [
                             "Gain 2505 m.atk up ",
                             "Gain 30 m.def up "
@@ -23867,14 +23867,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
                         "action": [
                             "Gain 2505 m.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic attack up at the start of battle.",
                         "action": [
                             "Gain 2730 m.atk up "
                         ]
@@ -24119,14 +24119,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical def up at the start of battle.",
                         "action": [
                             "Gain 334 p.def up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical def up at the start of battle; gain small magic attack up.",
                         "action": [
                             "Gain 334 p.def up ",
                             "Gain 225 m.atk up "
@@ -24377,14 +24377,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
                         "action": [
                             "Gain 2505 m.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic attack up at the start of battle.",
                         "action": [
                             "Gain 2730 m.atk up "
                         ]
@@ -24623,14 +24623,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
                         "action": [
                             "Gain 2505 m.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic attack up at the start of battle.",
                         "action": [
                             "Gain 2730 m.atk up "
                         ]
@@ -24879,14 +24879,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
                         "action": [
                             "Gain 2505 m.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic attack up at the start of battle.",
                         "action": [
                             "Gain 2730 m.atk up "
                         ]
@@ -25116,14 +25116,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
                         "action": [
                             "Gain 2505 m.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic attack up at the start of battle.",
                         "action": [
                             "Gain 2730 m.atk up "
                         ]
@@ -25360,14 +25360,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
                         "action": [
                             "Gain 2505 m.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic attack up at the start of battle.",
                         "action": [
                             "Gain 2730 m.atk up "
                         ]
@@ -25598,14 +25598,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -25838,14 +25838,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
                         "action": [
                             "Gain 2505 m.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic attack up at the start of battle.",
                         "action": [
                             "Gain 2730 m.atk up "
                         ]
@@ -26084,14 +26084,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
                         "action": [
                             "Gain 2505 m.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic attack up at the start of battle.",
                         "action": [
                             "Gain 2730 m.atk up "
                         ]
@@ -26325,14 +26325,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
                         "action": [
                             "Gain 2505 m.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic attack up at the start of battle.",
                         "action": [
                             "Gain 2730 m.atk up "
                         ]
@@ -26555,14 +26555,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -26783,14 +26783,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
                         "action": [
                             "Gain 2505 m.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic attack up at the start of battle.",
                         "action": [
                             "Gain 2730 m.atk up "
                         ]
@@ -27021,14 +27021,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
                         "action": [
                             "Gain 2505 m.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic attack up at the start of battle.",
                         "action": [
                             "Gain 2730 m.atk up "
                         ]
@@ -27251,14 +27251,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
                         "action": [
                             "Gain 2505 m.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic attack up at the start of battle.",
                         "action": [
                             "Gain 2730 m.atk up "
                         ]
@@ -27483,14 +27483,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
                         "action": [
                             "Gain 2505 m.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic attack up at the start of battle.",
                         "action": [
                             "Gain 2730 m.atk up "
                         ]
@@ -27711,14 +27711,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical def up at the start of battle.",
                         "action": [
                             "Gain 334 p.def up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical def up at the start of battle.",
                         "action": [
                             "Gain 364 p.def up "
                         ]
@@ -27940,14 +27940,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -28171,14 +28171,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
                         "action": [
                             "Gain 2505 m.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic attack up at the start of battle.",
                         "action": [
                             "Gain 2730 m.atk up "
                         ]
@@ -28409,14 +28409,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic def up at the start of battle.",
                         "action": [
                             "Gain 334 m.def up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic def up at the start of battle; gain small physical def up.",
                         "action": [
                             "Gain 334 m.def up ",
                             "Gain 30 p.def up "
@@ -28645,14 +28645,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
@@ -28885,14 +28885,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
                         "action": [
                             "Gain 2505 m.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large magic attack up at the start of battle.",
                         "action": [
                             "Gain 2730 m.atk up "
                         ]
@@ -29120,14 +29120,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2505 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2730 p.atk up "
                         ]
