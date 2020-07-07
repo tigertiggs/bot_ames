@@ -173,6 +173,7 @@ class hatsuneCog(commands.Cog):
                     continue
 
                 word = self.full_alias.get(word, word)
+                word = self.config['prefix_alias'].get(word, word)
 
                 # check if using new prefixes
                 for k, v in list(self.config['prefix_new'].items()):
@@ -1245,17 +1246,21 @@ class hatsuneCog(commands.Cog):
 
         # sort the aliases by master/local
         for a, o in list(self.full_alias.items()):
-            if len(o) > 3: # hide prefixes
-                if not self.config['alias_master'].get(a, None) is None:
-                    master.append((a, o, 'master'))
-                else:
-                    local.append((a, o, 'local'))
+            #if len(o) > 1: # hide prefixes
+            match, _, _, _ = await self.preprocess(ctx, [o], verbose=False)
+            if match: o = f"{self.client.team[match['sname']]} {self.client.get_full_name_kai(match['name_en'], match['prefix'])}"
+
+            if not self.config['alias_master'].get(a, None) is None:
+                master.append((a, o, 'master'))
+            else:
+                local.append((a, o, 'local'))
         
         # sort in alphabetical order
+        master += local
         master.sort(key=lambda x: x[0])
-        local.sort(key=lambda x: x[0])
-
-        aliases_page = self.client.page_controller(self.client, self.embed_display_aliases, master+local, 15, True)
+        #local.sort(key=lambda x: x[0])
+    
+        aliases_page = self.client.page_controller(self.client, self.embed_display_aliases, master, 15, True)
 
         page = await ctx.channel.send(embed=aliases_page.start())
         for arrow in aliases_page.arrows:
@@ -1312,9 +1317,16 @@ class hatsuneCog(commands.Cog):
 
         # check if its an alias
         if request.lower() in list(self.full_alias.keys()):
-            await channel.send(
-                f"Alias `{request.lower()}` -> `{self.full_alias[request.lower()]}` [{'master' if request.lower() in list(self.config['alias_master']) else 'local'}]"
-            )
+            full = self.full_alias[request.lower()]
+            match, _, _, _ = await self.preprocess(ctx, [request], verbose=False)
+            if not match:
+                await channel.send(
+                    f"Alias `{request.lower()}` -> `{self.full_alias[request.lower()]}` [{'master' if request.lower() in list(self.config['alias_master']) else 'local'}]"
+                )
+            else:
+                await channel.send(
+                    f"Alias `{request.lower()}` -> `{self.client.get_full_name_kai(match['name_en'], match['prefix'])}` [{'master' if request.lower() in list(self.config['alias_master']) else 'local'}]"
+                )
         elif request.lower() in list(self.full_alias.values()):
             master =    []
             local =     []
@@ -1326,10 +1338,11 @@ class hatsuneCog(commands.Cog):
                     else:
                         local.append((a, 'local'))
             
+            master += local
             master.sort(key=lambda x: x[0])
-            local.sort(key=lambda x: x[0])
+            #local.sort(key=lambda x: x[0])
 
-            search_page = self.client.page_controller(self.client, self.embed_search, master+local, 15, True)
+            search_page = self.client.page_controller(self.client, self.embed_search, master, 15, True)
             page =  await channel.send(embed=search_page.start())
 
             for arrow in search_page.arrows:
@@ -1383,15 +1396,25 @@ class hatsuneCog(commands.Cog):
         
         if not self.client.command_status['alias'] == 1:
             raise commands.DisabledCommand
+        elif not character:
+            await channel.send("Missing character input")
+            return
+        elif len(alias) < 2:
+            await channel.send("Alias input must be more than 2 characters")
+            return
         
         # checks
         alias = alias.lower()
 
         if alias in list(self.config['alias_master'].keys()):
-            await channel.send(f"`{alias}` is already an entry in the master alias record")
+            await channel.send(f"`{alias}` is already an entry in the master alias record and will conflict")
             return
         elif alias in list(self.full_alias.keys()):
-            await channel.send(f"`{alias}` -> `{self.full_alias[alias]}` already exists")
+            full, _, _, _ = await self.preprocess(ctx, [self.full_alias[alias]], verbose=False)
+            if not full:
+                await channel.send(f"`{alias}` -> `{self.full_alias[alias]}` already exists")
+            else:
+                await channel.send(f"`{alias}` -> `{self.client.get_full_name_kai(full['name_en'],full['prefix'])}` already exists")
             return
         
         # clean input
@@ -1403,23 +1426,21 @@ class hatsuneCog(commands.Cog):
         character = [i.lower() for i in character]
 
         # preprocess the command to find what out what the request is
-        mode, _character, option = await self.process_request(ctx, character, channel)
-        # request here should be a string
+        match, _, _, _ = await self.preprocess(ctx, character, verbose=True)
 
-        # validate request
-        search_sucess, _character = self.validate_entry(_character)
-        if not search_sucess:
+        if not match:
             await channel.send(f"No character entry matching `{character}`")
             return 
-        character = _character
-        self.alocal[alias] =    character['en']
+        #character = _character
+
+        self.alocal[alias] =    match['sname']
         self.full_alias =       self.config['alias_master'].copy()
         self.full_alias.update(self.alocal)
 
         with open(os.path.join(self.client.dir, self.client.config["alias_local_path"]), 'w+') as alf:
             alf.write(json.dumps(self.alocal, indent=4))
         
-        await channel.send(f"Successfully added `{alias}` -> `{character['en']}`")
+        await channel.send(f"Successfully added `{alias}` -> `{self.client.get_full_name_kai(match['name_en'], match['prefix'])}`")
         
     @alias.command()
     async def edit(self, ctx, alias, *character):
@@ -1432,7 +1453,7 @@ class hatsuneCog(commands.Cog):
         alias = alias.lower()
 
         if alias in list(self.config['alias_master'].keys()):
-            await channel.send(f"`{alias}` is already an entry in the master alias record - You may not edit a master record")
+            await channel.send(f"`{alias}` is already an entry in the master alias record and cannot be modified.")
             return
         elif not alias in list(self.full_alias.keys()):
             await channel.send(f"`{alias}` does not exist")
@@ -1447,25 +1468,22 @@ class hatsuneCog(commands.Cog):
         character = [i.lower() for i in character]
 
         # preprocess the command to find what out what the request is
-        mode, _character, option = await self.process_request(ctx, character, channel)
-        # request here should be a string
+        match, _, _, _ = await self.preprocess(ctx, character, verbose=False)
 
-        # validate request
-        search_sucess, _character = self.validate_entry(_character)
-        if not search_sucess:
+        if not match:
             await channel.send(f"No character entry matching `{character}`")
             return 
-        character = _character
-        self.alocal[alias] =    character['en']
+
+        self.alocal[alias] =    match['sname']
         self.full_alias =       self.config['alias_master'].copy()
         self.full_alias.update(self.alocal)
 
         with open(os.path.join(self.client.dir, self.client.config["alias_local_path"]), 'w+') as alf:
             alf.write(json.dumps(self.alocal, indent=4))
         
-        await channel.send(f"Successfully edited `{alias}` -> `{character['en']}`")
+        await channel.send(f"Successfully edited `{alias}` -> `{self.client.get_full_name_kai(match['name_en'], match['prefix'])}`")
 
-    @alias.command()
+    @alias.command(aliases=['rm'])
     async def delete(self, ctx, alias):
         channel = ctx.channel
         
@@ -1476,7 +1494,7 @@ class hatsuneCog(commands.Cog):
         alias = alias.lower()
 
         if alias in list(self.config['alias_master'].keys()):
-            await channel.send(f"`{alias}` is already an entry in the master alias record - You may not delete a master record")
+            await channel.send(f"`{alias}` is already an entry in the master alias record and cannot be modified")
             return
         elif not alias in list(self.full_alias.keys()):
             await channel.send(f"`{alias}` does not exist")

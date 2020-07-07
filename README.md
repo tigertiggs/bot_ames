@@ -1,12 +1,13 @@
 # bot_ames
-A discord bot used for fetching character information in Princess Connect! Re:Dive by CyGames. Ames is planned to provide QoL functions for Clan Battles in the near future. Apart from PCR:D functions, Ames also provides some miscellaneous functions too.
+A discord bot used for fetching character data in Princess Connect! Re:Dive by CyGames. Ames is planned to provide QoL functions for Clan Battles in the near future. Apart from PCR:D functions, Ames also provides some miscellaneous functions too.
 
 Ames is written in Python 3.7.x utilising the [`rewrite`](https://github.com/Rapptz/discord.py) branch of Discord's Python API and makes use of `cogs` and `extensions` to integrate commands.
 
-Although Pull requests are welcome, please note that much of Ames' lookup function relies on a privately maintained external database and much of Ames' functionality will not be available without the said database.
+~~Although Pull requests are welcome, please note that much of Ames' lookup function relies on a privately maintained external database and much of Ames' functionality will not be available without the said database.~~
+Character data are now local and Ames should be able to access all character data without said database. However, Ames still relies on an external service for updates to the Princess Database.
 
 ## Adding Ames
-You can add Ames with ~~this link~~ Please reach out to me if you want to add Ames (details at the end of the page). You will need to have the **manage server** permission on the server you wish to add Ames. If Ames does not send anything when she joins, use `.help` to get started. Please reach out to me if something goes wrong.
+You can add Ames with ~~[this link]()~~ Please contact me via Discord if you want to add Ames (my Discord name and discriminator at the bottom of the page). You will need to have the **manage server** permission on the server you wish to add Ames. If Ames does not send anything when she joins, use `.help` to get started. Please reach out to me if something goes wrong.
 
 ## Capabilities
 Ames' current features:
@@ -34,7 +35,7 @@ Ames' planned features:
   * Show future events schedule
 
 ## Blue Oath JP
-As an aside, Ames also provides a small set of Blue Oath (JP) related commands by a semi-standalone module `cog_blueoath.py` with information and details provided and maintained by the EN discord community. There are 2 main sources of information; [the spreadsheet](https://docs.google.com/spreadsheets/d/1UrEFf88vjcOFRy7tFOfcedsoobXU7ZTeezFlRFVEo2Q/edit?usp=sharing) and [the EN Wiki](https://blueoath.miraheze.org/wiki/Main_Page). You're welcome to join the [Blue Oath EN discord](https://discord.gg/hzNRN2a) community!
+As an aside, Ames also provides a small set of Blue Oath (JP) related commands with a semi-standalone module `cog_blueoath.py`, with information and details provided and maintained by the EN Discord community. There are 2 main sources of information; [the spreadsheet](https://docs.google.com/spreadsheets/d/1UrEFf88vjcOFRy7tFOfcedsoobXU7ZTeezFlRFVEo2Q/edit?usp=sharing) and the [EN Wiki](https://blueoath.miraheze.org/wiki/Main_Page). You're welcome to join the [Blue Oath EN discord](https://discord.gg/hzNRN2a) community!
 
 ### Blue Oath Capabilities
 Use `.bo help` to see all Blue Oath related commands.

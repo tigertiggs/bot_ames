@@ -29,10 +29,7 @@
             "dm"
         ]
     },
-    "options": [
-        "flb"
-    ],
-    "alias_master": {
+    "prefix_alias": {
         "newyear": "n",
         "xmas": "x",
         "ouedo": "o",
@@ -46,7 +43,12 @@
         "student": "u",
         "princess": "p",
         "deresute": "d",
-        "ranger": "r",
+        "ranger": "r"
+    },
+    "options": [
+        "flb"
+    ],
+    "alias_master": {
         "kokoro": "kokkoro",
         "kkr": "kokkoro",
         "peco": "pecorine",

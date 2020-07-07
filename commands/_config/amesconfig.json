@@ -1,5 +1,5 @@
 {
-    "debug":                1,
+    "debug":                0,
 
     "save_config_on_exit":  0,
     "port":                 8000,

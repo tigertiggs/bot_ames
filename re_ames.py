@@ -14,9 +14,9 @@ from difflib import SequenceMatcher as sm
 import discord
 from discord.ext.commands import Bot
 from discord.ext import commands
-import mysql.connector
-from mysql.connector import pooling
-from mysql.connector import errorcode
+#import mysql.connector
+#from mysql.connector import pooling
+#from mysql.connector import errorcode
 
 # add ames_bot folder to the search path
 dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -39,6 +39,7 @@ class logger:
         except:
             pass
 
+"""
 class database:
     def __init__(self, client, size=10):
         self.name =         '[database]'
@@ -81,7 +82,7 @@ class database:
         #mysql.connector.pooling.PooledMySQLConnection(self.db_pointer, conn).close()
         conn.close()
     
-    """
+
     def disconnect(self):
         if self.db_pointer == None:
             self.logger.send(self.name,'database already disconnected')
@@ -92,7 +93,7 @@ class database:
                 self.logger.send(self.name,'disconnection failed - ', err)
             else:
                 self.logger.send(self.name,'disconnection successful')
-    """
+
 
     async def execute(self, statement):
         conn = self.db_pointer.get_connection()
@@ -109,12 +110,12 @@ class database:
             await self.logger.send(self.name,info)
         else:
             await self.logger.send(self.name,'server disconnected')
+"""
 
 # for custom prefixes in different environments
 def _prefix(client, message):
-    #
-    # currently empty but here for futureproofing
-    #
+    if message.guild.id == 202403448694505473:
+        return ("a.", ".")
     return BOT_PREFIX
 
 # main
@@ -294,11 +295,9 @@ class Ames(commands.AutoShardedBot):
         self._load_resource()
 
         print(f'Ready: {self.user} (ID: {self.user.id})')
-        if self.config['debug'] == 1:
-            print('----Ames is in debug mode----')
+        if self.config['debug'] == 1: print('----Ames is in debug mode----')
 
         await self.log.send(self.name,'I\'m back!')
-
         self.loop.create_task(self.st())
 
     # welcome message
@@ -324,6 +323,7 @@ class Ames(commands.AutoShardedBot):
         #
         # currently empty put is availble for expansion
         #
+
         if self.config['debug'] == 1:
             if self._check_author(message.author):
                 await self.log.send(str(ctx.command))
@@ -345,7 +345,7 @@ class Ames(commands.AutoShardedBot):
                 # add BO server restriction
                 #if self._check_author(message.author):
                 #    pass
-                if ctx.message.guild.id in self.blueoath_config['restricted_servers']:
+                if ctx.message.guild.id in self.blueoath_config['restricted_servers'] and ctx.command:
                     if not ctx.command.cog.qualified_name in self.blueoath_config['ames_allowed_cogs']:
                         msg = await message.channel.send(f"This command is currently not available to the Blue Oath server. See `.bo help` for available functions. {self.emotes['ames']}\nThis message will try to delete itself in `10s`")
                         await asyncio.sleep(10)
@@ -365,7 +365,11 @@ class Ames(commands.AutoShardedBot):
 
     # command listener
     async def on_message(self,message):
-        if message.content.startswith(BOT_PREFIX) and not message.author.bot:
+        pref = await self.get_prefix(message)
+        if not isinstance(pref, list):
+            pref = [pref]
+
+        if not message.author.bot and any([message.content.startswith(p) for p in pref]):
             if self.config['debug'] == 1 and self._check_author(message.author):
                 await self.log.send('`[DEBUG MODE]` [{0.user.name}] `{1}` `{2.channel.guild.name}` `{2.channel.name}` `{2.author.name}` `{2.content}`'.format(
                     self, datetime.datetime.now(), message))
