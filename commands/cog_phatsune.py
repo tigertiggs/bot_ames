@@ -153,16 +153,53 @@ class hatsuneCog(commands.Cog):
             
         else:
             mode = None
-        
+
         # check alias
-        prefix, _, name = "".join(request).partition(".")
-        prefix, name = prefix.strip(), name.strip()
+        #prefix, _, name = "".join(request).partition(".")
+        #prefix, name = prefix.strip(), name.strip()
 
-        if not name:
-            name = prefix
-            prefix = None
+        #if not name: # no . present
+        #    name = prefix
+        #    prefix = None
+        
+        processed = []
+        prefix = None
+        for r in request:
+            pf, _, name = r.partition(".")
+            pf, name = pf.strip(), name.strip()
 
-        name = self.full_alias.get(name, name)
+            for word in [pf, name]:
+                if not word:
+                    continue
+
+                word = self.full_alias.get(word, word)
+
+                # check if using new prefixes
+                for k, v in list(self.config['prefix_new'].items()):
+                    #print(name, v)
+                    if word in v:
+                        prefix = k
+                        word = None
+            
+                # check if name is actually a prefix
+                if word in list(self.config['prefix_title'].keys()):
+                    prefix = word
+                    word = None
+
+                #print(_prefix, name)
+            
+                # append
+                if word:
+                    processed.append(word)
+        
+        if prefix and not prefix in list(self.config['prefix_title'].keys()):
+            await ctx.message.channel.send(f"Unknown prefix `{prefix}`")
+            return None, None, None, None
+        
+        name = "".join(processed)
+        #print(prefix, name)
+
+        #name = self.full_alias.get(name, name)
         prefix = self.full_alias.get(prefix, prefix) if prefix else None
 
         # validate

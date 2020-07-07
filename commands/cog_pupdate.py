@@ -46,8 +46,12 @@ def validate_request(client, request:dict, mode="en"):
         else:
             request['name'] = match[0]['name_en']
             request['prefix'] = match[0]['prefix']
-        
-    alts = list(filter(lambda x: x['name_en'] == request['name'], index['index']))
+    
+    # note: deremasu girls are strictly removed from alts bc cg.rin shens
+    if request['prefix'] != 'd':
+        alts = list(filter(lambda x: x['name_en'] == request['name'] and x['prefix'] != "d", index['index']))
+    else:
+        alts = []
     return {**match[0],"index":index['index'].index(match[0])}, [{**alt,"index":index['index'].index(alt)} for alt in alts if alt['sname'] != match[0]['sname']]
 
 class updateCog(commands.Cog):
