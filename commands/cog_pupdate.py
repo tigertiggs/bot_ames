@@ -394,7 +394,7 @@ class updateCog(commands.Cog):
                     await channel.send("skipping")
                     break
                 else:
-                    await self.update_hatsune(ctx, command)
+                    await self._update_hatsune(ctx, command)
                     break
 
         # step 1 - update and append new charas
@@ -544,8 +544,9 @@ class updateCog(commands.Cog):
         # do not recommend - will take around 3min to do a complete forced update
         if forced:
             msg = await ctx.message.channel.send("Forcing update from Hnote...")
-            all_data['units'] = [(await self.get_data(ctx, unit, all_data=all_data))[0] for unit in all_data['units']]
-            await msg.edit(content=msg.content+" done")
+            #match, _, _, _ = validate_request(self.client, {"name":unit['basic']['en']['name'], "prefix":unit['basic']['en']['prefix']})
+            all_data['units'] = [(await self.get_data(ctx, {"index":all_data['units'].index(unit)}, data=all_data))[0] for unit in all_data['units']]
+            #await msg.edit(content=msg.content+" done")
             
         # save db
         try:
@@ -1336,30 +1337,26 @@ class updateCog(commands.Cog):
 
         local_list = self.fetch_res_local()
 
-        hnote_id =  index['hn']
-        en =        index['en']
-        flb =       index['flb']
         succ, fail = 0,0
-        for character in en:
-            position = en.index(character)
-            if not hnote_id[position] == None:
+        for character in index['index']:
+            if character['hnid']:
                 try:
-                    if not character in local_list:
-                        txt = f"fetching `{character}`... "
+                    if not character['sname'] in local_list:
+                        txt = f"fetching `{character['sname']}`... "
                         await msg.edit(content=txt)
-                        await self.logger.send(self.name, "fetching", character, hnote_id[position])
+                        await self.logger.send(self.name, "fetching", character['sname'], character['hnid'])
 
-                        self.fetch_res_estertion(character, hnote_id[position])
+                        self.fetch_res_estertion(character, character['hnid'])
 
                         await msg.edit(content=txt+"done")
                         succ += 1
                         
-                    if not character+'6' in local_list and flb[position]:
-                        txt = f"fetching `{character}` flb... "
+                    if not character['sname']+'6' in local_list and character['flb']:
+                        txt = f"fetching `{character['sname']}` flb... "
                         await msg.edit(content=txt)
-                        await self.logger.send(self.name, "fetching", character+'6', hnote_id[position])
+                        await self.logger.send(self.name, "fetching", character['sname']+'6', character['sname'])
 
-                        self.fetch_res_estertion(character, hnote_id[position], True)
+                        self.fetch_res_estertion(character['sname'], character['hnid'], True)
 
                         await msg.edit(content=txt+"done")
                         succ += 1
@@ -1447,9 +1444,9 @@ class updateCog(commands.Cog):
         if not self.client._check_author(ctx.channel.author):
             await channel.send(self.client.emotes['anes'])
             return
-        await self.update_hatsune(ctx, command_line)
+        await self._update_hatsune(ctx, command_line)
 
-    async def update_hatsune(self, ctx, command_line):
+    async def _update_hatsune(self, ctx, command_line):
         channel = ctx.channel
         
         with open(os.path.join(self.client.dir,self.client.config['hatsune_config_path'])) as hcf:

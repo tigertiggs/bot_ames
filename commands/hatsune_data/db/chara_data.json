@@ -262,7 +262,7 @@
                 "pdef_down",
                 "ailment"
             ],
-            "pos": 128,
+            "pos": 129,
             "atkptn": {
                 "loop": [
                     3,
@@ -508,7 +508,7 @@
                 "pcrit_up",
                 "ailment"
             ],
-            "pos": 134,
+            "pos": 135,
             "atkptn": {
                 "loop": [
                     3,
@@ -1231,7 +1231,7 @@
                 "tp_up",
                 "battery"
             ],
-            "pos": 136,
+            "pos": 137,
             "atkptn": {
                 "loop": [
                     3,
@@ -1477,7 +1477,7 @@
                 "pshield",
                 "flb"
             ],
-            "pos": 142,
+            "pos": 143,
             "atkptn": {
                 "loop": [
                     3,
@@ -1989,7 +1989,7 @@
                 "self_buff",
                 "battery"
             ],
-            "pos": 137,
+            "pos": 138,
             "atkptn": {
                 "loop": [
                     3,
@@ -2232,7 +2232,7 @@
                 "flb",
                 "pdef_down"
             ],
-            "pos": 130,
+            "pos": 131,
             "atkptn": {
                 "loop": [
                     3,
@@ -2495,7 +2495,7 @@
                 "self_buff",
                 "tp_up"
             ],
-            "pos": 131,
+            "pos": 132,
             "atkptn": {
                 "loop": [
                     3,
@@ -2991,7 +2991,7 @@
                 "self_buff",
                 "flb"
             ],
-            "pos": 126,
+            "pos": 127,
             "atkptn": {
                 "loop": [
                     3,
@@ -4265,7 +4265,7 @@
                 "special",
                 "flb"
             ],
-            "pos": 138,
+            "pos": 139,
             "atkptn": {
                 "loop": [
                     4,
@@ -5253,7 +5253,7 @@
                 "patk_up",
                 "ue"
             ],
-            "pos": 143,
+            "pos": 144,
             "atkptn": {
                 "loop": [
                     3,
@@ -5503,7 +5503,7 @@
                 "ue",
                 "tp_up"
             ],
-            "pos": 144,
+            "pos": 145,
             "atkptn": {
                 "loop": [
                     3,
@@ -5747,7 +5747,7 @@
                 "self_buff",
                 "ue"
             ],
-            "pos": 133,
+            "pos": 134,
             "atkptn": {
                 "loop": [
                     4,
@@ -6000,7 +6000,7 @@
                 "atkspd_down",
                 "movespd_down"
             ],
-            "pos": 124,
+            "pos": 125,
             "atkptn": {
                 "loop": [
                     4,
@@ -6741,7 +6741,7 @@
                 "pcrit_up",
                 "ue"
             ],
-            "pos": 135,
+            "pos": 136,
             "atkptn": {
                 "loop": [
                     3,
@@ -6990,7 +6990,7 @@
                 "patk_up",
                 "self_buff"
             ],
-            "pos": 127,
+            "pos": 128,
             "atkptn": {
                 "loop": [
                     3,
@@ -8222,7 +8222,8 @@
                 "pdef_down",
                 "patk_up",
                 "self_buff",
-                "special"
+                "special",
+                "ue"
             ],
             "pos": 119,
             "atkptn": {
@@ -8251,8 +8252,8 @@
                         "name": null,
                         "text": "Inflict large physical damage on the frontmost enemy. If only a single target remains, inflict massive physical damage and large physical def down instead.",
                         "action": [
-                            "If a single target remains, inflict 65885 p.dmg on target ",
-                            "If more than 2 targets remain, inflict 46903 p.dmg on target ",
+                            "If a single target remains, inflict 70045 p.dmg on target ",
+                            "If more than 2 targets remain, inflict 49898 p.dmg on target ",
                             "If a single target remains, inflict 184 p.def down [18s]"
                         ]
                     },
@@ -8265,15 +8266,20 @@
                         "name": null,
                         "text": "Inflict medium physical damage on the frontmost enemy. If only a single target remains, inflict additional small physical damage and small physical def down.",
                         "action": [
-                            "Inflict 21217 p.dmg to target ",
-                            "If a single target remains, inflict 10608 p.dmg on target ",
+                            "Inflict 22548 p.dmg to target ",
+                            "If a single target remains, inflict 11274 p.dmg on target ",
                             "If a single target remains, inflict 50 p.def down [12s]"
                         ]
                     },
                     "sk1p": {
                         "name": null,
-                        "text": "soon\u2122",
-                        "action": null
+                        "text": "Inflict medium physical damage on the frontmost enemy. If only a single target remains, inflict additional medium physical damage, inflict small physical def down, gain small physical attack up.",
+                        "action": [
+                            "Inflict 22548 p.dmg to target ",
+                            "If a single target remains, inflict 22548 p.dmg on target ",
+                            "If a single target remains, inflict 84 p.def down [12s]",
+                            "If a single target remains, gain 835 p.atk up [180s]"
+                        ]
                     },
                     "sk1a": {
                         "name": null,
@@ -8337,8 +8343,8 @@
                         "action": null
                     },
                     "sk1p": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u30a2\u30af\u30a2\u30af\u30ed\u30c3\u30b7\u30f3\u30b0+",
+                        "text": "\u76ee\u306e\u524d\u306e\u6575\uff11\u30ad\u30e3\u30e9\u306b\u7269\u7406\u4e2d\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u308b\u3002\u6b8b\u308a\u306e\u653b\u6483\u5bfe\u8c61\u304c\uff11\u3064\u306e\u5834\u5408\u3001\u8ffd\u52a0\u3067\u7269\u7406\u4e2d\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3001\u7269\u7406\u9632\u5fa1\u529b\u3092\u5c0f\u30c0\u30a6\u30f3\u3055\u305b\u3001\u3055\u3089\u306b\u81ea\u5206\u306e\u7269\u7406\u653b\u6483\u529b\u3092\u5c0f\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
                         "action": null
                     },
                     "sk1a": {
@@ -8380,27 +8386,34 @@
                 }
             },
             "ue": {
-                "id": null,
+                "id": 131041,
                 "rank": null,
-                "img": null,
-                "stats": {},
+                "img": "https://redive.estertion.win/icon/equipment/131041.webp",
+                "stats": {
+                    "atk": 88,
+                    "atk_growth": 4.4,
+                    "pCrit": 20,
+                    "pCrit_growth": 1,
+                    "tpRec": 1,
+                    "tpRec_growth": 0.05
+                },
                 "en": {
-                    "name": null,
+                    "name": "Summer Wolfen Blade",
                     "text": null
                 },
                 "jp": {
-                    "name": null,
-                    "text": null
+                    "name": "\u30b5\u30de\u30fc\u30a6\u30eb\u30d5\u30a7\u30f3\u30bd\u30fc\u30c9",
+                    "text": "\u7279\u5225\u306a\u51ea\u306e\u6d77\u306b\u9855\u308c\u308b\u3068\u4e91\u308f\u308c\u308b\u6d77\u72fc\u306e\u7259\u3092\u935b\u3048\u4e0a\u3052\u305f\u5927\u5263\u3002\u72fc\u306e\u98fe\u308a\u306f\u30de\u30b3\u30c8\u306e\u5927\u306e\u304a\u6c17\u306b\u5165\u308a\u3002"
                 }
             },
             "stats": {
                 "normal": {
                     "hp": 28031,
-                    "atk": 11173,
+                    "atk": 12005,
                     "matk": 0,
                     "def": 280,
                     "mdef": 198,
-                    "pCrit": 917,
+                    "pCrit": 1106,
                     "mCrit": 0,
                     "wHpRec": 1280,
                     "wTpRec": 102,
@@ -8409,7 +8422,7 @@
                     "mPen": 0,
                     "lifesteal": 12,
                     "hpRec": 43,
-                    "tpRec": 43,
+                    "tpRec": 52,
                     "tpSave": 0,
                     "acc": 53
                 },
@@ -8683,7 +8696,7 @@
                 "aoe",
                 "seasonal"
             ],
-            "pos": 129,
+            "pos": 130,
             "atkptn": {
                 "loop": [
                     3,
@@ -9155,7 +9168,7 @@
                 "tp_up",
                 "battery"
             ],
-            "pos": 141,
+            "pos": 142,
             "atkptn": {
                 "loop": [
                     3,
@@ -9393,7 +9406,7 @@
                 "self_harm",
                 "special"
             ],
-            "pos": 139,
+            "pos": 140,
             "atkptn": {
                 "loop": [
                     3,
@@ -10341,7 +10354,7 @@
                 "atkspd_up",
                 "special"
             ],
-            "pos": 132,
+            "pos": 133,
             "atkptn": {
                 "loop": [
                     4,
@@ -10572,7 +10585,7 @@
                 "physical",
                 "ailment"
             ],
-            "pos": 125,
+            "pos": 126,
             "atkptn": {
                 "loop": [
                     3,
@@ -10803,7 +10816,7 @@
                 "seasonal",
                 "front"
             ],
-            "pos": 140,
+            "pos": 141,
             "atkptn": {
                 "loop": [
                     3,
@@ -17209,7 +17222,7 @@
                         "name": null,
                         "text": "Inflict medium physical damage to all enemies in range. Inflicted damage increases proportionally to the number of enemies in range.",
                         "action": [
-                            "Inflict 20396 p.dmg to all targets in range (Range: 790)"
+                            "Inflict 21604 p.dmg to all targets in range (Range: 790)"
                         ]
                     },
                     "ub2": {
@@ -17221,13 +17234,16 @@
                         "name": null,
                         "text": "Inflict small physical damage to all enemies in range, and inflict small knockback to the frontmost enemy.",
                         "action": [
-                            "Inflict 10338 p.dmg to all targets in range (Range: 790)"
+                            "Inflict 11019 p.dmg to all targets in range (Range: 790)"
                         ]
                     },
                     "sk1p": {
                         "name": null,
-                        "text": "soon\u2122",
-                        "action": null
+                        "text": "Inflict medium physical damage and stun to all enemies in range; inflict large knockback to the frontmost enemy.",
+                        "action": [
+                            "Inflict 24792 p.dmg to all targets in range (Range: 790)",
+                            "Paralyze all targets in range for a set time (Range: 790)"
+                        ]
                     },
                     "sk1a": {
                         "name": null,
@@ -17292,8 +17308,8 @@
                         "action": null
                     },
                     "sk1p": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u5186\u5fc3\u88c2\u6ce2+",
+                        "text": "\u7bc4\u56f2\u5185\u306e\u6575\u3059\u3079\u3066\u306b\u7269\u7406\u4e2d\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3066\u30b9\u30bf\u30f3\u3055\u305b\u3001\u3055\u3089\u306b\u76ee\u306e\u524d\u306e\u6575\uff11\u30ad\u30e3\u30e9\u3092\u5927\u304d\u304f\u5439\u304d\u98db\u3070\u3059\u3002",
                         "action": null
                     },
                     "sk1a": {
@@ -17335,27 +17351,32 @@
                 }
             },
             "ue": {
-                "id": null,
+                "id": 131051,
                 "rank": null,
-                "img": null,
-                "stats": {},
+                "img": "https://redive.estertion.win/icon/equipment/131051.webp",
+                "stats": {
+                    "atk": 90,
+                    "atk_growth": 4.5,
+                    "pCrit": 28,
+                    "pCrit_growth": 1.4
+                },
                 "en": {
-                    "name": null,
+                    "name": "Divine Fists",
                     "text": null
                 },
                 "jp": {
-                    "name": null,
-                    "text": null
+                    "name": "\u7409\u7403\u72ac\u5f0f\u30fb\u795e\u821e\u4e4b\u7c60\u624b",
+                    "text": "\u6d77\u795e\u305f\u308b\u5927\u6d77\u539f\u306b\u821e\u3092\u6367\u3052\u308b\u305f\u3081\u306e\u795e\u5177\u306e\u7c60\u624b\u3002\u5e03\u306e\u6a21\u69d8\u306f\u6d77\u3078\u306e\u6570\u591a\u306e\u611f\u8b1d\u304c\u8fbc\u3081\u3089\u308c\u3066\u304a\u308a\u3001\u3053\u306e\u7c60\u624b\u3067\u821e\u3046\u30ab\u30aa\u30ea\u306f\u5927\u6d77\u3092\u4f53\u73fe\u3059\u308b\u3002"
                 }
             },
             "stats": {
                 "normal": {
                     "hp": 23637,
-                    "atk": 10835,
+                    "atk": 11686,
                     "matk": 0,
                     "def": 306,
                     "mdef": 197,
-                    "pCrit": 1028,
+                    "pCrit": 1293,
                     "mCrit": 0,
                     "wHpRec": 2235,
                     "wTpRec": 245,
@@ -25998,7 +26019,8 @@
                 "tp_up",
                 "self_buff",
                 "special",
-                "battery"
+                "battery",
+                "ue"
             ],
             "pos": 335,
             "atkptn": {
@@ -26031,10 +26053,10 @@
                         "name": null,
                         "text": "Inflict medium magic damage on 4 random enemies.",
                         "action": [
-                            "Inflict 20777 m.dmg on target ",
-                            "Inflict 20777 m.dmg on target ",
-                            "Inflict 20777 m.dmg on target ",
-                            "Inflict 20777 m.dmg on target "
+                            "Inflict 21956 m.dmg on target ",
+                            "Inflict 21956 m.dmg on target ",
+                            "Inflict 21956 m.dmg on target ",
+                            "Inflict 21956 m.dmg on target "
                         ]
                     },
                     "ub2": {
@@ -26052,8 +26074,12 @@
                     },
                     "sk1p": {
                         "name": null,
-                        "text": "soon\u2122",
-                        "action": null
+                        "text": "Gain massive magic attack up; gain medium TP heal; gain small TP recovery.",
+                        "action": [
+                            "Gain 10020 m.atk up [15s]",
+                            "Gain 399 TP ",
+                            "Gain 15 TP gain up [15s]"
+                        ]
                     },
                     "sk1a": {
                         "name": null,
@@ -26069,7 +26095,7 @@
                         "name": null,
                         "text": "Inflict large magic damage on a random enemy.",
                         "action": [
-                            "Inflict 25971 m.dmg on target "
+                            "Inflict 27445 m.dmg on target "
                         ]
                     },
                     "sk2a": {
@@ -26117,8 +26143,8 @@
                         "action": null
                     },
                     "sk1p": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u30de\u30db\u30de\u30db\u30b5\u30de\u30fc\u30d5\u30ec\u30f3\u30ba+",
+                        "text": "\u81ea\u5206\u306e\u9b54\u6cd5\u653b\u6483\u529b\u3092\u7279\u5927\u30a2\u30c3\u30d7\u3055\u305b\u3001\uff34\uff30\u3092\u4e2d\u56de\u5fa9\u3055\u305b\u3001\u3055\u3089\u306b\uff34\uff30\u4e0a\u6607\u3092\u5c0f\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
                         "action": null
                     },
                     "sk1a": {
@@ -26160,28 +26186,35 @@
                 }
             },
             "ue": {
-                "id": null,
+                "id": 131061,
                 "rank": null,
-                "img": null,
-                "stats": {},
+                "img": "https://redive.estertion.win/icon/equipment/131061.webp",
+                "stats": {
+                    "matk": 78,
+                    "matk_growth": 3.9,
+                    "mCrit": 18,
+                    "mCrit_growth": 0.9,
+                    "tpSave": 1,
+                    "tpSave_growth": 0.05
+                },
                 "en": {
-                    "name": null,
+                    "name": "Fancy Roar(wt)",
                     "text": null
                 },
                 "jp": {
-                    "name": null,
-                    "text": null
+                    "name": "\u590f\u83ef\u6756\u30d5\u30a1\u30f3\u30b7\u30fc\u30ed\u30a2",
+                    "text": "\u30d3\u30fc\u30c1\u4ed5\u69d8\u306e\u30de\u30db\u59eb\u8b39\u88fd\u3001\u9b54\u6cd5\u6756\u3002\u590f\u306e\u60c5\u666f\u304c\u5c01\u3058\u8fbc\u3081\u3089\u308c\u3066\u304a\u308a\u3001\u4e00\u632f\u308a\u3059\u308c\u3070\u3001\u706f\u706b\u304c\u6620\u3057\u51fa\u3059\u5f71\u7d75\u3068\u5171\u306b\u591c\u7a7a\u306b\u5927\u8f2a\u306e\u83ef\u304c\u54b2\u304f\u3002"
                 }
             },
             "stats": {
                 "normal": {
                     "hp": 20915,
                     "atk": 0,
-                    "matk": 10898,
+                    "matk": 11635,
                     "def": 186,
                     "mdef": 302,
                     "pCrit": 0,
-                    "mCrit": 602,
+                    "mCrit": 772,
                     "wHpRec": 880,
                     "wTpRec": 482,
                     "dodge": 0,
@@ -26190,7 +26223,7 @@
                     "lifesteal": 6,
                     "hpRec": 45,
                     "tpRec": 13,
-                    "tpSave": 17,
+                    "tpSave": 26,
                     "acc": 0
                 },
                 "flb": {}
@@ -29036,7 +29069,7 @@
                 "patk_up",
                 "self_buff"
             ],
-            "pos": 150,
+            "pos": 124,
             "atkptn": {
                 "loop": [
                     7,
