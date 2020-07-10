@@ -12,7 +12,8 @@ def setup(client):
 
 preupdate_checklist = [
     "+ update hnoteDB source",
-    "+ check for new indicies in tl_index"
+    "+ check for new indicies in tl_index",
+    "- note: you will need to call [.update db all] if update contains new info on existing information. This update may take a few minutes"
 ]
 update_meta = [
     "+ updates prefix_title, prefix_new in hatsune_config.json",
@@ -679,8 +680,24 @@ class updateCog(commands.Cog):
 
         if field in persist:
             if field == 'tags':
-                data['tags'] = [i.strip() for i in value.split(',')]
-                await cmd.edit(content="\n".join([text,f"> Setting `tags` to `{data['tags']}`"]))
+                append = []
+                remove = []
+                for tag in [i.strip() for i in value.split(',')]:
+                    if tag.startswith("+"):
+                        append.append(tag[1:])
+                    elif tag.startswith("-"):
+                        remove.append[tag[1:]]
+                if not append and not remove:
+                    data['tags'] = [i.strip() for i in value.split(',')]
+                    await cmd.edit(content="\n".join([text,f"> Setting `tags` to `{data['tags']}`"]))
+                else:
+                    for tag in remove:
+                        try:
+                            data['tags'].pop(data['tags'].index(tag))
+                        except:
+                            continue
+                    data['tags'] += append
+                    await cmd.edit(content="\n".join([text,f"> Modifying `tags` - added `{append}` and removed `{remove}`"]))
             else:
                 data['basic']['en'][field] = value if value else None
                 await cmd.edit(content="\n".join([text,f"> Setting `{field}` to `{data['basic']['en'][field]}`"]))
@@ -797,7 +814,7 @@ class updateCog(commands.Cog):
         )
         embed.add_field(
             name="tags",
-            value=get_text(chara['tags']),
+            value=get_text(", ".join(chara['tags']) if chara['tags'] else None),
             inline=False
         )
         # ub, ub2
