@@ -1125,7 +1125,7 @@ class hatsuneCog(commands.Cog):
         
         return embed
 
-    @commands.command(alises=['tags'])
+    @commands.command(aliases=['tags'])
     async def tag(self, ctx, *request):
         channel = ctx.message.channel
         author = ctx.message.author

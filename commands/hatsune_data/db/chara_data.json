@@ -17189,7 +17189,8 @@
                 "patk_up",
                 "special",
                 "ailment",
-                "atkspd_up"
+                "atkspd_up",
+                "ue"
             ],
             "pos": 300,
             "atkptn": {
