@@ -49,7 +49,7 @@ class hatsuneCog(commands.Cog):
             return
 
         # preprocess
-        match, alts, mode, invoke = await self.preprocess(ctx, request, invoke=ctx.invoked_with, verbose=True)
+        match, alts, mode, invoke = await self.preprocess(ctx, request, invoke=ctx.invoked_with, verbose=False)
 
         if not match:
             await channel.send(f"Failed to find `{' '.join(request)}`. Use `.c help` or `.help character` if you're stuck "+self.client.emotes['ames'])
@@ -76,7 +76,7 @@ class hatsuneCog(commands.Cog):
         alt_choice = 0
         fe, reactions = alt_embeds[alt_choice].start()
         page = await channel.send(embed=fe)
-        for e in list(reactions.keys())+alt_emotes if len(alt_emotes) > 1 else list(reactions.keys()):
+        for e in alt_emotes+list(reactions.keys()) if len(alt_emotes) > 1 else list(reactions.keys()):
             await page.add_reaction(e)
 
         def author_check(reaction, user):
@@ -84,9 +84,10 @@ class hatsuneCog(commands.Cog):
         
         while True:
             try:
-                reaction, user = await self.client.wait_for("reaction_add", timeout=70.0, check=author_check)
+                reaction, user = await self.client.wait_for("reaction_add", timeout=90.0, check=author_check)
             except asyncio.TimeoutError:
-                await page.add_reaction(alt_embeds[0].stop)
+                #await page.add_reaction(alt_embeds[0].stop)
+                await page.edit(embed=None, content=f"Embed for `{self.client.get_full_name_kai(match['name_en'], match['prefix'])}` has expired "+self.client.emotes['ames'])
                 return
             else:
                 if str(reaction.emoji) in list(reactions.keys())+alt_emotes:
@@ -99,12 +100,11 @@ class hatsuneCog(commands.Cog):
                             alt_choice = new_choice
 
                             # find diff in base emotes
-                            diff = list(set(reactions) - set(list(alt_embeds[alt_choice].base_emotes.keys())))
-
+                            diff = list(set(reactions).symmetric_difference(set(list(alt_embeds[alt_choice].base_emotes.keys()))))
                             if diff:
                                 # unreact the alts
-                                for e in alt_emotes:
-                                    await page.remove_reaction(e, self.client.user)
+                                #for e in alt_emotes:
+                                #    await page.remove_reaction(e, self.client.user)
 
                                 for e in diff:
                                     if not e in reactions:
@@ -113,8 +113,8 @@ class hatsuneCog(commands.Cog):
                                         await page.remove_reaction(e, self.client.user)
                                 
                                 # readd the alts
-                                for e in alt_emotes:
-                                    await page.add_reaction(e)
+                                #for e in alt_emotes:
+                                #    await page.add_reaction(e)
                             
                             reactions = alt_embeds[alt_choice].base_emotes
 
@@ -1426,7 +1426,7 @@ class hatsuneCog(commands.Cog):
         character = [i.lower() for i in character]
 
         # preprocess the command to find what out what the request is
-        match, _, _, _ = await self.preprocess(ctx, character, verbose=True)
+        match, _, _, _ = await self.preprocess(ctx, character, verbose=False)
 
         if not match:
             await channel.send(f"No character entry matching `{character}`")

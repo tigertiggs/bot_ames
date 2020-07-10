@@ -376,7 +376,7 @@ class gachaCog(commands.Cog):
                 try: #FIXME
                     from cog_phatsune import hatsuneCog
                     hatsune = hatsuneCog(self.client)
-                    mode, _, _, _= await hatsune.preprocess(ctx, [temp], verbose=True)
+                    mode, _, _, _= await hatsune.preprocess(ctx, [temp], verbose=False)
                 except:
                     mode = None
                 else:
