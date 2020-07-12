@@ -296,7 +296,7 @@ class hatsuneCog(commands.Cog):
         )
 
         # ub, ub2
-        test = not flb or not (flb and alt)
+        test = not flb
         embed.add_field(
             name=   "> **Union Burst**" if test else "> **Union Burst+**",
             value=  f"「{data['basic']['jp']['ub']['name']}」" if test else 
