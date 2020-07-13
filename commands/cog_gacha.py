@@ -224,7 +224,7 @@ class gachaCog(commands.Cog):
 
                     if mode == 'spark':
                         break
-                    elif ch.name == mode['sname']:
+                    elif mode and ch.name == mode['sname']:
                         break
             
             summary['rolls'] = i
