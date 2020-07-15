@@ -1363,7 +1363,7 @@ class updateCog(commands.Cog):
                         await msg.edit(content=txt)
                         await self.logger.send(self.name, "fetching", character['sname'], character['hnid'])
 
-                        self.fetch_res_estertion(character, character['hnid'])
+                        self.fetch_res_estertion(character['sname'], character['hnid'])
 
                         await msg.edit(content=txt+"done")
                         succ += 1

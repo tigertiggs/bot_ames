@@ -406,6 +406,15 @@
             "flb": false
         },
         {
+            "id": 121,
+            "hnid": 1131,
+            "name_en": "ruka",
+            "prefix": "s",
+            "sname": "sruka",
+            "name_jp": "\u30eb\u30ab(\u30b5\u30de\u30fc)",
+            "flb": false
+        },
+        {
             "id": 2,
             "hnid": 1006,
             "name_en": "akari",
@@ -1072,12 +1081,12 @@
             "flb": false
         },
         {
-            "id": 121,
-            "hnid": 1131,
-            "name_en": "ruka",
+            "id": null,
+            "hnid": 1133,
+            "name_en": "nanaka",
             "prefix": "s",
-            "sname": "sruka",
-            "name_jp": "\u30eb\u30ab(\u30b5\u30de\u30fc)",
+            "sname": "snanaka",
+            "name_jp": "\u30ca\u30ca\u30ab(\u30b5\u30de\u30fc)",
             "flb": false
         }
     ]
