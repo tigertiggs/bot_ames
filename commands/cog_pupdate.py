@@ -13,7 +13,8 @@ def setup(client):
 preupdate_checklist = [
     "+ update hnoteDB source",
     "+ check for new indicies in tl_index",
-    "- note: you will need to call [.update db all] if update contains new info on existing information. This update may take a few minutes"
+    "- note: you will need to call [.update db f] if update contains new info on existing information. This update may take a few minutes",
+    "- note: TL_index must be updated and extracted twice or else .stats will show JP actions! This can only be fixed via [.update db f]"
 ]
 update_meta = [
     "+ updates prefix_title, prefix_new in hatsune_config.json",
