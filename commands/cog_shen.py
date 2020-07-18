@@ -187,6 +187,14 @@ class shenCog(commands.Cog):
             return
         else:
             await channel.send(file=discord.File(os.path.join(self.client.dir,self.client.config['shen_path'],"other/kusopanda.png")))
+    
+    @commands.command()
+    async def drum(self, ctx):
+        channel=ctx.channel
+        if ctx.message.guild.id != 419624511189811201:
+            return
+        else:
+            await channel.send(file=discord.File(os.path.join(self.client.dir,self.client.config['shen_path'],"other/drum.png")))
 
 
 def setup(client):

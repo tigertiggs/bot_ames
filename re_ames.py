@@ -355,7 +355,7 @@ class Ames(commands.AutoShardedBot):
                             pass
                         finally:
                             return
-
+                if ctx.command: await self.log.send(self.name, ctx.message.channel.guild, f"`{ctx.message.content}`")
                 await self.invoke(ctx)
             except Exception as e:
                 await self.log.send(self.name, 'failed to process command', e)
