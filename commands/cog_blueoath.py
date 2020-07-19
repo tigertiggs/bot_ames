@@ -202,8 +202,9 @@ class blueoathCog(commands.Cog):
                 index = json.load(inf)
 
         j, k = 0, 0
+        await msg.edit(content=f"Fetching...")
         for i, chara in enumerate(charav):
-            await msg.edit(content=f"Fetching `{chara}`...")
+            if (i+1)%10==0: await msg.edit(content=msg.content+".")
 
             # load data
             #if not os.path.exists(os.path.join(dir_path, f"blueoath/data/{''.join(chara.split(' '))}.json")):
@@ -282,7 +283,7 @@ class blueoathCog(commands.Cog):
             with open(os.path.join(dir_path, f"blueoath/data/{''.join(chara.split(' '))}.json"), "w+") as sdf:
                 sdf.write(json.dumps(temp, indent=4))
         
-        await channel.send(f"Update finished with `{i+1-j-k}` successful and `{j+k}({j})` failed(page missing) updates")
+        await channel.send(f"Update finished with `{i+1-j-k}` successful and `{k} ({j})` failed (page missing)")
             
     def read_stats_table(self, table, data):
         table_body = table.tbody.find_all("tr")
@@ -879,7 +880,7 @@ class blueoathCog(commands.Cog):
         
         await channel.send(f"Successfully deleted `{alias}`")
 
-    @bo.command(aliases=['s','c','stats','gallery','pic'])
+    @bo.command(aliases=['s','c','stats','gallery','pic', 'g'])
     async def ship(self, ctx, *request):
         channel = ctx.channel
         author = ctx.message.author
@@ -897,7 +898,7 @@ class blueoathCog(commands.Cog):
             mode = 'ship'
         elif call in ['stats']:
             mode = 'stats'
-        elif call in ['gallery', 'pic']:
+        elif call in ['gallery', 'pic', 'g']:
             mode = 'gallery'
         
         # validate request
@@ -929,9 +930,9 @@ class blueoathCog(commands.Cog):
         
         while True:
             try:
-                reaction, user = await self.client.wait_for('reaction_add', timeout=60.0, check=author_check)
+                reaction, user = await self.client.wait_for('reaction_add', timeout=90.0, check=author_check)
             except:
-                await page.add_reaction('\U0001f6d1')
+                await page.edit(content=f"Embed for `{_character['dname']}` has expired "+self.client.emotes['ames'], embed=None)
                 return
             else:
                 emote_check = str(reaction.emoji)
@@ -984,6 +985,10 @@ class blueoathCog(commands.Cog):
             name="> **Acquisition**",
             value=f"{data['acquisition'] if data['acquisition'] != None else 'TBC'}"
         )
+        embed.add_field(
+            name="> **Rarity**",
+            value=data['rarity']
+        )
 
         if data['skills']:
             if data['skills'][0]['name'] == "Class Skill":
@@ -1014,6 +1019,12 @@ class blueoathCog(commands.Cog):
         embed.add_field(
             name="> **Voice Actress**",
             value=f"{data['VA'] if data['VA'] != None else 'TBC'}",
+            inline=False
+        )
+        falias = [key for key, value in list(self.alias.items()) if value.lower() == data['sname'].lower()]
+        embed.add_field(
+            name="> **Aliases**",
+            value=", ".join(falias) if falias else "None",
             inline=False
         )
 
@@ -1168,8 +1179,14 @@ class blueoathCog(commands.Cog):
             return [embed]
         else:
             temp = []
-            for link in data['gallery']:
+            total = len(data['gallery'])
+            for i, link in enumerate(data['gallery']):
                 embed = make_indiv_gallery(data,sections.copy())
+                embed.add_field(
+                    name=SPACE,
+                    value=f"Image {i+1} of {total}",
+                    inline=False
+                )
                 embed.set_image(url=link)
                 temp.append(embed)
             
