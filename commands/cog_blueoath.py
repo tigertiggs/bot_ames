@@ -260,7 +260,7 @@ class blueoathCog(commands.Cog):
             if data.get("error", None) != None:
                 if data['error']['code'] == 'missingtitle':
                     j += 1
-                    await msg.edit(content=msg.content+"page does not exist")
+                    #await msg.edit(content=msg.content+"page does not exist")
                 else:
                     k +=1
                     await self.logger.send(self.name, data['error'])
@@ -283,7 +283,7 @@ class blueoathCog(commands.Cog):
             with open(os.path.join(dir_path, f"blueoath/data/{''.join(chara.split(' '))}.json"), "w+") as sdf:
                 sdf.write(json.dumps(temp, indent=4))
         
-        await channel.send(f"Update finished with `{i+1-j-k}` successful and `{k} ({j})` failed (page missing)")
+        await channel.send(f"Update finished with `{i+1-j-k}` successful and `{k}({j})` failed(page missing)")
             
     def read_stats_table(self, table, data):
         table_body = table.tbody.find_all("tr")
