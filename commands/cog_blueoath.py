@@ -242,34 +242,49 @@ class blueoathCog(commands.Cog):
             with open(os.path.join(dir_path, f"blueoath/data/{''.join(chara.split(' '))}.json"), "w+") as sdf:
                 sdf.write(json.dumps(temp, indent=4))
 
-            params = {
-                "action":           "parse",
-                "page":             chara,
-                "prop":             "text",
-                "formatversion":    "2",
-                "format":           "json"
-            }
-            r = s.get(url=self.index_url, params=params)
+            skip = False
+            while True:
+                params = {
+                    "action":           "parse",
+                    "page":             chara,
+                    "prop":             "text",
+                    "formatversion":    "2",
+                    "format":           "json"
+                }
+                r = s.get(url=self.index_url, params=params)
 
-            if r.status_code != 200:
-                await self.logger.send(self.name, f"failed to fetch, `{r.status_code}`")
-                await channel.send(f"failed to fetch, `{r.status_code}`")
-                continue
+                if r.status_code != 200:
+                    await self.logger.send(self.name, f"failed to fetch, `{r.status_code}`")
+                    await channel.send(f"failed to fetch, `{r.status_code}`")
+                    #continue
+                    skip = True
+                    break
 
-            data = r.json()
-            if data.get("error", None) != None:
-                if data['error']['code'] == 'missingtitle':
-                    j += 1
-                    #await msg.edit(content=msg.content+"page does not exist")
+                data = r.json()
+                if data.get("error", None) != None:
+                    if data['error']['code'] == 'missingtitle':
+                        j += 1
+                        #await msg.edit(content=msg.content+"page does not exist")
+                    else:
+                        k +=1
+                        await self.logger.send(self.name, data['error'])
+                        await channel.send(f"Failed to fetch `{chara}`"+self.client.emotes['sarens'])
+                    #continue
+                    skip = True
+                    break
+
+                html = data['parse']['text']
+                soup = BeautifulSoup(html, 'html.parser')
+
+                # check if redirect
+                redirect = soup.find_all(class_="redirectText")
+                if redirect:
+                    chara = redirect[0].li.a['title']
+                    continue
                 else:
-                    k +=1
-                    await self.logger.send(self.name, data['error'])
-                    await channel.send(f"Failed to fetch `{chara}`"+self.client.emotes['sarens'])
-                continue
-
-            html = data['parse']['text']
-            soup = BeautifulSoup(html, 'html.parser')
+                    break
             
+            if skip: continue
             tables = soup.find_all("table")
             
             if len(tables) == 4: #FIXME
@@ -280,7 +295,7 @@ class blueoathCog(commands.Cog):
             temp = self.read_gallery(soup.find_all("div", class_="tabs tabs-tabbox"), temp)
             temp['wiki']['active'] = True
 
-            with open(os.path.join(dir_path, f"blueoath/data/{''.join(chara.split(' '))}.json"), "w+") as sdf:
+            with open(os.path.join(dir_path, f"blueoath/data/{''.join(temp['en'].lower().split(' '))}.json"), "w+") as sdf:
                 sdf.write(json.dumps(temp, indent=4))
         
         await channel.send(f"Update finished with `{i+1-j-k}` successful and `{k}({j})` failed(page missing)")
