@@ -1021,7 +1021,7 @@ class blueoathCog(commands.Cog):
             value=f"{data['VA'] if data['VA'] != None else 'TBC'}",
             inline=False
         )
-        falias = [key for key, value in list(self.alias.items()) if value.lower() == data['sname'].lower()]
+        falias = [key for key, value in list(self.alias.items()) if value.lower() == data['en'].lower()]
         embed.add_field(
             name="> **Aliases**",
             value=", ".join(falias) if falias else "None",
