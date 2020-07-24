@@ -6,6 +6,8 @@ import os.path
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
+from PIL import Image, GifImagePlugin, ImageDraw, ImageSequence, ImageOps, ImageFont
+from io import BytesIO
 
 from bs4 import BeautifulSoup
 import os, sys, json, traceback, datetime, requests, asyncio, re, pytz, glob
@@ -50,8 +52,20 @@ class blueoathCog(commands.Cog):
             self.help_text = self.help_config["commands"]
             self.command_tags = self.help_config["help_tags"]
 
+        # load assets
+        #self._load_resource()
+
         #self._reload_sheet()
-        self.check_oil.start()
+        #self.check_oil.start()
+
+    def _load_resource(self):
+        # THIS IS USED IN OIL PRECHECK
+        # since this will only work when client is ready
+        self.ship_pfp = dict()
+        self.res_servers = self.client.private['bo_resource_servers']
+        for server in self.res_servers:
+            for emj in self.client.get_guild(server).emojis:
+                self.ship_pfp[emj.name] = f"<:{emj.name}:{emj.id}>"
 
     @commands.group(
         invoke_without_command=True,
@@ -1411,7 +1425,7 @@ class blueoathCog(commands.Cog):
             index = json.load(idf)
 
         data = []
-        for ship, dname in list(zip(index['en'],index['display_name'])):
+        for ship, dname in zip(index['en'],index['display_name']):
             with open(os.path.join(dir_path, self.config['ship_path'], f"{''.join(ship.split(' '))}.json")) as sh:
                 ship = json.load(sh)
             data.append(
@@ -1419,7 +1433,8 @@ class blueoathCog(commands.Cog):
                     dname,
                     f"[{dname}]({ship['wiki']['url']})" if ship['wiki']['active'] else dname,
                     ship['wiki']['active'],
-                    ship['on_sheet']
+                    ship['on_sheet'],
+                    "".join(ship['en'].split(" ")).lower()
                 )
             )
 
@@ -1461,7 +1476,7 @@ class blueoathCog(commands.Cog):
 
         embed.add_field(
             name="Senki",
-            value="\n".join([x[1] for x in data])
+            value="\n".join([f"{self.ship_pfp.get(x[-1],':grey_question:')} {x[1]}" for x in data])
         )
         embed.add_field(
             name="Wiki",
@@ -1688,6 +1703,7 @@ class blueoathCog(commands.Cog):
     async def before_check_oil(self):
         print(self.name, "Awaiting client...", end="")
         await self.client.wait_until_ready()
+        self._load_resource()
         print("started")
     
     @bo.command()
@@ -1698,6 +1714,109 @@ class blueoathCog(commands.Cog):
 
     def cog_unload(self):
         self.check_oil.cancel()
+
+    @bo.command()
+    async def make_res(self, ctx, *options):
+        channel=ctx.message.channel
+        author=ctx.message.author
+        if not self.client._check_author(author):
+            await channel.send(self.client.emotes['ames'])
+            return
+        
+        local = self.get_res_local()
+        with open(os.path.join(dir_path, self.config['index_path'])) as idf:
+            index = json.load(idf)
+            names = [("".join(name.split(" ")),img) for name, img in zip(index['search_name'], index['portrait_square'])]
+
+        if "update" in options:
+            await channel.send("Updating missing/new assets")
+            diff = [name for name in names if not name[0] in local]
+        else:
+            await channel.send("Forcing asset update")
+            diff = names
+        
+        msg = await channel.send("fetching...")
+        error = 0
+        for i, (name, img) in enumerate(diff):
+            try:
+                icon = Image.open(BytesIO(requests.get(img).content))
+                icon.save(os.path.join(dir_path,self.config['assets_path'],"png", f"{name}.png"))
+                icon.close()
+            except Exception as e:
+                await self.logger.send(self.name, "[make_res]", e)
+                error += 1
+                continue
+
+            if (i+1)%10==0: await msg.edit(content=msg.content+".")
+        
+        await msg.edit(content=msg.content+f" done ({error} failed)")
+    
+    def get_res_local(self):
+        local_list = []
+        for filename in glob.glob(os.path.join(dir_path, self.config['assets_path'], "png", '*.png')):
+            local_list.append(filename.split('\\')[-1].split('.')[0])
+        return local_list
+    
+    @bo.command()
+    async def update_res(self, ctx):
+        channel = ctx.channel
+        if not self.client._check_author(ctx.message.author):
+            await channel.send(self.client.emotes['ames'])
+            return
+        await self.update_server(ctx)
+
+    def fetch_server_res(self):
+        guilds = []
+        server_emotes = []
+        for server_id in self.client.private['bo_resource_servers']:
+            guild = self.client.get_guild(server_id)
+            guilds.append(guild)
+            server_emotes += list(guild.emojis)
+        
+        return guilds, [emote.name for emote in server_emotes]
+    
+    async def update_server(self, ctx):
+        channel = ctx.channel
+
+        local_list = self.get_res_local()
+        servers, server_emotes = self.fetch_server_res()
+
+        flag = None
+        for local_emote in local_list:
+            if not local_emote in server_emotes:
+                for server in servers:
+                    flag = False
+                    if server.emoji_limit == len(server.emojis):
+                        await self.logger.send(self.name, "server full", server.id)
+                        continue
+                    else:
+                        await self.logger.send(self.name, 'creating', local_emote, 'in', server.name, f"{server.emoji_limit} ({len(server.emojis)})","\n")
+                        print("1")
+                        with open(os.path.join(dir_path, self.config['assets_path'], "png", f"{local_emote}.png"), "rb") as update_emote:
+                            print("2")
+                            print(os.path.join(dir_path, self.config['assets_path'], "png", f"{local_emote}.png"))
+                            try:
+                                print("5")
+                                await server.create_custom_emoji(name=local_emote, image=update_emote.read())
+                                print("6")
+                            except Exception as e:
+                                print("4")
+                                await self.logger.send(self.name, "failed to upload", e)
+                                traceback.print_exc()
+                            else:
+                                print("3")
+                                await self.logger.send(self.name, 'success')
+                                flag = True
+                                break
+    
+                if flag is True:
+                    await channel.send(f"Added {local_emote}")
+                elif flag is False:
+                    await channel.send(f"Failed to add {local_emote}")
+        if flag is None:
+            await channel.send("All assets already up to date")
+
+        self._load_resource()
 
 def setup(client):
     client.add_cog(blueoathCog(client))

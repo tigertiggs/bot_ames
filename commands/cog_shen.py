@@ -54,7 +54,7 @@ class shenCog(commands.Cog):
         elif emote1[0] == 'a' and len(emote1) > 1:
             link = f"https://cdn.discordapp.com/emojis/{emote1[-1]}.gif"
         else:
-            targets = list(filter(lambda x: not x.guild_id in self.client.private['resource_servers'] and sm(None, emote.lower(), x.name.lower(), None).ratio() >= 0.25 and emote.lower() in x.name.lower(), self.client.emojis))
+            targets = list(filter(lambda x: not x.guild_id in (self.client.private['resource_servers'] + self.client.private['bo_resource_servers']) and sm(None, emote.lower(), x.name.lower(), None).ratio() >= 0.25 and emote.lower() in x.name.lower(), self.client.emojis))
             if len(targets) > 0:
                 targets.sort(key=lambda x: x.name)
                 try:
@@ -87,7 +87,7 @@ class shenCog(commands.Cog):
         if not self.client.command_status['efinder'] == 1:
             raise commands.DisabledCommand
         # filter out restricted emojis
-        emotes = list(filter(lambda x: not x.guild_id in self.client.private["resource_servers"], self.client.emojis))
+        emotes = list(filter(lambda x: not x.guild_id in (self.client.private["resource_servers"] + self.client.private['bo_resource_servers']), self.client.emojis))
         emotes.sort(key=lambda x: x.name)
 
         if option == None:

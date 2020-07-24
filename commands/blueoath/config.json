@@ -6,6 +6,7 @@
     "ship_data_path":   "blueoath/data/_ship_data.json",   
     "sheet_data_path":  "blueoath/data/_skills_jp.json",
     "help_path":        "blueoath/help.json",
+    "assets_path":      "blueoath/assets",
     "oil_rem":          true,
     "oil_rem_path":     "blueoath/oil",
     "oil_rem_task":     "blueoath/oil/task.json",
@@ -28,6 +29,9 @@
     ],
     "restricted_servers": [
         598450517253029888
+    ],
+    "resource_servers": [
+
     ],
     "illegal_tokens":   [
         ".",
