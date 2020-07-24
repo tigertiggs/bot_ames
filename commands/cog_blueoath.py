@@ -56,7 +56,7 @@ class blueoathCog(commands.Cog):
         #self._load_resource()
 
         #self._reload_sheet()
-        #self.check_oil.start()
+        self.check_oil.start()
 
     def _load_resource(self):
         # THIS IS USED IN OIL PRECHECK
@@ -1440,7 +1440,7 @@ class blueoathCog(commands.Cog):
 
         data.sort(key=lambda x: x[0])
 
-        ship_status_controller = self.client.page_controller(self.client, self.make_ship_status_embed, data, 25, True)
+        ship_status_controller = self.client.page_controller(self.client, self.make_ship_status_embed, data, 60, True)
         page = await channel.send(embed=ship_status_controller.start())
         for arrow in ship_status_controller.arrows:
             await page.add_reaction(arrow)
@@ -1473,7 +1473,7 @@ class blueoathCog(commands.Cog):
         )
         embed.set_author(name="Asahi's Report")
         embed.set_footer(text="Data | Re:Re:Write Ames", icon_url=self.client.user.avatar_url)
-
+        """
         embed.add_field(
             name="Senki",
             value="\n".join([f"{self.ship_pfp.get(x[-1],':grey_question:')} {x[1]}" for x in data])
@@ -1486,6 +1486,17 @@ class blueoathCog(commands.Cog):
             name="Spreadsheet",
             value="\n".join([":green_circle:" if x[3] else ":black_circle:" for x in data])
         )
+        """
+        embed.add_field(
+            name=SPACE,
+            value="Wiki/Sheet Availability",
+            inline=False
+        )
+        for chunk in self.client.chunks(data, 5):
+            embed.add_field(
+                name=SPACE,
+                value="\n".join([f"{':green_circle:' if x[2] else ':black_circle:'}{':green_circle:' if x[3] else ':black_circle:'} {self.ship_pfp.get(x[-1],':grey_question:')} {x[1]}" for x in chunk])
+            )
         return embed
 
     @bo.group(invoke_without_command=True,
@@ -1791,20 +1802,13 @@ class blueoathCog(commands.Cog):
                         continue
                     else:
                         await self.logger.send(self.name, 'creating', local_emote, 'in', server.name, f"{server.emoji_limit} ({len(server.emojis)})","\n")
-                        print("1")
                         with open(os.path.join(dir_path, self.config['assets_path'], "png", f"{local_emote}.png"), "rb") as update_emote:
-                            print("2")
-                            print(os.path.join(dir_path, self.config['assets_path'], "png", f"{local_emote}.png"))
                             try:
-                                print("5")
                                 await server.create_custom_emoji(name=local_emote, image=update_emote.read())
-                                print("6")
                             except Exception as e:
-                                print("4")
                                 await self.logger.send(self.name, "failed to upload", e)
                                 traceback.print_exc()
                             else:
-                                print("3")
                                 await self.logger.send(self.name, 'success')
                                 flag = True
                                 break
