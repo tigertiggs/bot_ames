@@ -1425,7 +1425,7 @@ class blueoathCog(commands.Cog):
 
         data.sort(key=lambda x: x[0])
 
-        ship_status_controller = self.client.page_controller(self.client, self.make_ship_status_embed, data, 30, True)
+        ship_status_controller = self.client.page_controller(self.client, self.make_ship_status_embed, data, 25, True)
         page = await channel.send(embed=ship_status_controller.start())
         for arrow in ship_status_controller.arrows:
             await page.add_reaction(arrow)
