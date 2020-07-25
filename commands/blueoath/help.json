@@ -83,6 +83,33 @@
             "aliases":  null,
             "help":     "Get link to BlueOath EN Wiki",
             "help_ex":  null
+        },
+        "make_res": {
+            "flags":    ["restricted", "_update"],
+            "hidden":   false,
+            "usage":    ".bo make_res [*options]",
+            "subcmd":   null,
+            "aliases":  null,
+            "help":     "Fetch portrait square from EN Wiki and store locally.",
+            "help_ex":  "Command will default to `force` if no options are set. Other option is `update` which only fetches the difference of local filenames and local index. `forced` will force overwrite of all ships present in index."
+        },
+        "update_res": {
+            "flags":    ["restricted", "_update"],
+            "hidden":   false,
+            "usage":    ".bo update_res",
+            "subcmd":   null,
+            "aliases":  null,
+            "help":     "Uploads new local res into BO resource servers.",
+            "help_ex":  null
+        },
+        "tag": {
+            "flags":    ["normal"],
+            "hidden":   false,
+            "usage":    ".bo tag [*tags]",
+            "subcmd":   null,
+            "aliases":  ["tags"],
+            "help":     "Filter/search vessels that include/exclude input tags. See `.bo help d` for tag definitions.",
+            "help_ex":  "You can add `-` infront of a tag to signify that the tag should be excluded."
         }
     }
 }

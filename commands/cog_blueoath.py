@@ -46,6 +46,9 @@ class blueoathCog(commands.Cog):
         
         self.alias = {**self.alias_local,**self.alias_master}
         
+        with open(os.path.join(dir_path, self.config['tag_index_path'])) as tagf:
+            self.tags = json.load(tagf)
+
         # load help
         with open(os.path.join(dir_path,self.config['help_path'])) as hf:
             self.help_config = json.load(hf)
@@ -1059,7 +1062,7 @@ class blueoathCog(commands.Cog):
 
         embed.add_field(
             name="> **Tags**",
-            value="Coming Soon(?)"
+            value=", ".join(data['tags']) if data.get("tags",None) else "None"
         )
 
         return embed
@@ -1412,6 +1415,60 @@ class blueoathCog(commands.Cog):
             name="> **Extended Help**",
             value="Nothing 'ere" if command['help_ex'] == None else command['help_ex']
         )
+        return embed
+
+    @help.command(aliases=['d'])
+    async def definitions(self,ctx,*option):
+        channel=ctx.message.channel
+        author=ctx.message.author
+        if not option:
+            await channel.send(f"Tags are split into {len(list(self.tags.keys()))} "\
+                "sections. The syntax is `.bo help d [section]`.\nUse one of the following sections to navigation between groups of tags: "\
+                f"{' '.join([f'`{section}`' for section in self.tags.keys()])}")
+            return
+        option = option[0]
+        if not option in list(self.tags.keys()):
+            await channel.send(f"Invalid tag option {option}")
+
+        data = list(self.tags[option].items())
+        tag_page_controller = self.client.page_controller(self.client, self.bo_make_tag_embed, data, 15, True)
+
+        page = await channel.send(embed=tag_page_controller.start())
+        for arrow in tag_page_controller.arrows:
+            await page.add_reaction(arrow)
+        
+        def author_check(reaction, user):
+            return str(user.id) == str(author.id) and str(reaction.emoji) in tag_page_controller.arrows and str(reaction.message.id) == str(page.id)
+        
+        while True:
+            try:
+                reaction, user = await self.client.wait_for('reaction_add', timeout=60.0, check=author_check)
+            except asyncio.TimeoutError:
+                await page.add_reaction('\U0001f6d1')
+                return
+            else:
+                emote_check = str(reaction.emoji)
+                await reaction.message.remove_reaction(reaction.emoji, user)
+                if emote_check in tag_page_controller.arrows:
+                    if emote_check == tag_page_controller.arrows[0]:
+                        mode = 'l'
+                    else:
+                        mode = 'r'     
+                    await reaction.message.edit(embed=tag_page_controller.flip(mode))
+    
+    def make_tag_text(self, data):
+        temp = [f"# {key}\n\t{value}" for key, value in data]
+        temp.sort(key=lambda x: x[2])
+        return temp
+    
+    def bo_make_tag_embed(self, data, index):
+        embed = discord.Embed(
+            title=f"Tag Definitions (page {index[0]} of {index[1]})",
+            description="A list of tag definitnions that are used in `.bo tag`.\n```md\n{}```".format("\n".join(self.make_tag_text(data))),
+            timestamp=datetime.datetime.utcnow(),
+            colour=self.colour
+        )
+        embed.set_footer(text="Tag Definitions | Re:Re:Write Ames", icon_url=self.client.user.avatar_url)
         return embed
 
     @bo.command(aliases=['ss'])
@@ -1821,6 +1878,256 @@ class blueoathCog(commands.Cog):
             await channel.send("All assets already up to date")
 
         self._load_resource()
+
+    @bo.command()
+    async def update_tag(self, ctx, *options):
+        channel=ctx.message.channel
+        author=ctx.message.author
+        if not self.client._check_author(author):
+            await channel.send(self.client.emotes['ames'])
+            return
+
+        if not options:
+            with open(os.path.join(dir_path, self.config['index_path'])) as idf:
+                index = json.load(idf)
+            charas = ["".join(ship.split()) for ship in index['en']]
+        elif option == "new":
+            with open(os.path.join(dir_path, self.config['index_path'])) as idf:
+                index = json.load(idf)
+            charas = []
+            for ship in index['en']:
+                shipname = ''.join(ship.split())
+                filename = f"{shipname}.json"
+                with open(os.path.join(dir_path, self.config['ships_path'], filename)) as shipf:
+                    data = json.load(shipf)
+                if not data.get("tags", []):
+                    charas.append(shipname)
+        else:
+            _character = self.process_request(request)
+            search_success, _character = self.validate_entry(_character)
+
+            if not search_success:
+                await channel.send(f"Failed to edit `{' '.join(options)}`")
+                return
+            else:
+                charas = ["".join(_character['en'].split())]
+        
+        #msg = channel.send("Starting edit")
+        def author_check(message):
+            return str(message.author.id) == str(author.id) and message.channel==channel
+        for ship in charas:
+            text = f"Editing tags for `{ship}`. Type tags or `exit` to finish."
+            with open(os.path.join(dir_path, self.config['ship_path'],f"{ship}.json")) as shipf:
+                temp = json.load(shipf)
+            msg = await channel.send(embed=self.make_utag_embed(temp))
+            cmd = await channel.send(text)
+            while True:
+                message = await self.client.wait_for("message", check=author_check)
+
+                if not message.content.startswith("--"):
+                    await message.delete()
+                    if message.content.startswith("exit"):
+                        if not temp.get("tags",None):
+                            temp['tags'] = []
+                        with open(os.path.join(dir_path, self.config['ship_path'], f"{ship}.json"), "w+") as shipf:
+                            shipf.write(json.dumps(temp))
+                        
+                        await msg.edit(content=f"Finished editing `{ship}`", embed=None)
+                        if message.content == "exit!":
+                            return
+                        break
+                    # process tag update:
+                    value = message.content
+                    append = []
+                    remove = []
+                    for tag in [i.strip() for i in value.split(',')]:
+                        if tag.startswith("+"):
+                            append.append(tag[1:])
+                        elif tag.startswith("-"):
+                            remove.append(tag[1:])
+                    if not append and not remove:
+                        temp['tags'] = [i.strip() for i in value.split(',')]
+                        await cmd.edit(content="\n".join([text,f"> Setting `tags` to `{temp['tags']}`"]))
+                    else:
+                        for tag in remove:
+                            try:
+                                temp['tags'].pop(temp['tags'].index(tag))
+                            except:
+                                continue
+                        temp['tags'] += append
+                        await cmd.edit(content="\n".join([text,f"> Modifying `tags` - added `{append}` and removed `{remove}`"]))
+                
+                with open(os.path.join(dir_path, self.config['ship_path'], f"{ship}.json"), "w+") as shipf:
+                    shipf.write(json.dumps(temp))
+                await msg.edit(embed=self.make_utag_embed(temp))
+            
+            await cmd.delete()
+
+    def make_utag_embed(self, data):
+        title = f"{data['dname']}\n{data['jp']}" if data['prefix'] == None else f"{data['prefix']} {data['dname']}\n{data['jp']}"
+
+        embed = discord.Embed(
+            title=title,
+            description=data['comment'] if data['comment'] != None else "No description... yet",
+            colour=self.colour,
+            timestamp=datetime.datetime.utcnow()
+        )
+        if data['wiki']['active']:
+            embed.url = data['wiki']['url']
+        embed.set_author(name="Asahi's Report")
+        embed.set_footer(text="BO Ship | Re:Re:Write Ames", icon_url=self.client.user.avatar_url)
+        embed.set_thumbnail(url=data['img_sq'])
+
+        embed.add_field(
+            name="> **Class**",
+            value=f"{data['ship_class']} ({data['hull_code']})",
+            inline=False
+        )
+        embed.add_field(
+            name="> **Affiliation**",
+            value=f"{data['faction']} ({data['faction_jp'] if data['faction_jp'] != None else 'N/A'})"
+        )
+        embed.add_field(
+            name="> **Acquisition**",
+            value=f"{data['acquisition'] if data['acquisition'] != None else 'TBC'}"
+        )
+        embed.add_field(
+            name="> **Rarity**",
+            value=data['rarity']
+        )
+
+        if data['skills']:
+            if data['skills'][0]['name'] == "Class Skill":
+                embed.add_field(
+                    name="> **Class Skill**",
+                    value=data['skills'].pop(0)['text'],
+                    inline=False
+                )
+
+            for i, skill in enumerate(data['skills']):
+                embed.add_field(
+                    name=f"> **Skill {i+1}**",
+                    value="\n".join(skill['name'].split("\n")),
+                    inline=False
+                )
+                embed.add_field(
+                    name="Description",
+                    value="-"+"\n-".join(skill['text']),
+                    inline=False
+                )
+        else:
+            embed.add_field(
+                name="> **Skill Data**",
+                value="Data Not Available",
+                inline=False
+            )
+
+        if not data['traits']:
+            embed.add_field(
+                name="Trait Data",
+                value="Not Available",
+                inline=False
+            )
+        else:
+            for i, trait in enumerate(data['traits']):
+                embed.add_field(
+                    name=f"Trait {i+1} - {trait['name']}",
+                    value=trait['text'] if trait['text'] != None else "No data available",
+                    inline=False
+                )
+        embed.add_field(
+            name="> **Tags**",
+            value=", ".join(data['tags']) if data.get("tags",None) else "None"
+        )
+        return embed
+
+    @bo.command(aliases=['tags'])
+    async def tag(self, ctx, *tags):
+        channel = ctx.message.channel
+        
+        if not tags:
+            await channel.send("No input detected - use `.bo help tag` or `.bo help definitions` if you're stuck")
+        
+
+        _character = self.process_request(" ".join(tags))
+        search_success, _character = self.validate_entry(_character)
+
+        if not search_success:
+            # do tag search
+            include, exclude = [],[]
+            for tag in tags:
+                # do a tag validation
+                if tag.startswith('-'):
+                    exclude.append(tag[1:])
+                else:
+                    include.append(tag)
+            
+            all_tags = []
+            for tag in self.tags.values():
+                all_tags += list(tag.keys())
+
+            for tag in include+exclude:
+                if not tag in all_tags:
+                    await channel.send(f"Unknown tag `{tag}`")
+                    return
+
+            lineup = []
+            with open(os.path.join(dir_path, self.config['index_path'])) as idf:
+                index = json.load(idf)
+            for ship in index['en']:
+                with open(os.path.join(dir_path, self.config['ship_path'], f"{''.join(ship.split())}.json")) as shipf:
+                    data = json.load(shipf)
+                if all([tag in data.get("tags", []) for tag in include]) and all(not tag in data.get("tags",[]) for tag in exclude):
+                    lineup.append(data)
+            lineup.sort(key=lambda x: x['dname'])
+            await channel.send(embed=self.make_search_embed(lineup, include, exclude))
+        else:
+            with open(os.path.join(dir_path, self.config['ship_path'], f"{''.join(_character['en'].split())}.json")) as shipf:
+                data = json.load(shipf)
+            await channel.send(embed=self.make_tag_embed(data))
+    
+    def make_tag_embed(self, data):
+        embed = discord.Embed(
+            title="Senki Tags",
+            description=f"Fetching `{data['dname']}`'s tags.",
+            colour=self.colour,
+            timestamp=datetime.datetime.utcnow()
+        )
+        embed.set_author(name="Asahi's Report")
+        embed.set_footer(text="BO Tag | Re:Re:Write Ames", icon_url=self.client.user.avatar_url)
+        embed.set_thumbnail(url=data['img_sq'])
+        data['tags'].sort()
+        embed.add_field(
+            name="Tags",
+            value=", ".join([f"`{tag}`" for tag in data['tags']]) if data['tags'] else "None"
+        )
+        return embed
+    
+    def make_search_embed(self, lineup, include, exclude):
+        description = f"Found `{len(lineup)}` character(s) that "
+        ads = []
+        if include:
+            ads.append("include " + ", ".join([f"`{t}`" for t in include]))
+        if exclude:
+            ads.append("exclude " + ", ".join([f"`{t}`" for t in exclude]))
+        
+        description += " and ".join(ads)
+        
+        embed = discord.Embed(
+            title="Senki Tag Search",
+            description=description,
+            colour=self.colour,
+            timestamp=datetime.datetime.utcnow()
+        )
+
+        for chunk in self.client.chunks(lineup, 15):
+            embed.add_field(
+                name="Results",
+                value="\n".join([f"{self.ship_pfp.get(''.join(ship['en'].split()).lower(),':grey_question')} {ship['dname']}" for ship in chunk])
+            )
+        embed.set_author(name="Asahi's Report")
+        embed.set_footer(text="BO Tag | Re:Re:Write Ames", icon_url=self.client.user.avatar_url)
+        return embed
 
 def setup(client):
     client.add_cog(blueoathCog(client))
