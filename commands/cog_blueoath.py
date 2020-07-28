@@ -1782,11 +1782,21 @@ class blueoathCog(commands.Cog):
         self._load_resource()
         print("started")
     
-    @bo.command()
-    async def wiki(self, ctx):
+    @bo.group(invoke_without_command=True)
+    async def wiki(self, ctx, option):
         channel = ctx.channel
-        lnk = "https://blueoath.miraheze.org/wiki/Main_Page"
-        await channel.send(f"Here's the link to the wiki\n{lnk}")
+        if ctx.invoked_subcommand is None:
+            options = {
+                "base":     "https://blueoath.miraheze.org/wiki/Base",
+                "senki":    "https://blueoath.miraheze.org/wiki/Senki",
+                "guilds":   "https://blueoath.miraheze.org/wiki/Guilds",
+                "wall":     "https://blueoath.miraheze.org/wiki/Wishing_Wall"
+            }
+            await channel.send(f"Here's the requested link:\n{options.get(option, 'https://blueoath.miraheze.org/wiki/Main_Page')}")
+
+    @wiki.command()
+    async def settings(self, ctx):
+        await ctx.channel.send(file=discord.File(os.path.join(dir_path,self.config['assets_path'],"settings.png")))
 
     def cog_unload(self):
         self.check_oil.cancel()
@@ -1919,6 +1929,10 @@ class blueoathCog(commands.Cog):
                 return
             else:
                 charas = ["".join(_character['en'].split())]
+
+        if not charas:
+            await channel.send("target update list is empty")
+            return
 
         with open(os.path.join(dir_path, self.config['tag_data_path'])) as tagf:
             ship_tags = json.load(tagf)
@@ -2148,7 +2162,7 @@ class blueoathCog(commands.Cog):
         for chunk in self.client.chunks(lineup, 15):
             embed.add_field(
                 name="Results",
-                value="\n".join([f"{self.ship_pfp.get(''.join(ship['en'].split()).lower(),':grey_question')} {ship['dname']}" for ship in chunk])
+                value="\n".join([f"{self.ship_pfp.get(''.join(ship['en'].split()).lower(),':grey_question:')} {ship['dname']}" for ship in chunk])
             )
         embed.set_author(name="Asahi's Report")
         embed.set_footer(text="BO Tag | Re:Re:Write Ames", icon_url=self.client.user.avatar_url)
