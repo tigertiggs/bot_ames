@@ -1895,7 +1895,7 @@ class blueoathCog(commands.Cog):
             with open(os.path.join(dir_path, self.config['index_path'])) as idf:
                 index = json.load(idf)
             charas = ["".join(ship.split()) for ship in index['en']]
-        elif option == "new":
+        elif "new" in options:
             with open(os.path.join(dir_path, self.config['index_path'])) as idf:
                 index = json.load(idf)
             charas = []
