@@ -5,6 +5,7 @@
     "alias_local_path": "blueoath/alias_local.json",
     "ship_data_path":   "blueoath/data/_ship_data.json",   
     "sheet_data_path":  "blueoath/data/_skills_jp.json",
+    "tag_data_path":    "blueoath/data/_ship_tags.json",
     "tag_index_path":   "blueoath/tags.json",
     "help_path":        "blueoath/help.json",
     "assets_path":      "blueoath/assets",
@@ -107,12 +108,12 @@
 
         "hull_code":    null,
         "ship_class":   null,
-        "tags":         [],
 
         "stats":        {},
         "lb":           [],
         "traits":       [],
         "skills":       [],
+        "tags":         [],
 
         "img_sq":       null,
         "img_rec":      null,

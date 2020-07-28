@@ -217,8 +217,10 @@ class blueoathCog(commands.Cog):
             with open(os.path.join(dir_path, self.config['sheet_data_path'])) as sdf:
                 skills_jp = json.load(sdf)
         with open(os.path.join(dir_path, self.config['index_path'])) as inf:
-                index = json.load(inf)
-
+            index = json.load(inf)
+        with open(os.path.join(dir_path, self.config['tag_data_path'])) as tagf:
+            ship_tags = json.load(tagf)
+        
         j, k = 0, 0
         await msg.edit(content=f"Fetching...")
         for i, chara in enumerate(charav):
@@ -255,7 +257,7 @@ class blueoathCog(commands.Cog):
             temp['dname'] = index['display_name'][sid]
             temp['ship_class'] = self.config['ship_class'][temp['hull_code']]
             temp['wiki'] = {"url": f"https://blueoath.miraheze.org/wiki/{'_'.join(chara.split(' '))}", "active":False}
-
+            temp['tags'] = ship_tags.get("".join(temp['en'].split()), [])
             # write preliminary
             with open(os.path.join(dir_path, f"blueoath/data/{''.join(chara.split(' '))}.json"), "w+") as sdf:
                 sdf.write(json.dumps(temp, indent=4))
@@ -1013,11 +1015,11 @@ class blueoathCog(commands.Cog):
         )
         embed.add_field(
             name="> **Affiliation**",
-            value=f"{data['faction']} ({data['faction_jp'] if data['faction_jp'] != None else 'N/A'})"
+            value=f"{data['faction']} ({data['faction_jp'] if data['faction_jp'] else 'N/A'})"
         )
         embed.add_field(
             name="> **Acquisition**",
-            value=f"{data['acquisition'] if data['acquisition'] != None else 'TBC'}"
+            value=f"{data['acquisition'] if data['acquisition'] else 'TBC'}"
         )
         embed.add_field(
             name="> **Rarity**",
@@ -1435,7 +1437,8 @@ class blueoathCog(commands.Cog):
             await channel.send(f"Invalid tag option {option}")
 
         data = list(self.tags[option].items())
-        tag_page_controller = self.client.page_controller(self.client, self.bo_make_tag_embed, data, 15, True)
+        data.sort(key=lambda x: x[0])
+        tag_page_controller = self.client.page_controller(self.client, self.bo_make_tag_embed, data, 10, True)
 
         page = await channel.send(embed=tag_page_controller.start())
         for arrow in tag_page_controller.arrows:
@@ -1461,14 +1464,15 @@ class blueoathCog(commands.Cog):
                     await reaction.message.edit(embed=tag_page_controller.flip(mode))
     
     def make_tag_text(self, data):
-        temp = [f"# {key}\n\t{value}" for key, value in data]
+        #temp = [f"# {key}\n\t{value}" for key, value in data]
+        temp = [f"{value}\n```md\n# {key}```" for key, value in data]
         temp.sort(key=lambda x: x[2])
         return temp
     
     def bo_make_tag_embed(self, data, index):
         embed = discord.Embed(
             title=f"Tag Definitions (page {index[0]} of {index[1]})",
-            description="A list of tag definitnions that are used in `.bo tag`.\n```md\n{}```".format("\n".join(self.make_tag_text(data))),
+            description="A list of tag definitnions that are used in `.bo tag`.\n{}".format("\n".join(self.make_tag_text(data))),
             timestamp=datetime.datetime.utcnow(),
             colour=self.colour
         )
@@ -1907,7 +1911,7 @@ class blueoathCog(commands.Cog):
                 if not data.get("tags", []):
                     charas.append(shipname)
         else:
-            _character = self.process_request(request)
+            _character = self.process_request(" ".join(options))
             search_success, _character = self.validate_entry(_character)
 
             if not search_success:
@@ -1915,6 +1919,9 @@ class blueoathCog(commands.Cog):
                 return
             else:
                 charas = ["".join(_character['en'].split())]
+
+        with open(os.path.join(dir_path, self.config['tag_data_path'])) as tagf:
+            ship_tags = json.load(tagf)
         
         #msg = channel.send("Starting edit")
         def author_check(message):
@@ -1933,11 +1940,15 @@ class blueoathCog(commands.Cog):
                     if message.content.startswith("exit"):
                         if not temp.get("tags",None):
                             temp['tags'] = []
+                            ship_tags[ship] = []
                         with open(os.path.join(dir_path, self.config['ship_path'], f"{ship}.json"), "w+") as shipf:
                             shipf.write(json.dumps(temp))
+                        with open(os.path.join(dir_path, self.config['tag_data_path']), "w+") as tagf:
+                            tagf.write(json.dumps(ship_tags, indent=4))
                         
                         await msg.edit(content=f"Finished editing `{ship}`", embed=None)
                         if message.content == "exit!":
+                            await cmd.delete()
                             return
                         break
                     # process tag update:
@@ -1963,6 +1974,9 @@ class blueoathCog(commands.Cog):
                 
                 with open(os.path.join(dir_path, self.config['ship_path'], f"{ship}.json"), "w+") as shipf:
                     shipf.write(json.dumps(temp))
+                with open(os.path.join(dir_path, self.config['tag_data_path']), "w+") as tagf:
+                    ship_tags[ship] = temp['tags']
+                    tagf.write(json.dumps(ship_tags, indent=4))
                 await msg.edit(embed=self.make_utag_embed(temp))
             
             await cmd.delete()
@@ -1980,7 +1994,8 @@ class blueoathCog(commands.Cog):
             embed.url = data['wiki']['url']
         embed.set_author(name="Asahi's Report")
         embed.set_footer(text="BO Ship | Re:Re:Write Ames", icon_url=self.client.user.avatar_url)
-        embed.set_thumbnail(url=data['img_sq'])
+        if data['img_sq']:
+            embed.set_thumbnail(url=data['img_sq'])
 
         embed.add_field(
             name="> **Class**",
@@ -1989,15 +2004,15 @@ class blueoathCog(commands.Cog):
         )
         embed.add_field(
             name="> **Affiliation**",
-            value=f"{data['faction']} ({data['faction_jp'] if data['faction_jp'] != None else 'N/A'})"
+            value=f"{data['faction']} ({data['faction_jp'] if data['faction_jp'] else 'N/A'})"
         )
         embed.add_field(
             name="> **Acquisition**",
-            value=f"{data['acquisition'] if data['acquisition'] != None else 'TBC'}"
+            value=f"{data['acquisition'] if data['acquisition'] else 'TBC'}"
         )
         embed.add_field(
             name="> **Rarity**",
-            value=data['rarity']
+            value=data['rarity'] if data['rarity'] else "No data"
         )
 
         if data['skills']:
@@ -2051,10 +2066,13 @@ class blueoathCog(commands.Cog):
         
         if not tags:
             await channel.send("No input detected - use `.bo help tag` or `.bo help definitions` if you're stuck")
-        
+            return
 
         _character = self.process_request(" ".join(tags))
         search_success, _character = self.validate_entry(_character)
+
+        with open(os.path.join(dir_path, self.config['tag_data_path'])) as tagf:
+            ship_tags = json.load(tagf)
 
         if not search_success:
             # do tag search
@@ -2076,19 +2094,22 @@ class blueoathCog(commands.Cog):
                     return
 
             lineup = []
-            with open(os.path.join(dir_path, self.config['index_path'])) as idf:
-                index = json.load(idf)
-            for ship in index['en']:
-                with open(os.path.join(dir_path, self.config['ship_path'], f"{''.join(ship.split())}.json")) as shipf:
-                    data = json.load(shipf)
-                if all([tag in data.get("tags", []) for tag in include]) and all(not tag in data.get("tags",[]) for tag in exclude):
-                    lineup.append(data)
+            #with open(os.path.join(dir_path, self.config['index_path'])) as idf:
+            #    index = json.load(idf)
+            #for ship in index['en']:
+            #    with open(os.path.join(dir_path, self.config['ship_path'], f"{''.join(ship.split())}.json")) as shipf:
+            #        data = json.load(shipf)
+            for s, t in ship_tags.items():
+                if all([tag in t for tag in include]) and all(not tag in t for tag in exclude):
+                    with open(os.path.join(dir_path, self.config['ship_path'], f"{s}.json")) as shipf:
+                        data = json.load(shipf)
+                        lineup.append(data)
             lineup.sort(key=lambda x: x['dname'])
             await channel.send(embed=self.make_search_embed(lineup, include, exclude))
         else:
-            with open(os.path.join(dir_path, self.config['ship_path'], f"{''.join(_character['en'].split())}.json")) as shipf:
-                data = json.load(shipf)
-            await channel.send(embed=self.make_tag_embed(data))
+            #with open(os.path.join(dir_path, self.config['ship_path'], f"{''.join(_character['en'].split())}.json")) as shipf:
+            #    data = json.load(shipf)
+            await channel.send(embed=self.make_tag_embed(ship_tags.get(''.join(_character['en'].split()), [])))
     
     def make_tag_embed(self, data):
         embed = discord.Embed(
@@ -2100,10 +2121,10 @@ class blueoathCog(commands.Cog):
         embed.set_author(name="Asahi's Report")
         embed.set_footer(text="BO Tag | Re:Re:Write Ames", icon_url=self.client.user.avatar_url)
         embed.set_thumbnail(url=data['img_sq'])
-        data['tags'].sort()
+        data.sort()
         embed.add_field(
             name="Tags",
-            value=", ".join([f"`{tag}`" for tag in data['tags']]) if data['tags'] else "None"
+            value=", ".join([f"`{tag}`" for tag in data]) if data else "None"
         )
         return embed
     

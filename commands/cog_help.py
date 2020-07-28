@@ -110,7 +110,7 @@ class helpCog(commands.Cog):
                 await channel.send(self.client.emotes['ames'])
                 return
             
-            tag_page_controller = self.client.page_controller(self.client, self.make_tag_embed, data, 15, True)
+            tag_page_controller = self.client.page_controller(self.client, self.make_tag_embed, data, 10, True)
             page = await channel.send(embed=tag_page_controller.start())
             for arrow in tag_page_controller.arrows:
                 await page.add_reaction(arrow)
@@ -135,14 +135,14 @@ class helpCog(commands.Cog):
                         await reaction.message.edit(embed=tag_page_controller.flip(mode))
             
     def make_tag_text(self, data):
-        temp = [f"# {key}\n\t{value}" for key, value in data]
+        temp = [f"{value}\n```md\n# {key}```" for key, value in data]
         temp.sort(key=lambda x: x[2])
         return temp
     
     def make_tag_embed(self, data, index):
         embed = discord.Embed(
             title=f"Tag Definitions (page {index[0]} of {index[1]})",
-            description="A list of tag definitnions that are used in `.tag`.\n```md\n{}```".format("\n".join(self.make_tag_text(data))),
+            description="A list of tag definitnions that are used in `.tag`.\n{}".format("\n".join(self.make_tag_text(data))),
             timestamp=datetime.datetime.utcnow(),
             colour=self.colour
         )

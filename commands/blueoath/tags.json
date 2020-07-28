@@ -8,12 +8,18 @@
         "cv":   "Aircraft Carrier"
     },
     "base": {
-        "coin":     "Have trait(s) that improves the efficiency of coin generation",
-        "dorm":     "Have trait(s) that improves the efficiency of dorm morale recovery",
+        "coin":     "Has a trait that improves the efficiency of coin generation",
+        "dorm":     "Has a trait that improves the efficiency of dorm morale recovery",
         "factory":  "Have trait(s) that improves the efficiency of factory item(s) production",
-        "medal":    "Have trait(s) that improves the efficiency of mech madal production",
-        "admin":    "Have trait(s) that improves the efficiency of base command",
-        "cafeteria":"Have trait(s) that increase food capacity"
+        "joat":      "Has a skill that improves the global production of factory items",
+        "skillbook":"(Factory) Has a trait that improves the efficiency of skill book production",
+        "exp":      "(Factory) Has a trait that improves the efficiency of oath soda production", 
+        "redchip":  "(Factory) Has a trait that improves the efficiency of upgrade chip production",
+        "oathpart": "(Factory) Has a trait that improves the efficiency of oath part production" ,
+        "pinkstone":"(Factory) Has a trait that improves the efficiency of pink wishing stone production",
+        "medal":    "Has a trait that improves the efficiency of mech medal production",
+        "admin":    "Has a trait that improves the efficiency of base command",
+        "cafeteria":"Has a trait that increase food capacity"
     },
     "attack": {
         "aoe":          "Has a skill that inflicts damage to all enemies",
@@ -31,11 +37,12 @@
         "hunter":       "Vessel has an advantage when targeting specific class(es) of enemy vessels",
         "unrelenting":  "Vessel will remain combat-capable under any damage condition",
         "interrupt":    "Vessel has skill(s) that can interrupt enemy firing/targeting sequence",
-        "sub":          "Vessel is able to receive damage in place of another ally",
+        "substitute":   "Vessel is able to receive damage in place of another ally",
         "regen":        "Vessel is able to regenerate HP/heal an ally or allies",
         "aggro_down":   "Vessel is less likely to be targeted by the enemy",
-        "oke":          "[On Kill Effect(OKE)] Vessel has skill(s) that triggers on sinking an enemy vessel",
-        "inhibit":      "Vessel has skill(s) that prevent the regeneration of enemy vessel(s)"
+        "oke":          "[On Kill Effect (OKE)] Vessel has skill(s) that triggers on sinking an enemy vessel",
+        "inhibit":      "Vessel has skill(s) that prevent the regeneration of enemy vessel(s)",
+        "flagship":     "Vessel have skill(s) that only activate when being placed as flagship"
     },
     "skill": {
         "dmg_up":       "Skill(s) buff all damage sources on self/allies",
