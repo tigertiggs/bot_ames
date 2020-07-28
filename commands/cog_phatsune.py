@@ -258,6 +258,8 @@ class hatsuneCog(commands.Cog):
             colour=self.colour
         )
         embed.set_thumbnail(url=data['img6'] if flb else data['img'])
+        #if data['sname'] == "nkyaru":
+        #    embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/513948468281212928/700260655931981854/FncyaHa2.gif")
         embed.set_author(name='ハツネのメモ帳',icon_url='https://cdn.discordapp.com/avatars/580194070958440448/c0491c103169d0aa99027b2216ee7708.jpg')
         embed.set_footer(text='Character Info Page | Ames Re:Re:Write',icon_url=data['img6'] if flb else data['img'])
 

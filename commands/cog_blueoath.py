@@ -179,19 +179,20 @@ class blueoathCog(commands.Cog):
         tables = soup.find_all("table")
 
         img, en, disp, jp, clss, rarity = [],[],[],[],[],[]
-        main_index = tables[0]
-        for i, row in enumerate(main_index.find_all("tr")[1:]):
-            fields = row.find_all("td")
-
-            #link = f"static.miraheze.org/blueoathwiki/{'/'.join(fields[0].img['src'].split('/')[3:6])}"
-            #img.append(link)
-            #img.append(fields[0].img['src'])
-            img.append(self.get_img_link(fields[0].img['src']))
-            jp.append(fields[1].text.replace("\n",""))
-            disp.append(fields[2].text.replace("\n",""))
-            en.append(self.clean_name(disp[-1])[-1])
-            clss.append(fields[3].text.replace("\n",""))
-            rarity.append(fields[4].text.replace("\n",""))
+        #main_index = tables[0]
+        main_ = tables
+        for main_index in main_:
+            for i, row in enumerate(main_index.find_all("tr")[1:]):
+                fields = row.find_all("td")
+                #link = f"static.miraheze.org/blueoathwiki/{'/'.join(fields[0].img['src'].split('/')[3:6])}"
+                #img.append(link)
+                #img.append(fields[0].img['src'])
+                img.append(self.get_img_link(fields[0].img['src']) if fields[0].img else None)
+                jp.append(fields[1].text.replace("\n",""))
+                disp.append(fields[2].text.replace("\n",""))
+                en.append(self.clean_name(disp[-1])[-1])
+                clss.append(fields[3].text.replace("\n",""))
+                rarity.append(fields[4].text.replace("\n","") if fields[4].text else None)
         
         index = {
             "display_name": disp,
@@ -996,7 +997,8 @@ class blueoathCog(commands.Cog):
             embed.url = data['wiki']['url']
         embed.set_author(name="Asahi's Report")
         embed.set_footer(text="BO Ship | Re:Re:Write Ames", icon_url=self.client.user.avatar_url)
-        embed.set_thumbnail(url=data['img_sq'])
+        if data['img_sq']:
+            embed.set_thumbnail(url=data['img_sq'])
 
         embed.add_field(
             name="> **Section**",
@@ -1019,7 +1021,7 @@ class blueoathCog(commands.Cog):
         )
         embed.add_field(
             name="> **Rarity**",
-            value=data['rarity']
+            value=data['rarity'] if data['rarity'] else "No data"
         )
 
         if data['skills']:
@@ -1082,7 +1084,8 @@ class blueoathCog(commands.Cog):
             embed.url = data['wiki']['url']
         embed.set_author(name="Asahi's Report")
         embed.set_footer(text="BO Stats | Re:Re:Write Ames", icon_url=self.client.user.avatar_url)
-        embed.set_thumbnail(url=data['img_sq'])
+        if data['img_sq']: 
+            embed.set_thumbnail(url=data['img_sq'])
 
         embed.add_field(
             name="> **Section**",
@@ -1194,7 +1197,8 @@ class blueoathCog(commands.Cog):
                 embed.url = data['wiki']['url']
             embed.set_author(name="Asahi's Report")
             embed.set_footer(text="BO Gallery | Re:Re:Write Ames", icon_url=self.client.user.avatar_url)
-            embed.set_thumbnail(url=data['img_sq'])
+            if data['img_sq']: 
+                embed.set_thumbnail(url=data['img_sq'])
 
             embed.add_field(
                 name="> **Section**",
