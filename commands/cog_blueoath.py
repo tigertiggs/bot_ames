@@ -1902,7 +1902,7 @@ class blueoathCog(commands.Cog):
             for ship in index['en']:
                 shipname = ''.join(ship.split())
                 filename = f"{shipname}.json"
-                with open(os.path.join(dir_path, self.config['ships_path'], filename)) as shipf:
+                with open(os.path.join(dir_path, self.config['ship_path'], filename)) as shipf:
                     data = json.load(shipf)
                 if not data.get("tags", []):
                     charas.append(shipname)
