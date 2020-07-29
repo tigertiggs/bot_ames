@@ -65,6 +65,7 @@
         "fatigue_down": "Skill(s) decrease fatigue gain/stamina recovery",
         "burn":         "Skill(s) inflict burn",
         "flood":        "Skill(s) inflict flooding",
+		"slow":			"Skill(s) inflict slow and/or rudder lock",
         "self_harm":    "Skill(s) put debuff(s) on self/allies"
     }
 }
