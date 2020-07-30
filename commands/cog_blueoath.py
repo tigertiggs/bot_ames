@@ -634,7 +634,7 @@ class blueoathCog(commands.Cog):
         except:
             return False, None
         else:
-            return True, {"en":index['en'][ind], "jp": index['jp'][ind], "sname": character, "dname": index["display_name"][ind]}
+            return True, {"en":index['en'][ind], "jp": index['jp'][ind], "sname": character, "dname": index["display_name"][ind], "img": index['portrait_square'][ind]}
 
     @bo.group(invoke_without_command=True, case_insensitive=True, pass_context=True)
     async def alias(self, ctx, *request):
@@ -1783,7 +1783,7 @@ class blueoathCog(commands.Cog):
         print("started")
     
     @bo.group(invoke_without_command=True)
-    async def wiki(self, ctx, option):
+    async def wiki(self, ctx, *option):
         channel = ctx.channel
         if ctx.invoked_subcommand is None:
             options = {
@@ -1792,7 +1792,10 @@ class blueoathCog(commands.Cog):
                 "guilds":   "https://blueoath.miraheze.org/wiki/Guilds",
                 "wall":     "https://blueoath.miraheze.org/wiki/Wishing_Wall"
             }
-            await channel.send(f"Here's the requested link:\n{options.get(option, 'https://blueoath.miraheze.org/wiki/Main_Page')}")
+            if not option:
+                await channel.send(f"Here's the requested link:\nhttps://blueoath.miraheze.org/wiki/Main_Page")
+            else:
+                await channel.send(f"Here's the requested link:\n{options.get(option[0], 'https://blueoath.miraheze.org/wiki/Main_Page')}")
 
     @wiki.command()
     async def settings(self, ctx):
@@ -2123,18 +2126,19 @@ class blueoathCog(commands.Cog):
         else:
             #with open(os.path.join(dir_path, self.config['ship_path'], f"{''.join(_character['en'].split())}.json")) as shipf:
             #    data = json.load(shipf)
-            await channel.send(embed=self.make_tag_embed(ship_tags.get(''.join(_character['en'].split()), [])))
+            await channel.send(embed=self.make_tag_embed(_character,ship_tags.get(''.join(_character['en'].split()), [])))
     
-    def make_tag_embed(self, data):
+    def make_tag_embed(self, chara, data):
         embed = discord.Embed(
             title="Senki Tags",
-            description=f"Fetching `{data['dname']}`'s tags.",
+            description=f"Fetching `{chara['dname']}`'s tags.",
             colour=self.colour,
             timestamp=datetime.datetime.utcnow()
         )
         embed.set_author(name="Asahi's Report")
         embed.set_footer(text="BO Tag | Re:Re:Write Ames", icon_url=self.client.user.avatar_url)
-        embed.set_thumbnail(url=data['img_sq'])
+        if chara['img']:
+            embed.set_thumbnail(url=chara['img'])
         data.sort()
         embed.add_field(
             name="Tags",
