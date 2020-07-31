@@ -1189,7 +1189,7 @@ class updateCog(commands.Cog):
         def make_line(chara, client, active=False):
             line = "{} {} {}" if not active else "> {} **{} {}**"
             sname = chara['basic']['en']['prefix'].title() + chara['basic']['en']['name'].title() if chara['basic']['en']['prefix'] else chara['basic']['en']['name'].title()
-            return line.format(client.team[sname.lower()], str(chara['pos']) if chara['pos'] != -1 else '??', sname)
+            return line.format(client.team.get(sname.lower(), ":grey_question:"), str(chara['pos']) if chara['pos'] != -1 else '??', sname)
         
         lineup = None
         if "front" in chara['tags']:

@@ -712,6 +712,24 @@
             "flb": false
         },
         {
+            "id": null,
+            "hnid": 1133,
+            "name_en": "nanaka",
+            "prefix": "s",
+            "sname": "snanaka",
+            "name_jp": "\u30ca\u30ca\u30ab(\u30b5\u30de\u30fc)",
+            "flb": false
+        },
+        {
+            "id": null,
+            "hnid": 1134,
+            "name_en": "hatsune",
+            "prefix": "s",
+            "sname": "shatsune",
+            "name_jp": "\u30cf\u30c4\u30cd(\u30b5\u30de\u30fc)",
+            "flb": false
+        },
+        {
             "id": 1,
             "hnid": 1040,
             "name_en": "aoi",
@@ -1082,11 +1100,11 @@
         },
         {
             "id": null,
-            "hnid": 1133,
-            "name_en": "nanaka",
+            "hnid": 1135,
+            "name_en": "misato",
             "prefix": "s",
-            "sname": "snanaka",
-            "name_jp": "\u30ca\u30ca\u30ab(\u30b5\u30de\u30fc)",
+            "sname": "smisato",
+            "name_jp": "\u30df\u30b5\u30c8(\u30b5\u30de\u30fc)",
             "flb": false
         }
     ]
