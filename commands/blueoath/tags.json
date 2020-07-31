@@ -18,8 +18,9 @@
         "oathpart": "(Factory) Has a trait that improves the efficiency of oath part production" ,
         "pinkstone":"(Factory) Has a trait that improves the efficiency of pink wishing stone production",
         "medal":    "Has a trait that improves the efficiency of mech medal production",
-        "admin":    "Has a trait that improves the efficiency of base command",
-        "cafeteria":"Has a trait that increase food capacity"
+        "admin":    "Has a trait that improves the efficiency of other base facilities (base office)",
+        "cafeteria":"Has a trait that increase food capacity",
+		"oil":		"Has a trait that improves the efficiency of oil production"
     },
     "attack": {
         "aoe":          "Has a skill that inflicts damage to all enemies",
