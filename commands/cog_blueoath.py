@@ -545,7 +545,8 @@ class blueoathCog(commands.Cog):
         idv, namev, snamev, datav, skillsv = [], [], [], [], []
         temp = {}
         end = False
-        for row in values:
+        for i, row in enumerate(values):
+            #if (i+1)%40==0: await msg.edit(content=msg.content+".")
             # empty row separator
             skill = {}
             if not row:
@@ -584,8 +585,8 @@ class blueoathCog(commands.Cog):
                     name = parts[0]
 
                 temp['name'], temp['sname'] = self.clean_name(name)
-
-                await msg.edit(content=txt+f" `{temp['name']}`")
+                #print(temp['name'], temp['sname'])
+                #await msg.edit(content=txt+f" `{temp['name']}`")
                 #temp['img'] = self.get_image(temp['sname'].replace(" ",""), s)
 
                 temp['class'] = row[4]
@@ -622,6 +623,8 @@ class blueoathCog(commands.Cog):
                 "data": datav
             }
             jf.write(json.dumps(skill_json, indent=4))
+        
+        await msg.edit(content="Reload complete")
 
     def process_request(self, character):
         return self.alias.get(character, character).lower()
