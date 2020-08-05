@@ -3,7 +3,7 @@
 
 import discord
 from discord.ext import commands
-import datetime, time, os, sys, requests, random, json, re, traceback
+import datetime, time, os, sys, requests, random, json, re, traceback, asyncio
 from difflib import SequenceMatcher as sm
 from math import ceil
 
@@ -222,7 +222,7 @@ class coreCog(commands.Cog):
         elif not self.client._check_author(ctx.message.author, "admin"):
             await channel.send("Missing [admin] permission "+self.client.emotes['ames'])
             return
-
+        await channel.message.delete()
         def is_me(message):
             return message.author == self.client.user
         await channel.purge(limit=depth, check=is_me)
@@ -750,6 +750,81 @@ class coreCog(commands.Cog):
 
         with open(os.path.join(self.client.dir, self.client.config['pins_path']), "w+") as pf:
             pf.write(json.dumps(all_pins,indent=4))
+
+    @commands.command(aliases=["cl"])
+    async def changelog(self, ctx, *option):
+        channel=ctx.channel
+        author=ctx.message.author
+        if not option: option = (-1,)
+        with open(os.path.join(self.client.dir, "changelog")) as clf:
+            changelog = json.load(clf)
+            changelogv = list(changelog.items())
+            changelogv.sort(key=lambda x: x[0])
+
+        # positive number = fetch last X logs
+        # negative number = fetch the Xth latest log
+        # else: fetch the version number
+
+        try:
+            option = int(option[0])
+            if not option: 
+                option = -1
+        except:
+            ver = option[0]
+            if not ver in changelog:
+                await channel.send(f"Not records found for version `{ver}`")
+                return
+            request = [[ver, changelog[ver]]]
+        else:
+            if option > 0:
+                if option > 20:
+                    await channel.send("You may not view more than the past 20 records")
+                    return
+                request = changelogv[::-1][:option]
+            else:
+                if abs(option) > len(changelog):
+                    await channel.send(f"Only `{len(changelog)}` records are recorded")
+                    return
+                request = [changelogv[option]]
+        
+        changelog_page_controller = self.client.page_controller(self.client, self.make_changelog_embed, request, 10, True)
+        page = await channel.send(embed=changelog_page_controller.start())
+        for arrow in changelog_page_controller.arrows:
+            await page.add_reaction(arrow)
+        
+        def author_check(reaction, user):
+            return str(user.id) == str(author.id) and str(reaction.emoji) in changelog_page_controller.arrows and str(reaction.message.id) == str(page.id)
+
+        while True:
+            try:
+                reaction, user = await self.client.wait_for('reaction_add', timeout=60.0, check=author_check)
+            except asyncio.TimeoutError:
+                await page.add_reaction('\U0001f6d1')
+                return
+            else:
+                emote_check = str(reaction.emoji)
+                await reaction.message.remove_reaction(reaction.emoji, user)
+                if emote_check in changelog_page_controller.arrows:
+                    if emote_check == changelog_page_controller.arrows[0]:
+                        mode = 'l'
+                    else:
+                        mode = 'r'     
+                    await reaction.message.edit(embed=changelog_page_controller.flip(mode))
+
+    def make_changelog_embed(self, data, index):
+        embed = discord.Embed(
+            title=f"Changelog - page {index[0]} of {index[1]}",
+            timestamp=datetime.datetime.utcnow(),
+            colour=self.colour
+        )
+        embed.set_footer(text="Changelog | Re:Re:Write Ames", icon_url=self.client.user.avatar_url)
+        for version, change in data:
+            embed.add_field(
+                name=version,
+                value="```diff\n{}```".format("\n".join(change)),
+                inline=False
+            )
+        return embed
 
 def setup(client):
     client.add_cog(coreCog(client))

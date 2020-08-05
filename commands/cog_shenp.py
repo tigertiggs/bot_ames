@@ -313,5 +313,23 @@ class shenpCog(commands.Cog):
             raise commands.DisabledCommand
         pass
     
+    @commands.command()
+    async def cheer(self, ctx, user:str=None):
+        channel = ctx.channel
+        if not self.client.command_status['cheer']:
+            raise commands.DisabledCommand
+        async with ctx.typing():
+            user = await self.process_user(ctx, user)
+            if not user:
+                return
+            user = {
+                "user": user,
+                "size": (330,330),
+                "paste": [(773,0)]
+            }
+            shenpf, name = await self.make_shenp(channel, [user], ["cheer/cheer.png"], "post_cheer.png")
+        await channel.send(file=shenpf)
+            
+
 def setup(client):
     client.add_cog(shenpCog(client))

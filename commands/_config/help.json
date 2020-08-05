@@ -326,6 +326,24 @@
             "aliases":  ["pin"],
             "help":     "See if Ames can/cannot pin a message via :pushpin:. See `.help pins` for more details",
             "help_ex":  "Call with no options to see if Ames is allowed to pin messages via :pushpin: react. Accepted inputs are `active:int` and `prune`.\n`.pins [active]`\n`[active]` must either be `0` or `1` which turns the feature off/on respectively.\n`.pins prune`\nThis will prune the local tracker file of any messages that are invalid."
+        },
+        "changelog": {
+            "flags":    ["core"],
+            "hidden":   false,
+            "usage":    ".changelog [*option]",
+            "subcmd":   null,
+            "aliases":  ["cl"],
+            "help":     "View Ames' changelog",
+            "help_ex":  "If `option` is left blank, changelog will only display the latest version's changelog.\nIf `option` is a `number` > 0, Ames will fetch the last `number` changelogs. This number cannot exceed 20.\nIf `option` is a `number` < 0, Ames will fetch the Xth latest changelog. This number cannot be bigger than the number of records in the local changelog.\nIf all previous checks have failed, Ames will assume `option` is a `version number` and will attempt to return the changelog for that specific version."
+        },
+        "cheer": {
+            "flags":    ["shitpost"],
+            "hidden":   false,
+            "usage":    ".cheer [*user]",
+            "subcmd":   null,
+            "aliases":  null,
+            "help":     "Ganbare! -Hatsune",
+            "help_ex":  "<:hatsuneblob:740452975369125919> <:hatsuneblob:740452975369125919> <:hatsuneblob:740452975369125919>"
         }
     }
 }

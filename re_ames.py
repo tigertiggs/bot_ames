@@ -131,7 +131,7 @@ class Ames(commands.AutoShardedBot):
         self.prefix = BOT_PREFIX
         # load configs
         print(self.name, "starting")
-        with open("commands/_config/amesconfig.json") as cf:
+        with open("commands/_config/config.json") as cf:
             self.config = json.load(cf)
         
         with open(os.path.join(self.config["blueoath_path"], "config.json")) as bocf:

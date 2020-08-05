@@ -1,0 +1,22 @@
+{
+    "4.3.6": [
+        "+ [shen] added new asset and command",
+        "+ [core] added new command `.changelog` that shows the changelog",
+        "+ [core] added the file `changelog`",
+        "- [code] `.purge` now deletes the initial message that invoked it",
+        "+ [help] added `.changelog` to help list",
+        "- [ames] renamed amesconfig and amesconfig_override",
+        "+ [shenp] added new command `.cheer` and its assets"
+    ],
+    "4.3.5": [
+        "- [bo] removed tracker on reload_sheet to stop the command reload_sheet being rate-limited"
+    ],
+    "4.3.4": [
+        "+ [ames] Updated database and assets for `S.Hatsune`",
+        "+ [pupdate] fixed `update_hatsune` breaking when updating pos due to missing `team pfp` as that is only updated in the next step. `Team pfp` will now show `:grey_question:` should the chara search fail"
+    ],
+    "4.2.2": [
+        "+ [bo] fixed `.bo wiki` not returning anything with no inputs",
+        "+ [bo] fixed `.bo tag` not returning tags because of missing character pfp link"
+    ]
+}

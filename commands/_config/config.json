@@ -7,7 +7,7 @@
 
     "perms_path":           "commands/_config/perms.json",
     "guild_perms_path":     "commands/_config/guild",
-    "override":             "commands/_config/amesconfig_override.json",
+    "override":             "commands/_config/override.json",
 
     "twitter_config_path":  "commands/twitter/twitterconfig.json",
     "twitter_guilds_path":  "commands/twitter/guilds.json",
@@ -108,6 +108,7 @@
         "kira":     1,
         "kiran":    1,
         "chenhug":  1,
+        "cheer":    1,
 
         "help":     1,
 

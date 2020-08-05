@@ -3,6 +3,7 @@ import discord
 from discord.ext import commands
 import datetime, asyncio, os
 from difflib import SequenceMatcher as sm
+import random
 
 class shenCog(commands.Cog):
     def __init__(self, client):
@@ -181,13 +182,22 @@ class shenCog(commands.Cog):
             await channel.send(file=discord.File(os.path.join(self.client.dir,self.client.config['shen_path'],"other/mem.png")))
 
     @commands.command()
-    async def broke(self, ctx):
+    async def broke(self, ctx, *num:int):
         channel=ctx.channel
         if ctx.message.guild.id != 419624511189811201:
             return
         else:
-            await channel.send(file=discord.File(os.path.join(self.client.dir,self.client.config['shen_path'],"other/kusopanda.png")))
-    
+            available = [1,2]
+            if not num:
+                request = None
+            else:
+                request = num[0]
+            
+            if not request or not request in available:
+                await channel.send(file=discord.File(os.path.join(self.client.dir,self.client.config['shen_path'],f"other/broke_{random.choice(available)}.png")))
+            else:
+                await channel.send(file=discord.File(os.path.join(self.client.dir,self.client.config['shen_path'],f"other/broke_{request}.png")))
+
     @commands.command()
     async def drum(self, ctx):
         channel=ctx.channel
@@ -195,7 +205,6 @@ class shenCog(commands.Cog):
             return
         else:
             await channel.send(file=discord.File(os.path.join(self.client.dir,self.client.config['shen_path'],"other/drum.png")))
-
 
 def setup(client):
     client.add_cog(shenCog(client))
