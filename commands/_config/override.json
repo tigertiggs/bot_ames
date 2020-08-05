@@ -1,9 +1,0 @@
-{
-    "debug": 1,
-    "command_cogs":     [
-        "commands.cog_core",
-        "commands.cog_help",
-        "commands.cog_shenp"
-    ],
-    "unit_list_path": "commands/hatsune_data/db/index.json"
-}

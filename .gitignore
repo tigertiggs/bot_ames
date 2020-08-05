@@ -23,7 +23,7 @@ commands/_config/guild/*
 !commands/_config/guild/.gitkeep
 
 # other
-commands/_config/amesconfig_override.json
+commands/_config/override.json
 commands/_config/cbtag.json
 commands/_config/pins.json
 commands/hatsune_data/alias_local.json
