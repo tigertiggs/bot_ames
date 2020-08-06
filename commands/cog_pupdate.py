@@ -357,7 +357,7 @@ class updateCog(commands.Cog):
                         return
 
         # preupdate checklist
-        yn_reacts = ['<:akagiPillowYes:659673125532860438>','<:kagaPillowNo:659673121778827274>']
+        yn_reacts = ['<:akagiPillowYes:740790139328135190>','<:kagaPillowNo:740790017936457788>']
         yn_name = ['akagiPillowYes','kagaPillowNo']
         ckltxt = "\n".join(preupdate_checklist)
         updtxt = "\n".join(update_meta)
@@ -376,9 +376,9 @@ class updateCog(commands.Cog):
         
         while True:
             reaction, user = await self.client.wait_for('reaction_add', check=check)
-            if reaction.emoji.name in '<:akagiPillowYes:659673125532860438>':
+            if reaction.emoji.name in '<:akagiPillowYes:740790139328135190>':
                 break
-            elif reaction.emoji.name in '<:kagaPillowNo:659673121778827274>':
+            elif reaction.emoji.name in '<:kagaPillowNo:740790017936457788>':
                 await channel.send('aborted')
                 return
         

@@ -1,4 +1,9 @@
 {
+    "4.3.7": [
+        "+ [ames] added data for ayane flb",
+        "+ [phatsune] fixed `.stats` not displaying flb stats due to incorrect boolean logic",
+        "+ [pupdate] replaced emotes in `.update` that were dependent on non-resource servers"
+    ],
     "4.3.6": [
         "+ [shen] added new asset and command",
         "+ [core] added new command `.changelog` that shows the changelog",
