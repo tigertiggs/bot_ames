@@ -49,7 +49,8 @@ class shenpCog(commands.Cog):
             else:
                 try:
                     if temp.is_animated:
-                        temp.seek(temp.n_frames//2)
+                        #temp.seek(temp.n_frames//2)
+                        temp.seek(0)
                         temp = temp.convert(mode="RGB")
                 except Exception as e:
                     await self.logger.send(self.name, "could not get attr", e)
