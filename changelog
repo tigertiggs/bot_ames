@@ -1,4 +1,8 @@
 {
+    "4.4.0": [
+        "+ [phatsune] added `t` and `ts` as prefix alias for `u` for the number of people using `t.aoi` for `u.aoi`",
+        "+ [ames] now greets newly joined members. Can be set and toggled with `.welc`"
+    ],
     "4.3.8": [
         "- [shenp] all animated profiles will now default to its first frame instead of seeking to the middle frame",
         "+ [ames] added data for chloe and u.aoi ue",

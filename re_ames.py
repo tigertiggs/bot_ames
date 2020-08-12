@@ -300,7 +300,7 @@ class Ames(commands.AutoShardedBot):
         await self.log.send(self.name,'I\'m back!')
         self.loop.create_task(self.st())
 
-    # welcome message
+    # welcome message when joining a guild
     async def on_guild_join(self, guild):
         await self.log.send(self.name, 'joined', guild.name)
         if guild.id == 598450517253029888:
@@ -318,6 +318,34 @@ class Ames(commands.AutoShardedBot):
                     return
         await self.log.send(self.name,'no available channel found!')
     
+    # welcome message when a member joins a guild
+    async def on_member_join(self, member):
+        guild = member.guild
+
+        # attempt to fetch welcome config
+        try:
+            with open(os.path.join(self.dir, self.config['guild_perms_path'], f"{guild.id}.json")) as gcf:
+                guild_welcome = json.load(gcf).get("welcome", None)
+        except:
+            guild_welcome = None
+        
+        if not guild_welcome:
+            return
+        elif not guild_welcome.get("active", False):
+            return
+        elif not guild_welcome.get("channel", None):
+            return
+        elif not guild.get_channel(guild_welcome["channel"]):
+            return
+        else:
+            ch = guild.get_channel(guild_welcome["channel"])
+            if guild.id == 598450517253029888:
+                text = f"Welcome to {guild.name}, {member.name}! I can fetch useful ship skills and stats from the Blue Oath EN Wiki, you can see my commands with `.bo help`\n(please) READ THE PINS, READ THE SHEETS, READ THE WIKI -Ladios"
+            else:
+                text = f"Welcome to {guild.name}, {member.name}! I'm a PCRD utility bot and you can see my commands with `.help`"
+            
+            await ch.send(text)
+
     async def process_commands(self, message):
         ctx = await self.get_context(message)
         #

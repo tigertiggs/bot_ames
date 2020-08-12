@@ -27,7 +27,11 @@
             "i",
             "deremasu",
             "dm"
-        ]
+        ],
+		"u": [
+			"t",
+			"ts"
+		]
     },
     "prefix_alias": {
         "newyear": "n",

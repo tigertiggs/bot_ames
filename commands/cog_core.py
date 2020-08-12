@@ -826,5 +826,73 @@ class coreCog(commands.Cog):
             )
         return embed
 
+    @commands.command(aliases=['welc'])
+    async def welcome(self, ctx, *options):
+        channel = ctx.channel
+        author = ctx.message.author
+        guild = channel.guild
+
+        # load config
+        try:
+            with open(os.path.join(self.client.dir, self.client.config['guild_perms_path'], f"{author.guild.id}.json")) as gcf:
+                guild_config = json.load(gcf)
+        except:
+            guild_config = {}
+            guild_welcome = {}
+        else:
+            guild_welcome = guild_config.get("welcome", {})
+        
+        # default welcome channel if not found
+        if not guild.get_channel(guild_welcome.get("channel", 0)):
+            general = discord.utils.find(lambda x: x.name == 'welcome' or x.name == 'general', guild.text_channels)
+            if general != None and general.permissions_for(guild.me).send_messages:
+                pass
+            else:
+                for ch in guild.text_channels:
+                    if ch.permissions_for(guild.me).send_messages:
+                        general = ch
+
+            guild_welcome["channel"] = general.id
+
+        if not options:
+            ch = guild.get_channel(guild_welcome.get("channel", 0))
+            text = f"Welcome message is `{'active' if guild_welcome.get('active', False) else 'inactive'}` and channel is set to {f'<#{ch.id}>' if ch else '`None`'}. These can be modified with `.welc [on/off] [#guild_channel]`, or see `.help welcome` for more."
+            await channel.send(text)
+            return
+        elif not self.client._check_author(author, "admin") or len(options) > 2:
+            await channel.send(self.client.emotes['ames'])
+            return
+        
+        for option in options:
+            option = option.lower()
+            if option == 'on':
+                await channel.send("Welcome message now active")
+                guild_welcome['active'] = True
+            elif option == 'off':
+                await channel.send("Welcome message now active")
+                guild_welcome['active'] = False
+            elif option.startswith("<#"):
+                try:
+                    ch = guild.get_channel(int(option[2:-1]))
+                except:
+                    ch = None
+                if not ch:
+                    await channel.send(f"Failed to find channel `{option}`")
+                else:
+                    await channel.send(f"Setting welcome message to channel <#{ch.id}>")
+                    guild_welcome['channel'] = ch.id
+            elif option == "none":
+                await channel.send("Setting welcome message channel to `None`")
+                guild_welcome['channel'] = None
+            else:
+                await channel.send(f"Unknown input `{option}`")
+        
+        guild_config['welcome'] = guild_welcome
+
+        with open(os.path.join(self.client.dir, self.client.config['guild_perms_path'], f"{author.guild.id}.json"), "w+") as gcf:
+            gcf.write(json.dumps(guild_config, indent=4))
+            
+        return
+
 def setup(client):
     client.add_cog(coreCog(client))

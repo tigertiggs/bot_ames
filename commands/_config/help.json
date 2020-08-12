@@ -344,6 +344,15 @@
             "aliases":  null,
             "help":     "Ganbare! -Hatsune",
             "help_ex":  "<:hatsuneblob:740452975369125919> <:hatsuneblob:740452975369125919> <:hatsuneblob:740452975369125919>"
+        },
+        "welcome": {
+            "flags":    ["core"],
+            "hidden":   false,
+            "usage":    ".welcome [*options]",
+            "subcmd":   null,
+            "aliases":  ["welc"],
+            "help":     "See the config for welcome messages in the guild. See `.help welcome` for more info",
+            "help_ex":  "When called with no options, the command will return with the current settings for whether Ames should greet any new members joining the guild. You require `[admin]` permissions to modify the settings, but do not need them to read the settings. See `.help permissions` for more.\n\n `.welc [on/off] [#discord_channel]`\nEntering `on` or `off` will turn the function on or off respectively.\nEntering a discord channel will set the welcome message to that channel. Entering `none` will reset the channel. These 2 inputs can be entered in any order and do not have to be together. The function will not accept more than 2 options."
         }
     }
 }
