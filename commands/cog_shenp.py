@@ -6,7 +6,7 @@ import os
 from PIL import Image, GifImagePlugin, ImageDraw, ImageSequence, ImageOps, ImageFont
 from io import BytesIO
 from difflib import SequenceMatcher as sm
-import requests
+import requests, traceback
 
 class shenpCog(commands.Cog):
     def __init__(self, client):
@@ -312,7 +312,94 @@ class shenpCog(commands.Cog):
         channel = ctx.channel
         if not self.client.command_status['muimi'] == 1:
             raise commands.DisabledCommand
-        pass
+        
+        # check for attachment
+        link = ctx.message.attachments[0].url if ctx.message.attachments else None
+        
+        # default to attachment
+        url = link if link else url
+
+        # return if void
+        if not url:
+            channel.send(self.client.emotes['maki'])
+            return
+
+        async with ctx.typing():
+            out = await self.muimi_embed(ctx, url)
+            if out:
+                await ctx.message.delete()
+                await channel.send(file=discord.File(out))
+
+        #async with ctx.typing():
+        #    embed = self.muimi_embed(ctx, link)
+        #    if embed:
+        #        await ctx.message.delete()
+        #        await channel.send(embed=embed)
+        #    else:
+        #        await channel.send(self.client.emotes['maki'])
+        
+    async def muimi_embed(self, ctx, url:str):
+        # attempt to load the image
+        try:
+            bg = Image.open(BytesIO(requests.get(url).content))
+        except:
+            await self.logger.send(traceback.format_exc())
+            return None
+        else:
+            # get bg data
+            bg_size = bg.size # (w,h)
+            bg_ratio = bg_size[0]/bg_size[1]
+        
+        # no support for animated bgs yet
+        if hasattr(bg, "is_animated"):
+            if bg.is_animated:
+                await ctx.message.delete()
+                await ctx.channel.send("No support for animated files (yet)")
+                return
+        
+        # load fg
+        muimi_fg = Image.open(os.path.join(self.client.dir, self.client.config['shen_path'], "other/muimi_this_c.png"))
+        fg_size = muimi_fg.size # (w,h)
+        fg_ratio = fg_size[0]/fg_size[1]
+
+        # target size
+        target_multi = 1.25
+        target_dim = tuple(round(i*target_multi) for i in fg_size)
+
+        # scaling
+        #width_multi = bg_size[1]/target_dim[1]
+        #final_width = round(width_multi*bg_size[0])
+        final_width = round(target_dim[1]*bg_ratio)
+        bg = bg.resize((final_width, target_dim[1]), resample=Image.ANTIALIAS)
+
+        # since we're forcing the scaling to only 1 dimension, 
+        # we only need to check the width of the final image
+
+        if final_width >= fg_size[0]:
+            delta = round((final_width - fg_size[0])/2*(1/3))
+            paste_pos = (final_width-delta-fg_size[0], target_dim[1]-fg_size[1])
+            bg.paste(muimi_fg, paste_pos, muimi_fg)
+        else:
+            # need to create new canvas because the scaled bg width does not match muimi width
+            base = Image.new("RGBA", target_dim, (255,0,0,0))
+            delta = round((target_dim[0] - fg_size[0])/2*(1/3))
+            paste_pos = (target_dim[0]-delta-fg_size[0], target_dim[1]-fg_size[1])
+            # see if bg is transparent
+            if bg.mode in ('RGBA', 'LA') or (bg.mode == 'P' and 'transparency' in bg.info):
+                base.paste(bg, (round((target_dim[0]-final_width)/2), 0), bg)
+            else:
+                base.paste(bg, (round((target_dim[0]-final_width)/2), 0))
+
+            base.paste(muimi_fg, paste_pos, muimi_fg)
+
+            bg.close()
+            bg = base
+        
+        path = os.path.join(self.client.dir, self.client.config['post_path'], "muimi.png")
+        bg.save(path)
+        bg.close()
+        muimi_fg.close()
+        return path
     
     @commands.command()
     async def cheer(self, ctx, user:str=None):

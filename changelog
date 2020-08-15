@@ -1,4 +1,14 @@
 {
+    "4.5.0": [
+        "+ [phatsune] added `a` prefix for upcoming `angel` variants for yori and akari",
+        "- [phatsune] ラビリスタ (labyrista) removed from hatsune blacklist in preparation for her addition",
+        "+ [gacha][pupdate] added a few comments so i dont forget how things work + fix a few strings in `.banner`",
+        "+ [bo] generalise and change `nb` tag to `yasen` to indicate one or more skills takes only takes effect at night",
+        "- [phatsune] attempted to optimize tag validation",
+        "+ [shenp] resurrected `.muimi`",
+        "+ [ames] added data and assets for s.jun",
+        "+ [phatsune] fixed incorrect display of charcters with no pos in .pos"
+    ],
     "4.4.0": [
         "+ [phatsune] added `t` and `ts` as prefix alias for `u` for the number of people using `t.aoi` for `u.aoi`",
         "+ [ames] now greets newly joined members. Can be set and toggled with `.welc`"

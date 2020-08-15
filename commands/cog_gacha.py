@@ -116,6 +116,8 @@ class gachaCog(commands.Cog):
                     self.r_pool['norm'].append(self.cog.character(self.client, name, 1))
         
         def make_lim_profile(self):
+            # takes ingame shown rates (final rate, not pool-relative) as a decimal and creates a rate profile for limited pools
+            # this is to simulate different rate-up percentages during prifes
             for i, lim_pool in enumerate([self.r_pool['lim'], self.sr_pool['lim'], self.ssr_pool['lim']]):
                 if i == 0:
                     rate = self.up_r
@@ -131,7 +133,7 @@ class gachaCog(commands.Cog):
 
                 for chara in lim_pool:
                     if chara.rate:
-                        r = chara.rate/rate
+                        r = chara.rate/rate # find relative % rate up occupies in current pool
                         temp_profile.append(r)
                         with_rate.append(chara)
                         total -= chara.rate/rate
@@ -560,7 +562,7 @@ class gachaCog(commands.Cog):
         for rarity, pool in pools:
             temp = set([f"{self.client.team[chara.name]} {chara.full_name}" for chara in pool])
             embed.add_field(
-                name=f"{rarity} Limited Pool",
+                name=f"{rarity} Rate-up Pool",
                 value="\n".join(temp) if len(temp) != 0 else "Empty",
                 inline=True
             )

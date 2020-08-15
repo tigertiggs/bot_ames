@@ -1106,6 +1106,15 @@
             "sname": "smisato",
             "name_jp": "\u30df\u30b5\u30c8(\u30b5\u30de\u30fc)",
             "flb": false
+        },
+        {
+            "id": null,
+            "hnid": 1136,
+            "name_en": "jun",
+            "prefix": "s",
+            "sname": "sjun",
+            "name_jp": "\u30b8\u30e5\u30f3(\u30b5\u30de\u30fc)",
+            "flb": false
         }
     ]
 }

@@ -15,7 +15,8 @@
         "p": "Princess",
         "d": "Cinderella Girls",
         "r": "Ranger",
-        "w": "Wonderland"
+        "w": "Wonderland",
+        "a": "Angel"
     },
     "prefix_new": {
         "n": [
@@ -47,7 +48,8 @@
         "student": "u",
         "princess": "p",
         "deresute": "d",
-        "ranger": "r"
+        "ranger": "r",
+        "angel": "a"
     },
     "options": [
         "flb"

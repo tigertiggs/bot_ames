@@ -1111,10 +1111,10 @@ class hatsuneCog(commands.Cog):
         embed.set_footer(text='Lineup | Re:Re:Write Ames',icon_url=self.client.user.avatar_url)
 
         numbered = [
-            f"{self.client.team[c['sname']]} {i+1} {self.client.get_full_name_kai(c['basic']['en']['name'],c['basic']['en']['prefix'])}" 
+            f"{self.client.team[c['sname']]} {i+1 if c['pos'] else '??'} {self.client.get_full_name_kai(c['basic']['en']['name'],c['basic']['en']['prefix'])}" 
             if not match 
             or not match['sname'] == c['sname']
-            else f"> {self.client.team[c['sname']]} **{i+1} {self.client.get_full_name_kai(c['basic']['en']['name'],c['basic']['en']['prefix'])}**" 
+            else f"> {self.client.team[c['sname']]} **{i+1 if c['pos'] else '??'} {self.client.get_full_name_kai(c['basic']['en']['name'],c['basic']['en']['prefix'])}**" 
             for i, c in enumerate(lineup)
         ]
 
@@ -1147,6 +1147,7 @@ class hatsuneCog(commands.Cog):
         with open(os.path.join(self.client.dir, self.client.config['hatsune_db_path'])) as dbf:
             all_data  = json.load(dbf)
 
+        all_tags = (list(self.tag_definitions['basic'].keys()) + list((self.tag_definitions['atk'].keys())) + list(self.tag_definitions['buff'].keys()))
         if not match:
             include, exclude = [], []
             for tag in request:
@@ -1155,7 +1156,7 @@ class hatsuneCog(commands.Cog):
                     flag = False
                     tag = tag[1:]
 
-                if not tag in (list(self.tag_definitions['basic'].keys()) + list((self.tag_definitions['atk'].keys())) + list(self.tag_definitions['buff'].keys())):
+                if not tag in all_tags:
                     await channel.send(f"Unknown tag `{tag}`")
                     return
                 

@@ -29,7 +29,7 @@
         "aa":           "Vessel is AA-oriented/benefits from equipped AA equipment",
         "torp":         "Vessel can launch torpedos (but not neccesarily equip torpedos)",
         "synergy":      "Vessel benefits from the inclusion of (specific) ship(s) in the same fleet",
-        "nb":           "(CVs) This aircraft carrier is able to carry out flight deck operations at night",
+        "yasen":        "Vessel have skill(s) that only activate at night",
         "fs_target":    "Vessel will always target the enemy flagship",
         "hp_target":    "Vessel's target is affected by enemy HP",
         "striker":      "Vessel's damage is affected by enemy HP",
@@ -42,7 +42,7 @@
         "regen":        "Vessel is able to regenerate HP/heal an ally or allies",
         "aggro_down":   "Vessel is less likely to be targeted by the enemy",
         "oke":          "[On Kill Effect (OKE)] Vessel has skill(s) that triggers on sinking an enemy vessel",
-        "inhibit":      "Vessel has skill(s) that prevent the regeneration of enemy vessel(s)",
+        "inhibit":      "Vessel have skill(s) that prevent the regeneration of enemy vessel(s)",
         "flagship":     "Vessel have skill(s) that only activate when being placed as flagship"
     },
     "skill": {
