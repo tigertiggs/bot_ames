@@ -29913,7 +29913,7 @@
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium magic def up at the start of battle; gain small magic attack up.",
                         "action": [
                             "Gain 340 m.def up ",
                             "Gain 225 m.atk up "
@@ -30143,14 +30143,14 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
                             "Gain 2595 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
                             "Gain 2820 p.atk up "
                         ]
