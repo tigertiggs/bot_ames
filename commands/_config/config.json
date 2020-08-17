@@ -82,6 +82,7 @@
         "pos":      1,
         "tag":      1,
         "alias":    1,
+        "compare":  1,
 
         "roll":     1,
         "spark":    1,

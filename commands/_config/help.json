@@ -353,6 +353,24 @@
             "aliases":  ["welc"],
             "help":     "See the config for welcome messages in the guild. See `.help welcome` for more info",
             "help_ex":  "When called with no options, the command will return with the current settings for whether Ames should greet any new members joining the guild. You require `[admin]` permissions to modify the settings, but do not need them to read the settings. See `.help permissions` for more.\n\n `.welc [on/off] [#discord_channel]`\nEntering `on` or `off` will turn the function on or off respectively.\nEntering a discord channel will set the welcome message to that channel. Entering `none` will reset the channel. These 2 inputs can be entered in any order and do not have to be together. The function will not accept more than 2 options."
+        },
+        "compare": {
+            "flags":    ["normal", "hatsune"],
+            "hidden":   false,
+            "usage":    ".compare [rank_range] [character]",
+            "subcmd":   null,
+            "aliases":  ["delta"],
+            "help":     "Fetch the stat number delta between 2 rank ranges.",
+            "help_ex":  "`[rank_range]` is in the form `rank(initial)-rank(final)`, for example, `15-18` for stat difference from 15 to 18. If the second number (rank final) is left blank, it will default to the highest possible rank.\n`[character]` input is the same as the ones used in `.character`."
+        },
+        "muimi": {
+            "flags":    ["shitpost"],
+            "hidden":   false,
+            "usage":    ".muimi [image_link|optional]",
+            "subcmd":   null,
+            "aliases":  null,
+            "help":     "Muimi approves this image",
+            "help_ex":  "Ames will attempt to fetch the image by the link provided and then paste Muimi over it. This can also be done with attachments - type the command (with no link) in the description box when attaching an image. Only the first image will be fetched in the event of multiple attachments/links.\nThis command cannot handle animated images... yet."
         }
     }
 }

@@ -473,6 +473,7 @@ class updateCog(commands.Cog):
             data = json.load(dbf)
         index = dict()
         indexv = []
+        constants = None
         for chara in data['units']:
             temp = copy.deepcopy(self.config['template_index'])
             temp['id'] = chara['basic']['en']['id']
@@ -484,8 +485,11 @@ class updateCog(commands.Cog):
             sname = "".join([temp['prefix'].lower() if temp['prefix'] else '', temp['name_en'].lower() if temp['name_en'] else ''])
             temp['sname'] = sname if sname else None
             indexv.append(temp)
+            if not constants:
+                constants = chara['status']
         
         index['index'] = indexv
+        index['constants'] = constants
         with open(os.path.join(self.client.dir, self.client.config['unit_list_path']), "w+") as idf:
             idf.write(json.dumps(index,indent=4))
 

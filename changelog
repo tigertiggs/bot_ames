@@ -1,4 +1,12 @@
 {
+    "4.6.0": [
+        "+ [phatsune] added a prototype command `.compare` that finds stat differences between character contexts",
+        "+ [ames] update every character to lv172 r18",
+        "+ [phatsune] add constants to index",
+        "+ [ames] greeting now mentions the new user",
+        "+ [ames] fixed reply message in `.welc`",
+        "+ [shenp] add ex help for `.muimi`"
+    ],
     "4.5.0": [
         "+ [phatsune] added `a` prefix for upcoming `angel` variants for yori and akari",
         "- [phatsune] ラビリスタ (labyrista) removed from hatsune blacklist in preparation for her addition",

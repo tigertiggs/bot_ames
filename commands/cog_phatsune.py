@@ -1511,3 +1511,125 @@ class hatsuneCog(commands.Cog):
             alf.write(json.dumps(self.alocal, indent=4))
         
         await channel.send(f"Successfully deleted `{alias}`")
+
+    @commands.command(aliases=['delta'])
+    async def compare(self, ctx, rank_range, *request):
+        channel = ctx.channel
+        if not self.client.command_status['compare']:
+            raise commands.DisabledCommand
+        elif not request:
+            await channel.send("No character specified")
+            return
+
+        # character validation
+        match, _, mode, _ = await self.preprocess(ctx, [i.lower() for i in request], invoke=ctx.invoked_with, verbose=False)
+
+        if not match:
+            await channel.send(f"Failed to find `{' '.join(request)}`")
+            return
+        if mode == 'flb' and not match['flb']:
+            await channel.send(f"`{self.client.get_full_name_kai(match['name_en'], match['prefix'])}` does not have a FLB variant")
+            return
+        
+        # validate rank
+        rank_i, _, rank_f = rank_range.partition("-")
+        with open(os.path.join(self.client.dir, self.client.config["unit_list_path"])) as idf:
+            constants = json.load(idf)['constants']
+            if not rank_f:
+                rank_f = constants['rk']
+        try:
+            rank_i, rank_f = int(rank_i), int(rank_f)
+        except:
+            await channel.send(self.client.emotes['ames'])
+            return
+
+        if not 0 < rank_i <= constants['rk'] or not 0 < rank_f <= constants['rk']:
+            await channel.send("Rank input out of range")
+            return
+        
+        # fetch
+        params_f = {
+            "cmd": "priconne.api",
+            "call": "api.fetch",
+            "id": match['hnid'],
+            "rarity": 6 if mode=='flb' else 5,
+            "rank": rank_f
+        }
+        params_i = {
+            "cmd": "priconne.api",
+            "call": "api.fetch",
+            "id": match['hnid'],
+            "rarity": 6 if mode=='flb' else 5,
+            "rank": rank_i
+        }
+        port = self.client.config['port']
+        if port != 'default':
+            request = f"http://localhost:{port}/FagUtils/gateway.php?"
+        else:
+            request = f"http://localhost/FagUtils/gateway.php?"
+        try:
+            result_i = requests.get(request, params=params_i)
+            result_f = requests.get(request, params=params_f)
+            ri = json.load(BytesIO(result_i.content))
+            rf = json.load(BytesIO(result_f.content))
+        except Exception as e:
+            await self.logger.send(self.name, e)
+            return
+    
+        if ri['status'] != 200 or rf['status'] != 200:
+            await self.logger.send(self.name, raw['status'])
+            await channel.send(f"Failed to fetch {ri['status']}, {rf['status']}")
+            return
+        
+        if mode == "flb":
+            stats_i = ri['data']['stats_flb']
+            stats_f = rf['data']['stats_flb']
+        else:
+            stats_i = ri['data']['stats']
+            stats_f = rf['data']['stats']
+
+        with open(os.path.join(self.client.dir, self.client.config['hatsune_db_path'])) as dbf:
+            data  = json.load(dbf)['units'][match['index']]
+
+        await channel.send(embed=self.make_compare_embed(data, (rank_i,rank_f), stats_i, stats_f, mode=='flb'))
+        
+    def make_compare_embed(self, data, rankr, ri, rf, flb):
+        if flb:
+            title = f"{data['basic']['jp']['name']} 6\⭐\n{self.client.get_full_name_kai(data['basic']['en']['name'],data['basic']['en']['prefix'])} FLB"
+        else:
+            title = f"{data['basic']['jp']['name']}\n{self.client.get_full_name_kai(data['basic']['en']['name'],data['basic']['en']['prefix'])}"
+        
+        embed = discord.Embed(
+            title=title,
+            timestamp=datetime.datetime.utcnow(),
+            colour=self.colour
+        )
+        embed.set_thumbnail(url=data['img6'] if flb else data['img'])
+        embed.set_author(name='ハツネのメモ帳',icon_url='https://cdn.discordapp.com/avatars/580194070958440448/c0491c103169d0aa99027b2216ee7708.jpg')
+        embed.set_footer(text='Delta | Ames Re:Re:Write',icon_url=data['img6'] if flb else data['img'])
+
+        embed.description = f"{self.client.get_full_name_kai(data['basic']['en']['name'],data['basic']['en']['prefix'])}\'s stat difference from rank **{rankr[0]} to {rankr[1]}**. Baseline stats assume **LV{data['status']['lvl']}**, **max rarity** (5\⭐ unless FLB mode) with **MAX BOND** across all character variants. `Note: This page is a WIP and displayed stats may be inaccurate`"
+
+        # stats
+        #for chunk in self.client.chunks(list(rf.items()), 6):
+        #    embed.add_field(
+        #        name=f"Stats",
+        #        value="\n".join([f"{self.config['ue_abbrev'].get(key, key.upper())}: {arg} ({'+'+str(arg-ri[key]) if arg-ri[key] >= 0 else str(arg-ri[key])})" for key, arg in chunk])
+        #    )
+        #for chunk in self.client.chunks(list(rf.items()), 6):
+        
+        #embed.add_field(
+        #    name=f"Stats",
+        #    value="\n".join([f"{self.config['ue_abbrev'].get(key, key.upper())}: {arg} ({'+'+str(arg-ri[key]) if arg-ri[key] >= 0 else str(arg-ri[key])})" for key, arg in rf.items()])
+        #)
+
+        embed.add_field(
+            name=f"Field",
+            value="\n".join([f"{self.config['ue_abbrev'].get(key, key.upper())}:" for key, arg in rf.items()])
+        )
+        embed.add_field(
+            name=f"Value",
+            value="\n".join([f"{arg} ({'+'+str(arg-ri[key]) if arg-ri[key] >= 0 else str(arg-ri[key])})" for key, arg in rf.items()])
+        )
+
+        return embed

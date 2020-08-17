@@ -869,7 +869,7 @@ class coreCog(commands.Cog):
                 await channel.send("Welcome message now active")
                 guild_welcome['active'] = True
             elif option == 'off':
-                await channel.send("Welcome message now active")
+                await channel.send("Welcome message now inactive")
                 guild_welcome['active'] = False
             elif option.startswith("<#"):
                 try:

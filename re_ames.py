@@ -340,9 +340,9 @@ class Ames(commands.AutoShardedBot):
         else:
             ch = guild.get_channel(guild_welcome["channel"])
             if guild.id == 598450517253029888:
-                text = f"Welcome to {guild.name}, {member.name}! I can fetch useful ship skills and stats from the Blue Oath EN Wiki, you can see my commands with `.bo help`\n(please) READ THE PINS, READ THE SHEETS, READ THE WIKI -Ladios"
+                text = f"Welcome to **{guild.name}**, <@!{member.id}>! I can fetch useful ship skills and stats from the Blue Oath EN Wiki, you can see my commands with `.bo help`\n(please) READ THE PINS, READ THE SHEETS, READ THE WIKI -Ladios"
             else:
-                text = f"Welcome to {guild.name}, {member.name}! I'm a PCRD utility bot and you can see my commands with `.help`"
+                text = f"Welcome to **{guild.name}**, <@!{member.id}>! I'm a PCRD utility bot and you can see my commands with `.help`"
             
             await ch.send(text)
 
