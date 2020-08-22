@@ -973,7 +973,7 @@ class blueoathCog(commands.Cog):
         persist=False
         while True:
             try:
-                reaction, user = await self.client.wait_for('reaction_add', timeout=15.0, check=author_check)
+                reaction, user = await self.client.wait_for('reaction_add', timeout=90.0, check=author_check)
             except:
                 if not persist:
                     await page.edit(content=f"Embed for `{_character['dname']}` has expired "+self.client.emotes['ames'], embed=None)
