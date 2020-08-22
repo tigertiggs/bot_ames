@@ -1016,8 +1016,11 @@ class blueoathCog(commands.Cog):
         elif not message.embeds[0].author.name == "Asahi's Report":
             return
         else:
+            await message.clear_reactions()
             await message.edit(content="This embed had been deleted "+self.client.emotes['ames'], embed=None)
-        
+            self.active_embeds.pop(str(message.id),None)
+            
+
     def make_ship_embed(self, data, sections):
         sections[sections.index(":ship: Ship")] = ":ship: **[Ship]**"
 

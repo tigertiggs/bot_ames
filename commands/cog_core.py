@@ -222,7 +222,7 @@ class coreCog(commands.Cog):
         elif not self.client._check_author(ctx.message.author, "admin"):
             await channel.send("Missing [admin] permission "+self.client.emotes['ames'])
             return
-        await channel.message.delete()
+        await ctx.message.delete()
         def is_me(message):
             return message.author == self.client.user
         await channel.purge(limit=depth, check=is_me)

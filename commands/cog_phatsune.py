@@ -157,7 +157,9 @@ class hatsuneCog(commands.Cog):
         elif not message.embeds[0].author.name == "ハツネのメモ帳":
             return
         else:
+            await message.clear_reactions()
             await message.edit(content="This embed had been deleted "+self.client.emotes['ames'], embed=None)
+            self.active_embeds.pop(str(message.id), None)
         
     async def preprocess(self, ctx, request, **kwargs):
         verbose = kwargs.get('verbose', False)

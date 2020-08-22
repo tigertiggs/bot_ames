@@ -206,5 +206,9 @@ class shenCog(commands.Cog):
         else:
             await channel.send(file=discord.File(os.path.join(self.client.dir,self.client.config['shen_path'],"other/drum.png")))
 
+    @commands.command(aliases=['objection'])
+    async def actually(self, ctx):
+        await ctx.channel.send(file=discord.File(os.path.join(self.client.dir, self.client.config['shen_path'], "other/actually.gif")))
+
 def setup(client):
     client.add_cog(shenCog(client))

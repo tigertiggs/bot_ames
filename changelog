@@ -1,4 +1,9 @@
 {
+    "4.6.2": [
+        "+ [phatsune] fixed Misat's sk2 TL",
+        "+ [shen] uh actually, objection, dumbass",
+        "+ [phatsune][bo] :stop_button: now removes persist and emotes as original embed is still active"
+    ],
     "4.6.1": [
         "- [github] edited `readme.md` and re-added invite link for Ames",
         "+ [phatsune] added a suggestion in error string on character not found",

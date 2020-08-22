@@ -21651,7 +21651,7 @@
                     },
                     "sk2": {
                         "name": null,
-                        "text": "Grant HP regeneration to the ally in front of Misato.",
+                        "text": "Grant HP regeneration to the frontmost ally.",
                         "action": [
                             "Recover 1262 HP every second "
                         ]
