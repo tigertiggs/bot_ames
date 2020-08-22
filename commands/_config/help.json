@@ -34,10 +34,10 @@
             "flags":    ["normal", "hatsune"],
             "hidden":   false,
             "usage":    ".tag [*tags]",
-            "subcmd":   null,
+            "subcmd":   ["d"],
             "aliases":  null,
             "help":     "Fetch all characters that satisfies the given tags.",
-            "help_ex":  "Enter in tags separated by a space to search for character(s) that satisfy the tags. Use `.help definitions` to learn more about the currently available tags."
+            "help_ex":  "Enter in tags separated by a space to search for character(s) that satisfy the tags. You can add `-` infront of a tag to signify that the tag should be excluded. Use `.help definitions` to learn more about the currently available tags.\n\n> `.tag d [tags]`\nSubcommand Aliases: `def` `help`\nEnter in tags to get their definitions."
         },
         "alias": {
             "flags":    ["normal", "hatsune"],

@@ -11,7 +11,7 @@
         "coin":     "Has a trait that improves the efficiency of coin generation",
         "dorm":     "Has a trait that improves the efficiency of dorm morale recovery",
         "factory":  "Have trait(s) that improves the efficiency of factory item(s) production",
-        "joat":      "Has a skill that improves the global production of factory items",
+        "joat":     "[Jack of All Trades (joat)] Has a skill that improves the global production of factory items",
         "skillbook":"(Factory) Has a trait that improves the efficiency of skill book production",
         "exp":      "(Factory) Has a trait that improves the efficiency of oath soda production", 
         "redchip":  "(Factory) Has a trait that improves the efficiency of upgrade chip production",
@@ -22,9 +22,8 @@
         "cafeteria":"Has a trait that increase food capacity",
 		"oil":		"Has a trait that improves the efficiency of oil production"
     },
-    "attack": {
+    "trait": {
         "aoe":          "Has a skill that inflicts damage to all enemies",
-        "marker":       "Has a skill that marks an enemy, making allies more likely to target the marked enemy",
         "gun":          "Vessel is gun-oriented/benefits from equipped gun equipment",
         "aa":           "Vessel is AA-oriented/benefits from equipped AA equipment",
         "torp":         "Vessel can launch torpedos (but not neccesarily equip torpedos)",
@@ -37,36 +36,39 @@
         "counter":      "Vessel gains buffs/benefits from being targeted/receive damage from the enemy",
         "hunter":       "Vessel has an advantage when targeting specific class(es) of enemy vessels",
         "unrelenting":  "Vessel will remain combat-capable under any damage condition",
-        "interrupt":    "Vessel has skill(s) that can interrupt enemy firing/targeting sequence",
-        "substitute":   "Vessel is able to receive damage in place of another ally",
-        "regen":        "Vessel is able to regenerate HP/heal an ally or allies",
         "aggro_down":   "Vessel is less likely to be targeted by the enemy",
         "oke":          "[On Kill Effect (OKE)] Vessel has skill(s) that triggers on sinking an enemy vessel",
-        "inhibit":      "Vessel have skill(s) that prevent the regeneration of enemy vessel(s)",
         "flagship":     "Vessel have skill(s) that only activate when being placed as flagship"
     },
-    "skill": {
+    "utility": {
+        "torp_regen":   "Skill(s) have chance to reload a torp on self/allies",
+        "shield":       "Skill(s) gives a shield (that absorbs gun/torp/as damage) on self/allies",
+        "burn":         "Skill(s) inflict burn",
+        "flood":        "Skill(s) inflict flooding",
+		"slow":			"Skill(s) inflict slow and/or rudder lock",
+        "self_harm":    "Skill(s) put debuff(s) on self/allies",
+        "marker":       "Has a skill that marks an enemy, making allies more likely to target the marked enemy",
+        "substitute":   "Vessel is able to receive damage in place of another ally",
+        "regen":        "Vessel is able to regenerate HP/heal an ally or allies",
+        "inhibit":      "Vessel have skill(s) that prevent the regeneration of enemy vessel(s)",
+        "interrupt":    "Vessel has skill(s) that can interrupt enemy firing/targeting sequence"
+    },
+    "buff": {
         "dmg_up":       "Skill(s) buff all damage sources on self/allies",
         "gun_up":       "Skill(s) buff main battery damage on self/allies",
         "torp_up":      "Skill(s) buff torpedo damage on self/allies",
         "as_up":        "Skill(s) buff airstrike power (dmg/hp) on self/allies",
         "eva_up":       "Skill(s) buff evasion on self/allies",
-        "torp_regen":   "Skill(s) have chance to reload a torp on self/allies",
         "aa_up":        "Skill(s) buff AA damage on self/allies",
-        "burn_up":      "Skill(s) increase damage from burn on self/allies",
-        "flood_up":     "Skill(s) increase damage from flooding on self/allies",
+        "burn_up":      "Skill(s) increase self/allies' burn damage",
+        "flood_up":     "Skill(s) increase self/allies' flooding damage",
         "rld_down":     "Skill(s) decrease main battery reload time on self/allies",
         "cutin_up":     "Skill(s) increase cut-in chance on self/allies",
         "dmg_cut":      "Skill(s) decrease damage taken (percentage)",
         "def_up":       "Skill(s) increase armour/torp defense on self/allies",
-        "shield":       "Skill(s) gives a shield (that absorbs gun/torp/as damage) on self/allies",
         "crit_up":      "Skill(s) buff critical chance on self/allies",
         "spd_up":       "Skill(s) buff movement speed on self/allies",
         "hp_up":        "Skill(s) buff maximum HP on self/allies",
-        "fatigue_down": "Skill(s) decrease fatigue gain/stamina recovery",
-        "burn":         "Skill(s) inflict burn",
-        "flood":        "Skill(s) inflict flooding",
-		"slow":			"Skill(s) inflict slow and/or rudder lock",
-        "self_harm":    "Skill(s) put debuff(s) on self/allies"
+        "fatigue_down": "Skill(s) decrease fatigue gain/stamina recovery"
     }
 }

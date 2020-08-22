@@ -28,6 +28,9 @@ class hatsuneCog(commands.Cog):
 
         self.full_alias = self.config['alias_master'].copy()
         self.full_alias.update(self.alocal)
+
+        # persist
+        self.active_embeds = dict()
     
     @commands.command(aliases=['c','ue','chara', 'card', 'pic', 'stats', 'profile'])
     async def character(self, ctx, *request):
@@ -36,7 +39,7 @@ class hatsuneCog(commands.Cog):
         if not self.client.command_status['chara']:
             raise commands.DisabledCommand
         elif not request:
-            await channel.send("No input detected. Use `.c help` or `.help character` if you need help "+self.client.emotes['ames'])
+            await channel.send("No input detected "+self.client.emotes['ames']+"\n-Use `.c help` or `.help character` if you need help.")
             return
 
         # standardise
@@ -52,7 +55,7 @@ class hatsuneCog(commands.Cog):
         match, alts, mode, invoke = await self.preprocess(ctx, request, invoke=ctx.invoked_with, verbose=False)
 
         if not match:
-            await channel.send(f"Failed to find `{' '.join(request)}`. Use `.c help` or `.help character` if you're stuck "+self.client.emotes['ames'])
+            await channel.send(f"Failed to find `{' '.join(request)}` "+self.client.emotes['ames']+"\n-Use `.c help` or `.help character` if you're stuck\n-Add the input as an alias to a character with `.alias add`. See `.help alias` for more")
             return
         
         #await channel.send("[Experimental Ames] This is currently a highly experimental version of `.character` and may be very unstable. Stable Ames will be up and running soon:tm:")
@@ -76,24 +79,33 @@ class hatsuneCog(commands.Cog):
         alt_choice = 0
         fe, reactions = alt_embeds[alt_choice].start()
         page = await channel.send(embed=fe)
+
+        self.active_embeds[str(page.id)] = author.id # add to persistence      
+
         for e in alt_emotes+list(reactions.keys()) if len(alt_emotes) > 1 else list(reactions.keys()):
             await page.add_reaction(e)
 
         def author_check(reaction, user):
-            return str(user.id) == str(author.id) and str(reaction.emoji) in list(reactions.keys())+alt_emotes and str(reaction.message.id) == str(page.id)
+            return str(user.id) == str(author.id) and str(reaction.emoji) in list(reactions.keys())+alt_emotes+['⏱️'] and str(reaction.message.id) == str(page.id)
         
+        persist = False
+
         while True:
             try:
                 reaction, user = await self.client.wait_for("reaction_add", timeout=90.0, check=author_check)
             except asyncio.TimeoutError:
                 #await page.add_reaction(alt_embeds[0].stop)
-                await page.edit(embed=None, content=f"Embed for `{self.client.get_full_name_kai(match['name_en'], match['prefix'])}` has expired "+self.client.emotes['ames'])
+                if not persist:
+                    await page.edit(embed=None, content=f"Embed for `{self.client.get_full_name_kai(match['name_en'], match['prefix'])}` had expired "+self.client.emotes['ames'])
+                await page.clear_reactions()
+                # remove persistence
+                self.active_embeds.pop(str(page.id), None)
                 return
             else:
-                if str(reaction.emoji) in list(reactions.keys())+alt_emotes:
+                if str(reaction) in list(reactions.keys())+alt_emotes:
                     await reaction.message.remove_reaction(reaction.emoji, user)
 
-                    if str(reaction.emoji) in alt_emotes:
+                    if str(reaction) in alt_emotes:
                         new_choice = alt_emotes.index(str(reaction.emoji))
 
                         if new_choice != alt_choice:
@@ -123,6 +135,30 @@ class hatsuneCog(commands.Cog):
                     
                     await page.edit(embed=alt_embeds[alt_choice].reload())
 
+                elif str(reaction) == '⏱️': # :stopwatch:
+                    persist=True
+
+    @commands.Cog.listener()
+    async def on_raw_reaction_add(self, payload):
+        guild = self.client.get_guild(payload.guild_id)
+        user = guild.get_member(payload.user_id)
+        if user.bot:
+            return
+        elif not str(payload.emoji) == '⏹️': # :stop_button:
+            return
+        message = await guild.get_channel(payload.channel_id).fetch_message(payload.message_id)
+        if self.active_embeds.get(str(message.id), None) and not self.active_embeds.get(str(message.id), None) == user.id:
+            await message.remove_reaction('⏹️', user)
+            return
+        elif not message.author is guild.me:
+            return
+        elif not message.embeds:
+            return
+        elif not message.embeds[0].author.name == "ハツネのメモ帳":
+            return
+        else:
+            await message.edit(content="This embed had been deleted "+self.client.emotes['ames'], embed=None)
+        
     async def preprocess(self, ctx, request, **kwargs):
         verbose = kwargs.get('verbose', False)
         invoke = kwargs.get('invoke', None)
@@ -745,6 +781,7 @@ class hatsuneCog(commands.Cog):
             colour=self.colour
         )
         embed.set_footer(text="Profile | Re:Re:Write Ames", icon_url=self.client.user.avatar_url)
+        embed.set_author(name='ハツネのメモ帳',icon_url='https://cdn.discordapp.com/avatars/580194070958440448/c0491c103169d0aa99027b2216ee7708.jpg')
         embed.add_field(
             name="Section",
             value=" - ".join(sections),
@@ -1127,8 +1164,10 @@ class hatsuneCog(commands.Cog):
         
         return embed
 
-    @commands.command(aliases=['tags'])
+    @commands.group(aliases=['tags'],invoke_without_command=True)
     async def tag(self, ctx, *request):
+        if not ctx.invoked_subcommand is None:
+            return
         channel = ctx.message.channel
         author = ctx.message.author
         if not self.client.command_status['tag']:
@@ -1225,6 +1264,78 @@ class hatsuneCog(commands.Cog):
         )
 
         return embed
+
+    @tag.command(aliases=['def', 'help'])
+    async def d(self, ctx, *request):
+        channel = ctx.message.channel
+        author = ctx.message.author
+        if not self.client.command_status['tag']:
+            raise commands.DisabledCommand
+        elif not request:
+            await channel.send("No input - enter tags to fetch their definitions")
+            return
+        
+        # standardize and pick unique items
+        request = [i.lower() for i in request]
+        request = list(set(request))
+
+        # validate
+        #all_tags = (list(self.tag_definitions['basic'].keys()) + list((self.tag_definitions['atk'].keys())) + list(self.tag_definitions['buff'].keys()))
+        all_tags = dict()
+        for item in self.tag_definitions:
+            all_tags = {**all_tags, **self.tag_definitions[item]} #kms
+
+        valid = []
+        for tag in request:
+            definition = all_tags.get(tag, None)
+            if not definition:
+                await channel.send(f"Unknown tag `{tag}`")
+                return
+            else:
+                valid.append((tag, definition))
+        
+        def_page_controller = self.client.page_controller(self.client, self.make_definitions, valid, 6, True)
+        page = await channel.send(embed=def_page_controller.start())
+        for arrow in def_page_controller.arrows:
+            await page.add_reaction(arrow)
+        
+        def author_check(reaction, user):
+            return str(reaction) in def_page_controller.arrows and user.id == author.id and reaction.message.id == page.id
+        
+        while True:
+            try:
+                reaction, user = await self.client.wait_for("reaction_add", timeout=90, check=author_check)
+            except asyncio.TimeoutError:
+                await page.clear_reactions()
+                return
+            else:
+                emote_check = str(reaction)
+                await page.remove_reaction(emote_check, user)
+                if emote_check == def_page_controller.arrows[0]:
+                    mode = 'l'
+                else:
+                    mode = 'r'
+                
+                await page.edit(embed=def_page_controller.flip(mode))
+                
+    
+    def make_definitions(self, tags, index):
+        embed = discord.Embed(
+            title=f"Tag Definitions (page {index[0]} of {index[1]})",
+            description="Listing tag definitions",
+            timestamp=datetime.datetime.utcnow(),
+            colour=self.colour
+        )
+        embed.set_author(name='ハツネのメモ帳',icon_url='https://cdn.discordapp.com/avatars/580194070958440448/c0491c103169d0aa99027b2216ee7708.jpg')
+        embed.set_footer(text='Tag Definitions | Re:Re:Write Ames',icon_url=self.client.user.avatar_url)
+        for tag, definition in tags:
+            embed.add_field(
+                name=f"> `{tag}`",
+                value=definition,
+                inline=False
+            )
+        return embed
+
 
     # alias
     @commands.group(

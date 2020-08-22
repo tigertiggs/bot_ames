@@ -61,6 +61,9 @@ class blueoathCog(commands.Cog):
         #self._reload_sheet()
         self.check_oil.start()
 
+        # persist
+        self.active_embeds = dict()
+
     def _load_resource(self):
         # THIS IS USED IN OIL PRECHECK
         # since this will only work when client is ready
@@ -944,7 +947,7 @@ class blueoathCog(commands.Cog):
         search_success, _character = self.validate_entry(_character)
 
         if not search_success:
-            await channel.send(f"Failed to find character `{request}`")
+            await channel.send(f"Failed to find character `{request}`.\nIf its a nickname consider adding it as an alias via `.bo alias add [alias] -> [actual ship name]`")
             return
         else:
             # grab data
@@ -960,32 +963,60 @@ class blueoathCog(commands.Cog):
         ship_controller = self.ship_page_controller(data, mode, self)
         
         page = await channel.send(embed=ship_controller.first_page())
+        self.active_embeds[str(page.id)] = author.id # add to to persist
         for react in emotes:
             await page.add_reaction(react)
         
         def author_check(reaction, user):
-            return str(user.id) == str(author.id) and str(reaction.emoji) in emotes and str(reaction.message.id) == str(page.id)
+            return str(user.id) == str(author.id) and str(reaction.emoji) in emotes+['⏱️'] and str(reaction.message.id) == str(page.id)
         
+        persist=False
         while True:
             try:
-                reaction, user = await self.client.wait_for('reaction_add', timeout=90.0, check=author_check)
+                reaction, user = await self.client.wait_for('reaction_add', timeout=15.0, check=author_check)
             except:
-                await page.edit(content=f"Embed for `{_character['dname']}` has expired "+self.client.emotes['ames'], embed=None)
+                if not persist:
+                    await page.edit(content=f"Embed for `{_character['dname']}` has expired "+self.client.emotes['ames'], embed=None)
+                await page.clear_reactions()
+                self.active_embeds.pop(str(page.id), None) # remove persistence
                 return
             else:
-                emote_check = str(reaction.emoji)
-                await reaction.message.remove_reaction(reaction.emoji, user)
-
-                if emote_check == "\U0001f6a2":
-                    await reaction.message.edit(embed=ship_controller.toggle("ship"))
-                elif emote_check == "\U0001f4f0":
-                    await reaction.message.edit(embed=ship_controller.toggle("stats"))
-                elif emote_check == "\U0001f5bc":
-                    await reaction.message.edit(embed=ship_controller.toggle("gallery"))
-                elif emote_check == '⬅':
-                    await reaction.message.edit(embed=ship_controller.turn_page('l'))
-                elif emote_check == '➡':
-                    await reaction.message.edit(embed=ship_controller.turn_page('r'))
+                emote_check = str(reaction)
+                if emote_check in emotes:
+                    await reaction.message.remove_reaction(reaction.emoji, user)
+                    if emote_check == "\U0001f6a2":
+                        await reaction.message.edit(embed=ship_controller.toggle("ship"))
+                    elif emote_check == "\U0001f4f0":
+                        await reaction.message.edit(embed=ship_controller.toggle("stats"))
+                    elif emote_check == "\U0001f5bc":
+                        await reaction.message.edit(embed=ship_controller.toggle("gallery"))
+                    elif emote_check == '⬅':
+                        await reaction.message.edit(embed=ship_controller.turn_page('l'))
+                    elif emote_check == '➡':
+                        await reaction.message.edit(embed=ship_controller.turn_page('r'))
+                elif emote_check == '⏱️': # stopwatch
+                    persist = True
+    
+    @commands.Cog.listener()
+    async def on_raw_reaction_add(self, payload):
+        guild = self.client.get_guild(payload.guild_id)
+        user = guild.get_member(payload.user_id)
+        if user.bot:
+            return
+        elif not str(payload.emoji) == '⏹️': # :stop_button:
+            return
+        message = await guild.get_channel(payload.channel_id).fetch_message(payload.message_id)
+        if self.active_embeds.get(str(message.id), None) and not self.active_embeds.get(str(message.id), None) == user.id:
+            await message.remove_reaction('⏹️', user) # stop_button
+            return
+        elif not message.author is guild.me:
+            return
+        elif not message.embeds:
+            return
+        elif not message.embeds[0].author.name == "Asahi's Report":
+            return
+        else:
+            await message.edit(content="This embed had been deleted "+self.client.emotes['ames'], embed=None)
         
     def make_ship_embed(self, data, sections):
         sections[sections.index(":ship: Ship")] = ":ship: **[Ship]**"
@@ -2080,12 +2111,17 @@ class blueoathCog(commands.Cog):
         )
         return embed
 
+    #@bo.group(aliases=['tags'],invoke_without_subcommand=True)
     @bo.command(aliases=['tags'])
     async def tag(self, ctx, *tags):
         channel = ctx.message.channel
-        
-        if not tags:
+        if not ctx.invoked_subcommand is None:
+            return
+        elif not tags:
             await channel.send("No input detected - use `.bo help tag` or `.bo help definitions` if you're stuck")
+            return
+        elif tags[0] in ['d','def','help']:
+            await self.d(ctx, *tags[1:])
             return
 
         _character = self.process_request(" ".join(tags))
@@ -2175,5 +2211,72 @@ class blueoathCog(commands.Cog):
         embed.set_footer(text="BO Tag | Re:Re:Write Ames", icon_url=self.client.user.avatar_url)
         return embed
 
+    #@tag.command(aliases=['def','help'])
+    async def d(self, ctx, *request):
+        channel = ctx.message.channel
+        author = ctx.message.author
+        if not request:
+            await channel.send("No input - enter tags to fetch their definitions")
+            return
+
+        # standardize and pick unique items
+        request = [i.lower() for i in request]
+        request = list(set(request))
+
+        # validate
+        all_tags = dict()
+        for item in self.tags:
+            all_tags = {**all_tags, **self.tags[item]} 
+
+        valid = []
+        for tag in request:
+            definition = all_tags.get(tag, None)
+            if not definition:
+                await channel.send(f"Unknown tag `{tag}`")
+                return
+            else:
+                valid.append((tag, definition))
+        
+        def_page_controller = self.client.page_controller(self.client, self.make_definitions, valid, 6, True)
+        page = await channel.send(embed=def_page_controller.start())
+        for arrow in def_page_controller.arrows:
+            await page.add_reaction(arrow)
+        
+        def author_check(reaction, user):
+            return str(reaction) in def_page_controller.arrows and user.id == author.id and reaction.message.id == page.id
+        
+        while True:
+            try:
+                reaction, user = await self.client.wait_for("reaction_add", timeout=90, check=author_check)
+            except asyncio.TimeoutError:
+                await page.clear_reactions()
+                return
+            else:
+                emote_check = str(reaction)
+                await page.remove_reaction(emote_check, user)
+                if emote_check == def_page_controller.arrows[0]:
+                    mode = 'l'
+                else:
+                    mode = 'r'
+                
+                await page.edit(embed=def_page_controller.flip(mode))
+        
+    def make_definitions(self, tags, index):
+        embed = discord.Embed(
+            title=f"Tag Definitions (page {index[0]} of {index[1]})",
+            description="Listing tag definitions",
+            timestamp=datetime.datetime.utcnow(),
+            colour=self.colour
+        )
+        embed.set_author(name='Asahi\'s Report')
+        embed.set_footer(text='BO Tag Definitions | Re:Re:Write Ames',icon_url=self.client.user.avatar_url)
+        for tag, definition in tags:
+            embed.add_field(
+                name=f"> `{tag}`",
+                value=definition,
+                inline=False
+            )
+        return embed
+    
 def setup(client):
     client.add_cog(blueoathCog(client))

@@ -1,4 +1,12 @@
 {
+    "4.6.1": [
+        "- [github] edited `readme.md` and re-added invite link for Ames",
+        "+ [phatsune] added a suggestion in error string on character not found",
+        "- [phatsune][bo] embed expiry now removes all emotes",
+        "+ [phatsune][bo] embed can now persist by adding the :stopwatch: emote at anytime before timeout. The embed can be manually deleted with :stop_button: at anytime",
+        "- [bo] shuffled tags around and fixed a few strings. EXP tag is now SODA. Remote databases altered to reflect this.",
+        "+ [phatsune][bo] you may now search tag definitions with `.tag d [tags]` (for BO its `.bo tag d [tags]`). Updated help pages."
+    ],
     "4.6.0": [
         "+ [phatsune] added a prototype command `.compare` that finds stat differences between character contexts",
         "+ [ames] update every character to lv172 r18",

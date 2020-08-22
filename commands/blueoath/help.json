@@ -109,7 +109,7 @@
             "subcmd":   null,
             "aliases":  ["tags"],
             "help":     "Filter/search vessels that include/exclude input tags. See `.bo help d` for tag definitions.",
-            "help_ex":  "You can add `-` infront of a tag to signify that the tag should be excluded."
+            "help_ex":  "Enter in tags separated by a space to search for character(s) that satisfy the tags. You can add `-` infront of a tag to signify that the tag should be excluded.\n\n> `.tag d [tags]`\nSubcommand Aliases: `def` `help`\nEnter in tags to get their definitions."
         }
     }
 }
