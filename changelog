@@ -1,4 +1,8 @@
 {
+    "4.6.3": [
+        "+ [bo] fix embed overflow",
+        "+ [bo] expand resource server"
+    ],
     "4.6.2": [
         "+ [phatsune] fixed Misat's sk2 TL",
         "+ [shen] uh actually, objection, dumbass",
