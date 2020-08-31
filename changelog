@@ -1,4 +1,8 @@
 {
+    "4.6.4": [
+        "+ [phatsune] added labyrista and added relevant assets",
+        "+ [phatsune] fixed ames breaking because labyrista had a skill 3"
+    ],
     "4.6.3": [
         "+ [bo] fix embed overflow",
         "+ [bo] expand resource server"

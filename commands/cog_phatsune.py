@@ -258,7 +258,8 @@ class hatsuneCog(commands.Cog):
             norm_atk = '<:_chara:677763373739409436>'
         skills = [
             '1\u20E3',
-            '2\u20E3'
+            '2\u20E3',
+            '3\u20E3'
         ]
         opening = info['atkptn']['ptn'][:info['atkptn']['loop'][0]-1]
         loop = info['atkptn']['ptn'][info['atkptn']['loop'][0]-1:]

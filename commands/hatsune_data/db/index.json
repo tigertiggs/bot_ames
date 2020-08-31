@@ -415,6 +415,15 @@
             "flb": false
         },
         {
+            "id": null,
+            "hnid": 1136,
+            "name_en": "jun",
+            "prefix": "s",
+            "sname": "sjun",
+            "name_jp": "\u30b8\u30e5\u30f3(\u30b5\u30de\u30fc)",
+            "flb": false
+        },
+        {
             "id": 2,
             "hnid": 1006,
             "name_en": "akari",
@@ -1109,11 +1118,11 @@
         },
         {
             "id": null,
-            "hnid": 1136,
-            "name_en": "jun",
-            "prefix": "s",
-            "sname": "sjun",
-            "name_jp": "\u30b8\u30e5\u30f3(\u30b5\u30de\u30fc)",
+            "hnid": 1068,
+            "name_en": "labyrista",
+            "prefix": null,
+            "sname": "labyrista",
+            "name_jp": "\u30e9\u30d3\u30ea\u30b9\u30bf",
             "flb": false
         }
     ],
