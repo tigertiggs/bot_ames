@@ -28,7 +28,7 @@ class coreCog(commands.Cog):
         if not self.client._check_author(ctx.message.author):
             await channel.send(self.client.emotes['amesyan'])
         else:
-            await channel.send("I'll be right back "+self.client.emotes['sarenh'])
+            await channel.send("I'll be right back "+self.client.emotes['derp'])
             await self.client.close()
 
     def compare_version(self):            

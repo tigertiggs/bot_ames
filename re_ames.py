@@ -114,8 +114,11 @@ class database:
 
 # for custom prefixes in different environments
 def _prefix(client, message):
-    if message.guild.id == 202403448694505473:
-        return ("a.", ".")
+    if message.guild:
+        if message.guild.id == 202403448694505473:
+            return ("a.", ".")
+    else:
+        return (".")
     return BOT_PREFIX
 
 # main
@@ -374,7 +377,7 @@ class Ames(commands.AutoShardedBot):
                 #if self._check_author(message.author):
                 #    pass
                 if ctx.message.guild.id in self.blueoath_config['restricted_servers'] and ctx.command:
-                    if not ctx.command.cog.qualified_name in self.blueoath_config['ames_allowed_cogs']:
+                    if not ctx.command.cog.qualified_name in self.blueoath_config['ames_allowed_cogs'] and not self.config['debug']:
                         msg = await message.channel.send(f"This command is currently not available to the Blue Oath server. See `.bo help` for available functions. {self.emotes['ames']}\nThis message will try to delete itself in `10s`")
                         await asyncio.sleep(10)
                         try:
@@ -399,8 +402,9 @@ class Ames(commands.AutoShardedBot):
 
         if not message.author.bot and any([message.content.startswith(p) for p in pref]):
             if self.config['debug'] == 1 and self._check_author(message.author):
-                await self.log.send('`[DEBUG MODE]` [{0.user.name}] `{1}` `{2.channel.guild.name}` `{2.channel.name}` `{2.author.name}` `{2.content}`'.format(
-                    self, datetime.datetime.now(), message))
+                if message.guild:
+                    await self.log.send('`[DEBUG MODE]` [{0.user.name}] `{1}` `{2.channel.guild.name}` `{2.channel.name}` `{2.author.name}` `{2.content}`'.format(
+                        self, datetime.datetime.now(), message))
                 await self.process_commands(message)
             else:
                 await self.process_commands(message)

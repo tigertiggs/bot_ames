@@ -116,7 +116,7 @@ class gachaCog(commands.Cog):
                     self.r_pool['norm'].append(self.cog.character(self.client, name, 1))
         
         def make_lim_profile(self):
-            # takes ingame shown rates (final rate, not pool-relative) as a decimal and creates a rate profile for limited pools
+            # takes ingame shown rates (final rate*100, not pool-relative) as a decimal and creates a rate profile for limited pools
             # this is to simulate different rate-up percentages during prifes
             for i, lim_pool in enumerate([self.r_pool['lim'], self.sr_pool['lim'], self.ssr_pool['lim']]):
                 if i == 0:

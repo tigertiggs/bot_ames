@@ -12,15 +12,12 @@ class shenCog(commands.Cog):
         self.logger = client.log
         self.colour = discord.Colour.from_rgb(*self.client.config['command_colour']['cog_shen'])
 
-    @commands.command(
-        usage=".[REDACTED]",
-        help="YABAI"
-    )
-    async def cal(self,ctx):
-        embed=discord.Embed()
-        embed.set_image(url='https://cdn.discordapp.com/icons/419624511189811201/a_7a7c06c8c403d9886a9b1fd26981126e.gif')
-        await ctx.message.delete()
-        await ctx.channel.send(embed=embed)
+    #@commands.command(usage=".[REDACTED]",help="YABAI")
+    #async def cal(self,ctx):
+    #    embed=discord.Embed()
+    #    embed.set_image(url='https://cdn.discordapp.com/icons/419624511189811201/a_7a7c06c8c403d9886a9b1fd26981126e.gif')
+    #    await ctx.message.delete()
+    #    await ctx.channel.send(embed=embed)
 
     @commands.Cog.listener()
     async def on_message(self, message):
@@ -174,14 +171,6 @@ class shenCog(commands.Cog):
         await channel.send(file=discord.File(os.path.join(self.client.dir,self.client.config['shen_path'],"other/bruh.png")))
 
     @commands.command()
-    async def mem(self, ctx):
-        channel=ctx.channel
-        if ctx.message.guild.id != 419624511189811201:
-            return
-        else:
-            await channel.send(file=discord.File(os.path.join(self.client.dir,self.client.config['shen_path'],"other/mem.png")))
-
-    @commands.command()
     async def broke(self, ctx, *num:int):
         channel=ctx.channel
         if ctx.message.guild.id != 419624511189811201:
@@ -198,17 +187,25 @@ class shenCog(commands.Cog):
             else:
                 await channel.send(file=discord.File(os.path.join(self.client.dir,self.client.config['shen_path'],f"other/broke_{request}.png")))
 
-    @commands.command()
-    async def drum(self, ctx):
-        channel=ctx.channel
-        if ctx.message.guild.id != 419624511189811201:
+    @commands.Cog.listener()
+    async def on_message(self, message):
+        if message.author.bot:
             return
-        else:
-            await channel.send(file=discord.File(os.path.join(self.client.dir,self.client.config['shen_path'],"other/drum.png")))
+        elif message.guild.id != 419624511189811201:
+            return
 
-    @commands.command(aliases=['objection'])
-    async def actually(self, ctx):
-        await ctx.channel.send(file=discord.File(os.path.join(self.client.dir, self.client.config['shen_path'], "other/actually.gif")))
+        if message.content.startswith(self.client.prefix):
+            msg_pp = message.content.strip("".join(self.client.prefix))
+            guild_shen = {
+                "actually":             "actually.gif",
+                "objection":            "actually.gif",
+                "somuchwinning":        "somuchwinning.png",
+                "drum":                 "drum.png",
+                "mem":                  "mem.png"
+            }
+            request = guild_shen.get(msg_pp, None)
+            if request:
+                await message.channel.send(file=discord.File(os.path.join(self.client.dir, self.client.config['shen_path'], "other", request)))
 
 def setup(client):
     client.add_cog(shenCog(client))

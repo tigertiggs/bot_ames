@@ -371,6 +371,15 @@
             "aliases":  null,
             "help":     "Muimi approves this image",
             "help_ex":  "Ames will attempt to fetch the image by the link provided and then paste Muimi over it. This can also be done with attachments - type the command (with no link) in the description box when attaching an image. Only the first image will be fetched in the event of multiple attachments/links.\nThis command cannot handle animated images... yet."
+        },
+        "wide": {
+            "flags":    ["shitpost"],
+            "hidden":   false,
+            "usage":    ".wide [num=5]",
+            "subcmd":   null,
+            "aliases":  null,
+            "help":     "WIDETSUNE",
+            "help_ex":  "very wide but cannot be bigger than 5 wide or smaller than 1 wide"
         }
     }
 }

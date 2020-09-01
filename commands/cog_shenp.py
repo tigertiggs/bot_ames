@@ -418,6 +418,24 @@ class shenpCog(commands.Cog):
             shenpf, name = await self.make_shenp(channel, [user], ["cheer/cheer.png"], "post_cheer.png")
         await channel.send(file=shenpf)
             
+    @commands.command()
+    async def wide(self, ctx, multi:int=5):
+        channel = ctx.channel
+        if not self.client.command_status['wide']:
+            raise commands.DisabledCommand
+        elif multi < 1 or multi > 5:
+            await channel.send(self.client.emotes['derp'])
+            return
+
+        async with ctx.typing():
+            blob = Image.open(os.path.join(self.client.dir, self.client.config['shen_path'], "other/hatsuneblob.png"))
+            w, h = blob.size
+            blob = blob.resize((w*multi, h), resample=Image.ANTIALIAS)
+
+            path = os.path.join(self.client.dir, self.client.config['post_path'], "blob.png")
+            blob.save(path)
+            blob.close()
+            await channel.send(file=discord.File(path))
 
 def setup(client):
     client.add_cog(shenpCog(client))

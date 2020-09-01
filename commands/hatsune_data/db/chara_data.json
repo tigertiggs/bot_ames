@@ -30325,7 +30325,7 @@
                     "name": "labyrista",
                     "ub": {
                         "name": null,
-                        "text": "Gain massive phys attack and critical up. Unlease the glory of the Seven Clowns; grant small physical crit damage up to all allies. On [Initialize] skill activation consume 1000 TP and inflict massive physical damage on all enemies.",
+                        "text": "Gain massive phys attack and critical up. Unleash the glory of the Seven Clowns; grant small physical crit damage up to all allies. On `[Initialize]`(sk2) consume 1000 TP and inflict massive physical damage on all enemies.",
                         "action": [
                             "Gain 10380 p.atk up [24s]",
                             "Gain 200 p.crit up [24s]",
@@ -30366,7 +30366,7 @@
                     },
                     "sk2": {
                         "name": null,
-                        "text": "Inflict massive physical damage on  all enemies. Unlease [Object Creation]. Consume 1000 TP",
+                        "text": "Inflict massive physical damage on all enemies. Unleash `[Object Creation]`(UB). Consume 1000 TP",
                         "action": [
                             "Inflict 58543 p.dmg on all targets ",
                             "Consume 1000 TP ",

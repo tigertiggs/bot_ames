@@ -59,9 +59,9 @@ class hatsuneCog(commands.Cog):
             return
         
         #await channel.send("[Experimental Ames] This is currently a highly experimental version of `.character` and may be very unstable. Stable Ames will be up and running soon:tm:")
-        if not match['flb'] and mode == "flb":
+        if not match['flb'] and mode.get('flb', False):
             await channel.send(f"Note: {self.client.get_full_name_kai(match['name_en'],match['prefix'])} does not have a `flb` variant")
-            mode = None
+            mode['flb'] = False
 
         await self.logger.send(self.name, match['sname'], match['name_jp'], match['hnid'])
 
@@ -74,7 +74,7 @@ class hatsuneCog(commands.Cog):
 
         alt_data = [all_data['units'][m['index']] for m in all_charas]
         alt_emotes = [self.client.team[m['sname']] for m in all_charas]
-        alt_embeds = [self.character_page_controller(self, d, invoke, flb=mode=="flb") for d in alt_data]
+        alt_embeds = [self.character_page_controller(self, d, invoke, **mode) for d in alt_data]
 
         alt_choice = 0
         fe, reactions = alt_embeds[alt_choice].start()
@@ -179,18 +179,34 @@ class hatsuneCog(commands.Cog):
                 invoke =    "chara"
         
         # check mode
-        mode = request[-1]
-        if mode in ['flb', 'ue']:
-            if mode in ['ue']:
+        #mode = request[-1]
+        #if mode in ['flb', 'ue']:
+        #    if mode in ['ue']:
+        #        if verbose: await ctx.message.channel.send("`ue` option is depreciated. Use `.ue [character]` instead.")
+        #        mode = None
+        #        invoke = "ue"
+        #    elif mode == "flb":
+        #        mode = "flb"
+        #        request = request[:-1]
+        #else:
+        #    mode = None
+
+        mode = {}
+        pop = []
+        for thing in request:
+            if thing == "ue":
                 if verbose: await ctx.message.channel.send("`ue` option is depreciated. Use `.ue [character]` instead.")
-                mode = None
                 invoke = "ue"
-            elif mode == "flb":
-                mode = "flb"
-                request = request[:-1]
-            
-        else:
-            mode = None
+                pop.append(request.index(thing))
+            elif thing == "flb":
+                mode['flb'] = True
+                pop.append(request.index(thing))
+            elif thing == "ex":
+                mode['ex'] = True
+                pop.append(request.index(thing))
+
+        for i in sorted(pop, reverse=True):
+            del request[i]
 
         # check alias
         #prefix, _, name = "".join(request).partition(".")
@@ -273,6 +289,7 @@ class hatsuneCog(commands.Cog):
     def make_chara_embed(self, data, sections, **kwargs):
         flb = kwargs.get("flb", False)
         alt = kwargs.get("alt", False)
+        ex = kwargs.get("ex", False)
         # norm      ->  ub      | sk1       | sk1p        | sk2       | ex | ex2
         # alt       ->  ub      |(sk1) sk1a |(sk1p) sk1ap |(sk2) sk2a | ex | ex2
         # flb       ->      ub2 |           | sk1p        | sk2       |    | ex2
@@ -301,13 +318,6 @@ class hatsuneCog(commands.Cog):
         #    embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/513948468281212928/700260655931981854/FncyaHa2.gif")
         embed.set_author(name='ハツネのメモ帳',icon_url='https://cdn.discordapp.com/avatars/580194070958440448/c0491c103169d0aa99027b2216ee7708.jpg')
         embed.set_footer(text='Character Info Page | Ames Re:Re:Write',icon_url=data['img6'] if flb else data['img'])
-
-        # section
-        embed.add_field(
-            name='Section',
-            value=' - '.join(sections),
-            inline=False
-        )
 
         # basic
         embed.add_field(
@@ -423,40 +433,41 @@ class hatsuneCog(commands.Cog):
         )
 
         # ex
-        test = not flb
-        if test:
+        if ex:
+            test = not flb
+            if test:
+                embed.add_field(
+                    name=   "> **EX Skill**",
+                    value=  f"「{data['basic']['jp']['ex']['name']}」",
+                    inline= False
+                )
+                embed.add_field(
+                    name=   "Description",
+                    value=  f"{data['basic']['jp']['ex']['text']}",
+                    inline= True
+                )
+                embed.add_field(
+                    name=   SPACE,
+                    value=  f"{data['basic']['en']['ex']['text']}",
+                    inline= True
+                )
+            
+            # ex 2
             embed.add_field(
-                name=   "> **EX Skill**",
-                value=  f"「{data['basic']['jp']['ex']['name']}」",
+                name=   "> **EX Skill+**",
+                value=  f"「{data['basic']['jp']['ex2']['name']}」",
                 inline= False
             )
             embed.add_field(
                 name=   "Description",
-                value=  f"{data['basic']['jp']['ex']['text']}",
+                value=  f"{data['basic']['jp']['ex2']['text']}",
                 inline= True
             )
             embed.add_field(
                 name=   SPACE,
-                value=  f"{data['basic']['en']['ex']['text']}",
+                value=  f"{data['basic']['en']['ex2']['text']}",
                 inline= True
             )
-        
-        # ex 2
-        embed.add_field(
-            name=   "> **EX Skill+**",
-            value=  f"「{data['basic']['jp']['ex2']['name']}」",
-            inline= False
-        )
-        embed.add_field(
-            name=   "Description",
-            value=  f"{data['basic']['jp']['ex2']['text']}",
-            inline= True
-        )
-        embed.add_field(
-            name=   SPACE,
-            value=  f"{data['basic']['en']['ex2']['text']}",
-            inline= True
-        )
 
         # tags
         embed.add_field(
@@ -472,6 +483,13 @@ class hatsuneCog(commands.Cog):
             value=", ".join(falias) if len(falias)!= 0 else "None",
             inline=False
         )
+        # section
+        embed.add_field(
+            name='Section',
+            value=' - '.join(sections),
+            inline=False
+        )
+        embed = self.add_extra_comment(embed,data)
         return embed
 
     def make_ue_embed(self, data, sections, **kwargs):
@@ -484,11 +502,6 @@ class hatsuneCog(commands.Cog):
             colour=self.colour)
         embed.set_footer(text='Unique Equipment Page | Ames Re:Re:Write',icon_url=data['img'])
         embed.set_author(name='ハツネのメモ帳',icon_url='https://cdn.discordapp.com/avatars/580194070958440448/c0491c103169d0aa99027b2216ee7708.jpg')
-        embed.add_field(
-            name='Section',
-            value=' - '.join(sections),
-            inline=False
-        )
 
         # complete the section if chara actually have ue
         if 'ue' in data['tags']:
@@ -570,7 +583,12 @@ class hatsuneCog(commands.Cog):
         else:
             embed.description=  f"{self.client.get_full_name_kai(data['basic']['en']['name'],data['basic']['en']['prefix'])} does not have an unique equipment."
             embed.set_thumbnail(url='https://redive.estertion.win/icon/equipment/999999.webp')
-        
+        embed.add_field(
+            name='Section',
+            value=' - '.join(sections),
+            inline=False
+        )
+        embed = self.add_extra_comment(embed,data)
         return embed        
 
     def make_card_embed(self, data, sections, **kwargs):
@@ -587,11 +605,7 @@ class hatsuneCog(commands.Cog):
         embed.set_thumbnail(url=data['img'] if not flb else data['img6'])
         embed.set_footer(text='Unit Card Page | Ames Re:Re:Write',icon_url=data['img'] if not flb else data['img6'])
         embed.set_author(name='ハツネのメモ帳',icon_url='https://cdn.discordapp.com/avatars/580194070958440448/c0491c103169d0aa99027b2216ee7708.jpg')
-        embed.add_field(
-            name='Section',
-            value=' - '.join(sections),
-            inline=False
-        )
+
         #print(info['hnote_id'], type(info['hnote_id']))
         if data['basic']['jp']['id']:
             embed.title = "Unit Card"
@@ -604,11 +618,17 @@ class hatsuneCog(commands.Cog):
 
             embed.set_image(url=link)
         
+        embed.add_field(
+            name='Section',
+            value=' - '.join(sections),
+            inline=False
+        )
         return embed
 
     def make_stats_embed(self, data, sections, **kwargs):
         flb = kwargs.get("flb", False)
         alt = kwargs.get("alt", False)
+        ex = kwargs.get("ex", False)
         # norm      ->  ub      | sk1       | sk1p        | sk2       | ex | ex2
         # alt       ->  ub      |(sk1) sk1a |(sk1p) sk1ap |(sk2) sk2a | ex | ex2
         # flb       ->      ub2 |           | sk1p        | sk2       |    | ex2
@@ -637,14 +657,6 @@ class hatsuneCog(commands.Cog):
         embed.set_footer(text='Character Info Page | Ames Re:Re:Write',icon_url=data['img6'] if flb else data['img'])
 
         embed.description = f"{self.client.get_full_name_kai(data['basic']['en']['name'],data['basic']['en']['prefix'])}\'s skill and misc stats. All stats assumes **LV{data['status']['lvl']}** **RANK{data['status']['rk']}** with **MAX BOND** across all character variants. `Note: This page is a WIP and displayed stats may be inaccurate`"
-
-
-        # section
-        embed.add_field(
-            name='Section',
-            value=' - '.join(sections),
-            inline=False
-        )
 
         # stats
         for chunk in self.client.chunks(list(data['stats']['normal'].items() if not flb else data['stats']['flb'].items()), 6):
@@ -740,40 +752,48 @@ class hatsuneCog(commands.Cog):
         )
 
         # ex
-        test = not flb
-        if test:
+        if ex:
+            test = not flb
+            if test:
+                embed.add_field(
+                    name=   "> **EX Skill**",
+                    value=  f"「{data['basic']['jp']['ex']['name']}」",
+                    inline= False
+                )
+                embed.add_field(
+                    name=   "Description",
+                    value=  f"{data['basic']['en']['ex']['text']}",
+                    inline= True
+                )
+                embed.add_field(
+                    name=   SPACE,
+                    value=  "```glsl\n-{}```".format('\n-'.join(data['basic']['en']['ex']['action'])),
+                    inline= True
+                )
+            
+            # ex 2
             embed.add_field(
-                name=   "> **EX Skill**",
-                value=  f"「{data['basic']['jp']['ex']['name']}」",
+                name=   "> **EX Skill+**",
+                value=  f"「{data['basic']['jp']['ex2']['name']}」",
                 inline= False
             )
             embed.add_field(
                 name=   "Description",
-                value=  f"{data['basic']['en']['ex']['text']}",
+                value=  f"{data['basic']['en']['ex2']['text']}",
                 inline= True
             )
             embed.add_field(
                 name=   SPACE,
-                value=  "```glsl\n-{}```".format('\n-'.join(data['basic']['en']['ex']['action'])),
+                value=  "```glsl\n-{}```".format('\n-'.join(data['basic']['en']['ex2']['action'])),
                 inline= True
             )
-        
-        # ex 2
+        # section
         embed.add_field(
-            name=   "> **EX Skill+**",
-            value=  f"「{data['basic']['jp']['ex2']['name']}」",
-            inline= False
+            name='Section',
+            value=' - '.join(sections),
+            inline=False
         )
-        embed.add_field(
-            name=   "Description",
-            value=  f"{data['basic']['en']['ex2']['text']}",
-            inline= True
-        )
-        embed.add_field(
-            name=   SPACE,
-            value=  "```glsl\n-{}```".format('\n-'.join(data['basic']['en']['ex2']['action'])),
-            inline= True
-        )
+        embed = self.add_extra_comment(embed,data)
         return embed
 
     def make_profile_embed(self, data, sections, **kwargs):
@@ -785,11 +805,6 @@ class hatsuneCog(commands.Cog):
         )
         embed.set_footer(text="Profile | Re:Re:Write Ames", icon_url=self.client.user.avatar_url)
         embed.set_author(name='ハツネのメモ帳',icon_url='https://cdn.discordapp.com/avatars/580194070958440448/c0491c103169d0aa99027b2216ee7708.jpg')
-        embed.add_field(
-            name="Section",
-            value=" - ".join(sections),
-            inline=False
-        )
         embed.add_field(
             name="Comment",
             value=data['basic']['jp']['comment'],
@@ -848,12 +863,38 @@ class hatsuneCog(commands.Cog):
             name="Weight (kg)",
             value=data['profile']['weight']
         )
+        embed.add_field(
+            name="Section",
+            value=" - ".join(sections),
+            inline=False
+        )
         return embed
+
+    def add_extra_comment(self, embed, data):
+        if data['basic']['jp']['sk1a']['text'] or data['basic']['jp']['sk2a']['text']:
+            embed.add_field(
+                name="Ames' footnote "+self.client.emotes['derp'],
+                value=f"**{self.client.get_full_name_kai(data['basic']['en']['name'],data['basic']['en']['prefix'])} has a alternate skillset** that can be toggled via :twisted_rightwards_arrows: below. Read more about how the buttons on the bottom work by visiting `.c help`.",
+                inline=False
+            )
+        return embed
+
+        #alts = ['labyrista', 'muimi', 'luna']
+        #if not data['sname'] in alts:
+        #    return embed
+        #else:
+        #    embed.add_field(
+        #        name=SPACE,
+        #        value=f"psst - **{self.client.get_full_name_kai(data['basic']['en']['name'],data['basic']['en']['prefix'])} has a alternate skillset** that can be toggled via :twisted_rightwards_arrows: below",
+        #        inline=False
+        #    )
+        #    return embed
 
     class character_page_controller():
         def __init__(self, cog, data, first_page, **kwargs):
             self.flb = kwargs.get("flb", False)
             self.alt = kwargs.get("alt", False)
+            self.ex = kwargs.get("ex", False)
             
             self.cog = cog
             self.current_page = first_page
@@ -883,27 +924,27 @@ class hatsuneCog(commands.Cog):
                 self.base_emotes.update(self.alt_emote)
             
             # make normal pages
-            self.chara_pages = [self.cog.make_chara_embed(data, self.sections.copy())]
+            self.chara_pages = [self.cog.make_chara_embed(data, self.sections.copy(), ex=self.ex)]
             self.ue_pages = self.cog.make_ue_embed(data, self.sections.copy())
             self.card_pages = [self.cog.make_card_embed(data, self.sections.copy())]
-            self.stats_pages = [self.cog.make_stats_embed(data, self.sections.copy())]
+            self.stats_pages = [self.cog.make_stats_embed(data, self.sections.copy(), ex=self.ex)]
             self.profile_pages = self.cog.make_profile_embed(data, self.sections.copy())
 
             # make alt
             if self.has_alt:
-                self.chara_alt = [self.cog.make_chara_embed(data, self.sections.copy(), alt=True)]
-                self.stats_alt = [self.cog.make_stats_embed(data, self.sections.copy(), alt=True)]
+                self.chara_alt = [self.cog.make_chara_embed(data, self.sections.copy(), alt=True, ex=self.ex)]
+                self.stats_alt = [self.cog.make_stats_embed(data, self.sections.copy(), alt=True, ex=self.ex)]
                 self.ue_alt = self.cog.make_ue_embed(data, self.sections.copy(), alt=True)
             
             # make flb
             if self.has_flb:
-                self.chara_pages.append(self.cog.make_chara_embed(data, self.sections.copy(), flb=True))
+                self.chara_pages.append(self.cog.make_chara_embed(data, self.sections.copy(), flb=True, ex=self.ex))
                 self.card_pages.append(self.cog.make_card_embed(data, self.sections.copy(), flb=True))
-                self.stats_pages.append(self.cog.make_stats_embed(data, self.sections.copy(), flb=True))
+                self.stats_pages.append(self.cog.make_stats_embed(data, self.sections.copy(), flb=True, ex=self.ex))
 
                 if self.has_alt:
-                    self.chara_alt.append(self.cog.make_chara_embed(data, self.sections.copy(), alt=True, flb=True))
-                    self.stats_alt.append(self.cog.make_stats_embed(data, self.sections.copy(), alt=True, flb=True))
+                    self.chara_alt.append(self.cog.make_chara_embed(data, self.sections.copy(), alt=True, flb=True, ex=self.ex))
+                    self.stats_alt.append(self.cog.make_stats_embed(data, self.sections.copy(), alt=True, flb=True, ex=self.ex))
 
         def start(self):
             if self.current_page == "chara":
@@ -962,7 +1003,7 @@ class hatsuneCog(commands.Cog):
 
         embed.add_field(
             name="> **Command Syntax**",
-            value="```css\n.c [prefix.][character] [*options]```\nexamples: `.c s.kyaru` `.c maho flb`\n\nThe command can also be called by its aliases `.chara` `.ue` `.card` `.pic` `.profile` `.stats`. They all follow the syntax above and only changes the first page you see.\nOnly accepted `option` at the moment is `flb` which tells Ames whether if she should fetch the character's FLB variant.\n`character` and `prefix` can both be aliases. Check out `.help alias` for more details.\nExtended help can be found at `.help character`.",
+            value="```css\n.c [prefix.][character] [*options]```\nexamples:\n`.c s.kyaru` `.card maho flb` `.stats labyrista ex` `.c shizuru flb ex` `.card rei flb` `.profile nanaka`\n\nThe command can also be called by its aliases `.chara` `.ue` `.card` `.pic` `.profile` `.stats`. They all follow the syntax above and only changes the first page you see.\n\nAccepted `[option]` are `flb` which fetches the character's FLB variant, and `ex` which includes EX/EX+ skills.\n\nExtended help can be found at `.help character`.",
             inline=False
         )
         examples = [
@@ -977,7 +1018,8 @@ class hatsuneCog(commands.Cog):
             "p.yui",
             "cg.rin",
             "r.rin",
-            "w.rino"
+            "w.rino",
+            "a.akari"
         ]
         embed.add_field(
             name="> **Active Prefixes**",
@@ -1003,17 +1045,17 @@ class hatsuneCog(commands.Cog):
             inline=False
         )
         embed.add_field(
-            name="<:_chara:677763373739409436> Chara",
+            name="<:_chara:677763373739409436> Character",
             value="React to switch to the character page. This page will contain basic information along with JP text. Contains more misc information that stats page.",
             inline=False
         )
         embed.add_field(
-            name="<:_ue:677763400713109504> UnqEq",
+            name="<:_ue:677763400713109504> Unqiue Equipment/Character Weapon",
             value="React to switch to the Unique Equipment page. This page will show the characters Skill 1 and Skill 1+ along with UE bonus stats (min/max), as long as the character has UE unlocked. If you need help with stat abbreviations, use `.c stats`.",
             inline=False
         )
         embed.add_field(
-            name="<:_stats:678081583995158538> Stats",
+            name="<:_stats:678081583995158538> Statistics",
             value="React to switch to the stats page. Shows detailed character stats such as HP and DEF as well as detailed skill actions and values such as damage dealt, range and uptime. If you need help with stat abbreviations, use `.c stats`.",
             inline=False
         )
@@ -1028,13 +1070,13 @@ class hatsuneCog(commands.Cog):
             inline=False
         )
         embed.add_field(
-            name=":star: FLB",
-            value="React to switch between the character's normal and FLB variants. This react will only be present if the character has a FLB regardless of request.",
+            name=":star: FLB (Full Limit Break)",
+            value="React to switch between the character's normal and FLB variants (6\⭐ variant). This react will only be present if the character has a FLB regardless of request.",
             inline=False
         )
         embed.add_field(
-            name=":twisted_rightwards_arrows: Alt",
-            value="React to switch between the character's normal and special/alternate skills. Useful for characters with a prominent alternate skillset such as Muimi. This react will only be present if the character has at least 1 alternate/special skill.",
+            name=":twisted_rightwards_arrows: Alternate/Special Skills",
+            value="React to switch between the character's normal and special/alternate skills. Useful for characters with a prominent alternate skillset such as Muimi and Labyrista. This react will only be present if the character has at least 1 alternate/special skill.",
             inline=False
         )
         embed.add_field(
@@ -1042,9 +1084,19 @@ class hatsuneCog(commands.Cog):
             value="React to switch to the specified character page. These reacts will only show up if the requested character has more than variants beside the base character. Ames may take a few seconds to reorganise the emotes on the bottom.",
             inline=False
         )
+        #embed.add_field(
+        #    name=":stop_sign:",
+        #    value="Interactivity period has ended and Ames will no longer respond to reacts. The period is currently 70 seconds. This timer resets upon a valid interaction with the embed.",
+        #    inline=False
+        #)
         embed.add_field(
-            name=":stop_sign:",
-            value="Interactivity period has ended and Ames will no longer respond to reacts. The period is currently 70 seconds. This timer resets upon a valid interaction with the embed.",
+            name=":stopwatch: Force embed persist",
+            value="MANUALLY react this on the embed to stop the embed from being deleted when time is up.",
+            inline=False
+        )
+        embed.add_field(
+            name=":stop_button: Delete embed",
+            value="Instantly delete the embed. This can only be done to embeds with the title `ハツネのメモ帳` (i.e. most if not all `prototype-hatsune` embeds).",
             inline=False
         )
         return embed
@@ -1320,8 +1372,7 @@ class hatsuneCog(commands.Cog):
                     mode = 'r'
                 
                 await page.edit(embed=def_page_controller.flip(mode))
-                
-    
+                   
     def make_definitions(self, tags, index):
         embed = discord.Embed(
             title=f"Tag Definitions (page {index[0]} of {index[1]})",
@@ -1338,7 +1389,6 @@ class hatsuneCog(commands.Cog):
                 inline=False
             )
         return embed
-
 
     # alias
     @commands.group(

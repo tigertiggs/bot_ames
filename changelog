@@ -1,4 +1,17 @@
 {
+    "4.7.0": [
+        "+ [phatsune] added help text for charas with ALT skills",
+        "+ [phatsune] fixed some typos in labyrista's skills",
+        "+ [bo] eased command restrictions",
+        "+ [shen] areyouwinningson",
+        "- [shen] moved all guild-specific commands under one listener",
+        "+ [ames] now stops breaking on dm*: not all commands work in dm as they're guild oriented - specifically commands that are 'inteactive' are broken on dm",
+        "+ [ames] added derp emote shortcut",
+        "+ [shenp] WIIIIIDEETSUNE",
+        "- [shen] removed yabai since source file was lost",
+        "- [phatsune] EX skills will now be omitted by default. They can be turned back on with the `ex` option param",
+        "- [phatsune] section header now moved to the bottom of the embed so people actually knows it exists"
+    ],
     "4.6.4": [
         "+ [phatsune] added labyrista and added relevant assets",
         "+ [phatsune] fixed ames breaking because labyrista had a skill 3"
