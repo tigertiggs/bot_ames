@@ -376,16 +376,17 @@ class Ames(commands.AutoShardedBot):
                 # add BO server restriction
                 #if self._check_author(message.author):
                 #    pass
-                if ctx.message.guild.id in self.blueoath_config['restricted_servers'] and ctx.command:
-                    if not ctx.command.cog.qualified_name in self.blueoath_config['ames_allowed_cogs'] and not self.config['debug']:
-                        msg = await message.channel.send(f"This command is currently not available to the Blue Oath server. See `.bo help` for available functions. {self.emotes['ames']}\nThis message will try to delete itself in `10s`")
-                        await asyncio.sleep(10)
-                        try:
-                            await msg.delete()
-                        except:
-                            pass
-                        finally:
-                            return
+                if ctx.message.guild: # textchannel/DMchannel
+                    if ctx.message.guild.id in self.blueoath_config['restricted_servers'] and ctx.command:
+                        if not ctx.command.cog.qualified_name in self.blueoath_config['ames_allowed_cogs'] and not self.config['debug']:
+                            msg = await message.channel.send(f"This command is currently not available to the Blue Oath server. See `.bo help` for available functions. {self.emotes['ames']}\nThis message will try to delete itself in `10s`")
+                            await asyncio.sleep(10)
+                            try:
+                                await msg.delete()
+                            except:
+                                pass
+                            finally:
+                                return
                 if ctx.command: await self.log.send(self.name, ctx.message.channel.guild, f"`{ctx.message.content}`")
                 await self.invoke(ctx)
             except Exception as e:

@@ -419,16 +419,40 @@ class shenpCog(commands.Cog):
         await channel.send(file=shenpf)
             
     @commands.command()
-    async def wide(self, ctx, multi:int=5):
+    async def wide(self, ctx, *request):
         channel = ctx.channel
         if not self.client.command_status['wide']:
             raise commands.DisabledCommand
-        elif multi < 1 or multi > 5:
+        elif len(request) > 2:
             await channel.send(self.client.emotes['derp'])
             return
 
         async with ctx.typing():
+            
+            multi = 5
             blob = Image.open(os.path.join(self.client.dir, self.client.config['shen_path'], "other/hatsuneblob.png"))
+
+            for thing in request:
+                if thing.isdigit():
+                    multi = int(thing)
+                else:
+                    try:
+                        thing = thing[1:-1].split(':')
+                        if thing[0] == '' and len(thing) > 1:
+                            link = f"https://cdn.discordapp.com/emojis/{thing[-1]}.png"
+                        elif thing[0] == 'a' and len(thing) > 1:
+                            await channel.send(self.client.emotes['derp'])
+                            return
+                        blob = Image.open(BytesIO(requests.get(link).content))
+                    except:
+                        await channel.send(self.client.emotes['derp'])
+                        return
+            
+            if multi < 1 or multi > 10:
+                await channel.send(self.client.emotes['derp'])
+                return
+
+            #blob = Image.open(os.path.join(self.client.dir, self.client.config['shen_path'], "other/hatsuneblob.png"))
             w, h = blob.size
             blob = blob.resize((w*multi, h), resample=Image.ANTIALIAS)
 

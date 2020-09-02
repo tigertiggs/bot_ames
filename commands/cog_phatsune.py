@@ -1741,7 +1741,7 @@ class hatsuneCog(commands.Cog):
             return
     
         if ri['status'] != 200 or rf['status'] != 200:
-            await self.logger.send(self.name, raw['status'])
+            await self.logger.send(self.name, ri['status'], rf['status'])
             await channel.send(f"Failed to fetch {ri['status']}, {rf['status']}")
             return
         

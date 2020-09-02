@@ -30,9 +30,18 @@ class shenCog(commands.Cog):
             
         if message.content.startswith(self.client.prefix):
             msg_pp = message.content.strip("".join(self.client.prefix))
+            guild_shen = {
+                "actually":             "actually.gif",
+                "objection":            "actually.gif",
+                "somuchwinning":        "somuchwinning.png",
+                "drum":                 "drum.png",
+                "mem":                  "mem.png"
+            }
             if msg_pp in list(self.client.emotes.keys()):
                 await message.delete()
                 await message.channel.send(self.client.emotes[msg_pp])
+            elif guild_shen.get(msg_pp, None) and message.guild.id == 419624511189811201:
+                await message.channel.send(file=discord.File(os.path.join(self.client.dir, self.client.config['shen_path'], "other", guild_shen.get(msg_pp, None))))
 
     @commands.command(
         usage='.big [arg:discord_emote_animated_okay]',
@@ -186,26 +195,6 @@ class shenCog(commands.Cog):
                 await channel.send(file=discord.File(os.path.join(self.client.dir,self.client.config['shen_path'],f"other/broke_{random.choice(available)}.png")))
             else:
                 await channel.send(file=discord.File(os.path.join(self.client.dir,self.client.config['shen_path'],f"other/broke_{request}.png")))
-
-    @commands.Cog.listener()
-    async def on_message(self, message):
-        if message.author.bot:
-            return
-        elif message.guild.id != 419624511189811201:
-            return
-
-        if message.content.startswith(self.client.prefix):
-            msg_pp = message.content.strip("".join(self.client.prefix))
-            guild_shen = {
-                "actually":             "actually.gif",
-                "objection":            "actually.gif",
-                "somuchwinning":        "somuchwinning.png",
-                "drum":                 "drum.png",
-                "mem":                  "mem.png"
-            }
-            request = guild_shen.get(msg_pp, None)
-            if request:
-                await message.channel.send(file=discord.File(os.path.join(self.client.dir, self.client.config['shen_path'], "other", request)))
 
 def setup(client):
     client.add_cog(shenCog(client))

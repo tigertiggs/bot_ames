@@ -1,4 +1,9 @@
 {
+    "4.7.1": [
+        "- [phatsune] fixed incorrect var usage in `.compare`",
+        "- [shenp] wide 2.0",
+        "- [shen] moved all guild related shen under one listener"
+    ],
     "4.7.0": [
         "+ [phatsune] added help text for charas with ALT skills",
         "+ [phatsune] fixed some typos in labyrista's skills",
