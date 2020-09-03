@@ -1,4 +1,7 @@
 {
+    "4.7.2": [
+        "+ [phatsune] added aakari"
+    ],
     "4.7.1": [
         "- [phatsune] fixed incorrect var usage in `.compare`",
         "- [shenp] wide 2.0",
