@@ -11556,7 +11556,7 @@
                 "self_buff",
                 "self_sust"
             ],
-            "pos": 233,
+            "pos": 234,
             "atkptn": {
                 "loop": [
                     3,
@@ -13265,7 +13265,7 @@
                 "self_buff",
                 "pdef_down"
             ],
-            "pos": 231,
+            "pos": 232,
             "atkptn": {
                 "loop": [
                     3,
@@ -14287,7 +14287,7 @@
                 "self_harm",
                 "tp_up"
             ],
-            "pos": 234,
+            "pos": 235,
             "atkptn": {
                 "loop": [
                     3,
@@ -14530,7 +14530,7 @@
                 "pcrit_up",
                 "ailment"
             ],
-            "pos": 228,
+            "pos": 229,
             "atkptn": {
                 "loop": [
                     4,
@@ -15510,7 +15510,7 @@
                 "self_buff",
                 "ue"
             ],
-            "pos": 225,
+            "pos": 226,
             "atkptn": {
                 "loop": [
                     4,
@@ -16732,7 +16732,7 @@
                 "matk_down",
                 "ue"
             ],
-            "pos": 236,
+            "pos": 237,
             "atkptn": {
                 "loop": [
                     9,
@@ -16986,7 +16986,7 @@
                 "aoe",
                 "heal"
             ],
-            "pos": 226,
+            "pos": 227,
             "atkptn": {
                 "loop": [
                     5,
@@ -17216,7 +17216,7 @@
                 "ailment",
                 "special"
             ],
-            "pos": 227,
+            "pos": 228,
             "atkptn": {
                 "loop": [
                     3,
@@ -17450,7 +17450,7 @@
                 "self_buff",
                 "ue"
             ],
-            "pos": 235,
+            "pos": 236,
             "atkptn": {
                 "loop": [
                     4,
@@ -19342,7 +19342,7 @@
                 "pdef_down",
                 "prinfes"
             ],
-            "pos": 230,
+            "pos": 231,
             "atkptn": {
                 "loop": [
                     5,
@@ -19820,7 +19820,7 @@
                 "self_harm",
                 "aoe"
             ],
-            "pos": 232,
+            "pos": 233,
             "atkptn": {
                 "loop": [
                     4,
@@ -20059,7 +20059,7 @@
                 "pdef_down",
                 "atkspd_up"
             ],
-            "pos": 229,
+            "pos": 230,
             "atkptn": {
                 "loop": [
                     8,
@@ -30539,7 +30539,7 @@
                 "matk_up",
                 "special"
             ],
-            "pos": 223,
+            "pos": 225,
             "atkptn": {
                 "loop": [
                     3,
@@ -30582,7 +30582,7 @@
                     },
                     "sk1": {
                         "name": null,
-                        "text": "Gain masive magic attack and critical up for a short timeframe; gain medium magic crit damage up for a short timeframe.",
+                        "text": "Gain massive magic attack and critical up for a short timeframe; gain medium magic crit damage up for a short timeframe.",
                         "action": [
                             "Gain 12975 m.atk up [6s]",
                             "Gain 400 m.crit up [6s]",
