@@ -418,7 +418,7 @@ class shenpCog(commands.Cog):
             shenpf, name = await self.make_shenp(channel, [user], ["cheer/cheer.png"], "post_cheer.png")
         await channel.send(file=shenpf)
             
-    @commands.command()
+    @commands.command(aliases=['w'])
     async def wide(self, ctx, *request):
         channel = ctx.channel
         if not self.client.command_status['wide']:

@@ -377,7 +377,7 @@
             "hidden":   false,
             "usage":    ".wide [num=5]",
             "subcmd":   null,
-            "aliases":  null,
+            "aliases":  ["w"],
             "help":     "WIDETSUNE",
             "help_ex":  "very wide but cannot be bigger than 10 wide or smaller than 1 wide.\n||Also you can include an emote to widen it but its pretty cursed.||"
         }

@@ -7,7 +7,7 @@
             "prefix": null,
             "sname": "akino",
             "name_jp": "\u30a2\u30ad\u30ce",
-            "flb": false
+            "flb": true
         },
         {
             "id": 4,
@@ -457,7 +457,7 @@
             "prefix": null,
             "sname": "saren",
             "name_jp": "\u30b5\u30ec\u30f3",
-            "flb": false
+            "flb": true
         },
         {
             "id": 17,

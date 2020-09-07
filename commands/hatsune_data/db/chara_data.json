@@ -16,7 +16,10 @@
                 "heal",
                 "self_sust",
                 "special",
-                "taunt"
+                "taunt",
+                "flb",
+                "pbarrier",
+                "mbarrier"
             ],
             "pos": 118,
             "atkptn": {
@@ -35,7 +38,7 @@
                 ]
             },
             "img": "https://redive.estertion.win/icon/unit/103231.webp",
-            "img6": null,
+            "img6": "https://redive.estertion.win/icon/unit/103261.webp",
             "basic": {
                 "en": {
                     "id": 3,
@@ -45,20 +48,25 @@
                         "name": null,
                         "text": "Inflict massive physical damage on the frontmost enemy.",
                         "action": [
-                            "Inflict 60631 p.dmg to target "
+                            "Inflict 63055 p.dmg to target "
                         ]
                     },
                     "ub2": {
                         "name": null,
-                        "text": null,
-                        "action": null
+                        "text": "Inflict massive physical damage on the frontmost enemy; deploy a field centered on this enemy that inflicts physical DoT to all enemies in range; gain massive physical attack up; gain a physical/magic damage absorption barrier.",
+                        "action": [
+                            "Inflict 147129 p.dmg to target ",
+                            "Deploy a field that inflicts 5255 p.dmg every second (Range: 400)[16s]",
+                            "Gain 9342 p.atk up [18s]",
+                            "Deploy a 6920 buffer mp.barrier [18s]"
+                        ]
                     },
                     "sk1": {
                         "name": null,
                         "text": "Inflict medium physical damage on the frontmost enemy; gain small physical attack up. If Akino is attacked during her laugh, counterattack all enemies in range.",
                         "action": [
-                            "Inflict 15158 p.dmg to target ",
-                            "Inflict 10105 p.dmg to all targets in range (Range: 280)",
+                            "Inflict 15764 p.dmg to target ",
+                            "Inflict 10509 p.dmg to all targets in range (Range: 280)",
                             "Gain 952 p.atk up [12s]"
                         ]
                     },
@@ -66,8 +74,8 @@
                         "name": null,
                         "text": "Inflict medium physical damage on the frontmost enemy; gain small physical attack, TP recovery up and taunt. If Akino is attacked during her laugh, counterattack all enemies in range.",
                         "action": [
-                            "Inflict 15158 p.dmg to target ",
-                            "Inflict 30316 p.dmg to all targets in range (Range: 320)",
+                            "Inflict 15764 p.dmg to target ",
+                            "Inflict 31528 p.dmg to all targets in range (Range: 320)",
                             "Gain 2595 p.atk up [12s]",
                             "Gain 15 TP gain up [12s]"
                         ]
@@ -86,7 +94,7 @@
                         "name": null,
                         "text": "Grant small HP heal to all allies in range around Akino.",
                         "action": [
-                            "Deploy a field that heals 610 HP per second (Range: 150)[8s]"
+                            "Deploy a field that heals 635 HP per second (Range: 150)[8s]"
                         ]
                     },
                     "sk2a": {
@@ -125,8 +133,8 @@
                         "action": null
                     },
                     "ub2": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u30ce\u30fc\u30d6\u30eb\u30d7\u30ed\u30df\u30cd\u30f3\u30b9",
+                        "text": "\u76ee\u306e\u524d\u306e\u6575\uff11\u30ad\u30e3\u30e9\u306b\u7269\u7406\u7279\u5927\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3001\u305d\u306e\u6575\u3092\u4e2d\u5fc3\u3068\u3057\u3066\u7269\u7406\u30c0\u30e1\u30fc\u30b8\u30d5\u30a3\u30fc\u30eb\u30c9\u3092\u5c55\u958b\u3057\u3001\u81ea\u5206\u306e\u7269\u7406\u653b\u6483\u529b\u3092\u7279\u5927\u30a2\u30c3\u30d7\u3055\u305b\u3001\u3055\u3089\u306b\u7269\u7406/\u9b54\u6cd5\u5438\u53ce\u30d0\u30ea\u30a2\u3092\u5c55\u958b\u3059\u308b\u3002",
                         "action": null
                     },
                     "sk1": {
@@ -203,11 +211,11 @@
             "stats": {
                 "normal": {
                     "hp": 35646,
-                    "atk": 10469,
+                    "atk": 10974,
                     "matk": 0,
                     "def": 441,
                     "mdef": 325,
-                    "pCrit": 700,
+                    "pCrit": 770,
                     "mCrit": 0,
                     "wHpRec": 605,
                     "wTpRec": 138,
@@ -220,7 +228,25 @@
                     "tpSave": 0,
                     "acc": 46
                 },
-                "flb": {}
+                "flb": {
+                    "hp": 43682,
+                    "atk": 13931,
+                    "matk": 0,
+                    "def": 524,
+                    "mdef": 404,
+                    "pCrit": 770,
+                    "mCrit": 0,
+                    "wHpRec": 605,
+                    "wTpRec": 138,
+                    "dodge": 17,
+                    "pPen": 0,
+                    "mPen": 0,
+                    "lifesteal": 16,
+                    "hpRec": 45,
+                    "tpRec": 28,
+                    "tpSave": 0,
+                    "acc": 46
+                }
             },
             "profile": {
                 "age": "18",
@@ -5333,7 +5359,7 @@
                             "Gain 6228 p.atk up [15s]",
                             "Gain 30 TP gain up [15s]",
                             "Gain 408 TP ",
-                            "Increase critical damage by 10% [180s]"
+                            "Increase physical critical damage by 10% [180s]"
                         ]
                     },
                     "sk1a": {
@@ -9749,7 +9775,7 @@
                         "action": [
                             "Buff p.atk by 2076 on target [12s]",
                             "Buff p.crit by 100 on target [12s]",
-                            "Buff critical damage by 30% on target [12s]"
+                            "Increase physical critical damage by 30% on target [12s]"
                         ]
                     },
                     "sk2a": {
@@ -11597,14 +11623,14 @@
                         "name": null,
                         "text": "Inflict medium magic damage on the frontmost enemy.",
                         "action": [
-                            "Inflict 17786 m.dmg on target "
+                            "Inflict 17930 m.dmg on target "
                         ]
                     },
                     "sk1p": {
                         "name": null,
                         "text": "Inflict medium magic damage on the frontmost enemy; inflict small magic def down.",
                         "action": [
-                            "Inflict 22233 m.dmg on target ",
+                            "Inflict 22413 m.dmg on target ",
                             "Inflict 35 m.def down on target [12s]"
                         ]
                     },
@@ -11737,7 +11763,7 @@
                 "normal": {
                     "hp": 31508,
                     "atk": 26,
-                    "matk": 8954,
+                    "matk": 9044,
                     "def": 475,
                     "mdef": 673,
                     "pCrit": 0,
@@ -12304,7 +12330,10 @@
                 "mid",
                 "ue",
                 "tp_up",
-                "battery"
+                "battery",
+                "flb",
+                "patk_up",
+                "matk_up"
             ],
             "pos": 215,
             "atkptn": {
@@ -12323,7 +12352,7 @@
                 ]
             },
             "img": "https://redive.estertion.win/icon/unit/102831.webp",
-            "img6": null,
+            "img6": "https://redive.estertion.win/icon/unit/102861.webp",
             "basic": {
                 "en": {
                     "id": 14,
@@ -12333,26 +12362,30 @@
                         "name": null,
                         "text": "Inflict medium physical damage on all enemies in range. Inflicted damage is increased if Saren is at low HP.",
                         "action": [
-                            "Inflict 18653 p.dmg to all targets in range (Range: 700)"
+                            "Inflict 19287 p.dmg to all targets in range (Range: 700)"
                         ]
                     },
                     "ub2": {
                         "name": null,
-                        "text": null,
-                        "action": null
+                        "text": "Inflict large physical damage on all enemies in range; grant large physical and magic attack up to all allies. Damage inflicted is inversely proportional to Saren's HP.",
+                        "action": [
+                            "Inflict 32144 p.dmg to all targets in range (Range: 900)",
+                            "Buff party p.atk by 3028 [18s]",
+                            "Buff party m.atk by 3028 [18s]"
+                        ]
                     },
                     "sk1": {
                         "name": null,
                         "text": "Inflict small physical damage on all enemies in range.",
                         "action": [
-                            "Inflict 9327 p.dmg to all targets in range (Range: 500)"
+                            "Inflict 9643 p.dmg to all targets in range (Range: 500)"
                         ]
                     },
                     "sk1p": {
                         "name": null,
                         "text": "Inflict medium physical damage on all enemies within range. Inflicted damage is increased if Saren is at low HP.",
                         "action": [
-                            "Inflict 11788 p.dmg to all targets in range (Range: 500)"
+                            "Inflict 12184 p.dmg to all targets in range (Range: 500)"
                         ]
                     },
                     "sk1a": {
@@ -12407,8 +12440,8 @@
                         "action": null
                     },
                     "ub2": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u30a8\u30f3\u30c9\u30aa\u30d6\u30d5\u30a7\u30cb\u30c3\u30af\u30b9",
+                        "text": "\u524d\u65b9\u7bc4\u56f2\u5185\u306e\u6575\u3059\u3079\u3066\u306b\u7269\u7406\u5927\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3001\u3055\u3089\u306b\u5473\u65b9\u5168\u4f53\u306e\u7269\u7406\u653b\u6483\u529b\u3068\u9b54\u6cd5\u653b\u6483\u529b\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002\u30b5\u30ec\u30f3\u306e\uff28\uff30\u304c\u4f4e\u3044\u307b\u3069\u3001\u30c0\u30e1\u30fc\u30b8\u3068\u653b\u6483\u529b\u306e\u4e0a\u6607\u91cf\u304c\u30a2\u30c3\u30d7\u3059\u308b\u3002",
                         "action": null
                     },
                     "sk1": {
@@ -12481,11 +12514,11 @@
             "stats": {
                 "normal": {
                     "hp": 34952,
-                    "atk": 10791,
+                    "atk": 11231,
                     "matk": 0,
                     "def": 346,
                     "mdef": 338,
-                    "pCrit": 675,
+                    "pCrit": 815,
                     "mCrit": 0,
                     "wHpRec": 780,
                     "wTpRec": 165,
@@ -12498,7 +12531,25 @@
                     "tpSave": 0,
                     "acc": 38
                 },
-                "flb": {}
+                "flb": {
+                    "hp": 45449,
+                    "atk": 13779,
+                    "matk": 0,
+                    "def": 405,
+                    "mdef": 395,
+                    "pCrit": 815,
+                    "mCrit": 0,
+                    "wHpRec": 780,
+                    "wTpRec": 165,
+                    "dodge": 17,
+                    "pPen": 0,
+                    "mPen": 0,
+                    "lifesteal": 13,
+                    "hpRec": 50,
+                    "tpRec": 33,
+                    "tpSave": 0,
+                    "acc": 38
+                }
             },
             "profile": {
                 "age": "17",
@@ -17635,11 +17686,11 @@
             "stats": {
                 "normal": {
                     "hp": 36538,
-                    "atk": 8883,
+                    "atk": 9323,
                     "matk": 20,
                     "def": 533,
                     "mdef": 464,
-                    "pCrit": 257,
+                    "pCrit": 397,
                     "mCrit": 0,
                     "wHpRec": 1345,
                     "wTpRec": 387,
