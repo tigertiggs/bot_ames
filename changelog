@@ -1,4 +1,8 @@
 {
+    "4.7.4": [
+        "- [phatsune] fixed incorrect section display in stats page",
+        "- [phatsune] fixed saren flb ub+ tl"
+    ],
     "4.7.3": [
         "+ [phatusne] added akino and saren flb",
         "+ [shenp] add alias for w -> wide"

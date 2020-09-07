@@ -635,7 +635,7 @@ class hatsuneCog(commands.Cog):
         # flb+alt   ->      ub2 |           |(sk1p) sk1ap |(sk2) sk2a |    | ex2
 
         # make sections
-        sections[sections.index("<:_chara:677763373739409436> Chara")] = "<:_chara:677763373739409436> **[Chara]**"
+        sections[sections.index("<:_stats:678081583995158538> Stats")] = "<:_stats:678081583995158538> **[Stats]**"
 
         # make title
         if flb and alt:

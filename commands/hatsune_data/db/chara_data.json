@@ -12367,7 +12367,7 @@
                     },
                     "ub2": {
                         "name": null,
-                        "text": "Inflict large physical damage on all enemies in range; grant large physical and magic attack up to all allies. Damage inflicted is inversely proportional to Saren's HP.",
+                        "text": "Inflict large physical damage on all enemies in range; grant large physical and magic attack up to all allies. Damage inflicted and attack up strength are inversely proportional to Saren's HP.",
                         "action": [
                             "Inflict 32144 p.dmg to all targets in range (Range: 900)",
                             "Buff party p.atk by 3028 [18s]",
