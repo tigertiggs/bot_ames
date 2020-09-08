@@ -1,4 +1,8 @@
 {
+    "4.7.5": [
+        "+ [ames] fix some typos",
+        "+ [shenp] long"
+    ],
     "4.7.4": [
         "- [phatsune] fixed incorrect section display in stats page",
         "- [phatsune] fixed saren flb ub+ tl"

@@ -418,7 +418,7 @@ class shenpCog(commands.Cog):
             shenpf, name = await self.make_shenp(channel, [user], ["cheer/cheer.png"], "post_cheer.png")
         await channel.send(file=shenpf)
             
-    @commands.command(aliases=['w'])
+    @commands.command(aliases=['w','long','l'])
     async def wide(self, ctx, *request):
         channel = ctx.channel
         if not self.client.command_status['wide']:
@@ -454,8 +454,10 @@ class shenpCog(commands.Cog):
 
             #blob = Image.open(os.path.join(self.client.dir, self.client.config['shen_path'], "other/hatsuneblob.png"))
             w, h = blob.size
-            blob = blob.resize((w*multi, h), resample=Image.ANTIALIAS)
-
+            if ctx.invoked_with.startswith('w'):
+                blob = blob.resize((w*multi, h), resample=Image.ANTIALIAS)
+            else:
+                blob = blob.resize((w, multi*h), resample=Image.ANTIALIAS)
             path = os.path.join(self.client.dir, self.client.config['post_path'], "blob.png")
             blob.save(path)
             blob.close()

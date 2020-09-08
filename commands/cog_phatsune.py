@@ -158,7 +158,7 @@ class hatsuneCog(commands.Cog):
             return
         else:
             await message.clear_reactions()
-            await message.edit(content="This embed had been deleted "+self.client.emotes['ames'], embed=None)
+            await message.edit(content="This embed has been deleted "+self.client.emotes['ames'], embed=None)
             self.active_embeds.pop(str(message.id), None)
         
     async def preprocess(self, ctx, request, **kwargs):
