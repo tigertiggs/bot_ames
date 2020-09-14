@@ -8788,7 +8788,7 @@
                         "name": null,
                         "text": "[Timer] Plant an explosive on all enemies that will trigger in 5 ticks. Upon detonation, inflict medium physical damage to all enemies.",
                         "action": [
-                            "Inflict 13791 p.dmg on all targets "
+                            "Inflict 14289 p.dmg on all targets "
                         ]
                     },
                     "ub2": {
@@ -8800,13 +8800,16 @@
                         "name": null,
                         "text": "Inflict medium physical damage on all enemies in range.",
                         "action": [
-                            "Inflict 16653 p.dmg on all targets in range (Range: 400)"
+                            "Inflict 17251 p.dmg on all targets in range (Range: 400)"
                         ]
                     },
                     "sk1p": {
                         "name": null,
-                        "text": "soon\u2122",
-                        "action": null
+                        "text": "Inflict medium physical damage and medium physical attack down on all enemies in range. Increase critical damage multiplier of this skill from 2x to 3x.",
+                        "action": [
+                            "Inflict 17251 p.dmg on all targets in range (Range: 400)",
+                            "Inflict 952 p.atk down on all targets in range (Range: 400)[12s]"
+                        ]
                     },
                     "sk1a": {
                         "name": null,
@@ -8822,7 +8825,7 @@
                         "name": null,
                         "text": "Inflict medium physical damage on all enemies in range centered around the 3rd frontmost enemy.",
                         "action": [
-                            "Inflict 16653 p.dmg on all targets in range (Range: 300)"
+                            "Inflict 17251 p.dmg on all targets in range (Range: 300)"
                         ]
                     },
                     "sk2a": {
@@ -8870,8 +8873,8 @@
                         "action": null
                     },
                     "sk1p": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u30da\u30a4\u30f3\u30c6\u30a3\u30f3\u30b0\u30ad\u30c3\u30af+",
+                        "text": "\u524d\u65b9\u7bc4\u56f2\u5185\u306e\u6575\u3059\u3079\u3066\u306b\u7269\u7406\u4e2d\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3001\u7269\u7406\u653b\u6483\u529b\u3092\u4e2d\u30c0\u30a6\u30f3\u3055\u305b\u308b\u3002\u3053\u306e\u30b9\u30ad\u30eb\u304c\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u3057\u305f\u5834\u5408\u306e\u30c0\u30e1\u30fc\u30b8\u306f\u3001\uff12\u500d\u3067\u306f\u306a\u304f\uff13\u500d\u306b\u306a\u308b\u3002",
                         "action": null
                     },
                     "sk1a": {
@@ -8913,38 +8916,47 @@
                 }
             },
             "ue": {
-                "id": null,
+                "id": 131121,
                 "rank": null,
-                "img": null,
-                "stats": {},
+                "img": "https://redive.estertion.win/icon/equipment/131121.webp",
+                "stats": {
+                    "atk": 50,
+                    "atk_growth": 2.5,
+                    "def": 4,
+                    "def_growth": 0.2,
+                    "dodge": 1,
+                    "dodge_growth": 0.05,
+                    "acc": 8,
+                    "acc_growth": 0
+                },
                 "en": {
                     "name": null,
                     "text": null
                 },
                 "jp": {
-                    "name": null,
-                    "text": null
+                    "name": "\u9b54\u62f3\u30c8\u30ea\u30c3\u30af\u30aa\u30a2\u30c8\u30ea\u30c3\u30af",
+                    "text": "\u30cf\u30ed\u30a6\u30a3\u30f3\u306e\u305f\u3081\u306b\u3001\u30df\u30bd\u30ae\u304c\u81ea\u4fe1\u6e80\u3005\u306b\u6e96\u5099\u3057\u305f\u7279\u5225\u306a\u30a4\u30bf\u30ba\u30e9\u7528\u306e\u624b\u7532\u3002\u9ad8\u3044\u5f37\u5ea6\u3068\u7cbe\u5bc6\u6027\u3092\u4e21\u7acb\u3057\u3001\u3069\u3093\u306a\u30a4\u30bf\u30ba\u30e9\u3082\u30d0\u30c3\u30c1\u30ea\u3089\u3057\u3044\u3002"
                 }
             },
             "stats": {
                 "normal": {
                     "hp": 25656,
-                    "atk": 11715,
+                    "atk": 12213,
                     "matk": 0,
-                    "def": 322,
+                    "def": 362,
                     "mdef": 257,
                     "pCrit": 1127,
                     "mCrit": 0,
                     "wHpRec": 2495,
                     "wTpRec": 245,
-                    "dodge": 20,
+                    "dodge": 30,
                     "pPen": 0,
                     "mPen": 0,
                     "lifesteal": 9,
                     "hpRec": 30,
                     "tpRec": 46,
                     "tpSave": 15,
-                    "acc": 60
+                    "acc": 68
                 },
                 "flb": {}
             },
@@ -14859,7 +14871,7 @@
                         "action": [
                             "Inflict 10144 p.dmg to all targets in range (Range: 1200)",
                             "Inflict blind on all targets in range (Range: 1200)",
-                            "Inflcit confuse on all targets in range (Range: 1200)"
+                            "inflict confuse on all targets in range (Range: 1200)"
                         ]
                     },
                     "ub2": {
@@ -18014,7 +18026,7 @@
                         "name": null,
                         "text": "Inflict large physical damage to all enemies in range.",
                         "action": [
-                            "Inflict 46570 p.dmg on all targets in range (Range: 880)"
+                            "Inflict 47751 p.dmg on all targets in range (Range: 880)"
                         ]
                     },
                     "ub2": {
@@ -18026,13 +18038,15 @@
                         "name": null,
                         "text": "Inflict large physical damage to all enemies in range.",
                         "action": [
-                            "Inflict 31624 p.dmg on all targets in range (Range: 730)"
+                            "Inflict 32411 p.dmg on all targets in range (Range: 730)"
                         ]
                     },
                     "sk1p": {
                         "name": null,
-                        "text": "soon:tm:",
-                        "action": null
+                        "text": "Inflict large physical damage to all enemies in range.",
+                        "action": [
+                            "Inflict 40514 p.dmg on all targets in range (Range: 730)"
+                        ]
                     },
                     "sk1a": {
                         "name": null,
@@ -18098,8 +18112,8 @@
                         "action": null
                     },
                     "sk1p": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u3050\u308b\u3050\u308b\u30a2\u30bf\u30c3\u30af+",
+                        "text": "\u524d\u65b9\u7bc4\u56f2\u5185\u306e\u6575\u3059\u3079\u3066\u306b\u7269\u7406\u5927\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u308b\u3002",
                         "action": null
                     },
                     "sk1a": {
@@ -18141,26 +18155,33 @@
                 }
             },
             "ue": {
-                "id": null,
+                "id": 131131,
                 "rank": null,
-                "img": null,
-                "stats": {},
+                "img": "https://redive.estertion.win/icon/equipment/131131.webp",
+                "stats": {
+                    "atk": 33,
+                    "atk_growth": 1.65,
+                    "mdef": 12,
+                    "mdef_growth": 0.6,
+                    "tpRec": 2,
+                    "tpRec_growth": 0.1
+                },
                 "en": {
                     "name": null,
                     "text": null
                 },
                 "jp": {
-                    "name": null,
-                    "text": null
+                    "name": "\u3050\u308b\u3050\u308b\u3046\u3055\u304e\u3055\u3093\u30d6\u30ec\u30fc\u30c9",
+                    "text": "\u30cf\u30ed\u30a6\u30a3\u30f3\u306e\u305f\u3081\u306b\u30df\u30df\u304c\u304a\u6bcd\u3055\u3093\u3068\u4f5c\u3063\u305f\u3001\u5305\u5e2f\u3067\u3050\u308b\u3050\u308b\u5dfb\u304d\u306e\u3046\u3055\u304e\u3055\u3093\u30d6\u30ec\u30fc\u30c9\u3002\u304b\u308f\u3044\u3089\u3057\u3055\u3068\u624b\u89e6\u308a\u4e21\u65b9\u304c\u30a2\u30c3\u30d7\u3057\u305f\u3089\u3057\u3044\u3002"
                 }
             },
             "stats": {
                 "normal": {
                     "hp": 29773,
-                    "atk": 11014,
+                    "atk": 11342,
                     "matk": 0,
                     "def": 318,
-                    "mdef": 236,
+                    "mdef": 355,
                     "pCrit": 697,
                     "mCrit": 0,
                     "wHpRec": 1545,
@@ -18170,7 +18191,7 @@
                     "mPen": 0,
                     "lifesteal": 10,
                     "hpRec": 55,
-                    "tpRec": 18,
+                    "tpRec": 38,
                     "tpSave": 0,
                     "acc": 49
                 },
@@ -18950,7 +18971,7 @@
                         "text": "Inflict medium physical damage to all enemies in range; inflict confuse.",
                         "action": [
                             "Inflict 23486 p.dmg to all targets in range (Range: 825)",
-                            "Inflcit confuse on all targets in range (Range: 825)"
+                            "inflict confuse on all targets in range (Range: 825)"
                         ]
                     },
                     "ub2": {
@@ -27850,7 +27871,7 @@
                         "text": "Inflict medium physical def down on the frontmost enemy. If the target is poisoned, additionally inflict medium physical damage",
                         "action": [
                             "Inflict 121 p.def down on target [12s]",
-                            "Inflcit 21870 p.dmg if target is poisoned "
+                            "inflict 21870 p.dmg if target is poisoned "
                         ]
                     },
                     "sk2a": {
@@ -28066,8 +28087,10 @@
                     },
                     "sk1p": {
                         "name": null,
-                        "text": "soon\u2122",
-                        "action": null
+                        "text": "Grant large magic attack up to the ally with the highest magic attack stat. Buff effectiveness increases proportionally to the strength of the target ally's magic attack stat.",
+                        "action": [
+                            "burr m.atk by 3893 on target [12s]"
+                        ]
                     },
                     "sk1a": {
                         "name": null,
@@ -28131,8 +28154,8 @@
                         "action": null
                     },
                     "sk1p": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u30de\u30b8\u30ab\u30eb\u30c8\u30ea\u30c3\u30af+",
+                        "text": "\u6700\u3082\u9b54\u6cd5\u653b\u6483\u529b\u304c\u9ad8\u3044\u5473\u65b9\uff11\u30ad\u30e3\u30e9\u306e\u9b54\u6cd5\u653b\u6483\u529b\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002\u3053\u306e\u30ad\u30e3\u30e9\u306e\u9b54\u6cd5\u653b\u6483\u529b\u304c\u9ad8\u3044\u7a0b\u3001\u653b\u6483\u529b\u306e\u4e0a\u6607\u91cf\u304c\u30a2\u30c3\u30d7\u3059\u308b\u3002",
                         "action": null
                     },
                     "sk1a": {
@@ -28174,24 +28197,29 @@
                 }
             },
             "ue": {
-                "id": null,
+                "id": 131111,
                 "rank": null,
-                "img": null,
-                "stats": {},
+                "img": "https://redive.estertion.win/icon/equipment/131111.webp",
+                "stats": {
+                    "matk": 96,
+                    "matk_growth": 4.8,
+                    "tpSave": 1,
+                    "tpSave_growth": 0.05
+                },
                 "en": {
                     "name": null,
                     "text": null
                 },
                 "jp": {
-                    "name": null,
-                    "text": null
+                    "name": "\u30cf\u30ed\u30a6\u30a3\u30f3\u732b\u3055\u3093\u30d6\u30eb\u30fc\u30e0",
+                    "text": "\u30cf\u30ed\u30a6\u30a3\u30f3\u306e\u305f\u3081\u306b\u30ad\u30e7\u30a6\u30ab\u304c\u3053\u3063\u305d\u308a\u7528\u610f\u3057\u305f\u9ed2\u732b\u304c\u30e2\u30c1\u30fc\u30d5\u306e\u307b\u3046\u304d\u3002\u6642\u6298\u307e\u305f\u304c\u3063\u3066\u7a7a\u3092\u98db\u3076\u60f3\u50cf\u3092\u3059\u308b\u306e\u306f\u307f\u3093\u306a\u306b\u306f\u79d8\u5bc6\u3089\u3057\u3044\u3002"
                 }
             },
             "stats": {
                 "normal": {
                     "hp": 21881,
                     "atk": 0,
-                    "matk": 10728,
+                    "matk": 11683,
                     "def": 241,
                     "mdef": 395,
                     "pCrit": 0,
@@ -28204,7 +28232,7 @@
                     "lifesteal": 0,
                     "hpRec": 146,
                     "tpRec": 7,
-                    "tpSave": 29,
+                    "tpSave": 39,
                     "acc": 0
                 },
                 "flb": {}
