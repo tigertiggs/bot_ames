@@ -8754,7 +8754,9 @@
                 "physical",
                 "special",
                 "aoe",
-                "seasonal"
+                "seasonal",
+                "ue",
+                "patk_down"
             ],
             "pos": 131,
             "atkptn": {
@@ -17997,7 +17999,8 @@
                 "mid",
                 "aoe",
                 "self_buff",
-                "self_harm"
+                "self_harm",
+                "ue"
             ],
             "pos": 202,
             "atkptn": {
@@ -28040,7 +28043,8 @@
                 "mdef_down",
                 "matk_up",
                 "special",
-                "seasonal"
+                "seasonal",
+                "ue"
             ],
             "pos": 343,
             "atkptn": {
