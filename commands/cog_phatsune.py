@@ -73,7 +73,7 @@ class hatsuneCog(commands.Cog):
         all_charas = [match] + alts
 
         alt_data = [all_data['units'][m['index']] for m in all_charas]
-        alt_emotes = [self.client.team.get(m['sname'],":grey_question:") for m in all_charas]
+        alt_emotes = [self.client.team.get(m['sname'],"❔") for m in all_charas]
         alt_embeds = [self.character_page_controller(self, d, invoke, **mode) for d in alt_data]
 
         alt_choice = 0

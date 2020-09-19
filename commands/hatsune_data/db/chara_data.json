@@ -30907,7 +30907,7 @@
                     },
                     "sk1": {
                         "name": null,
-                        "text": "Setting sk1 to Excluding all allies behind Yori, grant `[taunt]` to the ally with currently the highest HP; grant large physical def and magic def up.",
+                        "text": "Excluding all allies behind Yori, grant `[taunt]` to the ally currently \n with the highest HP; grant large physical def and magic def up.",
                         "action": [
                             "Grant [taunt] on target ",
                             "Buff p.def by 246 on target [12s]",
