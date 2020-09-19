@@ -436,14 +436,20 @@ class shenpCog(commands.Cog):
                 if thing.isdigit():
                     multi = int(thing)
                 else:
+                    animated = False
                     try:
-                        thing = thing[1:-1].split(':')
-                        if thing[0] == '' and len(thing) > 1:
-                            link = f"https://cdn.discordapp.com/emojis/{thing[-1]}.png"
-                        elif thing[0] == 'a' and len(thing) > 1:
-                            await channel.send(self.client.emotes['derp'])
-                            return
+                        _thing = thing[1:-1].split(':')
+                        if _thing[0] == '' and len(_thing) > 1:
+                            link = f"https://cdn.discordapp.com/emojis/{_thing[-1]}.png"
+                        elif _thing[0] == 'a' and len(_thing) > 1:
+                            #await channel.send(self.client.emotes['derp'])
+                            #return
+                            link = f"https://cdn.discordapp.com/emojis/{_thing[-1]}.gif"
                         blob = Image.open(BytesIO(requests.get(link).content))
+                        if hasattr(blob, "is_animated"):
+                            animated = blob.is_animated
+                        else:
+                            animated = False
                     except:
                         await channel.send(self.client.emotes['derp'])
                         return
@@ -455,11 +461,31 @@ class shenpCog(commands.Cog):
             #blob = Image.open(os.path.join(self.client.dir, self.client.config['shen_path'], "other/hatsuneblob.png"))
             w, h = blob.size
             if ctx.invoked_with.startswith('w'):
-                blob = blob.resize((w*multi, h), resample=Image.ANTIALIAS)
+                target = (w*multi, h)
             else:
-                blob = blob.resize((w, multi*h), resample=Image.ANTIALIAS)
-            path = os.path.join(self.client.dir, self.client.config['post_path'], "blob.png")
-            blob.save(path)
+                target = (w, multi*h)
+
+            if not animated:
+                path = os.path.join(self.client.dir, self.client.config['post_path'], "blob.png")
+                blob = blob.resize(target, resample=Image.ANTIALIAS)
+                blob.save(path)
+                blob.close()
+            else:
+                blob.seek(0)
+                duration = blob.info['duration']
+                path = os.path.join(self.client.dir, self.client.config['post_path'], "blob.gif")
+                _blob = [frame.resize(target, resample=Image.ANTIALIAS) for frame in ImageSequence.Iterator(blob)]
+                _blob[0].save(
+                    path,
+                    format='GIF',
+                    append_images=_blob[1:],
+                    save_all=True,
+                    duration=duration,
+                    loop=0,
+                    optimize=False,
+                    disposal=2
+                )
+                [frame.close() for frame in _blob]
             blob.close()
             await channel.send(file=discord.File(path))
 

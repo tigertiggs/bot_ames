@@ -73,7 +73,7 @@ class hatsuneCog(commands.Cog):
         all_charas = [match] + alts
 
         alt_data = [all_data['units'][m['index']] for m in all_charas]
-        alt_emotes = [self.client.team[m['sname']] for m in all_charas]
+        alt_emotes = [self.client.team.get(m['sname'],":grey_question:") for m in all_charas]
         alt_embeds = [self.character_page_controller(self, d, invoke, **mode) for d in alt_data]
 
         alt_choice = 0
@@ -96,7 +96,7 @@ class hatsuneCog(commands.Cog):
             except asyncio.TimeoutError:
                 #await page.add_reaction(alt_embeds[0].stop)
                 if not persist:
-                    await page.edit(embed=None, content=f"Embed for `{self.client.get_full_name_kai(match['name_en'], match['prefix'])}` had expired "+self.client.emotes['ames'])
+                    await page.edit(embed=None, content=f"Embed for `{self.client.get_full_name_kai(match['name_en'], match['prefix'])}` has expired "+self.client.emotes['ames'])
                 await page.clear_reactions()
                 # remove persistence
                 self.active_embeds.pop(str(page.id), None)
@@ -1203,10 +1203,10 @@ class hatsuneCog(commands.Cog):
         embed.set_footer(text='Lineup | Re:Re:Write Ames',icon_url=self.client.user.avatar_url)
 
         numbered = [
-            f"{self.client.team[c['sname']]} {i+1 if c['pos'] else '??'} {self.client.get_full_name_kai(c['basic']['en']['name'],c['basic']['en']['prefix'])}" 
+            f"{self.client.team.get(c['sname'],':grey_question:')} {i+1 if c['pos'] else '??'} {self.client.get_full_name_kai(c['basic']['en']['name'],c['basic']['en']['prefix'])}" 
             if not match 
             or not match['sname'] == c['sname']
-            else f"> {self.client.team[c['sname']]} **{i+1 if c['pos'] else '??'} {self.client.get_full_name_kai(c['basic']['en']['name'],c['basic']['en']['prefix'])}**" 
+            else f"> {self.client.team.get(c['sname'],':grey_question:')} **{i+1 if c['pos'] else '??'} {self.client.get_full_name_kai(c['basic']['en']['name'],c['basic']['en']['prefix'])}**" 
             for i, c in enumerate(lineup)
         ]
 
@@ -1289,7 +1289,7 @@ class hatsuneCog(commands.Cog):
         embed.set_footer(text='Tag Search | Re:Re:Write Ames',icon_url=self.client.user.avatar_url)
 
         numbered = [
-            f"{self.client.team[c['sname']]} {self.client.get_full_name_kai(c['basic']['en']['name'],c['basic']['en']['prefix'])}" 
+            f"{self.client.team.get(c['sname'],':grey_question:')} {self.client.get_full_name_kai(c['basic']['en']['name'],c['basic']['en']['prefix'])}" 
             for c in lineup
         ]
 
@@ -1415,7 +1415,7 @@ class hatsuneCog(commands.Cog):
         for a, o in list(self.full_alias.items()):
             #if len(o) > 1: # hide prefixes
             match, _, _, _ = await self.preprocess(ctx, [o], verbose=False)
-            if match: o = f"{self.client.team[match['sname']]} {self.client.get_full_name_kai(match['name_en'], match['prefix'])}"
+            if match: o = f"{self.client.team.get(match['sname'],':grey_question:')} {self.client.get_full_name_kai(match['name_en'], match['prefix'])}"
 
             if not self.config['alias_master'].get(a, None) is None:
                 master.append((a, o, 'master'))

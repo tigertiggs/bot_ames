@@ -1,4 +1,11 @@
 {
+    "4.7.7": [
+        "+ [phatsune] added ayori",
+        "+ [phatsune] fixed hkyouka goes brrr",
+        "+ [shenp] .w/.l now has limited support for animated emotes",
+        "+ [phatsune] minor typo fixes",
+        "- [phatsune][gacha] pfp emote now defaults if the asset is not found"
+    ],
     "4.7.6": [
         "+ [phatsune] added ue for hkyouka, hmisogi, hmimi"
     ],

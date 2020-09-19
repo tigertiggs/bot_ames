@@ -218,11 +218,11 @@ class gachaCog(commands.Cog):
                 elif ch.rarity == 3 and not ch.limited:
                     summary['norm'][ch.name] = [ch, summary['norm'].get(ch.name,[ch, 0])[1] + 1]
                     summary['ssr'] += 1
-                    summary['history'].append(self.client.team[ch.name])
+                    summary['history'].append(self.client.team.get(ch.name,':grey_question:'))
                 else:
                     summary['lim'][ch.name] = [ch, summary['lim'].get(ch.name,[ch, 0])[1] + 1]
                     summary['ssr'] += 1
-                    summary['history'].append(self.client.team[ch.name])
+                    summary['history'].append(self.client.team.get(ch.name,':grey_question:'))
 
                     if mode == 'spark':
                         break
@@ -320,14 +320,14 @@ class gachaCog(commands.Cog):
         if len(summary['lim']) > 0:
             lim_pulls = list(summary['lim'].values())
             lim_pulls.sort(key=lambda x: x[0].full_name)
-            lim_pulls = [f"> {self.client.team[ch.name]} **{ch.full_name}** x{n}" for ch, n in lim_pulls]
+            lim_pulls = [f"> {self.client.team.get(ch.name,':grey_question:')} **{ch.full_name}** x{n}" for ch, n in lim_pulls]
         else:
             lim_pulls = []
 
         if len(summary['norm']) > 0:
             ssr_pulls = list(summary['norm'].values())
             ssr_pulls.sort(key=lambda x: x[0].full_name)
-            ssr_pulls = [f" {self.client.team[ch.name]} {ch.full_name} x{n}" for ch, n in ssr_pulls]
+            ssr_pulls = [f" {self.client.team.get(ch.name,':grey_question:')} {ch.full_name} x{n}" for ch, n in ssr_pulls]
         else:
             ssr_pulls = []
         
@@ -560,7 +560,7 @@ class gachaCog(commands.Cog):
             ("R", self.pool.r_pool['lim'])
         ]
         for rarity, pool in pools:
-            temp = set([f"{self.client.team[chara.name]} {chara.full_name}" for chara in pool])
+            temp = set([f"{self.client.team.get(chara.name,':grey_question:')} {chara.full_name}" for chara in pool])
             embed.add_field(
                 name=f"{rarity} Rate-up Pool",
                 value="\n".join(temp) if len(temp) != 0 else "Empty",
