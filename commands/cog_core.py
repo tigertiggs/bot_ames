@@ -99,19 +99,24 @@ class coreCog(commands.Cog):
             # make embed
             embed = discord.Embed(
                 title="Status",
-                description=random.choice(statusv['messages']),
+                description=f"\"{random.choice(statusv['messages'])}\"\n\n"+"Ames is a utility bot made for *Princess Connect! Re:Dive* by *CyGames*. You can find out more by visiting her github repo and learn how to add her to your server [here](https://github.com/tigertiggs/bot_ames).",
                 timestamp=datetime.datetime.utcnow(),
                 colour=self.colour
             )
             embed.set_thumbnail(url=self.client.user.avatar_url),
             embed.set_footer(text="Status | Ames Re:Re:Write", icon_url=self.client.user.avatar_url)
+            #embed.add_field(
+            #    name="Description",
+            #    value="Ames is a utility bot made for *Princess Connect! Re:Dive* by *CyGames*. You can find her github page and how to add her to your server [here](https://github.com/tigertiggs/bot_ames).",
+            #    inline=False
+            #)
             embed.add_field(
                 name="Version",
-                value=f"[{' '.join([clientv, updatemsg])}](https://github.com/tigertiggs/bot_ames)",
+                value=f"{' '.join([clientv, updatemsg])}",
                 inline=True
             )
             embed.add_field(
-                name="Creator",
+                name="Developer",
                 value="tigertiggs#5376",
                 inline=True
             )
@@ -135,6 +140,7 @@ class coreCog(commands.Cog):
                 value=str(nguilds),
                 inline=True
             )
+            """
             splice = ceil(len(state)/3)
             if len(state) > 5:
                 for cstatus in self.client.chunks(state, splice):
@@ -149,6 +155,7 @@ class coreCog(commands.Cog):
                         value="\n".join(state),
                         inline=True
                     )
+            """
             await channel.send(embed=embed)
 
     @status.command(aliases=["cmd"])
@@ -157,24 +164,39 @@ class coreCog(commands.Cog):
         if not self.client.command_status['status'] == 1:
             raise commands.DisabledCommand
         else:
-            red =       ":red_circle:"
+            red =       ":black_circle:"
             green =     ":green_circle:"
+            state =     [" ".join([red if v == False else green, k.split(".")[-1]]) for k,v in list(self.client.cogs_status.items())]
             embed = discord.Embed(
-                title="Command Status",
+                title="Command/Cog Status",
                 timestamp=datetime.datetime.utcnow(),
                 colour=self.colour
             )
-            embed.set_thumbnail(url=self.client.user.avatar_url),
+            #embed.set_thumbnail(url=self.client.user.avatar_url),
             embed.set_footer(text="Command Status | Ames Re:Re:Write", icon_url=self.client.user.avatar_url)
 
             cmd_status = list(self.client.command_status.items())
             cmd_status.sort(key=lambda x: x[0])
             for chunk in self.client.chunks(cmd_status, ceil(len(cmd_status)/3)):
                 embed.add_field(
-                    name="Active Commands",
+                    name="CMD",
                     value="\n".join([f"{green if state == 1 else red} {cmd}" for cmd, state in chunk]),
                     inline=True
                 )
+            splice = ceil(len(state)/3)
+            if len(state) > 5:
+                for cstatus in self.client.chunks(state, splice):
+                    embed.add_field(
+                        name="Cog Status",
+                        value="\n".join(cstatus),
+                        inline=True
+                    )
+            else:
+                embed.add_field(
+                        name="COG",
+                        value="\n".join(state),
+                        inline=True
+                    )
             await channel.send(embed=embed)
 
     @commands.command(
