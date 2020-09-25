@@ -1,4 +1,10 @@
 {
+    "4.7.9": [
+        "+ [ames] added prefix property to config",
+        "- [ames] shuffled around ames init so she can now set her own prefix according to the config",
+        "+ [ames] implemented test Ames",
+        "+ [shenp] fixed unbound reference in wide"
+    ],
     "4.7.8": [
         "- [core] updated status"
     ],

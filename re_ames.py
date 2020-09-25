@@ -3,8 +3,7 @@
 # 2nd rewrite for better expansion, automation and future proofing
 # rewrite will try to add more comments should I drop the project
 
-# ames prefix (do not touch)
-BOT_PREFIX = (".")
+
 
 # dependencies
 import datetime, time
@@ -21,6 +20,9 @@ from discord.ext import commands
 # add ames_bot folder to the search path
 dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.insert(1, dir_path+'/commands')
+
+# ames prefix (do not touch)
+BOT_PREFIX = (".")
 
 start_time = None
 
@@ -116,22 +118,17 @@ class database:
 def _prefix(client, message):
     if message.guild:
         if message.guild.id == 202403448694505473:
-            return ("a.", ".")
-    else:
-        return (".")
+            return ["a.", BOT_PREFIX]
     return BOT_PREFIX
 
 # main
 class Ames(commands.AutoShardedBot):
     def __init__(self):
-        super().__init__(
-            command_prefix= _prefix,
-            description=    None,
-            help_command=   None
-        )
+        global BOT_PREFIX
+
         self.name = "[Ames]"
         self.dir = dir_path
-        self.prefix = BOT_PREFIX
+
         # load configs
         print(self.name, "starting")
         with open("commands/_config/config.json") as cf:
@@ -146,7 +143,15 @@ class Ames(commands.AutoShardedBot):
                 print("Found config override - overriding")
                 for key, value in list(json.load(override).items()):
                     self.config[key] = value
+        
+        BOT_PREFIX = self.config['prefix']
+        self.prefix = BOT_PREFIX
 
+        super().__init__(
+            command_prefix= _prefix,
+            description=    None,
+            help_command=   None
+        )
         self.command_status = self.config['command_status']
 
         with open(self.config['emote_path']) as ef:

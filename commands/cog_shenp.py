@@ -431,12 +431,12 @@ class shenpCog(commands.Cog):
             
             multi = 5
             blob = Image.open(os.path.join(self.client.dir, self.client.config['shen_path'], "other/hatsuneblob.png"))
-
+            
+            animated = False
             for thing in request:
                 if thing.isdigit():
                     multi = int(thing)
                 else:
-                    animated = False
                     try:
                         _thing = thing[1:-1].split(':')
                         if _thing[0] == '' and len(_thing) > 1:
