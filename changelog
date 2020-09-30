@@ -1,4 +1,7 @@
 {
+    "4.7.10": [
+        "+ [phatsune] added h.tsumugi and h.matsuri"
+    ],
     "4.7.9": [
         "+ [ames] added prefix property to config",
         "- [ames] shuffled around ames init so she can now set her own prefix according to the config",
