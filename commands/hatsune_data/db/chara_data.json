@@ -6326,7 +6326,7 @@
                         "name": null,
                         "text": "Inflict massive physical damage on the frontmost enemy. Increase critical damage multiplier from x2.0 to x3.0.",
                         "action": [
-                            "Inflict 67911 p.dmg to target "
+                            "Inflict 69891 p.dmg to target "
                         ]
                     },
                     "ub2": {
@@ -6338,7 +6338,7 @@
                         "name": null,
                         "text": "Inflict medium physical damange on the frontmost enemy; inflict small physical def down.",
                         "action": [
-                            "Inflict 18121 p.dmg to target ",
+                            "Inflict 18649 p.dmg to target ",
                             "Inflict 35 p.def down on target [12s]"
                         ]
                     },
@@ -6346,7 +6346,7 @@
                         "name": null,
                         "text": "Inflict medium physical damage on the frontmost enemy; inflict small physical def down. Increase critical damage multiplier from x2.0 to x3.0",
                         "action": [
-                            "Inflict 27182 p.dmg to target ",
+                            "Inflict 27974 p.dmg to target ",
                             "Inflict 63 p.def down on target [12s]"
                         ]
                     },
@@ -6477,11 +6477,11 @@
             "stats": {
                 "normal": {
                     "hp": 28950,
-                    "atk": 12901,
+                    "atk": 13341,
                     "matk": 0,
                     "def": 273,
                     "mdef": 214,
-                    "pCrit": 1584,
+                    "pCrit": 1724,
                     "mCrit": 0,
                     "wHpRec": 4880,
                     "wTpRec": 193,
@@ -13084,7 +13084,9 @@
                 "tp_up",
                 "self_buff",
                 "ailment",
-                "special"
+                "special",
+                "patk_up",
+                "flb"
             ],
             "pos": 210,
             "atkptn": {
@@ -13103,7 +13105,7 @@
                 ]
             },
             "img": "https://redive.estertion.win/icon/unit/103031.webp",
-            "img6": null,
+            "img6": "https://redive.estertion.win/icon/unit/103061.webp",
             "basic": {
                 "en": {
                     "id": 23,
@@ -13113,19 +13115,23 @@
                         "name": null,
                         "text": "Inflict medium physical damage to all enemies in range.",
                         "action": [
-                            "Inflict 21156 p.dmg to all targets in range (Range: 750)"
+                            "Inflict 21790 p.dmg to all targets in range (Range: 750)"
                         ]
                     },
                     "ub2": {
                         "name": null,
-                        "text": null,
-                        "action": null
+                        "text": "Inflict large physical damage on all enemies in range; gain large physical attack up and small TP heal. The physical attack buff strength and TP heal amount is proportional to the number of times Ninon has hit the enemy.",
+                        "action": [
+                            "Inflict 54475 p.dmg to all targets in range (Range: 815)",
+                            "Gain 4224 p.atk up [12s]",
+                            "Gain 100 TP "
+                        ]
                     },
                     "sk1": {
                         "name": null,
                         "text": "Inflict small physical damage to all enemies in range. If this skill defeats an enemy, gain medium TP heal.",
                         "action": [
-                            "Inflict 10578 p.dmg to all targets in range (Range: 750)",
+                            "Inflict 10895 p.dmg to all targets in range (Range: 750)",
                             "When stabbing, heal 150 TP "
                         ]
                     },
@@ -13133,7 +13139,7 @@
                         "name": null,
                         "text": "Inflict medium physical damage to all enemies in range. If this skill defeats an enemy, gain massive TP heal.",
                         "action": [
-                            "Inflict 17630 p.dmg to all targets in range (Range: 750)",
+                            "Inflict 18158 p.dmg to all targets in range (Range: 750)",
                             "When stabbing, heal 1000 TP "
                         ]
                     },
@@ -13151,7 +13157,7 @@
                         "name": null,
                         "text": "Inflict medium physical damage to the frontmost enemy with small knockback.",
                         "action": [
-                            "Inflict 17630 p.dmg to target "
+                            "Inflict 18158 p.dmg to target "
                         ]
                     },
                     "sk2a": {
@@ -13184,13 +13190,13 @@
                     "id": 1030,
                     "name": "\u30cb\u30ce\u30f3",
                     "ub": {
-                        "name": "\u5fcd\u6cd5\u707c\u71b1\u5730\u7344",
+                        "name": "\u5fcd\u6cd5\u30fb\u707c\u71b1\u5730\u7344",
                         "text": "\u524d\u65b9\u7bc4\u56f2\u5185\u306e\u6575\u3059\u3079\u3066\u306b\u7269\u7406\u4e2d\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u308b\u3002",
                         "action": null
                     },
                     "ub2": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u5fcd\u6cd5\u30fb\u70c8\u706b\u4e4b\u7d05\u84ee\u65cb\u98a8",
+                        "text": "\u524d\u65b9\u7bc4\u56f2\u5185\u306e\u6575\u3059\u3079\u3066\u306b\u7269\u7406\u5927\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3001\u81ea\u5206\u306e\u7269\u7406\u653b\u6483\u529b\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u3001\uff34\uff30\u3092\u5c0f\u56de\u5fa9\u3059\u308b\u3002\u3068\u3069\u3081\u3092\u523a\u3057\u305f\u6575\u306e\u6570\u306b\u5fdc\u3058\u3066\u7269\u7406\u653b\u6483\u529b\u306e\u4e0a\u6607\u91cf\u3068\uff34\uff30\u306e\u56de\u5fa9\u91cf\u304c\u5897\u52a0\u3059\u308b\u3002",
                         "action": null
                     },
                     "sk1": {
@@ -13263,11 +13269,11 @@
             "stats": {
                 "normal": {
                     "hp": 29267,
-                    "atk": 12492,
+                    "atk": 12932,
                     "matk": 0,
                     "def": 326,
                     "mdef": 241,
-                    "pCrit": 1229,
+                    "pCrit": 1369,
                     "mCrit": 0,
                     "wHpRec": 1070,
                     "wTpRec": 67,
@@ -13280,7 +13286,25 @@
                     "tpSave": 0,
                     "acc": 59
                 },
-                "flb": {}
+                "flb": {
+                    "hp": 36723,
+                    "atk": 15706,
+                    "matk": 0,
+                    "def": 382,
+                    "mdef": 293,
+                    "pCrit": 1514,
+                    "mCrit": 0,
+                    "wHpRec": 1070,
+                    "wTpRec": 67,
+                    "dodge": 5,
+                    "pPen": 0,
+                    "mPen": 0,
+                    "lifesteal": 12,
+                    "hpRec": 38,
+                    "tpRec": 50,
+                    "tpSave": 0,
+                    "acc": 74
+                }
             },
             "profile": {
                 "age": "16",
