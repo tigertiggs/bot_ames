@@ -13120,7 +13120,7 @@
                     },
                     "ub2": {
                         "name": null,
-                        "text": "Inflict large physical damage on all enemies in range; gain large physical attack up and small TP heal. The physical attack buff strength and TP heal amount is proportional to the number of times Ninon has hit the enemy.",
+                        "text": "Inflict large physical damage on all enemies in range; gain large physical attack up and small TP heal. The physical attack buff strength and TP heal amount is proportional to the number of enemies defeated.",
                         "action": [
                             "Inflict 54475 p.dmg to all targets in range (Range: 815)",
                             "Gain 4224 p.atk up [12s]",
