@@ -1,4 +1,8 @@
 {
+    "4.7.13": [
+        "+ [phatsune] added hrei",
+        "+ [phatsune] added missing ue names for kaya, luna, chloe, uaoi"
+    ],
     "4.7.12": [
         "+ [phatsune] added kaya and luna ue"
     ],

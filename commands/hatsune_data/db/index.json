@@ -433,6 +433,15 @@
             "flb": false
         },
         {
+            "id": null,
+            "hnid": 1141,
+            "name_en": "matsuri",
+            "prefix": "h",
+            "sname": "hmatsuri",
+            "name_jp": "\u30de\u30c4\u30ea(\u30cf\u30ed\u30a6\u30a3\u30f3)",
+            "flb": false
+        },
+        {
             "id": 2,
             "hnid": 1006,
             "name_en": "akari",
@@ -1154,11 +1163,11 @@
         },
         {
             "id": null,
-            "hnid": 1141,
-            "name_en": "matsuri",
+            "hnid": 1140,
+            "name_en": "rei",
             "prefix": "h",
-            "sname": "hmatsuri",
-            "name_jp": "\u30de\u30c4\u30ea(\u30cf\u30ed\u30a6\u30a3\u30f3)",
+            "sname": "hrei",
+            "name_jp": "\u30ec\u30a4(\u30cf\u30ed\u30a6\u30a3\u30f3)",
             "flb": false
         }
     ],
