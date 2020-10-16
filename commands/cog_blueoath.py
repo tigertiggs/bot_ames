@@ -241,11 +241,11 @@ class blueoathCog(commands.Cog):
                 if chara.lower() in skills_jp['index']['name']:
                     sheet_data = skills_jp['data'][skills_jp['index']['name'].index(chara.lower())]
                     
-                    temp['skills'] =        [{"name":skill['name'], "text":skill['text']} for skill in sheet_data['skills']]
-                    temp['faction_jp'] =    sheet_data['nation']
-                    temp['traits'] =        [{"name":x, "text":None} for x in sheet_data['trait']]
-                    temp['faction'] =       sheet_data['nation_en']
-                    temp['prefix'] =        sheet_data['prefix']
+                    if sheet_data['skills']:    temp['skills'] =        [{"name":skill['name'], "text":skill['text']} for skill in sheet_data['skills']]
+                    if sheet_data['nation']:    temp['faction_jp'] =    sheet_data['nation']
+                    if sheet_data['trait']:     temp['traits'] =        [{"name":x, "text":None} for x in sheet_data['trait']]
+                    if sheet_data['nation_en']: temp['faction'] =       sheet_data['nation_en']
+                    if sheet_data['prefix']:    temp['prefix'] =        sheet_data['prefix']
                     temp['on_sheet'] =      True
                 else:
                     temp['on_sheet'] =      False

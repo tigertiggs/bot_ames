@@ -1,4 +1,7 @@
 {
+    "4.7.14": [
+        "+ [bo] fixed potential exception if sheet data field(s) are incomplete during update"
+    ],
     "4.7.13": [
         "+ [phatsune] added hrei",
         "+ [phatsune] added missing ue names for kaya, luna, chloe, uaoi"
@@ -57,7 +60,7 @@
         "+ [bo] eased command restrictions",
         "+ [shen] areyouwinningson",
         "- [shen] moved all guild-specific commands under one listener",
-        "+ [ames] now stops breaking on dm*: not all commands work in dm as they're guild oriented - specifically commands that are 'inteactive' are broken on dm",
+        "+ [ames] now stops breaking on dm*: not all commands work in dm as they're guild oriented - specifically commands that are 'interactive' are broken on dm",
         "+ [ames] added derp emote shortcut",
         "+ [shenp] WIIIIIDEETSUNE",
         "- [shen] removed yabai since source file was lost",
