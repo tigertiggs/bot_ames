@@ -11,6 +11,7 @@ import os, sys, traceback
 import aiohttp, asyncio, random, traceback, json
 from difflib import SequenceMatcher as sm
 import discord
+from discord.enums import try_enum
 from discord.ext.commands import Bot
 from discord.ext import commands
 #import mysql.connector
@@ -147,10 +148,22 @@ class Ames(commands.AutoShardedBot):
         BOT_PREFIX = self.config['prefix']
         self.prefix = BOT_PREFIX
 
+        # intents
+        intent = discord.Intents(
+            guilds=True,
+            members=True,
+            emojis=True,
+            messages=True, # guild_messages + dm_messages
+            reactions=True, # guild_reactoins + dm_reactions
+            typing=True # guild_typing + dm_typing
+        )
+        #intent.value = 1342565456
+
         super().__init__(
             command_prefix= _prefix,
             description=    None,
-            help_command=   None
+            help_command=   None,
+            intents=        intent
         )
         self.command_status = self.config['command_status']
 

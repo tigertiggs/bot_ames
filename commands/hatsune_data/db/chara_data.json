@@ -18506,7 +18506,8 @@
                 "aoe",
                 "self_buff",
                 "self_harm",
-                "ue"
+                "ue",
+                "patk_up"
             ],
             "pos": 202,
             "atkptn": {

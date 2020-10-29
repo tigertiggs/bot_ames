@@ -1,4 +1,10 @@
 {
+    "4.7.15" :[
+        "+ [phatsune] updated gacha banner (finally)",
+        "+ [ames] updated to run discord.py v1.5.1",
+        "+ [ames] added gateway intents",
+        "+ [phatsune] fixed missing hmimi tag"
+    ],
     "4.7.14": [
         "+ [bo] fixed potential exception if sheet data field(s) are incomplete during update"
     ],
