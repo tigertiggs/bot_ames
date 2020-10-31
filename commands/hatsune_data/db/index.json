@@ -784,6 +784,15 @@
             "flb": false
         },
         {
+            "id": null,
+            "hnid": 1140,
+            "name_en": "rei",
+            "prefix": "h",
+            "sname": "hrei",
+            "name_jp": "\u30ec\u30a4(\u30cf\u30ed\u30a6\u30a3\u30f3)",
+            "flb": false
+        },
+        {
             "id": 1,
             "hnid": 1040,
             "name_en": "aoi",
@@ -1163,11 +1172,11 @@
         },
         {
             "id": null,
-            "hnid": 1140,
-            "name_en": "rei",
-            "prefix": "h",
-            "sname": "hrei",
-            "name_jp": "\u30ec\u30a4(\u30cf\u30ed\u30a6\u30a3\u30f3)",
+            "hnid": 1142,
+            "name_en": "monika",
+            "prefix": "m",
+            "sname": "mmonika",
+            "name_jp": "\u30e2\u30cb\u30ab(\u30de\u30b8\u30ab\u30eb)",
             "flb": false
         }
     ],

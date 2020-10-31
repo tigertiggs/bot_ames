@@ -3,16 +3,13 @@
 # 2nd rewrite for better expansion, automation and future proofing
 # rewrite will try to add more comments should I drop the project
 
-
-
 # dependencies
 import datetime, time
 import os, sys, traceback
-import aiohttp, asyncio, random, traceback, json
+import asyncio, random, json
 from difflib import SequenceMatcher as sm
 import discord
-from discord.enums import try_enum
-from discord.ext.commands import Bot
+#from discord.ext.commands import Bot
 from discord.ext import commands
 #import mysql.connector
 #from mysql.connector import pooling
@@ -262,7 +259,7 @@ class Ames(commands.AutoShardedBot):
             with open(os.path.join(self.dir, self.config['guild_perms_path'], f"{user.guild.id}.json")) as pf:
                 perms = json.load(pf)
         except Exception as e:
-            #print(e)
+            print(e)
             perms = dict()
 
         if mode == "admin":

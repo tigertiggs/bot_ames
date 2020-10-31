@@ -1,4 +1,8 @@
 {
+    "4.7.16": [
+        "+ [phatsune] added mmonika",
+        "+ [ames] minor bug fixes"
+    ],
     "4.7.15" :[
         "+ [phatsune] updated gacha banner (finally)",
         "+ [ames] updated to run discord.py v1.5.1",
