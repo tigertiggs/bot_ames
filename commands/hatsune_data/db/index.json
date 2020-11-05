@@ -502,7 +502,7 @@
             "prefix": null,
             "sname": "mahiru",
             "name_jp": "\u30de\u30d2\u30eb",
-            "flb": false
+            "flb": true
         },
         {
             "id": 32,
@@ -1182,7 +1182,7 @@
     ],
     "constants": {
         "ue": 180,
-        "lvl": 175,
+        "lvl": 178,
         "rk": 18
     }
 }
