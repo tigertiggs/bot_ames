@@ -10205,7 +10205,8 @@
                 "mshield",
                 "pdef_down",
                 "mdef_down",
-                "ailment"
+                "ailment",
+                "limited"
             ],
             "pos": 108,
             "atkptn": {
@@ -17580,7 +17581,9 @@
                 "ailment",
                 "special",
                 "aoe",
-                "heal"
+                "heal",
+                "ue",
+                "aoe"
             ],
             "pos": 230,
             "atkptn": {
@@ -17611,8 +17614,8 @@
                         "name": null,
                         "text": "Inflict large physical damage on all enemies in range. Inflicted damage is higher if enemy is incapcitated.",
                         "action": [
-                            "Inflict 54639 p.dmg on all paralyzed targets (Range: 800)",
-                            "Inflict 30355 p.dmg on all other targets within range (Range: 800)"
+                            "Inflict 55820 p.dmg on all paralyzed targets (Range: 800)",
+                            "Inflict 31011 p.dmg on all other targets within range (Range: 800)"
                         ]
                     },
                     "ub2": {
@@ -17624,14 +17627,17 @@
                         "name": null,
                         "text": "Inflict medium physical damage on frontmost enemy; inflict freeze.",
                         "action": [
-                            "Inflict 18213 p.dmg to target ",
+                            "Inflict 18607 p.dmg to target ",
                             "Inflict Paralyze on target for a set time "
                         ]
                     },
                     "sk1p": {
                         "name": null,
-                        "text": "soon\u2122",
-                        "action": null
+                        "text": "Inflict medium physical damage on all enemies in range centered on the frontmost enemy; inflict freeze.",
+                        "action": [
+                            "Inflict 24809 p.dmg on all targets in range (Range: 150)",
+                            "Paralyze all targets in range for a set time (Range: 150)"
+                        ]
                     },
                     "sk1a": {
                         "name": null,
@@ -17647,7 +17653,7 @@
                         "name": null,
                         "text": "Grant medium HP heal to the ally with the lowest HP.",
                         "action": [
-                            "Heal 14283 HP on target "
+                            "Heal 14611 HP on target "
                         ]
                     },
                     "sk2a": {
@@ -17695,8 +17701,8 @@
                         "action": null
                     },
                     "sk1p": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u30a8\u30eb\u30fb\u30d2\u30e5\u30fc\u30de+",
+                        "text": "\u76ee\u306e\u524d\u306e\u6575\uff11\u30ad\u30e3\u30e9\u3092\u4e2d\u5fc3\u3068\u3057\u305f\u7bc4\u56f2\u5185\u306e\u6575\u3059\u3079\u3066\u306b\u7269\u7406\u4e2d\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3001\u3055\u3089\u306b\u51cd\u7d50\u3055\u305b\u308b\u3002",
                         "action": null
                     },
                     "sk1a": {
@@ -17738,27 +17744,36 @@
                 }
             },
             "ue": {
-                "id": null,
+                "id": 130971,
                 "rank": null,
-                "img": null,
-                "stats": {},
+                "img": "https://redive.estertion.win/icon/equipment/130971.webp",
+                "stats": {
+                    "atk": 33,
+                    "atk_growth": 1.65,
+                    "pCrit": 40,
+                    "pCrit_growth": 2,
+                    "hpRec": 5,
+                    "hpRec_growth": 0.25,
+                    "acc": 15,
+                    "acc_growth": 0
+                },
                 "en": {
-                    "name": "soon\u2122",
+                    "name": "Rem's Headband",
                     "text": null
                 },
                 "jp": {
-                    "name": null,
-                    "text": null
+                    "name": "\u30ec\u30e0\u306e\u9aea\u98fe\u308a",
+                    "text": "\u30ec\u30e0\u304c\u5e38\u306b\u8eab\u306b\u7740\u3051\u3066\u3044\u308b\u9aea\u98fe\u308a\u3002\u5927\u597d\u304d\u306a\u59c9\u3068\u304a\u63c3\u3044\u3067\u3042\u308a\u3001\u59c9\u306e\u9aea\u8272\u306b\u5408\u308f\u305b\u305f\u8d64\u306e\u7d10\u7d30\u5de5\u304c\u6c17\u306b\u5165\u3063\u3066\u3044\u308b\u3089\u3057\u3044\u3002"
                 }
             },
             "stats": {
                 "normal": {
                     "hp": 25876,
-                    "atk": 12940,
+                    "atk": 13268,
                     "matk": 0,
                     "def": 272,
                     "mdef": 215,
-                    "pCrit": 824,
+                    "pCrit": 1222,
                     "mCrit": 0,
                     "wHpRec": 1495,
                     "wTpRec": 117,
@@ -17766,10 +17781,10 @@
                     "pPen": 0,
                     "mPen": 0,
                     "lifesteal": 6,
-                    "hpRec": 30,
+                    "hpRec": 80,
                     "tpRec": 22,
                     "tpSave": 0,
-                    "acc": 44
+                    "acc": 59
                 },
                 "flb": {}
             },
@@ -17810,7 +17825,8 @@
                 "mid",
                 "limited",
                 "ailment",
-                "special"
+                "special",
+                "ue"
             ],
             "pos": 231,
             "atkptn": {
@@ -17839,7 +17855,7 @@
                         "name": null,
                         "text": "Inflict medium magic damage on all enemies; inflict paralyse",
                         "action": [
-                            "Inflict 14846 m.dmg on all targets ",
+                            "Inflict 15404 m.dmg on all targets ",
                             "Inflict paralyze on all targets for a set time "
                         ]
                     },
@@ -17850,16 +17866,19 @@
                     },
                     "sk1": {
                         "name": null,
-                        "text": "Inflict large magic damage on the frontmost enemy with large knockback if they are incapcitated. If enemy is not incapcitated, inflict medium magic damage with small knockback instead.",
+                        "text": "Inflict large magic damage on the frontmost enemy with large knockback if they are incapcitated. Otherwise, inflict medium magic damage with small knockback instead.",
                         "action": [
-                            "Inflict 33587 m.dmg on target upon paralyze ",
-                            "Inflict 16793 m.dmg on target if target isnt paralyzed "
+                            "Inflict 34828 m.dmg on target upon paralyze ",
+                            "Inflict 17414 m.dmg on target if target isnt paralyzed "
                         ]
                     },
                     "sk1p": {
                         "name": null,
-                        "text": "soon\u2122",
-                        "action": null
+                        "text": "Inflict massive magic damage on the frontmost enemy with large knockback if they are incapcitated. Otherwise, inflict large magic damage with small knockback.",
+                        "action": [
+                            "Inflict 69655 m.dmg on target upon paralyze ",
+                            "Inflict 34828 m.dmg on target if target isnt paralyzed "
+                        ]
                     },
                     "sk1a": {
                         "name": null,
@@ -17923,8 +17942,8 @@
                         "action": null
                     },
                     "sk1p": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u30d5\u30fc\u30e9+",
+                        "text": "\u76ee\u306e\u524d\u306e\u6575\uff11\u30ad\u30e3\u30e9\u304c\u884c\u52d5\u4e0d\u80fd\u72b6\u614b\u3060\u3063\u305f\u5834\u5408\u9b54\u6cd5\u7279\u5927\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3066\u5927\u304d\u304f\u5439\u304d\u98db\u3070\u3057\u3001\u305d\u3046\u3067\u306a\u3044\u5834\u5408\u9b54\u6cd5\u5927\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3066\u5c0f\u3055\u304f\u5439\u304d\u98db\u3070\u3059\u3002",
                         "action": null
                     },
                     "sk1a": {
@@ -17966,26 +17985,35 @@
                 }
             },
             "ue": {
-                "id": null,
+                "id": 130981,
                 "rank": null,
-                "img": null,
-                "stats": {},
+                "img": "https://redive.estertion.win/icon/equipment/130981.webp",
+                "stats": {
+                    "matk": 52,
+                    "matk_growth": 2.6,
+                    "def": 8,
+                    "def_growth": 0.4,
+                    "mdef": 2,
+                    "mdef_growth": 0.1,
+                    "tpRec": 1,
+                    "tpRec_growth": 0.05
+                },
                 "en": {
-                    "name": "soon\u2122",
+                    "name": "Ram's Headband",
                     "text": null
                 },
                 "jp": {
-                    "name": null,
-                    "text": null
+                    "name": "\u30e9\u30e0\u306e\u9aea\u98fe\u308a",
+                    "text": "\u30e9\u30e0\u304c\u5e38\u306b\u8eab\u306b\u7740\u3051\u3066\u3044\u308b\u9aea\u98fe\u308a\u3002\u5f7c\u5973\u306b\u3068\u3063\u3066\u30e1\u30a4\u30c9\u3068\u3057\u3066\u306e\u8a3c\u3067\u3082\u3042\u308a\u3001\u59b9\u306e\u9aea\u8272\u306b\u5408\u308f\u305b\u305f\u9752\u306e\u7d10\u7d30\u5de5\u304c\u6c17\u306b\u5165\u3063\u3066\u3044\u308b\u3089\u3057\u3044\u3002"
                 }
             },
             "stats": {
                 "normal": {
                     "hp": 21920,
                     "atk": 0,
-                    "matk": 11757,
-                    "def": 217,
-                    "mdef": 306,
+                    "matk": 12274,
+                    "def": 297,
+                    "mdef": 326,
                     "pCrit": 0,
                     "mCrit": 741,
                     "wHpRec": 880,
@@ -17995,7 +18023,7 @@
                     "mPen": 0,
                     "lifesteal": 6,
                     "hpRec": 45,
-                    "tpRec": 13,
+                    "tpRec": 23,
                     "tpSave": 17,
                     "acc": 0
                 },
@@ -27835,7 +27863,8 @@
                 "mdef_up",
                 "self_buff",
                 "matk_up",
-                "limited"
+                "limited",
+                "ue"
             ],
             "pos": 319,
             "atkptn": {
@@ -27868,7 +27897,7 @@
                         "name": null,
                         "text": "Grant Massive HP heal to the ally with the lowest HP; grant medium physical and magic def up to all allies.",
                         "action": [
-                            "Heal 18602 HP on target ",
+                            "Heal 20034 HP on target ",
                             "Buff party p.def by 161 [18s]",
                             "Buff party m.def by 161 [18s]"
                         ]
@@ -27882,14 +27911,17 @@
                         "name": null,
                         "text": "Inflict medium magic damage on the frontmost enemy; gain medium magic attack up.",
                         "action": [
-                            "Inflict 15418 m.dmg on target ",
+                            "Inflict 16564 m.dmg on target ",
                             "Gain 1969 m.atk up [12s]"
                         ]
                     },
                     "sk1p": {
                         "name": null,
-                        "text": "soon\u2122",
-                        "action": null
+                        "text": "Inflict large magic damage on the frontmost enemy; gain massive magic attack up.",
+                        "action": [
+                            "Inflict 49693 m.dmg on target ",
+                            "Gain 7518 m.atk up [12s]"
+                        ]
                     },
                     "sk1a": {
                         "name": null,
@@ -27905,10 +27937,10 @@
                         "name": null,
                         "text": "Inflict small magic damage to random enemies in range 4 times.",
                         "action": [
-                            "Inflict 7709 m.dmg on target (Range: 1000)",
-                            "Inflict 7709 m.dmg on target (Range: 1000)",
-                            "Inflict 7709 m.dmg on target (Range: 1000)",
-                            "Inflict 7709 m.dmg on target (Range: 1000)"
+                            "Inflict 8282 m.dmg on target (Range: 1000)",
+                            "Inflict 8282 m.dmg on target (Range: 1000)",
+                            "Inflict 8282 m.dmg on target (Range: 1000)",
+                            "Inflict 8282 m.dmg on target (Range: 1000)"
                         ]
                     },
                     "sk2a": {
@@ -27956,8 +27988,8 @@
                         "action": null
                     },
                     "sk1p": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u304a\u9858\u3044\u3001\u30d1\u30c3\u30af\uff01+",
+                        "text": "\u76ee\u306e\u524d\u306e\u6575\uff11\u30ad\u30e3\u30e9\u306b\u9b54\u6cd5\u5927\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3001\u3055\u3089\u306b\u81ea\u5206\u306e\u9b54\u6cd5\u653b\u6483\u529b\u3092\u7279\u5927\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
                         "action": null
                     },
                     "sk1a": {
@@ -27999,24 +28031,31 @@
                 }
             },
             "ue": {
-                "id": null,
+                "id": 130991,
                 "rank": null,
-                "img": null,
-                "stats": {},
+                "img": "https://redive.estertion.win/icon/equipment/130991.webp",
+                "stats": {
+                    "matk": 96,
+                    "matk_growth": 4.8,
+                    "hpRec": 6,
+                    "hpRec_growth": 0.3,
+                    "tpRec": 1,
+                    "tpRec_growth": 0.05
+                },
                 "en": {
-                    "name": "soon\u2122",
+                    "name": "Bouquet of Promises",
                     "text": null
                 },
                 "jp": {
-                    "name": null,
-                    "text": null
+                    "name": "\u7d04\u675f\u306e\u82b1\u675f",
+                    "text": "\u30a8\u30df\u30ea\u30a2\u304c\u5927\u5207\u306b\u3057\u3066\u3044\u308b\u82b1\u675f\u3002\u821e\u3044\u6563\u308b\u96ea\u306e\u3088\u3046\u306b\u511a\u304f\u304d\u3089\u3081\u304f\u82b1\u5f01\u306f\u30de\u30ca\u306b\u6e80\u3061\u6ea2\u308c\u3066\u304a\u308a\u3001\u7cbe\u970a\u305f\u3061\u306b\u611b\u5bf5\u3055\u308c\u3066\u3044\u308b\u3002"
                 }
             },
             "stats": {
                 "normal": {
                     "hp": 29274,
                     "atk": 0,
-                    "matk": 10611,
+                    "matk": 11566,
                     "def": 320,
                     "mdef": 426,
                     "pCrit": 0,
@@ -28027,8 +28066,8 @@
                     "pPen": 0,
                     "mPen": 0,
                     "lifesteal": 0,
-                    "hpRec": 151,
-                    "tpRec": 16,
+                    "hpRec": 211,
+                    "tpRec": 26,
                     "tpSave": 3,
                     "acc": 0
                 },
