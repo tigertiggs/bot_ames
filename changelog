@@ -1,4 +1,8 @@
 {
+    "4.7.19": [
+        "+ [phatsune] added m.tomo",
+        "+ [phatsune] level cap pushed to 181"
+    ],
     "4.7.18": [
         "- [phatsune] fixed cg.rin's tags",
         "+ [phatsune] added ue for re:zero collab charas emilia, rem, ram"

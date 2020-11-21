@@ -793,6 +793,15 @@
             "flb": false
         },
         {
+            "id": null,
+            "hnid": 1142,
+            "name_en": "monika",
+            "prefix": "m",
+            "sname": "mmonika",
+            "name_jp": "\u30e2\u30cb\u30ab(\u30de\u30b8\u30ab\u30eb)",
+            "flb": false
+        },
+        {
             "id": 1,
             "hnid": 1040,
             "name_en": "aoi",
@@ -1172,17 +1181,17 @@
         },
         {
             "id": null,
-            "hnid": 1142,
-            "name_en": "monika",
+            "hnid": 1143,
+            "name_en": "tomo",
             "prefix": "m",
-            "sname": "mmonika",
-            "name_jp": "\u30e2\u30cb\u30ab(\u30de\u30b8\u30ab\u30eb)",
+            "sname": "mtomo",
+            "name_jp": "\u30c8\u30e2(\u30de\u30b8\u30ab\u30eb)",
             "flb": false
         }
     ],
     "constants": {
-        "ue": 180,
-        "lvl": 178,
-        "rk": 18
+        "ue": 190,
+        "lvl": 181,
+        "rk": 19
     }
 }
