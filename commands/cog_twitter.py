@@ -343,7 +343,7 @@ class twitterCog(commands.Cog):
             channel.append(service['name'])
         
         embed=discord.Embed(
-            title="Master Accounce (twitterconfig)",
+            title="Master Announce (twitterconfig)",
             timestamp=datetime.utcnow(),
             colour=self.colour
         )
