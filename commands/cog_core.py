@@ -781,7 +781,8 @@ class coreCog(commands.Cog):
         with open(os.path.join(self.client.dir, "changelog")) as clf:
             changelog = json.load(clf)
             changelogv = list(changelog.items())
-            changelogv.sort(key=lambda x: x[0])
+            changelogv.sort(key=lambda x: [int(i) for i in x[0].split('.')])
+            #print([i[0] for i in changelogv])
 
         # positive number = fetch last X logs
         # negative number = fetch the Xth latest log

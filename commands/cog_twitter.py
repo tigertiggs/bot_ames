@@ -3,10 +3,9 @@
 
 import discord
 from discord.ext import commands, tasks
-import requests, json, os
+import requests, json, os, copy
 from datetime import datetime
 from io import BytesIO
-
 timer = 60
 
 class twitterCog(commands.Cog):
@@ -21,8 +20,8 @@ class twitterCog(commands.Cog):
         with open(os.path.join(self.client.dir, self.client.config['twitter_config_path'])) as tf:
             self.config = json.load(tf)
             timer = self.config['timer']
-        with open(os.path.join(self.client.dir, self.client.config["twitter_guilds_path"])) as gf:
-            self.guilds = json.load(gf)
+        #with open(os.path.join(self.client.dir, self.client.config["twitter_guilds_path"])) as gf:
+        #    self.guilds = json.load(gf)
         
         #self.listeners = []
         self.listener.start()
@@ -33,18 +32,32 @@ class twitterCog(commands.Cog):
 
     @tasks.loop(seconds=timer)
     async def listener(self):
+        #with open(os.path.join(self.client.dir, self.client.config['twitter_config_path'])) as tf:
+        #    config = json.load(tf)
+
         if not self.config["active"]:
             return
-        for acc_id in list(self.config["accounts"].values()):
+        for service in list(self.config["accounts"].values()):
+            # check if the service is active and a nonzero number of subscriptions
+            if not service['active'] or len(service['guilds']) == 0:
+                continue
+            
             # construct request url
             if self.client.config["port"] != "default":
-                url = f"http://localhost:{self.client.config['port']}/FagUtils/gateway.php?cmd=twit.get.feed&include_rts=1&type=timeline&id={acc_id}&ames"
+                url = f"http://localhost:{self.client.config['port']}/FagUtils/gateway.php?"
             else:
-                url = f"http://localhost/FagUtils/gateway.php?cmd=twit.get.feed&include_rts=1&type=timeline&id={acc_id}&ames"
+                url = "http://localhost/FagUtils/gateway.php?"
             
             # get
             try:
-                result = requests.get(url)
+                params = {
+                    "cmd":          "twit.get.feed",
+                    "include_rts":  1 if service['includeRT'] else 0,
+                    "type":         "timeline",
+                    "id":           service['id'],
+                    "ames":         1
+                }
+                result = requests.get(url, params=params)
                 payload = json.load(BytesIO(result.content))
             except Exception as e:
                 await self.logger.send(self.name, e)
@@ -55,7 +68,7 @@ class twitterCog(commands.Cog):
 
                 # load cache
                 try:
-                    with open(os.path.join(self.client.dir, self.client.config["twitter_cache_path"], f"{acc_id}.json")) as cf:
+                    with open(os.path.join(self.client.dir, self.client.config["twitter_cache_path"], f"{service['id']}.json")) as cf:
                         cache = json.load(cf)
                 except:
                     cache = {"tweet_idv":[]}
@@ -83,23 +96,25 @@ class twitterCog(commands.Cog):
                             cache["tweet_idv"].pop(0)
 
                         # push data to guilds that have the feature enabled
-                        for guild_id, status in list(self.guilds.items()):
-                            if status.get(acc_id, None) != None:
-
-                                if status[acc_id]["active"] and not status[acc_id].get("channel_id",None) == None:
-                                    channel = self.client.get_guild(int(guild_id)).get_channel(status[acc_id]["channel_id"])
-                                    
+                        for guild in service['guilds'].values():
+                            try:
+                                if guild['active'] and not guild.get("channel", None) == None:
+                                    channel = self.client.get_guild(guild['id']).get_channel(guild['channel'])
                                     if channel != None:
-                                        for msg in temp:
+                                       for msg in temp:
                                             try:
                                                 if msg["type"] == "embed":
                                                     await channel.send(embed=msg["payload"])
                                                 elif msg["type"] == "text":
                                                     await channel.send(msg["payload"])
                                             except:
-                                                continue
+                                                continue 
+                            except Exception as e:
+                                await self.logger.send(self.name, service['name'], 'failed to send tweet:', e)
+                                continue
+                        
                 # save cache
-                with open(os.path.join(self.client.dir, self.client.config["twitter_cache_path"], f"{acc_id}.json"),"w+") as cf:
+                with open(os.path.join(self.client.dir, self.client.config["twitter_cache_path"], f"{service['id']}.json"),"w+") as cf:
                     cf.write(json.dumps(cache, indent=4))
 
             else:
@@ -158,29 +173,37 @@ class twitterCog(commands.Cog):
             await channel.send(embed=self.make_announce_embed(author.guild))
     
     def make_announce_embed(self, guild):
-        guild_ann = self.guilds.get(str(guild.id), dict())
-        services = list(self.config["accounts"].keys())
-        acc_ids = list(self.config["accounts"].values())
+        services =  []
+        active =    []
+        channel =   []
+        for service_code, service in sorted(self.config['accounts'].items(), key=lambda x: x[0]):
+            guild_info = service['guilds'].get(str(guild.id), {})
+            set_channel = guild.get_channel(guild_info.get('channel', 0))
+
+            services.append(f"{':green_square:' if guild_info.get('active', False) else ':black_large_square:'} `{service_code}`")
+            active.append(service['name'])
+            channel.append(f"<#{set_channel.id}>" if set_channel else 'Not set')
+        
         embed=discord.Embed(
             title="Announce",
-            description="The following twitter listeners have been linked.",
+            description="The following twitter listeners are available.",
             timestamp=datetime.utcnow(),
             colour=self.colour
         )
         embed.set_footer(text="Announce | Re:Re:Write Ames", icon_url=self.client.user.avatar_url)
         embed.add_field(
-            name="Available listeners",
+            name="ID (active|id)",
             value="\n".join(services),
             inline=True
         )
         embed.add_field(
-            name="Active",
-            value="\n".join(["True" if guild_ann.get(acc_id, dict()).get("active", False) else "False" for acc_id in acc_ids]),
+            name="Full Title",
+            value="\n".join(active),
             inline=True
         )
         embed.add_field(
             name="Bound Channel",
-            value="\n".join([str(guild.get_channel(int(guild_ann.get(acc_id, dict()).get("channel_id", None)))) if guild_ann.get(acc_id, dict()).get("channel_id", None) != None else "Not set" for acc_id in acc_ids]),
+            value="\n".join(channel),
             inline=True
         )
         return embed
@@ -221,28 +244,138 @@ class twitterCog(commands.Cog):
             else:
                 mode="channel"
         
-        guild_ann = self.guilds.get(str(author.guild.id), dict())
-        serv_ann = guild_ann.get(self.config["accounts"][service], dict())
+        guild_ann = self.config['accounts'][service]['guilds'].get(str(author.guild.id), 
+        {
+            "id":       author.guild.id,
+            "active":   True,
+            "channel":  None
+        })
+
         if mode == "channel":
-            msg = await channel.send(f"Set `{service}` announce to `{set_channel.name}`...")
-            serv_ann["channel_id"] = channel_id
+            msg = await channel.send(f"Binding `{service}` -> {self.config['accounts'][service]['name']} listener to <#{channel_id}>...")
+            guild_ann["channel"] = channel_id
         else:
-            msg = await channel.send(f"Set `{service}` active status to `{status}`...")
-            serv_ann["active"] = True if status == 1 else False
+            msg = await channel.send(f"Turning `{service}` {'on' if status == 1 else 'off'}...")
+            guild_ann["active"] = True if status == 1 else False
         
-        # final checks
-        if serv_ann.get("channel_id", None) == None:
-            serv_ann["channel_id"] = None
+        self.config['accounts'][service]['guilds'][str(author.guild.id)] = guild_ann
 
-        if serv_ann.get("active", None) == None:
-            serv_ann["active"] = True
+        with open(os.path.join(self.client.dir, self.client.config['twitter_config_path']), "w+") as gf:
+            gf.write(json.dumps(self.config, indent=4))
+            await msg.edit(content=msg.content+" saved")
+
+    @announce.command(aliases=['edit'])
+    async def add(self, ctx, code, *, input):
+        author = ctx.message.author
+        channel = ctx.message.channel
+        if not self.client._check_author(author):
+            await channel.send(self.client.emotes['ames'])
+            return
+        elif not input:
+            return
+        mode = ctx.invoked_with
+
+        # process
+        params = dict([kv.split('=') for kv in input.split("&")])
+
+        # checks
+        flag = code in self.config['accounts']
+        if mode == 'add' and flag:
+            await channel.send(f"could not add: `{code}` already exists")
+            return
+        elif mode == 'edit' and not flag:
+            await channel.send(f"could not edit: `{code}` does not exist")
+            return
         
-        guild_ann[self.config["accounts"][service]] = serv_ann
-        self.guilds[str(author.guild.id)] = guild_ann
+        service = copy.deepcopy(
+            self.config['accounts'].get(code, 
+                {
+                    "name":         "",
+                    "id":           0,
+                    "active":       True,
+                    "includeRT":    True,
+                    "guilds":       {}
+                }
+            )
+        )
+        
+        msg = await channel.send(f"{'Adding' if mode == 'add' else 'Editing'} `{code}`...")
 
-        with open(os.path.join(self.client.dir, self.client.config["twitter_guilds_path"]), "w+") as gf:
-            gf.write(json.dumps(self.guilds, indent=4))
-            await msg.edit(content=msg.content+"saved")
+        if params.get('tag', None):
+            self.config['accounts'].pop(code)
+            await channel.send(f"deleting old code `{code}` and replacing with `{params['tag']}`")
+            code = "_".join(params['tag'].split())
 
+        for key in service:
+            if params.get(key, "") != "":
+                if key in ['active','includeRT']:
+                    service[key] = True if int(params[key]) else False
+                    await channel.send(f"set `{key}` to {params[key]}")
+                elif key == "id":
+                    service[key] = int(params[key])
+                    await channel.send(f"set `{key}` to {params[key]}")
+                elif key == 'name':
+                    service[key] = params[key]
+                    await channel.send(f"set `{key}` to {params[key]}")
+
+        self.config['accounts'][code] = service
+        with open(os.path.join(self.client.dir, self.client.config['twitter_config_path']), "w+") as gf:
+            gf.write(json.dumps(self.config, indent=4))
+            await msg.edit(content=msg.content+" saved")
+        
+    @announce.command(aliases=['m'])
+    async def master(self, ctx):
+        author = ctx.message.author
+        channel = ctx.message.channel
+        if not self.client._check_author(author):
+            await channel.send(self.client.emotes['ames'])
+            return
+        await channel.send(embed=self.make_ann_m_embed())
+
+    def make_ann_m_embed(self):
+        services =  []
+        active =    []
+        channel =   []
+
+        for service_code, service in sorted(self.config['accounts'].items(), key=lambda x: x[0]):
+            services.append(service_code)
+            active.append(f"{':green_square:' if service['active'] else ':black_large_square:'} {':green_square:' if service['includeRT'] else ':black_large_square:'} {len(service['guilds'])} `{service['id']}`")
+            channel.append(service['name'])
+        
+        embed=discord.Embed(
+            title="Master Accounce (twitterconfig)",
+            timestamp=datetime.utcnow(),
+            colour=self.colour
+        )
+        embed.set_footer(text="Master Announce | Re:Re:Write Ames", icon_url=self.client.user.avatar_url)
+        embed.add_field(
+            name="Status",
+            value="Active" if self.config['active'] else "Inactive"
+        )
+        embed.add_field(
+            name="Refresh Frequency",
+            value=f"{self.config['timer']}s"
+        )
+        embed.add_field(
+            name="Max Cache Depth",
+            value=str(self.config['cache_limit'])
+        )
+        embed.add_field(
+            name="id",
+            value="\n".join(services),
+            inline=True
+        )
+        embed.add_field(
+            name="active|RT|sub|tid",
+            value="\n".join(active),
+            inline=True
+        )
+        embed.add_field(
+            name="title",
+            value="\n".join(channel),
+            inline=True
+        )
+        return embed
+        
 def setup(client):
     client.add_cog(twitterCog(client))

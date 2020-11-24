@@ -841,7 +841,7 @@ class hatsuneCog(commands.Cog):
         )
         embed.add_field(
             name="Name",
-            value=data['profile']['jp']['irl_name']
+            value=data['profile']['jp']['name_irl']
         )
         embed.add_field(
             name="Age",

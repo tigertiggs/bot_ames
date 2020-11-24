@@ -222,6 +222,7 @@ class updateCog(commands.Cog):
         jp['name_alt'] =raw['name_alt']
         jp['va'] =      raw['VA']
         jp['race'] =    raw['race']
+        jp['name_irl'] =raw['name_irl']
         data['profile']['jp'] = jp
         
         data['profile']['blood'] =  raw['bloodtype']
@@ -551,7 +552,17 @@ class updateCog(commands.Cog):
         if forced:
             msg = await ctx.message.channel.send("Forcing update from Hnote...")
             #match, _, _, _ = validate_request(self.client, {"name":unit['basic']['en']['name'], "prefix":unit['basic']['en']['prefix']})
-            all_data['units'] = [(await self.get_data(ctx, {"index":all_data['units'].index(unit)}, data=all_data))[0] for unit in all_data['units']]
+            #all_data['units'] = [(await self.get_data(ctx, {"index":all_data['units'].index(unit)}, data=all_data))[0] for unit in all_data['units']]
+
+            temp = []
+            for i, unit in enumerate(all_data['units']):
+                entry = (await self.get_data(ctx, {"index":all_data['units'].index(unit)}, data=all_data))[0]
+                temp.append(entry)
+                print(i)
+                if i%10==0:
+                    await msg.edit(content=msg.content+".")
+
+            all_data['units'] = temp
             #await msg.edit(content=msg.content+" done")
             
         # save db

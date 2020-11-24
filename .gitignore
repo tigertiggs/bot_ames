@@ -14,6 +14,7 @@ commands/assets/ames/*
 !commands/assets/ames/.gitkeep
 
 # twitter cache
+commands/twitter/twitterconfig.json
 commands/twitter/guilds.json
 commands/twitter/cache/*
 !commands/twitter/cache/.gitkeep

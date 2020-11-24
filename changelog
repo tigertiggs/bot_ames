@@ -1,4 +1,10 @@
 {
+    "4.8.0": [
+        "+ [twitter] changed listener control flow so its more efficient",
+        "+ [changelog] fixed cl displaying wrong latest version",
+        "+ [phatsune] fixed incorrect display of IRL name under unit profile",
+        "+ [pupdate] forced update now has a progress indicator so it no longer gives me anxiety"
+    ],
     "4.7.19": [
         "+ [phatsune] added m.tomo",
         "+ [phatsune] level cap pushed to 181"
