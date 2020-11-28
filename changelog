@@ -1,4 +1,7 @@
 {
+    "4.8.1": [
+        " + [blueoath] fixed sheet reload not correctly reading data due to empty rows"
+    ],
     "4.8.0": [
         "+ [twitter] changed listener control flow so its more efficient",
         "+ [changelog] fixed cl displaying wrong latest version",

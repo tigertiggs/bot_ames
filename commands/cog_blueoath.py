@@ -561,7 +561,13 @@ class blueoathCog(commands.Cog):
                     end = True
                     continue
                 else:
-                    break
+                    try:
+                        if values[i+1][0].isnumeric() or values[i+2][0].isnumeric():
+                            continue
+                    except:
+                        pass
+                    else:
+                        break
             # if first value is an id - new ship
             elif row[0].isnumeric():
                 end = False
