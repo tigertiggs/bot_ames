@@ -32805,7 +32805,7 @@
                     },
                     "sk1": {
                         "name": null,
-                        "text": "Inflict medium TP down and physical def down on the enemy with the strongest magic attack stat.",
+                        "text": "Inflict medium TP down and small physical def down on the enemy with the strongest magic attack stat.",
                         "action": [
                             "Inflict 109 p.def down on target [12s]",
                             "Inflict 211 TP down on target "
