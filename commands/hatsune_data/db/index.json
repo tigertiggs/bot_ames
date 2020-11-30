@@ -442,6 +442,15 @@
             "flb": false
         },
         {
+            "id": null,
+            "hnid": 1144,
+            "name_en": "akino",
+            "prefix": "x",
+            "sname": "xakino",
+            "name_jp": "\u30a2\u30ad\u30ce(\u30af\u30ea\u30b9\u30de\u30b9)",
+            "flb": false
+        },
+        {
             "id": 2,
             "hnid": 1006,
             "name_en": "akari",
@@ -799,6 +808,15 @@
             "prefix": "m",
             "sname": "mmonika",
             "name_jp": "\u30e2\u30cb\u30ab(\u30de\u30b8\u30ab\u30eb)",
+            "flb": false
+        },
+        {
+            "id": null,
+            "hnid": 1143,
+            "name_en": "tomo",
+            "prefix": "m",
+            "sname": "mtomo",
+            "name_jp": "\u30c8\u30e2(\u30de\u30b8\u30ab\u30eb)",
             "flb": false
         },
         {
@@ -1181,11 +1199,11 @@
         },
         {
             "id": null,
-            "hnid": 1143,
-            "name_en": "tomo",
-            "prefix": "m",
-            "sname": "mtomo",
-            "name_jp": "\u30c8\u30e2(\u30de\u30b8\u30ab\u30eb)",
+            "hnid": 1146,
+            "name_en": "yukari",
+            "prefix": "x",
+            "sname": "xyukari",
+            "name_jp": "\u30e6\u30ab\u30ea(\u30af\u30ea\u30b9\u30de\u30b9)",
             "flb": false
         }
     ],

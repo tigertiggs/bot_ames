@@ -185,11 +185,11 @@ class shenCog(commands.Cog):
         if ctx.message.guild.id != 419624511189811201:
             return
         else:
-            available = [1,2]
+            available = [1,2,3]
             if not num:
-                request = None
+                request = 3
             else:
-                request = num[0]
+                request = num[-1]
             
             if not request or not request in available:
                 await channel.send(file=discord.File(os.path.join(self.client.dir,self.client.config['shen_path'],f"other/broke_{random.choice(available)}.png")))

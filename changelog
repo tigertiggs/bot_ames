@@ -1,4 +1,8 @@
 {
+    "4.8.2": [
+        "+ [shen] updated assets",
+        "+ [phatsune] added x.akino and x.yukari"
+    ],
     "4.8.1": [
         " + [blueoath] fixed sheet reload not correctly reading data due to empty rows"
     ],
