@@ -203,7 +203,7 @@ class shenCog(commands.Cog):
     @commands.command()
     async def roko(self, ctx, *num:int):
         channel=ctx.channel
-        available = list(range(1,11))
+        available = list(range(31))
         if not num or not num[0] in available:
             request = random.choice(available)
         else:
