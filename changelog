@@ -1,4 +1,9 @@
 {
+    "4.8.3": [
+        "+ [phatsune] added moni as an alias for magigaru",
+        "+ [shen] added new commands",
+        "+ [help] updated help commands with new twitter commands"
+    ],
     "4.8.2": [
         "+ [shen] updated assets",
         "+ [phatsune] added x.akino and x.yukari"

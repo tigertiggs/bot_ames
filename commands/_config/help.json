@@ -295,10 +295,10 @@
             "flags":    ["twitter", "normal"],
             "hidden":   false,
             "usage":    ".announce [*options]",
-            "subcmd":   ["set"],
+            "subcmd":   ["set", "add", "master"],
             "aliases":  ["ann"],
             "help":     "See which twitter listeners are active in your guild. Use `.help announce` for more details.",
-            "help_ex":  "Set up twitter listeners in your Guild. You can see available services via `.ann`.\n\n`.announce set [service] [status]`\nSet the status of a valid service in your guild. You can find valid services at `.ann`. You must have `[admin]` permission role to use the above subcommand(s).\n`[status]` can either be a digit `1` or `0` if you want to turn the specified service on/off respectively, or `[status]` can be a `#discord_channel` where you wish for Ames to send the embeds."
+            "help_ex":  "Set up twitter listeners in your Guild. You can see available services via `.ann`.\n\n`.announce set [service] [status]`\nSet the status of a valid service in your guild. You can find valid services at `.ann`. You must have `[admin]` permission role to use the above subcommand(s).\n`[status]` can either be a digit `1` or `0` if you want to turn the specified service on/off respectively, or `[status]` can be a `#discord_channel` where you wish for Ames to send the embeds.\n\n> `.ann add *kwargs`\n`kwargs` can be `id=int active=0|1 includeRT=0|1 name=str tag=str`\n`id` is twitter account's tweetid, `name` is its display name (for clarification purposes) and `tag` is its handle/service code. This command is restricted.\n\n> `.ann master`\n Show all details of all enabled services. This command is restricted."
         },
         "banner": {
             "flags":    ["_gacha","normal"],

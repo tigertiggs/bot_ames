@@ -35,14 +35,18 @@ class shenCog(commands.Cog):
                 "objection":            "actually.gif",
                 "somuchwinning":        "somuchwinning.png",
                 "drum":                 "drum.png",
-                "mem":                  "mem.png"
+                "mem":                  "mem.png",
+                "klee":                 "klee.png"
             }
             if msg_pp in list(self.client.emotes.keys()):
                 await message.delete()
                 await message.channel.send(self.client.emotes[msg_pp])
-            elif guild_shen.get(msg_pp, None) and message.guild.id == 419624511189811201:
+            elif msg_pp in ["mem", "drum", "somuchwinning"]:
+                if message.guild.id == 419624511189811201:
+                    await message.channel.send(file=discord.File(os.path.join(self.client.dir, self.client.config['shen_path'], "other", guild_shen.get(msg_pp, None))))
+            elif guild_shen.get(msg_pp, None):
                 await message.channel.send(file=discord.File(os.path.join(self.client.dir, self.client.config['shen_path'], "other", guild_shen.get(msg_pp, None))))
-
+                
     @commands.command(
         usage='.big [arg:discord_emote_animated_okay]',
         aliases=['b', 'e', 'emote'],
@@ -185,7 +189,7 @@ class shenCog(commands.Cog):
         if ctx.message.guild.id != 419624511189811201:
             return
         else:
-            available = [1,2,3]
+            available = list(range(1,4))
             if not num:
                 request = 3
             else:
@@ -195,6 +199,17 @@ class shenCog(commands.Cog):
                 await channel.send(file=discord.File(os.path.join(self.client.dir,self.client.config['shen_path'],f"other/broke_{random.choice(available)}.png")))
             else:
                 await channel.send(file=discord.File(os.path.join(self.client.dir,self.client.config['shen_path'],f"other/broke_{request}.png")))
+
+    @commands.command()
+    async def roko(self, ctx, *num:int):
+        channel=ctx.channel
+        available = list(range(1,11))
+        if not num or not num[0] in available:
+            request = random.choice(available)
+        else:
+            request = available[num[0]]
+
+        await channel.send(file=discord.File(os.path.join(self.client.dir,self.client.config['shen_path'],f"other/roko/roko{request}.png")))
 
 def setup(client):
     client.add_cog(shenCog(client))
