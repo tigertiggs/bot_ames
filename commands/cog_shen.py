@@ -54,7 +54,10 @@ class shenCog(commands.Cog):
                 return 
             
             try:
-                request = int(request)
+                if request:
+                    request = int(request)
+                else:
+                    request = random.choice(list(range(len(active['images']))))
             except:
                 request = active['default']
             finally:
