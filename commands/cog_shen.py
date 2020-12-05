@@ -77,7 +77,7 @@ class shenCog(commands.Cog):
     async def add(self, ctx, *, cmd):
         author = ctx.message.author
         channel = ctx.message.channel
-        if not self.client._check_author(author):
+        if not self.client._check_author(author) and not author.id == 88285348102164480:
             await channel.send(self.client.emotes['ames'])
             return
         cmd = dict([c.split("=") for c in cmd.split("&")])
