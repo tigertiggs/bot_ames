@@ -1,9 +1,13 @@
 # this module takes care of all shitpost commands that does not require the PIL module
+from sys import path_importer_cache
 import discord
 from discord.ext import commands
-import datetime, asyncio, os
+import datetime, asyncio, os, json, requests, copy
 from difflib import SequenceMatcher as sm
+from PIL import Image
 import random
+from imgur_python import Imgur
+from io import BytesIO
 
 class shenCog(commands.Cog):
     def __init__(self, client):
@@ -11,14 +15,17 @@ class shenCog(commands.Cog):
         self.name = "[shen]"
         self.logger = client.log
         self.colour = discord.Colour.from_rgb(*self.client.config['command_colour']['cog_shen'])
-
-    #@commands.command(usage=".[REDACTED]",help="YABAI")
-    #async def cal(self,ctx):
-    #    embed=discord.Embed()
-    #    embed.set_image(url='https://cdn.discordapp.com/icons/419624511189811201/a_7a7c06c8c403d9886a9b1fd26981126e.gif')
-    #    await ctx.message.delete()
-    #    await ctx.channel.send(embed=embed)
-
+        with open(os.path.join(self.client.config['shen_path'],"other","_config.json"), "r") as c:
+            self.config = json.load(c)
+        
+        if not self.client.private['imgur']['token']:
+            self.imgur = Imgur({"client_id":self.client.private['imgur']['id'], "client_secret": self.client.private['imgur']['secret']})
+            self.client.private['imgur']['token'] = self.imgur.authorize()
+            print(self.name, "access token expired or missing for imgur")
+            return
+        else:
+            self.imgur = Imgur({"client_id":self.client.private['imgur']['id'], "client_secret": self.client.private['imgur']['secret'], "access_token": self.client.private['imgur']['token']})
+ 
     @commands.Cog.listener()
     async def on_message(self, message):
         if message.author.bot:
@@ -30,23 +37,199 @@ class shenCog(commands.Cog):
             
         if message.content.startswith(self.client.prefix):
             msg_pp = message.content.strip("".join(self.client.prefix))
-            guild_shen = {
-                "actually":             "actually.gif",
-                "objection":            "actually.gif",
-                "somuchwinning":        "somuchwinning.png",
-                "drum":                 "drum.png",
-                "mem":                  "mem.png",
-                "klee":                 "klee.png"
-            }
             if msg_pp in list(self.client.emotes.keys()):
                 await message.delete()
                 await message.channel.send(self.client.emotes[msg_pp])
-            elif msg_pp in ["mem", "drum", "somuchwinning"]:
-                if message.guild.id == 419624511189811201:
-                    await message.channel.send(file=discord.File(os.path.join(self.client.dir, self.client.config['shen_path'], "other", guild_shen.get(msg_pp, None))))
-            elif guild_shen.get(msg_pp, None):
-                await message.channel.send(file=discord.File(os.path.join(self.client.dir, self.client.config['shen_path'], "other", guild_shen.get(msg_pp, None))))
+                return
+
+            msg_pp, _, request = msg_pp.partition(" ")
+            if not msg_pp in list(self.config.keys()):
+                return
+            active = self.config[msg_pp]
+            if "red" in active["tags"] and message.guild.id != 419624511189811201:
+                return
+            elif not active['active']:
+                return
+            elif not active['images']:
+                return 
+            
+            try:
+                request = int(request)
+            except:
+                request = active['default']
+            finally:
+                if request >= len(active['images']) or request < 0:
+                    request = random.choice(list(range(len(active['images']))))
+            
+            await channel.send(active['images'][request])
+
+    @commands.group(invoke_without_command=True, case_insensitive=True, pass_context=True)
+    async def shen(self, ctx, *, cmd):
+        author = ctx.message.author
+        channel = ctx.message.channel
+        if ctx.invoked_subcommand is None and cmd in self.config and self.client._check_author(author):
+            pass
+    
+    @shen.command() # appends
+    async def add(self, ctx, *, cmd):
+        author = ctx.message.author
+        channel = ctx.message.channel
+        if not self.client._check_author(author):
+            await channel.send(self.client.emotes['ames'])
+            return
+        cmd = dict([c.split("=") for c in cmd.split("&")])
+        #name=key&link=a,b,c
+        if not "name" in cmd:
+            await channel.send("missing name")
+            return
+        elif not cmd['name'] in self.config:
+            await channel.send(f"`{cmd['name']}` is an invalid name")
+            return
+        
+        links = cmd.get("link","").split(",") + [i.url for i in ctx.message.attachments]
+        if not any(links):
+            await channel.send("Emtpy requests or all requests are invalid")
+            return
+
+        for link in links:
+            if not link:
+                continue
+            msg = await channel.send(f"appending `{link}`...")
+            try:
                 
+                im = Image.open(BytesIO(requests.get(link).content))
+                path = os.path.join(self.client.dir, self.client.config['shen_path'], "other", "temp."+im.format.lower())
+                im.save(path)
+
+                response = self.imgur.image_upload(
+                    path,
+                    None,
+                    None,
+                    None,
+                    1
+                )
+                if response['status'] != 200:
+                    await msg.edit(content=msg.content+str(response['status']))
+                    continue
+                else:
+                    self.config[cmd['name']]['images'].append(response['response']['data']['link'])
+            except Exception as e:
+                await msg.edit(content=msg.content+str(e))
+                continue
+
+        with open(os.path.join(self.client.config['shen_path'],"other","_config.json"), "w+") as c:
+            c.write(json.dumps(self.config,indent=4))
+        await channel.send("saved")
+        
+    @shen.command()# creates new category
+    async def new(self, ctx, *, cmd):
+        author = ctx.message.author
+        channel=ctx.message.channel
+        if not self.client._check_author(author):
+            await channel.send(self.client.emotes['ames'])
+            return
+        #name=str&seq=0&default=0&tags=a,b,c
+        cmd = dict([c.split("=") for c in cmd.split("&")])
+        if not 'name' in cmd:
+            await channel.send("missing name")
+            return
+        elif cmd['name'] in self.config:
+            await channel.send(f"`{cmd['name']}` already exists")
+            return
+        seq = False
+        default = 0
+        tags = []
+        temp = copy.deepcopy(self.config['template'])
+        
+        for k,v in cmd.items():
+            if k == 'seq':
+                temp['sequencial'] = True if v == "1" else seq
+            elif k == 'tags':
+                temp['tags'] = v.split(",") if all(v.split(",")) else tags
+            elif k == 'default':
+                temp['default'] = int(v) if v.isnumeric() else default
+        
+        self.config[cmd['name']] = temp
+        with open(os.path.join(self.client.config['shen_path'],"other","_config.json"), "w+") as c:
+            c.write(json.dumps(self.config,indent=4))
+        await channel.send("saved")
+    
+    @shen.command()
+    async def edit(self, ctx, *, cmd):
+        author = ctx.message.author
+        channel=ctx.message.channel
+        if not self.client._check_author(author):
+            await channel.send(self.client.emotes['ames'])
+            return
+        cmd = dict([c.split("=") for c in cmd.split("&")])
+        #name=key&seq=0&tags=a,+b,-c&default=0
+        if not "name" in cmd:
+            await channel.send("missing name")
+            return
+        elif not cmd['name'] in self.config:
+            await channel.send(f"`{cmd['name']}` is an invalid name")
+            return
+        active = self.config[cmd['name']]
+        for k,v in cmd.items():
+            if k == 'seq':
+                active['sequencial'] = True if v == "1" else False
+            elif k == 'tags':
+                arr = []
+                for tag in v.split(","):
+                    if tag.startswith("+"):
+                        tag = tag[1:]
+                        active['tags'].append(tag)
+                    elif tag.startswith("-"):
+                        tag = tag[1:]
+                        try:
+                            active['tags'].pop(active['tags'].index(tag = tag[1:]))
+                        except:
+                            continue
+                    else:
+                        arr.append(tag)
+                if arr:
+                    active['tags'] = arr
+            elif k == 'default':
+                active['default'] = int(v) if v.isnumeric() else 0
+            elif k == "active":
+                active['active'] = True if v == "1" else False
+
+        with open(os.path.join(self.client.config['shen_path'],"other","_config.json"), "w+") as c:
+            c.write(json.dumps(self.config,indent=4))
+        await channel.send("saved")
+    
+    @shen.command()
+    async def delete(self,ctx,*,cmd):
+        author = ctx.message.author
+        channel=ctx.message.channel
+        if not self.client._check_author(author):
+            await channel.send(self.client.emotes['ames'])
+            return
+        cmd = dict([c.split("=") for c in cmd.split("&")])
+        #name=str&index=1,2,3,4...
+        if not "name" in cmd:
+            await channel.send("missing name")
+            return
+        elif not cmd['name'] in self.config:
+            await channel.send(f"`{cmd['name']}` is an invalid name")
+            return
+        active = self.config[cmd['name']]
+        try:
+            index = sorted([int(i) for i in cmd['index'].split(",")], reverse=True)
+        except:
+            await channel.send("failed to read indicies")
+            return
+        for i in index:
+            try:
+                active['images'].pop(i)
+            except:
+                await channel.send(f"failed to unlist {i}")
+                continue
+
+        with open(os.path.join(self.client.config['shen_path'],"other","_config.json"), "w+") as c:
+            c.write(json.dumps(self.config,indent=4))
+        await channel.send("saved")
+
     @commands.command(
         usage='.big [arg:discord_emote_animated_okay]',
         aliases=['b', 'e', 'emote'],
@@ -175,41 +358,42 @@ class shenCog(commands.Cog):
         
         return embed
 
-    @commands.command()
-    async def bruh(self, ctx):
-        channel=ctx.channel
-        if not self.client.command_status['bruh'] == 1:
-            raise commands.DisabledCommand
-        
-        await channel.send(file=discord.File(os.path.join(self.client.dir,self.client.config['shen_path'],"other/bruh.png")))
+#    @commands.command()
+#    async def bruh(self, ctx):
+#        channel=ctx.channel
+#        if not self.client.command_status['bruh'] == 1:
+#            raise commands.DisabledCommand
+#        
+#        await channel.send(file=discord.File(os.path.join(self.client.dir,self.client.config['shen_path'],"other/bruh.png")))
 
-    @commands.command()
-    async def broke(self, ctx, *num:int):
-        channel=ctx.channel
-        if ctx.message.guild.id != 419624511189811201:
-            return
-        else:
-            available = list(range(1,4))
-            if not num:
-                request = 3
-            else:
-                request = num[-1]
-            
-            if not request or not request in available:
-                await channel.send(file=discord.File(os.path.join(self.client.dir,self.client.config['shen_path'],f"other/broke_{random.choice(available)}.png")))
-            else:
-                await channel.send(file=discord.File(os.path.join(self.client.dir,self.client.config['shen_path'],f"other/broke_{request}.png")))
+#    @commands.command()
+#    async def broke(self, ctx, *num:int):
+#        channel=ctx.channel
+#        if ctx.message.guild.id != 419624511189811201:
+#            return
+#        else:
+#            available = list(range(1,len([i for i in self.config['red']['images'] if i.startswith('broke')])+1))
+#            if not num:
+#                request = 3
+#            else:
+#                request = num[-1]
+#            
+#            if not request or not request in available:
+#                await channel.send(self.config['red']['images'][random.choice([i for i in self.config['red']['images'] if i.startswith('broke')])])
+#            else:
+#                await channel.send(self.config['red']['images'][[i for i in self.config['red']['images'] if i.split(".")[0] == f"broke{num}"][0]])
 
-    @commands.command()
-    async def roko(self, ctx, *num:int):
-        channel=ctx.channel
-        available = list(range(31))
-        if not num or not num[0] in available:
-            request = random.choice(available)
-        else:
-            request = available[num[0]]
-
-        await channel.send(file=discord.File(os.path.join(self.client.dir,self.client.config['shen_path'],f"other/roko/roko{request}.png")))
+#    @commands.command()
+#    async def roko(self, ctx, *num:int):
+#        channel=ctx.channel
+#        fnames = list(self.config['roko']['images'].keys())
+#        available = list(range(len(fnames)))
+#        if not num or not num[0] in available:
+#            request = random.choice(fnames)
+#        else:
+#            request = f"roko{available[num[0]]}.png"
+#
+#        await channel.send(self.config['roko']['images'][request])
 
 def setup(client):
     client.add_cog(shenCog(client))

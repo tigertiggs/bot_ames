@@ -466,6 +466,10 @@ class Ames(commands.AutoShardedBot):
                 await self.log.send('failed', e)
             else:
                 await self.log.send('success')
+
+        with open(self.config['private_path'], "w") as p:
+            p.write(json.dumps(self.private,indent=4))
+            
         await super().close()
 
     def run(self):

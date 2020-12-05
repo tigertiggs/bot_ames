@@ -1,12 +1,22 @@
 {
-    "sheet_id": "1b-41DmRzSk5tBKBf9eN2iUHoUr61eVAgj5i_xAOi7BU",
+    "sheet_id": "1UrEFf88vjcOFRy7tFOfcedsoobXU7ZTeezFlRFVEo2Q",
     "data": {
         "skills_jp": {
-            "sheet_name":   "Skills JP",
+            "sheet_name":   "Skills",
             "titles":       ["id", "nation", "img", "name", "class", "rarity", "skills", "traits"],
             "range":        "A6:H",
 
             "row_start":    6,
+            "row_end":      null,
+            "column_start": "A",
+            "column_end":   "H"
+        },
+        "retrofit": {
+            "sheet_name":   "Skills (Retrofit)",
+            "titles":       ["id", "nation", "img", "name", "class", "rarity", "skills", "traits"],
+            "range":        "A7:H",
+
+            "row_start":    7,
             "row_end":      null,
             "column_start": "A",
             "column_end":   "H"

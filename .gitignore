@@ -23,6 +23,13 @@ commands/twitter/cache/*
 commands/_config/guild/*
 !commands/_config/guild/.gitkeep
 
+# shen
+commands/assets/shen/other/_config.json
+commands/assets/shen/other/static
+commands/assets/shen/other/temp.png
+commands/assets/shen/other/temp.jpeg
+commands/assets/shen/other/temp.gif
+
 # other
 commands/_config/override.json
 commands/_config/cbtag.json

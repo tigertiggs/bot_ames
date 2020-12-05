@@ -1,4 +1,10 @@
 {
+    "4.9.0": [
+        "+ [shen][ames] added imgur api client. adapted static images to use imgur api call to save upload overhead/limits",
+        "- [ames] local static images untracked",
+        "- [shen] overhauled image roulette functions to be all under 1 listener",
+        "- [blueoath] updated config to reflect gsheet changes"
+    ],
     "4.8.3": [
         "+ [phatsune] added moni as an alias for magigaru",
         "+ [shen] added new commands",

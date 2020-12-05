@@ -380,6 +380,15 @@
             "aliases":  ["w"],
             "help":     "WIDETSUNE",
             "help_ex":  "very wide but cannot be bigger than 10 wide or smaller than 1 wide.\n||Also you can include an emote to widen it but its pretty cursed.||"
+        },
+        "shen": {
+            "flags":    ["shitpost","restricted"],
+            "hidden":   false,
+            "usage":    ".shen [cmd]",
+            "subcmd":   ["add","edit","new","delete"],
+            "aliases":  null,
+            "help":     "create/edit/delete shen categories",
+            "help_ex":  "> `.shen add name=name&link=a,b,...`\nUsed to append images to existing pools. `name` is mandatory. Command also accepts any attachments on this.\n\n> `.shen new name=name&seq=0&default=0&tags=a,b,c,...`\ncreates a new category. `name` cannot already exist. Only `name` is mandatory and all other kwargs are assumed a default value.\n\n> `.shen edit name=name&active=1&seq=0&default=0&tags=a,+b,-c,...`\nbasically funcions the same way as `new` but requires the category to exist.\n\n> `.shen delete name=name&index=1,2,...`\nremove images from a category."
         }
     }
 }
