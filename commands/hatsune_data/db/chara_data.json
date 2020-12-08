@@ -26244,7 +26244,7 @@
                     },
                     "ub2": {
                         "name": null,
-                        "text": "Gain medium physical crit damage up; inflict massive physical damage on the frontmost enemy. This skill's one-hit damage will always crit.",
+                        "text": "Gain medium physical crit damage up; inflict massive physical damage on the frontmost enemy. This skill's first hit will always crit.",
                         "action": [
                             "Gain 25% p.crit damage up [18s]",
                             "Inflict 141434 p.dmg to target "
@@ -26259,7 +26259,7 @@
                     },
                     "sk1p": {
                         "name": null,
-                        "text": "Inflict large physical damage to the frontmost enemy 3 times. Increase this skill's critical damage modifier from x2.0 to x3.0. This skill's one-hit damage will always crit.",
+                        "text": "Inflict large physical damage to the frontmost enemy 3 times. Increase this skill's critical damage modifier from x2.0 to x3.0. This skill's first hit will always crit.",
                         "action": [
                             "Inflict 14289 p.dmg to target ",
                             "Inflict 10254 p.dmg to target ",
