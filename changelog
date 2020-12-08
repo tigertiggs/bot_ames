@@ -1,4 +1,7 @@
 {
+    "4.9.1": [
+        "+ [phatsune] added suzuna flb"
+    ],
     "4.9.0": [
         "+ [shen][ames] added imgur api client. adapted static images to use imgur api call to save upload overhead/limits",
         "- [ames] local static images untracked",

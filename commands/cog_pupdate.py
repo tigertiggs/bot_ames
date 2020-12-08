@@ -558,7 +558,7 @@ class updateCog(commands.Cog):
             for i, unit in enumerate(all_data['units']):
                 entry = (await self.get_data(ctx, {"index":all_data['units'].index(unit)}, data=all_data))[0]
                 temp.append(entry)
-                print(i)
+                #print(i)
                 if i%10==0:
                     await msg.edit(content=msg.content+".")
 
