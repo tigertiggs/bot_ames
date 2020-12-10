@@ -9289,7 +9289,8 @@
                 "patk_up",
                 "self_buff",
                 "tp_up",
-                "battery"
+                "battery",
+                "ue"
             ],
             "pos": 146,
             "atkptn": {
@@ -9324,8 +9325,8 @@
                         "name": null,
                         "text": "If not carrying coin, inflict massive physical damage on the frontmost enemy, gain massive physical attack up and coin. If carrying coin, consume coin buff and inflict massive physical damage.",
                         "action": [
-                            "Inflict 74510 p.dmg on target if coin not held ",
-                            "Inflict 149021 p.dmg on target if coin held ",
+                            "Inflict 78826 p.dmg on target if coin not held ",
+                            "Inflict 157651 p.dmg on target if coin held ",
                             "Gain 6552 p.atk up if coin not held [18s]"
                         ]
                     },
@@ -9336,7 +9337,7 @@
                     },
                     "sk1": {
                         "name": null,
-                        "text": "If not carrying coin, grant large physical attack up to all ally physical attackers. If carrying coin, grant medium physical attack up to all ally physical attackers and Christina gains massive physical attack up.",
+                        "text": "**[coin not present]:** Grant large physical attack up to all ally physical attackers.\n**[coin present]:** Grant medium physical attack up to all ally physical attackers; gain massive physical attack up.",
                         "action": [
                             "Buff p.atk by 3640 on target if coin not held [12s]",
                             "Buff p.atk by 1820 on target if coin held [12s]",
@@ -9345,8 +9346,13 @@
                     },
                     "sk1p": {
                         "name": null,
-                        "text": "soon\u2122",
-                        "action": null
+                        "text": "**[coin not present]:** Grant massive physical attack up to all ally physical attackers.\n**[coin present]:** Grant medium physical attack up to all ally physical attackers; gain massive physical attack and crit damage up.",
+                        "action": [
+                            "Buff p.atk by 4368 on target if coin not held [12s]",
+                            "Buff p.atk by 1820 on target if coin held [12s]",
+                            "Gain 7644 p.atk up if coin held [12s]",
+                            "Gain 25% p.crit damage up if coin is held [12s]"
+                        ]
                     },
                     "sk1a": {
                         "name": null,
@@ -9360,10 +9366,10 @@
                     },
                     "sk2": {
                         "name": null,
-                        "text": "If not carrying coin, inflict medium physical damage on the frontmost enemy. If carrying coin, inflict medium physical damage on the frontmost enemy and grant small TP recovery to all allies.",
+                        "text": "**[coin not present]:** Inflict medium physical damage on the frontmost enemy.\n**[coin present]:** Inflict medium physical damage on the frontmost enemy and grant small TP recovery to all allies.",
                         "action": [
-                            "Inflict 27941 p.dmg on target if coin not held ",
-                            "Inflict 24837 p.dmg on target if coin held ",
+                            "Inflict 29560 p.dmg on target if coin not held ",
+                            "Inflict 26275 p.dmg on target if coin held ",
                             "Buff TP gain up 10 on all targets if coin held [12s]"
                         ]
                     },
@@ -9412,8 +9418,8 @@
                         "action": null
                     },
                     "sk1p": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u30a8\u30f3\u30cf\u30f3\u30b9\u30d7\u30ec\u30bc\u30f3\u30c8+",
+                        "text": "\u30b3\u30a4\u30f3\u3092\u6301\u3063\u3066\u3044\u306a\u3044\u5834\u5408\u3001\u7269\u7406\u653b\u6483\u3092\u884c\u3046\u3059\u3079\u3066\u306e\u5473\u65b9\u30ad\u30e3\u30e9\u306e\u7269\u7406\u653b\u6483\u529b\u3092\u7279\u5927\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002\u30b3\u30a4\u30f3\u3092\u6301\u3063\u3066\u3044\u308b\u5834\u5408\u3001\u7269\u7406\u653b\u6483\u3092\u884c\u3046\u3059\u3079\u3066\u306e\u5473\u65b9\u30ad\u30e3\u30e9\u306e\u7269\u7406\u653b\u6483\u529b\u3092\u4e2d\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002\u3055\u3089\u306b\u3001\u81ea\u5206\u306e\u7269\u7406\u653b\u6483\u529b\u3092\u7279\u5927\u30a2\u30c3\u30d7\u3055\u305b\u3001\u7269\u7406\u653b\u6483\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u6642\u306e\u30c0\u30e1\u30fc\u30b8\u3092\u4e2d\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
                         "action": null
                     },
                     "sk1a": {
@@ -9455,27 +9461,34 @@
                 }
             },
             "ue": {
-                "id": null,
+                "id": 131151,
                 "rank": null,
-                "img": null,
-                "stats": {},
+                "img": "https://redive.estertion.win/icon/equipment/131151.webp",
+                "stats": {
+                    "atk": 86,
+                    "atk_growth": 4.3,
+                    "pCrit": 20,
+                    "pCrit_growth": 1,
+                    "tpSave": 1,
+                    "tpSave_growth": 0.05
+                },
                 "en": {
-                    "name": null,
+                    "name": "Avalon",
                     "text": null
                 },
                 "jp": {
-                    "name": null,
-                    "text": null
+                    "name": "\u8056\u523b\u5263\u30a2\u30f4\u30a1\u30ed\u30f3",
+                    "text": "\u30b5\u30f3\u30bf\u30af\u30ed\u30fc\u30b9\u5019\u88dc\u3068\u306a\u3063\u305f\u30af\u30ea\u30b9\u30c6\u30a3\u30fc\u30ca\u306b\u88c5\u3044\u3092\u5408\u308f\u305b\u305f\u8056\u57df\u5263\u30a2\u30f4\u30a1\u30ed\u30f3\u3002\u8056\u591c\u306e\u5947\u8de1\u306b\u3088\u308a\u4e3b\u306b\u7d76\u5bfe\u306e\u52dd\u5229\u3092\u8d08\u308b\u3068\u3044\u3046\u3002"
                 }
             },
             "stats": {
                 "normal": {
                     "hp": 31658,
-                    "atk": 13248,
+                    "atk": 14147,
                     "matk": 0,
                     "def": 293,
                     "mdef": 231,
-                    "pCrit": 916,
+                    "pCrit": 1125,
                     "mCrit": 0,
                     "wHpRec": 900,
                     "wTpRec": 411,
@@ -9528,7 +9541,9 @@
                 "magic",
                 "self_buff",
                 "self_harm",
-                "special"
+                "special",
+                "matk_up",
+                "ue"
             ],
             "pos": 144,
             "atkptn": {
@@ -9562,7 +9577,7 @@
                         "name": null,
                         "text": "Inflict massive magic damage to the frontmost enemy and gain medium magic attack up. The damage inflicted is proportional to how low Ilya's HP is.",
                         "action": [
-                            "Inflict 75211 m.dmg on target ",
+                            "Inflict 78974 m.dmg on target ",
                             "Gain 2730 m.atk up [180s]"
                         ]
                     },
@@ -9575,13 +9590,16 @@
                         "name": null,
                         "text": "Inflict medium magic damage on the frontmost enemy. The damage inflicted is proportional to how low Ilya's HP is.",
                         "action": [
-                            "Inflict 25070 m.dmg on target "
+                            "Inflict 26325 m.dmg on target "
                         ]
                     },
                     "sk1p": {
                         "name": null,
-                        "text": "soon\u2122",
-                        "action": null
+                        "text": "Gain small magic attack up; inflict large magic damage on the frontmost enemy. The damage inflicted is proportional to how low Ilya's HP is.",
+                        "action": [
+                            "Gain 728 m.atk up [180s]",
+                            "Inflict 32906 m.dmg on target "
+                        ]
                     },
                     "sk1a": {
                         "name": null,
@@ -9597,7 +9615,7 @@
                         "name": null,
                         "text": "Inflict medium magic damage to all enemies in range, gain medium magic attack up, and consume 20% of remaining HP. Damage inflicted is proportional to how low Ilya's HP is.",
                         "action": [
-                            "Inflict 15669 m.dmg on all targets in range (Range: 615)",
+                            "Inflict 16453 m.dmg on all targets in range (Range: 615)",
                             "Gain 2730 m.atk up [12s]",
                             "Consume 20% of remaining HP "
                         ]
@@ -9647,8 +9665,8 @@
                         "action": null
                     },
                     "sk1p": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u30d0\u30c3\u30c8\u30ab\u30fc\u30cb\u30d0\u30eb+",
+                        "text": "\u81ea\u5206\u306e\u9b54\u6cd5\u653b\u6483\u529b\u3092\u5c0f\u30a2\u30c3\u30d7\u3055\u305b\u3001\u3055\u3089\u306b\u76ee\u306e\u524d\u306e\u6575\uff11\u30ad\u30e3\u30e9\u306b\u9b54\u6cd5\u5927\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u308b\u3002\u30a4\u30ea\u30e4\u306e\uff28\uff30\u304c\u4f4e\u3044\u7a0b\u3001\u653b\u6483\u529b\u306e\u4e0a\u6607\u91cf\u3068\u30c0\u30e1\u30fc\u30b8\u304c\u30a2\u30c3\u30d7\u3059\u308b\u3002",
                         "action": null
                     },
                     "sk1a": {
@@ -9690,28 +9708,37 @@
                 }
             },
             "ue": {
-                "id": null,
+                "id": 131171,
                 "rank": null,
-                "img": null,
-                "stats": {},
+                "img": "https://redive.estertion.win/icon/equipment/131171.webp",
+                "stats": {
+                    "hp": 100,
+                    "hp_growth": 5,
+                    "matk": 75,
+                    "matk_growth": 3.75,
+                    "mCrit": 8,
+                    "mCrit_growth": 0.4,
+                    "tpRec": 2,
+                    "tpRec_growth": 0.1
+                },
                 "en": {
-                    "name": null,
+                    "name": "Noelfang (working title)",
                     "text": null
                 },
                 "jp": {
-                    "name": null,
-                    "text": null
+                    "name": "\u8056\u591c\u65a7\u30ce\u30a8\u30eb\u30d5\u30a1\u30f3\u30b0",
+                    "text": "\u30b5\u30f3\u30bf\u30af\u30ed\u30fc\u30b9\u5019\u88dc\u3068\u306a\u3063\u305f\u30a4\u30ea\u30e4\u611b\u7528\u306e\u65a7\u304c\u8056\u591c\u306e\u5947\u8de1\u306b\u3088\u308a\u9b45\u305b\u305f\u65b0\u305f\u306a\u59ff\u3002\u67ca\u306b\u3088\u308a\u83ef\u9e97\u306b\u5f69\u3089\u308c\u3057\u5de8\u5203\u306f\u4e0d\u6ec5\u306e\u8f1d\u304d\u3092\u5bbf\u3057\u3066\u3044\u308b\u3002"
                 }
             },
             "stats": {
                 "normal": {
-                    "hp": 26180,
+                    "hp": 27225,
                     "atk": 0,
-                    "matk": 13394,
+                    "matk": 14178,
                     "def": 224,
                     "mdef": 297,
                     "pCrit": 0,
-                    "mCrit": 897,
+                    "mCrit": 981,
                     "wHpRec": 1080,
                     "wTpRec": 417,
                     "dodge": 0,
@@ -9719,7 +9746,7 @@
                     "mPen": 0,
                     "lifesteal": 6,
                     "hpRec": 60,
-                    "tpRec": 13,
+                    "tpRec": 34,
                     "tpSave": 17,
                     "acc": 0
                 },
@@ -19112,7 +19139,9 @@
                 "self_buff",
                 "pshield",
                 "ailment",
-                "special"
+                "special",
+                "heal",
+                "ue"
             ],
             "pos": 214,
             "atkptn": {
@@ -19162,8 +19191,13 @@
                     },
                     "sk1p": {
                         "name": null,
-                        "text": "soon\u2122",
-                        "action": null
+                        "text": "Gain small HP heal. Deploy a physical nullification barrier to all allies; grant small physical def up; grant HP regeneration. The HP healed, physical def strength, and HP regeneration strength is dependent on the number of allies behind Nozomi.",
+                        "action": [
+                            "Heal 882 HP ",
+                            "Deploy a 3640 buffer p.shield [27s]",
+                            "Buff party p.def by 27 [27s]",
+                            "Recover 176 HP every second "
+                        ]
                     },
                     "sk1a": {
                         "name": null,
@@ -19228,8 +19262,8 @@
                         "action": null
                     },
                     "sk1p": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u30af\u30ea\u30b9\u30de\u30b9\u30a8\u30fc\u30eb+",
+                        "text": "\u81ea\u5206\u306e\uff28\uff30\u3092\u5c0f\u56de\u5fa9\u3059\u308b\u3002\u5473\u65b9\u5168\u4f53\u306b\u7269\u7406\u7121\u52b9\u30d0\u30ea\u30a2\u3092\u5c55\u958b\u3057\u3001\u7269\u7406\u9632\u5fa1\u529b\u3092\u5c0f\u30a2\u30c3\u30d7\u3055\u305b\u3001\u3055\u3089\u306b\u7d99\u7d9a\uff28\uff30\u56de\u5fa9\u72b6\u614b\u3092\u4ed8\u4e0e\u3059\u308b\u3002\u81ea\u5206\u3088\u308a\u5f8c\u65b9\u306b\u3044\u308b\u5473\u65b9\u306e\u4eba\u6570\u306b\u5fdc\u3058\u3066\u3001\uff28\uff30\u56de\u5fa9\u91cf\u3068\u7269\u7406\u9632\u5fa1\u529b\u306e\u4e0a\u6607\u91cf\u3068\u7d99\u7d9a\uff28\uff30\u56de\u5fa9\u91cf\u304c\u30a2\u30c3\u30d7\u3059\u308b\u3002",
                         "action": null
                     },
                     "sk1a": {
@@ -19271,25 +19305,32 @@
                 }
             },
             "ue": {
-                "id": null,
+                "id": 131161,
                 "rank": null,
-                "img": null,
-                "stats": {},
+                "img": "https://redive.estertion.win/icon/equipment/131161.webp",
+                "stats": {
+                    "hp": 290,
+                    "hp_growth": 14.5,
+                    "def": 12,
+                    "def_growth": 0.6,
+                    "hpRec": 4,
+                    "hpRec_growth": 0.2
+                },
                 "en": {
-                    "name": null,
+                    "name": "Saint Hope",
                     "text": null
                 },
                 "jp": {
-                    "name": null,
-                    "text": null
+                    "name": "\u8056\u970a\u5263\u30bb\u30a4\u30f3\u30c8\u30db\u30fc\u30d7",
+                    "text": "\u30b5\u30f3\u30bf\u30af\u30ed\u30fc\u30b9\u5019\u88dc\u3068\u306a\u3063\u305f\u30ce\u30be\u30df\u306e\u7247\u624b\u5263\u3002\u30a2\u30a4\u30c9\u30eb\u3068\u3057\u3066\u306e\u6c7a\u610f\u3068\u305f\u304f\u3055\u3093\u306e\u4eba\u3078\u306e\u5922\u3068\u5e0c\u671b\u306e\u60f3\u3044\u304c\u305d\u306e\u5203\u306b\u7729\u3044\u714c\u304d\u3092\u4e0e\u3048\u3066\u3044\u308b\u3002"
                 }
             },
             "stats": {
                 "normal": {
-                    "hp": 39372,
+                    "hp": 42403,
                     "atk": 7456,
                     "matk": 20,
-                    "def": 732,
+                    "def": 857,
                     "mdef": 686,
                     "pCrit": 260,
                     "mCrit": 0,
@@ -19299,7 +19340,7 @@
                     "pPen": 0,
                     "mPen": 0,
                     "lifesteal": 11,
-                    "hpRec": 49,
+                    "hpRec": 91,
                     "tpRec": 10,
                     "tpSave": 4,
                     "acc": 25
