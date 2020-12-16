@@ -1,4 +1,8 @@
 {
+    "4.9.3": [
+        "- [gacha] no longer breaks when an incorrect target is specified",
+        "+ [gacha] added "no limit" `nl` option into spark for m"
+    ],
     "4.9.2": [
         "+ [phatsune] added ue for x.christina, x.nozomi and x.ilya"
     ],

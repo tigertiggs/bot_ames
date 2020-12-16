@@ -207,7 +207,10 @@ class gachaCog(commands.Cog):
                         'history':  []   
                         }
 
-            for i in range(1,num+1):
+            i = 0
+            #for i in range(1,num+1):
+            while True:
+                i += 1
                 ch = self.roll(i%10==0)
                 if ch.rarity == 1:
                     summary['r'] += 1
@@ -228,6 +231,9 @@ class gachaCog(commands.Cog):
                         break
                     elif mode and ch.name == mode['sname']:
                         break
+                
+                if i == num:
+                    break
             
             summary['rolls'] = i
             summary['frags'] = summary['ssr']*50 + summary['sr']*10 + summary['r']
@@ -270,10 +276,13 @@ class gachaCog(commands.Cog):
         if mode == 'roll':
             desc = f"「ステキなナカマですね、{author.name}！」" if summary['ssr'] == 0 else f"「おめでとうございます、{author.name}！」"
 
+        elif roll is False:
+            desc = f"{author.name}, you managed to pull **{list(summary['lim'].values())[-1][0].full_name}** in **{summary['rolls']}** pulls."
+ 
         elif mode == 'spark':
             desc = f"{author.name}, you managed to pull **{list(summary['lim'].values())[0][0].full_name}** in **{summary['rolls']}** pulls." if summary['rolls'] < roll else\
                         f"{author.name}, you did not manage to pull any rate up(s) within {summary['rolls']} rolls."
-        
+                   
         else:
             desc = f"{author.name}, you managed to pull **{list(summary['lim'].values())[-1][0].full_name}** in **{summary['rolls']}** pulls." if summary['rolls'] < roll else\
                         f"{author.name}, you did not manage to pull {self.pool.ssr_pool['lim'][[chara.name for chara in self.pool.ssr_pool['lim']].index(mode['sname'])].full_name} within {summary['rolls']} rolls."
@@ -363,30 +372,43 @@ class gachaCog(commands.Cog):
         mode = None
         for temp in request:
             # see if input is a number
-            if limit == None:
-                try:
-                    limit = int(temp)
-                except:
-                    limit = None
-                else:
-                    if limit > 300 or limit < 0:
-                        await channel.send(self.client.emotes['amesyan'])
-                        return
-                    continue
+            #if limit == None:
+            #    try:
+            #        limit = int(temp)
+            #    except:
+            #        limit = None
+            #    else:
+            #        if limit > 300 or limit < 0:
+            #            await channel.send(self.client.emotes['amesyan'])
+            #            return
+            #        continue
             # see if input is a chara
-            if mode == None:
-                try: #FIXME
-                    from cog_phatsune import hatsuneCog
-                    hatsune = hatsuneCog(self.client)
-                    mode, _, _, _= await hatsune.preprocess(ctx, [temp], verbose=False)
-                except:
-                    mode = None
-                else:
+            #if mode == None:
+            #    try: #FIXME
+            #        from cog_phatsune import hatsuneCog
+            #        hatsune = hatsuneCog(self.client)
+            #        mode, _, _, _= await hatsune.preprocess(ctx, [temp], verbose=False)
+            #    except:
+            #        mode = None
+            #    else:
+            #        if not mode['sname'] in [chara.name for chara in self.pool.ssr_pool['lim']]:
+            #            await channel.send("This character cannot be sparked in the current banner")
+            #            return
+            #del hatsune
+            if temp.lower() in ["nolim", "nolimit", "nl"]:
+                limit = False
+            elif limit is None and temp.isnumeric():
+                limit = int(temp)
+            elif mode is None and temp.replace(".","").isalpha():
+                from cog_phatsune import hatsuneCog as hcog
+                hatsune = hcog(self.client)
+                mode, _, _, _ = await hatsune.preprocess(ctx, [temp], verbose=False)
+                if mode:
                     if not mode['sname'] in [chara.name for chara in self.pool.ssr_pool['lim']]:
                         await channel.send("This character cannot be sparked in the current banner")
                         return
-            del hatsune
-                    
+                else:
+                    mode = None
 
         limit = 300 if limit == None else limit
         mode = "spark" if mode == None else mode
