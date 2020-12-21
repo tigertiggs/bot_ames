@@ -1,4 +1,8 @@
 {
+    "4.9.4": [
+        "+ [phatsune] added xsaren",
+        "+ [phatsune] lvl cap up"
+    ],
     "4.9.3": [
         "- [gacha] no longer breaks when an incorrect target is specified",
         "+ [gacha] added 'no limit' `nl` option into spark for maso ppl"

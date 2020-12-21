@@ -10,13 +10,10 @@
     "ssr_rate_up": 0.008,
     "sr_rate_up": 0,
     "r_rate_up": 0,
-    "prifes": 0,
+    "prifes": 1,
     "pools": {
         "lim": [
-            "3X.Christina",
-            "3X.Ilya",
-            "3X.Chika",
-            "3X.Ayane"
+            "3X.Saren"
         ],
         "r": [
             "Rei",

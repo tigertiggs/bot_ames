@@ -820,6 +820,15 @@
             "flb": false
         },
         {
+            "id": null,
+            "hnid": 1146,
+            "name_en": "yukari",
+            "prefix": "x",
+            "sname": "xyukari",
+            "name_jp": "\u30e6\u30ab\u30ea(\u30af\u30ea\u30b9\u30de\u30b9)",
+            "flb": false
+        },
+        {
             "id": 1,
             "hnid": 1040,
             "name_en": "aoi",
@@ -1199,17 +1208,17 @@
         },
         {
             "id": null,
-            "hnid": 1146,
-            "name_en": "yukari",
+            "hnid": 1145,
+            "name_en": "saren",
             "prefix": "x",
-            "sname": "xyukari",
-            "name_jp": "\u30e6\u30ab\u30ea(\u30af\u30ea\u30b9\u30de\u30b9)",
+            "sname": "xsaren",
+            "name_jp": "\u30b5\u30ec\u30f3(\u30af\u30ea\u30b9\u30de\u30b9)",
             "flb": false
         }
     ],
     "constants": {
         "ue": 190,
-        "lvl": 181,
+        "lvl": 184,
         "rk": 19
     }
 }
