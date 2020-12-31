@@ -1,4 +1,9 @@
 {
+    "4.9.5": [
+        "+ [phatsune] added phiyori and nmuimi",
+        "- [phatsune] fixed xchristina sk1p TL",
+        "+ [gacha] update to prinfes gacha state"
+    ],
     "4.9.4": [
         "+ [phatsune] added xsaren",
         "+ [phatsune] lvl cap up"
