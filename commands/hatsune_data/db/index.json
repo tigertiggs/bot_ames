@@ -469,6 +469,15 @@
             "flb": false
         },
         {
+            "id": null,
+            "hnid": 1147,
+            "name_en": "muimi",
+            "prefix": "n",
+            "sname": "nmuimi",
+            "name_jp": "\u30e0\u30a4\u30df(\u30cb\u30e5\u30fc\u30a4\u30e4\u30fc)",
+            "flb": false
+        },
+        {
             "id": 2,
             "hnid": 1006,
             "name_en": "akari",
@@ -1226,11 +1235,11 @@
         },
         {
             "id": null,
-            "hnid": 1147,
-            "name_en": "muimi",
+            "hnid": 1118,
+            "name_en": "pecorine",
             "prefix": "n",
-            "sname": "nmuimi",
-            "name_jp": "\u30e0\u30a4\u30df(\u30cb\u30e5\u30fc\u30a4\u30e4\u30fc)",
+            "sname": "npecorine",
+            "name_jp": "\u30da\u30b3\u30ea\u30fc\u30cc(\u30cb\u30e5\u30fc\u30a4\u30e4\u30fc)",
             "flb": false
         }
     ],

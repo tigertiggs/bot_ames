@@ -10,17 +10,10 @@
     "ssr_rate_up": 0.008,
     "sr_rate_up": 0,
     "r_rate_up": 0,
-    "prifes": 1,
+    "prifes": 0,
     "pools": {
         "lim": [
-            "3.Muimi",
-            "3.Labyrista",
-            "3.Neneka",
-            "3.Christina",
-            "3P.Hiyori:0.7",
-            "3P.Yui",
-            "3P.Pecorine",
-            "3P.Kokkoro"
+            "3N.Pecorine"
         ],
         "r": [
             "Rei",
