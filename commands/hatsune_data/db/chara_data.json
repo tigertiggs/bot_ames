@@ -3079,31 +3079,31 @@
                         "name": null,
                         "text": "Inflict large physical damage on the frontmost enemy; inflict medium physical damage on all surrounding enemies.",
                         "action": [
-                            "Inflict 37960 p.dmg to target ",
-                            "Inflict 17082 p.dmg to all targets in range (Range: 400)"
+                            "Inflict 38176 p.dmg to target ",
+                            "Inflict 17179 p.dmg to all targets in range (Range: 400)"
                         ]
                     },
                     "ub2": {
                         "name": null,
                         "text": "Inflict massive physical damage on the frontmost enemy; inflict large physical damage on all surrounding enemies.",
                         "action": [
-                            "Inflict 75919 p.dmg to target ",
-                            "Inflict 56939 p.dmg to all targets in range (Range: 600)"
+                            "Inflict 76351 p.dmg to target ",
+                            "Inflict 57263 p.dmg to all targets in range (Range: 600)"
                         ]
                     },
                     "sk1": {
                         "name": null,
                         "text": "Inflict medium physical damage on the frontmost enemy.",
                         "action": [
-                            "Inflict 25306 p.dmg to target "
+                            "Inflict 25450 p.dmg to target "
                         ]
                     },
                     "sk1p": {
                         "name": null,
                         "text": "Inflict large physical damage on the frontmost enemy; inflict small physical damage on all surrounding enemies.",
                         "action": [
-                            "Inflict 25306 p.dmg to target ",
-                            "Inflict 11388 p.dmg to all targets in range (Range: 400)"
+                            "Inflict 25450 p.dmg to target ",
+                            "Inflict 11453 p.dmg to all targets in range (Range: 400)"
                         ]
                     },
                     "sk1a": {
@@ -3120,7 +3120,7 @@
                         "name": null,
                         "text": "Inflict small physical damage to the frontmost enemy; gain medium physical attack up.",
                         "action": [
-                            "Inflict 9582 p.dmg to target ",
+                            "Inflict 9636 p.dmg to target ",
                             "Gain 2035 p.atk up [12s]"
                         ]
                     },
@@ -3233,7 +3233,7 @@
             "stats": {
                 "normal": {
                     "hp": 31298,
-                    "atk": 13504,
+                    "atk": 13594,
                     "matk": 0,
                     "def": 383,
                     "mdef": 305,
@@ -3252,7 +3252,7 @@
                 },
                 "flb": {
                     "hp": 39876,
-                    "atk": 16410,
+                    "atk": 16500,
                     "matk": 0,
                     "def": 444,
                     "mdef": 357,
@@ -3345,7 +3345,7 @@
                         "name": null,
                         "text": "Inflict large physical damage on the frontmost enemy; gain large physical and magic def up.",
                         "action": [
-                            "Inflict 23840 p.dmg to target ",
+                            "Inflict 24008 p.dmg to target ",
                             "Gain 333 p.def up [18s]",
                             "Gain 333 m.def up [18s]"
                         ]
@@ -3354,7 +3354,7 @@
                         "name": null,
                         "text": "Inflict massive physical damage on the frontmost enemy; gain massive physical and magic def up; gain medium physical attack up. The physical attack up buff is proportional to Pecorine's HP.",
                         "action": [
-                            "Inflict 47681 p.dmg to target ",
+                            "Inflict 48017 p.dmg to target ",
                             "Gain 444 p.def up [18s]",
                             "Gain 444 m.def up [18s]",
                             "Gain 1850 p.atk up [18s]"
@@ -3365,7 +3365,7 @@
                         "text": "Gain medium magic def up and HP heal.",
                         "action": [
                             "Gain 148 m.def up [12s]",
-                            "Heal 8546 HP "
+                            "Heal 8616 HP "
                         ]
                     },
                     "sk1p": {
@@ -3373,7 +3373,7 @@
                         "text": "Gain medium magic def up and large HP heal to self; gain a physical and magic absorption barrier.",
                         "action": [
                             "Gain 185 m.def up [12s]",
-                            "Heal 10995 HP ",
+                            "Heal 11079 HP ",
                             "Deploy a 4163 buffer mp.barrier [8s]"
                         ]
                     },
@@ -3391,7 +3391,7 @@
                         "name": null,
                         "text": "Inflict medium physical damage on the frontmost enemy.",
                         "action": [
-                            "Inflict 15894 p.dmg to target "
+                            "Inflict 16006 p.dmg to target "
                         ]
                     },
                     "sk2a": {
@@ -3505,7 +3505,7 @@
             "stats": {
                 "normal": {
                     "hp": 49065,
-                    "atk": 7621,
+                    "atk": 7691,
                     "matk": 20,
                     "def": 926,
                     "mdef": 747,
@@ -3524,7 +3524,7 @@
                 },
                 "flb": {
                     "hp": 61109,
-                    "atk": 8631,
+                    "atk": 8701,
                     "matk": 20,
                     "def": 1069,
                     "mdef": 880,
@@ -6599,7 +6599,7 @@
                         "name": null,
                         "text": "Inflict massive physical damage on the frontmost enemy; inflict small physical def and TP down.",
                         "action": [
-                            "Inflict 73693 p.dmg to target ",
+                            "Inflict 74089 p.dmg to target ",
                             "Inflict 37 p.def down on target [18s]",
                             "Inflict 20 TP gain down on target [18s]"
                         ]
@@ -6640,7 +6640,7 @@
                         "name": null,
                         "text": "Inflict medium physical damage on the frontmost enemy.",
                         "action": [
-                            "Inflict 26999 p.dmg to target "
+                            "Inflict 27143 p.dmg to target "
                         ]
                     },
                     "sk2a": {
@@ -6754,7 +6754,7 @@
             "stats": {
                 "normal": {
                     "hp": 28370,
-                    "atk": 14562,
+                    "atk": 14652,
                     "matk": 0,
                     "def": 341,
                     "mdef": 281,
@@ -6850,7 +6850,7 @@
                         "name": null,
                         "text": "Inflict large physical damage on all enemies in range.",
                         "action": [
-                            "Inflict 41934 p.dmg to all targets in range (Range: 600)"
+                            "Inflict 42112 p.dmg to all targets in range (Range: 600)"
                         ]
                     },
                     "ub2": {
@@ -6889,7 +6889,7 @@
                         "name": null,
                         "text": "Inflict small physical damage on all enemies in range; inflict small knockback on the frontmost enemy.",
                         "action": [
-                            "Inflict 13148 p.dmg to all targets in range (Range: 325)"
+                            "Inflict 13204 p.dmg to all targets in range (Range: 325)"
                         ]
                     },
                     "sk2a": {
@@ -7003,7 +7003,7 @@
             "stats": {
                 "normal": {
                     "hp": 39340,
-                    "atk": 14123,
+                    "atk": 14193,
                     "matk": 0,
                     "def": 353,
                     "mdef": 217,
@@ -7586,7 +7586,7 @@
                         "name": null,
                         "text": "Inflict massive physical damage on the frontmost enemy. Change into and remain in `Heavenly Blade` form until TP guage is depleted.",
                         "action": [
-                            "Inflict 67857 p.dmg to target "
+                            "Inflict 68235 p.dmg to target "
                         ]
                     },
                     "ub2": {
@@ -7598,8 +7598,8 @@
                         "name": null,
                         "text": "Inflict small physical damage and stun with small knockback on all enemies in range.",
                         "action": [
-                            "Slash and inflict 4397 p.dmg on all targets in range (Range: 280)",
-                            "Kick and inflict 5856 p.dmg on all targets in range (Range: 280)",
+                            "Slash and inflict 4421 p.dmg on all targets in range (Range: 280)",
+                            "Kick and inflict 5888 p.dmg on all targets in range (Range: 280)",
                             "Paralyze all targets in range for a set time (Range: 280)"
                         ]
                     },
@@ -7607,8 +7607,8 @@
                         "name": null,
                         "text": "Inflict medium physical damage and stun with small knockback on all enemies in range.",
                         "action": [
-                            "Slash and inflict 6595 p.dmg on all targets in range (Range: 300)",
-                            "Kick and inflict 8784 p.dmg on all targets in range (Range: 300)",
+                            "Slash and inflict 6631 p.dmg on all targets in range (Range: 300)",
+                            "Kick and inflict 8833 p.dmg on all targets in range (Range: 300)",
                             "Paralyze all targets in range for a set time (Range: 300)"
                         ]
                     },
@@ -7616,14 +7616,14 @@
                         "name": null,
                         "text": "Inflict massive physical damage on the frontmost enemy.",
                         "action": [
-                            "Inflict 78079 p.dmg to target "
+                            "Inflict 78511 p.dmg to target "
                         ]
                     },
                     "sk1ap": {
                         "name": null,
                         "text": "Inflict massive physical damage on the frontmost enemy.",
                         "action": [
-                            "Inflict 156158 p.dmg to target "
+                            "Inflict 157022 p.dmg to target "
                         ]
                     },
                     "sk2": {
@@ -7637,7 +7637,7 @@
                         "name": null,
                         "text": "Inflict large physical damage on all enemies in range.",
                         "action": [
-                            "Inflict 57634 p.dmg to target (Range: 575)"
+                            "Inflict 57958 p.dmg to target (Range: 575)"
                         ]
                     },
                     "sk2ap": {
@@ -7746,7 +7746,7 @@
             "stats": {
                 "normal": {
                     "hp": 32839,
-                    "atk": 13954,
+                    "atk": 14044,
                     "matk": 0,
                     "def": 308,
                     "mdef": 251,
@@ -10069,8 +10069,8 @@
                         "name": null,
                         "text": "Inflict massive physical damage on the frontmost enemy. Inflicted damage is proportional to Pecorine's HP. If Pecorine's HP is below 50%, gain `[Knight's Blessing]`. Should Pecorine's HP fall to 0 while `[Knight's Blessing]` is active, prevent knockout by recovering some HP; remove `[Knight's Blessing]` buff.",
                         "action": [
-                            "Inflict 48911 p.dmg to target ",
-                            "If HP reduced to 0 while Knight's Blessing is active, prevent KO by healing 10702 HP and remove Knight's Blessing  [12s]"
+                            "Inflict 49289 p.dmg to target ",
+                            "If HP reduced to 0 while Knight's Blessing is active, prevent KO by healing 10772 HP and remove Knight's Blessing  [12s]"
                         ]
                     },
                     "ub2": {
@@ -10105,9 +10105,9 @@
                         "name": null,
                         "text": "Inflict medium physical damage to all enemies in range. The damage inflicted is proportional to Pecorine's HP. If Pecorine's HP is above 50%, gain a physical attack up buff that is proportional to her HP, otherwise gain HP proportoinal to the damage dealt.",
                         "action": [
-                            "Inflict 11177 p.dmg to all targets in range (Range: 300)",
+                            "Inflict 11261 p.dmg to all targets in range (Range: 300)",
                             "Gain 1850 p.atk up [12s]",
-                            "Heal 4611 HP "
+                            "Heal 4646 HP "
                         ]
                     },
                     "sk2a": {
@@ -10214,7 +10214,7 @@
             "stats": {
                 "normal": {
                     "hp": 55588,
-                    "atk": 7002,
+                    "atk": 7072,
                     "matk": 20,
                     "def": 821,
                     "mdef": 653,
@@ -13111,7 +13111,9 @@
                 "matk_up",
                 "heal",
                 "self_buff",
-                "self_sust"
+                "self_sust",
+                "flb",
+                "mcrit_up"
             ],
             "pos": 239,
             "atkptn": {
@@ -13132,7 +13134,7 @@
                 ]
             },
             "img": "https://redive.estertion.win/icon/unit/100631.webp",
-            "img6": null,
+            "img6": "https://redive.estertion.win/icon/unit/100661.webp",
             "basic": {
                 "en": {
                     "id": 2,
@@ -13147,21 +13149,25 @@
                     },
                     "ub2": {
                         "name": null,
-                        "text": null,
-                        "action": null
+                        "text": "Grant massive magic attack up to all allies; grant large magic crit up; grant HP heal proportional to the damage dealt on the next attack. Inflict small magic def down on all enemies.",
+                        "action": [
+                            "Buff party m.atk by 4440 [18s]",
+                            "Buff m.crit by 100 on all targets [18s]",
+                            "Inflict 122 m.def down on all targets [18s]"
+                        ]
                     },
                     "sk1": {
                         "name": null,
                         "text": "Inflict medium magic damage on the frontmost enemy.",
                         "action": [
-                            "Inflict 19833 m.dmg on target "
+                            "Inflict 20665 m.dmg on target "
                         ]
                     },
                     "sk1p": {
                         "name": null,
                         "text": "Inflict medium magic damage on the frontmost enemy; inflict small magic def down.",
                         "action": [
-                            "Inflict 24791 m.dmg on target ",
+                            "Inflict 25831 m.dmg on target ",
                             "Inflict 37 m.def down on target [12s]"
                         ]
                     },
@@ -13217,8 +13223,8 @@
                         "action": null
                     },
                     "ub2": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u30e1\u30eb\u30c6\u30a3\u30c7\u30d3\u30eb\u30c1\u30e3\u30fc\u30e0",
+                        "text": "\u5473\u65b9\u5168\u4f53\u306e\u9b54\u6cd5\u653b\u6483\u529b\u3092\u7279\u5927\u30a2\u30c3\u30d7\u3055\u305b\u3001\u9b54\u6cd5\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u3001\u6b21\u306e\u653b\u6483\u306e\u30c0\u30e1\u30fc\u30b8\u91cf\u306b\u5fdc\u3058\u3066\u8ffd\u52a0\u3067\uff28\uff30\u3092\u56de\u5fa9\u3055\u305b\u308b\u3002\u3055\u3089\u306b\u6575\u5168\u4f53\u306e\u9b54\u6cd5\u9632\u5fa1\u529b\u3092\u5c0f\u30c0\u30a6\u30f3\u3055\u305b\u308b\u3002",
                         "action": null
                     },
                     "sk1": {
@@ -13294,11 +13300,11 @@
                 "normal": {
                     "hp": 33722,
                     "atk": 26,
-                    "matk": 10083,
+                    "matk": 10603,
                     "def": 532,
                     "mdef": 741,
                     "pCrit": 0,
-                    "mCrit": 263,
+                    "mCrit": 293,
                     "wHpRec": 1910,
                     "wTpRec": 233,
                     "dodge": 3,
@@ -13310,7 +13316,25 @@
                     "tpSave": 21,
                     "acc": 0
                 },
-                "flb": {}
+                "flb": {
+                    "hp": 42464,
+                    "atk": 26,
+                    "matk": 13230,
+                    "def": 584,
+                    "mdef": 801,
+                    "pCrit": 0,
+                    "mCrit": 358,
+                    "wHpRec": 1910,
+                    "wTpRec": 233,
+                    "dodge": 3,
+                    "pPen": 0,
+                    "mPen": 0,
+                    "lifesteal": 0,
+                    "hpRec": 153,
+                    "tpRec": 18,
+                    "tpSave": 21,
+                    "acc": 0
+                }
             },
             "profile": {
                 "age": "13",
@@ -22052,7 +22076,7 @@
                         "name": null,
                         "text": "Inflict massive magic damage on the frontmost enemy.",
                         "action": [
-                            "Inflict 74666 m.dmg on target "
+                            "Inflict 77162 m.dmg on target "
                         ]
                     },
                     "ub2": {
@@ -22088,7 +22112,7 @@
                         "name": null,
                         "text": "Inflict medium magic damage on the frontmost enemy. Increase crit damage multiplier of this skill from 2x to 3x.",
                         "action": [
-                            "Inflict 18667 m.dmg on target "
+                            "Inflict 19291 m.dmg on target "
                         ]
                     },
                     "sk2a": {
@@ -22196,11 +22220,11 @@
                 "normal": {
                     "hp": 25844,
                     "atk": 0,
-                    "matk": 13243,
+                    "matk": 13763,
                     "def": 226,
                     "mdef": 318,
                     "pCrit": 0,
-                    "mCrit": 957,
+                    "mCrit": 987,
                     "wHpRec": 1080,
                     "wTpRec": 452,
                     "dodge": 0,
