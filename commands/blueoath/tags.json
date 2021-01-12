@@ -13,7 +13,7 @@
         "factory":  "Have trait(s) that improves the efficiency of factory item(s) production",
         "joat":     "[Jack of All Trades (joat)] Has a skill that improves the global production of factory items",
         "skillbook":"(Factory) Has a trait that improves the efficiency of skill book production",
-        "exp":      "(Factory) Has a trait that improves the efficiency of oath soda production", 
+        "soda":      "(Factory) Has a trait that improves the efficiency of oath soda production", 
         "redchip":  "(Factory) Has a trait that improves the efficiency of upgrade chip production",
         "oathpart": "(Factory) Has a trait that improves the efficiency of oath part production" ,
         "pinkstone":"(Factory) Has a trait that improves the efficiency of pink wishing stone production",

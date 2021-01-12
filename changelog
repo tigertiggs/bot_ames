@@ -1,4 +1,9 @@
 {
+    "4.9.8": [
+        "+ [phastune] added ue for nkyaru, nsuzume, and nkokkoro",
+        "+ [gacha] updated pool",
+        "+ [bo] fixed incorrect tag listing"
+    ],
     "4.9.7": [
         "+ [phatsune] updated akari6"
     ],
