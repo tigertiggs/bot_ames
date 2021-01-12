@@ -150,7 +150,10 @@ class hatsuneCog(commands.Cog):
         if self.active_embeds.get(str(message.id), None) and not self.active_embeds.get(str(message.id), None) == user.id:
             await message.remove_reaction('⏹️', user)
             return
-        elif not (message.author is guild.me or message.author.id == 757869389851787374):
+        elif message.author.id == 757869389851787374:
+            await message.delete()
+            return
+        elif not message.author is guild.me:
             return
         elif not message.embeds:
             return
