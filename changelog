@@ -1,4 +1,10 @@
 {
+    "4.9.9": [
+        "+ [phatsune] added nnnk and updated gacha banner",
+        "+ [phatsune] raised stat cap",
+        "+ [phatsune][pupdate] will now show note if specified variant do not exist",
+        "- [phatsune] fixed laby's and pkkr's pos"
+    ],
     "4.9.8": [
         "+ [phastune] added ue for nkyaru, nsuzume, and nkokkoro",
         "+ [gacha] updated pool",

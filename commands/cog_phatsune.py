@@ -60,7 +60,7 @@ class hatsuneCog(commands.Cog):
         
         #await channel.send("[Experimental Ames] This is currently a highly experimental version of `.character` and may be very unstable. Stable Ames will be up and running soon:tm:")
         if not match['flb'] and mode.get('flb', False):
-            await channel.send(f"Note: {self.client.get_full_name_kai(match['name_en'],match['prefix'])} does not have a `flb` variant")
+            await channel.send(f"**[Note]: {self.client.get_full_name_kai(match['name_en'],match['prefix'])}** does not have a `flb` variant.")
             mode['flb'] = False
 
         await self.logger.send(self.name, match['sname'], match['name_jp'], match['hnid'])
@@ -261,12 +261,14 @@ class hatsuneCog(commands.Cog):
         prefix = self.full_alias.get(prefix, prefix) if prefix else None
 
         # validate
-        match, alts = validate_request(self.client, {"name":name,"prefix":prefix})
+        match, alts, ipflag = validate_request(self.client, {"name":name,"prefix":prefix})
 
         # warn
         if match:
             if not prefix and match['prefix'] and verbose:
                 await ctx.message.channel.send(f"Searching syntax `{name}` is discouraged. Consider searching via `{match['prefix']}.{match['name_en']}` syntax next time "+self.client.emotes['ames'])
+        if ipflag['flag'] == True:
+            await ctx.message.channel.send(f"**[Note]: {self.client.get_full_name_kai(ipflag['name'], prefix=ipflag['prefix'])}** either does not exist or is not recorded in the database at the moment. Please try again later or bug the developer.")
 
         return match, alts, mode, invoke
 

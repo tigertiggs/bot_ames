@@ -478,6 +478,15 @@
             "flb": false
         },
         {
+            "id": null,
+            "hnid": 1118,
+            "name_en": "pecorine",
+            "prefix": "n",
+            "sname": "npecorine",
+            "name_jp": "\u30da\u30b3\u30ea\u30fc\u30cc(\u30cb\u30e5\u30fc\u30a4\u30e4\u30fc)",
+            "flb": false
+        },
+        {
             "id": 2,
             "hnid": 1006,
             "name_en": "akari",
@@ -766,15 +775,6 @@
             "flb": false
         },
         {
-            "id": 116,
-            "hnid": 1805,
-            "name_en": "kokkoro",
-            "prefix": "p",
-            "sname": "pkokkoro",
-            "name_jp": "\u30b3\u30c3\u30b3\u30ed(\u30d7\u30ea\u30f3\u30bb\u30b9)",
-            "flb": false
-        },
-        {
             "id": null,
             "hnid": 1133,
             "name_en": "nanaka",
@@ -790,15 +790,6 @@
             "prefix": "s",
             "sname": "shatsune",
             "name_jp": "\u30cf\u30c4\u30cd(\u30b5\u30de\u30fc)",
-            "flb": false
-        },
-        {
-            "id": null,
-            "hnid": 1068,
-            "name_en": "labyrista",
-            "prefix": null,
-            "sname": "labyrista",
-            "name_jp": "\u30e9\u30d3\u30ea\u30b9\u30bf",
             "flb": false
         },
         {
@@ -853,6 +844,24 @@
             "prefix": "x",
             "sname": "xyukari",
             "name_jp": "\u30e6\u30ab\u30ea(\u30af\u30ea\u30b9\u30de\u30b9)",
+            "flb": false
+        },
+        {
+            "id": null,
+            "hnid": 1150,
+            "name_en": "neneka",
+            "prefix": "n",
+            "sname": "nneneka",
+            "name_jp": "\u30cd\u30cd\u30ab(\u30cb\u30e5\u30fc\u30a4\u30e4\u30fc)",
+            "flb": false
+        },
+        {
+            "id": 116,
+            "hnid": 1805,
+            "name_en": "kokkoro",
+            "prefix": "p",
+            "sname": "pkokkoro",
+            "name_jp": "\u30b3\u30c3\u30b3\u30ed(\u30d7\u30ea\u30f3\u30bb\u30b9)",
             "flb": false
         },
         {
@@ -1235,17 +1244,17 @@
         },
         {
             "id": null,
-            "hnid": 1118,
-            "name_en": "pecorine",
-            "prefix": "n",
-            "sname": "npecorine",
-            "name_jp": "\u30da\u30b3\u30ea\u30fc\u30cc(\u30cb\u30e5\u30fc\u30a4\u30e4\u30fc)",
+            "hnid": 1068,
+            "name_en": "labyrista",
+            "prefix": null,
+            "sname": "labyrista",
+            "name_jp": "\u30e9\u30d3\u30ea\u30b9\u30bf",
             "flb": false
         }
     ],
     "constants": {
         "ue": 190,
-        "lvl": 184,
+        "lvl": 187,
         "rk": 19
     }
 }

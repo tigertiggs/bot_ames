@@ -27,6 +27,7 @@ update_meta = [
 def validate_request(client, request:dict, mode="en"):
     # request needs to be a dictionary of the form {"name":str,"prefix":Union(None,str)}
     # returns match:Union(dict,None), alts:Union(list,None)
+    incorrect_prefix_flag = {"flag":None}
 
     # load index
     with open(os.path.join(client.dir, client.config['unit_list_path'])) as idf:
@@ -36,6 +37,7 @@ def validate_request(client, request:dict, mode="en"):
         # exact match
         match = list(filter(lambda x: x['name_en'] == request['name'] and x['prefix'] == request['prefix'], index['index']))
     else:
+        match = None #FIXME
         pass
 
     # check
@@ -44,9 +46,17 @@ def validate_request(client, request:dict, mode="en"):
         match = list(filter(lambda x: x['sname'] == request['name'], index['index']))
         if not match:
             # error
-            return None, None
+            return None, None, incorrect_prefix_flag
         else:
             request['name'] = match[0]['name_en']
+            print(request['prefix'])
+            if request['prefix'] != match[0]['prefix'] and request['prefix'] != None:
+                incorrect_prefix_flag["flag"] = True
+                incorrect_prefix_flag["prefix"] = request['prefix']
+                incorrect_prefix_flag["name"] = request['name']
+            else:
+                incorrect_prefix_flag["flag"] = False
+
             request['prefix'] = match[0]['prefix']
     
     # note: deremasu girls are strictly removed from alts bc cg.rin shens
@@ -54,7 +64,7 @@ def validate_request(client, request:dict, mode="en"):
         alts = list(filter(lambda x: x['name_en'] == request['name'] and x['prefix'] != "d", index['index']))
     else:
         alts = []
-    return {**match[0],"index":index['index'].index(match[0])}, [{**alt,"index":index['index'].index(alt)} for alt in alts if alt['sname'] != match[0]['sname']]
+    return {**match[0],"index":index['index'].index(match[0])}, [{**alt,"index":index['index'].index(alt)} for alt in alts if alt['sname'] != match[0]['sname']], incorrect_prefix_flag
 
 class updateCog(commands.Cog):
     def __init__(self, client):
@@ -1033,7 +1043,7 @@ class updateCog(commands.Cog):
             prefix, _, name = request.partition(".")
 
             # validate
-            match, _ = validate_request(self.client, {"name":name if name else prefix, "prefix":prefix if name else None})
+            match, _, _ = validate_request(self.client, {"name":name if name else prefix, "prefix":prefix if name else None})
 
             if not match:
                 await channel.send(f"Did not find character `{request}`")
