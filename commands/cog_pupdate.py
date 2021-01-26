@@ -14,7 +14,8 @@ preupdate_checklist = [
     "+ update hnoteDB source",
     "+ check for new indicies in tl_index",
     "- note: you will need to call [.update db f] if update contains new info on existing information. This update may take a few minutes",
-    "- note: TL_index must be updated and extracted twice or else .stats will show JP actions! This can only be fixed via [.update db f]"
+    "- note: TL_index must be updated and extracted twice or else .stats will show JP actions! This can only be fixed via [.update db f]",
+    "- note: enum_alias now depends on local aliases - dont forget to update index after adding new characters!"
 ]
 update_meta = [
     "+ updates prefix_title, prefix_new in hatsune_config.json",
@@ -43,13 +44,13 @@ def validate_request(client, request:dict, mode="en"):
     # check
     if not match:
         # do another search but with sname for backwards compat
-        match = list(filter(lambda x: x['sname'] == request['name'], index['index']))
+        #match = list(filter(lambda x: x['sname'] == request['name'], index['index']))
+        match = list(filter(lambda x: request['name'] == x['sname'] or request['name'] in x['enum_alias'], index['index']))
         if not match:
             # error
             return None, None, incorrect_prefix_flag
         else:
             request['name'] = match[0]['name_en']
-            print(request['prefix'])
             if request['prefix'] != match[0]['prefix'] and request['prefix'] != None:
                 incorrect_prefix_flag["flag"] = True
                 incorrect_prefix_flag["prefix"] = request['prefix']
@@ -482,6 +483,27 @@ class updateCog(commands.Cog):
     def make_index(self):
         with open(os.path.join(self.client.dir, self.client.config['hatsune_db_path'])) as dbf:
             data = json.load(dbf)
+
+        # load in aliases and prefixes
+        with open(os.path.join(self.client.dir, self.client.config['hatsune_config_path']),encoding='utf-8') as hcf:
+            config = json.load(hcf)
+        with open(os.path.join(self.client.dir, self.client.config['alias_local_path'])) as alf:
+            alocal = json.load(alf)
+
+        # convert them so its name -> [aliases] and prefix -> [prefix_aliases]
+        fa = config['alias_master'].copy()
+        fa.update(alocal)
+        alias_lookup = {}
+        for alias, proper_name in fa.items():
+            alias_lookup[proper_name] = alias_lookup.get(proper_name, []) + [alias]
+        
+        prefix_lookup = {}
+        for prefix_alias, proper_prefix in config['prefix_alias'].items():
+            prefix_lookup[proper_prefix] = prefix_lookup.get(proper_prefix, []) + [prefix_alias]
+
+        for prefix, alt_prefix in config['prefix_new'].items():
+            prefix_lookup[prefix] = prefix_lookup.get(prefix, []) + alt_prefix
+
         index = dict()
         indexv = []
         constants = None
@@ -495,6 +517,9 @@ class updateCog(commands.Cog):
             temp['flb'] = 'flb' in chara['tags']
             sname = "".join([temp['prefix'].lower() if temp['prefix'] else '', temp['name_en'].lower() if temp['name_en'] else ''])
             temp['sname'] = sname if sname else None
+            #if sname: temp['sname'].append(sname)
+            if temp['prefix']: temp['enum_alias'] += self.enum_alias(temp['name_en'], temp['prefix'], alias_lookup, prefix_lookup)
+
             indexv.append(temp)
             if not constants:
                 constants = chara['status']
@@ -528,6 +553,11 @@ class updateCog(commands.Cog):
         
         return diff
     
+    def enum_alias(self, name, prefix, aliases, prefixes):
+        target_prefixs = [prefix] + prefixes.get(prefix, [])
+        target_aliases = [name] + aliases.get(name, [])
+        return [p+a for p in target_prefixs for a in target_aliases]
+
     async def update_hatsune(self, ctx, **kwargs):
         # fetch difference
         diff = self.fetch_index_diff()

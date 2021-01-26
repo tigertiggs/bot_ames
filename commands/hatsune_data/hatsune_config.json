@@ -311,6 +311,7 @@
         "name_en": null,
         "prefix": null,
         "sname": null,
+        "enum_alias": [],
         "name_jp": null,
         "flb": null
     }

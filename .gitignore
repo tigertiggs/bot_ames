@@ -12,6 +12,7 @@ commands/_private/*
 # ames
 commands/assets/ames/*
 !commands/assets/ames/.gitkeep
+commands/hatsune_data/db/index.json
 
 # twitter cache
 commands/twitter/twitterconfig.json

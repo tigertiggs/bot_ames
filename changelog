@@ -1,4 +1,10 @@
 {
+    "4.10.0" :[
+        "+ [phatsune][pupdate] addition of new feature that enumerates all possible alias-prefix combinations",
+        "- [phatsune] updated the .c help section",
+        "- [phatsune][pupdate] index untracked due to dependence on local alias file",
+        "- [phatsune] make_index now called after alias modification to reflect changes"
+    ],
     "4.9.9": [
         "+ [phatsune] added nnnk and updated gacha banner",
         "+ [phatsune] raised stat cap",

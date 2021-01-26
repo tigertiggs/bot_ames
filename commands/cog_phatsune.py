@@ -1,16 +1,22 @@
 import discord
 from discord.ext import commands
 import os, sys, json, traceback, datetime, requests, asyncio
+from discord.ext.commands.core import after_invoke
 from io import BytesIO
 SPACE = '\u200B'
 
-from cog_pupdate import validate_request
+from cog_pupdate import validate_request, updateCog
+
+#pupdate = None
+#async def update_index(ctx):
+#    pupdate.make_index()
 
 def setup(client):
     client.add_cog(hatsuneCog(client))
 
 class hatsuneCog(commands.Cog):
     def __init__(self, client):
+        #global pupdate
         self.client = client 
         self.name = '[prototype-hatsune]'
         self.colour = discord.Colour.from_rgb(*client.config['command_colour']['cog_hatsune'])
@@ -31,6 +37,10 @@ class hatsuneCog(commands.Cog):
 
         # persist
         self.active_embeds = dict()
+
+        # co-dependence on pupdate
+        #pupdate = updateCog(self.client)
+        self.pupdate = updateCog(self.client)
     
     @commands.command(aliases=['c','ue','chara', 'card', 'pic', 'stats', 'profile'])
     async def character(self, ctx, *request):
@@ -999,7 +1009,7 @@ class hatsuneCog(commands.Cog):
     def make_character_help(self):
         embed = discord.Embed(
             title="Character Help",
-            description="How to use/interpret `.character` and its child commands.",
+            description="How to use/interpret `.character` and its subcommands.",
             colour=self.colour,
             timestamp=datetime.datetime.utcnow()
         )
@@ -1008,7 +1018,7 @@ class hatsuneCog(commands.Cog):
 
         embed.add_field(
             name="> **Command Syntax**",
-            value="```css\n.c [prefix.][character] [*options]```\nexamples:\n`.c s.kyaru` `.card maho flb` `.stats labyrista ex` `.c shizuru flb ex` `.card rei flb` `.profile nanaka`\n\nThe command can also be called by its aliases `.chara` `.ue` `.card` `.pic` `.profile` `.stats`. They all follow the syntax above and only changes the first page you see.\n\nAccepted `[option]` are `flb` which fetches the character's FLB variant, and `ex` which includes EX/EX+ skills.\n\nExtended help can be found at `.help character`.",
+            value="```css\n.c [prefix.][character] [*options]```\nExamples:\n`.c s.kyaru` `.card maho flb` `.stats labyrista ex` `.c shizuru flb ex` `.card rei flb` `.profile nanaka`\n\nThe command can also be called by its aliases `.chara` `.ue` `.card` `.pic` `.profile` `.stats`. They all follow the syntax above and only changes the lainding page.\n\nAccepted `[options]` are `flb` and `ex` which fetches the character's FLB variant and EX/EX+ skills respectively.\n\nExtended help can be found at `.help character`.",
             inline=False
         )
         examples = [
@@ -1021,7 +1031,7 @@ class hatsuneCog(commands.Cog):
             "u.aoi",
             "m.kasumi",
             "p.yui",
-            "cg.rin",
+            "d.rin",
             "r.rin",
             "w.rino",
             "a.akari"
@@ -1046,47 +1056,47 @@ class hatsuneCog(commands.Cog):
 
         embed.add_field(
             name="> **Emotes/Reactions**",
-            value="The reactions at the bottom of the embed help you navigate between available pages/let you know when interactivity window has ended. The available sections can be seen on every page under the [Section] field (usually near the top). The icons have the following meaning.",
+            value="The reactions at the bottom of the embed help you navigate between available pages and can be seen on every page under the [Section] field at the very bottom. The icons have the following meaning.",
             inline=False
         )
         embed.add_field(
-            name="<:_chara:677763373739409436> Character",
-            value="React to switch to the character page. This page will contain basic information along with JP text. Contains more misc information that stats page.",
+            name="> <:_chara:677763373739409436> Character",
+            value="React to switch to the character page. This page will contain basic information along with JP text. Contains more misc. information that stats page.",
             inline=False
         )
         embed.add_field(
-            name="<:_ue:677763400713109504> Unqiue Equipment/Character Weapon",
+            name="> <:_ue:677763400713109504> Unqiue Equipment/Character Weapon",
             value="React to switch to the Unique Equipment page. This page will show the characters Skill 1 and Skill 1+ along with UE bonus stats (min/max), as long as the character has UE unlocked. If you need help with stat abbreviations, use `.c stats`.",
             inline=False
         )
         embed.add_field(
-            name="<:_stats:678081583995158538> Statistics",
+            name="> <:_stats:678081583995158538> Statistics",
             value="React to switch to the stats page. Shows detailed character stats such as HP and DEF as well as detailed skill actions and values such as damage dealt, range and uptime. If you need help with stat abbreviations, use `.c stats`.",
             inline=False
         )
         embed.add_field(
-            name="<:_card:677763353069879306> Card",
+            name="> <:_card:677763353069879306> Card",
             value="React to see character card. Can switch between normal and FLB variants.",
             inline=False
         )
         embed.add_field(
-            name="<:_profile:718471302460997674> Profile",
-            value="React to switch to the profile page. Contains various misc character information such as age, VA and birthday.",
+            name="> <:_profile:718471302460997674> Profile",
+            value="React to switch to the profile page. Contains various misc character information such as age, VA, birthday, etc.",
             inline=False
         )
         embed.add_field(
-            name=":star: FLB (Full Limit Break)",
+            name="> :star: FLB (Full Limit Break)",
             value="React to switch between the character's normal and FLB variants (6\⭐ variant). This react will only be present if the character has a FLB regardless of request.",
             inline=False
         )
         embed.add_field(
-            name=":twisted_rightwards_arrows: Alternate/Special Skills",
+            name="> :twisted_rightwards_arrows: Alternate/Special Skills",
             value="React to switch between the character's normal and special/alternate skills. Useful for characters with a prominent alternate skillset such as Muimi and Labyrista. This react will only be present if the character has at least 1 alternate/special skill.",
             inline=False
         )
         embed.add_field(
-            name="Any character icons i.e. <:kokkoro:613990045707272192> <:skokkoro:613990215941619722> <:pkokkoro:716516467734216795> <:nkokkoro:667257632142131230>",
-            value="React to switch to the specified character page. These reacts will only show up if the requested character has more than variants beside the base character. Ames may take a few seconds to reorganise the emotes on the bottom.",
+            name="> <:kokkoro:613990045707272192> <:skokkoro:613990215941619722> <:pkokkoro:716516467734216795> <:nkokkoro:667257632142131230> Any character icons",
+            value="React to switch to the specified character page. These reacts will only show up if the requested character has more than 1 variant. Helpful if you've forgotten the prefix.",
             inline=False
         )
         #embed.add_field(
@@ -1095,13 +1105,13 @@ class hatsuneCog(commands.Cog):
         #    inline=False
         #)
         embed.add_field(
-            name=":stopwatch: Force embed persist",
-            value="MANUALLY react this on the embed to stop the embed from being deleted when time is up.",
+            name="> :stopwatch: Force embed persist",
+            value="MANUALLY react this on the embed to stop the embed from being deleted on timeout (70s inactivity). Find this emote quickly by searching `:stop`.",
             inline=False
         )
         embed.add_field(
-            name=":stop_button: Delete embed",
-            value="Instantly delete the embed. This can only be done to embeds with the title `ハツネのメモ帳` (i.e. most if not all `prototype-hatsune` embeds).",
+            name="> :stop_button: Delete embed",
+            value="MANUALLY react this on the embed to instantly delete it. This can only be done to embeds with the title `ハツネのメモ帳`. Find this emote quickly by searching `:stop`.",
             inline=False
         )
         return embed
@@ -1410,7 +1420,11 @@ class hatsuneCog(commands.Cog):
                 await self.display_aliases(ctx)
             else:
                 await self.search(ctx, request[0])
-    
+
+    #@alias.after_invoke
+    #async def update_index(self, ctx):
+    #    self.pupdate.make_index()
+
     async def display_aliases(self, ctx):
         author = ctx.message.author
         master =    []
@@ -1613,6 +1627,7 @@ class hatsuneCog(commands.Cog):
             alf.write(json.dumps(self.alocal, indent=4))
         
         await channel.send(f"Successfully added `{alias}` -> `{self.client.get_full_name_kai(match['name_en'], match['prefix'])}`")
+        self.pupdate.make_index()
         
     @alias.command()
     async def edit(self, ctx, alias, *character):
@@ -1654,6 +1669,7 @@ class hatsuneCog(commands.Cog):
             alf.write(json.dumps(self.alocal, indent=4))
         
         await channel.send(f"Successfully edited `{alias}` -> `{self.client.get_full_name_kai(match['name_en'], match['prefix'])}`")
+        self.pupdate.make_index()
 
     @alias.command(aliases=['rm'])
     async def delete(self, ctx, alias):
@@ -1680,6 +1696,7 @@ class hatsuneCog(commands.Cog):
             alf.write(json.dumps(self.alocal, indent=4))
         
         await channel.send(f"Successfully deleted `{alias}`")
+        self.pupdate.make_index()
 
     @commands.command(aliases=['delta'])
     async def compare(self, ctx, rank_range, *request):
