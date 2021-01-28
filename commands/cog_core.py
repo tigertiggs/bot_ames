@@ -99,7 +99,7 @@ class coreCog(commands.Cog):
             # make embed
             embed = discord.Embed(
                 title="Status",
-                description=f"\"{random.choice(statusv['messages'])}\"\n\n"+"Ames is a utility bot made for *Princess Connect! Re:Dive* by *CyGames*. You can find out more by visiting her github repo and learn how to add her to your server [here](https://github.com/tigertiggs/bot_ames).",
+                description=f"\"{random.choice(statusv['messages'])}\"\n\n"+"Ames is a utility bot made for *Princess Connect! Re:Dive* by *CyGames*. You can learn how to add her to your server by calling `.invite` or join her [development server](https://discord.gg/fYF8hurRt4).",
                 timestamp=datetime.datetime.utcnow(),
                 colour=self.colour
             )
@@ -111,13 +111,18 @@ class coreCog(commands.Cog):
             #    inline=False
             #)
             embed.add_field(
+                name="Developer",
+                value="tigertiggs#5376",
+                inline=False
+            )
+            embed.add_field(
                 name="Version",
                 value=f"{' '.join([clientv, updatemsg])}",
                 inline=True
             )
             embed.add_field(
-                name="Developer",
-                value="tigertiggs#5376",
+                name="Github",
+                value="[Link to Repo](https://github.com/tigertiggs/bot_ames)",
                 inline=True
             )
             embed.add_field(
@@ -916,6 +921,12 @@ class coreCog(commands.Cog):
             gcf.write(json.dumps(guild_config, indent=4))
             
         return
+
+    @commands.command()
+    async def invite(self, ctx):
+        channel = ctx.message.channel
+        msg = "Looking to add Ames to your server? Here's the link:\nhttps://discord.com/api/oauth2/authorize?client_id=599290654878597140&permissions=1342565456&scope=bot\nGot feedback? You can pop them in her development server:\nhttps://discord.gg/fYF8hurRt4"
+        await channel.send(msg)
 
 def setup(client):
     client.add_cog(coreCog(client))

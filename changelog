@@ -1,5 +1,11 @@
 {
-    "4.10.0" :[
+    "4.10.1": [
+        "+ [ames] added command `.invite` to join test server",
+        "- [ames] cleaned up readme.md a bit",
+        "- [ames] cleaned documentation a bit",
+        "- [phatsune][bo] added cw, g, st, cd, pf page aliases"
+    ],
+    "4.10.0": [
         "+ [phatsune][pupdate] addition of new feature that enumerates all possible alias-prefix combinations",
         "- [phatsune] updated the .c help section",
         "- [phatsune][pupdate] index untracked due to dependence on local alias file",

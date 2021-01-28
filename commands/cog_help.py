@@ -62,7 +62,7 @@ class helpCog(commands.Cog):
                     await self.process_options(channel, options, author)
                     return
             
-            help_page_controller = self.client.page_controller(self.client, self.make_help_embed, data, 12, True)
+            help_page_controller = self.client.page_controller(self.client, self.make_help_embed, data, 9, True)
             page = await channel.send(embed=help_page_controller.start())
             for arrow in help_page_controller.arrows:
                 await page.add_reaction(arrow)
@@ -142,7 +142,7 @@ class helpCog(commands.Cog):
     def make_tag_embed(self, data, index):
         embed = discord.Embed(
             title=f"Tag Definitions (page {index[0]} of {index[1]})",
-            description="A list of tag definitnions that are used in `.tag`.\n{}".format("\n".join(self.make_tag_text(data))),
+            description="A list of tag definitions that are used in `.tag`.\n{}".format("\n".join(self.make_tag_text(data))),
             timestamp=datetime.datetime.utcnow(),
             colour=self.colour
         )
@@ -152,7 +152,7 @@ class helpCog(commands.Cog):
     def make_help_embed(self, data, index):
         embed = discord.Embed(
             title=f"Help (page {index[0]} of {index[1]})",
-            description="Command documentation and usage.\nMost commands have their own command page with more detailed instructions and you can access them via `.help [full_command_name]`(no aliases accepted).\nYou can view group commands entering `.help [group_name]` and will default to `.help normal` if left blank. Current groups are: {}.\n```css\n{}```".format(" ".join([f"`{i}`" for i in self.command_tags]),"\n\n".join(self.make_help_text(data))),
+            description="Command documentation and usage.\nMost commands have more detailed instructions accessible by using `.help [full_command_name]`.\nCommands are displayed in `groups` that are fetched via `.help [group_name]`, defaulting to `.help normal`.\nCurrent groups are:\n{}.\n```css\n{}```".format(" ".join([f"`{i}`" for i in self.command_tags]),"\n\n".join(self.make_help_text(data))),
             timestamp=datetime.datetime.utcnow(),
             colour=self.colour
         )

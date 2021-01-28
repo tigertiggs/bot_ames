@@ -3,11 +3,8 @@ A discord bot used for fetching character data in Princess Connect! Re:Dive by C
 
 Ames is written in Python 3.7.x utilising the [`rewrite` branch of Discord's Python API](https://github.com/Rapptz/discord.py) and makes use of `cogs` and `extensions` to integrate commands.
 
-~~Please note that much of Ames' lookup function relies on a privately maintained external database and much of Ames' functionality will not be available without the said database.~~
-Character data are now local and Ames should be able to access all character data without said database. However, Ames still relies on an external service for updates to the Princess Database.
-
 ## Adding Ames
-You can add Ames with [this link](https://discord.com/api/oauth2/authorize?client_id=599290654878597140&permissions=1342565456&scope=bot). You will need to have the **manage server** permission on the server you wish to add Ames. If Ames does not send anything when she joins, use `.help` to get started. Please reach out to me if something goes wrong.
+You can add Ames with [this link](https://discord.com/api/oauth2/authorize?client_id=599290654878597140&permissions=1342565456&scope=bot) or join her development server with [this link](https://discord.gg/fYF8hurRt4). You will need to have the **manage server** permission on the server you wish to add Ames. If Ames does not send anything when she joins, use `.help` to get started.
 
 ## Capabilities
 Ames' current features:
@@ -48,5 +45,6 @@ As mentioned already, `Ames` uses a privately maintained database, and additiona
 
 All art assets used by `Ames` are not my creation and are property of their rightful owners.
 
-## Requests/suggestions/feedback
+## Contact
 Find me on discord: `tigertiggs#5376`
+[Join Ames' development server](https://discord.gg/fYF8hurRt4)

@@ -42,7 +42,7 @@ class hatsuneCog(commands.Cog):
         #pupdate = updateCog(self.client)
         self.pupdate = updateCog(self.client)
     
-    @commands.command(aliases=['c','ue','chara', 'card', 'pic', 'stats', 'profile'])
+    @commands.command(aliases=['c','ue', 'cw', 'chara', 'card', 'pic', 'cd', 'g', 'stats', 'st', 'profile', 'pf'])
     async def character(self, ctx, *request):
         channel = ctx.message.channel
         author = ctx.message.author
@@ -180,13 +180,13 @@ class hatsuneCog(commands.Cog):
 
         # check invoke
         if invoke:
-            if invoke in        ['ue']:
+            if invoke in        ['ue', 'cw']:
                 invoke =    "ue"
-            elif invoke in      ['card', 'pic']:
+            elif invoke in      ['card', 'pic', 'g', 'cd']:
                 invoke =    "card"
-            elif invoke in      ['stats']:
+            elif invoke in      ['stats', 'st']:
                 invoke =    "stats"
-            elif invoke in      ['profile']:
+            elif invoke in      ['profile', 'pf']:
                 invoke =    "profile"
             else:
                 invoke =    "chara"

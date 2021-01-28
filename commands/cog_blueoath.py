@@ -927,7 +927,7 @@ class blueoathCog(commands.Cog):
         
         await channel.send(f"Successfully deleted `{alias}`")
 
-    @bo.command(aliases=['s','c','stats','gallery','pic', 'g'])
+    @bo.command(aliases=['s','c','stats','st','gallery','pic', 'g', 'card', 'cd'])
     async def ship(self, ctx, *request):
         channel = ctx.channel
         author = ctx.message.author
@@ -943,7 +943,7 @@ class blueoathCog(commands.Cog):
         call = ctx.invoked_with
         if call in ['s', 'c', "ship"]:
             mode = 'ship'
-        elif call in ['stats']:
+        elif call in ['stats', 'st']:
             mode = 'stats'
         elif call in ['gallery', 'pic', 'g']:
             mode = 'gallery'
@@ -1415,7 +1415,7 @@ class blueoathCog(commands.Cog):
     def make_help_embed(self, data, index):
         embed = discord.Embed(
             title=f"Help (page {index[0]} of {index[1]})",
-            description="Command documentation and usage.\nMost commands have their own command page with more detailed instructions and you can access them via `.bo help [full_command_name]`(no aliases accepted).\nYou can view group commands entering `.bo help [group_name]` and will default to `.bo help normal` if left blank. Current groups are: {}.\n```css\n{}```".format(" ".join([f"`{i}`" for i in self.command_tags]),"\n\n".join(self.make_help_text(data))),
+            description="Command documentation and usage.\nMost commands have more detailed instructions accessible via `.bo help [full_command_name]`(no aliases accepted).\nCommands are displayed in `groups` that are fetched via `.bo help [group_name]` defaulting to `.bo help normal`. Current groups are:\n{}.\n```css\n{}```".format(" ".join([f"`{i}`" for i in self.command_tags]),"\n\n".join(self.make_help_text(data))),
             timestamp=datetime.datetime.utcnow(),
             colour=self.colour
         )
