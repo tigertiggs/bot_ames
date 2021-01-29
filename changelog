@@ -1,4 +1,9 @@
 {
+    "4.10.2": [
+        "+ [ames] fixed markdown",
+        "+ [shen] cleaned shen add response message and added role control",
+        "- [ames] cleaned embed timeout response on several embed controllers"
+    ],
     "4.10.1": [
         "+ [ames] added command `.invite` to join test server",
         "- [ames] cleaned up readme.md a bit",

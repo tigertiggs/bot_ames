@@ -431,8 +431,8 @@ class gachaCog(commands.Cog):
             try:
                 reaction, user = await self.client.wait_for('reaction_add', timeout=60.0, check=author_check)
             except:
-                for arrow in reactions:
-                    await page.remove_reaction(arrow, self.client.user)
+                #for arrow in reactions:
+                await page.clear_reactions()
                 return
             else:
                 await reaction.message.remove_reaction(reaction.emoji, user)

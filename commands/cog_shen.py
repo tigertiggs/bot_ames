@@ -69,7 +69,7 @@ class shenCog(commands.Cog):
     @commands.group(invoke_without_command=True, case_insensitive=True, pass_context=True)
     async def shen(self, ctx, *, cmd):
         author = ctx.message.author
-        channel = ctx.message.channel
+        #channel = ctx.message.channel
         if ctx.invoked_subcommand is None and cmd in self.config and self.client._check_author(author):
             pass
     
@@ -77,9 +77,9 @@ class shenCog(commands.Cog):
     async def add(self, ctx, *, cmd):
         author = ctx.message.author
         channel = ctx.message.channel
-        if not self.client._check_author(author) and not author.id == 88285348102164480:
-            await channel.send(self.client.emotes['ames'])
-            return
+        #if not self.client._check_author(author) and not author.id == 88285348102164480:
+        #    await channel.send(self.client.emotes['ames'])
+        #    return
         cmd = dict([c.split("=") for c in cmd.split("&")])
         #name=key&link=a,b,c
         if not "name" in cmd:
@@ -87,6 +87,15 @@ class shenCog(commands.Cog):
             return
         elif not cmd['name'] in self.config:
             await channel.send(f"`{cmd['name']}` is an invalid name")
+            return
+        
+        #check perms
+        if self.client._check_author(author):
+            pass
+        elif author.id in self.config[cmd['name']]['mods']:
+            pass
+        else:
+            await channel.send(self.client.emotes['ames'])
             return
         
         links = cmd.get("link","").split(",") + [i.url for i in ctx.message.attachments]
@@ -97,7 +106,7 @@ class shenCog(commands.Cog):
         for link in links:
             if not link:
                 continue
-            msg = await channel.send(f"appending `{link}`...")
+            msg = await channel.send(f"appending image...")
             try:
                 
                 im = Image.open(BytesIO(requests.get(link).content))
@@ -116,6 +125,7 @@ class shenCog(commands.Cog):
                     continue
                 else:
                     self.config[cmd['name']]['images'].append(response['response']['data']['link'])
+                    await msg.edit(content=msg.content+" done")
             except Exception as e:
                 await msg.edit(content=msg.content+str(e))
                 continue
@@ -151,6 +161,8 @@ class shenCog(commands.Cog):
                 temp['tags'] = v.split(",") if all(v.split(",")) else tags
             elif k == 'default':
                 temp['default'] = int(v) if v.isnumeric() else default
+            elif k == 'mods':
+                temp['mods'] = [int(user[3:-1]) for user in v.split(",")]
         
         self.config[cmd['name']] = temp
         with open(os.path.join(self.client.config['shen_path'],"other","_config.json"), "w+") as c:
@@ -185,7 +197,7 @@ class shenCog(commands.Cog):
                     elif tag.startswith("-"):
                         tag = tag[1:]
                         try:
-                            active['tags'].pop(active['tags'].index(tag = tag[1:]))
+                            active['tags'].pop(active['tags'].index(tag))
                         except:
                             continue
                     else:
@@ -196,6 +208,22 @@ class shenCog(commands.Cog):
                 active['default'] = int(v) if v.isnumeric() else 0
             elif k == "active":
                 active['active'] = True if v == "1" else False
+            elif k == 'mods':
+                arr = []
+                for user in v.split(","):
+                    if user.startswith("+"):
+                        user = int(user[4:-1])
+                        active['mods'].append(user)
+                    elif user.startswith("-"):
+                        user = int(user[4:-1])
+                        try:
+                            active['mods'].pop(active['mods'].index(user))
+                        except:
+                            continue
+                    else:
+                        arr.append(int(user[3:-1]))
+                if arr:
+                    active['mods'] = arr
 
         with open(os.path.join(self.client.config['shen_path'],"other","_config.json"), "w+") as c:
             c.write(json.dumps(self.config,indent=4))
@@ -304,8 +332,8 @@ class shenCog(commands.Cog):
                 try:
                     reaction, user = await self.client.wait_for('reaction_add', timeout=90.0, check=author_check)
                 except asyncio.TimeoutError:
-                    for arrow in find_controller.arrows:
-                        await finder.remove_reaction(arrow, self.client.user)
+                    #for arrow in find_controller.arrows:
+                    await finder.clear_reactions()
                     break
                 else:
                     if reaction.emoji == find_controller.arrows[0]:

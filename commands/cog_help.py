@@ -74,7 +74,7 @@ class helpCog(commands.Cog):
                 try:
                     reaction, user = await self.client.wait_for('reaction_add', timeout=60.0, check=author_check)
                 except asyncio.TimeoutError:
-                    await page.add_reaction('\U0001f6d1')
+                    await page.clear_reactions()
                     return
                 else:
                     emote_check = str(reaction.emoji)

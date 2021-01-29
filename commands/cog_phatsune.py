@@ -1461,8 +1461,8 @@ class hatsuneCog(commands.Cog):
             try:
                 reaction, user = await self.client.wait_for('reaction_add', timeout=30.0, check=check)
             except asyncio.TimeoutError:
-                for arrow in aliases_page.arrows:
-                    await page.remove_reaction(arrow, self.client.user)
+                #for arrow in aliases_page.arrows:
+                await page.clear_reactions()
                 return
             else:
                 if reaction.emoji == aliases_page.arrows[0]:
@@ -1543,8 +1543,8 @@ class hatsuneCog(commands.Cog):
                 try:
                     reaction, user = await self.client.wait_for('reaction_add', timeout=30.0, check=check)
                 except asyncio.TimeoutError:
-                    for arrow in search_page.arrows:
-                        await page.remove_reaction(arrow, self.client.user)
+                    #for arrow in search_page.arrows:
+                    await page.clear_reactions()
                     return
                 else:
                     if reaction.emoji == search_page.arrows[0]:

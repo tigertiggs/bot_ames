@@ -46,5 +46,5 @@ As mentioned already, `Ames` uses a privately maintained database, and additiona
 All art assets used by `Ames` are not my creation and are property of their rightful owners.
 
 ## Contact
-Find me on discord: `tigertiggs#5376`
+Find me on discord: `tigertiggs#5376`  
 [Join Ames' development server](https://discord.gg/fYF8hurRt4)
