@@ -69,9 +69,100 @@ class shenCog(commands.Cog):
     @commands.group(invoke_without_command=True, case_insensitive=True, pass_context=True)
     async def shen(self, ctx, *, cmd):
         author = ctx.message.author
-        #channel = ctx.message.channel
-        if ctx.invoked_subcommand is None and cmd in self.config and self.client._check_author(author):
-            pass
+        channel = ctx.message.channel
+        if ctx.invoked_subcommand is None and cmd in self.config: #and cmd in self.config and self.client._check_author(author):
+            #if self.client._check_author(author) or author.id in self.config[cmd]['mods']:
+            #    pass
+            #else:
+            #    pass
+            active = self.config[cmd]
+            mods = []
+            for uid in active['mods']:
+                try:
+                    user = await self.client.fetch_user(int(uid))
+                    if user != None:
+                        mods.append(user.name)
+                except:
+                    continue
+
+            embed = self.make_shen_simple(cmd, active, mods)
+            if not (self.client._check_author(author) or author.id in active['mods']):
+                await channel.send(embed=embed)
+                return
+
+            pages = [embed]
+            column_max = 30
+            chunks = list(self.client.chunks(active['images'], column_max))
+            n_pages = len(chunks)
+            for i, chunk in enumerate(chunks):
+                pages.append(self.make_shen_list(cmd, i, column_max, n_pages, chunk))
+
+            page = await channel.send(embed=pages[0])
+            arrows = ['⬅','➡']
+            for arrow in arrows:
+                await page.add_reaction(arrow)
+
+            def author_check(reaction, user):
+                return str(user.id) == str(author.id) and str(reaction.emoji) in arrows and str(reaction.message.id) == str(page.id)
+            
+            while True:
+                try:
+                    reaction, user = await self.client.wait_for('reaction_add', timeout=90, check=author_check)
+                except asyncio.TimeoutError:
+                    await page.edit(content="This page has expired "+self.client.emotes['ames'],embed=None)
+                    await page.clear_reactions()
+                    return
+                else:
+                    await reaction.message.remove_reaction(reaction.emoji, user)
+
+                    if reaction.emoji == arrows[0]:
+                        pages = pages[-1:] + pages[:-1]
+                    else:
+                        pages = pages[1:] + pages[:1]
+
+                    await page.edit(embed=pages[0])
+                
+    def make_shen_simple(self, name, active, mods):
+        embed = discord.Embed(
+                timestamp=datetime.datetime.utcnow(), colour=self.colour)
+        embed.set_footer(text="Roulette | Re:Re:Write Ames",icon_url=self.client.user.avatar_url)
+        embed.set_author(name=f"[{name}] Pool Details")
+        embed.add_field(
+            name="Active",
+            value="Yes" if active['active'] else "No"
+        )
+        embed.add_field(
+            name="Sequential",
+            value="Yes" if active['sequencial'] == 1 else "No"
+        )
+        embed.add_field(
+            name="Tags",
+            value="".join(f"[{tag}]" for tag in active['tags']) if active['tags'] else "None"
+        )
+        embed.add_field(
+            name="Images",
+            value=str(len(active['images']))
+        )
+        embed.add_field(
+            name="Moderated by",
+            value=", ".join(mods) if mods else "Nobody",
+            inline=False
+        )
+        return embed
+    
+    def make_shen_list(self, name, i, column_max, n_pages, chunk):
+        embed = discord.Embed(
+                timestamp=datetime.datetime.utcnow(), colour=self.colour)
+        embed.set_footer(text="Roulette List | Re:Re:Write Ames",icon_url=self.client.user.avatar_url)
+        embed.set_author(name=f"[{name}] Pool Index ({i+1}/{n_pages})")
+
+        for j, column in enumerate(self.client.chunks(chunk,column_max//3)):
+            embed.add_field(
+                name="Entries",
+                value="\n".join([f"[{k+j*column_max//3+i*column_max}] [Link]({entry})" for k, entry in enumerate(column)])
+            )
+
+        return embed
     
     @shen.command() # appends
     async def add(self, ctx, *, cmd):
@@ -229,13 +320,13 @@ class shenCog(commands.Cog):
             c.write(json.dumps(self.config,indent=4))
         await channel.send("saved")
     
-    @shen.command()
+    @shen.command(aliases=['rm'])
     async def delete(self,ctx,*,cmd):
         author = ctx.message.author
         channel=ctx.message.channel
-        if not self.client._check_author(author):
-            await channel.send(self.client.emotes['ames'])
-            return
+        #if not self.client._check_author(author):
+        #    await channel.send(self.client.emotes['ames'])
+        #    return
         cmd = dict([c.split("=") for c in cmd.split("&")])
         #name=str&index=1,2,3,4...
         if not "name" in cmd:
@@ -244,18 +335,40 @@ class shenCog(commands.Cog):
         elif not cmd['name'] in self.config:
             await channel.send(f"`{cmd['name']}` is an invalid name")
             return
+
+        #check perms
+        if self.client._check_author(author):
+            pass
+        elif author.id in self.config[cmd['name']]['mods']:
+            pass
+        else:
+            await channel.send(self.client.emotes['ames'])
+            return
+
         active = self.config[cmd['name']]
         try:
-            index = sorted([int(i) for i in cmd['index'].split(",")], reverse=True)
-        except:
-            await channel.send("failed to read indicies")
+            if cmd['index'] == "all":
+                active['images'] = []
+            else:
+                index = sorted([i for i in cmd['index'].split(",")], reverse=True)
+                for r in index:
+                    i, _, j = r.partition("-")
+                    if "*" in [i,j]:
+                        if i == "*" and j != "*":
+                            active['images'] = active['images'][int(j):]
+                        elif j == "*" and i != "*":
+                            active['images'] = active['images'][:int(i)]
+                        else:
+                            active['images'] = []
+                    elif i.isnumeric() and j.isnumeric():
+                        active['images'] = active['images'][:int(i)] + active['images'][int(j)+1:]
+                    elif i.isnumeric():
+                        active['images'].pop(int(i))
+                    else:
+                        await channel.send(f"unknown input `{r}`")
+        except Exception as e:
+            await channel.send(f"failed to read indicies: {e}")
             return
-        for i in index:
-            try:
-                active['images'].pop(i)
-            except:
-                await channel.send(f"failed to unlist {i}")
-                continue
 
         with open(os.path.join(self.client.config['shen_path'],"other","_config.json"), "w+") as c:
             c.write(json.dumps(self.config,indent=4))
