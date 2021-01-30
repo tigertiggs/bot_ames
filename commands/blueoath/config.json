@@ -29,9 +29,14 @@
         "helpCog",
         "blueoathCog"
     ],
-    "restricted_servers": [
-        598450517253029888
-    ],
+    "restricted_servers": {
+        "598450517253029888": {
+            "exceptions": [
+                805104235318476840,
+                724879488953090069
+            ]
+        }
+    },
     "resource_servers": [
 
     ],

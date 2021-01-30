@@ -392,8 +392,8 @@ class Ames(commands.AutoShardedBot):
                 #if self._check_author(message.author):
                 #    pass
                 if ctx.message.guild: # textchannel/DMchannel
-                    if ctx.message.guild.id in self.blueoath_config['restricted_servers'] and ctx.command:
-                        if not ctx.command.cog.qualified_name in self.blueoath_config['ames_allowed_cogs'] and not self.config['debug']:
+                    if str(ctx.message.guild.id) in self.blueoath_config['restricted_servers'] and ctx.command:
+                        if not ctx.command.cog.qualified_name in self.blueoath_config['ames_allowed_cogs'] and not self.config['debug'] and not ctx.message.channel.id in self.blueoath_config['restricter_servers'][str(ctx.message.guild.id)]['exceptions']:
                             msg = await message.channel.send(f"This command is currently not available to the Blue Oath server. See `.bo help` for available functions. {self.emotes['ames']}\nThis message will try to delete itself in `10s`")
                             await asyncio.sleep(10)
                             try:

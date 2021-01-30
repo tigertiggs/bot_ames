@@ -15,7 +15,8 @@
         "d": "Cinderella Girls",
         "r": "Ranger",
         "w": "Wonderland",
-        "a": "Angel"
+        "a": "Angel",
+		"c": "Ceremonial"
     },
     "prefix_new": {
         "n": [
@@ -34,6 +35,11 @@
 		],
 		"m": [
 			"magi"
+		],
+		"c": [
+			"cere",
+			"dress",
+			"dr"
 		]
     },
     "prefix_alias": {
@@ -51,7 +57,8 @@
         "princess": "p",
         "deresute": "d",
         "ranger": "r",
-        "angel": "a"
+        "angel": "a",
+		"ceremonial": "c"
     },
     "options": [
         "flb"

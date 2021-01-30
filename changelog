@@ -1,4 +1,8 @@
 {
+    "4.10.4": [
+        "+ [phatsune] add new prefix `c` for ceremonial units",
+        "- [bo] relaxed pcrd restrictions"
+    ],
     "4.10.3": [
         "+ [shen] grant perm access to add and rm subcommands",
         "+ [shen] add new config display for .shen [pool]"
