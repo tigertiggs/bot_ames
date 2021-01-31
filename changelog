@@ -1,4 +1,7 @@
 {
+    "4.10.5": [
+        "+ [phatsune] added ckkr, cyui"
+    ],
     "4.10.4": [
         "+ [phatsune] add new prefix `c` for ceremonial units",
         "- [bo] relaxed pcrd restrictions"
