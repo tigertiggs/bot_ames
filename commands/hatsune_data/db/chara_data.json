@@ -9829,8 +9829,8 @@
                         "name": null,
                         "text": "Gain medium HP recovery and grant continuous HP recovery and large physical attack up to all allies.",
                         "action": [
-                            "Heal 5400 HP ",
-                            "Recover 1155 HP every second ",
+                            "Heal 5445 HP ",
+                            "Recover 1164 HP every second ",
                             "Buff party p.atk by 3384 [18s]"
                         ]
                     },
@@ -9988,7 +9988,7 @@
             "stats": {
                 "normal": {
                     "hp": 36222,
-                    "atk": 8544,
+                    "atk": 8634,
                     "matk": 20,
                     "def": 1010,
                     "mdef": 867,
@@ -13903,15 +13903,15 @@
                         "action": [
                             "Buff party p.atk by 846 [18s]",
                             "Buff party m.atk by 846 [18s]",
-                            "Heal 11573 HP "
+                            "Heal 11663 HP "
                         ]
                     },
                     "ub2": {
                         "name": null,
                         "text": "Grant large HP recovery to self; grant medium HP heal, large physical and magic attack up, and small TP recovery to all allies.",
                         "action": [
-                            "Heal 13888 HP ",
-                            "Heal party for 5787 HP ",
+                            "Heal 13996 HP ",
+                            "Heal party for 5832 HP ",
                             "Buff party p.atk by 3384 [18s]",
                             "Buff party m.atk by 3384 [18s]",
                             "Heal party by 10 TP [18s]"
@@ -13921,14 +13921,14 @@
                         "name": null,
                         "text": "Inflict medium physical damage to the frontmost enemy.",
                         "action": [
-                            "Inflict 18667 p.dmg to target "
+                            "Inflict 18811 p.dmg to target "
                         ]
                     },
                     "sk1p": {
                         "name": null,
                         "text": "Inflict medium physical damage to the frontmost enemy; gain medium physical attack up and small TP recovery.",
                         "action": [
-                            "Inflict 18667 p.dmg to target ",
+                            "Inflict 18811 p.dmg to target ",
                             "Gain 2068 p.atk up [12s]",
                             "Gain 15 TP gain up [12s]"
                         ]
@@ -14065,7 +14065,7 @@
             "stats": {
                 "normal": {
                     "hp": 34417,
-                    "atk": 9317,
+                    "atk": 9407,
                     "matk": 20,
                     "def": 884,
                     "mdef": 764,
@@ -14084,7 +14084,7 @@
                 },
                 "flb": {
                     "hp": 43078,
-                    "atk": 10827,
+                    "atk": 10917,
                     "matk": 20,
                     "def": 959,
                     "mdef": 836,
@@ -16203,7 +16203,9 @@
                 "matk_up",
                 "self_buff",
                 "self_harm",
-                "tp_up"
+                "tp_up",
+                "flb",
+                "special"
             ],
             "pos": 242,
             "atkptn": {
@@ -16222,7 +16224,7 @@
                 ]
             },
             "img": "https://redive.estertion.win/icon/unit/102231.webp",
-            "img6": null,
+            "img6": "https://redive.estertion.win/icon/unit/102261.webp",
             "basic": {
                 "en": {
                     "id": 38,
@@ -16232,19 +16234,21 @@
                         "name": null,
                         "text": "Inflict medium magic damage on all enemies in range.",
                         "action": [
-                            "Inflict 23531 m.dmg to all targets in range (Range: 825)"
+                            "Inflict 24165 m.dmg to all targets in range (Range: 825)"
                         ]
                     },
                     "ub2": {
                         "name": null,
-                        "text": null,
-                        "action": null
+                        "text": "Inflict large magic damage on all enemies in range. Damage dealt is proportional to how low Yori's HP is.",
+                        "action": [
+                            "Inflict 45055 m.dmg to all targets in range (Range: 975)"
+                        ]
                     },
                     "sk1": {
                         "name": null,
                         "text": "Gain large magic attack up by consuming HP.",
                         "action": [
-                            "Consume 8395 HP ",
+                            "Consume 8659 HP ",
                             "Gain 3760 m.atk up [12s]"
                         ]
                     },
@@ -16252,7 +16256,7 @@
                         "name": null,
                         "text": "Gain massive magic attack up and medium TP heal by consuming HP.",
                         "action": [
-                            "Consume 8395 HP ",
+                            "Consume 8659 HP ",
                             "Gain 9400 m.atk up [12s]",
                             "Gain 287 TP "
                         ]
@@ -16271,7 +16275,7 @@
                         "name": null,
                         "text": "Inflict small magic damage on all enemies in range",
                         "action": [
-                            "Inflict 11766 m.dmg to all targets in range (Range: 800)"
+                            "Inflict 12082 m.dmg to all targets in range (Range: 800)"
                         ]
                     },
                     "sk2a": {
@@ -16309,8 +16313,8 @@
                         "action": null
                     },
                     "ub2": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u30b8\u30e3\u30c3\u30b8\u30e1\u30f3\u30c8\u30b8\u30e3\u30d9\u30ea\u30f3",
+                        "text": "\u524d\u65b9\u7bc4\u56f2\u5185\u306e\u6575\u3059\u3079\u3066\u306b\u9b54\u6cd5\u5927\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u308b\u3002\u30e8\u30ea\u306e\uff28\uff30\u304c\u4f4e\u3044\u307b\u3069\u3001\u30c0\u30e1\u30fc\u30b8\u304c\u30a2\u30c3\u30d7\u3059\u308b\u3002",
                         "action": null
                     },
                     "sk1": {
@@ -16386,11 +16390,11 @@
                 "normal": {
                     "hp": 28992,
                     "atk": 0,
-                    "matk": 13991,
+                    "matk": 14431,
                     "def": 246,
                     "mdef": 345,
                     "pCrit": 0,
-                    "mCrit": 1054,
+                    "mCrit": 1124,
                     "wHpRec": 1080,
                     "wTpRec": 382,
                     "dodge": 0,
@@ -16402,7 +16406,25 @@
                     "tpSave": 17,
                     "acc": 0
                 },
-                "flb": {}
+                "flb": {
+                    "hp": 37653,
+                    "atk": 0,
+                    "matk": 17150,
+                    "def": 298,
+                    "mdef": 395,
+                    "pCrit": 0,
+                    "mCrit": 1189,
+                    "wHpRec": 1080,
+                    "wTpRec": 382,
+                    "dodge": 0,
+                    "pPen": 0,
+                    "mPen": 0,
+                    "lifesteal": 10,
+                    "hpRec": 60,
+                    "tpRec": 26,
+                    "tpSave": 17,
+                    "acc": 0
+                }
             },
             "profile": {
                 "age": "13",
@@ -17464,7 +17486,7 @@
                         "name": null,
                         "text": "Grant massive HP heal to the ally with the lowest HP.",
                         "action": [
-                            "Heal 30674 HP on target "
+                            "Heal 30917 HP on target "
                         ]
                     },
                     "ub2": {
@@ -17476,7 +17498,7 @@
                         "name": null,
                         "text": "Inflict small physical damage on the frontmost enemy; inflict small physical def down.",
                         "action": [
-                            "Inflict 9715 p.dmg to target ",
+                            "Inflict 9787 p.dmg to target ",
                             "Inflict 113 p.def down on target [12s]"
                         ]
                     },
@@ -17484,7 +17506,7 @@
                         "name": null,
                         "text": "Inflict small physical damage on the frontmost enemy; inflict large phyiscial def down.",
                         "action": [
-                            "Inflict 9715 p.dmg to target ",
+                            "Inflict 9787 p.dmg to target ",
                             "Inflict 188 p.def down on target [12s]"
                         ]
                     },
@@ -17618,7 +17640,7 @@
             "stats": {
                 "normal": {
                     "hp": 34277,
-                    "atk": 9794,
+                    "atk": 9884,
                     "matk": 112,
                     "def": 815,
                     "mdef": 693,
@@ -22074,7 +22096,7 @@
                         "name": null,
                         "text": "Inflict medium magic damage on the enemy with the highest TP; inflict medium TP down; inflict medium magic def down.",
                         "action": [
-                            "Inflict 19942 m.dmg on target ",
+                            "Inflict 20734 m.dmg on target ",
                             "Inflict 431 TP down on target ",
                             "Inflict 150 m.def down on target [18s]"
                         ]
@@ -22114,7 +22136,7 @@
                         "action": [
                             "Buff p.crit by 125 on all targets [12s]",
                             "Buff m.crit by 125 on all targets [12s]",
-                            "Heal party for 1249 HP "
+                            "Heal party for 1293 HP "
                         ]
                     },
                     "sk2a": {
@@ -22222,11 +22244,11 @@
                 "normal": {
                     "hp": 33305,
                     "atk": 0,
-                    "matk": 8729,
+                    "matk": 9169,
                     "def": 666,
                     "mdef": 796,
                     "pCrit": 0,
-                    "mCrit": 105,
+                    "mCrit": 175,
                     "wHpRec": 1780,
                     "wTpRec": 249,
                     "dodge": 6,
@@ -23511,7 +23533,7 @@
                         "name": null,
                         "text": "Deploy a barrier at self that grants small HP and TP recovery to all allies in range; grant small magic and physical crit damage up; inflict small magic and physical def down on all enemies.",
                         "action": [
-                            "Deploy a field that heals 699 HP per second (Range: 2160)[19s]",
+                            "Deploy a field that heals 703 HP per second (Range: 2160)[19s]",
                             "Buff TP gain by 5 on all targets within field  [18.5s]",
                             "Buff party p.crit and m.crt damage by 16% [18s]",
                             "Debuff p.def and m.def by 68 on all targets [18s]"
@@ -23526,7 +23548,7 @@
                         "name": null,
                         "text": "Grant small HP heal to all allies.",
                         "action": [
-                            "Heal party for 1747 HP "
+                            "Heal party for 1758 HP "
                         ]
                     },
                     "sk1p": {
@@ -23657,7 +23679,7 @@
             "stats": {
                 "normal": {
                     "hp": 33179,
-                    "atk": 10217,
+                    "atk": 10307,
                     "matk": 119,
                     "def": 780,
                     "mdef": 666,
@@ -26254,14 +26276,14 @@
                         "name": null,
                         "text": "Grant medium HP heal to all allies.",
                         "action": [
-                            "Heal party for 5525 HP "
+                            "Heal party for 5565 HP "
                         ]
                     },
                     "ub2": {
                         "name": null,
                         "text": "Grant medium HP heal to all allies; grant large physical def up; deploy a physical nullification shield; grant large action speed up.",
                         "action": [
-                            "Heal party for 7367 HP ",
+                            "Heal party for 7421 HP ",
                             "Buff party p.def by 226 [18s]",
                             "Deploy a 8460 buffer p.shield [18s]",
                             "Buff party action speed "
@@ -26271,14 +26293,14 @@
                         "name": null,
                         "text": "Inflict medium magic damage on the frontmost enemy.",
                         "action": [
-                            "Inflict 14545 m.dmg on target "
+                            "Inflict 14653 m.dmg on target "
                         ]
                     },
                     "sk1p": {
                         "name": null,
                         "text": "Inflict medium magic damage on the frontmost enemy; inflict medium physical attack down.",
                         "action": [
-                            "Inflict 19394 m.dmg on target ",
+                            "Inflict 19538 m.dmg on target ",
                             "Inflict 1410 p.atk down [12s]"
                         ]
                     },
@@ -26414,7 +26436,7 @@
                 "normal": {
                     "hp": 29647,
                     "atk": 0,
-                    "matk": 9771,
+                    "matk": 9861,
                     "def": 675,
                     "mdef": 822,
                     "pCrit": 0,
@@ -26433,7 +26455,7 @@
                 "flb": {
                     "hp": 37307,
                     "atk": 0,
-                    "matk": 11208,
+                    "matk": 11298,
                     "def": 727,
                     "mdef": 898,
                     "pCrit": 0,
@@ -30012,7 +30034,7 @@
                         "text": "Deploy a physical and magic shield to all allies; grant HP regeneration; gain massive magic attack down.",
                         "action": [
                             "Deploy a 8460 buffer mp.shield [18s]",
-                            "Recover 1650 HP every second ",
+                            "Recover 1661 HP every second ",
                             "Gain 90% m.atk down (based on base m.atk) [18s]"
                         ]
                     },
@@ -30170,7 +30192,7 @@
                 "normal": {
                     "hp": 29736,
                     "atk": 0,
-                    "matk": 10615,
+                    "matk": 10705,
                     "def": 504,
                     "mdef": 725,
                     "pCrit": 0,
@@ -34121,7 +34143,7 @@
                         "name": null,
                         "text": "Inflict large magic damage on all enemies.",
                         "action": [
-                            "Inflict 39756 m.dmg on all targets "
+                            "Inflict 39972 m.dmg on all targets "
                         ]
                     },
                     "ub2": {
@@ -34158,7 +34180,7 @@
                         "name": null,
                         "text": "Inflict medium magic damage on all enemies in range centered around the 2nd frontmost enemy; Grant small magic attack up to all allied magic attackers",
                         "action": [
-                            "Inflict 19878 m.dmg to all targets in range (Range: 400)",
+                            "Inflict 19986 m.dmg to all targets in range (Range: 400)",
                             "Buff m.atk by 470 on target [180s]"
                         ]
                     },
@@ -34267,7 +34289,7 @@
                 "normal": {
                     "hp": 24803,
                     "atk": 0,
-                    "matk": 14215,
+                    "matk": 14305,
                     "def": 245,
                     "mdef": 354,
                     "pCrit": 0,
