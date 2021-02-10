@@ -18,6 +18,18 @@
         "a": "Angel",
 		"c": "Ceremonial Dress"
     },
+    "prefix_shortened": {
+        "n": "NYear",
+        "x": "Xmas",
+        "v": "Valen.",
+        "m": "Magigal",
+        "d": "CGirls",
+        "c": "Cere.",
+        "h": "Hallo.",
+        "w": "Wonder.",
+        "p": "Prin.",
+        "s": "Sum."
+    },
     "prefix_new": {
         "n": [
             "ny"
@@ -39,7 +51,8 @@
 		"c": [
 			"cere",
 			"dress",
-			"dr"
+			"dr",
+            "cd"
 		]
     },
     "prefix_alias": {
@@ -84,7 +97,6 @@
         "maso": "kuuka",
         "chuuni": "anna",
         "hentai": "kyouka",
-        "itazura": "misogi",
         "nyaru": "nkyaru",
         "mirror": "neneka",
         "nnk": "neneka",
@@ -102,8 +114,6 @@
         "ninja": "ninon",
         "oneesan": "shizuru",
         "onee": "shizuru",
-        "imouto": "yori",
-        "imou": "yori",
         "neet": "nanaka",
         "singer": "chika",
         "gomen": "yui"

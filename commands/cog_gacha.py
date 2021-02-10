@@ -38,7 +38,7 @@ class gachaCog(commands.Cog):
                 prefix = ''
 
             self.name =         "".join([prefix, name]).lower()
-            self.full_name =    client.get_full_name_kai(name.lower(), prefix.lower() if prefix else None)
+            self.full_name =    client.get_full_name_kai(name.lower(), prefix.lower() if prefix else None, True)
             self.rarity =       rarity
             self.limited =      limited
             self.rate =         float(rate) if rate else None

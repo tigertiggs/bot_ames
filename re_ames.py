@@ -569,11 +569,11 @@ class Ames(commands.AutoShardedBot):
                 return f"{target[1:]} ({prefix})"
         return target
     
-    def get_full_name_kai(self, name, prefix=None):
+    def get_full_name_kai(self, name, prefix=None, short=False):
         with open(os.path.join(self.dir, self.config['hatsune_config_path']), encoding='utf-8') as hcf:
             hconfig = json.load(hcf)
-        if prefix:
-            prefix = hconfig['prefix_title'].get(prefix, '???')
+        if prefix:  
+            prefix = hconfig['prefix_title'].get(prefix, '???') if not short else hconfig['prefix_shortened'].get(prefix, hconfig['prefix_title'].get(prefix, '???'))
             return f"{name.title()} ({prefix})"
         return name.title()
 

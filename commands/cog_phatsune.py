@@ -1218,10 +1218,10 @@ class hatsuneCog(commands.Cog):
         embed.set_footer(text='Lineup | Re:Re:Write Ames',icon_url=self.client.user.avatar_url)
 
         numbered = [
-            f"{self.client.team.get(c['sname'],':grey_question:')} {i+1 if c['pos'] else '??'} {self.client.get_full_name_kai(c['basic']['en']['name'],c['basic']['en']['prefix'])}" 
+            f"{self.client.team.get(c['sname'],':grey_question:')} {i+1 if c['pos'] else '??'} {self.client.get_full_name_kai(c['basic']['en']['name'],c['basic']['en']['prefix'],True)}" 
             if not match 
             or not match['sname'] == c['sname']
-            else f"> {self.client.team.get(c['sname'],':grey_question:')} **{i+1 if c['pos'] else '??'} {self.client.get_full_name_kai(c['basic']['en']['name'],c['basic']['en']['prefix'])}**" 
+            else f"> {self.client.team.get(c['sname'],':grey_question:')} **{i+1 if c['pos'] else '??'} {self.client.get_full_name_kai(c['basic']['en']['name'],c['basic']['en']['prefix'],True)}**" 
             for i, c in enumerate(lineup)
         ]
 
@@ -1231,6 +1231,12 @@ class hatsuneCog(commands.Cog):
                 value="\n".join(chk),
                 inline=True
             )
+        #for chk in [numbered[:len(numbered)//2], numbered[len(numbered)//2:]]:
+        #    embed.add_field(
+        #        name="Lineup",
+        #        value="\n".join(chk),
+        #        inline=True
+        #    )
         
         return embed
 
@@ -1264,6 +1270,9 @@ class hatsuneCog(commands.Cog):
                 if tag.startswith('-'):
                     flag = False
                     tag = tag[1:]
+
+                if tag == 'prifes':
+                    tag = 'prinfes'
 
                 if not tag in all_tags:
                     await channel.send(f"Unknown tag `{tag}`")
@@ -1304,7 +1313,7 @@ class hatsuneCog(commands.Cog):
         embed.set_footer(text='Tag Search | Re:Re:Write Ames',icon_url=self.client.user.avatar_url)
 
         numbered = [
-            f"{self.client.team.get(c['sname'],':grey_question:')} {self.client.get_full_name_kai(c['basic']['en']['name'],c['basic']['en']['prefix'])}" 
+            f"{self.client.team.get(c['sname'],':grey_question:')} {self.client.get_full_name_kai(c['basic']['en']['name'],c['basic']['en']['prefix'],True)}" 
             for c in lineup
         ]
 

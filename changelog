@@ -1,4 +1,11 @@
 {
+    "4.10.7": [
+        "- [phatsune] remove some master aliases",
+        "- [phatsune][gacha] added prefix abbreviations so embed displays will be a bit neater",
+        "+ [phatsune] added prifes -> prinfes tag alias",
+        "+ [phatsune] added ue for mkasumi and mshiori",
+        "+ [gacha] updated banner"
+    ],
     "4.10.6": [
         "+ [phatsune] added yori6"
     ],

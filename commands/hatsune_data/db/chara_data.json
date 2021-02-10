@@ -32937,7 +32937,10 @@
                 "rear",
                 "tp_down",
                 "aoe",
-                "ailment"
+                "ailment",
+                "ue",
+                "mcrit_down",
+                "pcrit_down"
             ],
             "pos": 321,
             "atkptn": {
@@ -32966,7 +32969,7 @@
                         "name": null,
                         "text": "Inflict medium magic damage on all enemies and inflict small TP down.",
                         "action": [
-                            "Inflict 11908 m.dmg on all targets ",
+                            "Inflict 12494 m.dmg on all targets ",
                             "Inflict 144 TP down on all targets "
                         ]
                     },
@@ -32984,8 +32987,14 @@
                     },
                     "sk1p": {
                         "name": null,
-                        "text": "soon\u2122",
-                        "action": null
+                        "text": "Inflict medium TP down on the enemy with the most TP. Inflict large physical and magic crit down for a short timeframe. This skill exclude enemies with a full TP gauge.",
+                        "action": [
+                            "Inflict 445 TP down on target ",
+                            "Inflict 3760 p.atk down [8s]",
+                            "Inflict 3760 m.atk down on target [8s]",
+                            "Inflict 150 p.crit down on target [8s]",
+                            "Inflict 150 m.crit down on target [8s]"
+                        ]
                     },
                     "sk1a": {
                         "name": null,
@@ -33001,7 +33010,7 @@
                         "name": null,
                         "text": "Deploy a field centered on the backmost enemy that inflicts small magic damage to all enemies in range and inflict bind.",
                         "action": [
-                            "Inflict 3052 m.dmg to all targets in range (Range: 280)",
+                            "Inflict 3199 m.dmg to all targets in range (Range: 280)",
                             "Paralyze all targets in range for a set time (Range: 280)"
                         ]
                     },
@@ -33050,8 +33059,8 @@
                         "action": null
                     },
                     "sk1p": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u30de\u30b8\u30ab\u30eb\u30cf\u30ec\u30fc\u30b7\u30e7\u30f3+",
+                        "text": "\u6700\u3082\uff34\uff30\u304c\u591a\u3044\u6575\uff11\u30ad\u30e3\u30e9\u306e\uff34\uff30\u3092\u4e2d\u30c0\u30a6\u30f3\u3055\u305b\u308b\u3002\u3055\u3089\u306b\u7269\u7406\u30fb\u9b54\u6cd5\u653b\u6483\u529b\u3068\u7269\u7406\u30fb\u9b54\u6cd5\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u3092\u77ed\u6642\u9593\u5927\u30c0\u30a6\u30f3\u3055\u305b\u308b\u3002\uff34\uff30\u304c\u6700\u5927\u5024\u306b\u9054\u3057\u3066\u3044\u308b\u30ad\u30e3\u30e9\u3092\u9664\u304f\u3002",
                         "action": null
                     },
                     "sk1a": {
@@ -33093,26 +33102,33 @@
                 }
             },
             "ue": {
-                "id": null,
+                "id": 131221,
                 "rank": null,
-                "img": null,
-                "stats": {},
+                "img": "https://redive.estertion.win/icon/equipment/131221.webp",
+                "stats": {
+                    "matk": 52,
+                    "matk_growth": 2.6,
+                    "def": 4,
+                    "def_growth": 0.2,
+                    "mdef": 6,
+                    "mdef_growth": 0.3
+                },
                 "en": {
-                    "name": null,
+                    "name": "Magic Girl Misty Wand",
                     "text": null
                 },
                 "jp": {
-                    "name": null,
-                    "text": null
+                    "name": "\u30de\u30b8\u30ab\u30eb\u30df\u30b9\u30c6\u30a3\u30ed\u30c3\u30c9",
+                    "text": "\u9b54\u6cd5\u63a2\u5075\u30df\u30b9\u30c6\u30a3\u2605\u30ab\u30b9\u30df\u304c\u64cd\u308b\u9b54\u6cd5\u306e\u6756\u3002\u611b\u3068\u5e0c\u671b\u306e\u529b\u3092\u8fbc\u3081\u308b\u3053\u3068\u3067\u90aa\u60aa\u306a\u6575\u3092\u6355\u3089\u3048\u3001\u3069\u3093\u306a\u771f\u5b9f\u3082\u660e\u3089\u304b\u306b\u3059\u308b\u8f1d\u304d\u3092\u653e\u3064\u3002"
                 }
             },
             "stats": {
                 "normal": {
                     "hp": 30320,
                     "atk": 26,
-                    "matk": 8937,
-                    "def": 531,
-                    "mdef": 728,
+                    "matk": 9480,
+                    "def": 573,
+                    "mdef": 791,
                     "pCrit": 0,
                     "mCrit": 287,
                     "wHpRec": 1910,
@@ -33167,7 +33183,8 @@
                 "seasonal",
                 "self_buff",
                 "patk_up",
-                "pcrit_up"
+                "pcrit_up",
+                "ue"
             ],
             "pos": 314,
             "atkptn": {
@@ -33214,8 +33231,12 @@
                     },
                     "sk1p": {
                         "name": null,
-                        "text": "soon\u2122",
-                        "action": null
+                        "text": "Grant large physical attack up, medium physical crit up to all allies in range centered on Shiori; increase small physical crit damage up.",
+                        "action": [
+                            "Buff p.atk by 2820 on all targets in range (Range: 300)[18s]",
+                            "Buff p.crit by 75 on all targets in range (Range: 300)[18s]",
+                            "Grant 10% p.crit damage up to all aliies in range (Range: 300)[18s]"
+                        ]
                     },
                     "sk1a": {
                         "name": null,
@@ -33232,7 +33253,7 @@
                         "text": "Grant large physical attack up to all allies in range around Shiori and inflict massive physical damage on the frontmost enemy.",
                         "action": [
                             "Buff p.atk by 2820 on all targets in range (Range: 300)[12s]",
-                            "Inflict 89574 p.dmg to target "
+                            "Inflict 94842 p.dmg to target "
                         ]
                     },
                     "sk2a": {
@@ -33280,8 +33301,8 @@
                         "action": null
                     },
                     "sk1p": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u30d4\u30e5\u30a2\u30ea\u30fc\u30a8\u30a4\u30df\u30f3\u30b0+",
+                        "text": "\u81ea\u5206\u3092\u4e2d\u5fc3\u3068\u3057\u305f\u7bc4\u56f2\u5185\u306e\u5473\u65b9\u306e\u7269\u7406\u653b\u6483\u529b\u3092\u5927\u30a2\u30c3\u30d7\u3001\u7269\u7406\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u3092\u4e2d\u30a2\u30c3\u30d7\u3055\u305b\u3001\u3055\u3089\u306b\u7269\u7406\u653b\u6483\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u6642\u306e\u30c0\u30e1\u30fc\u30b8\u3092\u5c0f\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
                         "action": null
                     },
                     "sk1a": {
@@ -33323,27 +33344,32 @@
                 }
             },
             "ue": {
-                "id": null,
+                "id": 131231,
                 "rank": null,
-                "img": null,
-                "stats": {},
+                "img": "https://redive.estertion.win/icon/equipment/131231.webp",
+                "stats": {
+                    "atk": 84,
+                    "atk_growth": 4.2,
+                    "pCrit": 40,
+                    "pCrit_growth": 2
+                },
                 "en": {
-                    "name": null,
+                    "name": "Magical Girl Pury Bow",
                     "text": null
                 },
                 "jp": {
-                    "name": null,
-                    "text": null
+                    "name": "\u30de\u30b8\u30ab\u30eb\u30d4\u30e5\u30a2\u30ea\u30fc\u30dc\u30a6",
+                    "text": "\u9b54\u6cd5\u72e9\u4eba\u30d4\u30e5\u30a2\u30ea\u30fc\u2605\u30b7\u30aa\u30ea\u304c\u64cd\u308b\u9b54\u6cd5\u306e\u5f13\u3002\u611b\u3068\u5e0c\u671b\u306e\u529b\u3092\u8fbc\u3081\u308b\u3053\u3068\u3067\u3001\u3069\u3093\u306a\u90aa\u60aa\u306a\u6575\u3082\u8cab\u304f\u5fc5\u6bba\u306e\u77e2\u3092\u653e\u3064\u3053\u3068\u304c\u3067\u304d\u308b\u3002"
                 }
             },
             "stats": {
                 "normal": {
                     "hp": 23607,
-                    "atk": 12579,
+                    "atk": 13457,
                     "matk": 0,
                     "def": 307,
                     "mdef": 393,
-                    "pCrit": 900,
+                    "pCrit": 1318,
                     "mCrit": 0,
                     "wHpRec": 2985,
                     "wTpRec": 195,

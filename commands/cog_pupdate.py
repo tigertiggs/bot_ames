@@ -614,6 +614,14 @@ class updateCog(commands.Cog):
         except Exception as e:
             await self.logger.send(self.name, "failed to save", e)
             await msg.edit(content=msg.content+" failed")
+            print("attempting to save db anyway")
+            try: 
+                with open(os.path.join(self.client.dir, self.client.config['hatsune_db_path']), "w+") as dbf:
+                    dbf.write(json.dumps(all_data, indent=4))
+            except Exception as e:
+                print(f"failed: {e}")
+            else:
+                print("saved")
             return
         else:
             # update local index
