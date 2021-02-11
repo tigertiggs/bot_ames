@@ -1,4 +1,8 @@
 {
+    "4.10.8":[
+        "- [ames] fixed some possibly unbounded errors",
+        "- [phatsune] corrected magical girl names and ue names for mshiori and mkasumi"
+    ],
     "4.10.7": [
         "- [phatsune] remove some master aliases",
         "- [phatsune][gacha] added prefix abbreviations so embed displays will be a bit neater",

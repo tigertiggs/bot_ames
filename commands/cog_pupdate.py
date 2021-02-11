@@ -2,8 +2,8 @@
 
 import discord
 from discord.ext import commands
-import os, sys, json, traceback, datetime, requests, copy, time, glob, re
-from PIL import Image, GifImagePlugin, ImageDraw, ImageSequence, ImageOps, ImageFont
+import os, json, traceback, datetime, requests, copy, glob, re#, time, sys
+from PIL import Image#, GifImagePlugin, ImageDraw, ImageSequence, ImageOps, ImageFont
 from io import BytesIO
 SPACE = '\u200B'
 
@@ -400,7 +400,8 @@ class updateCog(commands.Cog):
             try:
                 message = await self.client.wait_for('message', check=check_m)
             except Exception as e:
-                await message.send("Something went wrong with hnote config update - check logs")
+                #await message.send("Something went wrong with hnote config update - check logs")
+                print("Error while updating - check logs")
                 await self.logger.send(self.name, e)
             else:
                 command = message.content
@@ -613,7 +614,8 @@ class updateCog(commands.Cog):
             await msg.edit(content=msg.content+" done")
         except Exception as e:
             await self.logger.send(self.name, "failed to save", e)
-            await msg.edit(content=msg.content+" failed")
+            #await msg.edit(content=msg.content+" failed")
+            print("failed to commit changes")
             print("attempting to save db anyway")
             try: 
                 with open(os.path.join(self.client.dir, self.client.config['hatsune_db_path']), "w+") as dbf:
