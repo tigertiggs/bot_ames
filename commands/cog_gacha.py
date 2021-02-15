@@ -566,7 +566,7 @@ class gachaCog(commands.Cog):
         )
         embed.add_field(
             name="SSR Rate(rateup)",
-            value=f"{self.pool.rate_ssr*100}% ({self.pool.up_ssr*100}%)"
+            value=f"{self.pool.rate_ssr*100}% ({round(self.pool.up_ssr*100,3)}%)"
         )
         embed.add_field(
             name="SR Rate(rateup)",

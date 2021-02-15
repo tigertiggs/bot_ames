@@ -1,5 +1,11 @@
 {
-    "4.10.8":[
+    "4.10.9": [ 
+        "+ [phatsune] adjusted stats for lv cap up",
+        "+ [phatsune] added shefi",
+        "+ [gacha] changed SSR rate to 3% to reflect anniv changes",
+        "- [phatsune] fix hmimi pos"
+    ],
+    "4.10.8": [
         "- [ames] fixed some possibly unbounded errors",
         "- [phatsune] corrected magical girl names and ue names for mshiori and mkasumi"
     ],

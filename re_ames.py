@@ -53,7 +53,7 @@ class database:
     
     async def connect(self):
         if self.db_pointer != None:
-            await self.logger.send(self.name,'database is connected - forcing reconnect')
+            await self.logger.send(self.n=testame,'database is connected - forcing reconnect')
             #self.disconnect()
         try:
             self.db_pointer = mysql.connector.pooling.MySQLConnectionPool(
