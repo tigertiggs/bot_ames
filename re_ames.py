@@ -199,7 +199,7 @@ class Ames(commands.AutoShardedBot):
                 self.load_extension(extension)
                 print('\tsuccess!',flush=True)
             except Exception as err:
-                print('{0} failed to load:'.format(str(extension)),err,flush=True)
+                print('\tfailed!\n{0} failed to load:'.format(str(extension)),err,flush=True)
                 traceback.print_exc()
                 self.cogs_status[str(extension)] = False
             else:

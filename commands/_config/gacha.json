@@ -11,6 +11,7 @@
     "sr_rate_up": 0,
     "r_rate_up": 0,
     "prifes": 1,
+    "double": 1,
     "pools": {
         "lim": [
             "3.Sheffi"
@@ -87,7 +88,8 @@
             "R.Rin",
             "R.Mahiru",
             "W.Rino",
-            "Inori"
+            "Inori",
+            "Sheffi"
         ]
     }
 }

@@ -489,5 +489,29 @@ class shenpCog(commands.Cog):
             blob.close()
             await channel.send(file=discord.File(path))
 
+    @commands.command()
+    async def coom(self, ctx, user:str=None):
+        channel = ctx.channel
+
+        async with ctx.typing():
+            user = await self.process_user(ctx, user, False)
+            if user == False: 
+                return
+            elif user == None:
+                await channel.send("https://i.imgur.com/S3zaFKT.png")
+                return
+            user = {
+                "user":user,
+                "size":(208,208),
+                "paste":[(65,111)]
+            }
+            shenpf = await self.make_shenp(channel, [user], ["coom/qiqi1.png", "coom/qiqi2.png"], "post_coom.png", True)
+            print(shenpf)
+            if shenpf == False:
+                return
+
+        await channel.send(file=shenpf[0])
+
+
 def setup(client):
     client.add_cog(shenpCog(client))

@@ -398,6 +398,15 @@
             "aliases":  null,
             "help":     "Add Ames to your server and/or join her development server",
             "help_ex":  "help extended"
+        },
+        "coom": {
+            "flags":    ["shitpost"],
+            "hidden":   false,
+            "usage":    ".coom [*user]",
+            "subcmd":   null,
+            "aliases":  null,
+            "help":     "coom",
+            "help_ex":  "coooooooooooooooom"
         }
     }
 }

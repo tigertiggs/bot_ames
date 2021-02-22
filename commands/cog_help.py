@@ -34,7 +34,7 @@ class helpCog(commands.Cog):
                 if cmd[key] != None:
                     #print(cmd[key])
                     if key == 'aliases':
-                        temp.append(f"[Aliases]: {' '.join(cmd[key])}")
+                        temp.append(f"[Aliases] {' '.join(cmd[key])}")
                     else:
                         temp.append(cmd[key])
             #print(temp)

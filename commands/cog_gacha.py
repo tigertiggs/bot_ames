@@ -53,11 +53,12 @@ class gachaCog(commands.Cog):
             self.grain =    grain
             self.config =   config
             self.prifes =   True if config['prifes'] == 1 else False
+            self.double =   True if config['double'] == 1 else False
             
             # normal rates
             self.rate_ssr = config['ssr_rate']
             self.rate_sr =  config['sr_rate']
-            if self.prifes:
+            if self.prifes or self.double:
                 self.rate_ssr *= 2
             self.rate_r = 1 - self.rate_ssr - self.rate_sr
 
@@ -65,7 +66,7 @@ class gachaCog(commands.Cog):
             self.up_ssr =   config['ssr_rate_up']
             self.up_sr =    config['sr_rate_up']
             self.up_r =     config['r_rate_up']
-            if self.prifes:
+            if self.prifes or self.double:
                 self.up_ssr *= 2
             
             # lim pool profiles
@@ -552,9 +553,10 @@ class gachaCog(commands.Cog):
     @commands.command()
     async def banner(self, ctx):
         channel = ctx.channel
+        author = ctx.message.author
         embed = discord.Embed(
             title="Pool statistics",
-            description="Current pool condition",
+            description="Current pool conditions.",
             timestamp=datetime.datetime.utcnow(),
             colour=self.colour
         )
@@ -562,6 +564,11 @@ class gachaCog(commands.Cog):
         embed.add_field(
             name="PriFes",
             value="Active" if self.pool.prifes else "Inactive",
+            inline=False
+        )
+        embed.add_field(
+            name="Doubled SSR Rate",
+            value="True" if self.pool.double else "False",
             inline=False
         )
         embed.add_field(
@@ -588,7 +595,61 @@ class gachaCog(commands.Cog):
                 value="\n".join(temp) if len(temp) != 0 else "Empty",
                 inline=True
             )
-        await channel.send(embed=embed)
+        
+        pages = [embed] + [self.make_pool_charas(r) for r in range(1,4)]
+
+        page = await channel.send(embed=pages[0])
+        arrows = ['⬅','➡']
+        for arrow in arrows:
+            await page.add_reaction(arrow)
+        
+        def author_check(reaction, user):
+            return str(user.id) == str(author.id) and str(reaction.emoji) in arrows and str(reaction.message.id) == str(page.id)
+
+        while True:
+            try:
+                reaction, user = await self.client.wait_for('reaction_add', timeout=60.0, check=author_check)
+            except:
+                #for arrow in reactions:
+                await page.clear_reactions()
+                return
+            else:
+                await reaction.message.remove_reaction(reaction.emoji, user)
+                if reaction.emoji == arrows[0]:
+                    pages = [pages[-1]]+pages[:-1]
+                    #await reaction.message.edit(embed=pages[-1]+pages[:-1])
+                else:
+                    pages = pages[1:]+[pages[0]]
+                await reaction.message.edit(embed=pages[0])
+        
+    def make_pool_charas(self, rarity):
+        if rarity == 1:
+            pool = self.pool.r_pool
+        elif rarity == 2:
+            pool = self.pool.sr_pool
+        else:
+            pool = self.pool.ssr_pool
+        
+        embed = discord.Embed(
+            title=f"{rarity}\⭐ Pool",
+            timestamp=datetime.datetime.utcnow(),
+            colour=self.colour
+        )
+        embed.set_footer(text="Pool | Re:Re:Write Ames", icon_url=self.client.user.avatar_url)
+
+        embed.add_field(
+            name="Rate Up",
+            value="\n".join([f"{self.client.team.get(chara.name, ':grey_question:')} {chara.full_name}" for chara in pool['lim']]) if pool['lim'] else "None",
+            inline=False
+        )
+
+        for col in self.client.chunks(sorted(pool['norm'], key=lambda x: x.full_name), 20):
+            embed.add_field(
+                name="Standard",
+                value="\n".join([f"{self.client.team.get(ch.name, 'grey:question')} {ch.full_name}" for ch in col])
+            )
+        
+        return embed
 
 def setup(client):
     client.add_cog(gachaCog(client))

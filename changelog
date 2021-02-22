@@ -1,4 +1,9 @@
 {
+    "4.10.10:": [
+        "+ [gacha] added new pages to banner command that shows currently standard characters",
+        "- [help] fixed broken md highlights",
+        "+ [shenp] coom"
+    ],
     "4.10.9": [ 
         "+ [phatsune] adjusted stats for lv cap up",
         "+ [phatsune] added shefi",
