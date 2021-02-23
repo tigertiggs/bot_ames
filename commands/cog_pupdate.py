@@ -1321,9 +1321,11 @@ class updateCog(commands.Cog):
         for command in command_line.split(';'):
             mode, _, value = command.partition('.')
 
-            if mode == 'prifes':
-                await channel.send(f"setting prifes to {value}")
-                gacha_config['prifes'] = int(value)
+            if mode == 'prifes' or mode == "double":
+                await channel.send(f"setting {mode} to {value}")
+                gacha_config[mode] = int(value)
+                if gacha_config['prifes'] == 1:
+                    gacha_config['double'] == 1
 
             elif mode == 'lim':
                 await channel.send(f"replacing limited pool with {value.split(',')}")

@@ -1,4 +1,7 @@
 {
+    "4.10.11": [
+        "+ [phatsune] added skasumi, updated gacha banner"
+    ],
     "4.10.10:": [
         "+ [gacha] added new pages to banner command that shows currently standard characters",
         "- [help] fixed broken md highlights",
