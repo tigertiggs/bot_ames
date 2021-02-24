@@ -3,7 +3,7 @@ from commands.cog_gacha import SPACE
 import discord
 from discord.ext import commands, tasks
 import datetime, pytz
-import os, json
+import os, json, asyncio
 
 num_emj = ['1\u20E3','2\u20E3','3\u20E3','4\u20E3','5\u20E3']
 REPEAT =  '\U0001f501'
@@ -342,10 +342,12 @@ class cbCog(commands.Cog):
 
         #options = options.split()
         if not options:
-            await channel.send(embed=self.display_queue(guild_id, author))
+            msg = await channel.send(embed=self.display_queue(guild_id, author))
+            await asyncio.sleep(60)
+            await msg.edit(content="This queue list has expired "+self.client.emotes['ames'], embed=None)
             return
         elif 'help' in options:
-            await channel.send(embed=self.queue_help())
+            msg = await channel.send(embed=self.queue_help())
             return
         elif 'kill' in options or 'wipe' in options:
             if not self.client._check_author(author,'admin'):
@@ -366,7 +368,7 @@ class cbCog(commands.Cog):
                     await channel.send(f"failed to read boss number {option}")
                     return
                 else:
-                    if target_boss < 0 or target_boss > 5:
+                    if target_boss < 1 or target_boss > 5:
                         await channel.send(f"boss number out of range: {target_boss}")
                         return
 
@@ -490,7 +492,7 @@ class cbCog(commands.Cog):
         for option in options:
             if option.isnumeric():
                 target_boss = int(option)
-                if target_boss < 0 or target_boss > 5:
+                if target_boss < 1 or target_boss > 5:
                     await channel.send('invalid boss entry')
                     return
             elif len(option) > 4:

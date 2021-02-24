@@ -1,4 +1,7 @@
 {
+    "4.11.1": [
+        "- [cb] fixed boss input bounds and added timeout function for queue display"
+    ],
     "4.11.0": [
         "+ [cb] added queueing command and its assets",
         "- [cl] fixed changelog",
