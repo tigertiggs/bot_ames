@@ -2,7 +2,7 @@
     "4.11.0": [
         "+ [cb] added queueing command and its assets",
         "- [cl] fixed changelog",
-        "+ [phatsune] added magical prefix alias
+        "+ [phatsune] added magical prefix alias"
     ],
     "4.10.11": [
         "+ [phatsune] added skasumi, updated gacha banner"
