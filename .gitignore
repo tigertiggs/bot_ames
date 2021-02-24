@@ -31,6 +31,10 @@ commands/assets/shen/other/temp.png
 commands/assets/shen/other/temp.jpeg
 commands/assets/shen/other/temp.gif
 
+# cb
+commands/cb/*
+!commands/cb/.gitkeep
+
 # other
 commands/_config/override.json
 commands/_config/cbtag.json

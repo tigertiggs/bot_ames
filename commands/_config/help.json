@@ -407,6 +407,15 @@
             "aliases":  null,
             "help":     "coom",
             "help_ex":  "coooooooooooooooom"
+        },
+        "queue": {
+            "flags":    ["cb"],
+            "hidden":   false,
+            "usage":    ".queue [*options]",
+            "subcmd":   ["kill", "wipe", "done"],
+            "aliases":  ["q"],
+            "help":     "Queue for bosses in CB (experimental)",
+            "help_ex":  "Note that queues will automatically be removed after a certain period of time have passed.\n\n> `.q`\nSee the current queue\n\n> `.q [boss_num]`\nAdd yourself to the queue of some boss\n\n> `.q [boss_num] done`\nRemove yourself from the queue of a certain boss\n\n> `.q done`\nRemove yourself from all queues\n\n**Admins**\n> `.q wipe/kill [*boss_num] [*@discord_member]`\nCalling this without any options i.e. `.q kill/wipe` will clear the whole queue. Otherwise, the command will attempt to read your `boss_num` and/or `@discord_member` inputs. Note that `@discord_member` must be a discord member mention/ping. This command will default to wiping the whole queue if it fails to read both inputs/both inputs are omitted."
         }
     }
 }

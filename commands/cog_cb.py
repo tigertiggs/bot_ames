@@ -1,12 +1,15 @@
 # this module takes care of cb functions
+from commands.cog_gacha import SPACE
 import discord
-from discord.ext import commands
-import datetime
-import os, sys, json, asyncio
+from discord.ext import commands, tasks
+import datetime, pytz
+import os, json
 
 num_emj = ['1\u20E3','2\u20E3','3\u20E3','4\u20E3','5\u20E3']
 REPEAT =  '\U0001f501'
 BROOM =   '\U0001f9f9'
+
+timer = 60
 
 class cbCog(commands.Cog):
     def __init__(self, client):
@@ -330,6 +333,220 @@ class cbCog(commands.Cog):
             role = self.get_role(boss_id)
             await role.edit(name=reset_names[i])
         await channel.send(self.client.emotes['sarenh'])
+
+    @commands.command(aliases=['q'])
+    async def queue(self, ctx, *options):
+        channel = ctx.message.channel
+        author = ctx.message.author
+        guild_id = str(ctx.message.author.guild.id)
+
+        #options = options.split()
+        if not options:
+            await channel.send(embed=self.display_queue(guild_id, author))
+            return
+        elif 'help' in options:
+            await channel.send(embed=self.queue_help())
+            return
+        elif 'kill' in options or 'wipe' in options:
+            if not self.client._check_author(author,'admin'):
+                await channel.send(self.client.emotes['ames'])
+                return
+            await self.queue_wipe(author.guild, channel, options)
+            return
+
+        queue_flag = True
+        target_boss = None
+        for option in options:
+            if option.startswith('d'):
+                queue_flag = False
+            elif option.isnumeric():
+                try:
+                    target_boss = int(option)
+                except:
+                    await channel.send(f"failed to read boss number {option}")
+                    return
+                else:
+                    if target_boss < 0 or target_boss > 5:
+                        await channel.send(f"boss number out of range: {target_boss}")
+                        return
+
+        try:
+            with open(os.path.join(self.client.config['cb_q_path'], f"{guild_id}.json"), "r") as qf:
+                q = json.load(qf)   
+        except:
+            q = {'q':[]}
+
+        if target_boss == None and queue_flag == False:
+            await channel.send("no boss number specified; attempting to remove all from all queues")
+            q['q'] = [item for item in q['q'] if item[0] != author.id]
+        else:
+            active_author_q = list(filter(lambda x: x[0] == author.id and x[1] == target_boss, q['q']))
+
+            if queue_flag:
+                if len(active_author_q) > 0:
+                    await channel.send(f"You have already queued for boss {target_boss}!")
+                    return
+                else:
+                    q['q'].append((author.id, target_boss, str(datetime.datetime.now(datetime.timezone.utc))))
+                    await channel.send(f"queued for boss {target_boss}")
+            else:
+                q['q'] = [item for item in q['q'] if not (item[0] == author.id and item[1] == target_boss)]
+                await channel.send(f'unqueued for boss {target_boss}')
+        
+        with open(os.path.join(self.client.config['cb_q_path'], f"{guild_id}.json"), "w+") as qf:
+            qf.write(json.dumps(q, indent=4))
+        
+    def cog_unload(self):
+        self.timeout_checker.cancel()
+    
+    @tasks.loop(seconds=timer)
+    async def timeout_checker(self):
+        with open(os.path.join(self.client.config['cb_q_path'],'config.json')) as cf:
+            increment = datetime.timedelta(seconds=json.load(cf)['timeout'])
+
+        for filename in os.listdir(self.client.config['cb_q_path']):
+            if filename != "config.json":
+                with open(os.path.join(self.client.config['cb_q_path'], filename)) as qf:
+                    q = json.load(qf)
+                
+                current_time = datetime.datetime.utcnow()
+                q['q'] = [item for item in q['q'] if datetime.datetime.strptime(item[-1], '%Y-%m-%d %H:%M:%S.%f%z') + increment >= current_time]
+
+                with open(os.path.join(self.client.config['cb_q_path'], filename), "w+") as qf:
+                    qf.write(json.dumps(q,indent=4))
+    
+    def display_queue(self, guild_id, author):
+        with open(os.path.join(self.client.config['cb_q_path'],'config.json')) as cf:
+            increment = json.load(cf)['timeout']
+        
+        now = datetime.datetime.now(datetime.timezone.utc)
+        
+        try:
+            with open(os.path.join(self.client.config['cb_q_path'], f"{guild_id}.json"), "r") as qf:
+                q = json.load(qf)
+        except:
+            q = {'q':[]}
+        
+        total_queue = [[],[],[],[],[]]
+        for item in q['q']:
+            member = author.guild.get_member(item[0])
+            member = member.nick if member.nick else member.name
+            t = datetime.datetime.strptime(item[2], '%Y-%m-%d %H:%M:%S.%f%z')
+            clean = (member if item[0] != author.id else f"**{member}**", item[1], f"{self.timetz_to_tz(t,pytz.timezone('Asia/Tokyo')).strftime('%H%M JST')} ({round((now-t).total_seconds()/60,1)}min elapsed)")
+            total_queue[item[1]-1].append(clean)
+        
+        for boss_queue_list in total_queue:
+            boss_queue_list.sort(key=lambda x: x[-1])
+
+        embed=discord.Embed(
+            title="Clan Battle Queue",
+            description=f"Current queue automatic timeout is **{round(increment/60,1)}min**. See `.q help` or `.help queue` for details on usage. Happy Clan Battling!",
+            colour=self.colour,
+            timestamp=datetime.datetime.utcnow()
+        )
+        embed.set_footer(text='CB Queue | Re:Re:Write Ames',icon_url=self.client.user.avatar_url)
+        
+        icons = [":one:",":two:",":three:",":four:",":five:"]
+        roles = [self.get_role(r) for r in self.config['boss_roles']]
+        for i in range(5):
+            embed.add_field(
+                name=SPACE,
+                value=f"{icons[i]} **{roles[i].name}**",
+                inline=False
+            )
+            
+            empty=False
+            if total_queue[i]:
+                name=[item[0] for item in total_queue[i]]
+                #time=[self.timetz_to_tz(item[-1],pytz.timezone('Asia/Tokyo')).strftime('%H%M JST') for item in total_queue[i]]
+                time=[item[-1] for item in total_queue[i]]
+            else:
+                name=['Empty Queue']
+                time=['N/A']
+                empty=True
+
+
+            embed.add_field(
+                name="No.",
+                value="\n".join([str(i) for i in range(1,len(name)+1)] if not empty else ['.'])
+            )
+            embed.add_field(
+                name="Name",
+                value="\n".join(name)
+            )
+            embed.add_field(
+                name="Time Queued",
+                value="\n".join(time)
+            )
+        
+        return embed
+    
+    async def queue_wipe(self, guild, channel, options):
+        target_boss = None
+        target_member = None
+        for option in options:
+            if option.isnumeric():
+                target_boss = int(option)
+                if target_boss < 0 or target_boss > 5:
+                    await channel.send('invalid boss entry')
+                    return
+            elif len(option) > 4:
+                try:
+                    author_id = int(option[3:-1])
+                except:
+                    await channel.send("could not read member")
+                    return
+                else:
+                    target_member = guild.get_member(int(author_id))
+
+        try:
+            with open(os.path.join(self.client.config['cb_q_path'], f"{guild.id}.json"), "r") as qf:
+                q = json.load(qf)
+        except:
+            q = {'q':[]}
+        
+        if target_boss and target_member:
+            q['q'] = [item for item in q['q'] if not (item[0] == target_member.id and item[1] == target_boss)]
+            await channel.send(f"cleared all entries from {target_member.name} under boss {target_boss}")
+        elif target_boss:
+            q['q'] = [item for item in q['q'] if not item[1] == target_boss]
+            await channel.send(f"cleared all entries under boss {target_boss}")
+        elif target_member:
+            q['q'] = [item for item in q['q'] if not item[0] == target_member.id]
+            await channel.send(f"cleared all entries from {target_member.name}")
+        else:
+            q['q'] = []
+            await channel.send('wiped all')
+        
+        with open(os.path.join(self.client.config['cb_q_path'], f"{guild.id}.json"), "w+") as qf:
+            qf.write(json.dumps(q, indent=4))
+    
+    def queue_help(self):
+        embed=discord.Embed(
+            title="CB Queue Help",
+            description="Help section for `.q`. See `.help queue` for extended documentation.",
+            timestamp=datetime.datetime.utcnow(),
+            colour=self.colour
+        )
+        embed.set_footer(text='CB Queue Help | Re:Re:Write Ames',icon_url=self.client.user.avatar_url)
+        embed.add_field(
+            name="Syntax",
+            value="`.q optional[boss_number] optional[done]`",
+            inline=False
+        )
+        embed.add_field(
+            name="Usage",
+            value="1) To see the current queue, use `.q`\n\n2) To add yourself to the queue of some boss, use `.q [boss_nume]`\n\n3) To remove yourself from the queue of a certain boss, use `.q [boss_num] done`, alternatively, use `.q done` to remove yourself from all queues"
+        )
+        embed.add_field(
+            name="Notes",
+            value="1) You will automatically be unqueued if you do not clear yourself from the queue after a specific amount of time has passed. See `.q` for the exact duration.",
+            inline=False
+        )
+        return embed
+
+    def timetz_to_tz(self, t, tz_out):
+        return t.astimezone(tz_out).timetz()
 
 def setup(client):
     client.add_cog(cbCog(client))

@@ -19,6 +19,7 @@
     "status_path":          "commands/_config/status.json",
     "gacha_config_path":    "commands/_config/gacha.json",
     "cbtag_config_path":    "commands/_config/cbtag.json",
+    "cb_q_path":            "commands/cb",
     "help_path":            "commands/_config/help.json",
 
     "hatsune_config_path":  "commands/hatsune_data/hatsune_config.json",
