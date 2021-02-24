@@ -379,6 +379,9 @@ class cbCog(commands.Cog):
         if target_boss == None and queue_flag == False:
             await channel.send("no boss number specified; attempting to remove all from all queues")
             q['q'] = [item for item in q['q'] if item[0] != author.id]
+        elif target_boss == None:
+            await channel.send("unable to process inputs")
+            return
         else:
             active_author_q = list(filter(lambda x: x[0] == author.id and x[1] == target_boss, q['q']))
 
