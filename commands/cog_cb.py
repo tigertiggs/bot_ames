@@ -9,7 +9,7 @@ num_emj = ['1\u20E3','2\u20E3','3\u20E3','4\u20E3','5\u20E3']
 REPEAT =  '\U0001f501'
 BROOM =   '\U0001f9f9'
 
-timer = 60
+timer = 30
 
 class cbCog(commands.Cog):
     def __init__(self, client):
@@ -21,6 +21,8 @@ class cbCog(commands.Cog):
         with open(os.path.join(self.client.dir, self.client.config['cbtag_config_path']), encoding='utf-8') as ccf:
             self.config = json.load(ccf)
             #self.last_message = self.config['guilds']
+        
+        self.timeout_checker.start()
     
     def write_to_config(self):
         #self.config['guilds'] = guilds
@@ -414,7 +416,7 @@ class cbCog(commands.Cog):
                 with open(os.path.join(self.client.config['cb_q_path'], filename)) as qf:
                     q = json.load(qf)
                 
-                current_time = datetime.datetime.utcnow()
+                current_time = datetime.datetime.now(datetime.timezone.utc)
                 q['q'] = [item for item in q['q'] if datetime.datetime.strptime(item[-1], '%Y-%m-%d %H:%M:%S.%f%z') + increment >= current_time]
 
                 with open(os.path.join(self.client.config['cb_q_path'], filename), "w+") as qf:
