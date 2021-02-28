@@ -1,4 +1,8 @@
 {
+    "4.11.2": [
+        "+ [phatsune] added pkyaru, crrima",
+        "+ [gacha] updated gacha banner"
+    ],
     "4.11.1": [
         "- [cb] fixed boss input bounds and added timeout function for queue display"
     ],

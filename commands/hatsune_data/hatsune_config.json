@@ -16,7 +16,8 @@
         "r": "Ranger",
         "w": "Wonderland",
         "a": "Angel",
-		"c": "Ceremonial Dress"
+		"c": "Ceremonial Dress",
+        "cr": "Cinderella"
     },
     "prefix_shortened": {
         "n": "NYear",
@@ -28,7 +29,8 @@
         "h": "Hallo.",
         "w": "Wonder.",
         "p": "Prin.",
-        "s": "Sum."
+        "s": "Sum.",
+        "cr": "Cind."
     },
     "prefix_new": {
         "n": [
@@ -46,8 +48,7 @@
 			"ts"
 		],
 		"m": [
-			"magi",
-            "magical"
+			"magi"
 		],
 		"c": [
 			"cere",
@@ -72,7 +73,9 @@
         "deresute": "d",
         "ranger": "r",
         "angel": "a",
-		"ceremonial": "c"
+		"ceremonial": "c",
+        "magical": "m",
+        "cinderella": "cr"
     },
     "options": [
         "flb"
@@ -158,6 +161,10 @@
             "loop": [],
             "ptn": []
         },
+        "atkptna": {
+            "loop": [],
+            "ptn": []
+        },
         "img": null,
         "img6": null,
         "basic": {
@@ -170,7 +177,17 @@
                     "text": null,
                     "action": null
                 },
+                "uba": {
+                    "name": null,
+                    "text": null,
+                    "action": null
+                },
                 "ub2": {
+                    "name": null,
+                    "text": null,
+                    "action": null
+                },
+                "uba2": {
                     "name": null,
                     "text": null,
                     "action": null
@@ -206,6 +223,16 @@
                     "action": null
                 },
                 "sk2ap": {
+                    "name": null,
+                    "text": null,
+                    "action": null
+                },
+                "sk3": {
+                    "name": null,
+                    "text": null,
+                    "action": null
+                },
+                "sk3a": {
                     "name": null,
                     "text": null,
                     "action": null
@@ -230,7 +257,17 @@
                     "text": null,
                     "action": null
                 },
+                "uba": {
+                    "name": null,
+                    "text": null,
+                    "action": null
+                },
                 "ub2": {
+                    "name": null,
+                    "text": null,
+                    "action": null
+                },
+                "uba2": {
                     "name": null,
                     "text": null,
                     "action": null
@@ -266,6 +303,16 @@
                     "action": null
                 },
                 "sk2ap": {
+                    "name": null,
+                    "text": null,
+                    "action": null
+                },
+                "sk3": {
+                    "name": null,
+                    "text": null,
+                    "action": null
+                },
+                "sk3a": {
                     "name": null,
                     "text": null,
                     "action": null
