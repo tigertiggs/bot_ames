@@ -157,14 +157,7 @@
         "sname": null,
         "tags": [],
         "pos": -1,
-        "atkptn": {
-            "loop": [],
-            "ptn": []
-        },
-        "atkptna": {
-            "loop": [],
-            "ptn": []
-        },
+        "atkptn": [],
         "img": null,
         "img6": null,
         "basic": {
@@ -218,11 +211,6 @@
                     "action": null
                 },
                 "sk2a": {
-                    "name": null,
-                    "text": null,
-                    "action": null
-                },
-                "sk2ap": {
                     "name": null,
                     "text": null,
                     "action": null
@@ -298,11 +286,6 @@
                     "action": null
                 },
                 "sk2a": {
-                    "name": null,
-                    "text": null,
-                    "action": null
-                },
-                "sk2ap": {
                     "name": null,
                     "text": null,
                     "action": null

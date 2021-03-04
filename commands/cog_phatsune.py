@@ -282,7 +282,7 @@ class hatsuneCog(commands.Cog):
 
         return match, alts, mode, invoke
 
-    def get_attack_pattern(self, info):
+    def get_attack_pattern(self, info, alt_mode, special=None):
         if "magic" in info['tags']:
             norm_atk = '<:magatk:713288155469578272>'
         else:
@@ -292,8 +292,17 @@ class hatsuneCog(commands.Cog):
             '2\u20E3',
             '3\u20E3'
         ]
-        opening = info['atkptn']['ptn'][:info['atkptn']['loop'][0]-1]
-        loop = info['atkptn']['ptn'][info['atkptn']['loop'][0]-1:]
+
+        if special == '115801':
+            i = 0
+        elif special == '115802':
+            i = 1
+        elif special == '115803':
+            i = 2
+        else:
+            i = 0 if not alt_mode else -1
+        opening = info['atkptn'][i]['ptn'][:info['atkptn'][i]['loop'][0]-1]
+        loop = info['atkptn'][i]['ptn'][info['atkptn'][i]['loop'][0]-1:]
 
         opening = "-".join([norm_atk if action == 1 else skills[action%10-1] for action in opening]) if len(opening) != 0 else "None"
         loop = "-".join([norm_atk if action == 1 else skills[action%10-1] for action in loop]) if len(loop) != 0 else "None"
@@ -305,10 +314,10 @@ class hatsuneCog(commands.Cog):
         flb = kwargs.get("flb", False)
         alt = kwargs.get("alt", False)
         ex = kwargs.get("ex", False)
-        # norm      ->  ub      | sk1       | sk1p        | sk2       | ex | ex2
-        # alt       ->  ub      |(sk1) sk1a |(sk1p) sk1ap |(sk2) sk2a | ex | ex2
-        # flb       ->      ub2 |           | sk1p        | sk2       |    | ex2
-        # flb+alt   ->      ub2 |           |(sk1p) sk1ap |(sk2) sk2a |    | ex2
+        # norm      ->  ub       | sk1       | sk1p        | sk2       |  sk3       | ex | ex2
+        # alt       ->  uba      |(sk1) sk1a |(sk1p) sk1ap |(sk2) sk2a | (sk3) sk3a | ex | ex2
+        # flb       ->      ub2  |           | sk1p        | sk2       |  sk3       | ex2
+        # flb+alt   ->      uba2 |           |(sk1p) sk1ap |(sk2) sk2a | (sk3) sk3a | ex2
 
         # make sections
         sections[sections.index("<:_chara:677763373739409436> Chara")] = "<:_chara:677763373739409436> **[Chara]**"
@@ -351,36 +360,76 @@ class hatsuneCog(commands.Cog):
             inline=False
         )
         embed.add_field(
-            name="> **Attack Pattern**",
+            name="> **Special Attack Pattern**" if alt and len(data['atkptn']) > 1 else "**Attack Pattern**",
             value="Initial:\nLooping:",
             inline=True
         )
-        embed.add_field(
-            name=SPACE,
-            value=self.get_attack_pattern(data),
-            inline=True
-        )
+        if data['basic']['jp']['id'] == 1158:
+            if not alt:
+                embed.add_field(
+                    name=SPACE,
+                    value=self.get_attack_pattern(data, alt, '115803'),
+                    inline=True
+                )
+            else:
+                embed.add_field(
+                    name=SPACE+"\n"+SPACE,
+                    value=self.get_attack_pattern(data, alt, '115802'),
+                    inline=True
+                )
+            embed.add_field(
+                name=SPACE+"\n"+"Spec" if alt else "Spec",
+                value=self.get_attack_pattern(data, alt, '115801'),
+                inline=True
+            )
+        else:
+            embed.add_field(
+                name=SPACE,
+                value=self.get_attack_pattern(data, alt),
+                inline=True
+            )
 
         # ub, ub2
-        test = not flb
-        embed.add_field(
-            name=   "> **Union Burst**" if test else "> **Union Burst+**",
-            value=  f"「{data['basic']['jp']['ub']['name']}」" if test else 
-                    f"「{data['basic']['jp']['ub2']['name']}」",
-            inline= False
-        )
-        embed.add_field(
-            name=   "Description",
-            value=  f"{data['basic']['jp']['ub']['text']}" if test else 
-                    f"{data['basic']['jp']['ub2']['text']}",
-            inline= True
-        )
-        embed.add_field(
-            name=   SPACE,
-            value=  f"{data['basic']['en']['ub']['text']}" if test else 
-                    f"{data['basic']['en']['ub2']['text']}",
-            inline= True
-        )
+        if not flb:
+            test = alt and data['basic']['jp']['uba']['name']
+            embed.add_field(
+                name=   "> **Union Burst Special**" if test else "> **Union Burst**",
+                value=  f"「{data['basic']['jp']['uba']['name']}」" if test else 
+                        f"「{data['basic']['jp']['ub']['name']}」",
+                inline= False
+            )
+            embed.add_field(
+                name=   "Description",
+                value=  f"{data['basic']['jp']['uba']['text']}" if test else 
+                        f"{data['basic']['jp']['ub']['text']}",
+                inline= True
+            )
+            embed.add_field(
+                name=   SPACE,
+                value=  f"{data['basic']['en']['uba']['text']}" if test else 
+                        f"{data['basic']['en']['ub']['text']}",
+                inline= True
+            )
+        else:
+            test = alt and data['basic']['jp']['uba2']['name']
+            embed.add_field(
+                name=   "> **Union Burst Special**" if test else "> **Union Burst+**",
+                value=  f"「{data['basic']['jp']['uba2']['name']}」" if test else 
+                        f"「{data['basic']['jp']['ub2']['name']}」",
+                inline= False
+            )
+            embed.add_field(
+                name=   "Description",
+                value=  f"{data['basic']['jp']['uba2']['text']}" if test else 
+                        f"{data['basic']['jp']['ub2']['text']}",
+                inline= True
+            )
+            embed.add_field(
+                name=   SPACE,
+                value=  f"{data['basic']['en']['uba2']['text']}" if test else 
+                        f"{data['basic']['en']['ub2']['text']}",
+                inline= True
+            )
 
         # sk1, sk1a
         if not flb:
@@ -446,6 +495,41 @@ class hatsuneCog(commands.Cog):
                     f"{data['basic']['en']['sk2a']['text']}",
             inline= True
         )
+
+        # sk3, sk3a (may or may not exist)
+        if data['basic']['jp']['sk3a']['text'] or data['basic']['jp']['sk3']['text']:
+            if alt and data['basic']['jp']['sk3a']['text']:
+                embed.add_field(
+                    name=   "> **Skill 3 Special**",
+                    value=  f"「{data['basic']['jp']['sk3a']['name']}」",
+                    inline= False
+                )
+                embed.add_field(
+                    name=   "Description",
+                    value=  f"{data['basic']['jp']['sk3a']['text']}",
+                    inline= True
+                )
+                embed.add_field(
+                    name=   SPACE,
+                    value=  f"{data['basic']['en']['sk3a']['text']}",
+                    inline= True
+                )
+            elif not alt and data['basic']['jp']['sk3']['text']:
+                embed.add_field(
+                    name=   "> **Skill 3**",
+                    value=  f"「{data['basic']['jp']['sk3']['name']}」",
+                    inline= False
+                )
+                embed.add_field(
+                    name=   "Description",
+                    value=  f"{data['basic']['jp']['sk3']['text']}",
+                    inline= True
+                )
+                embed.add_field(
+                    name=   SPACE,
+                    value=  f"{data['basic']['en']['sk3']['text']}",
+                    inline= True
+                )
 
         # ex
         if ex:
@@ -681,25 +765,46 @@ class hatsuneCog(commands.Cog):
             )
 
         # ub, ub2
-        test = not flb
-        embed.add_field(
-            name=   "> **Union Burst**" if test else "> **Union Burst+**",
-            value=  f"「{data['basic']['jp']['ub']['name']}」" if test else 
-                    f"「{data['basic']['jp']['ub2']['name']}」",
-            inline= False
-        )
-        embed.add_field(
-            name=   "Description",
-            value=  f"{data['basic']['en']['ub']['text']}" if test else 
-                    f"{data['basic']['en']['ub2']['text']}",
-            inline= True
-        )
-        embed.add_field(
-            name=   SPACE,
-            value=  "```glsl\n-{}```".format('\n-'.join(data['basic']['en']['ub']['action'])) if test else 
-                    "```glsl\n-{}```".format('\n-'.join(data['basic']['en']['ub2']['action'])),
-            inline= True
-        )
+        if not flb:
+            test = alt and data['basic']['jp']['uba']['name']
+            embed.add_field(
+                name=   "> **Union Burst Special**" if test else "> **Union Burst**",
+                value=  f"「{data['basic']['jp']['uba']['name']}」" if test else 
+                        f"「{data['basic']['jp']['ub']['name']}」",
+                inline= False
+            )
+            embed.add_field(
+                name=   "Description",
+                value=  f"{data['basic']['en']['uba']['text']}" if test else 
+                        f"{data['basic']['en']['ub']['text']}",
+                inline= True
+            )
+            embed.add_field(
+                name=   SPACE,
+                value=  "```glsl\n-{}```".format('\n-'.join(data['basic']['en']['uba']['action'])) if test else 
+                        "```glsl\n-{}```".format('\n-'.join(data['basic']['en']['ub']['action'])),
+                inline= True
+            )
+        else:
+            test = alt and data['basic']['jp']['uba2']['name']
+            embed.add_field(
+                name=   "> **Union Burst Special+**" if test else "> **Union Burst+**",
+                value=  f"「{data['basic']['jp']['uba2']['name']}」" if test else 
+                        f"「{data['basic']['jp']['ub2']['name']}」",
+                inline= False
+            )
+            embed.add_field(
+                name=   "Description",
+                value=  f"{data['basic']['en']['uba2']['text']}" if test else 
+                        f"{data['basic']['en']['ub2']['text']}",
+                inline= True
+            )
+            embed.add_field(
+                name=   SPACE,
+                value=  "```glsl\n-{}```".format('\n-'.join(data['basic']['en']['uba2']['action'])) if test else 
+                        "```glsl\n-{}```".format('\n-'.join(data['basic']['en']['ub2']['action'])),
+                inline= True
+            )
 
         # sk1, sk1a
         if not flb:
@@ -765,6 +870,41 @@ class hatsuneCog(commands.Cog):
                     "```glsl\n-{}```".format('\n-'.join(data['basic']['en']['sk2a']['action'])),
             inline= True
         )
+
+        # sk3, sk3a (may or may not exist)
+        if data['basic']['jp']['sk3a']['text'] or data['basic']['jp']['sk3']['text']:
+            if alt and data['basic']['jp']['sk3a']['text']:
+                embed.add_field(
+                    name=   "> **Skill 3 Special**",
+                    value=  f"「{data['basic']['jp']['sk3a']['name']}」",
+                    inline= False
+                )
+                embed.add_field(
+                    name=   "Description",
+                    value=  f"{data['basic']['en']['sk3a']['text']}",
+                    inline= True
+                )
+                embed.add_field(
+                    name=   SPACE,
+                    value=  "```glsl\n-{}```".format('\n-'.join(data['basic']['en']['sk3a']['action'])),
+                    inline= True
+                )
+            elif not alt and data['basic']['jp']['sk3']['text']:
+                embed.add_field(
+                    name=   "> **Skill 3**",
+                    value=  f"「{data['basic']['jp']['sk3']['name']}」",
+                    inline= False
+                )
+                embed.add_field(
+                    name=   "Description",
+                    value=  f"{data['basic']['en']['sk3']['text']}",
+                    inline= True
+                )
+                embed.add_field(
+                    name=   SPACE,
+                    value=  "```glsl\n-{}```".format('\n-'.join(data['basic']['en']['sk3']['action'])),
+                    inline= True
+                )
 
         # ex
         if ex:

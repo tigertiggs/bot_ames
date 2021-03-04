@@ -10,6 +10,8 @@
             "name":         null,
             "ub":           {"name": null, "decription": null, "action": null},
             "ub2":          {"name": null, "decription": null, "action": null},
+            "uba":          {"name": null, "decription": null, "action": null},
+            "uba2":         {"name": null, "decription": null, "action": null},
             "sk1":          {"name": null, "decription": null, "action": null},
             "sk1p":         {"name": null, "decription": null, "action": null},
             "sk1a":         {"name": null, "decription": null, "action": null},

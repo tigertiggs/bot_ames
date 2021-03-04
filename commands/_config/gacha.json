@@ -10,19 +10,11 @@
     "ssr_rate_up": 0.007,
     "sr_rate_up": 0,
     "r_rate_up": 0,
-    "prifes": 1,
-    "double": 1,
+    "prifes": 0,
+    "double": 0,
     "pools": {
         "lim": [
-            "3P.Kyaru:0.7",
-            "3P.Kokkoro",
-            "3P.Pecorine",
-            "3P.Yui",
-            "3.Muimi",
-            "3.Neneka",
-            "3.Christina",
-            "3P.Hiyori",
-            "3.Labyrista"
+            "3CR.Makoto"
         ],
         "r": [
             "Rei",
@@ -99,7 +91,8 @@
             "Inori",
             "Sheffi",
             "S.Kasumi",
-            "S.Jun"
+            "S.Jun",
+            "CR.Makoto"
         ]
     }
 }

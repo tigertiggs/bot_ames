@@ -1,4 +1,10 @@
 {
+    "4.12.0": [
+        "+ [phatsune] added cr.makoto",
+        "- [phatsune] fixed a few tags",
+        "+ [pupdate][phatsune] updated structure to accomodate previously missed skills on alt characters, added support for multiple attack patterns",
+        "+ [twitter] made ann embed layout nicer"
+    ],
     "4.11.2": [
         "+ [phatsune] added pkyaru, crrima",
         "+ [gacha] updated gacha banner"

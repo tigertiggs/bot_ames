@@ -180,7 +180,8 @@ class twitterCog(commands.Cog):
             guild_info = service['guilds'].get(str(guild.id), {})
             set_channel = guild.get_channel(guild_info.get('channel', 0))
 
-            services.append(f"{':green_square:' if guild_info.get('active', False) else ':black_large_square:'} `{service_code}`")
+            services.append(f"{':green_square:' if guild_info.get('active', False) else ':black_large_square:'} {service_code}")
+            #services.append(f"{'1' if guild_info.get('active', False) else '0'} `{service_code}`")
             active.append(service['name'])
             channel.append(f"<#{set_channel.id}>" if set_channel else 'Not set')
         
@@ -339,7 +340,7 @@ class twitterCog(commands.Cog):
 
         for service_code, service in sorted(self.config['accounts'].items(), key=lambda x: x[0]):
             services.append(service_code)
-            active.append(f"{':green_square:' if service['active'] else ':black_large_square:'} {':green_square:' if service['includeRT'] else ':black_large_square:'} {len(service['guilds'])} `{service['id']}`")
+            active.append(f"{':green_square:' if service['active'] else ':black_large_square:'} {':green_square:' if service['includeRT'] else ':black_large_square:'} {len(service['guilds'])} {service['id']}")
             channel.append(service['name'])
         
         embed=discord.Embed(

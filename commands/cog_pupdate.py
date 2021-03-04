@@ -5,10 +5,21 @@ from discord.ext import commands
 import os, json, traceback, datetime, requests, copy, glob, re#, time, sys
 from PIL import Image#, GifImagePlugin, ImageDraw, ImageSequence, ImageOps, ImageFont
 from io import BytesIO
+import collections.abc
 SPACE = '\u200B'
+
+
 
 def setup(client):
     client.add_cog(updateCog(client))
+
+def deep_update(d, u):
+    for k, v in u.items():
+        if isinstance(v, collections.abc.Mapping):
+            d[k] = deep_update(d.get(k, {}), v)
+        else:
+            d[k] = v
+    return d
 
 preupdate_checklist = [
     "+ update hnoteDB source",
@@ -70,7 +81,7 @@ def validate_request(client, request:dict, mode="en"):
 class updateCog(commands.Cog):
     def __init__(self, client):
         self.client =   client
-        self.name =     '[prototype-update]',
+        self.name =     '[prototype-update]'
         self.logger =   client.log
         self.db =       self.client.database
         #self.colour =   discord.Colour.from_rgb(*self.client.config['command_colour']['cog_update'])
@@ -244,10 +255,13 @@ class updateCog(commands.Cog):
         return data
 
     def get_unit_pattern(self, raw, data):
-        data['atkptn']['loop'] = [raw['loop_start'], raw['loop_end']]
-        ptn = list(filter(lambda x: x[0].startswith("action_"), list(raw.items())))
-        ptn.sort(key=lambda x: x[0])
-        data['atkptn']['ptn'] = [v for _,v in ptn]
+        for pattern in raw:
+            temp = {'loop': [pattern['loop_start'], pattern['loop_end']]}
+            ptn = list(filter(lambda x: x[0].startswith("action_"), list(pattern.items())))
+            ptn.sort(key=lambda x: x[0])
+            temp['ptn'] = [v for _,v in ptn]
+            temp['no'] = pattern['PatternNo']
+            data['atkptn'].append(temp)
         return data
 
     def get_unit_ue(self, raw, data):
@@ -270,11 +284,17 @@ class updateCog(commands.Cog):
                 _key = "ub"
             elif key ==     "Union Burst+":
                 _key = "ub2"
+            elif key ==     "Union Burst Alt":
+                _key = "uba"
+            elif key ==     "Union Burst Alt+":
+                _key = "uba2"
             elif key ==     "Skill 1":
                 _key = "sk1"
             elif key ==     "Skill 1+":
                 _key = "sk1p"
             elif key ==     "Skill 2":
+                _key = "sk2"
+            elif key ==     "Skill 3":
                 _key = "sk2"
             elif key ==     "EX Skill":
                 _key = "ex"
@@ -282,10 +302,12 @@ class updateCog(commands.Cog):
                 _key = "ex2"
             elif key ==     "Skill 1 Alt":
                 _key = "sk1a"
-            elif key ==     "Skill 2 Alt":
-                _key = "sk2a"
             elif key ==     "Skill 1 Alt+":
                 _key = "sk1ap"
+            elif key ==     "Skill 2 Alt":
+                _key = "sk2a"
+            elif key ==     "Skill 3 Alt":
+                _key = "sk3a"
             else:
                 print("unknown skill key", key)
                 continue
@@ -332,7 +354,14 @@ class updateCog(commands.Cog):
         
         # do stuff
         for i in range(len(all_data['units'])):
-            all_data['units'][i]['basic']['jp']['comment'] = re.sub(r'\\n', '', all_data['units'][i]['basic']['jp']['comment']) if all_data['units'][i]['basic']['jp']['comment'] else None
+            all_data['units'][i]['atkptn'] = []
+            all_data['units'][i]['basic']['en'].pop('sk2ap',None)
+            all_data['units'][i]['basic']['jp'].pop('sk2ap',None)
+
+            newunit = deep_update(copy.deepcopy(self.config['template']),all_data['units'][i])
+            #newunit.update(all_data['units'][i])
+
+            all_data['units'][i] = newunit
         
         # save
         with open(os.path.join(self.client.dir, self.client.config['hatsune_db_path']), "w+") as dbf:
@@ -735,10 +764,10 @@ class updateCog(commands.Cog):
     async def process_command(self, cmd, content, data, mode, text):
         # accepted keys
         persist =   ['name', 'prefix', 'tags']
-        norm =      ['ub', 'sk1', 'sk1p', 'sk2', 'ex', 'ex2']
-        alt =       ['sk1a', 'sk1ap', 'sk2a']
+        norm =      ['ub', 'sk1', 'sk1p', 'sk2', 'sk3', 'ex', 'ex2']
+        alt =       ['uba', 'sk1a', 'sk1ap', 'sk2a', 'sk3a']
         ue =        ['sk1', 'sk1p', 'uename', 'uetext']
-        flb =       ['ub', 'ub2']
+        flb =       ['ub', 'ub2', 'uba', 'uba2']
 
         field, _, value = content.partition(':')
         value = value.strip()
@@ -752,7 +781,7 @@ class updateCog(commands.Cog):
                     if tag.startswith("+"):
                         append.append(tag[1:])
                     elif tag.startswith("-"):
-                        remove.append[tag[1:]]
+                        remove.append(tag[1:])
                 if not append and not remove:
                     data['tags'] = [i.strip() for i in value.split(',')]
                     await cmd.edit(content="\n".join([text,f"> Setting `tags` to `{data['tags']}`"]))
@@ -912,6 +941,35 @@ class updateCog(commands.Cog):
                     name="ub2_en",
                     value=get_text(chara['basic']['en']['ub2']['text'])
                 )
+        # uba, uba2
+        if alt and not ue and chara['basic']['jp']['uba']['name']:
+            embed.add_field(
+                name=SPACE,
+                value="**Union Burst Special**",
+                inline=False
+            )
+            embed.add_field(
+                name="uba_jp",
+                value=chara['basic']['jp']['uba']['text']
+            )
+            embed.add_field(
+                name="uba_en",
+                value=get_text(chara['basic']['en']['uba']['text'])
+            )
+            if flb:
+                embed.add_field(
+                    name=SPACE,
+                    value="**Union Burst Special+**",
+                    inline=False
+                )
+                embed.add_field(
+                    name="uba2_jp",
+                    value=get_text(chara['basic']['jp']['uba2']['text'])
+                )
+                embed.add_field(
+                    name="uba2_en",
+                    value=get_text(chara['basic']['en']['uba2']['text'])
+                )
 
         # sk1, sk1p
         if not alt and not flb:
@@ -983,6 +1041,19 @@ class updateCog(commands.Cog):
                 name="sk2a_en",
                 value=get_text(chara['basic']['en']['sk2a']['text'])
             )
+            embed.add_field(
+                name=SPACE,
+                value="**Skill 3 Special**",
+                inline=False
+            )
+            embed.add_field(
+                name="sk3a_jp",
+                value=get_text(chara['basic']['jp']['sk3a']['text'])
+            )
+            embed.add_field(
+                name="sk3a_en",
+                value=get_text(chara['basic']['en']['sk3a']['text'])
+            )
 
         # ue_name
         if ue:
@@ -1027,6 +1098,19 @@ class updateCog(commands.Cog):
             embed.add_field(
                 name="sk2_en",
                 value=get_text(chara['basic']['en']['sk2']['text'])
+            )
+            embed.add_field(
+                name=SPACE,
+                value="**Skill 3**",
+                inline=False
+            )
+            embed.add_field(
+                name="sk3_jp",
+                value=chara['basic']['jp']['sk3']['text']
+            )
+            embed.add_field(
+                name="sk3_en",
+                value=get_text(chara['basic']['en']['sk3']['text'])
             )
             embed.add_field(
                 name=SPACE,
