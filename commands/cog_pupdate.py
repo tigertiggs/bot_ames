@@ -255,6 +255,8 @@ class updateCog(commands.Cog):
         return data
 
     def get_unit_pattern(self, raw, data):
+        # reset the atkptn list so it doesnt keep appending the same thing on update db f
+        data['atkptn'] = []
         for pattern in raw:
             temp = {'loop': [pattern['loop_start'], pattern['loop_end']]}
             ptn = list(filter(lambda x: x[0].startswith("action_"), list(pattern.items())))

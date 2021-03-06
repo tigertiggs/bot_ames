@@ -7990,7 +7990,9 @@
                 "patk_down",
                 "p_target",
                 "patk_up",
-                "self_buff"
+                "self_buff",
+                "flb",
+                "pcrit_down"
             ],
             "pos": 137,
             "atkptn": [
@@ -8012,7 +8014,7 @@
                 }
             ],
             "img": "https://redive.estertion.win/icon/unit/100431.webp",
-            "img6": null,
+            "img6": "https://redive.estertion.win/icon/unit/100461.webp",
             "basic": {
                 "en": {
                     "id": 71,
@@ -8022,7 +8024,7 @@
                         "name": null,
                         "text": "Inflict medium physical damage on all enemies in range centered around the 2nd frontmost enemy.",
                         "action": [
-                            "Inflict 22191 p.dmg to all targets in range (Range: 300)"
+                            "Inflict 22904 p.dmg to all targets in range (Range: 300)"
                         ]
                     },
                     "uba": {
@@ -8032,8 +8034,13 @@
                     },
                     "ub2": {
                         "name": null,
-                        "text": null,
-                        "action": null
+                        "text": "Inflict large physical damage on all enemies; inflict massive physical attack and crit down. Inflict medium physical crit damage down.",
+                        "action": [
+                            "Inflict 30500 p.dmg on all targets ",
+                            "Debuff p.atk by 5730 on all targets [18s]",
+                            "Inflict 338 p.crit down on all targets [18s]",
+                            "Inflict 25% p.crit damage down on all targets [18s]"
+                        ]
                     },
                     "uba2": {
                         "name": null,
@@ -8044,7 +8051,7 @@
                         "name": null,
                         "text": "Inflict small physical damage on the 2nd frontmost enemy; inflict blind.",
                         "action": [
-                            "Inflict 8304 p.dmg to target ",
+                            "Inflict 8568 p.dmg to target ",
                             "Inflict blind on target "
                         ]
                     },
@@ -8052,7 +8059,7 @@
                         "name": null,
                         "text": "Inflict medium physical damage on the 2nd frontmost enemy; inflict blind; inflict small physical attack down on all enemies in range.",
                         "action": [
-                            "Inflict 21889 p.dmg to target ",
+                            "Inflict 22593 p.dmg to target ",
                             "Inflict blind on target ",
                             "Inflict 955 p.atk down on all targets in range (Range: 200)[180s]"
                         ]
@@ -8071,7 +8078,7 @@
                         "name": null,
                         "text": "Inflict small physical damage on the enemy with the highest physical attack; inflict small physical attack down; gain small physical attack up.",
                         "action": [
-                            "Inflict 10944 p.dmg to target ",
+                            "Inflict 11296 p.dmg to target ",
                             "Inflict 716 p.atk down [99s]",
                             "Gain 1051 p.atk up [99s]"
                         ]
@@ -8122,8 +8129,8 @@
                         "action": null
                     },
                     "ub2": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u30c8\u30ea\u30c3\u30af\u30cf\u30fc\u30c8",
+                        "text": "\u6575\u5168\u4f53\u306b\u7269\u7406\u5927\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3001\u7269\u7406\u653b\u6483\u529b\u3068\u7269\u7406\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u3092\u7279\u5927\u30c0\u30a6\u30f3\u3055\u305b\u308b\u3002\u3055\u3089\u306b\u3001\u7269\u7406\u653b\u6483\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u6642\u306e\u30c0\u30e1\u30fc\u30b8\u3092\u4e2d\u30c0\u30a6\u30f3\u3055\u305b\u308b\u3002",
                         "action": null
                     },
                     "uba2": {
@@ -8208,11 +8215,11 @@
             "stats": {
                 "normal": {
                     "hp": 35173,
-                    "atk": 11293,
+                    "atk": 11733,
                     "matk": 20,
                     "def": 724,
                     "mdef": 518,
-                    "pCrit": 716,
+                    "pCrit": 856,
                     "mCrit": 0,
                     "wHpRec": 3180,
                     "wTpRec": 170,
@@ -8225,7 +8232,25 @@
                     "tpSave": 12,
                     "acc": 22
                 },
-                "flb": {}
+                "flb": {
+                    "hp": 44553,
+                    "atk": 13964,
+                    "matk": 20,
+                    "def": 858,
+                    "mdef": 571,
+                    "pCrit": 856,
+                    "mCrit": 0,
+                    "wHpRec": 3180,
+                    "wTpRec": 170,
+                    "dodge": 62,
+                    "pPen": 0,
+                    "mPen": 0,
+                    "lifesteal": 6,
+                    "hpRec": 57,
+                    "tpRec": 34,
+                    "tpSave": 12,
+                    "acc": 22
+                }
             },
             "profile": {
                 "age": "9",
@@ -9996,7 +10021,7 @@
                         "name": null,
                         "text": "[Timer] Plant an explosive on all enemies that will trigger in 5 ticks. Upon detonation, inflict medium physical damage to all enemies.",
                         "action": [
-                            "Inflict 17105 p.dmg on all targets "
+                            "Inflict 17545 p.dmg on all targets "
                         ]
                     },
                     "uba": {
@@ -10018,14 +10043,14 @@
                         "name": null,
                         "text": "Inflict medium physical damage on all enemies in range.",
                         "action": [
-                            "Inflict 20641 p.dmg on all targets in range (Range: 400)"
+                            "Inflict 21169 p.dmg on all targets in range (Range: 400)"
                         ]
                     },
                     "sk1p": {
                         "name": null,
                         "text": "Inflict medium physical damage and medium physical attack down on all enemies in range. Increase critical damage multiplier of this skill from 2x to 3x.",
                         "action": [
-                            "Inflict 20641 p.dmg on all targets in range (Range: 400)",
+                            "Inflict 21169 p.dmg on all targets in range (Range: 400)",
                             "Inflict 1051 p.atk down on all targets in range (Range: 400)[12s]"
                         ]
                     },
@@ -10043,7 +10068,7 @@
                         "name": null,
                         "text": "Inflict medium physical damage on all enemies in range centered around the 3rd frontmost enemy.",
                         "action": [
-                            "Inflict 20641 p.dmg on all targets in range (Range: 300)"
+                            "Inflict 21169 p.dmg on all targets in range (Range: 300)"
                         ]
                     },
                     "sk2a": {
@@ -10179,11 +10204,11 @@
             "stats": {
                 "normal": {
                     "hp": 28444,
-                    "atk": 14813,
+                    "atk": 15253,
                     "matk": 0,
                     "def": 413,
                     "mdef": 280,
-                    "pCrit": 1274,
+                    "pCrit": 1414,
                     "mCrit": 0,
                     "wHpRec": 2495,
                     "wTpRec": 245,
@@ -20910,7 +20935,8 @@
                 "ue",
                 "aoe",
                 "patk_up",
-                "self_buff"
+                "self_buff",
+                "flb"
             ],
             "pos": 200,
             "atkptn": [
@@ -20932,7 +20958,7 @@
                 }
             ],
             "img": "https://redive.estertion.win/icon/unit/102031.webp",
-            "img6": null,
+            "img6": "https://redive.estertion.win/icon/unit/102061.webp",
             "basic": {
                 "en": {
                     "id": 73,
@@ -20942,8 +20968,8 @@
                         "name": null,
                         "text": "Inflict medium physical damage on the frontmost enemy; inflict large physical damage on the 2nd frontmost enemy.",
                         "action": [
-                            "Inflict 28969 p.dmg on frontmost target ",
-                            "Inflict 57364 p.dmg on 2nd frontmost target "
+                            "Inflict 29761 p.dmg on frontmost target ",
+                            "Inflict 58948 p.dmg on 2nd frontmost target "
                         ]
                     },
                     "uba": {
@@ -20953,8 +20979,11 @@
                     },
                     "ub2": {
                         "name": null,
-                        "text": null,
-                        "action": null
+                        "text": "Inflict large physical damage on all enemies in range; inflict massive physical damage on all enemies in range centered on the 2nd frontmost enemy.",
+                        "action": [
+                            "Inflict 39299 p.dmg on all targets in range (Range: 900)",
+                            "Inflict 73256 p.dmg on all targets in range centered on the 2nd frontmost target (Range: 275)"
+                        ]
                     },
                     "uba2": {
                         "name": null,
@@ -20965,14 +20994,14 @@
                         "name": null,
                         "text": "Inflict medium physical damage on the frontmost enemy.",
                         "action": [
-                            "Inflict 25495 p.dmg to target "
+                            "Inflict 26199 p.dmg to target "
                         ]
                     },
                     "sk1p": {
                         "name": null,
                         "text": "Inflict large physical damage to all enemies in range.",
                         "action": [
-                            "Inflict 33606 p.dmg to all targets in range (Range: 500)"
+                            "Inflict 34530 p.dmg to all targets in range (Range: 500)"
                         ]
                     },
                     "sk1a": {
@@ -21037,8 +21066,8 @@
                         "action": null
                     },
                     "ub2": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u3046\u3055\u304e\u3055\u3093\u30ec\u30dc\u30ea\u30e5\u30fc\u30b7\u30e7\u30f3",
+                        "text": "\u524d\u65b9\u7bc4\u56f2\u5185\u306e\u6575\u3059\u3079\u3066\u306b\u7269\u7406\u5927\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3001\u3055\u3089\u306b\u81ea\u5206\u304b\u3089\uff12\u756a\u76ee\u306b\u8fd1\u3044\u6575\u3092\u4e2d\u5fc3\u3068\u3057\u305f\u7bc4\u56f2\u5185\u306e\u6575\u3059\u3079\u3066\u306b\u7269\u7406\u7279\u5927\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u308b\u3002",
                         "action": null
                     },
                     "uba2": {
@@ -21123,11 +21152,11 @@
             "stats": {
                 "normal": {
                     "hp": 33419,
-                    "atk": 13547,
+                    "atk": 13987,
                     "matk": 0,
                     "def": 423,
                     "mdef": 311,
-                    "pCrit": 999,
+                    "pCrit": 1139,
                     "mCrit": 0,
                     "wHpRec": 915,
                     "wTpRec": 131,
@@ -21140,7 +21169,25 @@
                     "tpSave": 0,
                     "acc": 62
                 },
-                "flb": {}
+                "flb": {
+                    "hp": 41757,
+                    "atk": 16823,
+                    "matk": 0,
+                    "def": 485,
+                    "mdef": 369,
+                    "pCrit": 1294,
+                    "mCrit": 0,
+                    "wHpRec": 915,
+                    "wTpRec": 131,
+                    "dodge": 28,
+                    "pPen": 0,
+                    "mPen": 0,
+                    "lifesteal": 10,
+                    "hpRec": 50,
+                    "tpRec": 28,
+                    "tpSave": 0,
+                    "acc": 72
+                }
             },
             "profile": {
                 "age": "10",
@@ -28074,7 +28121,7 @@
                         "name": null,
                         "text": "Inflict large physical damage to all enemies in range.",
                         "action": [
-                            "Inflict 56294 p.dmg on all targets in range (Range: 880)"
+                            "Inflict 57878 p.dmg on all targets in range (Range: 880)"
                         ]
                     },
                     "uba": {
@@ -28096,14 +28143,14 @@
                         "name": null,
                         "text": "Inflict large physical damage to all enemies in range.",
                         "action": [
-                            "Inflict 38166 p.dmg on all targets in range (Range: 730)"
+                            "Inflict 39222 p.dmg on all targets in range (Range: 730)"
                         ]
                     },
                     "sk1p": {
                         "name": null,
                         "text": "Inflict large physical damage to all enemies in range.",
                         "action": [
-                            "Inflict 47708 p.dmg on all targets in range (Range: 730)"
+                            "Inflict 49028 p.dmg on all targets in range (Range: 730)"
                         ]
                     },
                     "sk1a": {
@@ -28256,11 +28303,11 @@
             "stats": {
                 "normal": {
                     "hp": 32749,
-                    "atk": 13515,
+                    "atk": 13955,
                     "matk": 0,
                     "def": 386,
                     "mdef": 398,
-                    "pCrit": 880,
+                    "pCrit": 1020,
                     "mCrit": 0,
                     "wHpRec": 1545,
                     "wTpRec": 146,
@@ -32303,7 +32350,8 @@
                 "rear",
                 "ue",
                 "matk_up",
-                "self_buff"
+                "self_buff",
+                "flb"
             ],
             "pos": 343,
             "atkptn": [
@@ -32330,7 +32378,7 @@
                 }
             ],
             "img": "https://redive.estertion.win/icon/unit/103631.webp",
-            "img6": null,
+            "img6": "https://redive.estertion.win/icon/unit/103661.webp",
             "basic": {
                 "en": {
                     "id": 50,
@@ -32340,7 +32388,7 @@
                         "name": null,
                         "text": "Inflict massive magic damage on the frontmost enemy.",
                         "action": [
-                            "Inflict 83080 m.dmg on target "
+                            "Inflict 85280 m.dmg on target "
                         ]
                     },
                     "uba": {
@@ -32350,8 +32398,10 @@
                     },
                     "ub2": {
                         "name": null,
-                        "text": null,
-                        "action": null
+                        "text": "Inflict massive magic damage on the frontmost enemy. Increase crit damage multiplier to 4x.",
+                        "action": [
+                            "Inflict 137212 m.dmg on target "
+                        ]
                     },
                     "uba2": {
                         "name": null,
@@ -32362,14 +32412,14 @@
                         "name": null,
                         "text": "Inflict medium magic damage on the frontmost enemy.",
                         "action": [
-                            "Inflict 26738 m.dmg on target "
+                            "Inflict 27442 m.dmg on target "
                         ]
                     },
                     "sk1p": {
                         "name": null,
                         "text": "Inflict large magic damage on the frontmost enemy. Increase critical damage multiplier on this skill from 2.0x to 4.0x.",
                         "action": [
-                            "Inflict 38198 m.dmg on target "
+                            "Inflict 39254 m.dmg on target "
                         ]
                     },
                     "sk1a": {
@@ -32434,8 +32484,8 @@
                         "action": null
                     },
                     "ub2": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u30b3\u30b9\u30e2\u30d6\u30eb\u30fc\u30d7\u30e9\u30cd\u30c3\u30c8",
+                        "text": "\u76ee\u306e\u524d\u306e\u6575\uff11\u30ad\u30e3\u30e9\u306b\u9b54\u6cd5\u7279\u5927\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u308b\u3002\u3053\u306e\u30b9\u30ad\u30eb\u304c\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u3057\u305f\u5834\u5408\u306e\u30c0\u30e1\u30fc\u30b8\u306f\u3001\uff12\u500d\u3067\u306f\u306a\u304f\uff14\u500d\u306b\u306a\u308b\u3002",
                         "action": null
                     },
                     "uba2": {
@@ -32493,7 +32543,7 @@
                         "text": "\u30d0\u30c8\u30eb\u958b\u59cb\u6642\u306b\u81ea\u5206\u306e\u9b54\u6cd5\u653b\u6483\u529b\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
                         "action": null
                     },
-                    "comment": "\u3010\u9b54\u6cd5\u3011\u5f8c\u885b\u304b\u3089\u5f37\u529b\u306a\u9b54\u6cd5\u3067\u653b\u6483\u3059\u308b\u3061\u3073\u3063\u3053\u512a\u7b49\u751f\u3002\u30b9\u30ad\u30eb\u3067\u9b54\u6cd5\u653b\u6483\u529b\u3092\u77ac\u9593\u7684\u306b\u9ad8\u3081\u305f\u5f8c\u306b\u653e\u3064\u300c\u30b3\u30b9\u30e2\u30d6\u30eb\u30fc\u30d5\u30e9\u30c3\u30b7\u30e5\u300d\u306f\u6575\u5358\u4f53\u3078\u306e\u5a01\u529b\u629c\u7fa4\u3002"
+                    "comment": "\u3010\u9b54\u6cd5\u3011\u5f8c\u885b\u304b\u3089\u5f37\u529b\u306a\u9b54\u6cd5\u3067\u653b\u6483\u3059\u308b\u3061\u3073\u3063\u3053\u512a\u7b49\u751f\u3002\u30b9\u30ad\u30eb\u3067\u9b54\u6cd5\u653b\u6483\u529b\u3092\u77ac\u9593\u7684\u306b\u9ad8\u3081\u305f\u5f8c\u306b\u653e\u3064\u30e6\u30cb\u30aa\u30f3\u30d0\u30fc\u30b9\u30c8\u306f\u6575\u5358\u4f53\u3078\u306e\u5a01\u529b\u629c\u7fa4\u3002"
                 }
             },
             "ue": {
@@ -32519,11 +32569,11 @@
                 "normal": {
                     "hp": 26338,
                     "atk": 0,
-                    "matk": 14324,
+                    "matk": 14764,
                     "def": 223,
                     "mdef": 305,
                     "pCrit": 0,
-                    "mCrit": 1278,
+                    "mCrit": 1348,
                     "wHpRec": 1080,
                     "wTpRec": 417,
                     "dodge": 0,
@@ -32535,7 +32585,25 @@
                     "tpSave": 17,
                     "acc": 0
                 },
-                "flb": {}
+                "flb": {
+                    "hp": 34145,
+                    "atk": 0,
+                    "matk": 17500,
+                    "def": 276,
+                    "mdef": 352,
+                    "pCrit": 0,
+                    "mCrit": 1438,
+                    "wHpRec": 1080,
+                    "wTpRec": 417,
+                    "dodge": 0,
+                    "pPen": 0,
+                    "mPen": 0,
+                    "lifesteal": 8,
+                    "hpRec": 60,
+                    "tpRec": 18,
+                    "tpSave": 17,
+                    "acc": 0
+                }
             },
             "profile": {
                 "age": "8",
@@ -37285,11 +37353,11 @@
                 "normal": {
                     "hp": 25211,
                     "atk": 0,
-                    "matk": 13708,
+                    "matk": 14148,
                     "def": 305,
                     "mdef": 467,
                     "pCrit": 0,
-                    "mCrit": 495,
+                    "mCrit": 565,
                     "wHpRec": 1800,
                     "wTpRec": 347,
                     "dodge": 0,
@@ -40655,23 +40723,6 @@
                         1
                     ],
                     "no": "1"
-                },
-                {
-                    "loop": [
-                        3,
-                        8
-                    ],
-                    "ptn": [
-                        1001,
-                        1002,
-                        1,
-                        1002,
-                        1001,
-                        1,
-                        1002,
-                        1
-                    ],
-                    "no": "1"
                 }
             ],
             "img": "https://redive.estertion.win/icon/unit/115931.webp",
@@ -40683,7 +40734,7 @@
                     "name": "makoto",
                     "ub": {
                         "name": null,
-                        "text": "Grant medkum physical attack and action speed up to all allies in range around Makoto; inflict massive physical damage on the frontmost enemy. Attack buff strength is proportional to number of allies in range.",
+                        "text": "Grant medium physical attack and action speed up to all allies in range around Makoto; inflict massive physical damage on the frontmost enemy. Attack buff strength is proportional to number of allies in range.",
                         "action": [
                             "Inflict 67574 p.dmg to target ",
                             "Buff p.atk by 1222 on all targets in range (Range: 180)[18s]",

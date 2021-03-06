@@ -1,4 +1,10 @@
 {
+    "4.12.1": [
+        "+ [phatsune] added lyricals flb",
+        "- [twitter] cache limit increased to 100",
+        "+ [phatsune] fixed typo in cr.makoto's ub tl",
+        "- [pupdate] fixed bug that kept increasing atkptn"
+    ],
     "4.12.0": [
         "+ [phatsune] added cr.makoto",
         "- [phatsune] fixed a few tags",
