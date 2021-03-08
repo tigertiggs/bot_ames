@@ -1,4 +1,7 @@
 {
+    "4.12.2": [
+        "+ [phatsune] updated ue for imas cg characters"
+    ],
     "4.12.1": [
         "+ [phatsune] added lyricals flb",
         "- [twitter] cache limit increased to 100",

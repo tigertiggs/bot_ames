@@ -11679,7 +11679,10 @@
                 "pdef_down",
                 "mdef_down",
                 "ailment",
-                "limited"
+                "limited",
+                "ue",
+                "pdef_up",
+                "mdef_up"
             ],
             "pos": 110,
             "atkptn": [
@@ -11732,7 +11735,7 @@
                     },
                     "sk1": {
                         "name": null,
-                        "text": "Inflict small physical damage on all enemies in range; inflict small physical and magic def down; gain taunt",
+                        "text": "Inflict small physical damage on all enemies in range; inflict small physical and magic def down; gain taunt.",
                         "action": [
                             "Inflict 5780 p.dmg to all targets in range (Range: 400)",
                             "Inflict 57 p.def down on all targets in range (Range: 400)[12s]",
@@ -11742,8 +11745,15 @@
                     },
                     "sk1p": {
                         "name": null,
-                        "text": "soon\u2122",
-                        "action": null
+                        "text": "Inflict medium physical damage on all enemies in range; inflict small physical and magic def down; gain taunt; gain medium physical and magic def up.",
+                        "action": [
+                            "Inflict 11559 p.dmg to all targets in range (Range: 400)",
+                            "Inflict 86 p.def down on all targets in range (Range: 400)[12s]",
+                            "Inflict 86 m.def down on all targets in range (Range: 400)[12s]",
+                            "Gain taunt ",
+                            "Gain 153 p.def up [12s]",
+                            "Gain 153 m.def up [12s]"
+                        ]
                     },
                     "sk1a": {
                         "name": null,
@@ -11822,8 +11832,8 @@
                         "action": null
                     },
                     "sk1p": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u30e9\u30ba\u30fc\u30eb\u30fb\u30ec\u30aa+",
+                        "text": "\u524d\u65b9\u7bc4\u56f2\u5185\u306e\u6575\u3059\u3079\u3066\u306b\u7269\u7406\u4e2d\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3001\u7269\u7406\u9632\u5fa1\u529b\u3068\u9b54\u6cd5\u9632\u5fa1\u529b\u3092\u5c0f\u30c0\u30a6\u30f3\u3055\u305b\u3001\u3055\u3089\u306b\u6575\u5168\u4f53\u3092\u6311\u767a\u3057\u3001\u81ea\u5206\u306e\u7269\u7406\u9632\u5fa1\u529b\u3068\u9b54\u6cd5\u9632\u5fa1\u529b\u3092\u4e2d\u30a2\u30c3\u30d7\u3059\u308b\u3002",
                         "action": null
                     },
                     "sk1a": {
@@ -11870,26 +11880,33 @@
                 }
             },
             "ue": {
-                "id": null,
+                "id": 131251,
                 "rank": null,
-                "img": null,
-                "stats": {},
+                "img": "https://redive.estertion.win/icon/equipment/131251.webp",
+                "stats": {
+                    "hp": 220,
+                    "hp_growth": 11,
+                    "def": 8,
+                    "def_growth": 0.4,
+                    "mdef": 8,
+                    "mdef_growth": 0.4
+                },
                 "en": {
-                    "name": null,
+                    "name": "Stage of Cool",
                     "text": null
                 },
                 "jp": {
-                    "name": null,
-                    "text": null
+                    "name": "\u30b9\u30c6\u30fc\u30b8\u30aa\u30d6\u30af\u30fc\u30eb",
+                    "text": "\u30ea\u30f3\u306e\u64cd\u308b\u84bc\u304f\u7f8e\u3057\u304d\u5263\u3002\u30af\u30fc\u30eb\u306b\u71c3\u3048\u308b\u30ea\u30f3\u306e\u71b1\u3044\u5fc3\u306b\u547c\u5fdc\u3057\u3066\u84bc\u3044\u8f1d\u304d\u3092\u653e\u3061\u3001\u3069\u3053\u307e\u3067\u3082\u9ad8\u307f\u3092\u76ee\u6307\u3057\u8d70\u308a\u7d9a\u3051\u308b\u5f7c\u5973\u306e\u65c5\u8def\u3092\u7167\u3089\u3059\u3002"
                 }
             },
             "stats": {
                 "normal": {
-                    "hp": 46517,
+                    "hp": 48816,
                     "atk": 7245,
                     "matk": 20,
-                    "def": 937,
-                    "mdef": 715,
+                    "def": 1021,
+                    "mdef": 799,
                     "pCrit": 551,
                     "mCrit": 0,
                     "wHpRec": 1560,
@@ -22919,7 +22936,8 @@
                 "tp_up",
                 "aoe",
                 "mid",
-                "battery"
+                "battery",
+                "ue"
             ],
             "pos": 204,
             "atkptn": [
@@ -22951,7 +22969,7 @@
                         "name": null,
                         "text": "Inflict large physical damage to all enemies in range and grant medium physical and magic attack up to all allies.",
                         "action": [
-                            "Inflict 31663 p.dmg to all targets in range (Range: 735)",
+                            "Inflict 33377 p.dmg to all targets in range (Range: 735)",
                             "Buff party p.atk by 1872 [18s]",
                             "Buff party m.atk by 1872 [18s]"
                         ]
@@ -22981,8 +22999,13 @@
                     },
                     "sk1p": {
                         "name": null,
-                        "text": "soon\u2122",
-                        "action": null
+                        "text": "Grant small TP recovery and small TP regeneration to all allies; grant large physical and magic attack up.",
+                        "action": [
+                            "Heal party by 107 TP ",
+                            "Heal party by 8 TP [12s]",
+                            "Buff party p.atk by 2388 [12s]",
+                            "Buff party m.atk by 2388 [12s]"
+                        ]
                     },
                     "sk1a": {
                         "name": null,
@@ -22998,7 +23021,7 @@
                         "name": null,
                         "text": "Inflict medium physical damage to all enemies in range.",
                         "action": [
-                            "Inflict 18998 p.dmg to all targets in range (Range: 735)"
+                            "Inflict 20026 p.dmg to all targets in range (Range: 735)"
                         ]
                     },
                     "sk2a": {
@@ -23061,8 +23084,8 @@
                         "action": null
                     },
                     "sk1p": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u30ec\u30dc\u30ea\u30e5\u30fc\u30b7\u30e7\u30f3\u30b9\u30de\u30a4\u30eb+",
+                        "text": "\u5473\u65b9\u5168\u4f53\u306e\uff34\uff30\u3092\u5c0f\u56de\u5fa9\u3057\u3001\uff34\uff30\u4e0a\u6607\u3092\u5c0f\u30a2\u30c3\u30d7\u3055\u305b\u3001\u3055\u3089\u306b\u7269\u7406\u653b\u6483\u529b\u3068\u9b54\u6cd5\u653b\u6483\u529b\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
                         "action": null
                     },
                     "sk1a": {
@@ -23109,27 +23132,34 @@
                 }
             },
             "ue": {
-                "id": null,
+                "id": 131241,
                 "rank": null,
-                "img": null,
-                "stats": {},
+                "img": "https://redive.estertion.win/icon/equipment/131241.webp",
+                "stats": {
+                    "atk": 82,
+                    "atk_growth": 4.1,
+                    "pCrit": 34,
+                    "pCrit_growth": 1.7,
+                    "tpRec": 1,
+                    "tpRec_growth": 0.05
+                },
                 "en": {
-                    "name": null,
+                    "name": "Stage of Cute",
                     "text": null
                 },
                 "jp": {
-                    "name": null,
-                    "text": null
+                    "name": "\u30b9\u30c6\u30fc\u30b8\u30aa\u30d6\u30ad\u30e5\u30fc\u30c8",
+                    "text": "\u30a6\u30c5\u30ad\u306e\u6301\u3064\u30aa\u30fc\u30bd\u30c9\u30c3\u30af\u30b9\u306a\u5263\u3002\u7279\u5225\u306a\u529b\u306f\u306a\u3055\u305d\u3046\u306b\u898b\u3048\u308b\u304c\u30a6\u30c5\u30ad\u306e\u7b11\u9854\u3068\u3042\u305f\u305f\u304b\u3044\u60f3\u3044\u306b\u5fdc\u3058\u3066\u8f1d\u304d\u3001\u79d8\u3081\u305f\u529b\u3092\u767a\u63ee\u3059\u308b\u3002"
                 }
             },
             "stats": {
                 "normal": {
                     "hp": 30434,
-                    "atk": 13444,
+                    "atk": 14301,
                     "matk": 0,
                     "def": 292,
                     "mdef": 216,
-                    "pCrit": 1065,
+                    "pCrit": 1420,
                     "mCrit": 0,
                     "wHpRec": 1050,
                     "wTpRec": 196,
@@ -23138,7 +23168,7 @@
                     "mPen": 0,
                     "lifesteal": 9,
                     "hpRec": 30,
-                    "tpRec": 28,
+                    "tpRec": 38,
                     "tpSave": 0,
                     "acc": 54
                 },
@@ -38805,6 +38835,8 @@
                 "self_buff",
                 "heal",
                 "aoe",
+                "ue",
+                "tp_up",
                 "rear"
             ],
             "pos": 307,
@@ -38838,7 +38870,7 @@
                         "name": null,
                         "text": "Inflict massive magic damage on th frontmost enemy and gain large magic attack up.",
                         "action": [
-                            "Inflict 60412 m.dmg on target ",
+                            "Inflict 64364 m.dmg on target ",
                             "Gain 3820 m.atk up [18s]"
                         ]
                     },
@@ -38859,17 +38891,23 @@
                     },
                     "sk1": {
                         "name": null,
-                        "text": "Inflict small magic damage to at most 3 forward enemies. Damage inflicted is proportional to number of enemies on the field.",
+                        "text": "Inflict small magic damage to at most 3 forward enemies. Damage dealt is proportional to the distance to enemy.",
                         "action": [
-                            "Inflict 8449 m.dmg on closest target ",
-                            "Inflict 10629 m.dmg on 2nd closest target ",
-                            "Inflict 12809 m.dmg on 3rd closest target "
+                            "Inflict 8958 m.dmg on closest target ",
+                            "Inflict 11307 m.dmg on 2nd closest target ",
+                            "Inflict 13656 m.dmg on 3rd closest target "
                         ]
                     },
                     "sk1p": {
                         "name": null,
-                        "text": "soon\u2122",
-                        "action": null
+                        "text": "Inflict medium magic damage on at most 3 forward enemies; gain small TP recovery; gain medium magic attack up. Damage dealt is proportional to the distance to enemy.",
+                        "action": [
+                            "Inflict 13255 m.dmg on closest target ",
+                            "Inflict 16779 m.dmg on 2nd closest target ",
+                            "Inflict 21477 m.dmg on 3rd closest target ",
+                            "Gain 107 TP ",
+                            "Gain 1910 m.atk up [180s]"
+                        ]
                     },
                     "sk1a": {
                         "name": null,
@@ -38885,7 +38923,7 @@
                         "name": null,
                         "text": "Grant small HP heal to all allies in range centered on the ally with the lowest HP.",
                         "action": [
-                            "Heal 3505 HP on all targets in range (Range: 300)"
+                            "Heal 3740 HP on all targets in range (Range: 300)"
                         ]
                     },
                     "sk2a": {
@@ -38948,8 +38986,8 @@
                         "action": null
                     },
                     "sk1p": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u30c8\u30ea\u30d7\u30eb\u30fb\u30b9\u30bf\u30fc+",
+                        "text": "\u76ee\u306e\u524d\u306e\u6700\u5927\uff13\u30ad\u30e3\u30e9\u307e\u3067\u306e\u6575\u306b\u9b54\u6cd5\u4e2d\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3001\u81ea\u5206\u306e\uff34\uff30\u3092\u5c0f\u56de\u5fa9\u3057\u3001\u9b54\u6cd5\u653b\u6483\u529b\u3092\u4e2d\u30a2\u30c3\u30d7\u3002\u3053\u306e\u30c0\u30e1\u30fc\u30b8\u306f\u3001\u9060\u3044\u6575\u307b\u3069\u5897\u52a0\u3059\u308b\u3002",
                         "action": null
                     },
                     "sk1a": {
@@ -38996,28 +39034,33 @@
                 }
             },
             "ue": {
-                "id": null,
+                "id": 131261,
                 "rank": null,
-                "img": null,
-                "stats": {},
+                "img": "https://redive.estertion.win/icon/equipment/131261.webp",
+                "stats": {
+                    "matk": 90,
+                    "matk_growth": 4.5,
+                    "mCrit": 16,
+                    "mCrit_growth": 0.8
+                },
                 "en": {
-                    "name": null,
+                    "name": "Stage of Passion",
                     "text": null
                 },
                 "jp": {
-                    "name": null,
-                    "text": null
+                    "name": "\u30b9\u30c6\u30fc\u30b8\u30aa\u30d6\u30d1\u30c3\u30b7\u30e7\u30f3",
+                    "text": "\u30df\u30aa\u611b\u7528\u306e\u304d\u3089\u3081\u304f\u661f\u6756\u3002\u30df\u30aa\u306e\u660e\u308b\u3044\u6b4c\u58f0\u306b\u5fdc\u3048\u3001\u5c0f\u3055\u306a\u6d41\u661f\u3092\u547c\u3073\u3088\u305b\u3001\u6b4c\u3046\u69d8\u5b50\u306f\u30b9\u30da\u30fc\u30b9\u30aa\u30da\u30e9\u306e\u3088\u3046\u3002"
                 }
             },
             "stats": {
                 "normal": {
                     "hp": 26990,
                     "atk": 0,
-                    "matk": 12110,
+                    "matk": 13051,
                     "def": 331,
                     "mdef": 442,
                     "pCrit": 0,
-                    "mCrit": 699,
+                    "mCrit": 866,
                     "wHpRec": 1320,
                     "wTpRec": 250,
                     "dodge": 5,
