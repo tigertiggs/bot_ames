@@ -1,4 +1,5 @@
 # this module will focus on the automation of updates for hnote db
+# DEFUNCT
 
 import discord
 from discord.ext import commands

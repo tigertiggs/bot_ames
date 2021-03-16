@@ -1,4 +1,5 @@
 # cog for fetching data off custom DB
+# DEFUNCT
 
 import datetime
 import discord

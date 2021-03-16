@@ -3,7 +3,7 @@
 
 import discord
 from discord.ext import commands, tasks
-import requests, json, os, copy
+import requests, json, os, copy, traceback
 from datetime import datetime
 from io import BytesIO
 timer = 60
@@ -51,16 +51,18 @@ class twitterCog(commands.Cog):
             # get
             try:
                 params = {
-                    "cmd":          "twit.get.feed",
-                    "include_rts":  1 if service['includeRT'] else 0,
-                    "type":         "timeline",
-                    "id":           service['id'],
-                    "ames":         1
+                    "cmd":              "twit.get.feed",
+                    "include_rts":      1 if service['includeRT'] else 0,
+                    "include_replies":  0,
+                    "type":             "timeline",
+                    "id":               service['id'],
+                    "ames":             1
                 }
                 result = requests.get(url, params=params)
                 payload = json.load(BytesIO(result.content))
             except Exception as e:
                 await self.logger.send(self.name, e)
+                await self.logger.send(''.join(traceback.format_exception(type(e), e, e.__traceback__)))
                 return
             
             # only proceed if status code is green
@@ -118,7 +120,8 @@ class twitterCog(commands.Cog):
                     cf.write(json.dumps(cache, indent=4))
 
             else:
-                await self.logger.send(self.name, payload["status"])
+                await self.logger.send(self.name, 'return code', payload["status"])
+                await self.logger.send(payload)
 
     @listener.before_loop
     async def before_listener(self):

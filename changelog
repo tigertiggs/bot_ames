@@ -1,4 +1,10 @@
 {
+    "4.12.3": [
+        "+ [phatsune] updated for new eq and lvl cap up",
+        "+ [gacha] updated banner",
+        "- [twitter] added traceback to investigate odd response codes and listener behaviour",
+        "- [twitter] forced include_replies attr to be false"
+    ],
     "4.12.2": [
         "+ [phatsune] updated ue for imas cg characters"
     ],
