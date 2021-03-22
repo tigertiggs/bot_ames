@@ -1,4 +1,8 @@
 {
+    "4.12.4": [
+        "+ [core] pinging ames with a command now actually works",
+        "+ [phatsune] added cr.maho"
+    ],
     "4.12.3": [
         "+ [phatsune] updated for new eq and lvl cap up",
         "+ [gacha] updated banner",

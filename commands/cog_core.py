@@ -372,7 +372,8 @@ class coreCog(commands.Cog):
                         #ctx.args =      origin+messagev[2:] if len(messagev) > 2 else origin
                         #print(ctx.command, ctx.args)
                         #print(ctx.__dict__)
-                        await ctx.invoke(cmd)
+                        ctx.invoked_with = messagev[1]
+                        await ctx.invoke(cmd, *messagev[2:])
                         return
 
             await message.channel.send(self.client.emotes['ames'])

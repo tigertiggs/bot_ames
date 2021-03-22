@@ -190,6 +190,8 @@ class hatsuneCog(commands.Cog):
                 invoke =    "profile"
             else:
                 invoke =    "chara"
+        else: # somehow bool(invoke) -> False
+            invoke = 'chara'
         
         # check mode
         #mode = request[-1]
