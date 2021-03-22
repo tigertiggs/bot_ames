@@ -41094,7 +41094,7 @@
                     },
                     "sk2": {
                         "name": null,
-                        "text": "Grant small TP recovery to the closest ally.",
+                        "text": "Grant small TP recovery to the furthest ally.",
                         "action": [
                             "Heal 335 TP on target "
                         ]
