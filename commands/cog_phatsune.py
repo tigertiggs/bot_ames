@@ -1178,7 +1178,8 @@ class hatsuneCog(commands.Cog):
             "w.rino",
             "a.akari",
             "c.kokkoro",
-            "cr.rima"
+            "cr.rima",
+            "f.chieru"
         ]
         embed.add_field(
             name="> **Active Prefixes**",

@@ -17,7 +17,8 @@
         "w": "Wonderland",
         "a": "Angel",
 		"c": "Ceremonial Dress",
-        "cr": "Cinderella"
+        "cr": "Cinderella",
+        "f": "School Festival"
     },
     "prefix_shortened": {
         "n": "NYear",
@@ -30,7 +31,8 @@
         "w": "Wonder.",
         "p": "Prin.",
         "s": "Sum.",
-        "cr": "Cind."
+        "cr": "Cind.",
+        "f": "Sch.Fes."
     },
     "prefix_new": {
         "n": [
@@ -55,7 +57,11 @@
 			"dress",
 			"dr",
             "cd"
-		]
+		],
+        "f": [
+            "sf",
+            "sc"
+        ]
     },
     "prefix_alias": {
         "newyear": "n",
@@ -75,7 +81,10 @@
         "angel": "a",
 		"ceremonial": "c",
         "magical": "m",
-        "cinderella": "cr"
+        "cinderella": "cr",
+        "fes": "f",
+        "festival": "f",
+        "school": "f"
     },
     "options": [
         "flb"

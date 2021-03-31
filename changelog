@@ -1,4 +1,8 @@
 {
+    "4.12.5": [
+        "+ [phatsune] added f.chieru and her assets",
+        "+ [phatsune] new prefix school festival (f)"
+    ],
     "4.12.4": [
         "+ [core] pinging ames with a command now actually works",
         "+ [phatsune] added cr.maho"
