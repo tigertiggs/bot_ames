@@ -416,6 +416,15 @@
             "aliases":  ["q"],
             "help":     "Queue for bosses in CB (experimental)",
             "help_ex":  "Note that queues will automatically be removed after a certain period of time have passed.\n\n> `.q`\nSee the current queue\n\n> `.q [boss_num]`\nAdd yourself to the queue of some boss\n\n> `.q [boss_num] done`\nRemove yourself from the queue of a certain boss\n\n> `.q done`\nRemove yourself from all queues\n\n**Admins**\n> `.q wipe/kill [*boss_num] [*@discord_member]`\nCalling this without any options i.e. `.q kill/wipe` will clear the whole queue. Otherwise, the command will attempt to read your `boss_num` and/or `@discord_member` inputs. Note that `@discord_member` must be a discord member mention/ping. This command will default to wiping the whole queue if it fails to read both inputs/both inputs are omitted."
+        },
+        "avatar": {
+            "flags":    ["core"],
+            "hidden":   false,
+            "usage":    ".avatar [*user]",
+            "subcmd":   null,
+            "aliases":  ["ava","icon","dp"],
+            "help":     "Get a user's avatar",
+            "help_ex":  "Get a user's avatar. `user` can either be a discord `@user` ping or a segment of the user's name, if it's the latter Ames will fetch the user with the best match. If `user` is left blank, it will default to the caller's avatar."
         }
     }
 }

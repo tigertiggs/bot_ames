@@ -6,6 +6,7 @@ from discord.ext import commands
 import datetime, time, os, sys, requests, random, json, re, traceback, asyncio
 from difflib import SequenceMatcher as sm
 from math import ceil
+from cog_shenp import shenpCog
 
 #dir = os.path.dirname(__file__)
 SPACE = '\u200B'
@@ -16,6 +17,9 @@ class coreCog(commands.Cog):
         self.logger =   self.client.log
         self.name =     "[core]"
         self.colour =   discord.Colour.from_rgb(*client.config['command_colour']['cog_core'])
+
+        # for process_user
+        self.shenp = shenpCog(client)
 
     @commands.command(
         usage='.kill',
@@ -929,6 +933,31 @@ class coreCog(commands.Cog):
         channel = ctx.message.channel
         msg = "Looking to add Ames to your server? Here's the link:\nhttps://discord.com/api/oauth2/authorize?client_id=599290654878597140&permissions=1342565456&scope=bot\nGot feedback? You can pop them in her development server:\nhttps://discord.gg/fYF8hurRt4"
         await channel.send(msg)
+
+    @commands.command(aliases=['ava','icon','dp'])
+    async def avatar(self, ctx, user=None):
+        channel=ctx.message.channel
+        author=ctx.message.author
+
+        target = await self.shenp.process_user(ctx, user, False)
+
+        if target == None:
+            active = author
+        elif target == False:
+            return
+        else:
+            active = target
+
+        url = active.avatar_url
+        
+        embed = discord.Embed(
+            colour=self.colour,
+            datetie=datetime.datetime.utcnow()
+        )
+        embed.set_author(name=f'{active.name}#{active.discriminator}',url=url)
+        embed.set_image(url=url)
+        embed.set_footer(text="Avatar | Ames Re:Re:Write", icon_url=self.client.user.avatar_url)
+        await channel.send(embed=embed)
 
 def setup(client):
     client.add_cog(coreCog(client))
