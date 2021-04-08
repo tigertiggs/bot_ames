@@ -100,7 +100,8 @@
         "CA":   "Heavy Cruiser",
         "BC":   "Battlecruiser",
         "BB":   "Battleship",
-        "CV":   "Aircraft Carrier"
+        "CV":   "Aircraft Carrier",
+		"AL": 	"Alchemist"
     },
     "ship_prefix": {
 

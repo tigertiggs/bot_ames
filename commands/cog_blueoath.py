@@ -1946,7 +1946,7 @@ class blueoathCog(commands.Cog):
     async def update_tag(self, ctx, *options):
         channel=ctx.message.channel
         author=ctx.message.author
-        if not self.client._check_author(author):
+        if not self.client._check_author(author, "admin"):
             await channel.send(self.client.emotes['ames'])
             return
 

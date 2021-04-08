@@ -298,7 +298,7 @@ class gachaCog(commands.Cog):
 
         embed.add_field(
             name="Total pulls",
-            value=f"{summary['rolls']}" if summary['rolls'] != 300 else f"300 (Spark)",
+            value=f"{summary['rolls']}" if summary['rolls'] != 200 else f"200 (Spark)",
             inline=True
         )
         embed.add_field(
@@ -411,7 +411,7 @@ class gachaCog(commands.Cog):
                 else:
                     mode = None
 
-        limit = 300 if limit == None else limit
+        limit = 200 if limit == None else limit
         mode = "spark" if mode == None else mode
         
         summary = self.pool.spark(limit, mode)

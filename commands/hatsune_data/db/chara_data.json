@@ -11994,7 +11994,7 @@
                         "name": null,
                         "text": "Inflict large physical damage on the frontmost enemy; gain large physical attack and crit up.",
                         "action": [
-                            "Inflict 57312 p.dmg to target ",
+                            "Inflict 57636 p.dmg to target ",
                             "Gain 3880 p.atk up [18s]",
                             "Gain 120 p.crit up [18s]"
                         ]
@@ -12043,7 +12043,7 @@
                         "name": null,
                         "text": "Inflict small physical damage on the frontmost enemy and large physical attack down; gain small physical attack and critical up. Buff strength is proportional to the number of `cheru` stacks currently held.",
                         "action": [
-                            "Inflict 12736 p.dmg to target ",
+                            "Inflict 12808 p.dmg to target ",
                             "Inflict 2328 p.atk down [12s]",
                             "Gain 1164 p.atk up [12s]",
                             "Gain 35 p.crit up [12s]"
@@ -12173,7 +12173,7 @@
             "stats": {
                 "normal": {
                     "hp": 29744,
-                    "atk": 13495,
+                    "atk": 13585,
                     "matk": 0,
                     "def": 460,
                     "mdef": 300,
@@ -34416,16 +34416,16 @@
                         "name": null,
                         "text": "Grant medium HP heal to the ally with the lowest HP.",
                         "action": [
-                            "Heal 11678 HP on target "
+                            "Heal 11768 HP on target "
                         ]
                     },
                     "sk1p": {
                         "name": null,
                         "text": "Grant large HP heal to the ally with the lowest HP; grant medium physical def up and HP regeneration.",
                         "action": [
-                            "Heal 13917 HP on target ",
+                            "Heal 14025 HP on target ",
                             "Buff 194 p.def on target [12s]",
-                            "Recover 915 HP every second "
+                            "Recover 922 HP every second "
                         ]
                     },
                     "sk1a": {
@@ -34580,7 +34580,7 @@
                 "normal": {
                     "hp": 32058,
                     "atk": 52,
-                    "matk": 10223,
+                    "matk": 10313,
                     "def": 690,
                     "mdef": 844,
                     "pCrit": 0,
@@ -34599,7 +34599,7 @@
                 "flb": {
                     "hp": 40190,
                     "atk": 52,
-                    "matk": 11647,
+                    "matk": 11737,
                     "def": 781,
                     "mdef": 892,
                     "pCrit": 0,
@@ -36643,10 +36643,10 @@
                         "name": null,
                         "text": "Inflict medium magic damage on 4 random enemies.",
                         "action": [
-                            "Inflict 28085 m.dmg on target ",
-                            "Inflict 28085 m.dmg on target ",
-                            "Inflict 28085 m.dmg on target ",
-                            "Inflict 28085 m.dmg on target "
+                            "Inflict 28229 m.dmg on target ",
+                            "Inflict 28229 m.dmg on target ",
+                            "Inflict 28229 m.dmg on target ",
+                            "Inflict 28229 m.dmg on target "
                         ]
                     },
                     "uba": {
@@ -36695,7 +36695,7 @@
                         "name": null,
                         "text": "Inflict large magic damage on a random enemy.",
                         "action": [
-                            "Inflict 35106 m.dmg on target "
+                            "Inflict 35286 m.dmg on target "
                         ]
                     },
                     "sk2a": {
@@ -36830,7 +36830,7 @@
                 "normal": {
                     "hp": 23820,
                     "atk": 0,
-                    "matk": 15128,
+                    "matk": 15218,
                     "def": 225,
                     "mdef": 352,
                     "pCrit": 0,

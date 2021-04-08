@@ -1,4 +1,8 @@
 {
+    "4.12.7": [
+        "+ [gacha] updated spark count",
+        "+ [bo] extended the update_tag prevlieges to admins"
+    ],
     "4.12.6": [
         "+ [core] added .avatar",
         "- smh roru"
