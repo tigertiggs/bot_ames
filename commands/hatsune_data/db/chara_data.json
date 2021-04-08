@@ -3165,7 +3165,8 @@
                 "ailment",
                 "patk_down",
                 "heal",
-                "self_sust"
+                "self_sust",
+                "flb"
             ],
             "pos": 115,
             "atkptn": [
@@ -3189,7 +3190,7 @@
                 }
             ],
             "img": "https://redive.estertion.win/icon/unit/102931.webp",
-            "img6": null,
+            "img6": "https://redive.estertion.win/icon/unit/102961.webp",
             "basic": {
                 "en": {
                     "id": 24,
@@ -3212,8 +3213,15 @@
                     },
                     "ub2": {
                         "name": null,
-                        "text": null,
-                        "action": null
+                        "text": "[Taunt] Grant large physical attack up to all allies; deploy a magic/physical nullification shield; gain massive physical and magic def up. Taunt all enemies and stun them.",
+                        "action": [
+                            "Buff party p.atk by 2425 [19.5s]",
+                            "Deploy a 5238 buffer mp.shield [19.5s]",
+                            "Gain 407 p.def up [19.5s]",
+                            "Gain 407 m.def up [19.5s]",
+                            "Gain taunt ",
+                            "Inflict paralyze on all targets for a set time "
+                        ]
                     },
                     "uba2": {
                         "name": null,
@@ -3300,8 +3308,8 @@
                         "action": null
                     },
                     "ub2": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u30e9\u30a4\u30d6\u30fb\u30aa\u30f3\u30b9\u30da\u30b7\u30e3\u30eb\u30b9\u30c6\u30fc\u30b8",
+                        "text": "\u3010\u6311\u767a\u3011\u5473\u65b9\u5168\u4f53\u306e\u7269\u7406\u653b\u6483\u529b\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u3001\u7269\u7406/\u9b54\u6cd5\u7121\u52b9\u30d0\u30ea\u30a2\u3092\u5c55\u958b\u3057\u3001\u81ea\u5206\u306e\u7269\u7406\u9632\u5fa1\u529b\u3068\u9b54\u6cd5\u9632\u5fa1\u529b\u3092\u7279\u5927\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002\u3055\u3089\u306b\u6575\u5168\u4f53\u3092\u6311\u767a\u3057\u3066\u30b9\u30bf\u30f3\u3055\u305b\u308b\u3002",
                         "action": null
                     },
                     "uba2": {
@@ -3390,8 +3398,8 @@
                     "hp": 48508,
                     "atk": 7961,
                     "matk": 20,
-                    "def": 915,
-                    "mdef": 905,
+                    "def": 953,
+                    "mdef": 977,
                     "pCrit": 294,
                     "mCrit": 0,
                     "wHpRec": 1690,
@@ -3405,7 +3413,25 @@
                     "tpSave": 4,
                     "acc": 25
                 },
-                "flb": {}
+                "flb": {
+                    "hp": 57092,
+                    "atk": 9679,
+                    "matk": 20,
+                    "def": 1080,
+                    "mdef": 1062,
+                    "pCrit": 304,
+                    "mCrit": 0,
+                    "wHpRec": 1690,
+                    "wTpRec": 71,
+                    "dodge": 39,
+                    "pPen": 0,
+                    "mPen": 0,
+                    "lifesteal": 11,
+                    "hpRec": 49,
+                    "tpRec": 15,
+                    "tpSave": 4,
+                    "acc": 45
+                }
             },
             "profile": {
                 "age": "17",
@@ -11963,7 +11989,8 @@
                 "pcrit_up",
                 "patk_down",
                 "atkspd_up",
-                "special"
+                "special",
+                "ue"
             ],
             "pos": 142,
             "atkptn": [
@@ -11994,7 +12021,7 @@
                         "name": null,
                         "text": "Inflict large physical damage on the frontmost enemy; gain large physical attack and crit up.",
                         "action": [
-                            "Inflict 57636 p.dmg to target ",
+                            "Inflict 60750 p.dmg to target ",
                             "Gain 3880 p.atk up [18s]",
                             "Gain 120 p.crit up [18s]"
                         ]
@@ -12026,8 +12053,14 @@
                     },
                     "sk1p": {
                         "name": null,
-                        "text": "soon\u2122",
-                        "action": null
+                        "text": "Gain massive physical attack and action speed up, gain large physical crit up; on crit gain 1 stack of [cheru]. Gain 30 [cheru] stacks. Max [cheru] stacks 77.",
+                        "action": [
+                            "Gain 8148 p.atk up [180s]",
+                            "Gain 150 p.crit up [180s]",
+                            "Gain action speed up ",
+                            "Gain 30 [cheru] ",
+                            "On inflicting critical damage, gain [cheru] "
+                        ]
                     },
                     "sk1a": {
                         "name": null,
@@ -12043,7 +12076,7 @@
                         "name": null,
                         "text": "Inflict small physical damage on the frontmost enemy and large physical attack down; gain small physical attack and critical up. Buff strength is proportional to the number of `cheru` stacks currently held.",
                         "action": [
-                            "Inflict 12808 p.dmg to target ",
+                            "Inflict 13500 p.dmg to target ",
                             "Inflict 2328 p.atk down [12s]",
                             "Gain 1164 p.atk up [12s]",
                             "Gain 35 p.crit up [12s]"
@@ -12109,8 +12142,8 @@
                         "action": null
                     },
                     "sk1p": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u3061\u3047\u308b\u3046\u3043\u2606\u3060\u3093\u3059\uff1f+",
+                        "text": "\u81ea\u5206\u306e\u7269\u7406\u653b\u6483\u529b\u3068\u884c\u52d5\u901f\u5ea6\u3092\u7279\u5927\u30a2\u30c3\u30d7\u3001\u7269\u7406\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u3001\u6575\u306b\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u3067\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u308b\u305f\u3073\u306b\u3010\u3061\u3047\u308b\u3011\u30b9\u30c6\u30fc\u30bf\u30b9\u304c\uff11\u3064\u8ffd\u52a0\u3055\u308c\u308b\u3002\u3055\u3089\u306b\u3010\u3061\u3047\u308b\u3011\u309230\u8ffd\u52a0\u3059\u308b\u3002\u3010\u3061\u3047\u308b\u3011\u306f\u6700\u592777\u307e\u3067\u8ffd\u52a0\u3055\u308c\u308b\u3002",
                         "action": null
                     },
                     "sk1a": {
@@ -12157,27 +12190,34 @@
                 }
             },
             "ue": {
-                "id": null,
+                "id": 131091,
                 "rank": null,
-                "img": null,
-                "stats": {},
+                "img": "https://redive.estertion.win/icon/equipment/131091.webp",
+                "stats": {
+                    "atk": 79,
+                    "atk_growth": 3.95,
+                    "pCrit": 40,
+                    "pCrit_growth": 2,
+                    "tpRec": 1,
+                    "tpRec_growth": 0.05
+                },
                 "en": {
-                    "name": null,
+                    "name": "Pink\u2606Penra\u2606Knuckles",
                     "text": null
                 },
                 "jp": {
-                    "name": null,
-                    "text": null
+                    "name": "\u3082\u3082\u3044\u308d\u2606\u307a\u3093\u3089\u2606\u306a\u3063\u304f\u308b",
+                    "text": "\u304b\u308f\u3064\u3088\u3092\u8ffd\u6c42\u3059\u308b\u30c1\u30a8\u30eb\u304a\u624b\u88fd\u306e\u306f\u3074\u3061\u3047\u308b\u62f3\u9354\u3002\u6709\u4e8b\u306b\u306f\u86cd\u5149\u30d4\u30f3\u30af\u306e\u722a\u3092\u307d\u304d\u308a\u3068\u6298\u308c\u3070\u767a\u5149\u9b54\u6cd5\u304c\u767a\u52d5\u3057\u3066\u61a7\u308c\u306e\u6b4c\u59eb\u3092\u5fdc\u63f4\u3067\u304d\u308b\u3002"
                 }
             },
             "stats": {
                 "normal": {
                     "hp": 29744,
-                    "atk": 13585,
+                    "atk": 14450,
                     "matk": 0,
                     "def": 460,
                     "mdef": 300,
-                    "pCrit": 1294,
+                    "pCrit": 1732,
                     "mCrit": 0,
                     "wHpRec": 2345,
                     "wTpRec": 255,
@@ -12186,7 +12226,7 @@
                     "mPen": 0,
                     "lifesteal": 9,
                     "hpRec": 20,
-                    "tpRec": 46,
+                    "tpRec": 57,
                     "tpSave": 15,
                     "acc": 62
                 },
@@ -23142,8 +23182,8 @@
                     "hp": 44664,
                     "atk": 8165,
                     "matk": 20,
-                    "def": 967,
-                    "mdef": 806,
+                    "def": 1005,
+                    "mdef": 878,
                     "pCrit": 294,
                     "mCrit": 0,
                     "wHpRec": 1690,
@@ -39382,7 +39422,8 @@
                 "special",
                 "mshield",
                 "tp_up",
-                "battery"
+                "battery",
+                "ue"
             ],
             "pos": 343,
             "atkptn": [
@@ -39447,8 +39488,15 @@
                     },
                     "sk1p": {
                         "name": null,
-                        "text": "soon\u2122",
-                        "action": null
+                        "text": "Grant large physical attack up, massive physical crit up, and medium physical crit damage up on the ally with the highest physical attack stat; grant small TP recovery; Gain small physical and magic def down.",
+                        "action": [
+                            "Buff p.atk by 5820 on target [12s]",
+                            "Buff p.crit by 200 on target [12s]",
+                            "Grant 25% p.crit damage up on a target [12s]",
+                            "Heal 134 TP on target ",
+                            "Gain 15% pdef down (based on max stat) [12s]",
+                            "Gain 15% mdef down (based on max stat) [12s]"
+                        ]
                     },
                     "sk1a": {
                         "name": null,
@@ -39530,8 +39578,8 @@
                         "action": null
                     },
                     "sk1p": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u8c6a\u5091\u751f\u6210\u6982\u8ad6+",
+                        "text": "\u6700\u3082\u7269\u7406\u653b\u6483\u529b\u304c\u9ad8\u3044\u5473\u65b9\uff11\u30ad\u30e3\u30e9\u306e\u7269\u7406\u653b\u6483\u529b\u3092\u5927\u30a2\u30c3\u30d7\u3001\u7269\u7406\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u3092\u7279\u5927\u30a2\u30c3\u30d7\u3001\u7269\u7406\u653b\u6483\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u6642\u306e\u30c0\u30e1\u30fc\u30b8\u3092\u4e2d\u30a2\u30c3\u30d7\u3055\u305b\u3001\u3055\u3089\u306b\uff34\uff30\u3092\u5c0f\u56de\u5fa9\u3055\u305b\u308b\u304c\u3001\u81ea\u5206\u306e\u7269\u7406\u9632\u5fa1\u529b\u3068\u9b54\u6cd5\u9632\u5fa1\u529b\u3092\u5c0f\u30c0\u30a6\u30f3\u3055\u305b\u308b\u3002",
                         "action": null
                     },
                     "sk1a": {
@@ -39578,37 +39626,46 @@
                 }
             },
             "ue": {
-                "id": null,
+                "id": 131101,
                 "rank": null,
-                "img": null,
-                "stats": {},
+                "img": "https://redive.estertion.win/icon/equipment/131101.webp",
+                "stats": {
+                    "matk": 56,
+                    "matk_growth": 2.8,
+                    "wHpRec": 200,
+                    "wHpRec_growth": 10,
+                    "wTpRec": 30,
+                    "wTpRec_growth": 1.5,
+                    "tpSave": 1,
+                    "tpSave_growth": 0.05
+                },
                 "en": {
-                    "name": null,
+                    "name": "Pencil-axe Replica",
                     "text": null
                 },
                 "jp": {
-                    "name": null,
-                    "text": null
+                    "name": "\u30da\u30f3\u30b7\u30eb\u30a2\u30c3\u30af\u30b9\u30fb\u30ec\u30d7\u30ea\u30ab",
+                    "text": "\u30e6\u30cb\u304c\u4f0a\u9054\u3084\u9154\u72c2\u3067\u643a\u884c\u3059\u308b\u3001\u927e\u69cd\u306e\u6a21\u9020\u54c1\u3002\u91cd\u539a\u306a\u5916\u898b\u306b\u53cd\u3057\u3066\u304a\u5b50\u69d8\u3082\u5b89\u5fc3\u306e\u8efd\u91cf\u8a2d\u8a08\u3002\u81ea\u7acb\u6027\u306f\u306a\u304f\u652f\u3048\u304c\u5931\u308f\u308c\u308c\u3070\u30d1\u30bf\u30ea\u3068\u5012\u308c\u308b\u3002"
                 }
             },
             "stats": {
                 "normal": {
                     "hp": 37343,
                     "atk": 52,
-                    "matk": 9210,
+                    "matk": 9823,
                     "def": 614,
                     "mdef": 850,
                     "pCrit": 0,
                     "mCrit": 273,
-                    "wHpRec": 1815,
-                    "wTpRec": 255,
+                    "wHpRec": 4005,
+                    "wTpRec": 584,
                     "dodge": 3,
                     "pPen": 0,
                     "mPen": 0,
                     "lifesteal": 0,
                     "hpRec": 152,
                     "tpRec": 8,
-                    "tpSave": 21,
+                    "tpSave": 32,
                     "acc": 0
                 },
                 "flb": {}

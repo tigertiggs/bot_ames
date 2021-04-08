@@ -1,4 +1,8 @@
 {
+    "4.12.8": [
+        "+ [phatsune] added nozomi flb, ue for yuni and chieru",
+        "+ [gacha] updated banners"
+    ],
     "4.12.7": [
         "+ [gacha] updated spark count",
         "+ [bo] extended the update_tag prevlieges to admins"
