@@ -1,4 +1,10 @@
 {
+    "4.13.0": [
+        "+ [gacha] updated banners",
+        "+ [phatsune] updated level caps for characters and ue",
+        "+ [phatsune] added f.chloe, tt.inori, tt.kaya, ww.aoi, ww.tamaki, ww.mifuyu, suzume flb, kurumi flb",
+        "+ [phatsune] added ue for r.rin, r.mahiru, inori, w.rino, w.ayumi"
+    ],
     "4.12.8": [
         "+ [phatsune] added nozomi flb, ue for yuni and chieru",
         "+ [gacha] updated banners"

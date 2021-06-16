@@ -18,7 +18,9 @@
         "a": "Angel",
 		"c": "Ceremonial Dress",
         "cr": "Cinderella",
-        "f": "School Festival"
+        "f": "School Festival",
+        "tt": "Time Traveller",
+        "ww": "Workwear"
     },
     "prefix_shortened": {
         "n": "NYear",
@@ -32,7 +34,8 @@
         "p": "Prin.",
         "s": "Sum.",
         "cr": "Cind.",
-        "f": "Sch.Fes."
+        "f": "Sch.Fes.",
+        "tt": "Time."
     },
     "prefix_new": {
         "n": [
@@ -84,7 +87,10 @@
         "cinderella": "cr",
         "fes": "f",
         "festival": "f",
-        "school": "f"
+        "school": "f",
+        "time": "tt",
+        "traveler": "tt",
+        "work": "ww"
     },
     "options": [
         "flb"

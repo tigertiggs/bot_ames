@@ -19,7 +19,7 @@ from discord.ext import commands
 dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.insert(1, dir_path+'/commands')
 
-# ames prefix (do not touch)
+# ames prefix (do not touch)    
 BOT_PREFIX = (".")
 
 start_time = None
