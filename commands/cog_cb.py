@@ -367,7 +367,10 @@ class cbCog(commands.Cog):
         for option in options:
             if option.startswith('d'):
                 queue_flag = False
-            elif option.isnumeric():
+                continue
+            if option.startswith('b'):
+                option = option[1:]
+            if option.isnumeric():
                 try:
                     target_boss = int(option)
                 except:
