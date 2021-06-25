@@ -344,9 +344,13 @@ class cbCog(commands.Cog):
 
         #options = options.split()
         if not options:
-            msg = await channel.send(embed=self.display_queue(guild_id, author))
-            await asyncio.sleep(60)
-            await msg.edit(content="This queue list has expired "+self.client.emotes['ames'], embed=None)
+            embed = self.display_queue(guild_id, author)
+            if embed != None:
+                msg = await channel.send(embed=embed)
+                await asyncio.sleep(60)
+                await msg.edit(content="This queue list has expired "+self.client.emotes['ames'], embed=None)
+            else:
+                await channel.send("The current queue is empty. Go wild! "+self.client.emotes['amesblob'])
             return
         elif 'help' in options:
             msg = await channel.send(embed=self.queue_help())
@@ -381,7 +385,7 @@ class cbCog(commands.Cog):
             q = {'q':[]}
 
         if target_boss == None and queue_flag == False:
-            await channel.send("no boss number specified; attempting to remove all from all queues")
+            await channel.send("Withdrawn from all queues")
             q['q'] = [item for item in q['q'] if item[0] != author.id]
         elif target_boss == None:
             await channel.send("unable to process inputs")
@@ -434,6 +438,9 @@ class cbCog(commands.Cog):
         except:
             q = {'q':[]}
         
+        if not q['q']:
+            return None
+
         total_queue = [[],[],[],[],[]]
         for item in q['q']:
             member = author.guild.get_member(item[0])

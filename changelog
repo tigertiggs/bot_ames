@@ -1,4 +1,8 @@
 {
+    "4.13.1": [
+        "+ [ames] updated internal emote json",
+        "+ [cb] queue no longer displays entire queue embed if the queue is empty"
+    ],
     "4.13.0": [
         "+ [gacha] updated banners",
         "+ [phatsune] updated level caps for characters and ue",
