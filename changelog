@@ -1,4 +1,8 @@
 {
+    "4.13.2": [
+        "+ [phatsune] added p.rei",
+        "+ [gacha] updated gacha banners"
+    ],
     "4.13.1": [
         "+ [ames] updated internal emote json",
         "+ [cb] queue no longer displays entire queue embed if the queue is empty"
