@@ -17443,7 +17443,7 @@
                 "flb",
                 "mcrit_up"
             ],
-            "pos": 244,
+            "pos": 245,
             "atkptn": [
                 {
                     "loop": [
@@ -17739,7 +17739,7 @@
                 "mdef_down",
                 "special"
             ],
-            "pos": 221,
+            "pos": 222,
             "atkptn": [
                 {
                     "loop": [
@@ -18016,7 +18016,7 @@
                 "flb",
                 "battery"
             ],
-            "pos": 225,
+            "pos": 226,
             "atkptn": [
                 {
                     "loop": [
@@ -18320,7 +18320,7 @@
                 "patk_up",
                 "matk_up"
             ],
-            "pos": 220,
+            "pos": 221,
             "atkptn": [
                 {
                     "loop": [
@@ -18614,7 +18614,7 @@
                 "patk_up",
                 "flb"
             ],
-            "pos": 215,
+            "pos": 216,
             "atkptn": [
                 {
                     "loop": [
@@ -19212,7 +19212,7 @@
                 "self_buff",
                 "pdef_down"
             ],
-            "pos": 242,
+            "pos": 243,
             "atkptn": [
                 {
                     "loop": [
@@ -19490,7 +19490,7 @@
                 "self_buff",
                 "flb"
             ],
-            "pos": 217,
+            "pos": 218,
             "atkptn": [
                 {
                     "loop": [
@@ -19791,7 +19791,7 @@
                 "self_buff",
                 "ailment"
             ],
-            "pos": 214,
+            "pos": 215,
             "atkptn": [
                 {
                     "loop": [
@@ -20372,7 +20372,7 @@
                 "flb",
                 "special"
             ],
-            "pos": 245,
+            "pos": 246,
             "atkptn": [
                 {
                     "loop": [
@@ -20669,7 +20669,7 @@
                 "pcrit_up",
                 "ailment"
             ],
-            "pos": 238,
+            "pos": 239,
             "atkptn": [
                 {
                     "loop": [
@@ -20951,7 +20951,7 @@
                 "patk_down",
                 "ue"
             ],
-            "pos": 227,
+            "pos": 228,
             "atkptn": [
                 {
                     "loop": [
@@ -21228,7 +21228,7 @@
                 "self_sust",
                 "self_buff"
             ],
-            "pos": 219,
+            "pos": 220,
             "atkptn": [
                 {
                     "loop": [
@@ -21508,7 +21508,7 @@
                 "special",
                 "ue"
             ],
-            "pos": 229,
+            "pos": 230,
             "atkptn": [
                 {
                     "loop": [
@@ -21785,7 +21785,7 @@
                 "self_buff",
                 "ue"
             ],
-            "pos": 235,
+            "pos": 236,
             "atkptn": [
                 {
                     "loop": [
@@ -22353,7 +22353,7 @@
                 "self_buff",
                 "ue"
             ],
-            "pos": 222,
+            "pos": 223,
             "atkptn": [
                 {
                     "loop": [
@@ -22630,7 +22630,7 @@
                 "pcrit_up",
                 "ue"
             ],
-            "pos": 224,
+            "pos": 225,
             "atkptn": [
                 {
                     "loop": [
@@ -23199,7 +23199,7 @@
                 "matk_down",
                 "ue"
             ],
-            "pos": 248,
+            "pos": 249,
             "atkptn": [
                 {
                     "loop": [
@@ -23489,7 +23489,7 @@
                 "ue",
                 "aoe"
             ],
-            "pos": 236,
+            "pos": 237,
             "atkptn": [
                 {
                     "loop": [
@@ -23766,7 +23766,7 @@
                 "special",
                 "ue"
             ],
-            "pos": 237,
+            "pos": 238,
             "atkptn": [
                 {
                     "loop": [
@@ -24046,7 +24046,7 @@
                 "self_buff",
                 "ue"
             ],
-            "pos": 247,
+            "pos": 248,
             "atkptn": [
                 {
                     "loop": [
@@ -24605,7 +24605,7 @@
                 "heal",
                 "ue"
             ],
-            "pos": 216,
+            "pos": 217,
             "atkptn": [
                 {
                     "loop": [
@@ -25165,7 +25165,7 @@
                 "aoe",
                 "ue"
             ],
-            "pos": 218,
+            "pos": 219,
             "atkptn": [
                 {
                     "loop": [
@@ -25727,7 +25727,7 @@
                 "ue",
                 "pcrit_down"
             ],
-            "pos": 226,
+            "pos": 227,
             "atkptn": [
                 {
                     "loop": [
@@ -26009,7 +26009,7 @@
                 "aoe",
                 "special"
             ],
-            "pos": 223,
+            "pos": 224,
             "atkptn": [
                 {
                     "loop": [
@@ -26278,7 +26278,7 @@
                 "self_harm",
                 "aoe"
             ],
-            "pos": 243,
+            "pos": 244,
             "atkptn": [
                 {
                     "loop": [
@@ -26547,7 +26547,7 @@
                 "matk_up",
                 "special"
             ],
-            "pos": 232,
+            "pos": 233,
             "atkptn": [
                 {
                     "loop": [
@@ -26821,7 +26821,7 @@
                 "heal",
                 "special"
             ],
-            "pos": 233,
+            "pos": 234,
             "atkptn": [
                 {
                     "loop": [
@@ -27363,7 +27363,7 @@
                 "self_buff",
                 "heal"
             ],
-            "pos": 231,
+            "pos": 232,
             "atkptn": [
                 {
                     "loop": [
@@ -27904,7 +27904,7 @@
                 "special",
                 "seasonal"
             ],
-            "pos": 213,
+            "pos": 214,
             "atkptn": [
                 {
                     "loop": [
@@ -28169,7 +28169,7 @@
                 "heal",
                 "special"
             ],
-            "pos": 241,
+            "pos": 242,
             "atkptn": [
                 {
                     "loop": [
@@ -28453,7 +28453,7 @@
                 "pdef_down",
                 "prinfes"
             ],
-            "pos": 239,
+            "pos": 240,
             "atkptn": [
                 {
                     "loop": [
@@ -28733,7 +28733,7 @@
                 "atkspd_up",
                 "prinfes"
             ],
-            "pos": 240,
+            "pos": 241,
             "atkptn": [
                 {
                     "loop": [
@@ -29030,7 +29030,7 @@
                 "patk_up",
                 "self_buff"
             ],
-            "pos": 234,
+            "pos": 235,
             "atkptn": [
                 {
                     "loop": [
@@ -29302,7 +29302,7 @@
                 "special",
                 "tp_up"
             ],
-            "pos": 246,
+            "pos": 247,
             "atkptn": [
                 {
                     "loop": [
@@ -30383,7 +30383,7 @@
                 "atkspd_down",
                 "special"
             ],
-            "pos": 230,
+            "pos": 231,
             "atkptn": [
                 {
                     "loop": [
@@ -30634,6 +30634,276 @@
                     "race": "\u30a8\u30eb\u30d5",
                     "va": "\u82b1\u6fa4\u9999\u83dc",
                     "name_irl": "\u30a2\u30aa\u30a4\uff08\u4f5c\u696d\u670d\uff09"
+                }
+            }
+        },
+        {
+            "status": {
+                "ue": 210,
+                "lvl": 202,
+                "rk": 21
+            },
+            "sname": "prei",
+            "tags": [
+                "mid",
+                "physical",
+                "prifes",
+                "self_buff",
+                "special",
+                "pcrit_up",
+                "patk_up"
+            ],
+            "pos": 206,
+            "atkptn": [
+                {
+                    "loop": [
+                        3,
+                        12
+                    ],
+                    "ptn": [
+                        1001,
+                        1002,
+                        1001,
+                        1,
+                        1002,
+                        1,
+                        1001,
+                        1002,
+                        1001,
+                        1002,
+                        1,
+                        1001
+                    ],
+                    "no": "1"
+                }
+            ],
+            "img": "https://redive.estertion.win/icon/unit/180331.webp",
+            "img6": null,
+            "basic": {
+                "en": {
+                    "id": null,
+                    "prefix": "p",
+                    "name": "rei",
+                    "ub": {
+                        "name": null,
+                        "text": "Inflict large physical damage on all enemies in range. Inflicted physical crit damage increases proportionally to the number of enemies in range.",
+                        "action": [
+                            "Inflict 44814 p.dmg to all targets in range (Range: 750)"
+                        ]
+                    },
+                    "uba": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "ub2": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "uba2": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1": {
+                        "name": null,
+                        "text": "Grant large physical crit and attack up on self; grant small physical crit damage up. This skill's effectiveness increases proportionally to the number of enemies present.",
+                        "action": [
+                            "Gain 2030 p.atk up [12s]",
+                            "Gain 50 p.crit up [12s]",
+                            "Increase physical critical damage by 8% [12s]"
+                        ]
+                    },
+                    "sk1p": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1ap": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk2": {
+                        "name": null,
+                        "text": "Inflict medium physical damage on all enemies in range; grant medium physical attack up on self. Attack up buff increases proportionally to the number of enemies in range.",
+                        "action": [
+                            "Inflict 22407 p.dmg to all targets in range (Range: 750)",
+                            "Gain 1015 p.atk up [12s]"
+                        ]
+                    },
+                    "sk2a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk3": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk3a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "ex": {
+                        "name": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
+                        "action": [
+                            "Gain 3045 p.atk up "
+                        ]
+                    },
+                    "ex2": {
+                        "name": null,
+                        "text": "Gain large physical attack up at the start of battle.",
+                        "action": [
+                            "Gain 3270 p.atk up "
+                        ]
+                    },
+                    "comment": null
+                },
+                "jp": {
+                    "id": 1803,
+                    "name": "\u30ec\u30a4(\u30d7\u30ea\u30f3\u30bb\u30b9)",
+                    "ub": {
+                        "name": "\u30b0\u30ed\u30ea\u30a2\u30b9\u30c6\u30f3\u30da\u30b9\u30c8",
+                        "text": "\u524d\u65b9\u7bc4\u56f2\u5185\u306e\u6575\u3059\u3079\u3066\u306b\u7269\u7406\u5927\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u308b\u3002\u5bfe\u8c61\u306b\u306a\u308b\u6575\u304c\u591a\u3044\u307b\u3069\u3001\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u6642\u306b\u4e0e\u3048\u308b\u30c0\u30e1\u30fc\u30b8\u304c\u30a2\u30c3\u30d7\u3059\u308b\u3002",
+                        "action": null
+                    },
+                    "uba": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "ub2": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "uba2": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1": {
+                        "name": "\u30c8\u30a5\u30a4\u30f3\u30af\u30eb\u30a8\u30c3\u30b8",
+                        "text": "\u81ea\u5206\u306e\u7269\u7406\u653b\u6483\u529b\u3068\u7269\u7406\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u3001\u3055\u3089\u306b\u7269\u7406\u653b\u6483\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u6642\u306e\u30c0\u30e1\u30fc\u30b8\u3092\u5c0f\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002\u6575\u306e\u6570\u306b\u5fdc\u3058\u3066\u3001\u3053\u306e\u30b9\u30ad\u30eb\u306e\u52b9\u679c\u5024\u304c\u30a2\u30c3\u30d7\u3059\u308b\u3002",
+                        "action": null
+                    },
+                    "sk1p": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1ap": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk2": {
+                        "name": "\u30e9\u30f3\u30da\u30a4\u30b8\u30b9\u30e9\u30c3\u30b7\u30e5",
+                        "text": "\u524d\u65b9\u7bc4\u56f2\u5185\u306e\u6575\u3059\u3079\u3066\u306b\u7269\u7406\u4e2d\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3001\u3055\u3089\u306b\u81ea\u5206\u306e\u7269\u7406\u653b\u6483\u529b\u3092\u4e2d\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002\u5bfe\u8c61\u306b\u306a\u308b\u6575\u304c\u591a\u3044\u307b\u3069\u3001\u7269\u7406\u653b\u6483\u529b\u306e\u4e0a\u6607\u91cf\u304c\u30a2\u30c3\u30d7\u3059\u308b\u3002",
+                        "action": null
+                    },
+                    "sk2a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk3": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk3a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "ex": {
+                        "name": "\u30d6\u30ed\u30a6\u30a2\u30c3\u30d7\u30cf\u30fc\u30c8",
+                        "text": "\u30d0\u30c8\u30eb\u958b\u59cb\u6642\u306b\u81ea\u5206\u306e\u7269\u7406\u653b\u6483\u529b\u3092\u4e2d\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
+                        "action": null
+                    },
+                    "ex2": {
+                        "name": "\u30d6\u30ed\u30a6\u30a2\u30c3\u30d7\u30cf\u30fc\u30c8+",
+                        "text": "\u30d0\u30c8\u30eb\u958b\u59cb\u6642\u306b\u81ea\u5206\u306e\u7269\u7406\u653b\u6483\u529b\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
+                        "action": null
+                    },
+                    "comment": "\u3010\u7269\u7406\u3011\u4e2d\u885b\u3067\u98a8\u5203\u3092\u5f93\u3048\u6fc0\u6226\u3092\u6d41\u9e97\u306b\u5f81\u304f\u5d50\u7ffc\u306e\u5263\u58eb\u3002\u6575\u304c\u591a\u3044\u7a0b\u306b\u52b9\u679c\u304c\u9ad8\u307e\u308b\u81ea\u5df1\u5f37\u5316\u30b9\u30ad\u30eb\u3067\u3001\u81ea\u8eab\u3092\u596e\u3044\u7acb\u305f\u305b\u3001\u5f37\u529b\u306a\u7bc4\u56f2\u653b\u6483\u30b9\u30ad\u30eb\u3067\u4e00\u5207\u306e\u6575\u3092\u93d6\u6ec5\u3059\u308b\u3002"
+                }
+            },
+            "ue": {
+                "id": null,
+                "rank": null,
+                "img": null,
+                "stats": {},
+                "en": {
+                    "name": null,
+                    "text": null
+                },
+                "jp": {
+                    "name": null,
+                    "text": null
+                }
+            },
+            "stats": {
+                "normal": {
+                    "hp": 41652,
+                    "atk": 16135,
+                    "matk": 0,
+                    "def": 359,
+                    "mdef": 304,
+                    "pCrit": 1350,
+                    "mCrit": 0,
+                    "wHpRec": 900,
+                    "wTpRec": 201,
+                    "dodge": 3,
+                    "pPen": 0,
+                    "mPen": 0,
+                    "lifesteal": 9,
+                    "hpRec": 30,
+                    "tpRec": 28,
+                    "tpSave": 0,
+                    "acc": 44
+                },
+                "flb": {}
+            },
+            "profile": {
+                "age": "18",
+                "blood": "B",
+                "weight": "46",
+                "height": "163",
+                "img": "https://redive.estertion.win/card/actual_profile/180331.webp",
+                "bd": "1/12",
+                "en": {
+                    "name": null,
+                    "name_alt": null,
+                    "irl_name": null,
+                    "guild": null,
+                    "race": null,
+                    "va": null
+                },
+                "jp": {
+                    "name": "\u30ec\u30a4\uff08\u30d7\u30ea\u30f3\u30bb\u30b9\uff09",
+                    "name_alt": "\u308c\u3044",
+                    "irl_name": null,
+                    "guild": "\u30c8\u30a5\u30a4\u30f3\u30af\u30eb\u30a6\u30a3\u30c3\u30b7\u30e5",
+                    "race": "\u9b54\u65cf",
+                    "va": "\u65e9\u898b\u6c99\u7e54",
+                    "name_irl": "\u30ec\u30a4\uff08\u30d7\u30ea\u30f3\u30bb\u30b9\uff09"
                 }
             }
         },
@@ -43319,52 +43589,51 @@
                 "lvl": 202,
                 "rk": 21
             },
-            "sname": "prei",
+            "sname": "seriko",
             "tags": [
+                "seasonal",
                 "mid",
-                "physical",
-                "prifes",
+                "phys",
                 "self_buff",
-                "special",
+                "tp_up",
+                "def_down",
                 "pcrit_up",
-                "patk_up"
+                "special"
             ],
-            "pos": 206,
+            "pos": 213,
             "atkptn": [
                 {
                     "loop": [
                         3,
-                        12
+                        9
                     ],
                     "ptn": [
-                        1001,
                         1002,
+                        1001,
+                        1,
                         1001,
                         1,
                         1002,
                         1,
                         1001,
-                        1002,
-                        1001,
-                        1002,
-                        1,
-                        1001
+                        1
                     ],
                     "no": "1"
                 }
             ],
-            "img": "https://redive.estertion.win/icon/unit/180331.webp",
+            "img": "https://redive.estertion.win/icon/unit/117031.webp",
             "img6": null,
             "basic": {
                 "en": {
                     "id": null,
-                    "prefix": "p",
-                    "name": "rei",
+                    "prefix": "s",
+                    "name": "eriko",
                     "ub": {
                         "name": null,
-                        "text": "Inflict large physical damage on all enemies in range. Inflicted physical crit damage is increases proportionally to the number of enemies in range.",
+                        "text": "Inflict massive physical damage on the frontmost enemy. Gain large physical crit up. The duration of the crit buff is increased proportionally to the damage dealt.",
                         "action": [
-                            "Inflict 44814 p.dmg to all targets in range (Range: 750)"
+                            "Inflict 95014 p.dmg to target ",
+                            "Gain 150 p.crit up [15s]"
                         ]
                     },
                     "uba": {
@@ -43384,11 +43653,10 @@
                     },
                     "sk1": {
                         "name": null,
-                        "text": "Grant large physical crit and attack up on self; grant small physical crit damage up. This skill's effectiveness increases proportionally to the number of enemies present.",
+                        "text": "Inflict medium physical damage on the frontmost enemy; inflict small physical def down.",
                         "action": [
-                            "Gain 2030 p.atk up [12s]",
-                            "Gain 50 p.crit up [12s]",
-                            "Increase physical critical damage by 8% [12s]"
+                            "Inflict 24743 p.dmg to target ",
+                            "Inflict 122 p.def down on target [12s]"
                         ]
                     },
                     "sk1p": {
@@ -43408,10 +43676,10 @@
                     },
                     "sk2": {
                         "name": null,
-                        "text": "Inflict medium physical damage on all enemies in range; grant medium physical attack up on self. Attack up buff increases proportionally to the number of enemies in range.",
+                        "text": "Inflict medium physical def down on the frontmost enemy; Gain small TP recovery.",
                         "action": [
-                            "Inflict 22407 p.dmg to all targets in range (Range: 750)",
-                            "Gain 1015 p.atk up [12s]"
+                            "Inflict 173 p.def down on target [12s]",
+                            "Gain 121 TP "
                         ]
                     },
                     "sk2a": {
@@ -43446,11 +43714,11 @@
                     "comment": null
                 },
                 "jp": {
-                    "id": 1803,
-                    "name": "\u30ec\u30a4(\u30d7\u30ea\u30f3\u30bb\u30b9)",
+                    "id": 1170,
+                    "name": "\u30a8\u30ea\u30b3(\u30b5\u30de\u30fc)",
                     "ub": {
-                        "name": "\u30b0\u30ed\u30ea\u30a2\u30b9\u30c6\u30f3\u30da\u30b9\u30c8",
-                        "text": "\u524d\u65b9\u7bc4\u56f2\u5185\u306e\u6575\u3059\u3079\u3066\u306b\u7269\u7406\u5927\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u308b\u3002\u5bfe\u8c61\u306b\u306a\u308b\u6575\u304c\u591a\u3044\u307b\u3069\u3001\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u6642\u306b\u4e0e\u3048\u308b\u30c0\u30e1\u30fc\u30b8\u304c\u30a2\u30c3\u30d7\u3059\u308b\u3002",
+                        "name": "\u30c7\u30c3\u30c9\u30ea\u30fc\u30b5\u30de\u30fc\u30b5\u30f3\u30bb\u30c3\u30c8",
+                        "text": "\u76ee\u306e\u524d\u306e\u6575\uff11\u30ad\u30e3\u30e9\u306b\u7269\u7406\u7279\u5927\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u308b\u3002\u3055\u3089\u306b\u81ea\u5206\u306e\u7269\u7406\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002\u3053\u306e\u30b9\u30ad\u30eb\u3067\u4e0e\u3048\u305f\u30c0\u30e1\u30fc\u30b8\u91cf\u306b\u5fdc\u3058\u3066\u3001\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u306e\u4e0a\u6607\u6642\u9593\u304c\u5897\u52a0\u3059\u308b\u3002",
                         "action": null
                     },
                     "uba": {
@@ -43469,8 +43737,8 @@
                         "action": null
                     },
                     "sk1": {
-                        "name": "\u30c8\u30a5\u30a4\u30f3\u30af\u30eb\u30a8\u30c3\u30b8",
-                        "text": "\u81ea\u5206\u306e\u7269\u7406\u653b\u6483\u529b\u3068\u7269\u7406\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u3001\u3055\u3089\u306b\u7269\u7406\u653b\u6483\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u6642\u306e\u30c0\u30e1\u30fc\u30b8\u3092\u5c0f\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002\u6575\u306e\u6570\u306b\u5fdc\u3058\u3066\u3001\u3053\u306e\u30b9\u30ad\u30eb\u306e\u52b9\u679c\u5024\u304c\u30a2\u30c3\u30d7\u3059\u308b\u3002",
+                        "name": "\u30df\u30c3\u30c9\u30b5\u30de\u30fc\u30d6\u30e9\u30b9\u30c8",
+                        "text": "\u76ee\u306e\u524d\u306e\u6575\uff11\u30ad\u30e3\u30e9\u306b\u7269\u7406\u4e2d\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3001\u7269\u7406\u9632\u5fa1\u529b\u3092\u5c0f\u30c0\u30a6\u30f3\u3055\u305b\u308b\u3002",
                         "action": null
                     },
                     "sk1p": {
@@ -43489,8 +43757,8 @@
                         "action": null
                     },
                     "sk2": {
-                        "name": "\u30e9\u30f3\u30da\u30a4\u30b8\u30b9\u30e9\u30c3\u30b7\u30e5",
-                        "text": "\u524d\u65b9\u7bc4\u56f2\u5185\u306e\u6575\u3059\u3079\u3066\u306b\u7269\u7406\u4e2d\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3001\u3055\u3089\u306b\u81ea\u5206\u306e\u7269\u7406\u653b\u6483\u529b\u3092\u4e2d\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002\u5bfe\u8c61\u306b\u306a\u308b\u6575\u304c\u591a\u3044\u307b\u3069\u3001\u7269\u7406\u653b\u6483\u529b\u306e\u4e0a\u6607\u91cf\u304c\u30a2\u30c3\u30d7\u3059\u308b\u3002",
+                        "name": "\u30a2\u30eb\u30b1\u30df\u30c3\u30af\u30b5\u30de\u30fc",
+                        "text": "\u76ee\u306e\u524d\u306e\u6575\uff11\u30ad\u30e3\u30e9\u306e\u7269\u7406\u9632\u5fa1\u529b\u3092\u4e2d\u30c0\u30a6\u30f3\u3055\u305b\u308b\u3002\u3055\u3089\u306b\u3001\u81ea\u5206\u306e\uff34\uff30\u3092\u5c0f\u56de\u5fa9\u3059\u308b\u3002",
                         "action": null
                     },
                     "sk2a": {
@@ -43509,16 +43777,16 @@
                         "action": null
                     },
                     "ex": {
-                        "name": "\u30d6\u30ed\u30a6\u30a2\u30c3\u30d7\u30cf\u30fc\u30c8",
+                        "name": "\u30cd\u30d0\u30fc\u30a8\u30f3\u30c7\u30a3\u30f3\u30b0\u30b5\u30de\u30fc",
                         "text": "\u30d0\u30c8\u30eb\u958b\u59cb\u6642\u306b\u81ea\u5206\u306e\u7269\u7406\u653b\u6483\u529b\u3092\u4e2d\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
                         "action": null
                     },
                     "ex2": {
-                        "name": "\u30d6\u30ed\u30a6\u30a2\u30c3\u30d7\u30cf\u30fc\u30c8+",
+                        "name": "\u30cd\u30d0\u30fc\u30a8\u30f3\u30c7\u30a3\u30f3\u30b0\u30b5\u30de\u30fc+",
                         "text": "\u30d0\u30c8\u30eb\u958b\u59cb\u6642\u306b\u81ea\u5206\u306e\u7269\u7406\u653b\u6483\u529b\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
                         "action": null
                     },
-                    "comment": "\u3010\u7269\u7406\u3011\u4e2d\u885b\u3067\u98a8\u5203\u3092\u5f93\u3048\u6fc0\u6226\u3092\u6d41\u9e97\u306b\u5f81\u304f\u5d50\u7ffc\u306e\u5263\u58eb\u3002\u6575\u304c\u591a\u3044\u7a0b\u306b\u52b9\u679c\u304c\u9ad8\u307e\u308b\u81ea\u5df1\u5f37\u5316\u30b9\u30ad\u30eb\u3067\u3001\u81ea\u8eab\u3092\u596e\u3044\u7acb\u305f\u305b\u3001\u5f37\u529b\u306a\u7bc4\u56f2\u653b\u6483\u30b9\u30ad\u30eb\u3067\u4e00\u5207\u306e\u6575\u3092\u93d6\u6ec5\u3059\u308b\u3002"
+                    "comment": "\u3010\u7269\u7406\u3011\u4e2d\u885b\u3067\u3001\u706b\u82b1\u3092\u7e8f\u3044\u5915\u95c7\u3092\u5f69\u308b\u771f\u590f\u306e\u58ca\u3057\u5c4b\u3002\u4e8c\u3064\u306e\u30b9\u30ad\u30eb\u3067\u7269\u7406\u9632\u5fa1\u529b\u3092\u4e0b\u3052\u3001\u30c0\u30e1\u30fc\u30b8\u91cf\u306b\u5fdc\u3058\u3066\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u4e0a\u6607\u304c\u5ef6\u9577\u3059\u308b\uff35\uff22\u3067\u773c\u524d\u306e\u6575\u3092\u7c89\u7815\u3059\u308b\u3002"
                 }
             },
             "ue": {
@@ -43537,33 +43805,33 @@
             },
             "stats": {
                 "normal": {
-                    "hp": 41652,
-                    "atk": 16135,
+                    "hp": 31437,
+                    "atk": 17257,
                     "matk": 0,
-                    "def": 359,
-                    "mdef": 304,
-                    "pCrit": 1350,
+                    "def": 365,
+                    "mdef": 223,
+                    "pCrit": 1035,
                     "mCrit": 0,
-                    "wHpRec": 900,
-                    "wTpRec": 201,
-                    "dodge": 3,
+                    "wHpRec": 1495,
+                    "wTpRec": 153,
+                    "dodge": 4,
                     "pPen": 0,
                     "mPen": 0,
-                    "lifesteal": 9,
+                    "lifesteal": 6,
                     "hpRec": 30,
-                    "tpRec": 28,
+                    "tpRec": 22,
                     "tpSave": 0,
                     "acc": 44
                 },
                 "flb": {}
             },
             "profile": {
-                "age": "18",
+                "age": "16",
                 "blood": "B",
-                "weight": "46",
-                "height": "163",
-                "img": "https://redive.estertion.win/card/actual_profile/180331.webp",
-                "bd": "1/12",
+                "weight": "43",
+                "height": "154",
+                "img": "https://redive.estertion.win/card/actual_profile/117031.webp",
+                "bd": "7/30",
                 "en": {
                     "name": null,
                     "name_alt": null,
@@ -43573,13 +43841,13 @@
                     "va": null
                 },
                 "jp": {
-                    "name": "\u30ec\u30a4\uff08\u30d7\u30ea\u30f3\u30bb\u30b9\uff09",
-                    "name_alt": "\u308c\u3044",
+                    "name": "\u30a8\u30ea\u30b3\uff08\u30b5\u30de\u30fc\uff09",
+                    "name_alt": "\u3048\u308a\u3053",
                     "irl_name": null,
-                    "guild": "\u30c8\u30a5\u30a4\u30f3\u30af\u30eb\u30a6\u30a3\u30c3\u30b7\u30e5",
+                    "guild": "\u30c8\u30ef\u30a4\u30e9\u30a4\u30c8\u30ad\u30e3\u30e9\u30d0\u30f3",
                     "race": "\u9b54\u65cf",
-                    "va": "\u65e9\u898b\u6c99\u7e54",
-                    "name_irl": "\u30ec\u30a4\uff08\u30d7\u30ea\u30f3\u30bb\u30b9\uff09"
+                    "va": "\u6a4b\u672c\u3061\u306a\u307f",
+                    "name_irl": "\u30a8\u30ea\u30b3\uff08\u30b5\u30de\u30fc\uff09"
                 }
             }
         }
