@@ -657,7 +657,7 @@
                         "name": null,
                         "text": "Inflict massive physical damage on the frontmost enemy; gain large physical attack up buff if the enemy is KO'd.",
                         "action": [
-                            "Inflict 93284 p.dmg to target ",
+                            "Inflict 93689 p.dmg to target ",
                             "When stabbing, gain 4568 p.atk up(?) [18s]"
                         ]
                     },
@@ -706,7 +706,7 @@
                         "name": null,
                         "text": "Inflict medium physical attack to the frontmost enemy; inflict poison.",
                         "action": [
-                            "Inflict 24673 p.dmg to target ",
+                            "Inflict 24781 p.dmg to target ",
                             "Inflict 406 poison dmg(?)  [8s]"
                         ]
                     },
@@ -841,7 +841,7 @@
             "stats": {
                 "normal": {
                     "hp": 31347,
-                    "atk": 18023,
+                    "atk": 18113,
                     "matk": 13,
                     "def": 319,
                     "mdef": 257,
@@ -897,7 +897,9 @@
                 "physical",
                 "front",
                 "ue",
-                "special"
+                "special",
+                "flb",
+                "patk_up"
             ],
             "pos": 106,
             "atkptn": [
@@ -921,7 +923,7 @@
                 }
             ],
             "img": "https://redive.estertion.win/icon/unit/101731.webp",
-            "img6": null,
+            "img6": "https://redive.estertion.win/icon/unit/101761.webp",
             "basic": {
                 "en": {
                     "id": 9,
@@ -931,7 +933,7 @@
                         "name": null,
                         "text": "Inflict massive physical damage on the frontmost enemy.",
                         "action": [
-                            "Inflict 94006 p.dmg to target "
+                            "Inflict 96310 p.dmg to target "
                         ]
                     },
                     "uba": {
@@ -941,8 +943,11 @@
                     },
                     "ub2": {
                         "name": null,
-                        "text": null,
-                        "action": null
+                        "text": "Gain medium physical attack up; inflict unworldly physical damage on the frontmost enemy.",
+                        "action": [
+                            "Inflict 288929 p.dmg to target ",
+                            "Gain 3045 p.atk up [180s]"
+                        ]
                     },
                     "uba2": {
                         "name": null,
@@ -953,14 +958,14 @@
                         "name": null,
                         "text": "Inflict medium physical damage on the frontmost enemy.",
                         "action": [
-                            "Inflict 31335 p.dmg to target "
+                            "Inflict 32103 p.dmg to target "
                         ]
                     },
                     "sk1p": {
                         "name": null,
                         "text": "Inflict large physical damage on the frontmost enemy.",
                         "action": [
-                            "Inflict 45298 p.dmg to target "
+                            "Inflict 46402 p.dmg to target "
                         ]
                     },
                     "sk1a": {
@@ -1025,8 +1030,8 @@
                         "action": null
                     },
                     "ub2": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u771f\u30fb\u7409\u7403\u72ac\u30ca\u30c3\u30af\u30eb\u30e9\u30c3\u30b7\u30e5",
+                        "text": "\u81ea\u5206\u306e\u7269\u7406\u653b\u6483\u529b\u3092\u4e2d\u30a2\u30c3\u30d7\u3055\u305b\u3001\u76ee\u306e\u524d\u306e\u6575\uff11\u30ad\u30e3\u30e9\u306b\u7269\u7406\u6975\u5927\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u308b\u3002",
                         "action": null
                     },
                     "uba2": {
@@ -1109,11 +1114,11 @@
             "stats": {
                 "normal": {
                     "hp": 30503,
-                    "atk": 17047,
+                    "atk": 17527,
                     "matk": 0,
                     "def": 427,
                     "mdef": 266,
-                    "pCrit": 1691,
+                    "pCrit": 1831,
                     "mCrit": 0,
                     "wHpRec": 2235,
                     "wTpRec": 245,
@@ -1126,7 +1131,25 @@
                     "tpSave": 15,
                     "acc": 55
                 },
-                "flb": {}
+                "flb": {
+                    "hp": 39147,
+                    "atk": 20720,
+                    "matk": 0,
+                    "def": 502,
+                    "mdef": 315,
+                    "pCrit": 1831,
+                    "mCrit": 0,
+                    "wHpRec": 2235,
+                    "wTpRec": 245,
+                    "dodge": 18,
+                    "pPen": 0,
+                    "mPen": 0,
+                    "lifesteal": 11,
+                    "hpRec": 30,
+                    "tpRec": 56,
+                    "tpSave": 15,
+                    "acc": 55
+                }
             },
             "profile": {
                 "age": "19",
@@ -4976,7 +4999,7 @@
                         "name": null,
                         "text": "Inflict massive physical damage on the frontmost enemy.",
                         "action": [
-                            "Inflict 88975 p.dmg to target "
+                            "Inflict 89407 p.dmg to target "
                         ]
                     },
                     "uba": {
@@ -4988,7 +5011,7 @@
                         "name": null,
                         "text": "Inflict massive physical damage on the frontmost enemy and gain `Gale Blade`. While `Gale Blade` is active, make Rei's skills twice as effective.",
                         "action": [
-                            "Inflict 177950 p.dmg to target ",
+                            "Inflict 178814 p.dmg to target ",
                             "Gain Gale Blade for a set time "
                         ]
                     },
@@ -5001,14 +5024,14 @@
                         "name": null,
                         "text": "Inflict medium physical damage on the frontmost enemy.",
                         "action": [
-                            "Inflict 29658 p.dmg to target "
+                            "Inflict 29802 p.dmg to target "
                         ]
                     },
                     "sk1p": {
                         "name": null,
                         "text": "Inflict medium physical damage on the frontmost enemy; inflict small physical def down.",
                         "action": [
-                            "Inflict 29658 p.dmg to target ",
+                            "Inflict 29802 p.dmg to target ",
                             "Inflict 122 p.def down on target [12s]"
                         ]
                     },
@@ -5026,7 +5049,7 @@
                         "name": null,
                         "text": "Inflict medium physical damage to the frontmost enemy. Inflicted damage increases proportionally to the damage taken by Rei prior to the activation of this skill.",
                         "action": [
-                            "Inflict 29658 p.dmg to target "
+                            "Inflict 29802 p.dmg to target "
                         ]
                     },
                     "sk2a": {
@@ -5159,7 +5182,7 @@
             "stats": {
                 "normal": {
                     "hp": 39712,
-                    "atk": 15999,
+                    "atk": 16089,
                     "matk": 0,
                     "def": 453,
                     "mdef": 367,
@@ -5178,7 +5201,7 @@
                 },
                 "flb": {
                     "hp": 48875,
-                    "atk": 19019,
+                    "atk": 19109,
                     "matk": 0,
                     "def": 520,
                     "mdef": 430,
@@ -5544,7 +5567,7 @@
                         "name": null,
                         "text": "Inflict massive physical damage on the frontmost enemy. Increase damage dealt if Eriko is at low HP.",
                         "action": [
-                            "Inflict 86282 p.dmg to target "
+                            "Inflict 86660 p.dmg to target "
                         ]
                     },
                     "uba": {
@@ -5566,14 +5589,14 @@
                         "name": null,
                         "text": "Inflict medium physical damage on the frontmost enemy. Increase damage dealt if Eriko is at low HP.",
                         "action": [
-                            "Inflict 28693 p.dmg to target "
+                            "Inflict 28819 p.dmg to target "
                         ]
                     },
                     "sk1p": {
                         "name": null,
                         "text": "Inflict large physical damage on the frontmost enemy. The damage inflict is inversely proportional to Eriko's HP. The critical modifier of this skill is increased from 2.0x to 4.0x.",
                         "action": [
-                            "Inflict 43040 p.dmg to target "
+                            "Inflict 43229 p.dmg to target "
                         ]
                     },
                     "sk1a": {
@@ -5590,7 +5613,7 @@
                         "name": null,
                         "text": "Gain medium physical attack up by consuming HP. Increase effect if Eriko is at low HP.",
                         "action": [
-                            "Consume 26828 HP ",
+                            "Consume 26963 HP ",
                             "Gain 3045 p.atk up [12s]"
                         ]
                     },
@@ -5725,7 +5748,7 @@
             "stats": {
                 "normal": {
                     "hp": 34522,
-                    "atk": 17885,
+                    "atk": 17975,
                     "matk": 13,
                     "def": 321,
                     "mdef": 227,
@@ -9236,7 +9259,7 @@
                         "name": null,
                         "text": "Inflict medium physical damage and stun to all enemies.",
                         "action": [
-                            "Inflict 12250 p.dmg on all targets ",
+                            "Inflict 12347 p.dmg on all targets ",
                             "Inflict paralyze on all targets for a set time "
                         ]
                     },
@@ -9260,7 +9283,7 @@
                         "text": "Gain taunt; if Rei is attacked while taunting, inflict small physical damage on all enemies in range; inflict small physical def down.",
                         "action": [
                             "Gain taunt ",
-                            "Inflict 3366 p.dmg to all targets in range (Range: 280)",
+                            "Inflict 3392 p.dmg to all targets in range (Range: 280)",
                             "Inflict 32 p.def down on all targets in range (Range: 280)[12s]"
                         ]
                     },
@@ -9269,7 +9292,7 @@
                         "text": "Gain taunt and massive magic def up; if Rei is attacked while taunting, inflict medium physical damage, small physical def down and stun to all enemies in range.",
                         "action": [
                             "Gain taunt ",
-                            "Inflict 11646 p.dmg to all targets in range (Range: 430)",
+                            "Inflict 11754 p.dmg to all targets in range (Range: 430)",
                             "Inflict 49 p.def down on all targets in range (Range: 430)[12s]",
                             "Gain 406 m.def up [12s]",
                             "Paralyze all targets in range for a set time (Range: 430)"
@@ -9424,7 +9447,7 @@
             "stats": {
                 "normal": {
                     "hp": 49954,
-                    "atk": 9087,
+                    "atk": 9177,
                     "matk": 311,
                     "def": 862,
                     "mdef": 1157,
@@ -12570,7 +12593,8 @@
                 "mdef_down",
                 "special",
                 "seasonal",
-                "front"
+                "front",
+                "ue"
             ],
             "pos": 156,
             "atkptn": [
@@ -12604,7 +12628,7 @@
                         "name": null,
                         "text": "Inflict massive magic damage on the frontmost enemy. If a single enemy remains, gain large magic attack up",
                         "action": [
-                            "Inflict 107248 m.dmg on target ",
+                            "Inflict 112601 m.dmg on target ",
                             "If only 1 target remains, gain 4568 m.atk up [18s]"
                         ]
                     },
@@ -12627,14 +12651,17 @@
                         "name": null,
                         "text": "Inflict medium magic damage on the frontmost enemy; inflict medium magic def down.",
                         "action": [
-                            "Inflict 18714 m.dmg on target ",
+                            "Inflict 19653 m.dmg on target ",
                             "Inflict 162 m.def down on target [12s]"
                         ]
                     },
                     "sk1p": {
                         "name": null,
-                        "text": "soon\u2122",
-                        "action": null
+                        "text": "Inflict large magic damage on the frontmost enemy; inflict massive magic def down.",
+                        "action": [
+                            "Inflict 63214 m.dmg on target ",
+                            "Inflict 325 m.def down on target [12s]"
+                        ]
                     },
                     "sk1a": {
                         "name": null,
@@ -12715,8 +12742,8 @@
                         "action": null
                     },
                     "sk1p": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u7f85\u5239\u6d85\u69c3\u30fb\u6d77\u7344\u6cc9+",
+                        "text": "\u76ee\u306e\u524d\u306e\u6575\uff11\u30ad\u30e3\u30e9\u306b\u9b54\u6cd5\u5927\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3001\u3055\u3089\u306b\u9b54\u6cd5\u9632\u5fa1\u529b\u3092\u7279\u5927\u30c0\u30a6\u30f3\u3055\u305b\u308b\u3002",
                         "action": null
                     },
                     "sk1a": {
@@ -12763,28 +12790,35 @@
                 }
             },
             "ue": {
-                "id": null,
+                "id": 131321,
                 "rank": null,
-                "img": null,
-                "stats": {},
+                "img": "https://redive.estertion.win/icon/equipment/131321.webp",
+                "stats": {
+                    "matk": 82,
+                    "matk_growth": 4.1,
+                    "mCrit": 8,
+                    "mCrit_growth": 0.4,
+                    "tpRec": 2,
+                    "tpRec_growth": 0.1
+                },
                 "en": {
-                    "name": null,
+                    "name": "Sea-monster Slaying Chain Anchor",
                     "text": null
                 },
                 "jp": {
-                    "name": null,
-                    "text": null
+                    "name": "\u6d77\u9b54\u7344\u6ec5\u7e1b\u9396\u9328",
+                    "text": "\u6d77\u7344\u306b\u964d\u81e8\u305b\u3057\u75be\u98a8\u306e\u51a5\u59eb\u304c\u305d\u306e\u8eab\u306b\u7e8f\u3044\u3057\u546a\u308f\u308c\u305f\u7e1b\u9396\u306e\u9328\u3002\u5c01\u3058\u3089\u308c\u305f\u66b4\u8650\u306e\u7adc\u304c\u5486\u54ee\u3059\u308b\u523b\u3001\u5730\u7344\u306e\u4ea1\u8005\u3059\u3089\u6144\u304d\u9003\u3052\u60d1\u3046\u3002"
                 }
             },
             "stats": {
                 "normal": {
                     "hp": 28913,
                     "atk": 0,
-                    "matk": 16278,
+                    "matk": 17217,
                     "def": 259,
                     "mdef": 341,
                     "pCrit": 0,
-                    "mCrit": 1392,
+                    "mCrit": 1484,
                     "wHpRec": 1380,
                     "wTpRec": 392,
                     "dodge": 0,
@@ -12792,7 +12826,7 @@
                     "mPen": 0,
                     "lifesteal": 6,
                     "hpRec": 45,
-                    "tpRec": 13,
+                    "tpRec": 36,
                     "tpSave": 17,
                     "acc": 0
                 },
@@ -12837,7 +12871,8 @@
                 "seasonal",
                 "special",
                 "patk_up",
-                "self_buff"
+                "self_buff",
+                "ue"
             ],
             "pos": 134,
             "atkptn": [
@@ -12875,7 +12910,7 @@
                         "name": null,
                         "text": "Inflict large physical damage to all enemies in range. After the first use of this Union Burst, gain medium physical attack up every 15 attacks.",
                         "action": [
-                            "Inflict 45431 p.dmg to all targets in range (Range: 500)",
+                            "Inflict 48013 p.dmg to all targets in range (Range: 500)",
                             "Gain 2538 p.atk up every 15 attacks [180s]"
                         ]
                     },
@@ -12898,14 +12933,17 @@
                         "name": null,
                         "text": "Inflict medium physical damage to all enemies in range; gain medium physical attack up",
                         "action": [
-                            "Inflict 20139 p.dmg to all targets in range (Range: 500)",
+                            "Inflict 21301 p.dmg to all targets in range (Range: 500)",
                             "Gain 3045 p.atk up [12s]"
                         ]
                     },
                     "sk1p": {
                         "name": null,
-                        "text": "soon\u2122",
-                        "action": null
+                        "text": "Inflict medium physical damage on all enemies in range; gain large physical attack up",
+                        "action": [
+                            "Inflict 22406 p.dmg to all targets in range (Range: 600)",
+                            "Gain 4669 p.atk up [12s]"
+                        ]
                     },
                     "sk1a": {
                         "name": null,
@@ -12921,7 +12959,7 @@
                         "name": null,
                         "text": "Inflict medium physical damage to all enemies in range.",
                         "action": [
-                            "Inflict 22715 p.dmg to all targets in range (Range: 500)"
+                            "Inflict 24007 p.dmg to all targets in range (Range: 500)"
                         ]
                     },
                     "sk2a": {
@@ -12984,8 +13022,8 @@
                         "action": null
                     },
                     "sk1p": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u59cb\u306e\u592a\u5200\u30fb\u6681\u3051\u306e\u6c34\u7121\u6708+",
+                        "text": "\u524d\u65b9\u7bc4\u56f2\u5185\u306e\u6575\u3059\u3079\u3066\u306b\u7269\u7406\u4e2d\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3001\u3055\u3089\u306b\u81ea\u5206\u306e\u7269\u7406\u653b\u6483\u529b\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
                         "action": null
                     },
                     "sk1a": {
@@ -13032,27 +13070,32 @@
                 }
             },
             "ue": {
-                "id": null,
+                "id": 131311,
                 "rank": null,
-                "img": null,
-                "stats": {},
+                "img": "https://redive.estertion.win/icon/equipment/131311.webp",
+                "stats": {
+                    "atk": 94,
+                    "atk_growth": 4.7,
+                    "pCrit": 13,
+                    "pCrit_growth": 0.65
+                },
                 "en": {
-                    "name": null,
+                    "name": "Zekkai har\u014d Maru",
                     "text": null
                 },
                 "jp": {
-                    "name": null,
-                    "text": null
+                    "name": "\u7d76\u6d77\u30fb\u6ce2\u6d6a\u4e38 \u62f5\u9055",
+                    "text": "\u30eb\u30ab\u304c\u5e2f\u5200\u3059\u308b\u540d\u5200\u3001\u7d76\u6d77\u3068\u5996\u5200\u3001\u6ce2\u6d6a\u4e38\u306e\u4e8c\u5200\u3002\u6301\u3061\u4e3b\u306b\u5408\u308f\u305b\u590f\u306e\u88c5\u3044\u3078\u3068\u3053\u3057\u3089\u3048\u305f\u9038\u54c1\u3002\u4e0d\u5909\u306e\u5207\u308c\u5473\u306f\u767d\u6ce2\u3092\u3082\u5207\u308a\u88c2\u304f\u3002"
                 }
             },
             "stats": {
                 "normal": {
                     "hp": 32855,
-                    "atk": 16392,
+                    "atk": 17468,
                     "matk": 0,
                     "def": 343,
                     "mdef": 240,
-                    "pCrit": 1703,
+                    "pCrit": 1852,
                     "mCrit": 0,
                     "wHpRec": 2895,
                     "wTpRec": 135,
@@ -24361,7 +24404,7 @@
                         "name": null,
                         "text": "Inflict medium physical damage to all enemies in range. Inflicted damage increases proportionally to the number of enemies in range.",
                         "action": [
-                            "Inflict 30136 p.dmg to all targets in range (Range: 790)"
+                            "Inflict 30818 p.dmg to all targets in range (Range: 790)"
                         ]
                     },
                     "uba": {
@@ -24383,14 +24426,14 @@
                         "name": null,
                         "text": "Inflict small physical damage to all enemies in range, and inflict small knockback to the frontmost enemy.",
                         "action": [
-                            "Inflict 15577 p.dmg to all targets in range (Range: 790)"
+                            "Inflict 15961 p.dmg to all targets in range (Range: 790)"
                         ]
                     },
                     "sk1p": {
                         "name": null,
                         "text": "Inflict medium physical damage and stun to all enemies in range; inflict large knockback to the frontmost enemy.",
                         "action": [
-                            "Inflict 35049 p.dmg to all targets in range (Range: 790)",
+                            "Inflict 35913 p.dmg to all targets in range (Range: 790)",
                             "Paralyze all targets in range for a set time (Range: 790)"
                         ]
                     },
@@ -24541,11 +24584,11 @@
             "stats": {
                 "normal": {
                     "hp": 28927,
-                    "atk": 16934,
+                    "atk": 17414,
                     "matk": 0,
                     "def": 415,
                     "mdef": 254,
-                    "pCrit": 1766,
+                    "pCrit": 1906,
                     "mCrit": 0,
                     "wHpRec": 2235,
                     "wTpRec": 245,
@@ -26007,6 +26050,8 @@
                 "mdef_down",
                 "matk_up",
                 "aoe",
+                "special",
+                "ue",
                 "special"
             ],
             "pos": 224,
@@ -26043,7 +26088,7 @@
                         "name": null,
                         "text": "Inflict large magic damage to all enemies in range; inflict small magic def down.",
                         "action": [
-                            "Inflict 35943 m.dmg to all targets in range (Range: 768)",
+                            "Inflict 38194 m.dmg to all targets in range (Range: 768)",
                             "Inflict 122 m.def down on all targets in range (Range: 768)[18s]"
                         ]
                     },
@@ -26064,16 +26109,19 @@
                     },
                     "sk1": {
                         "name": null,
-                        "text": "Inflict medium magic damage to all enemies in range; deploy a field centered at Nanaka that grants large magic attack up to all allies in range.",
+                        "text": "Inflict medium magic damage on all enemies in range centered on the frontmost enemy; deploy a field centered at Nanaka that grants large magic attack up to all allies in range.",
                         "action": [
-                            "Inflict 16641 m.dmg to all targets in range (Range: 225)",
+                            "Inflict 17683 m.dmg to all targets in range (Range: 225)",
                             "Buff 3045 m.atk on all targets in range (Range: 200)[12s]"
                         ]
                     },
                     "sk1p": {
                         "name": null,
-                        "text": null,
-                        "action": null
+                        "text": "Inflict medium magic damage on all enemies in range centered on the frontmost enemy; deploy a field centered on Nanaka that grants massive magic attack up to all allies in range. The damage dealt and buff strength is increased proportionally to targetable enemies.",
+                        "action": [
+                            "Inflict 17683 m.dmg to all targets in range (Range: 275)",
+                            "Buff 3045 m.atk on all targets in range (Range: 200)[12s]"
+                        ]
                     },
                     "sk1a": {
                         "name": null,
@@ -26152,8 +26200,8 @@
                         "action": null
                     },
                     "sk1p": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u30c9\u30eb\u30d5\u30a3\u30f3\u30de\u30b8\u30c3\u30af+",
+                        "text": "\u76ee\u306e\u524d\u306e\u6575\uff11\u30ad\u30e3\u30e9\u3092\u4e2d\u5fc3\u3068\u3057\u305f\u7bc4\u56f2\u5185\u306e\u6575\u3059\u3079\u3066\u306b\u9b54\u6cd5\u4e2d\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3001\u3055\u3089\u306b\u81ea\u5206\u3092\u4e2d\u5fc3\u3068\u3057\u305f\u7bc4\u56f2\u5185\u306e\u5473\u65b9\u3059\u3079\u3066\u306e\u9b54\u6cd5\u653b\u6483\u529b\u3092\u7279\u5927\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002\u5bfe\u8c61\u306b\u306a\u308b\u6575\u304c\u591a\u3044\u307b\u3069\u3001\u30c0\u30e1\u30fc\u30b8\u3068\u9b54\u6cd5\u653b\u6483\u529b\u306e\u4e0a\u6607\u91cf\u304c\u30a2\u30c3\u30d7\u3059\u308b\u3002",
                         "action": null
                     },
                     "sk1a": {
@@ -26200,24 +26248,29 @@
                 }
             },
             "ue": {
-                "id": null,
+                "id": 131331,
                 "rank": null,
-                "img": null,
-                "stats": {},
+                "img": "https://redive.estertion.win/icon/equipment/131331.webp",
+                "stats": {
+                    "matk": 91,
+                    "matk_growth": 4.55,
+                    "tpRec": 2,
+                    "tpRec_growth": 0.1
+                },
                 "en": {
-                    "name": null,
+                    "name": "Nanaka Natsukawa Rod",
                     "text": null
                 },
                 "jp": {
-                    "name": null,
-                    "text": null
+                    "name": "\u30ca\u30ca\u30ab\u30ca\u30c4\u30ab\u30ef\u30ed\u30c3\u30c9",
+                    "text": "\u590f\u306e\u88c5\u3044\u306e\u30ca\u30ca\u30ab\u304c\u6301\u3064\u9b54\u6cd5\u306e\u6756\u3002\u5929\u624d\u9b54\u6cd5\u5c11\u5973\u304c\u590f\u306e\u30c8\u30ad\u30e1\u30ad\u306b\u89e6\u308c\u305f\u6642\u3001\u79d8\u3081\u3089\u308c\u3057\u771f\u306e\u529b\u304c\u89e3\u304d\u653e\u305f\u308c\u3061\u3083\u3046\u306e\u3060\uff01"
                 }
             },
             "stats": {
                 "normal": {
                     "hp": 34509,
                     "atk": 0,
-                    "matk": 14103,
+                    "matk": 15145,
                     "def": 355,
                     "mdef": 572,
                     "pCrit": 0,
@@ -26229,7 +26282,7 @@
                     "mPen": 0,
                     "lifesteal": 0,
                     "hpRec": 146,
-                    "tpRec": 7,
+                    "tpRec": 30,
                     "tpSave": 29,
                     "acc": 0
                 },
@@ -27129,8 +27182,8 @@
                         "name": null,
                         "text": "Inflict medium physical damage on all enemies in range. If enemies' maximum HP is less than 50%, increase the damage dealt.",
                         "action": [
-                            "If target has less than 50% HP remaining, inflict 75932 p.dmg on all targets in range (Range: 700)",
-                            "If target has more than 50% HP remaining, inflict 30535 p.dmg on all targets in range (Range: 700)"
+                            "If target has less than 50% HP remaining, inflict 76292 p.dmg on all targets in range (Range: 700)",
+                            "If target has more than 50% HP remaining, inflict 30679 p.dmg on all targets in range (Range: 700)"
                         ]
                     },
                     "uba": {
@@ -27152,8 +27205,8 @@
                         "name": null,
                         "text": "Inflict small physical damage on all enemies in range. If enemies' maximum HP is less than 50%, damage inflicted is increased; inflict medium physical def down.",
                         "action": [
-                            "If target has less than 50% HP remaining, inflict 45803 p.dmg on all targets in range (Range: 700)",
-                            "If target has more than 50% HP remaining, inflict 15268 p.dmg on all targets in range (Range: 700)",
+                            "If target has less than 50% HP remaining, inflict 46019 p.dmg on all targets in range (Range: 700)",
+                            "If target has more than 50% HP remaining, inflict 15340 p.dmg on all targets in range (Range: 700)",
                             "If target has less than 50% HP remaining, inflict 162 p.def down on all targets in range (Range: 700)[12s]"
                         ]
                     },
@@ -27303,7 +27356,7 @@
             "stats": {
                 "normal": {
                     "hp": 36622,
-                    "atk": 16547,
+                    "atk": 16637,
                     "matk": 0,
                     "def": 290,
                     "mdef": 244,
