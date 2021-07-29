@@ -1179,7 +1179,9 @@ class hatsuneCog(commands.Cog):
             "a.akari",
             "c.kokkoro",
             "cr.rima",
-            "f.chieru"
+            "f.chieru",
+            "tt.inori",
+            "ww.aot"
         ]
         embed.add_field(
             name="> **Active Prefixes**",
@@ -1206,12 +1208,12 @@ class hatsuneCog(commands.Cog):
         )
         embed.add_field(
             name="> <:_chara:677763373739409436> Character",
-            value="React to switch to the character page. This page will contain basic information along with JP text. Contains more misc. information that stats page.",
+            value="React to switch to the character page. This page will contain basic information along with JP text. Contains more misc. information than stats page.",
             inline=False
         )
         embed.add_field(
             name="> <:_ue:677763400713109504> Unqiue Equipment/Character Weapon",
-            value="React to switch to the Unique Equipment page. This page will show the characters Skill 1 and Skill 1+ along with UE bonus stats (min/max), as long as the character has UE unlocked. If you need help with stat abbreviations, use `.c stats`.",
+            value="React to switch to the Unique Equipment page. This page will show the character's Skill 1 and Skill 1+ along with UE bonus stats (min/max), as long as the character has UE unlocked. If you need help with stat abbreviations, use `.c stats`.",
             inline=False
         )
         embed.add_field(

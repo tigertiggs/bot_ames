@@ -457,7 +457,7 @@ class cbCog(commands.Cog):
 
         embed=discord.Embed(
             title="Clan Battle Queue",
-            description=f"Current queue automatic timeout is **{round(increment/60,1)}min**. See `.q help` or `.help queue` for details on usage. Happy Clan Battling!",
+            description=f"Current queue's automatic timeout is **{round(increment/60,1)}min**. Only displaying bosses with active queues. See `.q help` or `.help queue` for details on usage. Happy Clan Battling!",
             colour=self.colour,
             timestamp=datetime.datetime.utcnow()
         )
@@ -481,7 +481,7 @@ class cbCog(commands.Cog):
                 name=['Empty Queue']
                 time=['N/A']
                 empty=True
-
+                continue
 
             embed.add_field(
                 name="No.",
