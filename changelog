@@ -1,4 +1,8 @@
 {
+    "4.13.7": 
+        "+ [phatsune] added s.tsumugi, s.nozomi",
+        "+ [gacha] updated banners"
+    ],
     "4.13.6": [
         "+ [cb] changed q timeout and displays"
     ],
