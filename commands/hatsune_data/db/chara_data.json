@@ -3281,7 +3281,7 @@
                         "name": null,
                         "text": "Inflict small physical damage and stun on all enemies in range.",
                         "action": [
-                            "Inflict 3417 p.dmg to all targets in range (Range: 280)",
+                            "Inflict 3441 p.dmg to all targets in range (Range: 280)",
                             "Paralyze all targets in range for a set time (Range: 280)"
                         ]
                     },
@@ -3289,7 +3289,7 @@
                         "name": null,
                         "text": "Inflict small physical damage and stun on all enemies in range; inflict small physical attack down.",
                         "action": [
-                            "Inflict 7685 p.dmg to all targets in range (Range: 280)",
+                            "Inflict 7739 p.dmg to all targets in range (Range: 280)",
                             "Paralyze all targets in range for a set time (Range: 280)",
                             "Inflict 309 p.atk down on all targets in range (Range: 280)[12s]"
                         ]
@@ -3308,7 +3308,7 @@
                         "name": null,
                         "text": "Grant small HP heal to all allies in range.",
                         "action": [
-                            "Heal 6758 HP on all targets in range (Range: 200)"
+                            "Heal 6812 HP on all targets in range (Range: 200)"
                         ]
                     },
                     "sk2a": {
@@ -3445,7 +3445,7 @@
             "stats": {
                 "normal": {
                     "hp": 51132,
-                    "atk": 10061,
+                    "atk": 10151,
                     "matk": 20,
                     "def": 982,
                     "mdef": 966,
@@ -3464,7 +3464,7 @@
                 },
                 "flb": {
                     "hp": 60085,
-                    "atk": 11882,
+                    "atk": 11972,
                     "matk": 20,
                     "def": 1111,
                     "mdef": 1052,
@@ -6975,7 +6975,7 @@
                         "name": null,
                         "text": "Inflict medium physical damage on all enemies in range; inflict paralysis; pulls the farthest enemy in range closer and pushes the frontmost enemy back.",
                         "action": [
-                            "Inflict 22738 p.dmg to all targets in range (Range: 900)",
+                            "Inflict 22867 p.dmg to all targets in range (Range: 900)",
                             "Paralyze all targets in range for a set time (Range: 900)"
                         ]
                     },
@@ -6998,14 +6998,14 @@
                         "name": null,
                         "text": "Inflict medium physical damage on the 2nd frontmost enemy and pulls them slightly closer.",
                         "action": [
-                            "Inflict 18948 p.dmg to target "
+                            "Inflict 19056 p.dmg to target "
                         ]
                     },
                     "sk1p": {
                         "name": null,
                         "text": "Inflict medium physical damage on the 2nd frontmost enemy and pulls them slightly closer; inflict stun; gain medium physical attack and small physical defense up.",
                         "action": [
-                            "Inflict 18948 p.dmg to target ",
+                            "Inflict 19056 p.dmg to target ",
                             "Inflict Paralyze on target for a set time ",
                             "Gain 2472 p.atk up [12s]",
                             "Gain 82 p.def up [12s]"
@@ -7025,7 +7025,7 @@
                         "name": null,
                         "text": "Inflict small physical damage to all enemies; inflict small action and movement speed down.",
                         "action": [
-                            "Inflict 2842 p.dmg to all targets in range (Range: 700)",
+                            "Inflict 2858 p.dmg to all targets in range (Range: 700)",
                             "Inflict movement speed down on all targets in range for a set time (Range: 700)[12s]",
                             "Inflict action speed down on all targets in range for a set time (Range: 700)"
                         ]
@@ -7163,7 +7163,7 @@
             "stats": {
                 "normal": {
                     "hp": 38524,
-                    "atk": 13215,
+                    "atk": 13305,
                     "matk": 10,
                     "def": 772,
                     "mdef": 619,
@@ -13458,7 +13458,7 @@
                         "name": null,
                         "text": "Inflict large physical damage on the enemy with the highest physical attack stat; inflict massive physical attack and action speed down.",
                         "action": [
-                            "Inflict 32022 p.dmg to target ",
+                            "Inflict 32265 p.dmg to target ",
                             "Inflict 11124 p.atk down [18s]",
                             "Inflict action speed down on target for a set time "
                         ]
@@ -13506,7 +13506,7 @@
                         "text": "Gain taunt and medium HP heal; Inflict Fear on the enemy with the highest physical attack stat.",
                         "action": [
                             "Gain taunt ",
-                            "Heal 10315 HP ",
+                            "Heal 10405 HP ",
                             "Inflict Fear on target "
                         ]
                     },
@@ -13634,7 +13634,7 @@
             "stats": {
                 "normal": {
                     "hp": 48577,
-                    "atk": 9285,
+                    "atk": 9375,
                     "matk": 20,
                     "def": 926,
                     "mdef": 770,
@@ -25257,10 +25257,10 @@
                         "name": null,
                         "text": "Gain small HP heal. Deploy a physical nullification barrier to all allies; grant small physical def up; grant HP regeneration. The HP healed, physical def strength, and HP regeneration strength is dependent on the number of allies behind Nozomi.",
                         "action": [
-                            "Heal 1182 HP ",
+                            "Heal 1191 HP ",
                             "Deploy a 4120 buffer p.shield [27s]",
                             "Buff party p.def by 31 [27s]",
-                            "Recover 236 HP every second "
+                            "Recover 238 HP every second "
                         ]
                     },
                     "sk1a": {
@@ -25277,7 +25277,7 @@
                         "name": null,
                         "text": "Inflict medium physical damage on the frontmost enemy; inflict freeze.",
                         "action": [
-                            "Inflict 16040 p.dmg to target ",
+                            "Inflict 16148 p.dmg to target ",
                             "Inflict Paralyze on target for a set time "
                         ]
                     },
@@ -25412,7 +25412,7 @@
             "stats": {
                 "normal": {
                     "hp": 47061,
-                    "atk": 10277,
+                    "atk": 10367,
                     "matk": 20,
                     "def": 1036,
                     "mdef": 862,
@@ -31039,7 +31039,7 @@
                         "name": null,
                         "text": "Deploy a field that inflicts small physical damage, poison, and small physical def down on all enemies in range centered on the frontmost enemy.",
                         "action": [
-                            "Inflict 3596 p.dmg to all targets in range (Range: 300)",
+                            "Inflict 3704 p.dmg to all targets in range (Range: 300)",
                             "Inflict 773 DOT poison (Range: 300) [24s]",
                             "Inflict 103 p.def down on all targets in range (Range: 300)[12s]"
                         ]
@@ -31063,7 +31063,7 @@
                         "name": null,
                         "text": "Deploy a field that inflicts small physical damage and paralyse on all enemies in range centered on the frontmost enemy.",
                         "action": [
-                            "Inflict 5994 p.dmg to all targets in range (Range: 300)",
+                            "Inflict 6174 p.dmg to all targets in range (Range: 300)",
                             "Paralyze all targets in range for a set time (Range: 300)"
                         ]
                     },
@@ -31191,11 +31191,11 @@
             "stats": {
                 "normal": {
                     "hp": 34504,
-                    "atk": 12409,
+                    "atk": 12859,
                     "matk": 0,
                     "def": 662,
                     "mdef": 710,
-                    "pCrit": 632,
+                    "pCrit": 712,
                     "mCrit": 0,
                     "wHpRec": 3390,
                     "wTpRec": 87,
@@ -31787,7 +31787,8 @@
                 "ue",
                 "aoe",
                 "ranged",
-                "ailment"
+                "ailment",
+                "flb"
             ],
             "pos": 337,
             "atkptn": [
@@ -31809,7 +31810,7 @@
                 }
             ],
             "img": "https://redive.estertion.win/icon/unit/104031.webp",
-            "img6": null,
+            "img6": "https://redive.estertion.win/icon/unit/104061.webp",
             "basic": {
                 "en": {
                     "id": 1,
@@ -31819,7 +31820,7 @@
                         "name": null,
                         "text": "Inflict medium physical damage on all enemies in range centered on the closest enemy.",
                         "action": [
-                            "Inflict 23649 p.dmg to all targets in range (Range: 150)"
+                            "Inflict 24297 p.dmg to all targets in range (Range: 150)"
                         ]
                     },
                     "uba": {
@@ -31829,8 +31830,13 @@
                     },
                     "ub2": {
                         "name": null,
-                        "text": null,
-                        "action": null
+                        "text": "Inflict medium physical damage on all enemies in range centered on the frontmost enemy; inflict poison. This skill will inflict additional massive physical damage on poisoned targets, then inflict a stronger poison.",
+                        "action": [
+                            "If target is poisoned, inflict 80990 p.dmg on all targets in range (Range: 400)",
+                            "Inflict 5768 DOT poison if target is poisoned (Range: 400) [12s]",
+                            "If target is not poisoned, inflict 24297 p.dmg on all targets in range (Range: 400)",
+                            "Inflict 773 DOT poison if target is not poisoned (Range: 400) [24s]"
+                        ]
                     },
                     "uba2": {
                         "name": null,
@@ -31841,7 +31847,7 @@
                         "name": null,
                         "text": "Inflict medium physical damage on frontmost enemy; inflict poison.",
                         "action": [
-                            "Inflict 19708 p.dmg to target ",
+                            "Inflict 20248 p.dmg to target ",
                             "Inflict 464 DOT poison  [8s]"
                         ]
                     },
@@ -31849,8 +31855,8 @@
                         "name": null,
                         "text": "Inflict medium physical damage on frontmost enemy; inflict poison. Inflict large physical damage instead if target is poisoned; inflict poison.",
                         "action": [
-                            "Inflict 65692 p.dmg if target is poisoned ",
-                            "Inflict 19708 p.dmg if target is not poisoned ",
+                            "Inflict 67492 p.dmg if target is poisoned ",
+                            "Inflict 20248 p.dmg if target is not poisoned ",
                             "Inflict 5768 DOT poison if target is poisoned  [12s]",
                             "Inflict 773 DOT poison if target is not poisoned  [24s]"
                         ]
@@ -31869,7 +31875,7 @@
                         "name": null,
                         "text": "Inflict small physical damage on the frontmost enemy; inflict paralysis.",
                         "action": [
-                            "Inflict 9957 p.dmg to target ",
+                            "Inflict 10227 p.dmg to target ",
                             "Inflict Paralyze on target for a set time "
                         ]
                     },
@@ -31919,8 +31925,8 @@
                         "action": null
                     },
                     "ub2": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u30f4\u30a7\u30ce\u30e0\u30d6\u30eb\u30fc\u30df\u30f3\u30b0",
+                        "text": "\u76ee\u306e\u524d\u306e\u6575\uff11\u30ad\u30e3\u30e9\u3092\u4e2d\u5fc3\u3068\u3057\u305f\u7bc4\u56f2\u5185\u306e\u6575\u3059\u3079\u3066\u306b\u7269\u7406\u4e2d\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3001\u3055\u3089\u306b\u6bd2\u72b6\u614b\u306b\u3059\u308b\u3002\u3053\u306e\u30b9\u30ad\u30eb\u306e\u5bfe\u8c61\u304c\u6bd2\u72b6\u614b\u3060\u3063\u305f\u5834\u5408\u3001\u4ee3\u308f\u308a\u306b\u7269\u7406\u7279\u5927\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3001\u3055\u3089\u306b\u731b\u6bd2\u72b6\u614b\u306b\u3059\u308b\u3002",
                         "action": null
                     },
                     "uba2": {
@@ -32005,11 +32011,11 @@
             "stats": {
                 "normal": {
                     "hp": 30723,
-                    "atk": 13848,
+                    "atk": 14298,
                     "matk": 0,
                     "def": 644,
                     "mdef": 653,
-                    "pCrit": 673,
+                    "pCrit": 753,
                     "mCrit": 0,
                     "wHpRec": 3110,
                     "wTpRec": 130,
@@ -32022,7 +32028,25 @@
                     "tpSave": 2,
                     "acc": 42
                 },
-                "flb": {}
+                "flb": {
+                    "hp": 39117,
+                    "atk": 15923,
+                    "matk": 0,
+                    "def": 778,
+                    "mdef": 791,
+                    "pCrit": 753,
+                    "mCrit": 0,
+                    "wHpRec": 3110,
+                    "wTpRec": 130,
+                    "dodge": 34,
+                    "pPen": 0,
+                    "mPen": 0,
+                    "lifesteal": 6,
+                    "hpRec": 55,
+                    "tpRec": 27,
+                    "tpSave": 2,
+                    "acc": 67
+                }
             },
             "profile": {
                 "age": "13",
@@ -40347,7 +40371,7 @@
                         "name": null,
                         "text": "Inflict large physical damage on the frontmost enemy; inflict poison; inflict large physical def down. ",
                         "action": [
-                            "Inflict 44993 p.dmg to target ",
+                            "Inflict 46073 p.dmg to target ",
                             "Inflict 206 p.def down on target [18s]",
                             "Inflict 1236 DOT poison  [20s]"
                         ]
@@ -40371,16 +40395,16 @@
                         "name": null,
                         "text": "Deploy a field that inflicts physical damage on all enemies in range centered on the frontmost enemy. The DoT increases if targets are poisoned.",
                         "action": [
-                            "Deploy a field that inflicts 9425 p.dmg per second if center target is poisoned (Range: 300)[9s]",
-                            "Deploy a field that inflicts 1885 p.dmg per second if center target is not poisoned (Range: 300)[9s]"
+                            "Deploy a field that inflicts 9650 p.dmg per second if center target is poisoned (Range: 300)[9s]",
+                            "Deploy a field that inflicts 1930 p.dmg per second if center target is not poisoned (Range: 300)[9s]"
                         ]
                     },
                     "sk1p": {
                         "name": null,
                         "text": "Deploy a field that inflicts physical damage and small physical def down on all enemies in range centered on the frontmost enemy. The DoT increases if targets are poisoned.",
                         "action": [
-                            "Deploy a field that inflicts 15410 p.dmg per second if center target is poisoned (Range: 300)[9s]",
-                            "Deploy a field that inflicts 1885 p.dmg per second if center target is not poisoned (Range: 300)[9s]",
+                            "Deploy a field that inflicts 15770 p.dmg per second if center target is poisoned (Range: 300)[9s]",
+                            "Deploy a field that inflicts 1930 p.dmg per second if center target is not poisoned (Range: 300)[9s]",
                             "Inflict 92 p.def down on all targets within field  [8.5s]"
                         ]
                     },
@@ -40399,7 +40423,7 @@
                         "text": "Inflict medium physical def down on the frontmost enemy. If the target is poisoned, additionally inflict medium physical damage",
                         "action": [
                             "Inflict 144 p.def down on target [12s]",
-                            "inflict 29995 p.dmg if target is poisoned "
+                            "inflict 30715 p.dmg if target is poisoned "
                         ]
                     },
                     "sk2a": {
@@ -40531,11 +40555,11 @@
             "stats": {
                 "normal": {
                     "hp": 27051,
-                    "atk": 16172,
+                    "atk": 16622,
                     "matk": 0,
                     "def": 381,
                     "mdef": 474,
-                    "pCrit": 1336,
+                    "pCrit": 1416,
                     "mCrit": 0,
                     "wHpRec": 3135,
                     "wTpRec": 135,
