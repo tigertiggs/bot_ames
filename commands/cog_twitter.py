@@ -122,6 +122,7 @@ class twitterCog(commands.Cog):
             else:
                 await self.logger.send(self.name, 'return code', payload["status"])
                 await self.logger.send(payload)
+                await self.logger.send(f'```{service}```')
 
     @listener.before_loop
     async def before_listener(self):
