@@ -13149,7 +13149,8 @@
                 "patk_up",
                 "atkspd_up",
                 "self_buff",
-                "ailment"
+                "ailment",
+                "ue"
             ],
             "pos": 127,
             "atkptn": [
@@ -13187,7 +13188,7 @@
                         "name": null,
                         "text": "Inflict massive physical damage on the frontmost enemy; gain large physical attack and attack speed up.",
                         "action": [
-                            "Inflict 84471 p.dmg to target ",
+                            "Inflict 89668 p.dmg to target ",
                             "Gain 6489 p.atk up [18s]",
                             "Gain action speed up "
                         ]
@@ -13211,14 +13212,18 @@
                         "name": null,
                         "text": "Inflict medium physical damage on the frontmost enemy; inflict burn. Burn damage increases proportionally to Jun's physical attack stat.",
                         "action": [
-                            "Inflict 26501 p.dmg to target ",
+                            "Inflict 28131 p.dmg to target ",
                             "Inflict 1236 burn damage  [7s]"
                         ]
                     },
                     "sk1p": {
                         "name": null,
-                        "text": null,
-                        "action": null
+                        "text": "Gain small physical attack up; inflict large physical damage on the frontmost enemy; inflict burn. Burn damage increases proportionally to Jun's physical attack stat.",
+                        "action": [
+                            "Gain 1236 p.atk up [180s]",
+                            "Inflict 47471 p.dmg to target ",
+                            "Inflict 1854 burn damage  [7s]"
+                        ]
                     },
                     "sk1a": {
                         "name": null,
@@ -13234,7 +13239,7 @@
                         "name": null,
                         "text": "Inflict large physical damage on the frontmost enemy.",
                         "action": [
-                            "Inflict 37241 p.dmg to target "
+                            "Inflict 39534 p.dmg to target "
                         ]
                     },
                     "sk2a": {
@@ -13297,8 +13302,8 @@
                         "action": null
                     },
                     "sk1p": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u30d2\u30fc\u30c8\u30b9\u30d1\u30a4\u30af+",
+                        "text": "\u81ea\u5206\u306e\u7269\u7406\u653b\u6483\u529b\u3092\u5c0f\u30a2\u30c3\u30d7\u3055\u305b\u3001\u76ee\u306e\u524d\u306e\u6575\uff11\u30ad\u30e3\u30e9\u306b\u7269\u7406\u5927\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3001\u3055\u3089\u306b\u706b\u50b7\u72b6\u614b\u306b\u3059\u308b\u3002\u706b\u50b7\u306e\u30c0\u30e1\u30fc\u30b8\u306f\u3001\u3053\u306e\u30ad\u30e3\u30e9\u306e\u7269\u7406\u653b\u6483\u529b\u306b\u5fdc\u3058\u3066\u5897\u52a0\u3059\u308b\u3002",
                         "action": null
                     },
                     "sk1a": {
@@ -13345,23 +13350,28 @@
                 }
             },
             "ue": {
-                "id": null,
+                "id": 131361,
                 "rank": null,
-                "img": null,
-                "stats": {},
+                "img": "https://redive.estertion.win/icon/equipment/131361.webp",
+                "stats": {
+                    "hp": 100,
+                    "hp_growth": 5,
+                    "atk": 89,
+                    "atk_growth": 4.45
+                },
                 "en": {
-                    "name": null,
+                    "name": "Summer Chevalier Sword",
                     "text": null
                 },
                 "jp": {
-                    "name": null,
-                    "text": null
+                    "name": "\u30b5\u30de\u30fc\u30b7\u30e5\u30d0\u30ea\u30a8\u30bd\u30fc\u30c9",
+                    "text": "\u30b8\u30e5\u30f3\u304c\u975e\u756a\u3092\u6d77\u3067\u904e\u3054\u3059\u305f\u3081\u306b\u3042\u3064\u3089\u3048\u305f\u6dbc\u3084\u304b\u306a\u5927\u5263\u3002\u898b\u305f\u76ee\u306b\u53cd\u3057\u3066\u3001\u653e\u305f\u308c\u308b\u65ac\u6483\u306f\u771f\u590f\u306e\u592a\u967d\u306e\u3054\u3068\u304f\u707c\u71b1\u3002"
                 }
             },
             "stats": {
                 "normal": {
-                    "hp": 38949,
-                    "atk": 13988,
+                    "hp": 40094,
+                    "atk": 15007,
                     "matk": 10,
                     "def": 551,
                     "mdef": 505,
@@ -26875,7 +26885,8 @@
                 "self_sust",
                 "tp_up",
                 "self_harm",
-                "aoe"
+                "aoe",
+                "ue"
             ],
             "pos": 245,
             "atkptn": [
@@ -26912,7 +26923,7 @@
                         "name": null,
                         "text": "Inflict large magic damage to all enemies and gain [sleeping] state. This state will persist until Hatsune is attacked.",
                         "action": [
-                            "Inflict 61135 m.dmg on all targets ",
+                            "Inflict 64563 m.dmg on all targets ",
                             "Cannot perform actions (self) "
                         ]
                     },
@@ -26935,14 +26946,17 @@
                         "name": null,
                         "text": "Inflict small magic damage to all enemies; gain small TP heal. The TP recovered is proportional to the number of enemies in range.",
                         "action": [
-                            "Inflict 14385 m.dmg on all targets ",
+                            "Inflict 15191 m.dmg on all targets ",
                             "Gain 255 TP "
                         ]
                     },
                     "sk1p": {
                         "name": null,
-                        "text": null,
-                        "action": null
+                        "text": "Inflict medium magic on all enemies; gain medium TP recovery. Damage dealt and TP recovered is proportional to the number of enemies in range.",
+                        "action": [
+                            "Inflict 22787 m.dmg on all targets ",
+                            "Gain 255 TP "
+                        ]
                     },
                     "sk1a": {
                         "name": null,
@@ -27018,12 +27032,12 @@
                     },
                     "sk1": {
                         "name": "\u30dd\u30f3\u30dd\u30f3\u30a8\u30fc\u30eb\u2606\u30b7\u30e5\u30fc\u30c8",
-                        "text": "\u6575\u5168\u4f53\u306b\u9b54\u6cd5\u5c0f\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3001\u3055\u3089\u306b\u81ea\u5206\u306e\uff34\uff30\u3092\u5c0f\u56de\u5fa9\u3059\u308b\u3002\u6575\u306e\u6570\u306b\u5fdc\u3058\u3066\uff34\uff30\u306e\u56de\u5fa9\u91cf\u304c\u5897\u52a0\u3059\u308b\u3002",
+                        "text": "\u6575\u5168\u4f53\u306b\u9b54\u6cd5\u5c0f\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3001\u3055\u3089\u306b\u81ea\u5206\u306e\uff34\uff30\u3092\u4e2d\u56de\u5fa9\u3059\u308b\u3002\u6575\u306e\u6570\u306b\u5fdc\u3058\u3066\uff34\uff30\u306e\u56de\u5fa9\u91cf\u304c\u5897\u52a0\u3059\u308b\u3002",
                         "action": null
                     },
                     "sk1p": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u30dd\u30f3\u30dd\u30f3\u30a8\u30fc\u30eb\u2606\u30b7\u30e5\u30fc\u30c8+",
+                        "text": "\u6575\u5168\u4f53\u306b\u9b54\u6cd5\u4e2d\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3001\u3055\u3089\u306b\u81ea\u5206\u306e\uff34\uff30\u3092\u4e2d\u56de\u5fa9\u3059\u308b\u3002\u6575\u306e\u6570\u306b\u5fdc\u3058\u3066\u4e0e\u3048\u308b\u30c0\u30e1\u30fc\u30b8\u3068\uff34\uff30\u306e\u56de\u5fa9\u91cf\u304c\u5897\u52a0\u3059\u308b\u3002",
                         "action": null
                     },
                     "sk1a": {
@@ -27070,28 +27084,33 @@
                 }
             },
             "ue": {
-                "id": null,
+                "id": 131341,
                 "rank": null,
-                "img": null,
-                "stats": {},
+                "img": "https://redive.estertion.win/icon/equipment/131341.webp",
+                "stats": {
+                    "matk": 88,
+                    "matk_growth": 4.4,
+                    "mCrit": 13,
+                    "mCrit_growth": 0.65
+                },
                 "en": {
-                    "name": null,
+                    "name": "Glitter Stars \u2606 Pompom",
                     "text": null
                 },
                 "jp": {
-                    "name": null,
-                    "text": null
+                    "name": "\u30b0\u30ea\u30c3\u30bf\u30fc\u30b9\u30bf\u30fc\u30ba\u2606\u30dd\u30f3\u30dd\u30f3",
+                    "text": "\u30cf\u30c4\u30cd\u304c\u9752\u6625\u306b\u5168\u3066\u3092\u6367\u3050\u8005\u3078\u3001\u7dba\u7f85\u661f\u306e\u30a8\u30fc\u30eb\u3092\u653e\u3064\u30dd\u30f3\u30dd\u30f3\u3002\u4e03\u8272\u306e\u5fdc\u63f4\u306f\u6d77\u8fba\u3092\u5f69\u308a\u3001\u3069\u3093\u306a\u9006\u5883\u3082\u4e57\u308a\u8d8a\u3048\u3066\u3001\u5922\u3078\u306e\u9053\u3092\u5207\u308a\u62d3\u304f\u3002"
                 }
             },
             "stats": {
                 "normal": {
                     "hp": 28466,
                     "atk": 0,
-                    "matk": 15406,
+                    "matk": 16414,
                     "def": 347,
                     "mdef": 474,
                     "pCrit": 0,
-                    "mCrit": 1335,
+                    "mCrit": 1484,
                     "wHpRec": 1280,
                     "wTpRec": 339,
                     "dodge": 0,
@@ -43402,7 +43421,9 @@
                 "mshield",
                 "mdef_up",
                 "pdef_up",
-                "heal"
+                "heal",
+                "ue",
+                "special"
             ],
             "pos": 309,
             "atkptn": [
@@ -43464,13 +43485,18 @@
                         "text": "Grant large magic def up to the immediate ally in front of Misato; grant continuous HP recovery state.",
                         "action": [
                             "Buff 258 m.def on target [12s]",
-                            "Recover 1922 HP every second "
+                            "Recover 1974 HP every second "
                         ]
                     },
                     "sk1p": {
                         "name": null,
-                        "text": null,
-                        "action": null
+                        "text": "Grant large magic def up to the immediately ally in front of Misato; grant continuous HP recovery state. If the ally is a physical attacker, grant large magic def up, otherwise grant large physical def up.",
+                        "action": [
+                            "Buff 258 m.def on target [12s]",
+                            "Recover 2618 HP every second ",
+                            "If target is a p.attacker, grant 258 m.def up on an ally [12s]",
+                            "If target is a m.attacker, grant 258 p.def up on an ally [12s]"
+                        ]
                     },
                     "sk1a": {
                         "name": null,
@@ -43551,8 +43577,8 @@
                         "action": null
                     },
                     "sk1p": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u30d2\u30fc\u30ea\u30f3\u30b0\u30c9\u30ea\u30f3\u30af+",
+                        "text": "\u4e00\u756a\u524d\u306e\u5473\u65b9\uff11\u30ad\u30e3\u30e9\u306e\u9b54\u6cd5\u9632\u5fa1\u529b\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u3001\u3055\u3089\u306b\u7d99\u7d9a\uff28\uff30\u56de\u5fa9\u72b6\u614b\u3092\u4ed8\u4e0e\u3059\u308b\u3002\u5bfe\u8c61\u304c\u7269\u7406\u653b\u6483\u3092\u3059\u308b\u30ad\u30e3\u30e9\u306e\u5834\u5408\u3055\u3089\u306b\u9b54\u6cd5\u9632\u5fa1\u529b\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u3001\u9b54\u6cd5\u653b\u6483\u3092\u3059\u308b\u5834\u5408\u7269\u7406\u9632\u5fa1\u529b\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
                         "action": null
                     },
                     "sk1a": {
@@ -43599,26 +43625,33 @@
                 }
             },
             "ue": {
-                "id": null,
+                "id": 131351,
                 "rank": null,
-                "img": null,
-                "stats": {},
+                "img": "https://redive.estertion.win/icon/equipment/131351.webp",
+                "stats": {
+                    "matk": 30,
+                    "matk_growth": 1.5,
+                    "mdef": 12,
+                    "mdef_growth": 0.6,
+                    "tpRec": 2,
+                    "tpRec_growth": 0.1
+                },
                 "en": {
-                    "name": null,
+                    "name": "Beach Venus Megaphone",
                     "text": null
                 },
                 "jp": {
-                    "name": null,
-                    "text": null
+                    "name": "\u30d3\u30fc\u30c1\u30d3\u30fc\u30ca\u30b9\u30e1\u30ac\u30db\u30f3",
+                    "text": "\u30df\u30b5\u30c8\u304c\u9752\u6625\u306b\u5168\u3066\u3092\u6367\u3050\u8005\u3078\u3001\u6148\u611b\u306e\u58f0\u3092\u5c4a\u3051\u308b\u30e1\u30ac\u30db\u30f3\u3002\u6d77\u8fba\u306e\u8056\u6bcd\u306e\u5fdc\u63f4\u306f\u3001\u4f53\u306e\u5e95\u304b\u3089\u529b\u3092\u6e67\u304d\u4e0a\u304c\u3089\u305b\u3001\u5922\u306b\u5411\u304b\u3046\u5f8c\u62bc\u3057\u3092\u3059\u308b\u3002"
                 }
             },
             "stats": {
                 "normal": {
                     "hp": 32429,
                     "atk": 0,
-                    "matk": 11099,
+                    "matk": 11443,
                     "def": 601,
-                    "mdef": 842,
+                    "mdef": 979,
                     "pCrit": 0,
                     "mCrit": 385,
                     "wHpRec": 1710,
@@ -43628,7 +43661,7 @@
                     "mPen": 0,
                     "lifesteal": 0,
                     "hpRec": 157,
-                    "tpRec": 17,
+                    "tpRec": 40,
                     "tpSave": 21,
                     "acc": 0
                 },

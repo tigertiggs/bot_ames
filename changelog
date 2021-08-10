@@ -1,4 +1,8 @@
 {
+    "4.13.9: [
+        "+ [phatsune] added ue for s.hatusne, s.jun, s.misato",
+        "+ [cb] implemented new green queue"
+    ]
     "4.13.8": [
         "+ [phatsune] added aoi flb"
     ],

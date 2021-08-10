@@ -160,6 +160,13 @@ class cbCog(commands.Cog):
         for guild_name, ids in alt:
             if top_id in ids:
                 return self.config['guilds'][guild_name]
+        
+        # if above fails, stop at the first role that matches
+        for role in author.roles:
+            for guild_name, ids in alt:
+                if int(role.id) in ids:
+                    return self.config['guilds'][guild_name]
+
         return None
 
     @cbtag.command(
@@ -336,8 +343,395 @@ class cbCog(commands.Cog):
             await role.edit(name=reset_names[i])
         await channel.send(self.client.emotes['sarenh'])
 
-    @commands.command(aliases=['q'])
+    @commands.command(aliases=['q', 'ot'])
     async def queue(self, ctx, *options):
+        guild_name = self.get_member_guild(ctx.message.author)
+        if guild_name['colour'] == 'red':
+            await self.red_queue(ctx, options)
+        elif guild_name['colour']  == 'green':
+            await self.green_queue(ctx, options)
+
+    async def green_queue(self, ctx, options):
+        channel = ctx.message.channel
+        author = ctx.message.author
+
+        if not options:
+            msg = await channel.send(embed=self.display_green_queue(author))
+            await asyncio.sleep(60)
+            await msg.edit(content="This queue list has expired "+self.client.emotes['ames'], embed=None)
+            return
+        
+        # check inputs
+        if ctx.invoked_with == 'ot':
+            mode = 'ot'
+        else:
+            if options[0].lower() == 'ot':
+                mode = 'ot'
+                options = options[1:]
+            elif options[0].lower() == 'reset':
+                self.save_qfile([[],[],[],[],[]], [], [1,1,1,1,1])
+                await channel.send("Reset all records")
+                return
+            elif options[0] == 'help':
+                # FIXME
+                pass
+            else:
+                mode = 'q'
+        
+        if not options:
+            await channel.send("No inputs detected. See `.q help` if you need help")
+            return
+
+        if options[0] == 'remove':
+            remove = True
+        else:
+            remove = False
+        
+        # process inputs
+        # queue entry:  {'id': discord_id, 'type': 'q','boss':boss_number, 'wave': wave_number}
+        # ot entry:     {'id': discord_id, 'type': 'ot', 'ot': seconds}
+        try:
+            with open(os.path.join(self.client.dir, self.client.config['cb_green_q_path']), "r") as qf:
+                q = json.load(qf)   
+        except:
+            q = {'q':[], 'min_wave': [1,1,1,1,1]}
+        
+        boss_q, ots, min_wave = self.process_qfile(q)
+
+        if mode == 'q' and not remove:
+            try:
+                req_boss_num = int(options[0])
+                if req_boss_num > 5 or req_boss_num < 1:
+                    await channel.send("Requested boss number out of range!")
+                    return    
+            except:
+                await channel.send("Failed to parse inputs!")
+                return
+            
+            if 'kill' in options or 'x' in options: 
+                # sanity check
+                options = options[:-1] # expect cmd to be of form .q boss_num x
+                if len(options) > 1:
+                    await channel.send("Too many inputs in kill announce!")
+                    return
+
+                # check
+                current_wave = min_wave[req_boss_num - 1]
+                req_boss_q = [entry['id'] for entry in boss_q[req_boss_num - 1] if entry['wave'] == current_wave]
+
+                if not author.id in req_boss_q and self.client._check_author(author, 'admin'):
+                    await channel.send('You cannot announce the kill for a boss you do not have an active queue in!')
+                    return
+                elif len(req_boss_q) > 1:
+                    def check(msg):
+                        return msg.author == author and msg.channel == channel
+
+                    await channel.send('There are other active queues for this boss-wave besides yourself. Proceed with kill announcement? `y/n`')
+                    while True:
+                        try:
+                            reply = await self.client.wait_for('message', check=check, timeout=30)
+                        except asyncio.TimeoutError:
+                            await channel.send('Cancelled')
+                            return
+                        else:
+                            if reply.contentstartswith('y'):
+                                break
+                            else:
+                                await channel.send('Cancelled')
+                                return
+                
+                # remove everyone from queue
+                boss_q[req_boss_num-1] = [i for i in boss_q[req_boss_num-1] if not i['wave'] == current_wave]
+
+                current_wave += 1
+                min_wave[req_boss_num - 1] = current_wave
+                await channel.send(f"Boss {req_boss_num} dead. Incrementing wave to {current_wave}")
+
+                # fetch waiting list
+                req_boss_q = [f"<@!{entry['id']}>" for entry in boss_q[req_boss_num - 1] if entry['wave'] == current_wave]
+                if len(req_boss_q) > 0:
+                    await channel.send("Standby " + ' '.join(req_boss_q))
+            
+            elif ('setwave' in options and self.client._check_author(author, 'admin')):
+                # .q req_boss_num setwave wave_num
+                try:
+                    req_wave = int(options[2])
+                except:
+                    await channel.send("Could not read 2nd input!")
+                    return
+                
+                await channel.send(f'Set boss {req_boss_num} current wave to {req_wave} from {min_wave[req_boss_num-1]}')
+                min_wave[req_boss_num-1] = req_wave
+
+            else: #if not ('kill' in options or 'x' in options or 'setwave' in options):
+                boss_min_wave = min_wave[req_boss_num - 1]
+                if options[-1].lower().startswith('d'):
+                    done = True
+                    options = options[:-1]
+                else: 
+                    done = False
+
+                if len(options) > 1:
+                    try:
+                        req_wave = int(options[1])
+                    except:
+                        await channel.send("Could not read 2nd input!")
+                        return
+
+                    if req_wave < boss_min_wave:
+                        await channel.send(f"Minimum wave for requested boss is {boss_min_wave}")
+                        return
+                else:
+                    req_wave = boss_min_wave
+
+                # check if its to queue or unqueue
+                active_q = [entry['id'] for entry in boss_q[req_boss_num-1] if entry['wave'] == req_wave]
+
+                if author.id in active_q and done:
+                    boss_q[req_boss_num-1].pop(boss_q[req_boss_num-1].index([i for i in boss_q[req_boss_num-1] if i['id'] == author.id and i['wave'] == req_wave][0]))
+                    await channel.send(f"Unqueued for boss {req_boss_num} wave {req_wave}")
+
+                elif author.id in active_q and not done:
+                    await channel.send(f"You are already queued for boss {req_boss_num} wave {req_wave}!")
+                    return
+                
+                elif not author in active_q and done:
+                    await channel.send(f"You are not queued for boss {req_boss_num} wave {req_wave}!")
+                    return
+
+                else:
+                    if req_wave - boss_min_wave > 2:
+                        await channel.send("Caution: The difference between your requested wave and current wave is more than 2")
+                    boss_q[req_boss_num-1].append({'id':author.id, 'mode':'q', 'boss':req_boss_num, 'wave':req_wave})
+                    await channel.send(f"Queued for boss {req_boss_num} wave {req_wave}")
+                
+        elif mode == 'ot' and not remove: # ot mode
+            try:
+                ot_time = int(options[0])
+            except:
+                await channel.send("Could not read OT time!")
+                return
+
+            if len(options) == 1:
+                ot_mode = 'append'
+            else:
+                try:
+                    if options[1].lower().startswith('d') or options[1].lower().startswith('x'):
+                        ot_mode = 'remove'
+                    else:
+                        await channel.send(f"Unknown option `{options[1]}`")
+                        return
+                except:
+                    await channel.send("Could not read 2nd input!")
+                    return
+            
+            if ot_mode == 'append':
+                if len([i for i in ots if i['id'] == author.id]) >= 3:
+                    await channel.send("You already have 3 OT records!")
+                    return
+                else:
+                    ots.append({'id':author.id, 'mode':'ot', 'ot':ot_time})
+                    await channel.send(self.client.emotes['sarenh'])
+            else:
+                records = [i for i in ots if (i['id'] == author.id and i['ot'] == ot_time)]
+                if len(records) == 0:
+                    await channel.send("No OT records with specified time and your name to remove")
+                    return
+                else:
+                    ots.pop(ots.index(records[0]))
+                    await channel.send(self.client.emotes['sarenh'])
+        
+        elif remove and self.client._check_author(author, 'admin'): # remove
+            # .q remove @member boss wave
+            # .q remove @member boss
+            # .q remove @member
+            # .q remove boss wave
+            # .q remove boss
+
+            # .q ot remove @member ot_time
+            # .q ot remove
+
+            # .ot remove @member ot_time
+            # .ot remove
+
+            options = options[1:]
+
+            target_id = None
+            if options[0].startswith('<'):
+                try:
+                    target_id = int(options[0][3:-1])
+                except:
+                    await channel.send("Failed to read target user id!")
+                    return
+
+                options = options[1:]
+
+            if mode == 'q':
+                #if not options:
+                #    await channel.send("No inputs detected. Cancelling.")
+                #    return
+                
+                boss, wave = None, None
+                if len(options) > 0:
+                    try:
+                        boss = int(options[0])
+                    except:
+                        await channel.send("Failed to read boss number!")
+                        return
+                if len(options) > 1:
+                    try:
+                        wave = int(options[1])
+                    except:
+                        await channel.send("Failed to read wave number!")
+                        return
+
+                if boss is None and wave is None and target_id is None:
+                    await channel.send("No target boss and wave specified. If you want to wipe everything (including OT and minwave), use `.q reset` "+self.client.emotes['ames'])
+                    return
+
+                if not target_id is None:
+                    target = [i for i in q['q'] if (i['mode'] == 'q' and i['id'] == target_id)]
+                else:
+                    target = q['q'].copy()
+
+                if not boss is None:
+                    target = [i for i in target if i['boss'] == boss]
+
+                if not wave is None:
+                    target = [i for i in target if i['wave'] == wave]
+        
+            else:
+                if len(options) == 0:
+                    target = [i for i in q['q'] if i['mode'] == 'ot']
+                
+                if not target_id is None:
+                    target = [i for i in target if i['id'] == target_id]
+            
+            for entry in target:
+                q['q'].pop(q['q'].index(entry))
+            
+            await channel.send(f"Removed {len(target)} entries from {'queue' if mode == 'q' else 'OT'} list")
+            boss_q, ots, min_wave = self.process_qfile(q)
+
+        # save
+        self.save_qfile(boss_q, ots, min_wave)
+    
+    def display_green_queue(self, author):
+        try:
+            with open(os.path.join(self.client.dir, self.client.config['cb_green_q_path']), "r") as qf:
+                q = json.load(qf)   
+        except:
+            q = {'q':[], 'min_wave': [1,1,1,1,1]}
+        
+        boss_q, ots, min_wave = self.process_qfile(q)
+
+        embed=discord.Embed(
+            title="Clan Battle Queue",
+            description=f"Green's current CB queue. Use `.q help` if you need help. Happy Clan Battling!",
+            colour=self.colour,
+            timestamp=datetime.datetime.utcnow()
+        )
+        embed.set_footer(text='CB Queue | Re:Re:Write Ames',icon_url=self.client.user.avatar_url)
+
+        icons = [":one:",":two:",":three:",":four:",":five:"]
+        roles = [self.get_role(r) for r in self.config['boss_roles']]
+
+        embed.add_field(
+            name=SPACE,
+            value=f"Global minimum wave: {min(min_wave)}",
+            inline=False
+        )
+
+        for i in range(5):
+            embed.add_field(
+                name=SPACE,
+                value=f"{icons[i]} **{roles[i].name}**\nActive wave(現在の周目): **{min_wave[i]}**",
+                inline=False
+            )
+
+            if not boss_q[i]:
+                continue
+
+            active = boss_q[i]
+            active.sort(key=lambda x: (x['wave'], author.guild.get_member(x['id']).name))
+
+            embed.add_field(
+                name="No.",
+                value="\n".join([str(j) for j in range(1,len(active)+1)]),
+                inline=True
+            )
+            embed.add_field(
+                name="Name",
+                value='\n'.join([author.guild.get_member(i['id']).name for i in active]),
+                inline=True
+            )
+            waves = []
+            for entry in active:
+                wave = entry['wave']
+                if wave == min_wave[i]:
+                    waves.append(f"{wave} (current wave)")
+                elif wave - min_wave[i] > 2:
+                    waves.append(f"{wave} (outside minwave)")
+                else:
+                    waves.append(str(wave))
+
+            embed.add_field(
+                name="Wave",
+                value="\n".join(waves)
+            )
+
+        embed.add_field(
+            name=SPACE,
+            value=f"**Overtimes(残り時間)**",
+            inline=False
+        )
+
+        temp = {}
+        for entry in ots:
+            name = author.guild.get_member(entry['id']).name
+            temp[name] = temp.get(name, []) + [str(entry['ot'])]
+            temp[name].sort()
+        
+        temp = sorted(list(temp.items()))
+
+        embed.add_field(
+            name="No.",
+            value="\n".join([str(i) for i in range(1, len(temp)+1)]) if len(temp) > 0 else "-",
+            inline=True
+        )
+        embed.add_field(
+            name="Name",
+            value="\n".join([i[0] for i in temp]) if len(ots) > 0 else "-",
+            inline=True
+        )
+        embed.add_field(
+            name="Seconds",
+            value="\n".join([", ".join(i[1]) for i in temp]) if len(ots) > 0 else "-",
+            inline=True
+        )
+
+        return embed
+
+    def save_qfile(self, boss_q, ots, min_wave):
+        merge = []
+        for i in boss_q:
+            merge += i
+        d = {'q':merge + ots, 'min_wave':min_wave}
+        with open(os.path.join(self.client.dir, self.client.config['cb_green_q_path']), "w+") as qf:
+            qf.write(json.dumps(d, indent=4))
+        
+    def process_qfile(self, q):
+        boss_queues = [[],[],[],[],[]]
+        ots = []
+        for queue_entry in q['q']:
+            if queue_entry['mode'] == 'q':
+                boss_queues[queue_entry['boss']-1].append(queue_entry)
+            else:
+                ots.append(queue_entry)
+        
+        return boss_queues, ots, q['min_wave']
+
+    async def red_queue(self, ctx, options):
         channel = ctx.message.channel
         author = ctx.message.author
         guild_id = str(ctx.message.author.guild.id)
