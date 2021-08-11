@@ -164,7 +164,7 @@ class cbCog(commands.Cog):
         # if above fails, stop at the first role that matches
         for role in author.roles:
             for guild_name, ids in alt:
-                if int(role.id) in ids:
+                if role.id in ids:
                     return self.config['guilds'][guild_name]
 
         return None
@@ -373,8 +373,8 @@ class cbCog(commands.Cog):
                 await channel.send("Reset all records")
                 return
             elif options[0] == 'help':
-                # FIXME
-                pass
+                await channel.send(embed=self.green_queue_help(author))
+                return
             else:
                 mode = 'q'
         
@@ -382,10 +382,12 @@ class cbCog(commands.Cog):
             await channel.send("No inputs detected. See `.q help` if you need help")
             return
 
+        remove = False
+        crew_clear_all = False
         if options[0] == 'remove':
             remove = True
-        else:
-            remove = False
+        elif options[0].startswith('d'):
+            crew_clear_all = True
         
         # process inputs
         # queue entry:  {'id': discord_id, 'type': 'q','boss':boss_number, 'wave': wave_number}
@@ -395,7 +397,15 @@ class cbCog(commands.Cog):
                 q = json.load(qf)   
         except:
             q = {'q':[], 'min_wave': [1,1,1,1,1]}
-        
+
+        # if clear all flag
+        if crew_clear_all:
+            q['q'] = [i for i in q['q'] if not (i['id'] == author.id and i['mode'] == mode)]
+            await channel.send(f"Withdrawn all entries from {'queues' if mode == 'q' else 'OT list'}")
+            with open(os.path.join(self.client.dir, self.client.config['cb_green_q_path']), "w+") as qf:
+                qf.write(json.dumps(q, indent=4))
+            return   
+
         boss_q, ots, min_wave = self.process_qfile(q)
 
         if mode == 'q' and not remove:
@@ -601,11 +611,22 @@ class cbCog(commands.Cog):
                     target = [i for i in target if i['wave'] == wave]
         
             else:
+                base = [i for i in q['q'] if i['mode'] == 'ot']
                 if len(options) == 0:
-                    target = [i for i in q['q'] if i['mode'] == 'ot']
-                
-                if not target_id is None:
-                    target = [i for i in target if i['id'] == target_id]
+                    target = base
+                    target_time = None
+                else:
+                    try: 
+                        target_time = int(options[0])
+                    except:
+                        await channel.send("Could not read ot_seconds!")
+                        return
+                    
+                if not (target_id is None):
+                    target = [i for i in base if i['id'] == target_id]
+
+                    if not (target_time is None):
+                        target = [i for i in target if i['ot'] == target_time][:1] # pick one only
             
             for entry in target:
                 q['q'].pop(q['q'].index(entry))
@@ -730,6 +751,86 @@ class cbCog(commands.Cog):
                 ots.append(queue_entry)
         
         return boss_queues, ots, q['min_wave']
+
+    def green_queue_help(self, author):
+        embed=discord.Embed(
+            title="CB Queue Help",
+            description="Help section for Green clan clan battle queue.",
+            timestamp=datetime.datetime.utcnow(),
+            colour=self.colour
+        )
+        embed.set_footer(text='CB Queue Help | Re:Re:Write Ames',icon_url=self.client.user.avatar_url)
+        embed.add_field(
+            name="Syntax (queueing)",
+            value="`.q [boss_num] optional[wave] optional[options]`",
+            inline=False
+        )
+        embed.add_field(
+            name="Usage",
+            value="\n".join([
+                "1) To add yourself to a queue, use `.q [boss] [wave]`. If `[wave]` is omitted, it will default to the current wave.",
+                "2) To remove yourself from a queue, use `.q [boss] [wave] done`. If `[wave]` is omitted, it will default to the current wave. Alternatively, use `.q done` to remove yourself completely from all queues (but not OT list).",
+                "3) To announce a boss kill (which will increment the current boss wave), use `.q [boss] x` or `.q [boss] kill`. If the kill announcement is valid, all queues for specified boss-wave will be removed automatically."
+            ])
+        )
+        embed.add_field(
+            name="Syntax (OT listing)",
+            value="`.q ot [ot_seconds] optional[options]`\nOR\n`.ot [ot_seconds] optional[options]`",
+            inline=False
+        )
+        embed.add_field(
+            name="Usage",
+            value="\n".join([
+                "1) To add yourself to the OT list, use `.q ot [ot_seconds]`.",
+                "2) To remove yourself from the OT list, use `.q ot [chosen ot seconds] done`. Alternatively, use `.q ot done` to remove yourself from all your entries to OT list (but not boss queues)."
+            ]),
+            inline=False
+        )
+        if self.client._check_author(author, 'admin'):
+            embed.add_field(
+                name="Removing entries (Admin)",
+                value="`.q remove [@member] [boss] [wave]`\n`.q ot remove [@member] [ot_seconds]`\n`.ot remove [@member] [ot_seconds]`",
+                inline=False
+            )
+            """
+            embed.add_field(
+                name="Usage",
+                value="\n".join([
+                    "1) To remove `[@member]`'s records from a certain boss-wave, use `.q remove [@member] [boss] [wave]`",
+                    "2) To remove `[@member]`'s records from a certain boss, use `.q remove [@member] [boss]`",
+                    "The above 2 commands can omit `[@member]` to remove all queues from a target boss-wave",
+                    "3) To remove `[@member]`'s records from all queues, use `.q remove [@member]`",
+                    "4) To remove `[@member]`'s certain OT entry, use `.q ot remove [@member] [ot_seconds]` or its alias",
+                    "5) To remove `[@member]`'s every OT entry, use `.q ot remove [@member]` or its alias",
+                    "6) To remove all OT entries, use `.q ot remove` or its alias"
+                ]),
+                inline=False
+            )
+            """
+            embed.add_field(
+                name="Notes",
+                value="\n".join([
+                    "- When removing from queues, only `[boss]` is required, `[@member]` and `[wave]` are optional.",
+                    "- When removing from OT list, you must specify `[@member]`, `[ot_seconds]` is optional."
+                ]),
+                inline=False
+            )
+            embed.add_field(
+                name="Setting wave (Admin)",
+                value="`.q [boss] setwave [wave]`",
+                inline=False
+            )
+            embed.add_field(
+                name="Reset all (Admin)",
+                value="`.q reset`",
+                inline=False
+            )
+            embed.add_field(
+                name="Notes",
+                value="- This will clear all records such as queues and OT listings, as well as set all boss waves to 1",
+                inline=False
+            )
+        return embed
 
     async def red_queue(self, ctx, options):
         channel = ctx.message.channel
