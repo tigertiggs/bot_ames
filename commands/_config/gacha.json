@@ -10,11 +10,11 @@
     "ssr_rate_up": 0.007,
     "sr_rate_up": 0,
     "r_rate_up": 0,
-    "prifes": 0,
+    "prifes": 1,
     "double": 0,
     "pools": {
         "lim": [
-            "3S.Nozomi"
+            "3S.Chika"
         ],
         "r": [
             "Rei",

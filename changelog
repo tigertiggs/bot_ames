@@ -1,4 +1,8 @@
 {
+    "4.13.10": [
+        "+ [phatsune] added s.chika",
+        "+ [phatsune] equipment update"
+    ],
     "4.13.9: [
         "+ [phatsune] added ue for s.hatusne, s.jun, s.misato",
         "+ [cb] implemented new green queue"

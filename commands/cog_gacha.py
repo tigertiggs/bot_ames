@@ -568,7 +568,7 @@ class gachaCog(commands.Cog):
         )
         embed.add_field(
             name="Doubled SSR Rate",
-            value="True" if self.pool.double else "False",
+            value="True" if self.pool.double or self.pool.prifes else "False",
             inline=False
         )
         embed.add_field(
