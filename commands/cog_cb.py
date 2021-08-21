@@ -415,8 +415,11 @@ class cbCog(commands.Cog):
                     await channel.send("Requested boss number out of range!")
                     return    
             except:
-                await channel.send("Failed to parse inputs!")
-                return
+                if options[0].startswith('a'):
+                    req_boss_num = None
+                else:
+                    await channel.send("Failed to parse inputs!")
+                    return
             
             if 'kill' in options or 'x' in options: 
                 # sanity check
@@ -462,7 +465,7 @@ class cbCog(commands.Cog):
                 if len(req_boss_q) > 0:
                     await channel.send("Standby " + ' '.join(req_boss_q))
             
-            elif ('setwave' in options and self.client._check_author(author, 'admin')):
+            elif (('setwave' in options or 'sw' in options) and self.client._check_author(author, 'admin')):
                 # .q req_boss_num setwave wave_num
                 try:
                     req_wave = int(options[2])
@@ -470,8 +473,12 @@ class cbCog(commands.Cog):
                     await channel.send("Could not read 2nd input!")
                     return
                 
-                await channel.send(f'Set boss {req_boss_num} current wave to {req_wave} from {min_wave[req_boss_num-1]}')
-                min_wave[req_boss_num-1] = req_wave
+                if not req_boss_num is None:
+                    await channel.send(f'Set boss {req_boss_num} current wave to {req_wave} from {min_wave[req_boss_num-1]}')
+                    min_wave[req_boss_num-1] = req_wave
+                else:
+                    await channel.send(f'Setting all boss waves to {req_wave}')
+                    min_wave = [req_wave, req_wave, req_wave, req_wave, req_wave]
 
             else: #if not ('kill' in options or 'x' in options or 'setwave' in options):
                 boss_min_wave = min_wave[req_boss_num - 1]
@@ -789,7 +796,7 @@ class cbCog(commands.Cog):
         if self.client._check_author(author, 'admin'):
             embed.add_field(
                 name="Removing entries (Admin)",
-                value="`.q remove [@member] [boss] [wave]`\n`.q ot remove [@member] [ot_seconds]`\n`.ot remove [@member] [ot_seconds]`",
+                value="`.q remove [@member] [boss_num] [wave]`\n`.q ot remove [@member] [ot_seconds]`\n`.ot remove [@member] [ot_seconds]`",
                 inline=False
             )
             """
@@ -810,14 +817,19 @@ class cbCog(commands.Cog):
             embed.add_field(
                 name="Notes",
                 value="\n".join([
-                    "- When removing from queues, only `[boss]` is required, `[@member]` and `[wave]` are optional.",
+                    "- When removing from queues, only `[boss_num]` is required, `[@member]` and `[wave]` are optional.",
                     "- When removing from OT list, you must specify `[@member]`, `[ot_seconds]` is optional."
                 ]),
                 inline=False
             )
             embed.add_field(
                 name="Setting wave (Admin)",
-                value="`.q [boss] setwave [wave]`",
+                value="`.q [boss_num] setwave [wave]`",
+                inline=False
+            )
+            embed.add_field(
+                name="Notes",
+                value="- Use `all` for `[boss_num]` if you wish to set all boss waves to requested.",
                 inline=False
             )
             embed.add_field(
