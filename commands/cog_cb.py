@@ -409,6 +409,25 @@ class cbCog(commands.Cog):
         boss_q, ots, min_wave = self.process_qfile(q)
 
         if mode == 'q' and not remove:
+            # admin proxy queue
+            proxy = False
+            if self.client._check_author(author, 'admin') and options[0].startswith('<@!'):
+                try:
+                    proxy_id = int(options[0][3:-1])
+                except:
+                    await channel.send("Failed to read proxy target")
+                    return
+                else:
+                    options = options[1:]
+                    proxy_target = author.guild.get_member(proxy_id)
+                    if proxy_target is None:
+                        await channel.send("Failed to find proxy member")
+                        return
+                    else:
+                        author = proxy_target
+                        proxy = True
+
+            # read target boss
             try:
                 req_boss_num = int(options[0])
                 if req_boss_num > 5 or req_boss_num < 1:
@@ -422,6 +441,11 @@ class cbCog(commands.Cog):
                     return
             
             if 'kill' in options or 'x' in options: 
+                # restrict proxy flag
+                if proxy:
+                    await channel.send("You cannot announce a boss kill via proxy.")
+                    return
+
                 # sanity check
                 options = options[:-1] # expect cmd to be of form .q boss_num x
                 if len(options) > 1:
@@ -458,7 +482,7 @@ class cbCog(commands.Cog):
 
                 current_wave += 1
                 min_wave[req_boss_num - 1] = current_wave
-                await channel.send(f"Boss {req_boss_num} dead. Incrementing wave to {current_wave}")
+                await channel.send(f"Boss {req_boss_num} down. Incrementing wave to {current_wave}")
 
                 # fetch waiting list
                 req_boss_q = [f"<@!{entry['id']}>" for entry in boss_q[req_boss_num - 1] if entry['wave'] == current_wave]
@@ -506,21 +530,21 @@ class cbCog(commands.Cog):
 
                 if author.id in active_q and done:
                     boss_q[req_boss_num-1].pop(boss_q[req_boss_num-1].index([i for i in boss_q[req_boss_num-1] if i['id'] == author.id and i['wave'] == req_wave][0]))
-                    await channel.send(f"Unqueued for boss {req_boss_num} wave {req_wave}")
+                    await channel.send(f"Unqueued from boss {req_boss_num} wave {req_wave}") if not proxy else await channel.send(f"Unqueued {author.name} from boss {req_boss_num} wave {req_wave}")
 
                 elif author.id in active_q and not done:
-                    await channel.send(f"You are already queued for boss {req_boss_num} wave {req_wave}!")
+                    await channel.send(f"You are already queuing for boss {req_boss_num} wave {req_wave}!") if not proxy else await channel.send(f"{author.name} is already queuing for boss {req_boss_num} wave {req_wave}!")
                     return
                 
                 elif not author in active_q and done:
-                    await channel.send(f"You are not queued for boss {req_boss_num} wave {req_wave}!")
+                    await channel.send(f"You are not queued for boss {req_boss_num} wave {req_wave}!") if not proxy else await channel.send(f"{author.name} is not queued for boss {req_boss_num} wave {req_wave}!")
                     return
 
                 else:
                     if req_wave - boss_min_wave > 2:
                         await channel.send("Caution: The difference between your requested wave and current wave is more than 2")
                     boss_q[req_boss_num-1].append({'id':author.id, 'mode':'q', 'boss':req_boss_num, 'wave':req_wave})
-                    await channel.send(f"Queued for boss {req_boss_num} wave {req_wave}")
+                    await channel.send(f"Queued for boss {req_boss_num} wave {req_wave}") if not proxy else await channel.send(f"Queued {author.name} for boss {req_boss_num} wave {req_wave}")
                 
         elif mode == 'ot' and not remove: # ot mode
             try:
@@ -794,6 +818,16 @@ class cbCog(commands.Cog):
             inline=False
         )
         if self.client._check_author(author, 'admin'):
+            embed.add_field(
+                name="Queue delegate (Admin)",
+                value="`.q [@member] [boss] optional[wave] optional[done]`",
+                inline=False
+            )
+            embed.add_field(
+                name="Notes",
+                value="Works exactly the same way as `.q` but you're proxying for `[@member]`.",
+                inline=False
+            )
             embed.add_field(
                 name="Removing entries (Admin)",
                 value="`.q remove [@member] [boss_num] [wave]`\n`.q ot remove [@member] [ot_seconds]`\n`.ot remove [@member] [ot_seconds]`",
