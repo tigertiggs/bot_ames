@@ -456,7 +456,7 @@ class cbCog(commands.Cog):
                 current_wave = min_wave[req_boss_num - 1]
                 req_boss_q = [entry['id'] for entry in boss_q[req_boss_num - 1] if entry['wave'] == current_wave]
 
-                if not author.id in req_boss_q and self.client._check_author(author, 'admin'):
+                if not author.id in req_boss_q and not self.client._check_author(author, 'admin'):
                     await channel.send('You cannot announce the kill for a boss you do not have an active queue in!')
                     return
                 elif len(req_boss_q) > 1:
@@ -498,7 +498,7 @@ class cbCog(commands.Cog):
                     return
                 
                 if not req_boss_num is None:
-                    await channel.send(f'Set boss {req_boss_num} current wave to {req_wave} from {min_wave[req_boss_num-1]}')
+                    await channel.send(f'Set boss {req_boss_num} current wave from {min_wave[req_boss_num-1]} to {req_wave}')
                     min_wave[req_boss_num-1] = req_wave
                 else:
                     await channel.send(f'Setting all boss waves to {req_wave}')
