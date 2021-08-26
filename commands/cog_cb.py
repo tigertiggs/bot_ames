@@ -430,9 +430,11 @@ class cbCog(commands.Cog):
             # read target boss
             try:
                 if options[0].startswith('b'):
-                    options[0] = options[0][1:]
+                    req_boss_num = options[0][1:]
+                else:
+                    req_boss_num = options[0]
 
-                req_boss_num = int(options[0])
+                req_boss_num = int(req_boss_num)
                 if req_boss_num > 5 or req_boss_num < 1:
                     await channel.send("Requested boss number out of range!")
                     return    
