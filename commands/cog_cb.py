@@ -373,7 +373,7 @@ class cbCog(commands.Cog):
                 await channel.send("Reset all records")
                 return
             elif options[0] == 'help':
-                await channel.send(embed=self.green_queue_help(author))
+                await channel.send(embed=self.green_queue_help(author, options[-1]=='admin'))
                 return
             else:
                 mode = 'q'
@@ -429,6 +429,9 @@ class cbCog(commands.Cog):
 
             # read target boss
             try:
+                if options[0].startswith('b'):
+                    options[0] = options[0][1:]
+
                 req_boss_num = int(options[0])
                 if req_boss_num > 5 or req_boss_num < 1:
                     await channel.send("Requested boss number out of range!")
@@ -466,14 +469,14 @@ class cbCog(commands.Cog):
                     await channel.send('There are other active queues for this boss-wave besides yourself. Proceed with kill announcement? `y/n`')
                     while True:
                         try:
-                            reply = await self.client.wait_for('message', check=check, timeout=30)
+                            reply = await self.client.wait_for('message', check=check, timeout=15)
                         except asyncio.TimeoutError:
                             await channel.send('Cancelled')
                             return
                         else:
-                            if reply.contentstartswith('y'):
+                            if reply.content.startswith('y'):
                                 break
-                            else:
+                            elif reply.content.startswith('n'):
                                 await channel.send('Cancelled')
                                 return
                 
@@ -482,7 +485,7 @@ class cbCog(commands.Cog):
 
                 current_wave += 1
                 min_wave[req_boss_num - 1] = current_wave
-                await channel.send(f"Boss {req_boss_num} down. Incrementing wave to {current_wave}")
+                await channel.send(f"Boss {req_boss_num} down. Incrementing to wave {current_wave}")
 
                 # fetch waiting list
                 req_boss_q = [f"<@!{entry['id']}>" for entry in boss_q[req_boss_num - 1] if entry['wave'] == current_wave]
@@ -514,12 +517,22 @@ class cbCog(commands.Cog):
 
                 if len(options) > 1:
                     try:
-                        req_wave = int(options[1])
+                        relative = False
+
+                        if options[1].startswith('+'):
+                            relative = True
+                            req_wave = options[1][1:]
+                        else:
+                            req_wave = options[1]
+
+                        req_wave = int(req_wave)
                     except:
                         await channel.send("Could not read 2nd input!")
                         return
 
-                    if req_wave < boss_min_wave:
+                    if relative:
+                        req_wave += boss_min_wave
+                    elif req_wave < boss_min_wave and not done:
                         await channel.send(f"Minimum wave for requested boss is {boss_min_wave}")
                         return
                 else:
@@ -544,7 +557,9 @@ class cbCog(commands.Cog):
                     if req_wave - boss_min_wave > 2:
                         await channel.send("Caution: The difference between your requested wave and current wave is more than 2")
                     boss_q[req_boss_num-1].append({'id':author.id, 'mode':'q', 'boss':req_boss_num, 'wave':req_wave})
+                    num_waiting = len([i for i in boss_q[req_boss_num-1] if i['boss'] == req_boss_num and i['wave'] == req_wave])
                     await channel.send(f"Queued for boss {req_boss_num} wave {req_wave}") if not proxy else await channel.send(f"Queued {author.name} for boss {req_boss_num} wave {req_wave}")
+                    if num_waiting > 1: await channel.send(f"There are {num_waiting-1} other(s) queued for this boss-wave excluding yourself.")
                 
         elif mode == 'ot' and not remove: # ot mode
             try:
@@ -568,19 +583,17 @@ class cbCog(commands.Cog):
             
             if ot_mode == 'append':
                 if len([i for i in ots if i['id'] == author.id]) >= 3:
-                    await channel.send("You already have 3 OT records!")
-                    return
-                else:
-                    ots.append({'id':author.id, 'mode':'ot', 'ot':ot_time})
-                    await channel.send(self.client.emotes['sarenh'])
+                    await channel.send("Note: You already have 3 OT records!")
+                ots.append({'id':author.id, 'mode':'ot', 'ot':ot_time})
+                await channel.send(f'Added {ot_time}s to OT list '+self.client.emotes['sarenh'])
             else:
                 records = [i for i in ots if (i['id'] == author.id and i['ot'] == ot_time)]
                 if len(records) == 0:
-                    await channel.send("No OT records with specified time and your name to remove")
+                    await channel.send("No OT records with specified time under your name to remove")
                     return
                 else:
                     ots.pop(ots.index(records[0]))
-                    await channel.send(self.client.emotes['sarenh'])
+                    await channel.send(f'Removed {ot_time}s to OT list '+self.client.emotes['sarenh'])
         
         elif remove and self.client._check_author(author, 'admin'): # remove
             # .q remove @member boss wave
@@ -783,41 +796,15 @@ class cbCog(commands.Cog):
         
         return boss_queues, ots, q['min_wave']
 
-    def green_queue_help(self, author):
+    def green_queue_help(self, author, admin):
         embed=discord.Embed(
             title="CB Queue Help",
-            description="Help section for Green clan clan battle queue.",
+            description="Help section for Green clan clan battle queue.\n**To view the queue at anytime, use `.q`**",
             timestamp=datetime.datetime.utcnow(),
             colour=self.colour
         )
         embed.set_footer(text='CB Queue Help | Re:Re:Write Ames',icon_url=self.client.user.avatar_url)
-        embed.add_field(
-            name="Syntax (queueing)",
-            value="`.q [boss_num] optional[wave] optional[options]`",
-            inline=False
-        )
-        embed.add_field(
-            name="Usage",
-            value="\n".join([
-                "1) To add yourself to a queue, use `.q [boss] [wave]`. If `[wave]` is omitted, it will default to the current wave.",
-                "2) To remove yourself from a queue, use `.q [boss] [wave] done`. If `[wave]` is omitted, it will default to the current wave. Alternatively, use `.q done` to remove yourself completely from all queues (but not OT list).",
-                "3) To announce a boss kill (which will increment the current boss wave), use `.q [boss] x` or `.q [boss] kill`. If the kill announcement is valid, all queues for specified boss-wave will be removed automatically."
-            ])
-        )
-        embed.add_field(
-            name="Syntax (OT listing)",
-            value="`.q ot [ot_seconds] optional[options]`\nOR\n`.ot [ot_seconds] optional[options]`",
-            inline=False
-        )
-        embed.add_field(
-            name="Usage",
-            value="\n".join([
-                "1) To add yourself to the OT list, use `.q ot [ot_seconds]`.",
-                "2) To remove yourself from the OT list, use `.q ot [chosen ot seconds] done`. Alternatively, use `.q ot done` to remove yourself from all your entries to OT list (but not boss queues)."
-            ]),
-            inline=False
-        )
-        if self.client._check_author(author, 'admin'):
+        if self.client._check_author(author, 'admin') and admin:
             embed.add_field(
                 name="Queue delegate (Admin)",
                 value="`.q [@member] [boss] optional[wave] optional[done]`",
@@ -833,21 +820,6 @@ class cbCog(commands.Cog):
                 value="`.q remove [@member] [boss_num] [wave]`\n`.q ot remove [@member] [ot_seconds]`\n`.ot remove [@member] [ot_seconds]`",
                 inline=False
             )
-            """
-            embed.add_field(
-                name="Usage",
-                value="\n".join([
-                    "1) To remove `[@member]`'s records from a certain boss-wave, use `.q remove [@member] [boss] [wave]`",
-                    "2) To remove `[@member]`'s records from a certain boss, use `.q remove [@member] [boss]`",
-                    "The above 2 commands can omit `[@member]` to remove all queues from a target boss-wave",
-                    "3) To remove `[@member]`'s records from all queues, use `.q remove [@member]`",
-                    "4) To remove `[@member]`'s certain OT entry, use `.q ot remove [@member] [ot_seconds]` or its alias",
-                    "5) To remove `[@member]`'s every OT entry, use `.q ot remove [@member]` or its alias",
-                    "6) To remove all OT entries, use `.q ot remove` or its alias"
-                ]),
-                inline=False
-            )
-            """
             embed.add_field(
                 name="Notes",
                 value="\n".join([
@@ -874,6 +846,38 @@ class cbCog(commands.Cog):
             embed.add_field(
                 name="Notes",
                 value="- This will clear all records such as queues and OT listings, as well as set all boss waves to 1",
+                inline=False
+            )
+        else:
+            embed.add_field(
+                name="Syntax (queueing)",
+                value="`.q [boss_num] optional[wave] optional[options:done,kill,x]`",
+                inline=False
+            )
+            embed.add_field(
+                name="Usage",
+                value="\n\n".join([
+                    "1) To add yourself to a queue, use `.q [boss] [wave]`.\nIf `[wave]` is omitted, it will default to the current wave. `[wave]` can be specified relatively i.e. `+1` for next wave.",
+                    "2) To remove yourself from a queue, use `.q [boss] [wave] done`.\nIf `[wave]` is omitted, it will default to the current wave. Alternatively, use `.q done` to remove yourself completely from all queues (but not OT list).",
+                    "3) To announce a boss kill (which will increment the current boss wave), use `.q [boss] x` or `.q [boss] kill`.\nIf the kill announcement is valid, all queues for specified boss-wave will be removed automatically."
+                ])
+            )
+            embed.add_field(
+                name="Syntax (OT listing)",
+                value="`.q ot [ot_seconds] optional[options:done]`\nOR\n`.ot [ot_seconds] optional[options:done]`",
+                inline=False
+            )
+            embed.add_field(
+                name="Usage",
+                value="\n\n".join([
+                    "1) To add yourself to the OT list, use `.q ot [ot_seconds]`.",
+                    "2) To remove yourself from the OT list, use `.q ot [chosen ot seconds] done`.\nAlternatively, use `.q ot done` to remove yourself from all your entries to OT list (but not boss queues)."
+                ]),
+                inline=False
+            )
+            embed.add_field(
+                name="Admin commands",
+                value="To see admin commands, use `.q help admin`.",
                 inline=False
             )
         return embed
