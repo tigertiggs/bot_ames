@@ -966,7 +966,7 @@ class cbCog(commands.Cog):
             increment = datetime.timedelta(seconds=json.load(cf)['timeout'])
 
         for filename in os.listdir(self.client.config['cb_q_path']):
-            if filename != "config.json":
+            if not filename in ["config.json", "green.json"]:
                 with open(os.path.join(self.client.config['cb_q_path'], filename)) as qf:
                     q = json.load(qf)
                 
@@ -1078,9 +1078,12 @@ class cbCog(commands.Cog):
         elif target_member:
             q['q'] = [item for item in q['q'] if not item[0] == target_member.id]
             await channel.send(f"cleared all entries from {target_member.name}")
-        else:
+        elif len(options) == 1:
             q['q'] = []
             await channel.send('wiped all')
+        else:
+            await channel.send("Failed to process inputs")
+            return
         
         with open(os.path.join(self.client.config['cb_q_path'], f"{guild.id}.json"), "w+") as qf:
             qf.write(json.dumps(q, indent=4))
