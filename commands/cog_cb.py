@@ -558,7 +558,7 @@ class cbCog(commands.Cog):
                 else:
                     if req_wave - boss_min_wave > 2:
                         await channel.send("Caution: The difference between your requested wave and current wave is more than 2")
-                    boss_q[req_boss_num-1].append({'id':author.id, 'mode':'q', 'boss':req_boss_num, 'wave':req_wave})
+                    boss_q[req_boss_num-1].append({'id':author.id, 'mode':'q', 'boss':req_boss_num, 'wave':req_wave, 'timestamp': str(datetime.datetime.now(datetime.timezone.utc))})
                     num_waiting = len([i for i in boss_q[req_boss_num-1] if i['boss'] == req_boss_num and i['wave'] == req_wave])
                     await channel.send(f"Queued for boss {req_boss_num} wave {req_wave}") if not proxy else await channel.send(f"Queued {author.name} for boss {req_boss_num} wave {req_wave}")
                     if num_waiting > 1: await channel.send(f"There are {num_waiting-1} other(s) queued for this boss-wave excluding yourself.")
@@ -586,7 +586,7 @@ class cbCog(commands.Cog):
             if ot_mode == 'append':
                 if len([i for i in ots if i['id'] == author.id]) >= 3:
                     await channel.send("Note: You already have 3 OT records!")
-                ots.append({'id':author.id, 'mode':'ot', 'ot':ot_time})
+                ots.append({'id':author.id, 'mode':'ot', 'ot':ot_time, 'timestamp': str(datetime.datetime.now(datetime.timezone.utc))})
                 await channel.send(f'Added {ot_time}s to OT list '+self.client.emotes['sarenh'])
             else:
                 records = [i for i in ots if (i['id'] == author.id and i['ot'] == ot_time)]
@@ -694,7 +694,7 @@ class cbCog(commands.Cog):
 
         embed=discord.Embed(
             title="Clan Battle Queue",
-            description=f"Green's current CB queue. Use `.q help` if you need help. Happy Clan Battling!",
+            description=f"Green's current CB queue. Use `.q help` if you need help. Happy Clan Battling!\n**Current global minimum wave is: {min(min_wave)}**",
             colour=self.colour,
             timestamp=datetime.datetime.utcnow()
         )
@@ -703,16 +703,16 @@ class cbCog(commands.Cog):
         icons = [":one:",":two:",":three:",":four:",":five:"]
         roles = [self.get_role(r) for r in self.config['boss_roles']]
 
-        embed.add_field(
-            name=SPACE,
-            value=f"Global minimum wave: {min(min_wave)}",
-            inline=False
-        )
+        #embed.add_field(
+        #    name=SPACE,
+        #    value=f"Global minimum wave: {min(min_wave)}",
+        #    inline=False
+        #)
 
         for i in range(5):
             embed.add_field(
                 name=SPACE,
-                value=f"{icons[i]} **{roles[i].name}**\nActive wave(現在の周目): **{min_wave[i]}**",
+                value=f"{icons[i]} **{roles[i].name}**\nActive wave (現在の周目): **{min_wave[i]}**",
                 inline=False
             )
 
@@ -720,7 +720,7 @@ class cbCog(commands.Cog):
                 continue
 
             active = boss_q[i]
-            active.sort(key=lambda x: (x['wave'], author.guild.get_member(x['id']).name))
+            #active.sort(key=lambda x: (x['wave'], author.guild.get_member(x['id']).name))
 
             embed.add_field(
                 name="No.",
@@ -749,7 +749,7 @@ class cbCog(commands.Cog):
 
         embed.add_field(
             name=SPACE,
-            value=f"**Overtimes(残り時間)**",
+            value=f"**Overtimes (残り時間)**",
             inline=False
         )
 
@@ -792,9 +792,18 @@ class cbCog(commands.Cog):
         ots = []
         for queue_entry in q['q']:
             if queue_entry['mode'] == 'q':
+                # compat
+                if queue_entry.get('timestamp', None) is None:
+                    queue_entry['timestamp'] = str(datetime.datetime.now(datetime.timezone.utc))
+
                 boss_queues[queue_entry['boss']-1].append(queue_entry)
             else:
                 ots.append(queue_entry)
+        
+        # sort boss queues by timestamp
+        print(json.dumps(boss_queues,indent=4))
+        for boss_queue in boss_queues:
+            boss_queue.sort(key=lambda entry: (entry['wave'], datetime.datetime.strptime(entry['timestamp'], '%Y-%m-%d %H:%M:%S.%f%z')))
         
         return boss_queues, ots, q['min_wave']
 
