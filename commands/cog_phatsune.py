@@ -261,19 +261,27 @@ class hatsuneCog(commands.Cog):
                 # append
                 if word:
                     processed.append(word)
-        
+
+        name = "".join(processed)
+        #print(prefix, name)
+
+        # kizuna preprocessor
+        if prefix == 'k':
+            prefix = None
+            name = self.config['kizuna_search'].get(name, None)
+            if name == None:
+                await ctx.message.channel.send("Did not find kizuna (multi-unit) version of requested character!")
+                return None, None, None, None
+
         if prefix and not prefix in list(self.config['prefix_title'].keys()):
             await ctx.message.channel.send(f"Unknown prefix `{prefix}`")
             return None, None, None, None
-        
-        name = "".join(processed)
-        #print(prefix, name)
 
         #name = self.full_alias.get(name, name)
         prefix = self.full_alias.get(prefix, prefix) if prefix else None
 
         # validate
-        match, alts, ipflag = validate_request(self.client, {"name":name,"prefix":prefix})
+        match, alts, ipflag = validate_request(self.client, {"name":name,"prefix":prefix}, 'en', self.config)
 
         # warn
         if match:
@@ -1181,7 +1189,8 @@ class hatsuneCog(commands.Cog):
             "cr.rima",
             "f.chieru",
             "tt.inori",
-            "ww.aot"
+            "ww.aot",
+            "k.shiori/k.hatsune"
         ]
         embed.add_field(
             name="> **Active Prefixes**",

@@ -14,7 +14,17 @@
     "double": 0,
     "pools": {
         "lim": [
-            "3S.Chika"
+            "3.Hatsuneshiori:0.7",
+            "3P.Pecorine",
+            "3P.Kokkoro",
+            "3P.Kyaru",
+            "3P.Rei",
+            "3P.Hiyori",
+            "3P.Yui",
+            "3.Muimi",
+            "3.Neneka",
+            "3.Christina",
+            "3.Labyrista"
         ],
         "r": [
             "Rei",
@@ -99,7 +109,7 @@
             "TT.Kaya",
             "TT.Inori",
             "F.Chloe",
-            "F.Cheiru",
+            "F.Chieru",
             "M.Tomo",
             "M.Monika",
             "A.Akari",

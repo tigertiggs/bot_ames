@@ -501,8 +501,8 @@ class Ames(commands.AutoShardedBot):
             hconfig = json.load(hcf)
         if prefix:  
             prefix = hconfig['prefix_title'].get(prefix, '???') if not short else hconfig['prefix_shortened'].get(prefix, hconfig['prefix_title'].get(prefix, '???'))
-            return f"{name.title()} ({prefix})"
-        return name.title()
+            return f"{hconfig['kizuna_name'].get(name, name.title())} ({prefix})"
+        return hconfig['kizuna_name'].get(name, name.title())
 
 if __name__ == "__main__":
     #global start_time

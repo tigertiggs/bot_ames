@@ -1,4 +1,10 @@
 {
+    "4.14.0": [
+        "+ [phatsune] added k.shiori/k.hatsune/",
+        "+ [phatsune] added ue for neneka",
+        "+ [gacha] updated banners",
+        "+ [phatsune][pupdate] added new code and configs to support kizuna characters"
+    ],
     "4.13.10": [
         "+ [phatsune] added s.chika",
         "+ [phatsune] equipment update"

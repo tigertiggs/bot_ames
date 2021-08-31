@@ -20,7 +20,8 @@
         "cr": "Cinderella",
         "f": "School Festival",
         "tt": "Time Traveller",
-        "ww": "Workwear"
+        "ww": "Workwear",
+        "k": "Kizuna"
     },
     "prefix_shortened": {
         "n": "NYear",
@@ -90,7 +91,8 @@
         "school": "f",
         "time": "tt",
         "traveler": "tt",
-        "work": "ww"
+        "work": "ww",
+        "kizuna": "k"
     },
     "options": [
         "flb"
@@ -138,7 +140,8 @@
         "gomen": "yui",
         "shefi": "sheffi",
         "shefy": "sheffi",
-        "sheffy": "sheffi"
+        "sheffy": "sheffi",
+        "hatsushio": "hatsuneshiori"
     },
     "ue_abbrev": {
         "hp": "HP",
@@ -380,5 +383,15 @@
         "enum_alias": [],
         "name_jp": null,
         "flb": null
+    },
+    "kizuna_search": {
+        "hatsune": "hatsuneshiori",
+        "shiori": "hatsuneshiori"
+    },
+    "kizuna_reverse_search": {
+        "hatsuneshiori": ["hatsune", "shiori"]
+    },
+    "kizuna_name": {
+        "hatsuneshiori": "Hatsune & Shiori"
     }
 }

@@ -26923,7 +26923,7 @@
                         "name": null,
                         "text": "Inflict large magic damage to all enemies and gain [sleeping] state. This state will persist until Hatsune is attacked.",
                         "action": [
-                            "Inflict 67135 m.dmg on all targets ",
+                            "Inflict 67441 m.dmg on all targets ",
                             "Cannot perform actions (self) "
                         ]
                     },
@@ -26946,7 +26946,7 @@
                         "name": null,
                         "text": "Inflict small magic damage to all enemies; gain small TP heal. The TP recovered is proportional to the number of enemies in range.",
                         "action": [
-                            "Inflict 15796 m.dmg on all targets ",
+                            "Inflict 15868 m.dmg on all targets ",
                             "Gain 258 TP "
                         ]
                     },
@@ -26954,7 +26954,7 @@
                         "name": null,
                         "text": "Inflict medium magic on all enemies; gain medium TP recovery. Damage dealt and TP recovered is proportional to the number of enemies in range.",
                         "action": [
-                            "Inflict 23695 m.dmg on all targets ",
+                            "Inflict 23803 m.dmg on all targets ",
                             "Gain 258 TP "
                         ]
                     },
@@ -27106,7 +27106,7 @@
                 "normal": {
                     "hp": 28898,
                     "atk": 0,
-                    "matk": 17133,
+                    "matk": 17223,
                     "def": 350,
                     "mdef": 476,
                     "pCrit": 0,
@@ -32065,6 +32065,281 @@
                 "lvl": 208,
                 "rk": 22
             },
+            "sname": "schika",
+            "tags": [
+                "magic",
+                "mid",
+                "seasonal",
+                "mdef_up",
+                "pdef_up",
+                "mp_shield",
+                "pshield",
+                "mshield",
+                "heal"
+            ],
+            "pos": 231,
+            "atkptn": [
+                {
+                    "loop": [
+                        7,
+                        16
+                    ],
+                    "ptn": [
+                        1001,
+                        1002,
+                        1,
+                        1001,
+                        1,
+                        1002,
+                        1,
+                        1002,
+                        1,
+                        1001,
+                        1,
+                        1002,
+                        1,
+                        1001,
+                        1
+                    ],
+                    "no": "1"
+                }
+            ],
+            "img": "https://redive.estertion.win/icon/unit/117331.webp",
+            "img6": null,
+            "basic": {
+                "en": {
+                    "id": null,
+                    "prefix": "s",
+                    "name": "chika",
+                    "ub": {
+                        "name": null,
+                        "text": "Grant medium physical and magic def up on all allies. Deploy a physical/magic nullification shield.",
+                        "action": [
+                            "Buff party p.def by 199 [18s]",
+                            "Buff party m.def by 199 [18s]",
+                            "Deploy a 5225 buffer mp.barrier [18s]"
+                        ]
+                    },
+                    "uba": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "ub2": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "uba2": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1": {
+                        "name": null,
+                        "text": "Grant massive magic def up on all allies in range centered on Chika. This skill's effectiveness decreases on each cast, up to 3 times.",
+                        "action": [
+                            "Buff 627 m.def on all targets in range (Range: 255)[12s]"
+                        ]
+                    },
+                    "sk1p": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1ap": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk2": {
+                        "name": null,
+                        "text": "Grant small HP heal on the ally with the lowest HP; grant continuous HP recovery.",
+                        "action": [
+                            "Heal 4588 HP on target ",
+                            "Recover 653 HP every second "
+                        ]
+                    },
+                    "sk2a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk3": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk3a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "ex": {
+                        "name": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
+                        "action": [
+                            "Gain 3135 m.atk up "
+                        ]
+                    },
+                    "ex2": {
+                        "name": null,
+                        "text": "Gain large magic attack up at the start of battle.",
+                        "action": [
+                            "Gain 3360 m.atk up "
+                        ]
+                    },
+                    "comment": null
+                },
+                "jp": {
+                    "id": 1173,
+                    "name": "\u30c1\u30ab(\u30b5\u30de\u30fc)",
+                    "ub": {
+                        "name": "\u30b5\u30de\u30fc\u30aa\u30fc\u30b7\u30e3\u30f3\u30b7\u30f3\u30d5\u30a9\u30cb\u30fc",
+                        "text": "\u5473\u65b9\u5168\u4f53\u306e\u7269\u7406\u9632\u5fa1\u529b\u3068\u9b54\u6cd5\u9632\u5fa1\u529b\u3092\u4e2d\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002\u3055\u3089\u306b\u3001\u7269\u7406/\u9b54\u6cd5\u5438\u53ce\u30d0\u30ea\u30a2\u3092\u5c55\u958b\u3059\u308b\u3002",
+                        "action": null
+                    },
+                    "uba": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "ub2": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "uba2": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1": {
+                        "name": "\u30aa\u30fc\u30b7\u30e3\u30f3\u30d7\u30ed\u30c6\u30af\u30b7\u30e7\u30f3",
+                        "text": "\u81ea\u5206\u3092\u4e2d\u5fc3\u3068\u3057\u305f\u7bc4\u56f2\u5185\u306e\u5473\u65b9\u3059\u3079\u3066\u306e\u9b54\u6cd5\u9632\u5fa1\u529b\u3092\u7279\u5927\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002\u3053\u306e\u30b9\u30ad\u30eb\u306f\uff13\u56de\u307e\u3067\u3001\u4f7f\u7528\u3059\u308b\u5ea6\u306b\u30b9\u30ad\u30eb\u52b9\u679c\u304c\u30c0\u30a6\u30f3\u3059\u308b\u3002",
+                        "action": null
+                    },
+                    "sk1p": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1ap": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk2": {
+                        "name": "\u30c9\u30eb\u30d5\u30a3\u30f3\u30bd\u30f3\u30b0",
+                        "text": "\u6700\u3082\uff28\uff30\u304c\u4f4e\u3044\u5473\u65b9\uff11\u30ad\u30e3\u30e9\u306e\uff28\uff30\u3092\u5c0f\u56de\u5fa9\u3055\u305b\u3001\u7d99\u7d9a\uff28\uff30\u56de\u5fa9\u72b6\u614b\u3092\u4ed8\u4e0e\u3059\u308b\u3002",
+                        "action": null
+                    },
+                    "sk2a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk3": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk3a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "ex": {
+                        "name": "\u30b5\u30de\u30fc\u30c7\u30a3\u30fc\u30f4\u30a1",
+                        "text": "\u30d0\u30c8\u30eb\u958b\u59cb\u6642\u306b\u81ea\u5206\u306e\u9b54\u6cd5\u653b\u6483\u529b\u3092\u4e2d\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
+                        "action": null
+                    },
+                    "ex2": {
+                        "name": "\u30b5\u30de\u30fc\u30c7\u30a3\u30fc\u30f4\u30a1+",
+                        "text": "\u30d0\u30c8\u30eb\u958b\u59cb\u6642\u306b\u81ea\u5206\u306e\u9b54\u6cd5\u653b\u6483\u529b\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
+                        "action": null
+                    },
+                    "comment": "\u3010\u9b54\u6cd5\u3011\u4e2d\u885b\u3067\u3001\u5b88\u8b77\u306e\u8cdb\u6b4c\u3092\u6367\u3052\u308b\u590f\u6d77\u306e\u6b4c\u59eb\u3002\u6700\u5e8f\u76e4\u306b\u5473\u65b9\u306e\u9b54\u6cd5\u9632\u5fa1\u3092\u5927\u5e45\u306b\u5f37\u5316\u3057\u3001\u5438\u53ce\u30d0\u30ea\u30a2\u3084\uff28\uff30\u56de\u5fa9\u30b9\u30ad\u30eb\u3067\u3001\u5982\u4f55\u306a\u308b\u731b\u653b\u304b\u3089\u3082\u5473\u65b9\u3092\u5b88\u308b\u3002"
+                }
+            },
+            "ue": {
+                "id": null,
+                "rank": null,
+                "img": null,
+                "stats": {},
+                "en": {
+                    "name": null,
+                    "text": null
+                },
+                "jp": {
+                    "name": null,
+                    "text": null
+                }
+            },
+            "stats": {
+                "normal": {
+                    "hp": 40254,
+                    "atk": 0,
+                    "matk": 11810,
+                    "def": 657,
+                    "mdef": 894,
+                    "pCrit": 0,
+                    "mCrit": 359,
+                    "wHpRec": 1640,
+                    "wTpRec": 306,
+                    "dodge": 3,
+                    "pPen": 0,
+                    "mPen": 0,
+                    "lifesteal": 0,
+                    "hpRec": 147,
+                    "tpRec": 17,
+                    "tpSave": 21,
+                    "acc": 0
+                },
+                "flb": {}
+            },
+            "profile": {
+                "age": "17",
+                "blood": "O",
+                "weight": "46",
+                "height": "163",
+                "img": "https://redive.estertion.win/card/actual_profile/117331.webp",
+                "bd": "6/3",
+                "en": {
+                    "name": null,
+                    "name_alt": null,
+                    "irl_name": null,
+                    "guild": null,
+                    "race": null,
+                    "va": null
+                },
+                "jp": {
+                    "name": "\u30c1\u30ab\uff08\u30b5\u30de\u30fc\uff09",
+                    "name_alt": "\u3061\u304b",
+                    "irl_name": null,
+                    "guild": "\u30ab\u30eb\u30df\u30ca",
+                    "race": "\u30d2\u30e5\u30fc\u30de\u30f3",
+                    "va": "\u798f\u539f\u7dbe\u9999",
+                    "name_irl": "\u30c1\u30ab\uff08\u30b5\u30de\u30fc\uff09"
+                }
+            }
+        },
+        {
+            "status": {
+                "ue": 210,
+                "lvl": 208,
+                "rk": 22
+            },
             "sname": "aoi",
             "tags": [
                 "physical",
@@ -32075,7 +32350,7 @@
                 "ailment",
                 "flb"
             ],
-            "pos": 337,
+            "pos": 338,
             "atkptn": [
                 {
                     "loop": [
@@ -32960,7 +33235,7 @@
                 "special",
                 "flb"
             ],
-            "pos": 329,
+            "pos": 330,
             "atkptn": [
                 {
                     "loop": [
@@ -33283,7 +33558,7 @@
                         "text": "Inflict large physical damage on the frontmost enemy; gain large physical attack up.",
                         "action": [
                             "Gain 4703 p.atk up [90s]",
-                            "Inflict 47099 p.dmg to target "
+                            "Inflict 47315 p.dmg to target "
                         ]
                     },
                     "uba": {
@@ -33305,7 +33580,7 @@
                         "name": null,
                         "text": "Inflict small physical damage on the 3 frontmost enemies at most; gain small TP heal.",
                         "action": [
-                            "Inflict 7065 damg to at most 3 targets ",
+                            "Inflict 7097 damg to at most 3 targets ",
                             "Gain 248 TP "
                         ]
                     },
@@ -33313,9 +33588,9 @@
                         "name": null,
                         "text": "Inflict small physical damage on the 3 frontmost enemies at most, damage inflicted is proporitonal to target range; gain small TP heal.",
                         "action": [
-                            "Inflict 10127 p.dmg on closest target ",
-                            "Inflict 13189 p.dmg on 2nd frontmost target ",
-                            "Inflict 16251 p.dmg on 3rd closest target ",
+                            "Inflict 10176 p.dmg on closest target ",
+                            "Inflict 13254 p.dmg on 2nd frontmost target ",
+                            "Inflict 16332 p.dmg on 3rd closest target ",
                             "Gain 320 TP "
                         ]
                     },
@@ -33333,7 +33608,7 @@
                         "name": null,
                         "text": "Inflict medium physical damage on the frontmost enemy; gain small TP heal.",
                         "action": [
-                            "Inflict 23549 p.dmg to target ",
+                            "Inflict 23657 p.dmg to target ",
                             "Gain 248 TP "
                         ]
                     },
@@ -33468,7 +33743,7 @@
             "stats": {
                 "normal": {
                     "hp": 25960,
-                    "atk": 17012,
+                    "atk": 17102,
                     "matk": 0,
                     "def": 339,
                     "mdef": 486,
@@ -33830,7 +34105,7 @@
                 "special",
                 "flb"
             ],
-            "pos": 330,
+            "pos": 331,
             "atkptn": [
                 {
                     "loop": [
@@ -33860,8 +34135,8 @@
                         "name": null,
                         "text": "Inflict small magic damage on all enemy physical attackers; inflict medium magic damage to all enemies.",
                         "action": [
-                            "Inflict 10366 additional m.dmg to all p.attacker targets ",
-                            "Inflict 15313 m.dmg on all targets "
+                            "Inflict 10414 additional m.dmg to all p.attacker targets ",
+                            "Inflict 15386 m.dmg on all targets "
                         ]
                     },
                     "uba": {
@@ -33873,10 +34148,10 @@
                         "name": null,
                         "text": "Inflict large magic damage on all enemy physical attackers; inflict small mdef down and stun. Inflict medium magic damage on all enemies.",
                         "action": [
-                            "Inflict 41680 additional m.dmg to all p.attacker targets ",
+                            "Inflict 41896 additional m.dmg to all p.attacker targets ",
                             "Inflict 113 mdef down on enemy physical attackers [18s]",
                             "Freeze target physical attacker's actions for a set period of time ",
-                            "Inflict 15313 m.dmg on all targets "
+                            "Inflict 15386 m.dmg on all targets "
                         ]
                     },
                     "uba2": {
@@ -33888,14 +34163,14 @@
                         "name": null,
                         "text": "Inflict medium magic damage on the enemy with the highest physical attack.",
                         "action": [
-                            "Inflict 30713 m.dmg on target "
+                            "Inflict 30857 m.dmg on target "
                         ]
                     },
                     "sk1p": {
                         "name": null,
                         "text": "Inflict medium magic damage on the enemy with the highest physical attack; inflict small magic def down.",
                         "action": [
-                            "Inflict 34447 m.dmg on target ",
+                            "Inflict 34609 m.dmg on target ",
                             "Inflict 42 m.def down on target [12s]"
                         ]
                     },
@@ -33913,7 +34188,7 @@
                         "name": null,
                         "text": "Inflict small magic def down and stun on the enemy with the highest physical attack.",
                         "action": [
-                            "Inflict 15356 m.dmg on target ",
+                            "Inflict 15428 m.dmg on target ",
                             "Inflict Paralyze on target for a set time "
                         ]
                     },
@@ -34049,7 +34324,7 @@
                 "normal": {
                     "hp": 26702,
                     "atk": 0,
-                    "matk": 16583,
+                    "matk": 16673,
                     "def": 361,
                     "mdef": 433,
                     "pCrit": 0,
@@ -34068,7 +34343,7 @@
                 "flb": {
                     "hp": 34365,
                     "atk": 0,
-                    "matk": 19512,
+                    "matk": 19602,
                     "def": 426,
                     "mdef": 477,
                     "pCrit": 0,
@@ -34129,7 +34404,7 @@
                 "matk_up",
                 "mcrit_up"
             ],
-            "pos": 324,
+            "pos": 325,
             "atkptn": [
                 {
                     "loop": [
@@ -34408,7 +34683,7 @@
                 "pshield",
                 "atkspd_up"
             ],
-            "pos": 341,
+            "pos": 342,
             "atkptn": [
                 {
                     "loop": [
@@ -34711,7 +34986,7 @@
                 "tp_up",
                 "battery"
             ],
-            "pos": 342,
+            "pos": 343,
             "atkptn": [
                 {
                     "loop": [
@@ -35835,7 +36110,7 @@
                 "mdef_down",
                 "ue"
             ],
-            "pos": 336,
+            "pos": 337,
             "atkptn": [
                 {
                     "loop": [
@@ -36111,7 +36386,7 @@
                 "self_buff",
                 "flb"
             ],
-            "pos": 344,
+            "pos": 345,
             "atkptn": [
                 {
                     "loop": [
@@ -36700,7 +36975,7 @@
                 "mdef_up",
                 "ue"
             ],
-            "pos": 335,
+            "pos": 336,
             "atkptn": [
                 {
                     "loop": [
@@ -36984,7 +37259,7 @@
                 "patk_down",
                 "self_buff"
             ],
-            "pos": 338,
+            "pos": 339,
             "atkptn": [
                 {
                     "loop": [
@@ -37264,7 +37539,7 @@
                 "ue",
                 "battery"
             ],
-            "pos": 334,
+            "pos": 335,
             "atkptn": [
                 {
                     "loop": [
@@ -37541,7 +37816,7 @@
                 "ailment",
                 "ue"
             ],
-            "pos": 326,
+            "pos": 327,
             "atkptn": [
                 {
                     "loop": [
@@ -37816,7 +38091,7 @@
                 "flb",
                 "battery"
             ],
-            "pos": 340,
+            "pos": 341,
             "atkptn": [
                 {
                     "loop": [
@@ -38118,7 +38393,7 @@
                 "aoe",
                 "atkspd_down"
             ],
-            "pos": 331,
+            "pos": 332,
             "atkptn": [
                 {
                     "loop": [
@@ -38391,7 +38666,7 @@
                 "tp_down",
                 "ue"
             ],
-            "pos": 345,
+            "pos": 346,
             "atkptn": [
                 {
                     "loop": [
@@ -38681,7 +38956,7 @@
                 "tp_down",
                 "ue"
             ],
-            "pos": 327,
+            "pos": 328,
             "atkptn": [
                 {
                     "loop": [
@@ -40071,7 +40346,7 @@
                 "battery",
                 "ue"
             ],
-            "pos": 339,
+            "pos": 340,
             "atkptn": [
                 {
                     "loop": [
@@ -40353,7 +40628,8 @@
                 "mdef_down",
                 "matk_up",
                 "ailment",
-                "battery"
+                "battery",
+                "ue"
             ],
             "pos": 305,
             "atkptn": [
@@ -40413,16 +40689,20 @@
                     },
                     "sk1": {
                         "name": null,
-                        "text": "Inflict medium magic damage on all enemies in range; inflict a short duration stun.",
+                        "text": "Inflict medium magic damage on all enemies in range centered on the frontmost enemy; inflict a short duration stun.",
                         "action": [
-                            "Inflict 31468 m.dmg on all targets in range (Range: 250)",
+                            "Inflict 33135 m.dmg on all targets in range (Range: 250)",
                             "Paralyze all targets in range for a set time (Range: 250)"
                         ]
                     },
                     "sk1p": {
                         "name": null,
-                        "text": "soon\u2122",
-                        "action": null
+                        "text": "Inflict large magic damage on all enemies in range centered on the frontmost enemy; inflict small magic def down; inflict stun.",
+                        "action": [
+                            "Inflict 49703 m.dmg on all targets in range (Range: 250)",
+                            "Inflict 42 m.def down on all targets in range (Range: 250)[12s]",
+                            "Paralyze all targets in range for a set time (Range: 250)"
+                        ]
                     },
                     "sk1a": {
                         "name": null,
@@ -40438,7 +40718,7 @@
                         "name": null,
                         "text": "Inflict medium magic damage on the frontmost enemy; inflict small magic def down.",
                         "action": [
-                            "Inflict 23601 m.dmg on target ",
+                            "Inflict 24851 m.dmg on target ",
                             "Inflict 125 m.def down on target [12s]"
                         ]
                     },
@@ -40502,8 +40782,8 @@
                         "action": null
                     },
                     "sk1p": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u30b5\u30c6\u30e5\u30ec\u30a4\u30c8\u30fb\u30ec\u30a4+",
+                        "text": "\u76ee\u306e\u524d\u306e\u6575\uff11\u30ad\u30e3\u30e9\u3092\u4e2d\u5fc3\u3068\u3057\u305f\u7bc4\u56f2\u5185\u306e\u6575\u3059\u3079\u3066\u306b\u9b54\u6cd5\u5927\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3001\u9b54\u6cd5\u9632\u5fa1\u529b\u3092\u5c0f\u30c0\u30a6\u30f3\u3055\u305b\u3001\u3055\u3089\u306b\u30b9\u30bf\u30f3\u3055\u305b\u308b\u3002",
                         "action": null
                     },
                     "sk1a": {
@@ -40550,28 +40830,35 @@
                 }
             },
             "ue": {
-                "id": null,
+                "id": 130701,
                 "rank": null,
-                "img": null,
-                "stats": {},
+                "img": "https://redive.estertion.win/icon/equipment/130701.webp",
+                "stats": {
+                    "matk": 91,
+                    "matk_growth": 4.55,
+                    "mCrit": 14,
+                    "mCrit_growth": 0.7,
+                    "tpRec": 1,
+                    "tpRec_growth": 0.05
+                },
                 "en": {
-                    "name": null,
+                    "name": "Mirage Wand",
                     "text": null
                 },
                 "jp": {
-                    "name": null,
-                    "text": null
+                    "name": "\u30ef\u30f3\u30c9\u30aa\u30d6\u30df\u30e9\u30fc\u30b8\u30e5",
+                    "text": "\u30cd\u30cd\u30ab\u304c\u611b\u7528\u3057\u3066\u3044\u308b\u6756\u3002\u7e70\u308a\u51fa\u3055\u308c\u308b\u5e7b\u5f71\u9b54\u6cd5\u306f\u5bfe\u8c61\u8005\u3092\u5b8c\u5168\u306b\u6b3a\u304d\u9b54\u6cd5\u306b\u304b\u3051\u3089\u308c\u305f\u3053\u3068\u3059\u3089\u5fd8\u308c\u3055\u305b\u308b\u3002\u5168\u3066\u306f\u5909\u8c8c\u5927\u5983\u306e\u638c\u306e\u4e0a\u3002"
                 }
             },
             "stats": {
                 "normal": {
                     "hp": 27993,
                     "atk": 0,
-                    "matk": 17055,
+                    "matk": 18097,
                     "def": 249,
                     "mdef": 346,
                     "pCrit": 0,
-                    "mCrit": 1550,
+                    "mCrit": 1710,
                     "wHpRec": 1280,
                     "wTpRec": 582,
                     "dodge": 0,
@@ -40579,7 +40866,7 @@
                     "mPen": 0,
                     "lifesteal": 6,
                     "hpRec": 45,
-                    "tpRec": 22,
+                    "tpRec": 33,
                     "tpSave": 17,
                     "acc": 0
                 },
@@ -40901,7 +41188,7 @@
                 "seasonal",
                 "ue"
             ],
-            "pos": 346,
+            "pos": 347,
             "atkptn": [
                 {
                     "loop": [
@@ -41174,7 +41461,7 @@
                 "self_buff",
                 "ue"
             ],
-            "pos": 332,
+            "pos": 333,
             "atkptn": [
                 {
                     "loop": [
@@ -42373,7 +42660,7 @@
                         "text": "Grant large physical attack up to all allies in range around Shiori and inflict massive physical damage on the frontmost enemy.",
                         "action": [
                             "Buff p.atk by 3135 on all targets in range (Range: 300)[12s]",
-                            "Inflict 117915 p.dmg to target "
+                            "Inflict 118455 p.dmg to target "
                         ]
                     },
                     "sk2a": {
@@ -42505,7 +42792,7 @@
             "stats": {
                 "normal": {
                     "hp": 26016,
-                    "atk": 17040,
+                    "atk": 17130,
                     "matk": 0,
                     "def": 348,
                     "mdef": 477,
@@ -42847,7 +43134,7 @@
                 "battery",
                 "ue"
             ],
-            "pos": 343,
+            "pos": 344,
             "atkptn": [
                 {
                     "loop": [
@@ -43415,7 +43702,7 @@
                 "aoe",
                 "rear"
             ],
-            "pos": 333,
+            "pos": 334,
             "atkptn": [
                 {
                     "loop": [
@@ -43652,7 +43939,7 @@
                 "blood": "O",
                 "weight": "47",
                 "height": "158",
-                "img": "https://redive.estertion.win/card/actual_profile/180231.webp",
+                "img": "https://redive.estertion.win/card/actual_profile/180232.webp",
                 "bd": "4/5",
                 "en": {
                     "name": null,
@@ -43976,7 +44263,7 @@
                 "mcri_down",
                 "special"
             ],
-            "pos": 325,
+            "pos": 326,
             "atkptn": [
                 {
                     "loop": [
@@ -44246,7 +44533,7 @@
                 "magic",
                 "prinfes"
             ],
-            "pos": 328,
+            "pos": 329,
             "atkptn": [
                 {
                     "loop": [
@@ -44779,59 +45066,54 @@
                 "lvl": 208,
                 "rk": 22
             },
-            "sname": "schika",
+            "sname": "hatsuneshiori",
             "tags": [
-                "magic",
-                "mid",
-                "seasonal",
-                "mdef_up",
-                "pdef_up",
-                "mp_shield",
-                "pshield",
-                "mshield",
-                "heal"
+                "rear",
+                "phys",
+                "prifes",
+                "self_buff",
+                "patk_up",
+                "tp_up",
+                "pcrit_up",
+                "special"
             ],
-            "pos": 231,
+            "pos": 324,
             "atkptn": [
                 {
                     "loop": [
-                        7,
-                        16
+                        4,
+                        12
                     ],
                     "ptn": [
-                        1001,
                         1002,
                         1,
                         1001,
                         1,
-                        1002,
-                        1,
-                        1002,
                         1,
                         1001,
-                        1,
                         1002,
+                        1001,
                         1,
                         1001,
-                        1
+                        1002,
+                        1001
                     ],
                     "no": "1"
                 }
             ],
-            "img": "https://redive.estertion.win/icon/unit/117331.webp",
+            "img": "https://redive.estertion.win/icon/unit/180731.webp",
             "img6": null,
             "basic": {
                 "en": {
                     "id": null,
-                    "prefix": "s",
-                    "name": "chika",
+                    "prefix": null,
+                    "name": "hatsuneshiori",
                     "ub": {
                         "name": null,
-                        "text": "Grant medium physical and magic def up on all allies. Deploy a physical/magic nullification shield.",
+                        "text": "Gain large physical attack up; inflict large physical damage on all enemies.",
                         "action": [
-                            "Buff party p.def by 199 [18s]",
-                            "Buff party m.def by 199 [18s]",
-                            "Deploy a 5225 buffer mp.barrier [18s]"
+                            "Gain 4703 p.atk up [180s]",
+                            "Inflict 46338 p.dmg to all targets in range "
                         ]
                     },
                     "uba": {
@@ -44851,9 +45133,10 @@
                     },
                     "sk1": {
                         "name": null,
-                        "text": "Grant massive magic def up on all allies in range centered on Chika. This skill's effectiveness decreases on each cast, up to 3 times.",
+                        "text": "Inflict medium physical damage on all enemies; gain medium TP recovery. TP recovered and damage dealt increases proportionally to enemies in range.",
                         "action": [
-                            "Buff 627 m.def on all targets in range (Range: 255)[12s]"
+                            "Inflict 17377 p.dmg to all targets in range ",
+                            "Gain 258 TP "
                         ]
                     },
                     "sk1p": {
@@ -44873,10 +45156,11 @@
                     },
                     "sk2": {
                         "name": null,
-                        "text": "Grant small HP heal on the ally with the lowest HP; grant continuous HP recovery.",
+                        "text": "Grant small physical attack, crit, and crit damage up to all allies in range. Depending on HatsuShio's physical attack stat, this skill may be cast up to 4 times.",
                         "action": [
-                            "Heal 4588 HP on target ",
-                            "Recover 653 HP every second "
+                            "Buff p.atk by 627 on all targets in range (Range: 200)[180s]",
+                            "Buff p.crit by 10 on all targets in range (Range: 200)[180s]",
+                            "Grant 1% p.crit damage up to all aliies in range (Range: 200)[180s]"
                         ]
                     },
                     "sk2a": {
@@ -44896,26 +45180,26 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": "Gain medium magic attack up at the start of battle.",
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
-                            "Gain 3135 m.atk up "
+                            "Gain 3135 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": "Gain large magic attack up at the start of battle.",
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
-                            "Gain 3360 m.atk up "
+                            "Gain 3360 p.atk up "
                         ]
                     },
                     "comment": null
                 },
                 "jp": {
-                    "id": 1173,
-                    "name": "\u30c1\u30ab(\u30b5\u30de\u30fc)",
+                    "id": 1807,
+                    "name": "\u30cf\u30c4\u30cd\uff06\u30b7\u30aa\u30ea",
                     "ub": {
-                        "name": "\u30b5\u30de\u30fc\u30aa\u30fc\u30b7\u30e3\u30f3\u30b7\u30f3\u30d5\u30a9\u30cb\u30fc",
-                        "text": "\u5473\u65b9\u5168\u4f53\u306e\u7269\u7406\u9632\u5fa1\u529b\u3068\u9b54\u6cd5\u9632\u5fa1\u529b\u3092\u4e2d\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002\u3055\u3089\u306b\u3001\u7269\u7406/\u9b54\u6cd5\u5438\u53ce\u30d0\u30ea\u30a2\u3092\u5c55\u958b\u3059\u308b\u3002",
+                        "name": "\u30de\u30a4\u30c7\u30a3\u30a2\u30b9\u30bf\u30fc",
+                        "text": "\u81ea\u5206\u306e\u7269\u7406\u653b\u6483\u529b\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u3001\u3055\u3089\u306b\u524d\u65b9\u306e\u6575\u3059\u3079\u3066\u306b\u7269\u7406\u5927\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u308b\u3002",
                         "action": null
                     },
                     "uba": {
@@ -44934,8 +45218,8 @@
                         "action": null
                     },
                     "sk1": {
-                        "name": "\u30aa\u30fc\u30b7\u30e3\u30f3\u30d7\u30ed\u30c6\u30af\u30b7\u30e7\u30f3",
-                        "text": "\u81ea\u5206\u3092\u4e2d\u5fc3\u3068\u3057\u305f\u7bc4\u56f2\u5185\u306e\u5473\u65b9\u3059\u3079\u3066\u306e\u9b54\u6cd5\u9632\u5fa1\u529b\u3092\u7279\u5927\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002\u3053\u306e\u30b9\u30ad\u30eb\u306f\uff13\u56de\u307e\u3067\u3001\u4f7f\u7528\u3059\u308b\u5ea6\u306b\u30b9\u30ad\u30eb\u52b9\u679c\u304c\u30c0\u30a6\u30f3\u3059\u308b\u3002",
+                        "name": "\u30b9\u30bf\u30fc\u30e9\u30a4\u30c8\u30b7\u30e5\u30fc\u30c8",
+                        "text": "\u524d\u65b9\u306e\u6575\u3059\u3079\u3066\u306b\u7269\u7406\u4e2d\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3001\u3055\u3089\u306b\u81ea\u5206\u306e\uff34\uff30\u3092\u4e2d\u56de\u5fa9\u3059\u308b\u3002\u7bc4\u56f2\u5185\u306e\u6575\u306e\u6570\u306b\u5fdc\u3058\u3066\u3001\u30c0\u30e1\u30fc\u30b8\u3068\uff34\uff30\u306e\u56de\u5fa9\u91cf\u304c\u5897\u52a0\u3059\u308b\u3002",
                         "action": null
                     },
                     "sk1p": {
@@ -44954,8 +45238,8 @@
                         "action": null
                     },
                     "sk2": {
-                        "name": "\u30c9\u30eb\u30d5\u30a3\u30f3\u30bd\u30f3\u30b0",
-                        "text": "\u6700\u3082\uff28\uff30\u304c\u4f4e\u3044\u5473\u65b9\uff11\u30ad\u30e3\u30e9\u306e\uff28\uff30\u3092\u5c0f\u56de\u5fa9\u3055\u305b\u3001\u7d99\u7d9a\uff28\uff30\u56de\u5fa9\u72b6\u614b\u3092\u4ed8\u4e0e\u3059\u308b\u3002",
+                        "name": "\u30b7\u30b9\u30bf\u30fc\u30ba\u30ea\u30f3\u30af",
+                        "text": "\u81ea\u5206\u306e\u5468\u56f2\u306e\u5473\u65b9\u3059\u3079\u3066\u306e\u7269\u7406\u653b\u6483\u529b\u3068\u7269\u7406\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u3068\u7269\u7406\u653b\u6483\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u6642\u306e\u30c0\u30e1\u30fc\u30b8\u3092\u5c0f\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002\u81ea\u5206\u306e\u7269\u7406\u653b\u6483\u529b\u306b\u5fdc\u3058\u3066\u3001\u305d\u308c\u305e\u308c\u306e\u4e0a\u6607\u91cf\u304c\u6700\u5927\uff14\u500d\u307e\u3067\u30a2\u30c3\u30d7\u3059\u308b\u3002",
                         "action": null
                     },
                     "sk2a": {
@@ -44974,16 +45258,16 @@
                         "action": null
                     },
                     "ex": {
-                        "name": "\u30b5\u30de\u30fc\u30c7\u30a3\u30fc\u30f4\u30a1",
-                        "text": "\u30d0\u30c8\u30eb\u958b\u59cb\u6642\u306b\u81ea\u5206\u306e\u9b54\u6cd5\u653b\u6483\u529b\u3092\u4e2d\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
+                        "name": "\u5168\u958b\u2606\u7d46\u30d1\u30ef\u30fc",
+                        "text": "\u30d0\u30c8\u30eb\u958b\u59cb\u6642\u306b\u81ea\u5206\u306e\u7269\u7406\u653b\u6483\u529b\u3092\u4e2d\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
                         "action": null
                     },
                     "ex2": {
-                        "name": "\u30b5\u30de\u30fc\u30c7\u30a3\u30fc\u30f4\u30a1+",
-                        "text": "\u30d0\u30c8\u30eb\u958b\u59cb\u6642\u306b\u81ea\u5206\u306e\u9b54\u6cd5\u653b\u6483\u529b\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
+                        "name": "\u5168\u958b\u2606\u7d46\u30d1\u30ef\u30fc+",
+                        "text": "\u30d0\u30c8\u30eb\u958b\u59cb\u6642\u306b\u81ea\u5206\u306e\u7269\u7406\u653b\u6483\u529b\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
                         "action": null
                     },
-                    "comment": "\u3010\u9b54\u6cd5\u3011\u4e2d\u885b\u3067\u3001\u5b88\u8b77\u306e\u8cdb\u6b4c\u3092\u6367\u3052\u308b\u590f\u6d77\u306e\u6b4c\u59eb\u3002\u6700\u5e8f\u76e4\u306b\u5473\u65b9\u306e\u9b54\u6cd5\u9632\u5fa1\u3092\u5927\u5e45\u306b\u5f37\u5316\u3057\u3001\u5438\u53ce\u30d0\u30ea\u30a2\u3084\uff28\uff30\u56de\u5fa9\u30b9\u30ad\u30eb\u3067\u3001\u5982\u4f55\u306a\u308b\u731b\u653b\u304b\u3089\u3082\u5473\u65b9\u3092\u5b88\u308b\u3002"
+                    "comment": "\u3010\u7269\u7406\u3011\u5f8c\u885b\u304b\u3089\u3001\u771f\u306e\u7d46\u306e\u529b\u3092\u767a\u63ee\u3059\u308b\u4ef2\u826f\u3057\u59c9\u59b9\u3002\u6575\u306e\u6570\u304c\u5897\u3048\u308b\u307b\u3069\u5a01\u529b\u304c\u9ad8\u307e\u308b\u653b\u6483\u30b9\u30ad\u30eb\u3068\u3001\u5468\u308a\u306e\u5473\u65b9\u3092\u5f37\u5316\u3059\u308b\u30b9\u30ad\u30eb\u3092\u64cd\u308a\u3001\u7acb\u3061\u585e\u304c\u308b\u6575\u3092\u4e00\u6383\u3059\u308b\u3002"
                 }
             },
             "ue": {
@@ -45002,33 +45286,33 @@
             },
             "stats": {
                 "normal": {
-                    "hp": 40254,
-                    "atk": 0,
-                    "matk": 11810,
-                    "def": 657,
-                    "mdef": 894,
-                    "pCrit": 0,
-                    "mCrit": 359,
-                    "wHpRec": 1640,
-                    "wTpRec": 306,
-                    "dodge": 3,
+                    "hp": 29602,
+                    "atk": 16695,
+                    "matk": 0,
+                    "def": 339,
+                    "mdef": 522,
+                    "pCrit": 1131,
+                    "mCrit": 0,
+                    "wHpRec": 2440,
+                    "wTpRec": 165,
+                    "dodge": 12,
                     "pPen": 0,
                     "mPen": 0,
-                    "lifesteal": 0,
-                    "hpRec": 147,
-                    "tpRec": 17,
-                    "tpSave": 21,
-                    "acc": 0
+                    "lifesteal": 6,
+                    "hpRec": 35,
+                    "tpRec": 28,
+                    "tpSave": 0,
+                    "acc": 65
                 },
                 "flb": {}
             },
             "profile": {
                 "age": "17",
-                "blood": "O",
-                "weight": "46",
-                "height": "163",
-                "img": "https://redive.estertion.win/card/actual_profile/117331.webp",
-                "bd": "6/3",
+                "blood": "-",
+                "weight": "-",
+                "height": "-",
+                "img": "https://redive.estertion.win/card/actual_profile/180731.webp",
+                "bd": "-/-",
                 "en": {
                     "name": null,
                     "name_alt": null,
@@ -45038,13 +45322,13 @@
                     "va": null
                 },
                 "jp": {
-                    "name": "\u30c1\u30ab\uff08\u30b5\u30de\u30fc\uff09",
-                    "name_alt": "\u3061\u304b",
+                    "name": "\u30cf\u30c4\u30cd\uff06\u30b7\u30aa\u30ea",
+                    "name_alt": "\u306f\u3064\u306d\u3057\u304a\u308a",
                     "irl_name": null,
-                    "guild": "\u30ab\u30eb\u30df\u30ca",
-                    "race": "\u30d2\u30e5\u30fc\u30de\u30f3",
-                    "va": "\u798f\u539f\u7dbe\u9999",
-                    "name_irl": "\u30c1\u30ab\uff08\u30b5\u30de\u30fc\uff09"
+                    "guild": "\u30d5\u30a9\u30ec\u30b9\u30c6\u30a3\u30a8\u3001\u7267\u5834\uff08\u30a8\u30ea\u30b6\u30d9\u30b9\u30d1\u30fc\u30af\uff09",
+                    "race": "\u30a8\u30eb\u30d5\u3001\u7363\u4eba\u65cf",
+                    "va": "\u5927\u6a4b\u5f69\u9999\u3001\u5c0f\u6e05\u6c34\u4e9c\u7f8e",
+                    "name_irl": "\u30cf\u30c4\u30cd\uff06\u30b7\u30aa\u30ea"
                 }
             }
         }

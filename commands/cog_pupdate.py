@@ -36,7 +36,13 @@ update_meta = [
     "+ updates gacha state"
 ]
 
-def validate_request(client, request:dict, mode="en"):
+def validate_request(client, request:dict, mode="en", hconfig=None):
+    if hconfig == None:
+        hconfig = {'kizuna_search':{}}
+
+    #request_search = request['name'].split('+')
+    #request_name = ''.join(request_search)
+
     # request needs to be a dictionary of the form {"name":str,"prefix":Union(None,str)}
     # returns match:Union(dict,None), alts:Union(list,None)
     incorrect_prefix_flag = {"flag":None}
@@ -73,7 +79,7 @@ def validate_request(client, request:dict, mode="en"):
     
     # note: deremasu girls are strictly removed from alts bc cg.rin shens
     if request['prefix'] != 'd':
-        alts = list(filter(lambda x: x['name_en'] == request['name'] and x['prefix'] != "d", index['index']))
+        alts = list(filter(lambda x: (x['name_en'] == request['name'] or x['name_en'] == hconfig['kizuna_search'].get(request['name'], None)) and x['prefix'] != "d", index['index']))
     else:
         alts = []
     return {**match[0],"index":index['index'].index(match[0])}, [{**alt,"index":index['index'].index(alt)} for alt in alts if alt['sname'] != match[0]['sname']], incorrect_prefix_flag
