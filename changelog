@@ -1,4 +1,8 @@
 {
+    "4.14.2": [
+        "+ [phatsune] added ue for a.akari and a.yori, added o.yuki",
+        "+ [gacha] update banners"
+    ],
     "4.14.1": [
         "+ [phatsune] add o.mitsuki",
         "+ [gacha] update banner"
@@ -13,14 +17,14 @@
         "+ [phatsune] added s.chika",
         "+ [phatsune] equipment update"
     ],
-    "4.13.9: [
+    "4.13.9": [
         "+ [phatsune] added ue for s.hatusne, s.jun, s.misato",
         "+ [cb] implemented new green queue"
-    ]
+    ],
     "4.13.8": [
         "+ [phatsune] added aoi flb"
     ],
-    "4.13.7": 
+    "4.13.7":  [
         "+ [phatsune] added s.tsumugi, s.nozomi",
         "+ [gacha] updated banners"
     ],
