@@ -32670,7 +32670,7 @@
                 "ailment",
                 "flb"
             ],
-            "pos": 338,
+            "pos": 339,
             "atkptn": [
                 {
                     "loop": [
@@ -34425,7 +34425,7 @@
                 "special",
                 "flb"
             ],
-            "pos": 331,
+            "pos": 332,
             "atkptn": [
                 {
                     "loop": [
@@ -35003,7 +35003,7 @@
                 "pshield",
                 "atkspd_up"
             ],
-            "pos": 343,
+            "pos": 344,
             "atkptn": [
                 {
                     "loop": [
@@ -35306,7 +35306,7 @@
                 "tp_up",
                 "battery"
             ],
-            "pos": 344,
+            "pos": 345,
             "atkptn": [
                 {
                     "loop": [
@@ -36430,7 +36430,7 @@
                 "mdef_down",
                 "ue"
             ],
-            "pos": 337,
+            "pos": 338,
             "atkptn": [
                 {
                     "loop": [
@@ -36706,7 +36706,7 @@
                 "self_buff",
                 "flb"
             ],
-            "pos": 346,
+            "pos": 347,
             "atkptn": [
                 {
                     "loop": [
@@ -37295,7 +37295,7 @@
                 "mdef_up",
                 "ue"
             ],
-            "pos": 336,
+            "pos": 337,
             "atkptn": [
                 {
                     "loop": [
@@ -37579,7 +37579,7 @@
                 "patk_down",
                 "self_buff"
             ],
-            "pos": 339,
+            "pos": 340,
             "atkptn": [
                 {
                     "loop": [
@@ -37859,7 +37859,7 @@
                 "ue",
                 "battery"
             ],
-            "pos": 335,
+            "pos": 336,
             "atkptn": [
                 {
                     "loop": [
@@ -38411,7 +38411,7 @@
                 "flb",
                 "battery"
             ],
-            "pos": 341,
+            "pos": 342,
             "atkptn": [
                 {
                     "loop": [
@@ -38713,7 +38713,7 @@
                 "aoe",
                 "atkspd_down"
             ],
-            "pos": 332,
+            "pos": 333,
             "atkptn": [
                 {
                     "loop": [
@@ -38986,7 +38986,7 @@
                 "tp_down",
                 "ue"
             ],
-            "pos": 347,
+            "pos": 348,
             "atkptn": [
                 {
                     "loop": [
@@ -40666,7 +40666,7 @@
                 "battery",
                 "ue"
             ],
-            "pos": 340,
+            "pos": 341,
             "atkptn": [
                 {
                     "loop": [
@@ -41508,7 +41508,7 @@
                 "seasonal",
                 "ue"
             ],
-            "pos": 348,
+            "pos": 349,
             "atkptn": [
                 {
                     "loop": [
@@ -41781,7 +41781,7 @@
                 "self_buff",
                 "ue"
             ],
-            "pos": 333,
+            "pos": 334,
             "atkptn": [
                 {
                     "loop": [
@@ -43454,7 +43454,7 @@
                 "battery",
                 "ue"
             ],
-            "pos": 345,
+            "pos": 346,
             "atkptn": [
                 {
                     "loop": [
@@ -44022,7 +44022,7 @@
                 "aoe",
                 "rear"
             ],
-            "pos": 334,
+            "pos": 335,
             "atkptn": [
                 {
                     "loop": [
@@ -45669,7 +45669,7 @@
                 "heal",
                 "mdef_down"
             ],
-            "pos": 342,
+            "pos": 343,
             "atkptn": [
                 {
                     "loop": [
@@ -45923,6 +45923,280 @@
                     "race": "\u30a8\u30eb\u30d5",
                     "va": "\u5927\u7a7a\u76f4\u7f8e",
                     "name_irl": "\u30e6\u30ad\uff08\u30aa\u30fc\u30a8\u30c9\uff09"
+                }
+            }
+        },
+        {
+            "status": {
+                "ue": 220,
+                "lvl": 211,
+                "rk": 22
+            },
+            "sname": "credita",
+            "tags": [
+                "rear",
+                "phys",
+                "seasonal",
+                "pdef_down",
+                "tp_up",
+                "battery",
+                "heal",
+                "pshield",
+                "special"
+            ],
+            "pos": 331,
+            "atkptn": [
+                {
+                    "loop": [
+                        4,
+                        13
+                    ],
+                    "ptn": [
+                        1001,
+                        1,
+                        1001,
+                        1,
+                        1001,
+                        1002,
+                        1001,
+                        1,
+                        1002,
+                        1001,
+                        1,
+                        1001,
+                        1002
+                    ],
+                    "no": "1"
+                }
+            ],
+            "img": "https://redive.estertion.win/icon/unit/118031.webp",
+            "img6": null,
+            "basic": {
+                "en": {
+                    "id": null,
+                    "prefix": null,
+                    "name": "Credita",
+                    "ub": {
+                        "name": null,
+                        "text": "Inflict medium physical damage on all enemy vanguards; inflict small physical def down. Damage and def down increases marginally with enemies in range.",
+                        "action": [
+                            "Inflict 25536 p.dmg to all targets in range ",
+                            "Inflict 58 p.def down on all targets in range [18s]"
+                        ]
+                    },
+                    "uba": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "ub2": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "uba2": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1": {
+                        "name": null,
+                        "text": "Inflict medium physical damage on all enemies in range centered on the frontmost enemy. After commencement of battle, the first shot from this skill also inflicts small physical def down.",
+                        "action": [
+                            "Inflict 23946 p.dmg to all targets in range (Range: 250)",
+                            "Inflict 58 p.def down on all targets in range (Range: 250)[180s]"
+                        ]
+                    },
+                    "sk1p": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1ap": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk2": {
+                        "name": null,
+                        "text": "Grant continuous HP and TP recovery status to all allies; deploy a physical nullification shield.",
+                        "action": [
+                            "Recover 572 HP every second ",
+                            "Heal 10TP per second ",
+                            "Deploy a 2544 buffer p.shield [10.5s]"
+                        ]
+                    },
+                    "sk2a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk3": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk3a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "ex": {
+                        "name": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
+                        "action": [
+                            "Gain 3180 p.atk up "
+                        ]
+                    },
+                    "ex2": {
+                        "name": null,
+                        "text": "Gain large physical attack up at the start of battle.",
+                        "action": [
+                            "Gain 3405 p.atk up "
+                        ]
+                    },
+                    "comment": null
+                },
+                "jp": {
+                    "id": 1180,
+                    "name": "\u30af\u30ec\u30b8\u30c3\u30bf",
+                    "ub": {
+                        "name": "\u30df\u30ea\u30aa\u30f3\u30d5\u30ea\u30c3\u30d4\u30f3\u30b0",
+                        "text": "\u524d\u65b9\u306e\u6575\u3059\u3079\u3066\u306b\u7269\u7406\u4e2d\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3001\u3055\u3089\u306b\u7269\u7406\u9632\u5fa1\u529b\u3092\u5c0f\u30c0\u30a6\u30f3\u3055\u305b\u308b\u3002\u7bc4\u56f2\u5185\u306e\u6575\u306e\u6570\u306b\u5fdc\u3058\u3066\u3001\u30c0\u30e1\u30fc\u30b8\u3068\u9632\u5fa1\u529b\u306e\u6e1b\u5c11\u91cf\u304c\u5897\u52a0\u3059\u308b\u3002",
+                        "action": null
+                    },
+                    "uba": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "ub2": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "uba2": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1": {
+                        "name": "\u30c8\u30e9\u30c3\u30d7\u30a6\u30a9\u30ec\u30c3\u30c8",
+                        "text": "\u76ee\u306e\u524d\u306e\u6575\uff11\u30ad\u30e3\u30e9\u3092\u4e2d\u5fc3\u3068\u3057\u305f\u7bc4\u56f2\u5185\u306e\u6575\u3059\u3079\u3066\u306b\u7269\u7406\u4e2d\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u308b\u3002\u30d0\u30c8\u30eb\u958b\u59cb\u5f8c\u3001\u521d\u5f3e\u306e\u3053\u306e\u30b9\u30ad\u30eb\u306f\u3055\u3089\u306b\u6575\u306e\u7269\u7406\u9632\u5fa1\u529b\u3092\u5c0f\u30c0\u30a6\u30f3\u3055\u305b\u308b\u3002",
+                        "action": null
+                    },
+                    "sk1p": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1ap": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk2": {
+                        "name": "\u30ed\u30a4\u30e4\u30ea\u30c6\u30a3\u30e9\u30a4\u30c8",
+                        "text": "\u5473\u65b9\u5168\u4f53\u306b\u7d99\u7d9a\uff28\uff30\u56de\u5fa9\u72b6\u614b\u3068\u7d99\u7d9a\uff34\uff30\u56de\u5fa9\u72b6\u614b\u3092\u4ed8\u4e0e\u3057\u3001\u3055\u3089\u306b\u7269\u7406\u7121\u52b9\u30d0\u30ea\u30a2\u3092\u5c55\u958b\u3059\u308b\u3002",
+                        "action": null
+                    },
+                    "sk2a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk3": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk3a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "ex": {
+                        "name": "\u3078\u305d\u304f\u308a\u30d6\u30fc\u30b9\u30c8",
+                        "text": "\u30d0\u30c8\u30eb\u958b\u59cb\u6642\u306b\u81ea\u5206\u306e\u7269\u7406\u653b\u6483\u529b\u3092\u4e2d\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
+                        "action": null
+                    },
+                    "ex2": {
+                        "name": "\u3078\u305d\u304f\u308a\u30d6\u30fc\u30b9\u30c8+",
+                        "text": "\u30d0\u30c8\u30eb\u958b\u59cb\u6642\u306b\u81ea\u5206\u306e\u7269\u7406\u653b\u6483\u529b\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
+                        "action": null
+                    },
+                    "comment": "\u3010\u7269\u7406\u3011\u5f8c\u885b\u3067\u3001\u653b\u6483\u3068\u6575\u306e\u5f31\u4f53\u5316\u306e\u4e8c\u5f79\u3067\u8f1d\u304f\u5973\u5546\u4eba\u3002\u751f\u3051\u308b\u91d1\u8ca8\u304c\u8a70\u307e\u3063\u305f\u8ca1\u5e03\u3092\u6295\u3052\u3064\u3051\u308b\u4e0d\u610f\u6253\u3061\u3084\u3001\u91d1\u8ca8\u306e\u5d50\u3092\u5dfb\u304d\u8d77\u3053\u3059\u653b\u6483\u3067\u3001\u76f8\u624b\u306e\u9632\u5fa1\u3092\u5927\u304d\u304f\u5d29\u3059\u3002"
+                }
+            },
+            "ue": {
+                "id": null,
+                "rank": null,
+                "img": null,
+                "stats": {},
+                "en": {
+                    "name": null,
+                    "text": null
+                },
+                "jp": {
+                    "name": null,
+                    "text": null
+                }
+            },
+            "stats": {
+                "normal": {
+                    "hp": 30910,
+                    "atk": 17305,
+                    "matk": 0,
+                    "def": 358,
+                    "mdef": 408,
+                    "pCrit": 1358,
+                    "mCrit": 0,
+                    "wHpRec": 3155,
+                    "wTpRec": 136,
+                    "dodge": 17,
+                    "pPen": 0,
+                    "mPen": 0,
+                    "lifesteal": 10,
+                    "hpRec": 35,
+                    "tpRec": 24,
+                    "tpSave": 0,
+                    "acc": 66
+                },
+                "flb": {}
+            },
+            "profile": {
+                "age": "26",
+                "blood": "A",
+                "weight": "57",
+                "height": "160",
+                "img": "https://redive.estertion.win/card/actual_profile/118031.webp",
+                "bd": "9/19",
+                "en": {
+                    "name": null,
+                    "name_alt": null,
+                    "irl_name": null,
+                    "guild": null,
+                    "race": null,
+                    "va": null
+                },
+                "jp": {
+                    "name": "\u30af\u30ec\u30b8\u30c3\u30bf",
+                    "name_alt": "\u304f\u308c\u3058\u3063\u305f",
+                    "irl_name": null,
+                    "guild": "\u30ea\u30c3\u30c1\u30e2\u30f3\u30c9\u5546\u5de5\u4f1a",
+                    "race": "\u30d2\u30e5\u30fc\u30de\u30f3",
+                    "va": "Lynn",
+                    "name_irl": "\u30af\u30ec\u30b8\u30c3\u30bf"
                 }
             }
         }

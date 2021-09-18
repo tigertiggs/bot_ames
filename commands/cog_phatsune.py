@@ -70,8 +70,13 @@ class hatsuneCog(commands.Cog):
         
         #await channel.send("[Experimental Ames] This is currently a highly experimental version of `.character` and may be very unstable. Stable Ames will be up and running soon:tm:")
         if not match['flb'] and mode.get('flb', False):
-            await channel.send(f"**[Note]: {self.client.get_full_name_kai(match['name_en'],match['prefix'])}** does not have a `flb` variant.")
-            mode['flb'] = False
+            # dj shen
+            if match['sname'] == 'djeeta':
+                await channel.send("Djeeta currently has a `flb` variant but issues were encountered when attempting to update her. Her `flb` will be unavailable until the issues are resolved. Sorry for the inconvenience "+self.client.emotes['derp'])
+                return
+            else:
+                await channel.send(f"**[Note]: {self.client.get_full_name_kai(match['name_en'],match['prefix'])}** does not have a `flb` variant.")
+                mode['flb'] = False
 
         await self.logger.send(self.name, match['sname'], match['name_jp'], match['hnid'])
 
