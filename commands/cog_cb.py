@@ -408,24 +408,42 @@ class cbCog(commands.Cog):
 
         boss_q, ots, min_wave = self.process_qfile(q)
 
-        if mode == 'q' and not remove:
-            # admin proxy queue
-            proxy = False
-            if self.client._check_author(author, 'admin') and options[0].startswith('<@!'):
-                try:
-                    proxy_id = int(options[0][3:-1])
-                except:
-                    await channel.send("Failed to read proxy target")
+        # admin proxy queue
+        proxy = False
+        if self.client._check_author(author, 'admin') and options[0].startswith('<@!'):
+            try:
+                proxy_id = int(options[0][3:-1])
+            except:
+                await channel.send("Failed to read proxy target")
+                return
+            else:
+                options = options[1:]
+                proxy_target = author.guild.get_member(proxy_id)
+                if proxy_target is None:
+                    await channel.send("Failed to find proxy member")
                     return
                 else:
-                    options = options[1:]
-                    proxy_target = author.guild.get_member(proxy_id)
-                    if proxy_target is None:
-                        await channel.send("Failed to find proxy member")
-                        return
-                    else:
-                        author = proxy_target
-                        proxy = True
+                    author = proxy_target
+                    proxy = True
+
+        if mode == 'q' and not remove:
+            # admin proxy queue
+            #proxy = False
+            #if self.client._check_author(author, 'admin') and options[0].startswith('<@!'):
+            #    try:
+            #        proxy_id = int(options[0][3:-1])
+            #    except:
+            #        await channel.send("Failed to read proxy target")
+            #        return
+            #    else:
+            #        options = options[1:]
+            #        proxy_target = author.guild.get_member(proxy_id)
+            #        if proxy_target is None:
+            #            await channel.send("Failed to find proxy member")
+            #           return
+            #       else:
+            #            author = proxy_target
+            #            proxy = True
 
             # read target boss
             try:
@@ -587,15 +605,25 @@ class cbCog(commands.Cog):
                 if len([i for i in ots if i['id'] == author.id]) >= 3:
                     await channel.send("Note: You already have 3 OT records!")
                 ots.append({'id':author.id, 'mode':'ot', 'ot':ot_time, 'timestamp': str(datetime.datetime.now(datetime.timezone.utc))})
-                await channel.send(f'Added {ot_time}s to OT list '+self.client.emotes['sarenh'])
+                if proxy:
+                    await channel.send(f'Added {author.name}\'s {ot_time}s to OT list '+self.client.emotes['sarenh'])
+                else:
+                    await channel.send(f'Added {ot_time}s to OT list '+self.client.emotes['sarenh'])
             else:
                 records = [i for i in ots if (i['id'] == author.id and i['ot'] == ot_time)]
                 if len(records) == 0:
-                    await channel.send("No OT records with specified time under your name to remove")
+                    if proxy:
+                        await channel.send(f"No OT records with specified time for {author.name} to remove")
+                    else:
+                        await channel.send("No OT records with specified time under your name to remove")
+                    
                     return
                 else:
                     ots.pop(ots.index(records[0]))
-                    await channel.send(f'Removed {ot_time}s to OT list '+self.client.emotes['sarenh'])
+                    if proxy:
+                        await channel.send(f'Removed {author.name}\'s {ot_time}s from OT list '+self.client.emotes['sarenh'])
+                    else:
+                        await channel.send(f'Removed {ot_time}s from OT list '+self.client.emotes['sarenh'])
         
         elif remove and self.client._check_author(author, 'admin'): # remove
             # .q remove @member boss wave
@@ -801,7 +829,7 @@ class cbCog(commands.Cog):
                 ots.append(queue_entry)
         
         # sort boss queues by timestamp
-        print(json.dumps(boss_queues,indent=4))
+        #print(json.dumps(boss_queues,indent=4))
         for boss_queue in boss_queues:
             boss_queue.sort(key=lambda entry: (entry['wave'], datetime.datetime.strptime(entry['timestamp'], '%Y-%m-%d %H:%M:%S.%f%z')))
         
@@ -824,6 +852,16 @@ class cbCog(commands.Cog):
             embed.add_field(
                 name="Notes",
                 value="Works exactly the same way as `.q` but you're proxying for `[@member]`.",
+                inline=False
+            )
+            embed.add_field(
+                name="OT Queue delegate (Admin)",
+                value="`.q ot [@member] [ot_seconds] optional[done]`",
+                inline=False
+            )
+            embed.add_field(
+                name="Notes",
+                value="Works Exactly the same way as normal queue delegation but with `ot` subcommand prefix.",
                 inline=False
             )
             embed.add_field(
