@@ -18095,7 +18095,7 @@
                     "name": "kaori",
                     "ub": {
                         "name": null,
-                        "text": "Inflict large physical damage on the frontmost enemy. Inflicted damage increases proportionally to how small the ratio between the target's max HP to remaining HP is.",
+                        "text": "Inflict large physical damage on the frontmost enemy. Inflicted damage is inversely proportional to the remaining HP% of the enemy with the highest HP.",
                         "action": [
                             "Inflict 50882 p.dmg to target "
                         ]
@@ -18117,7 +18117,7 @@
                     },
                     "sk1": {
                         "name": null,
-                        "text": "Inflict medium physical damage on the frontmost enemy; gain small physical attack up. Inflicted damage and attack up strength increases proportionally to how small the ratio between the target's max HP to remaining HP is.",
+                        "text": "Inflict medium physical damage on the frontmost enemy; gain small physical attack up. Inflicted damage and buff strength are inversely proportional to the remaining HP% of the enemy with the highest HP.",
                         "action": [
                             "Inflict 25441 p.dmg to target ",
                             "Gain 1060 p.atk up [12s]"
@@ -18140,7 +18140,7 @@
                     },
                     "sk2": {
                         "name": null,
-                        "text": "Gain medium physical attack up; gain large physical crit up. Buff strength increases proportionally to how small the ratio between maximum HP to remaining HP of the enemy with the lowest %HP remaining.",
+                        "text": "Gain medium physical attack up; gain large physical crit up. Buff strength is inversely proportional to the remaining HP% of the enemy with the highest HP.",
                         "action": [
                             "Gain 2968 p.atk up [12s]",
                             "Gain 80 p.crit up [12s]"
