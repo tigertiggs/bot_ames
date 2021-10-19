@@ -35583,7 +35583,7 @@
                 "pshield",
                 "atkspd_up"
             ],
-            "pos": 345,
+            "pos": 346,
             "atkptn": [
                 {
                     "loop": [
@@ -35886,7 +35886,7 @@
                 "tp_up",
                 "battery"
             ],
-            "pos": 346,
+            "pos": 347,
             "atkptn": [
                 {
                     "loop": [
@@ -37286,7 +37286,7 @@
                 "self_buff",
                 "flb"
             ],
-            "pos": 348,
+            "pos": 349,
             "atkptn": [
                 {
                     "loop": [
@@ -38159,7 +38159,7 @@
                 "patk_down",
                 "self_buff"
             ],
-            "pos": 341,
+            "pos": 342,
             "atkptn": [
                 {
                     "loop": [
@@ -39012,7 +39012,7 @@
                 "flb",
                 "battery"
             ],
-            "pos": 343,
+            "pos": 344,
             "atkptn": [
                 {
                     "loop": [
@@ -39587,7 +39587,7 @@
                 "tp_down",
                 "ue"
             ],
-            "pos": 349,
+            "pos": 350,
             "atkptn": [
                 {
                     "loop": [
@@ -41267,7 +41267,7 @@
                 "battery",
                 "ue"
             ],
-            "pos": 342,
+            "pos": 343,
             "atkptn": [
                 {
                     "loop": [
@@ -42109,7 +42109,7 @@
                 "seasonal",
                 "ue"
             ],
-            "pos": 350,
+            "pos": 351,
             "atkptn": [
                 {
                     "loop": [
@@ -44055,7 +44055,7 @@
                 "battery",
                 "ue"
             ],
-            "pos": 347,
+            "pos": 348,
             "atkptn": [
                 {
                     "loop": [
@@ -46270,7 +46270,7 @@
                 "heal",
                 "mdef_down"
             ],
-            "pos": 344,
+            "pos": 345,
             "atkptn": [
                 {
                     "loop": [
@@ -47070,6 +47070,285 @@
                     "race": "\u9b54\u65cf",
                     "va": "\u4e0a\u5742\u3059\u307f\u308c",
                     "name_irl": "\u30b9\u30ba\u30ca\uff08\u30cf\u30ed\u30a6\u30a3\u30f3\uff09"
+                }
+            }
+        },
+        {
+            "status": {
+                "ue": 220,
+                "lvl": 214,
+                "rk": 22
+            },
+            "sname": "karin",
+            "tags": [
+                "rear",
+                "magic",
+                "patk_up",
+                "matk_up",
+                "atkspd_up",
+                "ailment",
+                "special",
+                "pshield",
+                "mshield",
+                "self_buff",
+                "mdef_up",
+                "pdef_up"
+            ],
+            "pos": 341,
+            "atkptn": [
+                {
+                    "loop": [
+                        4,
+                        10
+                    ],
+                    "ptn": [
+                        1002,
+                        2001,
+                        1001,
+                        2001,
+                        1002,
+                        1001,
+                        2001,
+                        1002,
+                        2001,
+                        1001
+                    ],
+                    "no": "1"
+                }
+            ],
+            "img": "https://redive.estertion.win/icon/unit/118531.webp",
+            "img6": null,
+            "basic": {
+                "en": {
+                    "id": null,
+                    "prefix": null,
+                    "name": "karin",
+                    "ub": {
+                        "name": null,
+                        "text": "Grant small crit damage up on all allies; inflict medium crit damage down on all enemies. Deploy a physical/magic nullification shield on all allies.",
+                        "action": [
+                            "Grant 10 crit damage up on all allies [18s]",
+                            "Inflict 25 crit damage down on all enemies [18s]",
+                            "Deploy a 9675 buffer mp.shield [18s]"
+                        ]
+                    },
+                    "uba": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "ub2": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "uba2": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1": {
+                        "name": null,
+                        "text": "Grant large physical and magic attack up on all allies; inscribe [rune of power]. While [rune of power] is active, grant large action speed up on all allies. This skill stacks with other action speed buffs.",
+                        "action": [
+                            "Buff party p.atk by 2688 [12s]",
+                            "Buff party m.atk by 2688 [12s]",
+                            "Buff party action speed "
+                        ]
+                    },
+                    "sk1p": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1a": {
+                        "name": null,
+                        "text": "Grant medium physical attack, physical def, magic attack, magic def up, on all allies.",
+                        "action": [
+                            "Grant 20 p.atk up on all allies [12s]",
+                            "Grant 20 m.atk up on all allies [12s]",
+                            "Grant 20 p.def up on all allies [12s]",
+                            "Grant 20 m.def up on all allies [12s]"
+                        ]
+                    },
+                    "sk1ap": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk2": {
+                        "name": null,
+                        "text": "Inflict medium magic damage on all enemies; inflict large knockback.",
+                        "action": [
+                            "Inflict 22895 m.dmg on all targets "
+                        ]
+                    },
+                    "sk2a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk3": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk3a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "ex": {
+                        "name": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
+                        "action": [
+                            "Gain 3225 m.atk up "
+                        ]
+                    },
+                    "ex2": {
+                        "name": null,
+                        "text": "Gain large magic attack up at the start of battle.",
+                        "action": [
+                            "Gain 3450 m.atk up "
+                        ]
+                    },
+                    "comment": null
+                },
+                "jp": {
+                    "id": 1185,
+                    "name": "\u30ab\u30ea\u30f3",
+                    "ub": {
+                        "name": "\u30b3\u30fc\u30eb\u30aa\u30d6\u30ae\u30eb\u30c9",
+                        "text": "\u5473\u65b9\u5168\u4f53\u306e\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u6642\u306e\u30c0\u30e1\u30fc\u30b8\u3092\u5c0f\u30a2\u30c3\u30d7\u3055\u305b\u3001\u6575\u5168\u4f53\u306e\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u6642\u306e\u30c0\u30e1\u30fc\u30b8\u3092\u4e2d\u30c0\u30a6\u30f3\u3055\u305b\u308b\u3002\u3055\u3089\u306b\u3001\u5473\u65b9\u5168\u4f53\u306b\u7269\u7406\u9b54\u6cd5\u7121\u52b9\u30d0\u30ea\u30a2\u3092\u5c55\u958b\u3059\u308b\u3002",
+                        "action": null
+                    },
+                    "uba": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "ub2": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "uba2": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1": {
+                        "name": "\u30ae\u30eb\u30c9\u30aa\u30d6\u30b9\u30c8\u30ec\u30f3\u30b0\u30b9",
+                        "text": "\u5473\u65b9\u5168\u4f53\u306e\u7269\u7406\u653b\u6483\u529b\u3068\u9b54\u6cd5\u653b\u6483\u529b\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u3001\u3055\u3089\u306b\u529b\u306e\u9b54\u5b57\u3092\u523b\u3080\u3002\u529b\u306e\u9b54\u5b57\u304c\u523b\u307e\u308c\u3066\u3044\u308b\u9593\u3001\u5473\u65b9\u306e\u884c\u52d5\u901f\u5ea6\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002\uff08\u3053\u306e\u30b9\u30ad\u30eb\u306e\u52b9\u679c\u306f\u4ed6\u306e\u884c\u52d5\u901f\u5ea6\u5909\u5316\u30b9\u30ad\u30eb\u3068\u91cd\u8907\u3059\u308b\uff09",
+                        "action": null
+                    },
+                    "sk1p": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1a": {
+                        "name": "\u30a8\u30b0\u30bc\u30af\u30c6\u30a3\u30d6\u30b5\u30dd\u30fc\u30c8",
+                        "text": "\u5473\u65b9\u5168\u4f53\u306e\u7269\u7406\u653b\u6483\u529b\u3068\u9b54\u6cd5\u653b\u6483\u529b\u3068\u7269\u7406\u9632\u5fa1\u529b\u3068\u9b54\u6cd5\u9632\u5fa1\u529b\u3092\u4e2d\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
+                        "action": null
+                    },
+                    "sk1ap": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk2": {
+                        "name": "\u30ae\u30eb\u30c9\u30aa\u30d6\u30c7\u30c8\u30cd\u30fc\u30b7\u30e7\u30f3",
+                        "text": "\u6575\u5168\u4f53\u306b\u9b54\u6cd5\u4e2d\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3001\u3055\u3089\u306b\u5927\u304d\u304f\u5439\u304d\u98db\u3070\u3059\u3002",
+                        "action": null
+                    },
+                    "sk2a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk3": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk3a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "ex": {
+                        "name": "\u30da\u30f3\u30aa\u30d6\u30cf\u30fc\u30e2\u30cb\u30fc",
+                        "text": "\u30d0\u30c8\u30eb\u958b\u59cb\u6642\u306b\u81ea\u5206\u306e\u9b54\u6cd5\u653b\u6483\u529b\u3092\u4e2d\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
+                        "action": null
+                    },
+                    "ex2": {
+                        "name": "\u30da\u30f3\u30aa\u30d6\u30cf\u30fc\u30e2\u30cb\u30fc+",
+                        "text": "\u30d0\u30c8\u30eb\u958b\u59cb\u6642\u306b\u81ea\u5206\u306e\u9b54\u6cd5\u653b\u6483\u529b\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
+                        "action": null
+                    },
+                    "comment": "\u3010\u9b54\u6cd5\u3011\u5f8c\u885b\u3067\u7686\u3092\u652f\u3048\u308b\u3001\u30ae\u30eb\u30c9\u7ba1\u7406\u5354\u4f1a\u306e\u8077\u54e1\u3055\u3093\u3002\u901a\u5e38\u653b\u6483\u306e\u4ee3\u308f\u308a\u306b\u5473\u65b9\u306e\u80fd\u529b\u3092\u9ad8\u3081\u308b\u9b54\u6cd5\u3092\u639b\u3051\u3001\u5473\u65b9\u306e\u5b88\u8b77\u3084\u6575\u3078\u306e\u59a8\u5bb3\u306a\u3069\u3001\u5b8c\u74a7\u306a\u30b5\u30dd\u30fc\u30c8\u3092\u3053\u306a\u3059\u3002"
+                }
+            },
+            "ue": {
+                "id": null,
+                "rank": null,
+                "img": null,
+                "stats": {},
+                "en": {
+                    "name": null,
+                    "text": null
+                },
+                "jp": {
+                    "name": null,
+                    "text": null
+                }
+            },
+            "stats": {
+                "normal": {
+                    "hp": 37619,
+                    "atk": 52,
+                    "matk": 11622,
+                    "def": 713,
+                    "mdef": 909,
+                    "pCrit": 0,
+                    "mCrit": 342,
+                    "wHpRec": 1715,
+                    "wTpRec": 233,
+                    "dodge": 3,
+                    "pPen": 0,
+                    "mPen": 0,
+                    "lifesteal": 0,
+                    "hpRec": 163,
+                    "tpRec": 17,
+                    "tpSave": 21,
+                    "acc": 0
+                },
+                "flb": {}
+            },
+            "profile": {
+                "age": "24",
+                "blood": "A",
+                "weight": "43",
+                "height": "152",
+                "img": "https://redive.estertion.win/card/actual_profile/118531.webp",
+                "bd": "9/12",
+                "en": {
+                    "name": null,
+                    "name_alt": null,
+                    "irl_name": null,
+                    "guild": null,
+                    "race": null,
+                    "va": null
+                },
+                "jp": {
+                    "name": "\u30ab\u30ea\u30f3",
+                    "name_alt": "\u304b\u308a\u3093",
+                    "irl_name": null,
+                    "guild": "\uff1f\uff1f\uff1f",
+                    "race": "\u30d2\u30e5\u30fc\u30de\u30f3",
+                    "va": "\u6d32\u5d0e\u7dbe",
+                    "name_irl": "\u30ab\u30ea\u30f3"
                 }
             }
         }
