@@ -47365,7 +47365,8 @@
                 "mdef_down",
                 "tp_up",
                 "special",
-                "aoe"
+                "aoe",
+                "magic"
             ],
             "pos": 321,
             "atkptn": [
