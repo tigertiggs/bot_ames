@@ -33250,7 +33250,7 @@
                 "ailment",
                 "flb"
             ],
-            "pos": 340,
+            "pos": 341,
             "atkptn": [
                 {
                     "loop": [
@@ -34135,7 +34135,7 @@
                 "special",
                 "flb"
             ],
-            "pos": 330,
+            "pos": 331,
             "atkptn": [
                 {
                     "loop": [
@@ -35005,7 +35005,7 @@
                 "special",
                 "flb"
             ],
-            "pos": 332,
+            "pos": 333,
             "atkptn": [
                 {
                     "loop": [
@@ -35304,7 +35304,7 @@
                 "matk_up",
                 "mcrit_up"
             ],
-            "pos": 325,
+            "pos": 326,
             "atkptn": [
                 {
                     "loop": [
@@ -35583,7 +35583,7 @@
                 "pshield",
                 "atkspd_up"
             ],
-            "pos": 346,
+            "pos": 347,
             "atkptn": [
                 {
                     "loop": [
@@ -35886,7 +35886,7 @@
                 "tp_up",
                 "battery"
             ],
-            "pos": 347,
+            "pos": 348,
             "atkptn": [
                 {
                     "loop": [
@@ -36736,7 +36736,7 @@
                 "ailment",
                 "ue"
             ],
-            "pos": 321,
+            "pos": 322,
             "atkptn": [
                 {
                     "loop": [
@@ -37010,7 +37010,7 @@
                 "mdef_down",
                 "ue"
             ],
-            "pos": 339,
+            "pos": 340,
             "atkptn": [
                 {
                     "loop": [
@@ -37286,7 +37286,7 @@
                 "self_buff",
                 "flb"
             ],
-            "pos": 349,
+            "pos": 350,
             "atkptn": [
                 {
                     "loop": [
@@ -37875,7 +37875,7 @@
                 "mdef_up",
                 "ue"
             ],
-            "pos": 338,
+            "pos": 339,
             "atkptn": [
                 {
                     "loop": [
@@ -38159,7 +38159,7 @@
                 "patk_down",
                 "self_buff"
             ],
-            "pos": 342,
+            "pos": 343,
             "atkptn": [
                 {
                     "loop": [
@@ -38439,7 +38439,7 @@
                 "ue",
                 "battery"
             ],
-            "pos": 337,
+            "pos": 338,
             "atkptn": [
                 {
                     "loop": [
@@ -38716,7 +38716,7 @@
                 "ailment",
                 "ue"
             ],
-            "pos": 327,
+            "pos": 328,
             "atkptn": [
                 {
                     "loop": [
@@ -39012,7 +39012,7 @@
                 "flb",
                 "battery"
             ],
-            "pos": 344,
+            "pos": 345,
             "atkptn": [
                 {
                     "loop": [
@@ -39314,7 +39314,7 @@
                 "aoe",
                 "atkspd_down"
             ],
-            "pos": 333,
+            "pos": 334,
             "atkptn": [
                 {
                     "loop": [
@@ -39587,7 +39587,7 @@
                 "tp_down",
                 "ue"
             ],
-            "pos": 350,
+            "pos": 351,
             "atkptn": [
                 {
                     "loop": [
@@ -39877,7 +39877,7 @@
                 "tp_down",
                 "ue"
             ],
-            "pos": 328,
+            "pos": 329,
             "atkptn": [
                 {
                     "loop": [
@@ -41267,7 +41267,7 @@
                 "battery",
                 "ue"
             ],
-            "pos": 343,
+            "pos": 344,
             "atkptn": [
                 {
                     "loop": [
@@ -42109,7 +42109,7 @@
                 "seasonal",
                 "ue"
             ],
-            "pos": 351,
+            "pos": 352,
             "atkptn": [
                 {
                     "loop": [
@@ -42382,7 +42382,7 @@
                 "self_buff",
                 "ue"
             ],
-            "pos": 335,
+            "pos": 336,
             "atkptn": [
                 {
                     "loop": [
@@ -43224,7 +43224,7 @@
                 "mcrit_down",
                 "pcrit_down"
             ],
-            "pos": 322,
+            "pos": 323,
             "atkptn": [
                 {
                     "loop": [
@@ -44055,7 +44055,7 @@
                 "battery",
                 "ue"
             ],
-            "pos": 348,
+            "pos": 349,
             "atkptn": [
                 {
                     "loop": [
@@ -44343,7 +44343,7 @@
                 "pdef_down",
                 "ue"
             ],
-            "pos": 323,
+            "pos": 324,
             "atkptn": [
                 {
                     "loop": [
@@ -44623,7 +44623,7 @@
                 "aoe",
                 "rear"
             ],
-            "pos": 336,
+            "pos": 337,
             "atkptn": [
                 {
                     "loop": [
@@ -45184,7 +45184,7 @@
                 "mcri_down",
                 "special"
             ],
-            "pos": 326,
+            "pos": 327,
             "atkptn": [
                 {
                     "loop": [
@@ -45454,7 +45454,7 @@
                 "magic",
                 "prinfes"
             ],
-            "pos": 329,
+            "pos": 330,
             "atkptn": [
                 {
                     "loop": [
@@ -45998,7 +45998,7 @@
                 "pcrit_up",
                 "special"
             ],
-            "pos": 324,
+            "pos": 325,
             "atkptn": [
                 {
                     "loop": [
@@ -46270,7 +46270,7 @@
                 "heal",
                 "mdef_down"
             ],
-            "pos": 345,
+            "pos": 346,
             "atkptn": [
                 {
                     "loop": [
@@ -46545,7 +46545,7 @@
                 "pshield",
                 "special"
             ],
-            "pos": 331,
+            "pos": 332,
             "atkptn": [
                 {
                     "loop": [
@@ -46819,7 +46819,7 @@
                 "p_target",
                 "ailment"
             ],
-            "pos": 334,
+            "pos": 335,
             "atkptn": [
                 {
                     "loop": [
@@ -47094,7 +47094,7 @@
                 "mdef_up",
                 "pdef_up"
             ],
-            "pos": 341,
+            "pos": 342,
             "atkptn": [
                 {
                     "loop": [
@@ -47349,6 +47349,278 @@
                     "race": "\u30d2\u30e5\u30fc\u30de\u30f3",
                     "va": "\u6d32\u5d0e\u7dbe",
                     "name_irl": "\u30ab\u30ea\u30f3"
+                }
+            }
+        },
+        {
+            "status": {
+                "ue": 220,
+                "lvl": 224,
+                "rk": 22
+            },
+            "sname": "homare",
+            "tags": [
+                "rear",
+                "prifes",
+                "mdef_down",
+                "tp_up",
+                "special",
+                "aoe"
+            ],
+            "pos": 321,
+            "atkptn": [
+                {
+                    "loop": [
+                        4,
+                        10
+                    ],
+                    "ptn": [
+                        2001,
+                        1002,
+                        1001,
+                        1002,
+                        1001,
+                        1,
+                        1002,
+                        1,
+                        1001,
+                        1
+                    ],
+                    "no": "1"
+                }
+            ],
+            "img": "https://redive.estertion.win/icon/unit/106731.webp",
+            "img6": null,
+            "basic": {
+                "en": {
+                    "id": null,
+                    "prefix": null,
+                    "name": "homare",
+                    "ub": {
+                        "name": null,
+                        "text": "Inflict massive magic damage on the enemy with the highest MATK stat if they are affected by [Dragon's Gaze]; inflict medium magic def down. Inflict medium magic damage on all enemies.",
+                        "action": [
+                            "If target afflicted with [Dragon's Gaze], inflict 124368 m.dmg ",
+                            "Inflict 158 m.def down on target(s) afflicted with [Dragon's Gaze] [18s]",
+                            "Inflict 19433 m.dmg on all targets "
+                        ]
+                    },
+                    "uba": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "ub2": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "uba2": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1": {
+                        "name": null,
+                        "text": "Inflict medium magic def down on all enemies affected by [Dragon's Gaze]. If no enemies are affected by [Dragon's Gaze], inflict it on the enemy with the highest MATK stat; increase their magic damage received by a small amount.",
+                        "action": [
+                            "Inflict 158 m.def down on target(s) afflicted with [Dragon's Gaze] [12s]",
+                            "When afflicted by [Dragon's Gaze], increase m.dmg taken by 12% [180s]"
+                        ]
+                    },
+                    "sk1p": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1a": {
+                        "name": null,
+                        "text": "Inflict [Dragon's Gaze] on the enemy with the highest MATK stat; increase their magic damage received by a small amount.",
+                        "action": [
+                            "When afflicted by [Dragon's Gaze], increase m.dmg taken by 12% [180s]"
+                        ]
+                    },
+                    "sk1ap": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk2": {
+                        "name": null,
+                        "text": "Inflict medium magic damage on all enemies affected by [Dragon's Gaze]; inflict small magic def down; increase their magic crit damage recieved by a small amount. Gain small TP recovery.",
+                        "action": [
+                            "(Inflict) 23319 m.dmg on target affected by [Dragon's Gaze] ",
+                            "Inflict 90 m.def down on target(s) afflicted with [Dragon's Gaze] [12s]",
+                            "When afflicted by [Dragon's Gaze], increase m.crit dmg taken by 10% [12s]",
+                            "Gain 162 TP "
+                        ]
+                    },
+                    "sk2a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk3": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk3a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "ex": {
+                        "name": null,
+                        "text": "Gain medium magic attack up at the start of battle.",
+                        "action": [
+                            "Gain 3375 m.atk up "
+                        ]
+                    },
+                    "ex2": {
+                        "name": null,
+                        "text": "Gain large magic attack up at the start of battle.",
+                        "action": [
+                            "Gain 3600 m.atk up "
+                        ]
+                    },
+                    "comment": null
+                },
+                "jp": {
+                    "id": 1067,
+                    "name": "\u30db\u30de\u30ec",
+                    "ub": {
+                        "name": "\u30c9\u30e9\u30b4\u30f3\u30ba\u30c9\u30a5\u30fc\u30e0",
+                        "text": "\u6700\u3082\u9b54\u6cd5\u653b\u6483\u529b\u304c\u9ad8\u3044\u6575\uff11\u30ad\u30e3\u30e9\u304c\u9f8d\u773c\u72b6\u614b\u3060\u3063\u305f\u5834\u5408\u306b\u9b54\u6cd5\u7279\u5927\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3001\u9b54\u6cd5\u9632\u5fa1\u529b\u3092\u4e2d\u30c0\u30a6\u30f3\u3055\u305b\u308b\u3002\u3055\u3089\u306b\u6575\u5168\u4f53\u306b\u9b54\u6cd5\u4e2d\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u308b\u3002",
+                        "action": null
+                    },
+                    "uba": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "ub2": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "uba2": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1": {
+                        "name": "\u30de\u30a4\u30f3\u30c9\u30af\u30e9\u30c3\u30af",
+                        "text": "\u9f8d\u773c\u72b6\u614b\u306e\u6575\u3059\u3079\u3066\u306e\u9b54\u6cd5\u9632\u5fa1\u529b\u3092\u4e2d\u30c0\u30a6\u30f3\u3055\u305b\u308b\u3002\u9f8d\u773c\u72b6\u614b\u306e\u6575\u304c\u3044\u306a\u3044\u5834\u5408\u3001\u6700\u3082\u9b54\u6cd5\u653b\u6483\u529b\u304c\u9ad8\u3044\u6575\uff11\u30ad\u30e3\u30e9\u3092\u9f8d\u773c\u72b6\u614b\u306b\u3057\u3001\u3055\u3089\u306b\u9b54\u6cd5\u653b\u6483\u3092\u53d7\u3051\u305f\u969b\u306e\u30c0\u30e1\u30fc\u30b8\u3092\u5c0f\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
+                        "action": null
+                    },
+                    "sk1p": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1a": {
+                        "name": "\u9f8d\u773c",
+                        "text": "\u6700\u3082\u9b54\u6cd5\u653b\u6483\u529b\u304c\u9ad8\u3044\u6575\uff11\u30ad\u30e3\u30e9\u3092\u9f8d\u773c\u72b6\u614b\u306b\u3057\u3001\u3055\u3089\u306b\u9b54\u6cd5\u653b\u6483\u3092\u53d7\u3051\u305f\u969b\u306e\u30c0\u30e1\u30fc\u30b8\u3092\u5c0f\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
+                        "action": null
+                    },
+                    "sk1ap": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk2": {
+                        "name": "\u30a8\u30af\u30b9\u30d7\u30ed\u30a4\u30c8\u30d5\u30ec\u30a4\u30e0",
+                        "text": "\u9f8d\u773c\u72b6\u614b\u306e\u6575\u3059\u3079\u3066\u306b\u9b54\u6cd5\u4e2d\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3001\u9b54\u6cd5\u9632\u5fa1\u529b\u3092\u5c0f\u30c0\u30a6\u30f3\u3055\u305b\u3001\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u3092\u53d7\u3051\u305f\u969b\u306e\u30c0\u30e1\u30fc\u30b8\u3092\u5c0f\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002\u3055\u3089\u306b\u81ea\u5206\u306e\uff34\uff30\u3092\u5c0f\u56de\u5fa9\u3059\u308b\u3002",
+                        "action": null
+                    },
+                    "sk2a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk3": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk3a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "ex": {
+                        "name": "\u30af\u30ed\u30fc\u30b8\u30f3\u30b0\u30a2\u30a4\u30ba",
+                        "text": "\u30d0\u30c8\u30eb\u958b\u59cb\u6642\u306b\u81ea\u5206\u306e\u9b54\u6cd5\u653b\u6483\u529b\u3092\u4e2d\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
+                        "action": null
+                    },
+                    "ex2": {
+                        "name": "\u30af\u30ed\u30fc\u30b8\u30f3\u30b0\u30a2\u30a4\u30ba+",
+                        "text": "\u30d0\u30c8\u30eb\u958b\u59cb\u6642\u306b\u81ea\u5206\u306e\u9b54\u6cd5\u653b\u6483\u529b\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
+                        "action": null
+                    },
+                    "comment": "\u3010\u9b54\u6cd5\u3011\u5f8c\u885b\u304b\u3089\u7121\u7aae\u306e\u9b54\u529b\u3067\u5168\u3066\u3092\u652f\u914d\u3059\u308b\u9f8d\u306e\u9996\u9818\u3002\u969c\u58c1\u3068\u306a\u308b\u6575\u3092\u9f8d\u773c\u3067\u6349\u3048\u3001\u591a\u5f69\u306a\u88dc\u52a9\u7cfb\u30b9\u30ad\u30eb\u3067\u6575\u306e\u9b54\u6cd5\u653b\u6483\u304b\u3089\u306e\u8010\u6027\u3092\u5f31\u3081\u3001\u96f7\u9706\u306e\u4e00\u6483\u3067\u7070\u71fc\u306b\u5e30\u3059\u3002"
+                }
+            },
+            "ue": {
+                "id": null,
+                "rank": null,
+                "img": null,
+                "stats": {},
+                "en": {
+                    "name": null,
+                    "text": null
+                },
+                "jp": {
+                    "name": null,
+                    "text": null
+                }
+            },
+            "stats": {
+                "normal": {
+                    "hp": 31081,
+                    "atk": 0,
+                    "matk": 16620,
+                    "def": 343,
+                    "mdef": 504,
+                    "pCrit": 0,
+                    "mCrit": 1441,
+                    "wHpRec": 1180,
+                    "wTpRec": 354,
+                    "dodge": 0,
+                    "pPen": 0,
+                    "mPen": 0,
+                    "lifesteal": 4,
+                    "hpRec": 64,
+                    "tpRec": 22,
+                    "tpSave": 16,
+                    "acc": 0
+                },
+                "flb": {}
+            },
+            "profile": {
+                "age": "25",
+                "blood": "O",
+                "weight": "???",
+                "height": "168",
+                "img": "https://redive.estertion.win/card/actual_profile/106731.webp",
+                "bd": "4/17",
+                "en": {
+                    "name": null,
+                    "name_alt": null,
+                    "irl_name": null,
+                    "guild": null,
+                    "race": null,
+                    "va": null
+                },
+                "jp": {
+                    "name": "\u30db\u30de\u30ec",
+                    "name_alt": "\u307b\u307e\u308c",
+                    "irl_name": null,
+                    "guild": "\u30c9\u30e9\u30b4\u30f3\u30ba\u30cd\u30b9\u30c8",
+                    "race": "\u30c9\u30e9\u30b4\u30f3\u65cf",
+                    "va": "\u5927\u897f\u6c99\u7e54",
+                    "name_irl": "\u30db\u30de\u30ec"
                 }
             }
         }
