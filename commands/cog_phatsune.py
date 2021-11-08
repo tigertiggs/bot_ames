@@ -1195,7 +1195,8 @@ class hatsuneCog(commands.Cog):
             "f.chieru",
             "tt.inori",
             "ww.aot",
-            "k.shiori/k.hatsune"
+            "k.shiori/k.hatsune",
+            "no.io"
         ]
         embed.add_field(
             name="> **Active Prefixes**",

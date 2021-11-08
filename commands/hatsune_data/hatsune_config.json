@@ -20,7 +20,8 @@
         "f": "School Festival",
         "tt": "Time Traveller",
         "ww": "Workwear",
-        "k": "Kizuna"
+        "k": "Kizuna",
+		"no": "Noire"
     },
     "prefix_shortened": {
         "n": "NYear",
@@ -91,7 +92,8 @@
         "time": "tt",
         "traveler": "tt",
         "work": "ww",
-        "kizuna": "k"
+        "kizuna": "k",
+		"noire": "no"
     },
     "options": [
         "flb"
