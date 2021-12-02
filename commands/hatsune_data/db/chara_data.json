@@ -18348,6 +18348,277 @@
                 "lvl": 227,
                 "rk": 23
             },
+            "sname": "nokuuka",
+            "tags": [
+                "front",
+                "magic",
+                "mdef_down",
+                "matk_up",
+                "p_shield",
+                "m_shield",
+                "heal",
+                "pdef_up",
+                "mcrit_up"
+            ],
+            "pos": 106,
+            "atkptn": [
+                {
+                    "loop": [
+                        3,
+                        7
+                    ],
+                    "ptn": [
+                        1001,
+                        1,
+                        1002,
+                        1,
+                        1001,
+                        1,
+                        1002
+                    ],
+                    "no": "1"
+                }
+            ],
+            "img": "https://redive.estertion.win/icon/unit/119131.webp",
+            "img6": null,
+            "basic": {
+                "en": {
+                    "id": null,
+                    "prefix": "no",
+                    "name": "kuuka",
+                    "ub": {
+                        "name": null,
+                        "text": "Inflict large magic damage on the frontmost enemy; inflict large magic def down.",
+                        "action": [
+                            "Inflict 48929 m.dmg on target ",
+                            "Inflict 251 m.def down on target [18s]"
+                        ]
+                    },
+                    "uba": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "ub2": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "uba2": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1": {
+                        "name": null,
+                        "text": "Grant large magic attack and crit up to the ally with the highest MATK. Deploy a magic/physical nullification shield on self.",
+                        "action": [
+                            "Buff m.atk by 6384 on target [12s]",
+                            "Grant 150 m.crit up on a single target [12s]",
+                            "Deploy a 22800 buffer mp.shield [12s]"
+                        ]
+                    },
+                    "sk1p": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1ap": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk2": {
+                        "name": null,
+                        "text": "Inflict small magic damage on the frontmost enemy; inflict small magic def down. Gain large HP heal and physical def up.",
+                        "action": [
+                            "Inflict 7840 m.dmg on target ",
+                            "Inflict 137 m.def down on target (Range: 800)[12s]",
+                            "Heal 15314 HP ",
+                            "Gain 274 p.def up [12s]"
+                        ]
+                    },
+                    "sk2a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk3": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk3a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "ex": {
+                        "name": null,
+                        "text": "Gain medium physical def up at the start of battle.",
+                        "action": [
+                            "Gain 456 p.def up "
+                        ]
+                    },
+                    "ex2": {
+                        "name": null,
+                        "text": "Gain medium physical def up at the start of battle; gain small magic def up.",
+                        "action": [
+                            "Gain 456 p.def up ",
+                            "Gain 30 m.def up "
+                        ]
+                    },
+                    "comment": null
+                },
+                "jp": {
+                    "id": 1191,
+                    "name": "\u30af\u30a6\u30ab(\u30ce\u30ef\u30fc\u30eb)",
+                    "ub": {
+                        "name": "\u30af\u30a6\u30ab\u30fb\u30c9\u041c\u30fb\u30a8\u30af\u30b9\u30d7\u30ed\u30fc\u30b8\u30e7\u30f3",
+                        "text": "\u76ee\u306e\u524d\u306e\u6575\uff11\u30ad\u30e3\u30e9\u306b\u9b54\u6cd5\u5927\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3001\u3055\u3089\u306b\u9b54\u6cd5\u9632\u5fa1\u529b\u3092\u5927\u30c0\u30a6\u30f3\u3055\u305b\u308b\u3002",
+                        "action": null
+                    },
+                    "uba": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "ub2": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "uba2": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1": {
+                        "name": "\u30c9\u041c\u30fb\u30b7\u30a7\u30a2\u30ea\u30f3\u30b0",
+                        "text": "\u6700\u3082\u9b54\u6cd5\u653b\u6483\u529b\u304c\u9ad8\u3044\u5473\u65b9\uff11\u30ad\u30e3\u30e9\u306e\u9b54\u6cd5\u653b\u6483\u529b\u3068\u9b54\u6cd5\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002\u3055\u3089\u306b\u3001\u81ea\u5206\u306b\u7269\u7406/\u9b54\u6cd5\u7121\u52b9\u30d0\u30ea\u30a2\u3092\u5c55\u958b\u3059\u308b\u3002",
+                        "action": null
+                    },
+                    "sk1p": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1ap": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk2": {
+                        "name": "\u30c9\u041c\u30fb\u30d1\u30c3\u30b7\u30e7\u30f3",
+                        "text": "\u76ee\u306e\u524d\u306e\u6575\uff11\u30ad\u30e3\u30e9\u306b\u9b54\u6cd5\u5c0f\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3001\u9b54\u6cd5\u9632\u5fa1\u529b\u3092\u5c0f\u30c0\u30a6\u30f3\u3055\u305b\u308b\u3002\u3055\u3089\u306b\u3001\u81ea\u5206\u306e\uff28\uff30\u3092\u5927\u56de\u5fa9\u3057\u3001\u7269\u7406\u9632\u5fa1\u529b\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
+                        "action": null
+                    },
+                    "sk2a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk3": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk3a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "ex": {
+                        "name": "\u30c9\uff2d\u30fb\u30d5\u30a3\u30fc\u30eb\u30c9",
+                        "text": "\u30d0\u30c8\u30eb\u958b\u59cb\u6642\u306b\u81ea\u5206\u306e\u7269\u7406\u9632\u5fa1\u529b\u3092\u4e2d\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
+                        "action": null
+                    },
+                    "ex2": {
+                        "name": "\u30c9\uff2d\u30fb\u30d5\u30a3\u30fc\u30eb\u30c9+",
+                        "text": "\u30d0\u30c8\u30eb\u958b\u59cb\u6642\u306b\u81ea\u5206\u306e\u7269\u7406\u9632\u5fa1\u529b\u3092\u4e2d\u30a2\u30c3\u30d7\u3055\u305b\u3001\u3055\u3089\u306b\u81ea\u5206\u306e\u9b54\u6cd5\u9632\u5fa1\u529b\u3092\u5c0f\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
+                        "action": null
+                    },
+                    "comment": "\u3010\u9b54\u6cd5\u3011\u524d\u885b\u3067\u3001\u731b\u653b\u3092\u7121\u52b9\u30d0\u30ea\u30a2\u3067\u53d7\u3051\u308b\u95c7\u306e\u30c9\uff2d\u5a18\u3002\u6700\u3082\u9b54\u6cd5\u653b\u6483\u529b\u304c\u9ad8\u3044\u5473\u65b9\u306e\u9b54\u6cd5\u653b\u6483\u529b\u3068\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u3092\u30a2\u30c3\u30d7\u3055\u305b\u3001\u9b54\u6cd5\u9632\u5fa1\u529b\u30c0\u30a6\u30f3\u30b9\u30ad\u30eb\u3067\u6575\u3092\u602f\u307e\u305b\u308b\u3002"
+                }
+            },
+            "ue": {
+                "id": null,
+                "rank": null,
+                "img": null,
+                "stats": {},
+                "en": {
+                    "name": null,
+                    "text": null
+                },
+                "jp": {
+                    "name": null,
+                    "text": null
+                }
+            },
+            "stats": {
+                "normal": {
+                    "hp": 55555,
+                    "atk": 527,
+                    "matk": 10026,
+                    "def": 1072,
+                    "mdef": 1171,
+                    "pCrit": 0,
+                    "mCrit": 70,
+                    "wHpRec": 1720,
+                    "wTpRec": 50,
+                    "dodge": 12,
+                    "pPen": 0,
+                    "mPen": 0,
+                    "lifesteal": 8,
+                    "hpRec": 86,
+                    "tpRec": 13,
+                    "tpSave": 20,
+                    "acc": 0
+                },
+                "flb": {}
+            },
+            "profile": {
+                "age": "18",
+                "blood": "AB",
+                "weight": "49",
+                "height": "157",
+                "img": "https://redive.estertion.win/card/actual_profile/119131.webp",
+                "bd": "11/19",
+                "en": {
+                    "name": null,
+                    "name_alt": null,
+                    "irl_name": null,
+                    "guild": null,
+                    "race": null,
+                    "va": null
+                },
+                "jp": {
+                    "name": "\u30af\u30a6\u30ab\uff08\u30ce\u30ef\u30fc\u30eb\uff09",
+                    "name_alt": "\u304f\u3046\u304b",
+                    "irl_name": null,
+                    "guild": "\u30f4\u30a1\u30a4\u30b9\u30d5\u30ea\u30e5\u30fc\u30b2\u30eb\u3000\u30e9\u30f3\u30c9\u30bd\u30eb\u652f\u90e8",
+                    "race": "\u30d2\u30e5\u30fc\u30de\u30f3",
+                    "va": "\u9577\u59bb\u6a39\u91cc",
+                    "name_irl": "\u30af\u30a6\u30ab\uff08\u30ce\u30ef\u30fc\u30eb\uff09"
+                }
+            }
+        },
+        {
+            "status": {
+                "ue": 220,
+                "lvl": 227,
+                "rk": 23
+            },
             "sname": "akari",
             "tags": [
                 "magic",
@@ -18361,7 +18632,7 @@
                 "flb",
                 "mcrit_up"
             ],
-            "pos": 249,
+            "pos": 251,
             "atkptn": [
                 {
                     "loop": [
@@ -18657,7 +18928,7 @@
                 "mdef_down",
                 "special"
             ],
-            "pos": 223,
+            "pos": 225,
             "atkptn": [
                 {
                     "loop": [
@@ -18934,7 +19205,7 @@
                 "flb",
                 "battery"
             ],
-            "pos": 227,
+            "pos": 229,
             "atkptn": [
                 {
                     "loop": [
@@ -19238,7 +19509,7 @@
                 "patk_up",
                 "matk_up"
             ],
-            "pos": 222,
+            "pos": 224,
             "atkptn": [
                 {
                     "loop": [
@@ -19532,7 +19803,7 @@
                 "patk_up",
                 "flb"
             ],
-            "pos": 217,
+            "pos": 219,
             "atkptn": [
                 {
                     "loop": [
@@ -19826,7 +20097,7 @@
                 "flb",
                 "aoe"
             ],
-            "pos": 211,
+            "pos": 212,
             "atkptn": [
                 {
                     "loop": [
@@ -20130,7 +20401,7 @@
                 "self_buff",
                 "pdef_down"
             ],
-            "pos": 247,
+            "pos": 249,
             "atkptn": [
                 {
                     "loop": [
@@ -20408,7 +20679,7 @@
                 "self_buff",
                 "flb"
             ],
-            "pos": 219,
+            "pos": 221,
             "atkptn": [
                 {
                     "loop": [
@@ -20710,7 +20981,7 @@
                 "ailment",
                 "flb"
             ],
-            "pos": 216,
+            "pos": 218,
             "atkptn": [
                 {
                     "loop": [
@@ -21015,7 +21286,7 @@
                 "flb",
                 "battery"
             ],
-            "pos": 213,
+            "pos": 215,
             "atkptn": [
                 {
                     "loop": [
@@ -21315,7 +21586,7 @@
                 "flb",
                 "special"
             ],
-            "pos": 250,
+            "pos": 252,
             "atkptn": [
                 {
                     "loop": [
@@ -21612,7 +21883,7 @@
                 "pcrit_up",
                 "ailment"
             ],
-            "pos": 242,
+            "pos": 244,
             "atkptn": [
                 {
                     "loop": [
@@ -21894,7 +22165,7 @@
                 "patk_down",
                 "ue"
             ],
-            "pos": 229,
+            "pos": 231,
             "atkptn": [
                 {
                     "loop": [
@@ -22171,7 +22442,7 @@
                 "self_sust",
                 "self_buff"
             ],
-            "pos": 221,
+            "pos": 223,
             "atkptn": [
                 {
                     "loop": [
@@ -22451,7 +22722,7 @@
                 "special",
                 "ue"
             ],
-            "pos": 233,
+            "pos": 235,
             "atkptn": [
                 {
                     "loop": [
@@ -22728,7 +22999,7 @@
                 "self_buff",
                 "ue"
             ],
-            "pos": 239,
+            "pos": 241,
             "atkptn": [
                 {
                     "loop": [
@@ -23012,7 +23283,7 @@
                 "ue",
                 "battery"
             ],
-            "pos": 208,
+            "pos": 209,
             "atkptn": [
                 {
                     "loop": [
@@ -23296,7 +23567,7 @@
                 "self_buff",
                 "ue"
             ],
-            "pos": 224,
+            "pos": 226,
             "atkptn": [
                 {
                     "loop": [
@@ -23573,7 +23844,7 @@
                 "pcrit_up",
                 "ue"
             ],
-            "pos": 226,
+            "pos": 228,
             "atkptn": [
                 {
                     "loop": [
@@ -24142,7 +24413,7 @@
                 "matk_down",
                 "ue"
             ],
-            "pos": 253,
+            "pos": 255,
             "atkptn": [
                 {
                     "loop": [
@@ -24432,7 +24703,7 @@
                 "ue",
                 "aoe"
             ],
-            "pos": 240,
+            "pos": 242,
             "atkptn": [
                 {
                     "loop": [
@@ -24709,7 +24980,7 @@
                 "special",
                 "ue"
             ],
-            "pos": 241,
+            "pos": 243,
             "atkptn": [
                 {
                     "loop": [
@@ -24989,7 +25260,7 @@
                 "self_buff",
                 "ue"
             ],
-            "pos": 252,
+            "pos": 254,
             "atkptn": [
                 {
                     "loop": [
@@ -25548,7 +25819,7 @@
                 "heal",
                 "ue"
             ],
-            "pos": 218,
+            "pos": 220,
             "atkptn": [
                 {
                     "loop": [
@@ -25831,7 +26102,7 @@
                 "battery",
                 "ue"
             ],
-            "pos": 205,
+            "pos": 206,
             "atkptn": [
                 {
                     "loop": [
@@ -26108,7 +26379,7 @@
                 "aoe",
                 "ue"
             ],
-            "pos": 220,
+            "pos": 222,
             "atkptn": [
                 {
                     "loop": [
@@ -26389,7 +26660,7 @@
                 "pcrit_up",
                 "special"
             ],
-            "pos": 210,
+            "pos": 211,
             "atkptn": [
                 {
                     "loop": [
@@ -26670,7 +26941,7 @@
                 "ue",
                 "pcrit_down"
             ],
-            "pos": 228,
+            "pos": 230,
             "atkptn": [
                 {
                     "loop": [
@@ -26954,7 +27225,7 @@
                 "ue",
                 "special"
             ],
-            "pos": 225,
+            "pos": 227,
             "atkptn": [
                 {
                     "loop": [
@@ -27232,7 +27503,7 @@
                 "aoe",
                 "ue"
             ],
-            "pos": 248,
+            "pos": 250,
             "atkptn": [
                 {
                     "loop": [
@@ -27511,7 +27782,7 @@
                 "ue",
                 "tp_up"
             ],
-            "pos": 236,
+            "pos": 238,
             "atkptn": [
                 {
                     "loop": [
@@ -27801,7 +28072,7 @@
                 "matk_up",
                 "patk_up"
             ],
-            "pos": 237,
+            "pos": 239,
             "atkptn": [
                 {
                     "loop": [
@@ -28090,7 +28361,7 @@
                 "aoe",
                 "ue"
             ],
-            "pos": 206,
+            "pos": 207,
             "atkptn": [
                 {
                     "loop": [
@@ -28371,7 +28642,7 @@
                 "ue",
                 "pcrit_up"
             ],
-            "pos": 235,
+            "pos": 237,
             "atkptn": [
                 {
                     "loop": [
@@ -28435,7 +28706,7 @@
                     },
                     "sk1p": {
                         "name": null,
-                        "text": "Deploy a field centered on Monika that grants medium physical attack up; grant large physical crit up. Physical attack up buff strength is proportional to Monika's PATK and number of allies in range centered around Monika.",
+                        "text": "Deploy a field centered on Monika that grants medium physical attack up to all allies in range; grant large physical crit up. Physical attack up buff strength is proportional to Monika's PATK and number of allies in range centered around Monika.",
                         "action": [
                             "Buff p.atk by 1710 on all targets in range (Range: 150)[18s]",
                             "Buff p.crit by 100 on all targets in range (Range: 150)[18s]"
@@ -28650,7 +28921,7 @@
                 "self_buff",
                 "ue"
             ],
-            "pos": 212,
+            "pos": 214,
             "atkptn": [
                 {
                     "loop": [
@@ -28930,7 +29201,7 @@
                 "special",
                 "seasonal"
             ],
-            "pos": 215,
+            "pos": 217,
             "atkptn": [
                 {
                     "loop": [
@@ -29195,7 +29466,7 @@
                 "heal",
                 "special"
             ],
-            "pos": 246,
+            "pos": 248,
             "atkptn": [
                 {
                     "loop": [
@@ -29479,7 +29750,7 @@
                 "pdef_down",
                 "prinfes"
             ],
-            "pos": 244,
+            "pos": 246,
             "atkptn": [
                 {
                     "loop": [
@@ -29759,7 +30030,7 @@
                 "atkspd_up",
                 "prinfes"
             ],
-            "pos": 245,
+            "pos": 247,
             "atkptn": [
                 {
                     "loop": [
@@ -30056,7 +30327,7 @@
                 "patk_up",
                 "self_buff"
             ],
-            "pos": 238,
+            "pos": 240,
             "atkptn": [
                 {
                     "loop": [
@@ -30328,7 +30599,7 @@
                 "special",
                 "tp_up"
             ],
-            "pos": 251,
+            "pos": 253,
             "atkptn": [
                 {
                     "loop": [
@@ -30595,7 +30866,7 @@
                 "self_buff",
                 "special"
             ],
-            "pos": 204,
+            "pos": 205,
             "atkptn": [
                 {
                     "loop": [
@@ -30862,7 +31133,7 @@
                 "pcrit_up",
                 "special"
             ],
-            "pos": 203,
+            "pos": 204,
             "atkptn": [
                 {
                     "loop": [
@@ -31136,7 +31407,7 @@
                 "ue",
                 "patk_up"
             ],
-            "pos": 202,
+            "pos": 203,
             "atkptn": [
                 {
                     "loop": [
@@ -31409,7 +31680,7 @@
                 "atkspd_down",
                 "special"
             ],
-            "pos": 234,
+            "pos": 236,
             "atkptn": [
                 {
                     "loop": [
@@ -31679,7 +31950,7 @@
                 "pcrit_up",
                 "patk_up"
             ],
-            "pos": 207,
+            "pos": 208,
             "atkptn": [
                 {
                     "loop": [
@@ -31950,7 +32221,7 @@
                 "pcrit_up",
                 "special"
             ],
-            "pos": 214,
+            "pos": 216,
             "atkptn": [
                 {
                     "loop": [
@@ -32215,7 +32486,7 @@
                 "ailment",
                 "special"
             ],
-            "pos": 201,
+            "pos": 202,
             "atkptn": [
                 {
                     "loop": [
@@ -32485,7 +32756,7 @@
                 "mshield",
                 "heal"
             ],
-            "pos": 232,
+            "pos": 234,
             "atkptn": [
                 {
                     "loop": [
@@ -32757,7 +33028,7 @@
                 "mdef_down",
                 "special"
             ],
-            "pos": 243,
+            "pos": 245,
             "atkptn": [
                 {
                     "loop": [
@@ -33028,7 +33299,7 @@
                 "special",
                 "atkspd_up"
             ],
-            "pos": 231,
+            "pos": 233,
             "atkptn": [
                 {
                     "loop": [
@@ -33276,6 +33547,272 @@
                     "race": "\u30d2\u30e5\u30fc\u30de\u30f3",
                     "va": "\u4f50\u85e4\u8061\u7f8e",
                     "name_irl": "\u30cb\u30ce\u30f3\uff08\u30cf\u30ed\u30a6\u30a3\u30f3\uff09"
+                }
+            }
+        },
+        {
+            "status": {
+                "ue": 220,
+                "lvl": 227,
+                "rk": 23
+            },
+            "sname": "xmahiru",
+            "tags": [
+                "phys",
+                "mid",
+                "heal",
+                "pshield",
+                "patk_up",
+                "aktspd_down",
+                "pdef_up",
+                "ailment"
+            ],
+            "pos": 213,
+            "atkptn": [
+                {
+                    "loop": [
+                        3,
+                        7
+                    ],
+                    "ptn": [
+                        1002,
+                        1001,
+                        1,
+                        1,
+                        1002,
+                        1,
+                        1001
+                    ],
+                    "no": "1"
+                }
+            ],
+            "img": "https://redive.estertion.win/icon/unit/119231.webp",
+            "img6": null,
+            "basic": {
+                "en": {
+                    "id": null,
+                    "prefix": "x",
+                    "name": "mahiru",
+                    "ub": {
+                        "name": null,
+                        "text": "Grant medium physical def up to all allies; deploy a physical nullification shield on self.",
+                        "action": [
+                            "Buff party p.def by 205 [18s]",
+                            "Deploy a 13680 buffer p.shield [18s]"
+                        ]
+                    },
+                    "uba": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "ub2": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "uba2": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1": {
+                        "name": null,
+                        "text": "Grant large HP recovery to the ally with the lowest HP; grant medium physical def up.",
+                        "action": [
+                            "Heal 20410 HP on target ",
+                            "Buff 251 p.def on target [12s]"
+                        ]
+                    },
+                    "sk1p": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1ap": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk2": {
+                        "name": null,
+                        "text": "Deploy a field on the frontmost enemy that inflicts medium physical damage on all enemies in range; inflict large action speed down and large knockback. Knockback distance decreases with number of enemies in range.",
+                        "action": [
+                            "Inflict 28733 p.dmg to all targets in range (Range: 150)",
+                            "Inflict action speed down on all targets in range for a set time (Range: 150)"
+                        ]
+                    },
+                    "sk2a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk3": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk3a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "ex": {
+                        "name": null,
+                        "text": "Gain medium physical def up at the start of battle.",
+                        "action": [
+                            "Gain 456 p.def up "
+                        ]
+                    },
+                    "ex2": {
+                        "name": null,
+                        "text": "Gain large physical def up at the start of battle.",
+                        "action": [
+                            "Gain 486 p.def up "
+                        ]
+                    },
+                    "comment": null
+                },
+                "jp": {
+                    "id": 1192,
+                    "name": "\u30de\u30d2\u30eb(\u30af\u30ea\u30b9\u30de\u30b9)",
+                    "ub": {
+                        "name": "\u30a8\u30ea\u30b6\u30d9\u30b9\u30c9\u30ea\u30fc\u30e0\u30e9\u30f3\u30c9",
+                        "text": "\u5473\u65b9\u5168\u4f53\u306e\u7269\u7406\u9632\u5fa1\u529b\u3092\u4e2d\u30a2\u30c3\u30d7\u3055\u305b\u3001\u3055\u3089\u306b\u7269\u7406\u7121\u52b9\u30d0\u30ea\u30a2\u3092\u5c55\u958b\u3059\u308b\u3002",
+                        "action": null
+                    },
+                    "uba": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "ub2": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "uba2": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1": {
+                        "name": "\u30bb\u30a4\u30f3\u30c8\u30cf\u30fc\u30d9\u30b9\u30c8",
+                        "text": "\u6700\u3082\uff28\uff30\u304c\u4f4e\u3044\u5473\u65b9\uff11\u30ad\u30e3\u30e9\u306e\uff28\uff30\u3092\u5927\u56de\u5fa9\u3055\u305b\u3001\u3055\u3089\u306b\u7269\u7406\u9632\u5fa1\u529b\u3092\u4e2d\u30a2\u30c3\u30d7\u3059\u308b\u3002",
+                        "action": null
+                    },
+                    "sk1p": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk1ap": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk2": {
+                        "name": "\u30ef\u30a4\u30eb\u30c9\u30db\u30a4\u30fc\u30eb",
+                        "text": "\u76ee\u306e\u524d\u306e\u6575\uff11\u30ad\u30e3\u30e9\u3092\u4e2d\u5fc3\u3068\u3057\u305f\u7bc4\u56f2\u5185\u306e\u6575\u3059\u3079\u3066\u306b\u7269\u7406\u4e2d\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3001\u3055\u3089\u306b\u884c\u52d5\u901f\u5ea6\u3092\u5927\u30c0\u30a6\u30f3\u3055\u305b\u3001\u5927\u304d\u304f\u5439\u304d\u98db\u3070\u3059\u3002\u7bc4\u56f2\u5185\u306e\u6575\u306e\u6570\u306b\u5fdc\u3058\u3066\u5439\u304d\u98db\u3070\u3057\u306e\u8ddd\u96e2\u304c\u30c0\u30a6\u30f3\u3059\u308b\u3002",
+                        "action": null
+                    },
+                    "sk2a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk3": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "sk3a": {
+                        "name": null,
+                        "text": null,
+                        "action": null
+                    },
+                    "ex": {
+                        "name": "\u30af\u30ea\u30b9\u30de\u30b9\u30d5\u30a1\u30fc\u30df\u30f3\u30b0",
+                        "text": "\u30d0\u30c8\u30eb\u958b\u59cb\u6642\u306b\u81ea\u5206\u306e\u7269\u7406\u9632\u5fa1\u529b\u3092\u4e2d\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
+                        "action": null
+                    },
+                    "ex2": {
+                        "name": "\u30af\u30ea\u30b9\u30de\u30b9\u30d5\u30a1\u30fc\u30df\u30f3\u30b0+",
+                        "text": "\u30d0\u30c8\u30eb\u958b\u59cb\u6642\u306b\u81ea\u5206\u306e\u7269\u7406\u9632\u5fa1\u529b\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
+                        "action": null
+                    },
+                    "comment": "\u3010\u7269\u7406\u3011\u4e2d\u885b\u3067\u5473\u65b9\u3092\u652f\u63f4\u3057\u3001\u5b88\u8b77\u3059\u308b\u8056\u591c\u306e\u7267\u5834\u4e3b\u3002\u7bc4\u56f2\u5185\u306e\u6575\u3092\u30ce\u30c3\u30af\u30d0\u30c3\u30af\u3055\u305b\u308b\u3053\u3068\u3067\u76f8\u624b\u306e\u968a\u5217\u3092\u5d29\u3057\u5168\u4f53\u7269\u7406\u30d0\u30ea\u30a2\u5c55\u958b\u3068\u5358\u4f53\uff28\uff30\u56de\u5fa9\u3067\u6fc0\u6226\u3092\u52dd\u5229\u306b\u5c0e\u304f\u3002"
+                }
+            },
+            "ue": {
+                "id": null,
+                "rank": null,
+                "img": null,
+                "stats": {},
+                "en": {
+                    "name": null,
+                    "text": null
+                },
+                "jp": {
+                    "name": null,
+                    "text": null
+                }
+            },
+            "stats": {
+                "normal": {
+                    "hp": 44184,
+                    "atk": 15108,
+                    "matk": 0,
+                    "def": 783,
+                    "mdef": 580,
+                    "pCrit": 992,
+                    "mCrit": 0,
+                    "wHpRec": 1735,
+                    "wTpRec": 181,
+                    "dodge": 21,
+                    "pPen": 0,
+                    "mPen": 0,
+                    "lifesteal": 5,
+                    "hpRec": 64,
+                    "tpRec": 19,
+                    "tpSave": 0,
+                    "acc": 37
+                },
+                "flb": {}
+            },
+            "profile": {
+                "age": "20",
+                "blood": "B",
+                "weight": "35",
+                "height": "142",
+                "img": "https://redive.estertion.win/card/actual_profile/119231.webp",
+                "bd": "3/3",
+                "en": {
+                    "name": null,
+                    "name_alt": null,
+                    "irl_name": null,
+                    "guild": null,
+                    "race": null,
+                    "va": null
+                },
+                "jp": {
+                    "name": "\u30de\u30d2\u30eb\uff08\u30af\u30ea\u30b9\u30de\u30b9\uff09",
+                    "name_alt": "\u307e\u3072\u308b",
+                    "irl_name": null,
+                    "guild": "\u7267\u5834\uff08\u30a8\u30ea\u30b6\u30d9\u30b9\u30d1\u30fc\u30af\uff09",
+                    "race": "\u30d2\u30e5\u30fc\u30de\u30f3",
+                    "va": "\u65b0\u7530\u6075\u6d77",
+                    "name_irl": "\u30de\u30d2\u30eb\uff08\u30af\u30ea\u30b9\u30de\u30b9\uff09"
                 }
             }
         },
@@ -47967,50 +48504,51 @@
                 "lvl": 227,
                 "rk": 23
             },
-            "sname": "nokuuka",
+            "sname": "xmiyako",
             "tags": [
-                "front",
-                "magic",
-                "mdef_down",
-                "matk_up",
-                "p_shield",
-                "m_shield",
-                "heal",
-                "pdef_up",
-                "mcrit_up"
+                "phys",
+                "mid",
+                "patk_up",
+                "pcrit_up",
+                "pdef_down",
+                "tp_up",
+                "self_buff",
+                "special"
             ],
-            "pos": 106,
+            "pos": 201,
             "atkptn": [
                 {
                     "loop": [
-                        3,
-                        7
+                        4,
+                        8
                     ],
                     "ptn": [
+                        1002,
+                        1001,
+                        1,
                         1001,
                         1,
                         1002,
-                        1,
                         1001,
-                        1,
-                        1002
+                        1
                     ],
                     "no": "1"
                 }
             ],
-            "img": "https://redive.estertion.win/icon/unit/119131.webp",
+            "img": "https://redive.estertion.win/icon/unit/119931.webp",
             "img6": null,
             "basic": {
                 "en": {
                     "id": null,
-                    "prefix": "no",
-                    "name": "kuuka",
+                    "prefix": "x",
+                    "name": "miyako",
                     "ub": {
                         "name": null,
-                        "text": "Inflict large magic damage on the frontmost enemy; inflict large magic def down.",
+                        "text": "Inflict massive physical damage on the frontmost enemy; inflict small physical def down. [When field is active] Increase damage inflicted.",
                         "action": [
-                            "Inflict 48929 m.dmg on target ",
-                            "Inflict 251 m.def down on target [18s]"
+                            "Inflict 80876 p.dmg to target ",
+                            "Upon deploying field, inflict 161752 p.dmg on target ",
+                            "Inflict 114 p.def down on target [18s]"
                         ]
                     },
                     "uba": {
@@ -48030,11 +48568,12 @@
                     },
                     "sk1": {
                         "name": null,
-                        "text": "Grant large magic attack and crit up to the ally with the highest MATK. Deploy a magic/physical nullification shield on self.",
+                        "text": "Inflict medium physical damage on the frontmost enemy; gain large physical attack up. [When field is active] increase damage inflicted; grant large physical attack up to all allies in range around Miyako.",
                         "action": [
-                            "Buff m.atk by 6384 on target [12s]",
-                            "Grant 150 m.crit up on a single target [12s]",
-                            "Deploy a 22800 buffer mp.shield [12s]"
+                            "Inflict 18197 p.dmg to target ",
+                            "Upon deploying field, inflict 36394 p.dmg on target ",
+                            "Gain 4560 p.atk up [12s]",
+                            "While field is active, grant 4560 P.ATK up to all allies in range (Range: 150)[12s]"
                         ]
                     },
                     "sk1p": {
@@ -48054,12 +48593,12 @@
                     },
                     "sk2": {
                         "name": null,
-                        "text": "Inflict small magic damage on the frontmost enemy; inflict small magic def down. Gain large HP heal and physical def up.",
+                        "text": "Deploy a field on self that grants large physical attack and crit up to all allies in range. Grant small physical crit damage up; gain medium TP recovery.",
                         "action": [
-                            "Inflict 7840 m.dmg on target ",
-                            "Inflict 137 m.def down on target (Range: 800)[12s]",
-                            "Heal 15314 HP ",
-                            "Gain 274 p.def up [12s]"
+                            "Buff p.atk by 4767 on all targets within field  [12s]",
+                            "Buff p.crit by 150 on all targets within field  [12s]",
+                            "Grant 8% p.crit damage up to all aliies in range (Range: 150)[12s]",
+                            "Gain 30 TP gain up [12s]"
                         ]
                     },
                     "sk2a": {
@@ -48079,27 +48618,26 @@
                     },
                     "ex": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain medium physical attack up at the start of battle.",
                         "action": [
-                            "Gain 456 p.def up "
+                            "Gain 3420 p.atk up "
                         ]
                     },
                     "ex2": {
                         "name": null,
-                        "text": null,
+                        "text": "Gain large physical attack up at the start of battle.",
                         "action": [
-                            "Gain 456 p.def up ",
-                            "Gain 30 m.def up "
+                            "Gain 3645 p.atk up "
                         ]
                     },
                     "comment": null
                 },
                 "jp": {
-                    "id": 1191,
-                    "name": "\u30af\u30a6\u30ab(\u30ce\u30ef\u30fc\u30eb)",
+                    "id": 1199,
+                    "name": "\u30df\u30e4\u30b3(\u30af\u30ea\u30b9\u30de\u30b9)",
                     "ub": {
-                        "name": "\u30af\u30a6\u30ab\u30fb\u30c9\u041c\u30fb\u30a8\u30af\u30b9\u30d7\u30ed\u30fc\u30b8\u30e7\u30f3",
-                        "text": "\u76ee\u306e\u524d\u306e\u6575\uff11\u30ad\u30e3\u30e9\u306b\u9b54\u6cd5\u5927\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3001\u3055\u3089\u306b\u9b54\u6cd5\u9632\u5fa1\u529b\u3092\u5927\u30c0\u30a6\u30f3\u3055\u305b\u308b\u3002",
+                        "name": "\u30df\u30e4\u30b3\u3068\u304f\u305b\u3044\u30d7\u30ea\u30f3\u306a\u306e",
+                        "text": "\u76ee\u306e\u524d\u306e\u6575\uff11\u30ad\u30e3\u30e9\u306b\u7269\u7406\u7279\u5927\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3001\u7269\u7406\u9632\u5fa1\u529b\u3092\u5c0f\u30c0\u30a6\u30f3\u3055\u305b\u308b\u3002\u3010\u30d5\u30a3\u30fc\u30eb\u30c9\u5c55\u958b\u4e2d\u3011\u30c0\u30e1\u30fc\u30b8\u304c\u30a2\u30c3\u30d7\u3059\u308b\u3002",
                         "action": null
                     },
                     "uba": {
@@ -48118,8 +48656,8 @@
                         "action": null
                     },
                     "sk1": {
-                        "name": "\u30c9\u041c\u30fb\u30b7\u30a7\u30a2\u30ea\u30f3\u30b0",
-                        "text": "\u6700\u3082\u9b54\u6cd5\u653b\u6483\u529b\u304c\u9ad8\u3044\u5473\u65b9\uff11\u30ad\u30e3\u30e9\u306e\u9b54\u6cd5\u653b\u6483\u529b\u3068\u9b54\u6cd5\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002\u3055\u3089\u306b\u3001\u81ea\u5206\u306b\u7269\u7406/\u9b54\u6cd5\u7121\u52b9\u30d0\u30ea\u30a2\u3092\u5c55\u958b\u3059\u308b\u3002",
+                        "name": "\u3086\u304d\u3060\u308b\u307e\u306b\u3057\u3066\u3084\u308b\u306e",
+                        "text": "\u76ee\u306e\u524d\u306e\u6575\uff11\u30ad\u30e3\u30e9\u306b\u7269\u7406\u4e2d\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3001\u81ea\u5206\u306e\u7269\u7406\u653b\u6483\u529b\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002\u3010\u30d5\u30a3\u30fc\u30eb\u30c9\u5c55\u958b\u4e2d\u3011\u30c0\u30e1\u30fc\u30b8\u304c\u30a2\u30c3\u30d7\u3057\u3001\u81ea\u5206\u306e\u5468\u56f2\u306e\u5473\u65b9\u3059\u3079\u3066\u306e\u7269\u7406\u653b\u6483\u529b\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
                         "action": null
                     },
                     "sk1p": {
@@ -48138,8 +48676,8 @@
                         "action": null
                     },
                     "sk2": {
-                        "name": "\u30c9\u041c\u30fb\u30d1\u30c3\u30b7\u30e7\u30f3",
-                        "text": "\u76ee\u306e\u524d\u306e\u6575\uff11\u30ad\u30e3\u30e9\u306b\u9b54\u6cd5\u5c0f\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3001\u9b54\u6cd5\u9632\u5fa1\u529b\u3092\u5c0f\u30c0\u30a6\u30f3\u3055\u305b\u308b\u3002\u3055\u3089\u306b\u3001\u81ea\u5206\u306e\uff28\uff30\u3092\u5927\u56de\u5fa9\u3057\u3001\u7269\u7406\u9632\u5fa1\u529b\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
+                        "name": "\u3072\u3068\u304f\u3061\u3060\u3051\u306a\u306e",
+                        "text": "\u81ea\u5206\u306e\u5468\u56f2\u306b\u7269\u7406\u653b\u6483\u529b\u3068\u7269\u7406\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u308b\u30d5\u30a3\u30fc\u30eb\u30c9\u3092\u5c55\u958b\u3059\u308b\u3002\u3055\u3089\u306b\u81ea\u5206\u306e\u5468\u56f2\u306e\u5473\u65b9\u3059\u3079\u3066\u306e\u7269\u7406\u653b\u6483\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u6642\u306e\u30c0\u30e1\u30fc\u30b8\u3092\u5c0f\u30a2\u30c3\u30d7\u3055\u305b\u3001\u81ea\u5206\u306e\uff34\uff30\u4e0a\u6607\u3092\u4e2d\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
                         "action": null
                     },
                     "sk2a": {
@@ -48158,16 +48696,16 @@
                         "action": null
                     },
                     "ex": {
-                        "name": "\u30c9\uff2d\u30fb\u30d5\u30a3\u30fc\u30eb\u30c9",
-                        "text": "\u30d0\u30c8\u30eb\u958b\u59cb\u6642\u306b\u81ea\u5206\u306e\u7269\u7406\u9632\u5fa1\u529b\u3092\u4e2d\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
+                        "name": "\u30d7\u30ec\u30bc\u30f3\u30c8\u3057\u3066\u3084\u308b\u306e\uff5e",
+                        "text": "\u30d0\u30c8\u30eb\u958b\u59cb\u6642\u306b\u81ea\u5206\u306e\u7269\u7406\u653b\u6483\u529b\u3092\u4e2d\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
                         "action": null
                     },
                     "ex2": {
-                        "name": "\u30c9\uff2d\u30fb\u30d5\u30a3\u30fc\u30eb\u30c9+",
-                        "text": "\u30d0\u30c8\u30eb\u958b\u59cb\u6642\u306b\u81ea\u5206\u306e\u7269\u7406\u9632\u5fa1\u529b\u3092\u4e2d\u30a2\u30c3\u30d7\u3055\u305b\u3001\u3055\u3089\u306b\u81ea\u5206\u306e\u9b54\u6cd5\u9632\u5fa1\u529b\u3092\u5c0f\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
+                        "name": "\u30d7\u30ec\u30bc\u30f3\u30c8\u3057\u3066\u3084\u308b\u306e\uff5e+",
+                        "text": "\u30d0\u30c8\u30eb\u958b\u59cb\u6642\u306b\u81ea\u5206\u306e\u7269\u7406\u653b\u6483\u529b\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
                         "action": null
                     },
-                    "comment": "\u3010\u9b54\u6cd5\u3011\u524d\u885b\u3067\u3001\u731b\u653b\u3092\u7121\u52b9\u30d0\u30ea\u30a2\u3067\u53d7\u3051\u308b\u95c7\u306e\u30c9\uff2d\u5a18\u3002\u6700\u3082\u9b54\u6cd5\u653b\u6483\u529b\u304c\u9ad8\u3044\u5473\u65b9\u306e\u9b54\u6cd5\u653b\u6483\u529b\u3068\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u3092\u30a2\u30c3\u30d7\u3055\u305b\u3001\u9b54\u6cd5\u9632\u5fa1\u529b\u30c0\u30a6\u30f3\u30b9\u30ad\u30eb\u3067\u6575\u3092\u602f\u307e\u305b\u308b\u3002"
+                    "comment": "\u3010\u7269\u7406\u3011\u4e2d\u885b\u3067\u3001\u5473\u65b9\u3092\u30d7\u30ea\u30f3\u3067\u5f37\u5316\u3059\u308b\u5e7d\u970a\u8056\u5c11\u5973\u3002\u7269\u7406\u653b\u6483\u529b\u3068\u7269\u7406\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u30a2\u30c3\u30d7\u306e\u30d7\u30ea\u30f3\u30d1\u30ef\u30fc\u306e\u30d5\u30a3\u30fc\u30eb\u30c9\u3067\u81ea\u5206\u306e\u30b9\u30ad\u30eb\u3082\u5f37\u5316\u3057\u3001\u731b\u653b\u3092\u7e70\u308a\u51fa\u3059\u3002"
                 }
             },
             "ue": {
@@ -48186,33 +48724,33 @@
             },
             "stats": {
                 "normal": {
-                    "hp": 55555,
-                    "atk": 527,
-                    "matk": 10026,
-                    "def": 1072,
-                    "mdef": 1171,
-                    "pCrit": 0,
-                    "mCrit": 70,
-                    "wHpRec": 1720,
-                    "wTpRec": 50,
-                    "dodge": 12,
+                    "hp": 34303,
+                    "atk": 17369,
+                    "matk": 0,
+                    "def": 543,
+                    "mdef": 433,
+                    "pCrit": 1343,
+                    "mCrit": 0,
+                    "wHpRec": 2045,
+                    "wTpRec": 255,
+                    "dodge": 20,
                     "pPen": 0,
                     "mPen": 0,
-                    "lifesteal": 8,
-                    "hpRec": 86,
-                    "tpRec": 13,
-                    "tpSave": 20,
-                    "acc": 0
+                    "lifesteal": 9,
+                    "hpRec": 25,
+                    "tpRec": 37,
+                    "tpSave": 15,
+                    "acc": 62
                 },
                 "flb": {}
             },
             "profile": {
-                "age": "18",
-                "blood": "AB",
-                "weight": "49",
-                "height": "157",
-                "img": "https://redive.estertion.win/card/actual_profile/119131.webp",
-                "bd": "11/19",
+                "age": "14",
+                "blood": "B",
+                "weight": "32",
+                "height": "130",
+                "img": "https://redive.estertion.win/card/actual_profile/119931.webp",
+                "bd": "1/23",
                 "en": {
                     "name": null,
                     "name_alt": null,
@@ -48222,13 +48760,13 @@
                     "va": null
                 },
                 "jp": {
-                    "name": "\u30af\u30a6\u30ab\uff08\u30ce\u30ef\u30fc\u30eb\uff09",
-                    "name_alt": "\u304f\u3046\u304b",
+                    "name": "\u30df\u30e4\u30b3\uff08\u30af\u30ea\u30b9\u30de\u30b9\uff09",
+                    "name_alt": "\u307f\u3084\u3053",
                     "irl_name": null,
-                    "guild": "\u30f4\u30a1\u30a4\u30b9\u30d5\u30ea\u30e5\u30fc\u30b2\u30eb\u3000\u30e9\u30f3\u30c9\u30bd\u30eb\u652f\u90e8",
-                    "race": "\u30d2\u30e5\u30fc\u30de\u30f3",
-                    "va": "\u9577\u59bb\u6a39\u91cc",
-                    "name_irl": "\u30af\u30a6\u30ab\uff08\u30ce\u30ef\u30fc\u30eb\uff09"
+                    "guild": "\u60aa\u9b54\u507d\u738b\u56fd\u8ecd\uff08\u30c7\u30a3\u30a2\u30dc\u30ed\u30b9\uff09",
+                    "race": "\u9b54\u65cf",
+                    "va": "\u96e8\u5bae\u5929",
+                    "name_irl": "\u30df\u30e4\u30b3\uff08\u30af\u30ea\u30b9\u30de\u30b9\uff09"
                 }
             }
         }
