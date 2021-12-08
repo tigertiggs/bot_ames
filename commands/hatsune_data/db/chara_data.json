@@ -8420,8 +8420,8 @@
                         "name": null,
                         "text": "Inflict large phyical damage on the frontmost enemy; gain large HP heal to self.",
                         "action": [
-                            "Inflict 49774 p.dmg to target ",
-                            "Heal 13712 HP "
+                            "Inflict 50098 p.dmg to target ",
+                            "Heal 13802 HP "
                         ]
                     },
                     "uba": {
@@ -8469,7 +8469,7 @@
                         "name": null,
                         "text": "Gain moderate HP heal.",
                         "action": [
-                            "Heal 12686 HP "
+                            "Heal 12776 HP "
                         ]
                     },
                     "sk2a": {
@@ -8605,7 +8605,7 @@
             "stats": {
                 "normal": {
                     "hp": 54896,
-                    "atk": 10976,
+                    "atk": 11066,
                     "matk": 20,
                     "def": 1245,
                     "mdef": 930,
@@ -14014,7 +14014,8 @@
                 "tp_up",
                 "self_buff",
                 "special",
-                "seasonal"
+                "seasonal",
+                "ue"
             ],
             "pos": 135,
             "atkptn": [
@@ -14049,7 +14050,7 @@
                         "name": null,
                         "text": "Inflict large physical damage on the frontmost enemy. Damage inflicted increases proportionally to the stacks of [Evening Glow] currently present.",
                         "action": [
-                            "Inflict 54893 p.dmg to target "
+                            "Inflict 57530 p.dmg to target "
                         ]
                     },
                     "uba": {
@@ -14079,8 +14080,15 @@
                     },
                     "sk1p": {
                         "name": null,
-                        "text": null,
-                        "action": null
+                        "text": "Gain 1 stack of [Evening Glow] whenever Akino receives a buff, capped at 50 stacks. Gain large physical attack and crit up; grant large physical attack and crit up to all allies. Gain small TP gain up.",
+                        "action": [
+                            "Gain [Evening Glow] whenever a buff is present ",
+                            "Gain 6156 p.atk up [180s]",
+                            "Gain 150 p.crit up [180s]",
+                            "Buff party p.atk by 4104 [180s]",
+                            "Buff p.crit by 100 on all targets [180s]",
+                            "Gain 15 TP gain up [180s]"
+                        ]
                     },
                     "sk1a": {
                         "name": null,
@@ -14096,7 +14104,7 @@
                         "name": null,
                         "text": "Inflict small phyical damage on the frontmost enemy. Damage inflicted increases proportionally to the stacks of [Evening Glow] currently present.",
                         "action": [
-                            "Inflict 18298 p.dmg to target "
+                            "Inflict 19177 p.dmg to target "
                         ]
                     },
                     "sk2a": {
@@ -14159,8 +14167,8 @@
                         "action": null
                     },
                     "sk1p": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u30db\u30fc\u30ea\u30fc\u30d7\u30e9\u30a4\u30ba+",
+                        "text": "\u81ea\u5206\u304c\u30b9\u30c6\u30fc\u30bf\u30b9\u30a2\u30c3\u30d7\u52b9\u679c\u3092\u53d7\u3051\u308b\u5ea6\u306b\u3001\u3010\u8056\u591c\u306e\u714c\u304d\u3011\u304c\uff11\u3064\u8ffd\u52a0\u3055\u308c\u308b\u3002\u3010\u8056\u591c\u306e\u714c\u304d\u3011\u306f\u6700\u592750\u307e\u3067\u8ffd\u52a0\u3055\u308c\u308b\u3002\u3055\u3089\u306b\u81ea\u5206\u306e\u7269\u7406\u653b\u6483\u529b\u3068\u7269\u7406\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u3001\u5473\u65b9\u5168\u4f53\u306e\u7269\u7406\u653b\u6483\u529b\u3068\u7269\u7406\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002\u3042\u308f\u305b\u3066\u81ea\u5206\u306e\uff34\uff30\u4e0a\u6607\u3092\u5c0f\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
                         "action": null
                     },
                     "sk1a": {
@@ -14207,27 +14215,32 @@
                 }
             },
             "ue": {
-                "id": null,
+                "id": 131441,
                 "rank": null,
-                "img": null,
-                "stats": {},
+                "img": "https://redive.estertion.win/icon/equipment/131441.webp",
+                "stats": {
+                    "atk": 92,
+                    "atk_growth": 4.6,
+                    "pCrit": 15,
+                    "pCrit_growth": 0.75
+                },
                 "en": {
-                    "name": null,
+                    "name": "Vistallia Noelle Dress",
                     "text": null
                 },
                 "jp": {
-                    "name": null,
-                    "text": null
+                    "name": "\u30a6\u30a3\u30b9\u30bf\u30ea\u30a2\u30ce\u30a8\u30eb\u30c9\u30ec\u30b9",
+                    "text": "\u30a2\u30ad\u30ce\u306e\u30af\u30ea\u30b9\u30de\u30b9\u30c9\u30ec\u30b9\u3002\u30a6\u30a3\u30b9\u30bf\u30ea\u30a2\u5bb6\u306e\u304a\u62b1\u3048\u30c6\u30fc\u30e9\u30fc\u306e\u4f5c\u308a\u3067\u7d62\u721b\u8c6a\u83ef\u3067\u3042\u308a\u306a\u304c\u3089\u3001\u8cea\u5b9f\u525b\u5065\u306a\u88c5\u5099\u3068\u3057\u3066\u3082\u73e0\u7389\u306e\u9038\u54c1\u3067\u3042\u308b\u3002"
                 }
             },
             "stats": {
                 "normal": {
                     "hp": 41709,
-                    "atk": 20022,
+                    "atk": 21121,
                     "matk": 0,
                     "def": 359,
                     "mdef": 277,
-                    "pCrit": 1422,
+                    "pCrit": 1601,
                     "mCrit": 0,
                     "wHpRec": 900,
                     "wTpRec": 201,
@@ -14284,7 +14297,10 @@
                 "matk_up",
                 "mdef_up",
                 "self_buff",
-                "heal"
+                "heal",
+                "ue",
+                "mcrit_up",
+                "pcrit_up"
             ],
             "pos": 108,
             "atkptn": [
@@ -14319,9 +14335,9 @@
                         "name": null,
                         "text": "Inflict large physical damage 3 times on random frontal enemies; grant medium physical and magic attack up to all allies; gain 3 [Shield of Disappearing Light].\nEach [Shield of Disappearing Light] is consumed upon taking damage and inflicts damage on the enemy that attacked.",
                         "action": [
-                            "Inflict 34366 p.dmg to target ",
-                            "Inflict 34366 p.dmg to target ",
-                            "Inflict 34366 p.dmg to target ",
+                            "Inflict 36804 p.dmg to target ",
+                            "Inflict 36804 p.dmg to target ",
+                            "Inflict 36804 p.dmg to target ",
                             "Buff party p.atk by 2052 [18s]",
                             "Buff party m.atk by 2052 [18s]",
                             "Inflict up to 5 [Shield of Disappearing Light] that deals 8513 damage on the attacking enemy "
@@ -14354,8 +14370,15 @@
                     },
                     "sk1p": {
                         "name": null,
-                        "text": null,
-                        "action": null
+                        "text": "Grant massive physical and magic attack up to all allies in range centered on Saren, grant medium physical and magic def up; grant large physical and magic crit up.",
+                        "action": [
+                            "Buff p.atk by 5472 on all targets in range (Range: 350)[12s]",
+                            "Buff 5472 m.atk on all targets in range (Range: 350)[12s]",
+                            "Buff 137 p.def on all targets in range (Range: 350)[12s]",
+                            "Buff 137 m.def on all targets in range (Range: 350)[12s]",
+                            "Buff p.crit by 100 on all targets in range (Range: 350)[12s]",
+                            "Buff 100 m.crit up on all targets in range (Range: 350)[12s]"
+                        ]
                     },
                     "sk1a": {
                         "name": null,
@@ -14371,10 +14394,10 @@
                         "name": null,
                         "text": "Inflict small physical damage 3 times on random frontal enemies; grant medium HP heal on the ally with the lowest HP.",
                         "action": [
-                            "Inflict 8591 p.dmg to target ",
-                            "Inflict 8591 p.dmg to target ",
-                            "Inflict 8591 p.dmg to target ",
-                            "Heal 10543 HP on target "
+                            "Inflict 9201 p.dmg to target ",
+                            "Inflict 9201 p.dmg to target ",
+                            "Inflict 9201 p.dmg to target ",
+                            "Heal 11356 HP on target "
                         ]
                     },
                     "sk2a": {
@@ -14438,8 +14461,8 @@
                         "action": null
                     },
                     "sk1p": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u30a2\u30e1\u30a4\u30b8\u30f3\u30b0\u30ae\u30d5\u30c8+",
+                        "text": "\u81ea\u5206\u3092\u4e2d\u5fc3\u3068\u3057\u305f\u7bc4\u56f2\u5185\u306e\u5473\u65b9\u3059\u3079\u3066\u306e\u7269\u7406\u653b\u6483\u529b\u3068\u9b54\u6cd5\u653b\u6483\u529b\u3092\u7279\u5927\u30a2\u30c3\u30d7\u3001\u7269\u7406\u9632\u5fa1\u529b\u3068\u9b54\u6cd5\u9632\u5fa1\u529b\u3092\u4e2d\u30a2\u30c3\u30d7\u3055\u305b\u3001\u3055\u3089\u306b\u7269\u7406\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u3068\u9b54\u6cd5\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u3092\u5927\u30a2\u30c3\u30d7\u3055\u305b\u308b\u3002",
                         "action": null
                     },
                     "sk1a": {
@@ -14486,27 +14509,34 @@
                 }
             },
             "ue": {
-                "id": null,
+                "id": 131451,
                 "rank": null,
-                "img": null,
-                "stats": {},
+                "img": "https://redive.estertion.win/icon/equipment/131451.webp",
+                "stats": {
+                    "atk": 85,
+                    "atk_growth": 4.25,
+                    "pCrit": 15,
+                    "pCrit_growth": 0.75,
+                    "hpRec": 6,
+                    "hpRec_growth": 0.3
+                },
                 "en": {
-                    "name": null,
+                    "name": "Salendia Noelle Dress",
                     "text": null
                 },
                 "jp": {
-                    "name": null,
-                    "text": null
+                    "name": "\u30b5\u30ec\u30f3\u30c7\u30a3\u30a2\u30ce\u30a8\u30eb\u30c9\u30ec\u30b9",
+                    "text": "\u30b5\u30ec\u30f3\u306e\u305f\u3081\u306b\u30b9\u30ba\u30e1\u305f\u3061\u304c\u7528\u610f\u3057\u305f\u3001\u30af\u30ea\u30b9\u30de\u30b9\u7528\u306e\u30d1\u30fc\u30c6\u30a3\u30fc\u30c9\u30ec\u30b9\u3002\u53e4\u3044\u30c9\u30ec\u30b9\u3092\u4ed5\u7acb\u3066\u76f4\u3057\u305f\u307f\u3093\u306a\u306e\u601d\u3044\u304c\u8a70\u307e\u3063\u305f\u4e00\u7740\u3002"
                 }
             },
             "stats": {
                 "normal": {
                     "hp": 55095,
-                    "atk": 11469,
+                    "atk": 12485,
                     "matk": 20,
                     "def": 1082,
                     "mdef": 929,
-                    "pCrit": 555,
+                    "pCrit": 734,
                     "mCrit": 0,
                     "wHpRec": 910,
                     "wTpRec": 250,
@@ -14514,7 +14544,7 @@
                     "pPen": 0,
                     "mPen": 0,
                     "lifesteal": 4,
-                    "hpRec": 59,
+                    "hpRec": 131,
                     "tpRec": 24,
                     "tpSave": 4,
                     "acc": 12
@@ -20127,7 +20157,7 @@
                         "name": null,
                         "text": "Inflict massive physical damage and stun on the frontmost enemy.",
                         "action": [
-                            "Inflict 76096 p.dmg to target ",
+                            "Inflict 76456 p.dmg to target ",
                             "Inflict Paralyze on target for a set time "
                         ]
                     },
@@ -20140,9 +20170,9 @@
                         "name": null,
                         "text": "Inflict massive physical damage on the frontmost enemy; inflict long-duration stun and knockback; inflict large physical damage and confuse on all enemies in range centered on the frontmost enemy.",
                         "action": [
-                            "Inflict 121754 p.dmg to target ",
+                            "Inflict 122330 p.dmg to target ",
                             "Inflict Paralyze on target for a set time ",
-                            "Inflict 41853 p.dmg to all targets in range (Range: 300)",
+                            "Inflict 42051 p.dmg to all targets in range (Range: 300)",
                             "inflict confuse on all targets in range (Range: 300)"
                         ]
                     },
@@ -20155,14 +20185,14 @@
                         "name": null,
                         "text": "Inflict small physical damage on the frontmost enemy with small knockback.",
                         "action": [
-                            "Inflict 15219 p.dmg to target "
+                            "Inflict 15291 p.dmg to target "
                         ]
                     },
                     "sk1p": {
                         "name": null,
                         "text": "Inflict large physical damage on the frontmost enemy with large knockback; inflict confuse.",
                         "action": [
-                            "Inflict 34628 p.dmg to target ",
+                            "Inflict 34808 p.dmg to target ",
                             "Inflict confuse on target "
                         ]
                     },
@@ -20180,7 +20210,7 @@
                         "name": null,
                         "text": "Inflict medium physical damage on the frontmost enemy; gain small physical attack up.",
                         "action": [
-                            "Inflict 22829 p.dmg to target ",
+                            "Inflict 22937 p.dmg to target ",
                             "Gain 1254 p.atk up [12s]"
                         ]
                     },
@@ -20318,7 +20348,7 @@
             "stats": {
                 "normal": {
                     "hp": 43341,
-                    "atk": 16174,
+                    "atk": 16264,
                     "matk": 0,
                     "def": 750,
                     "mdef": 592,
@@ -20337,7 +20367,7 @@
                 },
                 "flb": {
                     "hp": 53828,
-                    "atk": 17630,
+                    "atk": 17720,
                     "matk": 0,
                     "def": 907,
                     "mdef": 743,
@@ -24453,7 +24483,7 @@
                         "name": null,
                         "text": "Inflict massive physical damage on the backmost enemy; inflict cursed.",
                         "action": [
-                            "Inflict 85624 p.dmg to target ",
+                            "Inflict 85984 p.dmg to target ",
                             "Inflict 1368 DOT curse  [12s]"
                         ]
                     },
@@ -24640,7 +24670,7 @@
             "stats": {
                 "normal": {
                     "hp": 33111,
-                    "atk": 18556,
+                    "atk": 18646,
                     "matk": 0,
                     "def": 508,
                     "mdef": 434,
@@ -26695,7 +26725,7 @@
                         "name": null,
                         "text": "Inflict medium physical damage to all enemies in range; inflict confuse.",
                         "action": [
-                            "Inflict 39721 p.dmg to all targets in range (Range: 825)",
+                            "Inflict 39883 p.dmg to all targets in range (Range: 825)",
                             "inflict confuse on all targets in range (Range: 825)"
                         ]
                     },
@@ -26745,7 +26775,7 @@
                         "name": null,
                         "text": "Inflict medium physical damage to all enemies in range. Damage inflicted is proportional to the number of enemies in range. Inflict large knockback on the frontmost enemy.",
                         "action": [
-                            "Inflict 20943 p.dmg to all targets in range (Range: 775)"
+                            "Inflict 21024 p.dmg to all targets in range (Range: 775)"
                         ]
                     },
                     "sk2a": {
@@ -26877,7 +26907,7 @@
             "stats": {
                 "normal": {
                     "hp": 36539,
-                    "atk": 19217,
+                    "atk": 19307,
                     "matk": 0,
                     "def": 624,
                     "mdef": 419,
@@ -29199,7 +29229,10 @@
                 "m_target",
                 "mdef_up",
                 "special",
-                "seasonal"
+                "seasonal",
+                "ue",
+                "mcrit_down",
+                "atkspd_down"
             ],
             "pos": 217,
             "atkptn": [
@@ -29259,8 +29292,13 @@
                     },
                     "sk1p": {
                         "name": null,
-                        "text": null,
-                        "action": null
+                        "text": "Inflict medium TP down and medium physical def down on the enemy with the strongest MATK stat. Inflict large action speed down and massive magic crit down.",
+                        "action": [
+                            "Inflict 205 p.def down on target [12s]",
+                            "Inflict 245 TP down on target ",
+                            "Inflict action speed down on target for a set time ",
+                            "Inflict 450 m.crit down on target [12s]"
+                        ]
                     },
                     "sk1a": {
                         "name": null,
@@ -29339,8 +29377,8 @@
                         "action": null
                     },
                     "sk1p": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u30da\u30fc\u30eb\u30e0\u30fc\u30f3+",
+                        "text": "\u6700\u3082\u9b54\u6cd5\u653b\u6483\u529b\u304c\u9ad8\u3044\u6575\uff11\u30ad\u30e3\u30e9\u306e\uff34\uff30\u3092\u4e2d\u30c0\u30a6\u30f3\u3055\u305b\u3001\u7269\u7406\u9632\u5fa1\u529b\u3092\u4e2d\u30c0\u30a6\u30f3\u3055\u305b\u308b\u3002\u3055\u3089\u306b\u3001\u884c\u52d5\u901f\u5ea6\u3092\u5927\u30c0\u30a6\u30f3\u3055\u305b\u3001\u9b54\u6cd5\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u3092\u7279\u5927\u30c0\u30a6\u30f3\u3055\u305b\u308b\u3002",
                         "action": null
                     },
                     "sk1a": {
@@ -29387,23 +29425,30 @@
                 }
             },
             "ue": {
-                "id": null,
+                "id": 131461,
                 "rank": null,
-                "img": null,
-                "stats": {},
+                "img": "https://redive.estertion.win/icon/equipment/131461.webp",
+                "stats": {
+                    "hp": 100,
+                    "hp_growth": 5,
+                    "atk": 84,
+                    "atk_growth": 4.2,
+                    "tpRec": 1,
+                    "tpRec_growth": 0.05
+                },
                 "en": {
-                    "name": null,
+                    "name": "Christmas Royal Glass",
                     "text": null
                 },
                 "jp": {
-                    "name": null,
-                    "text": null
+                    "name": "\u30af\u30ea\u30b9\u30de\u30b9\u30ed\u30ef\u30a4\u30e4\u30eb\u30b0\u30e9\u30b9",
+                    "text": "\u30e6\u30ab\u30ea\u304c\u30af\u30ea\u30b9\u30de\u30b9\u306e\u305f\u3081\u306b\u7528\u610f\u3057\u305f\u3001\u7279\u5225\u306a\u30ab\u30af\u30c6\u30eb\u30b0\u30e9\u30b9\u3002\u3057\u3085\u308f\u3057\u3085\u308f\u5f3e\u3051\u308b\u547d\u306e\u6c34\u304c\u9ad8\u63da\u611f\u3068\u5171\u306b\u6700\u9ad8\u306e\u8056\u591c\u3092\u6f14\u51fa\u3057\u3066\u304f\u308c\u308b\u3002"
                 }
             },
             "stats": {
                 "normal": {
-                    "hp": 44861,
-                    "atk": 13381,
+                    "hp": 46056,
+                    "atk": 14385,
                     "matk": 20,
                     "def": 866,
                     "mdef": 859,
@@ -29416,7 +29461,7 @@
                     "mPen": 0,
                     "lifesteal": 8,
                     "hpRec": 64,
-                    "tpRec": 18,
+                    "tpRec": 30,
                     "tpSave": 4,
                     "acc": 25
                 },
@@ -39916,7 +39961,10 @@
                 "rear",
                 "ue",
                 "aoe",
-                "atkspd_down"
+                "atkspd_down",
+                "flb",
+                "ailment",
+                "special"
             ],
             "pos": 335,
             "atkptn": [
@@ -39938,7 +39986,7 @@
                 }
             ],
             "img": "https://redive.estertion.win/icon/unit/105031.webp",
-            "img6": null,
+            "img6": "https://redive.estertion.win/icon/unit/105061.webp",
             "basic": {
                 "en": {
                     "id": 69,
@@ -39948,7 +39996,7 @@
                         "name": null,
                         "text": "Inflict medium magic damage on all enemies in range.",
                         "action": [
-                            "Inflict 23472 m.dmg on all targets "
+                            "Inflict 23947 m.dmg on all targets "
                         ]
                     },
                     "uba": {
@@ -39958,8 +40006,14 @@
                     },
                     "ub2": {
                         "name": null,
-                        "text": null,
-                        "action": null
+                        "text": "Inflict medium magic damage on all enemies, inflict [hex]. If enemy is already under [hex], inflict [curse]. If enemy is already under both [hex] and [curse], inflict a debuff that increases damage taken. [Hex] inflicts continuous damage per second that increases in strength.",
+                        "action": [
+                            "Inflict 24289 m.dmg on targets not affected by [curse] or [hex] ",
+                            "Inflict 53976 m.dmg on targets affected by [curse] or [hex] ",
+                            "[Tempt] enemies that have been [cursed] or [hexed] ",
+                            "Inflict a 1368 base dmg [hex] that increases its dmg by 30% of base per second  [19s]",
+                            "Inflict a [curse] that deals 1824 dmg  [19s]"
+                        ]
                     },
                     "uba2": {
                         "name": null,
@@ -39970,7 +40024,7 @@
                         "name": null,
                         "text": "Inflict small magic damage on the frontmost enemy; inflict small action speed down.",
                         "action": [
-                            "Inflict 17640 m.dmg on target ",
+                            "Inflict 17992 m.dmg on target ",
                             "Inflict action speed down on target for a set time "
                         ]
                     },
@@ -39978,7 +40032,7 @@
                         "name": null,
                         "text": "Inflict medium magic damage on all enemies in range; inflict large action speed down.",
                         "action": [
-                            "Inflict 35736 m.dmg to all targets in range (Range: 200)",
+                            "Inflict 36440 m.dmg to all targets in range (Range: 200)",
                             "Inflict action speed down on all targets in range for a set time (Range: 200)"
                         ]
                     },
@@ -39996,7 +40050,7 @@
                         "name": null,
                         "text": "Inflict small magic damage 3 times to all enemies in range centered on the enemy that is dependent on their position relative to Misaki.",
                         "action": [
-                            "Inflict 5292 m.dmg on all targets in range(?) (Range: 100)"
+                            "Inflict 5398 m.dmg on all targets in range(?) (Range: 100)"
                         ]
                     },
                     "sk2a": {
@@ -40044,8 +40098,8 @@
                         "action": null
                     },
                     "ub2": {
-                        "name": null,
-                        "text": null,
+                        "name": "\u30f4\u30a3\u30fc\u30ca\u30b9\u30fb\u30c9\u30a5\u30fc\u30e0\u30a2\u30a4",
+                        "text": "\u6575\u5168\u4f53\u306b\u9b54\u6cd5\u4e2d\u30c0\u30e1\u30fc\u30b8\u3092\u4e0e\u3048\u3001\u546a\u8a5b\u72b6\u614b\u306b\u3059\u308b\u3002\u546a\u8a5b\u72b6\u614b\u3060\u3063\u305f\u5834\u5408\u306f\u4ee3\u308f\u308a\u306b\u546a\u3044\u72b6\u614b\u306b\u3059\u308b\u3002\u546a\u3044\u304b\u546a\u8a5b\u72b6\u614b\u3060\u3063\u305f\u5834\u5408\u3001\u30c0\u30e1\u30fc\u30b8\u91cf\u304c\u5897\u52a0\u3057\u8a98\u60d1\u72b6\u614b\u306b\u3059\u308b\u3002\u546a\u8a5b\u306b\u3088\u308b\u7d99\u7d9a\u30c0\u30e1\u30fc\u30b8\u306f\u6bce\u79d2\u3054\u3068\u306b\u5897\u52a0\u3059\u308b\u3002",
                         "action": null
                     },
                     "uba2": {
@@ -40129,11 +40183,11 @@
                 "normal": {
                     "hp": 28428,
                     "atk": 0,
-                    "matk": 19200,
+                    "matk": 19640,
                     "def": 262,
                     "mdef": 381,
                     "pCrit": 0,
-                    "mCrit": 1771,
+                    "mCrit": 1841,
                     "wHpRec": 1280,
                     "wTpRec": 457,
                     "dodge": 0,
@@ -40145,7 +40199,25 @@
                     "tpSave": 17,
                     "acc": 0
                 },
-                "flb": {}
+                "flb": {
+                    "hp": 36970,
+                    "atk": 0,
+                    "matk": 22631,
+                    "def": 323,
+                    "mdef": 439,
+                    "pCrit": 0,
+                    "mCrit": 1946,
+                    "wHpRec": 1280,
+                    "wTpRec": 457,
+                    "dodge": 0,
+                    "pPen": 0,
+                    "mPen": 0,
+                    "lifesteal": 6,
+                    "hpRec": 45,
+                    "tpRec": 27,
+                    "tpSave": 17,
+                    "acc": 0
+                }
             },
             "profile": {
                 "age": "11",
@@ -40224,7 +40296,7 @@
                         "name": null,
                         "text": "Inflict medium magic damage on all enemies in range; inflict paralysis, curse, and small magic def down.",
                         "action": [
-                            "Inflict 13831 m.dmg on all targets ",
+                            "Inflict 14187 m.dmg on all targets ",
                             "Inflict paralyze on all targets for a set time ",
                             "Inflict 798 DOT curse  [12s]",
                             "Inflict 103 m.def down on all targets [18s]"
@@ -40249,7 +40321,7 @@
                         "name": null,
                         "text": "Inflict small magic damage on the frontmot enemy; inflict charm.",
                         "action": [
-                            "Inflict 13914 m.dmg on target ",
+                            "Inflict 14266 m.dmg on target ",
                             "Inflict charm on target "
                         ]
                     },
@@ -40257,7 +40329,7 @@
                         "name": null,
                         "text": "Inflict medium magic damage on the frontmost enemy; inflict small tp down and charm.",
                         "action": [
-                            "Inflict 27827 m.dmg on target ",
+                            "Inflict 28531 m.dmg on target ",
                             "Inflict charm on target ",
                             "Inflict 277 TP down on target "
                         ]
@@ -40413,11 +40485,11 @@
                 "normal": {
                     "hp": 33773,
                     "atk": 0,
-                    "matk": 14542,
+                    "matk": 14982,
                     "def": 633,
                     "mdef": 827,
                     "pCrit": 0,
-                    "mCrit": 1020,
+                    "mCrit": 1090,
                     "wHpRec": 1135,
                     "wTpRec": 393,
                     "dodge": 3,
