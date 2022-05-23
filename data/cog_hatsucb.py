@@ -636,7 +636,7 @@ class hatsucbCog(commands.Cog):
                 if Q_DONE and len(options) == 0:
                     # unqueue all
                     for entry in active:
-                        queue_list.pop(queue_list['queue'].index(entry))
+                        queue_list['queue'].pop(queue_list['queue'].index(entry))
                         if not entry['is_ot']:
                             queue_list['done'].append(str(author.id))
                     
