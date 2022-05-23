@@ -117,7 +117,7 @@ class Ames_nextcord(commands.AutoShardedBot):
                 return True
             # check if user has perm role
             try:
-                with open(ut.full_path(self.dir, self.config['guilds'], f"{user.guild.id}.json")) as c:
+                with open(ut.full_path(self.dir, self.config['configs']['guilds'], f"{user.guild.id}.json")) as c:
                     cf = json.loads(c.read())
             except:
                 #cf = tem.fetch('guild')
@@ -127,7 +127,7 @@ class Ames_nextcord(commands.AutoShardedBot):
                 return False
             else:
                 for role in user.roles:
-                    if role.id in cf['admin']:
+                    if role.id == cf['role_admin']:
                         return True
                 return False
             
