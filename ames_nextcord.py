@@ -36,7 +36,7 @@ class Ames_nextcord(commands.AutoShardedBot):
 
         # read main config file
         self.logger.log('reading main config')
-        with open(MAIN_CONFIG) as cf:
+        with open(ut.full_path(self.dir, MAIN_CONFIG)) as cf:
             self.config = json.load(cf)
 
         # append private
