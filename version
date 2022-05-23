@@ -1,6 +1,6 @@
-{
-    "major":    4,
-    "update":   14,
-    "patch":    12,
+ {
+    "major":    0,
+    "update":   4,
+    "patch":    0,
     "tracker":  "https://raw.githubusercontent.com/tigertiggs/bot_ames/master/version"
-}
+ }

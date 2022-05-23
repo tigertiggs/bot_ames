@@ -1,0 +1,10 @@
+{
+    "api"           : "http://localhost/FagUtils/gateway.php?", 
+    "api_port"      : "http://localhost:{}/FagUtils/gateway.php?",
+    "port"          : 8000,
+
+    "cache_depth"   : 100,
+    "listeners"     : "listeners.json",
+    "guilds"        : "guilds",
+    "caches"        : "cache"
+}

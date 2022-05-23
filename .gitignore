@@ -1,48 +1,25 @@
 # safety
 !.gitkeep
 
-# post
-commands/post/*
-!commands/post/.gitkeep
-
 # private
-commands/_private/*
-!commands/_private/.gitkeep
+data/_private/*
 
-# ames
-commands/assets/ames/*
-!commands/assets/ames/.gitkeep
-commands/hatsune_data/db/index.json
+# configs
+data/_configs/*
 
-# twitter cache
-commands/twitter/twitterconfig.json
-commands/twitter/guilds.json
-commands/twitter/cache/*
-!commands/twitter/cache/.gitkeep
+data/_hatsune/cb/guilds/*
+data/_hatsune/cb/queues/*
+data/_hatsune/data/assets/*
+data/_hatsune/data/chara_data_OLD.json
+data/_hatsune/data/alises_local.json
 
-# guild perm
-commands/_config/guild/*
-!commands/_config/guild/.gitkeep
 
-# shen
-commands/assets/shen/other/_config.json
-commands/assets/shen/other/static
-commands/assets/shen/other/temp.png
-commands/assets/shen/other/temp.jpeg
-commands/assets/shen/other/temp.gif
+data/_twitter/cache/*
+data/_twitter/guilds/*
+data/_twitter/listeners.json
 
-# cb
-commands/cb/*
-!commands/cb/.gitkeep
-!commands/cb/config.json
 
-# other
-commands/_config/override.json
-commands/_config/cbtag.json
-commands/_config/pins.json
-commands/hatsune_data/alias_local.json
+
 __pycache__
-old/*
 .vscode
-todo
-*.pickle
+ames_config_override.json
