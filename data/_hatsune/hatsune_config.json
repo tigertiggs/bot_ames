@@ -1,0 +1,58 @@
+{
+    "embed_fields": {
+        "base":     ["ub", "sk1", "sk1p", "sk2"],
+        "alt":      ["ub", "sk1", "sk1p", "sk2"],
+        "ue":       ["ub", "sk1", "sk1p", "sk2"],
+        "flb":      ["ub", "sk1p", "sk2"]
+    },
+
+    "blacklist":        [],
+    "HATSUNE":          "https://cdn.discordapp.com/avatars/757869389851787374/5b2ab34acd4ec124bed760a40e165b7f.webp",
+    "timeout_embeds":   60,
+
+    "aliases":          "data/aliases.json",
+    "aliases_loc":      "data/alises_local.json",
+
+    "fag_index":        "C:/laragon/www/fagutils/Priconne/data/index.json",
+    "fag_conversion":   "C:/laragon/www/fagutils/Priconne/data/unit_conversion.json",
+    "database":         "data/chara_data.json",
+    "index":            "data/index.json",
+    "exskills":         "data/exskills.json",
+    "prefix":           "data/prefix.json",
+    "position":         "data/pos.json",
+    "gacha":            "data/gacha.json",
+
+    "tags":             "data/tags.json",
+    "assets":           "data/assets",
+
+    "links": {
+        "img_1s":       "https://redive.estertion.win/icon/unit/{}11.webp",
+        "img_3s":       "https://redive.estertion.win/icon/unit/{}31.webp",
+        "img_6s":       "https://redive.estertion.win/icon/unit/{}61.webp",
+        "card_3s":      "https://redive.estertion.win/card/full/{}31.webp",
+        "card_6s":      "https://redive.estertion.win/card/full/{}61.webp",
+        "card_irl":     "https://redive.estertion.win/card/actual_profile/{}31.webp",
+        "img_ue":       "https://redive.estertion.win/icon/equipment/{}.webp",
+        "unknown":      "https://redive.estertion.win/icon/equipment/999999.webp"
+    },
+
+    "ue_abbrev": {
+        "hp": "HP",
+        "atk": "PATK",
+        "matk": "MATK",
+        "def": "PDEF",
+        "mdef": "MDEF",
+        "pCrit": "PCRIT",
+        "mCrit": "MCRIT",
+        "wHpRec": "HP REC (w)",
+        "wTpRec": "TP REC (w)",
+        "dodge": "DODGE",
+        "pPen": "PPEN",
+        "mPen": "MPEN",
+        "lifesteal": "HP STEAL",
+        "hpRec": "HP REC",
+        "tpRec": "TP REC",
+        "tpSave": "TP SAVE",
+        "acc": "HIT"
+    }
+}

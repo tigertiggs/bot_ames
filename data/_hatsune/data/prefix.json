@@ -1,0 +1,123 @@
+{
+    "prefixes": {
+        "n": {
+            "full":     "New Year", 
+            "short":    "NYear"
+        },
+        "x": {
+            "full":     "Christmas",
+            "short":    "Xmas"
+        },
+        "o": {
+            "full":     "Ouedo",
+            "short":    null
+        },
+        "v": {
+            "full":     "Valentines",
+            "short":    "Valen."
+        },
+        "s": {
+            "full":     "Summer",
+            "short":    "Sum."
+        },
+        "h": {
+            "full":     "Halloween",
+            "short":    "Hallo."
+        },
+        "u": {
+            "full":     "Student",
+            "short":    "Stud."
+        },
+        "m": {
+            "full":     "Magical Girl",
+            "short":    "MagiGal"
+        },
+        "p": {
+            "full":     "Princess",
+            "short":    "Princ."
+        },
+        "d": {
+            "full":     "Cinderella Girls",
+            "short":    "Cind.G."
+        },
+        "r": {
+            "full":     "Ranger",
+            "short":    null
+        },
+        "w": {
+            "full":     "Wonderland",
+            "short":    "Wond."
+        }, 
+        "a": {
+            "full":     "Angel",
+            "short":    null
+        },
+        "cd": {
+            "full":     "Ceremonial Dress",
+            "short":    "C.Dress"
+        },
+        "c": {
+            "full":     "Cinderella",
+            "short":    "Cind."
+        },
+        "f": {
+            "full":     "School Festival",
+            "short":    "Fes."
+        },
+        "tt": {
+            "full":     "Time Traveller",
+            "short":    "Time T."
+        },
+        "ww": {
+            "full":     "Workwear",
+            "short":    "Workw."
+        },
+        "k": {
+            "full":     "Kizuna",
+            "short":    "Kzn"
+        },
+        "no": {
+            "full":     "Noire",
+            "short":    null
+        }
+    },
+    "prefix_alias": {
+        "newyear":      "n",
+        "ny":           "n",
+        "xmas":         "x",
+        "ouedo":        "o",
+        "valentine":    "v",
+        "valentines":   "v",
+        "summer":       "s",
+        "wet":          "s",
+        "halloween":    "h",
+        "spooky":       "h",
+        "uniform":      "u",
+        "student":      "u",
+        "princess":     "p",
+        "deresute":     "d",
+        "deremasu":     "d",
+        "imas":         "d",
+        "cg":           "d",
+        "dm":           "dm",
+        "ranger":       "r",
+        "angel":        "a",
+		"ceremonial":   "cd",
+        "cere":         "cd",
+        "magical":      "m",
+        "magigal":      "m",
+        "magi":         "m",
+        "mg":           "m",
+        "cinderella":   "c",
+        "fes":          "f",
+        "festival":     "f",
+        "school":       "f",
+        "sf":           "f",
+        "sc":           "sc",
+        "time":         "tt",
+        "traveler":     "tt",
+        "work":         "ww",
+        "kizuna":       "k",
+		"noire":        "no"
+    }
+}

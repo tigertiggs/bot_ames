@@ -1,0 +1,2805 @@
+{
+    "index": [
+        {
+            "id": 3,
+            "hnid": 1032,
+            "prefix": null,
+            "sname": "akino",
+            "name": {
+                "en": "akino",
+                "jp": "\u30a2\u30ad\u30ce"
+            },
+            "flb": true,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 4,
+            "hnid": 1023,
+            "prefix": null,
+            "sname": "ayane",
+            "name": {
+                "en": "ayane",
+                "jp": "\u30a2\u30e4\u30cd"
+            },
+            "flb": true,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 8,
+            "hnid": 1027,
+            "prefix": null,
+            "sname": "eriko",
+            "name": {
+                "en": "eriko",
+                "jp": "\u30a8\u30ea\u30b3"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 9,
+            "hnid": 1017,
+            "prefix": null,
+            "sname": "kaori",
+            "name": {
+                "en": "kaori",
+                "jp": "\u30ab\u30aa\u30ea"
+            },
+            "flb": true,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 11,
+            "hnid": 1045,
+            "prefix": null,
+            "sname": "kuuka",
+            "name": {
+                "en": "kuuka",
+                "jp": "\u30af\u30a6\u30ab"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 12,
+            "hnid": 1021,
+            "prefix": null,
+            "sname": "kurumi",
+            "name": {
+                "en": "kurumi",
+                "jp": "\u30af\u30eb\u30df"
+            },
+            "flb": true,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 16,
+            "hnid": 1049,
+            "prefix": null,
+            "sname": "shizuru",
+            "name": {
+                "en": "shizuru",
+                "jp": "\u30b7\u30ba\u30eb"
+            },
+            "flb": true,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 18,
+            "hnid": 1047,
+            "prefix": null,
+            "sname": "jun",
+            "name": {
+                "en": "jun",
+                "jp": "\u30b8\u30e5\u30f3"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 19,
+            "hnid": 1057,
+            "prefix": null,
+            "sname": "djeeta",
+            "name": {
+                "en": "djeeta",
+                "jp": "\u30b8\u30fc\u30bf"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 21,
+            "hnid": 1046,
+            "prefix": null,
+            "sname": "tamaki",
+            "name": {
+                "en": "tamaki",
+                "jp": "\u30bf\u30de\u30ad"
+            },
+            "flb": true,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 22,
+            "hnid": 1037,
+            "prefix": null,
+            "sname": "tomo",
+            "name": {
+                "en": "tomo",
+                "jp": "\u30c8\u30e2"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 24,
+            "hnid": 1029,
+            "prefix": null,
+            "sname": "nozomi",
+            "name": {
+                "en": "nozomi",
+                "jp": "\u30ce\u30be\u30df"
+            },
+            "flb": true,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 26,
+            "hnid": 1001,
+            "prefix": null,
+            "sname": "hiyori",
+            "name": {
+                "en": "hiyori",
+                "jp": "\u30d2\u30e8\u30ea"
+            },
+            "flb": true,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 27,
+            "hnid": 1058,
+            "prefix": null,
+            "sname": "pecorine",
+            "name": {
+                "en": "pecorine",
+                "jp": "\u30da\u30b3\u30ea\u30fc\u30cc"
+            },
+            "flb": true,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 28,
+            "hnid": 1043,
+            "prefix": null,
+            "sname": "makoto",
+            "name": {
+                "en": "makoto",
+                "jp": "\u30de\u30b3\u30c8"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 29,
+            "hnid": 1005,
+            "prefix": null,
+            "sname": "matsuri",
+            "name": {
+                "en": "matsuri",
+                "jp": "\u30de\u30c4\u30ea"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 40,
+            "hnid": 1052,
+            "prefix": null,
+            "sname": "rima",
+            "name": {
+                "en": "rima",
+                "jp": "\u30ea\u30de"
+            },
+            "flb": true,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 42,
+            "hnid": 1003,
+            "prefix": null,
+            "sname": "rei",
+            "name": {
+                "en": "rei",
+                "jp": "\u30ec\u30a4"
+            },
+            "flb": true,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 43,
+            "hnid": 1086,
+            "prefix": "x",
+            "sname": "xayane",
+            "name": {
+                "en": "ayane",
+                "jp": "\u30a2\u30e4\u30cd(\u30af\u30ea\u30b9\u30de\u30b9)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "xayane",
+                "xmasayane"
+            ]
+        },
+        {
+            "id": 47,
+            "hnid": 1090,
+            "prefix": "v",
+            "sname": "veriko",
+            "name": {
+                "en": "eriko",
+                "jp": "\u30a8\u30ea\u30b3(\u30d0\u30ec\u30f3\u30bf\u30a4\u30f3)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "veriko",
+                "valentineeriko",
+                "valentineseriko"
+            ]
+        },
+        {
+            "id": 51,
+            "hnid": 1095,
+            "prefix": "o",
+            "sname": "okuuka",
+            "name": {
+                "en": "kuuka",
+                "jp": "\u30af\u30a6\u30ab(\u30aa\u30fc\u30a8\u30c9)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "okuuka",
+                "omaso",
+                "ouedokuuka",
+                "ouedomaso"
+            ]
+        },
+        {
+            "id": 52,
+            "hnid": 1071,
+            "prefix": null,
+            "sname": "christina",
+            "name": {
+                "en": "christina",
+                "jp": "\u30af\u30ea\u30b9\u30c6\u30a3\u30fc\u30ca"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 53,
+            "hnid": 1085,
+            "prefix": "x",
+            "sname": "xkurumi",
+            "name": {
+                "en": "kurumi",
+                "jp": "\u30af\u30eb\u30df(\u30af\u30ea\u30b9\u30de\u30b9)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "xkurumi",
+                "xmaskurumi"
+            ]
+        },
+        {
+            "id": 60,
+            "hnid": 1079,
+            "prefix": "s",
+            "sname": "stamaki",
+            "name": {
+                "en": "tamaki",
+                "jp": "\u30bf\u30de\u30ad(\u30b5\u30de\u30fc)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "stamaki",
+                "scat",
+                "summertamaki",
+                "summercat",
+                "wettamaki",
+                "wetcat"
+            ]
+        },
+        {
+            "id": 63,
+            "hnid": 1054,
+            "prefix": null,
+            "sname": "tsumugi",
+            "name": {
+                "en": "tsumugi",
+                "jp": "\u30c4\u30e0\u30ae"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 65,
+            "hnid": 1096,
+            "prefix": "o",
+            "sname": "oninon",
+            "name": {
+                "en": "ninon",
+                "jp": "\u30cb\u30ce\u30f3(\u30aa\u30fc\u30a8\u30c9)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "oninon",
+                "oninja",
+                "ouedoninon",
+                "ouedoninja"
+            ]
+        },
+        {
+            "id": 66,
+            "hnid": 1087,
+            "prefix": "n",
+            "sname": "nhiyori",
+            "name": {
+                "en": "hiyori",
+                "jp": "\u30d2\u30e8\u30ea(\u30cb\u30e5\u30fc\u30a4\u30e4\u30fc)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "nhiyori",
+                "newyearhiyori",
+                "nyhiyori"
+            ]
+        },
+        {
+            "id": 67,
+            "hnid": 1075,
+            "prefix": "s",
+            "sname": "specorine",
+            "name": {
+                "en": "pecorine",
+                "jp": "\u30da\u30b3\u30ea\u30fc\u30cc(\u30b5\u30de\u30fc)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "specorine",
+                "speco",
+                "summerpecorine",
+                "summerpeco",
+                "wetpecorine",
+                "wetpeco"
+            ]
+        },
+        {
+            "id": 71,
+            "hnid": 1004,
+            "prefix": null,
+            "sname": "misogi",
+            "name": {
+                "en": "misogi",
+                "jp": "\u30df\u30bd\u30ae"
+            },
+            "flb": true,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 74,
+            "hnid": 1007,
+            "prefix": null,
+            "sname": "miyako",
+            "name": {
+                "en": "miyako",
+                "jp": "\u30df\u30e4\u30b3"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 76,
+            "hnid": 1061,
+            "prefix": null,
+            "sname": "muimi",
+            "name": {
+                "en": "muimi",
+                "jp": "\u30e0\u30a4\u30df"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 79,
+            "hnid": 1056,
+            "prefix": null,
+            "sname": "ruka",
+            "name": {
+                "en": "ruka",
+                "jp": "\u30eb\u30ab"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 80,
+            "hnid": 1089,
+            "prefix": "n",
+            "sname": "nrei",
+            "name": {
+                "en": "rei",
+                "jp": "\u30ec\u30a4(\u30cb\u30e5\u30fc\u30a4\u30e4\u30fc)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "nrei",
+                "newyearrei",
+                "nyrei"
+            ]
+        },
+        {
+            "id": 88,
+            "hnid": 1104,
+            "prefix": "s",
+            "sname": "smakoto",
+            "name": {
+                "en": "makoto",
+                "jp": "\u30de\u30b3\u30c8(\u30b5\u30de\u30fc)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "smakoto",
+                "sawoo",
+                "summermakoto",
+                "summerawoo",
+                "wetmakoto",
+                "wetawoo"
+            ]
+        },
+        {
+            "id": 93,
+            "hnid": 1108,
+            "prefix": null,
+            "sname": "chloe",
+            "name": {
+                "en": "chloe",
+                "jp": "\u30af\u30ed\u30a8"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 95,
+            "hnid": 1112,
+            "prefix": "h",
+            "sname": "hmisogi",
+            "name": {
+                "en": "misogi",
+                "jp": "\u30df\u30bd\u30ae(\u30cf\u30ed\u30a6\u30a3\u30f3)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "hmisogi",
+                "halloweenmisogi",
+                "spookymisogi"
+            ]
+        },
+        {
+            "id": 98,
+            "hnid": 1065,
+            "prefix": null,
+            "sname": "kaya",
+            "name": {
+                "en": "kaya",
+                "jp": "\u30ab\u30e4"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 99,
+            "hnid": 1115,
+            "prefix": "x",
+            "sname": "xchristina",
+            "name": {
+                "en": "christina",
+                "jp": "\u30af\u30ea\u30b9\u30c6\u30a3\u30fc\u30ca(\u30af\u30ea\u30b9\u30de\u30b9)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "xchristina",
+                "xmaschristina"
+            ]
+        },
+        {
+            "id": 101,
+            "hnid": 1117,
+            "prefix": "x",
+            "sname": "xilya",
+            "name": {
+                "en": "ilya",
+                "jp": "\u30a4\u30ea\u30e4(\u30af\u30ea\u30b9\u30de\u30b9)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "xilya",
+                "xillya",
+                "xmasilya",
+                "xmasillya"
+            ]
+        },
+        {
+            "id": 104,
+            "hnid": 1119,
+            "prefix": "n",
+            "sname": "nkokkoro",
+            "name": {
+                "en": "kokkoro",
+                "jp": "\u30b3\u30c3\u30b3\u30ed(\u30cb\u30e5\u30fc\u30a4\u30e4\u30fc)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "nkokkoro",
+                "nkokoro",
+                "nkkr",
+                "newyearkokkoro",
+                "newyearkokoro",
+                "newyearkkr",
+                "nykokkoro",
+                "nykokoro",
+                "nykkr"
+            ]
+        },
+        {
+            "id": 107,
+            "hnid": 1804,
+            "prefix": "p",
+            "sname": "ppecorine",
+            "name": {
+                "en": "pecorine",
+                "jp": "\u30da\u30b3\u30ea\u30fc\u30cc(\u30d7\u30ea\u30f3\u30bb\u30b9)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "ppecorine",
+                "ppeco",
+                "princesspecorine",
+                "princesspeco"
+            ]
+        },
+        {
+            "id": 110,
+            "hnid": 1125,
+            "prefix": "d",
+            "sname": "drin",
+            "name": {
+                "en": "rin",
+                "jp": "\u30ea\u30f3(\u30c7\u30ec\u30de\u30b9)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "drin",
+                "deresuterin",
+                "deremasurin",
+                "imasrin",
+                "cgrin"
+            ]
+        },
+        {
+            "id": 112,
+            "hnid": 1109,
+            "prefix": null,
+            "sname": "chieru",
+            "name": {
+                "en": "chieru",
+                "jp": "\u30c1\u30a8\u30eb"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 118,
+            "hnid": 1066,
+            "prefix": null,
+            "sname": "inori",
+            "name": {
+                "en": "inori",
+                "jp": "\u30a4\u30ce\u30ea"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 120,
+            "hnid": 1132,
+            "prefix": "s",
+            "sname": "sanna",
+            "name": {
+                "en": "anna",
+                "jp": "\u30a2\u30f3\u30ca(\u30b5\u30de\u30fc)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "sanna",
+                "schuuni",
+                "summeranna",
+                "summerchuuni",
+                "wetanna",
+                "wetchuuni"
+            ]
+        },
+        {
+            "id": 121,
+            "hnid": 1131,
+            "prefix": "s",
+            "sname": "sruka",
+            "name": {
+                "en": "ruka",
+                "jp": "\u30eb\u30ab(\u30b5\u30de\u30fc)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "sruka",
+                "summerruka",
+                "wetruka"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1136,
+            "prefix": "s",
+            "sname": "sjun",
+            "name": {
+                "en": "jun",
+                "jp": "\u30b8\u30e5\u30f3(\u30b5\u30de\u30fc)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "sjun",
+                "summerjun",
+                "wetjun"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1139,
+            "prefix": "h",
+            "sname": "htsumugi",
+            "name": {
+                "en": "tsumugi",
+                "jp": "\u30c4\u30e0\u30ae(\u30cf\u30ed\u30a6\u30a3\u30f3)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "htsumugi",
+                "halloweentsumugi",
+                "spookytsumugi"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1141,
+            "prefix": "h",
+            "sname": "hmatsuri",
+            "name": {
+                "en": "matsuri",
+                "jp": "\u30de\u30c4\u30ea(\u30cf\u30ed\u30a6\u30a3\u30f3)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "hmatsuri",
+                "halloweenmatsuri",
+                "spookymatsuri"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1144,
+            "prefix": "x",
+            "sname": "xakino",
+            "name": {
+                "en": "akino",
+                "jp": "\u30a2\u30ad\u30ce(\u30af\u30ea\u30b9\u30de\u30b9)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "xakino",
+                "xohoho",
+                "xmasakino",
+                "xmasohoho"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1145,
+            "prefix": "x",
+            "sname": "xsaren",
+            "name": {
+                "en": "saren",
+                "jp": "\u30b5\u30ec\u30f3(\u30af\u30ea\u30b9\u30de\u30b9)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "xsaren",
+                "xmama",
+                "xmassaren",
+                "xmasmama"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1801,
+            "prefix": "p",
+            "sname": "phiyori",
+            "name": {
+                "en": "hiyori",
+                "jp": "\u30d2\u30e8\u30ea(\u30d7\u30ea\u30f3\u30bb\u30b9)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "phiyori",
+                "princesshiyori"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1147,
+            "prefix": "n",
+            "sname": "nmuimi",
+            "name": {
+                "en": "muimi",
+                "jp": "\u30e0\u30a4\u30df(\u30cb\u30e5\u30fc\u30a4\u30e4\u30fc)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "nmuimi",
+                "newyearmuimi",
+                "nymuimi"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1118,
+            "prefix": "n",
+            "sname": "npecorine",
+            "name": {
+                "en": "pecorine",
+                "jp": "\u30da\u30b3\u30ea\u30fc\u30cc(\u30cb\u30e5\u30fc\u30a4\u30e4\u30fc)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "npecorine",
+                "npeco",
+                "newyearpecorine",
+                "newyearpeco",
+                "nypecorine",
+                "nypeco"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1158,
+            "prefix": "c",
+            "sname": "crima",
+            "name": {
+                "en": "rima",
+                "jp": "\u30ea\u30de(\u30b7\u30f3\u30c7\u30ec\u30e9)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "crima",
+                "cinderellarima"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1159,
+            "prefix": "c",
+            "sname": "cmakoto",
+            "name": {
+                "en": "makoto",
+                "jp": "\u30de\u30b3\u30c8(\u30b7\u30f3\u30c7\u30ec\u30e9)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "cmakoto",
+                "cawoo",
+                "cinderellamakoto",
+                "cinderellaawoo"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1163,
+            "prefix": "f",
+            "sname": "fchieru",
+            "name": {
+                "en": "chieru",
+                "jp": "\u30c1\u30a8\u30eb(\u8056\u5b66\u796d)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "fchieru",
+                "feschieru",
+                "festivalchieru",
+                "schoolchieru",
+                "sfchieru"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1162,
+            "prefix": "f",
+            "sname": "fchloe",
+            "name": {
+                "en": "chloe",
+                "jp": "\u30af\u30ed\u30a8(\u8056\u5b66\u796d)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "fchloe",
+                "feschloe",
+                "festivalchloe",
+                "schoolchloe",
+                "sfchloe"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1165,
+            "prefix": "tt",
+            "sname": "ttinori",
+            "name": {
+                "en": "inori",
+                "jp": "\u30a4\u30ce\u30ea(\u30bf\u30a4\u30e0\u30c8\u30e9\u30d9\u30eb)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "ttinori",
+                "timeinori",
+                "travelerinori"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1166,
+            "prefix": "tt",
+            "sname": "ttkaya",
+            "name": {
+                "en": "kaya",
+                "jp": "\u30ab\u30e4(\u30bf\u30a4\u30e0\u30c8\u30e9\u30d9\u30eb)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "ttkaya",
+                "timekaya",
+                "travelerkaya"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1168,
+            "prefix": "ww",
+            "sname": "wwtamaki",
+            "name": {
+                "en": "tamaki",
+                "jp": "\u30bf\u30de\u30ad(\u4f5c\u696d\u670d)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "wwtamaki",
+                "wwcat",
+                "worktamaki",
+                "workcat"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1169,
+            "prefix": "ww",
+            "sname": "wwmifuyu",
+            "name": {
+                "en": "mifuyu",
+                "jp": "\u30df\u30d5\u30e6(\u4f5c\u696d\u670d)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "wwmifuyu",
+                "workmifuyu"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1171,
+            "prefix": "s",
+            "sname": "sshizuru",
+            "name": {
+                "en": "shizuru",
+                "jp": "\u30b7\u30ba\u30eb(\u30b5\u30de\u30fc)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "sshizuru",
+                "soneesan",
+                "sonee",
+                "summershizuru",
+                "summeroneesan",
+                "summeronee",
+                "wetshizuru",
+                "wetoneesan",
+                "wetonee"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1172,
+            "prefix": "s",
+            "sname": "snozomi",
+            "name": {
+                "en": "nozomi",
+                "jp": "\u30ce\u30be\u30df(\u30b5\u30de\u30fc)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "snozomi",
+                "summernozomi",
+                "wetnozomi"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1177,
+            "prefix": "h",
+            "sname": "hkaori",
+            "name": {
+                "en": "kaori",
+                "jp": "\u30ab\u30aa\u30ea(\u30cf\u30ed\u30a6\u30a3\u30f3)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "hkaori",
+                "halloweenkaori",
+                "spookykaori"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1191,
+            "prefix": "no",
+            "sname": "nokuuka",
+            "name": {
+                "en": "kuuka",
+                "jp": "\u30af\u30a6\u30ab(\u30ce\u30ef\u30fc\u30eb)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "nokuuka",
+                "nomaso",
+                "noirekuuka",
+                "noiremaso"
+            ]
+        },
+        {
+            "id": 2,
+            "hnid": 1006,
+            "prefix": null,
+            "sname": "akari",
+            "name": {
+                "en": "akari",
+                "jp": "\u30a2\u30ab\u30ea"
+            },
+            "flb": true,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 6,
+            "hnid": 1009,
+            "prefix": null,
+            "sname": "anna",
+            "name": {
+                "en": "anna",
+                "jp": "\u30a2\u30f3\u30ca"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 13,
+            "hnid": 1059,
+            "prefix": null,
+            "sname": "kokkoro",
+            "name": {
+                "en": "kokkoro",
+                "jp": "\u30b3\u30c3\u30b3\u30ed"
+            },
+            "flb": true,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 14,
+            "hnid": 1028,
+            "prefix": null,
+            "sname": "saren",
+            "name": {
+                "en": "saren",
+                "jp": "\u30b5\u30ec\u30f3"
+            },
+            "flb": true,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 23,
+            "hnid": 1030,
+            "prefix": null,
+            "sname": "ninon",
+            "name": {
+                "en": "ninon",
+                "jp": "\u30cb\u30ce\u30f3"
+            },
+            "flb": true,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 30,
+            "hnid": 1033,
+            "prefix": null,
+            "sname": "mahiru",
+            "name": {
+                "en": "mahiru",
+                "jp": "\u30de\u30d2\u30eb"
+            },
+            "flb": true,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 32,
+            "hnid": 1051,
+            "prefix": null,
+            "sname": "mitsuki",
+            "name": {
+                "en": "mitsuki",
+                "jp": "\u30df\u30c4\u30ad"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 33,
+            "hnid": 1048,
+            "prefix": null,
+            "sname": "mifuyu",
+            "name": {
+                "en": "mifuyu",
+                "jp": "\u30df\u30d5\u30e6"
+            },
+            "flb": true,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 34,
+            "hnid": 1053,
+            "prefix": null,
+            "sname": "monika",
+            "name": {
+                "en": "monika",
+                "jp": "\u30e2\u30cb\u30ab"
+            },
+            "flb": true,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 36,
+            "hnid": 1034,
+            "prefix": null,
+            "sname": "yukari",
+            "name": {
+                "en": "yukari",
+                "jp": "\u30e6\u30ab\u30ea"
+            },
+            "flb": true,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 38,
+            "hnid": 1022,
+            "prefix": null,
+            "sname": "yori",
+            "name": {
+                "en": "yori",
+                "jp": "\u30e8\u30ea"
+            },
+            "flb": true,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 41,
+            "hnid": 1026,
+            "prefix": null,
+            "sname": "rin",
+            "name": {
+                "en": "rin",
+                "jp": "\u30ea\u30f3"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 44,
+            "hnid": 1055,
+            "prefix": null,
+            "sname": "ayumi",
+            "name": {
+                "en": "ayumi",
+                "jp": "\u30a2\u30e6\u30df"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 46,
+            "hnid": 1044,
+            "prefix": null,
+            "sname": "ilya",
+            "name": {
+                "en": "ilya",
+                "jp": "\u30a4\u30ea\u30e4"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 54,
+            "hnid": 1094,
+            "prefix": null,
+            "sname": "grea",
+            "name": {
+                "en": "grea",
+                "jp": "\u30b0\u30ec\u30a2"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 55,
+            "hnid": 1076,
+            "prefix": "s",
+            "sname": "skokkoro",
+            "name": {
+                "en": "kokkoro",
+                "jp": "\u30b3\u30c3\u30b3\u30ed(\u30b5\u30de\u30fc)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "skokkoro",
+                "skokoro",
+                "skkr",
+                "summerkokkoro",
+                "summerkokoro",
+                "summerkkr",
+                "wetkokkoro",
+                "wetkokoro",
+                "wetkkr"
+            ]
+        },
+        {
+            "id": 56,
+            "hnid": 1091,
+            "prefix": "v",
+            "sname": "vshizuru",
+            "name": {
+                "en": "shizuru",
+                "jp": "\u30b7\u30ba\u30eb(\u30d0\u30ec\u30f3\u30bf\u30a4\u30f3)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "vshizuru",
+                "voneesan",
+                "vonee",
+                "valentineshizuru",
+                "valentineoneesan",
+                "valentineonee",
+                "valentinesshizuru",
+                "valentinesoneesan",
+                "valentinesonee"
+            ]
+        },
+        {
+            "id": 57,
+            "hnid": 1081,
+            "prefix": "h",
+            "sname": "hshinobu",
+            "name": {
+                "en": "shinobu",
+                "jp": "\u30b7\u30ce\u30d6(\u30cf\u30ed\u30a6\u30a3\u30f3)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "hshinobu",
+                "halloweenshinobu",
+                "spookyshinobu"
+            ]
+        },
+        {
+            "id": 72,
+            "hnid": 1080,
+            "prefix": "s",
+            "sname": "smifuyu",
+            "name": {
+                "en": "mifuyu",
+                "jp": "\u30df\u30d5\u30e6(\u30b5\u30de\u30fc)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "smifuyu",
+                "summermifuyu",
+                "wetmifuyu"
+            ]
+        },
+        {
+            "id": 73,
+            "hnid": 1020,
+            "prefix": null,
+            "sname": "mimi",
+            "name": {
+                "en": "mimi",
+                "jp": "\u30df\u30df"
+            },
+            "flb": true,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 75,
+            "hnid": 1082,
+            "prefix": "h",
+            "sname": "hmiyako",
+            "name": {
+                "en": "miyako",
+                "jp": "\u30df\u30e4\u30b3(\u30cf\u30ed\u30a6\u30a3\u30f3)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "hmiyako",
+                "hpudding",
+                "halloweenmiyako",
+                "halloweenpudding",
+                "spookymiyako",
+                "spookypudding"
+            ]
+        },
+        {
+            "id": 82,
+            "hnid": 1097,
+            "prefix": null,
+            "sname": "rem",
+            "name": {
+                "en": "rem",
+                "jp": "\u30ec\u30e0"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 83,
+            "hnid": 1098,
+            "prefix": null,
+            "sname": "ram",
+            "name": {
+                "en": "ram",
+                "jp": "\u30e9\u30e0"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 87,
+            "hnid": 1103,
+            "prefix": "s",
+            "sname": "ssaren",
+            "name": {
+                "en": "saren",
+                "jp": "\u30b5\u30ec\u30f3(\u30b5\u30de\u30fc)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "ssaren",
+                "smama",
+                "summersaren",
+                "summermama",
+                "wetsaren",
+                "wetmama"
+            ]
+        },
+        {
+            "id": 89,
+            "hnid": 1105,
+            "prefix": "s",
+            "sname": "skaori",
+            "name": {
+                "en": "kaori",
+                "jp": "\u30ab\u30aa\u30ea(\u30b5\u30de\u30fc)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "skaori",
+                "summerkaori",
+                "wetkaori"
+            ]
+        },
+        {
+            "id": 100,
+            "hnid": 1116,
+            "prefix": "x",
+            "sname": "xnozomi",
+            "name": {
+                "en": "nozomi",
+                "jp": "\u30ce\u30be\u30df(\u30af\u30ea\u30b9\u30de\u30b9)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "xnozomi",
+                "xmasnozomi"
+            ]
+        },
+        {
+            "id": 109,
+            "hnid": 1124,
+            "prefix": "d",
+            "sname": "duzuki",
+            "name": {
+                "en": "uzuki",
+                "jp": "\u30a6\u30c5\u30ad(\u30c7\u30ec\u30de\u30b9)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "duzuki",
+                "deresuteuzuki",
+                "deremasuuzuki",
+                "imasuzuki",
+                "cguzuki"
+            ]
+        },
+        {
+            "id": 113,
+            "hnid": 1127,
+            "prefix": "r",
+            "sname": "rrin",
+            "name": {
+                "en": "rin",
+                "jp": "\u30ea\u30f3(\u30ec\u30f3\u30b8\u30e3\u30fc)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "rrin",
+                "rangerrin"
+            ]
+        },
+        {
+            "id": 114,
+            "hnid": 1128,
+            "prefix": "r",
+            "sname": "rmahiru",
+            "name": {
+                "en": "mahiru",
+                "jp": "\u30de\u30d2\u30eb(\u30ec\u30f3\u30b8\u30e3\u30fc)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "rmahiru",
+                "rcowgirl",
+                "rangermahiru",
+                "rangercowgirl"
+            ]
+        },
+        {
+            "id": 115,
+            "hnid": 1130,
+            "prefix": "w",
+            "sname": "wayumi",
+            "name": {
+                "en": "ayumi",
+                "jp": "\u30a2\u30e6\u30df(\u30ef\u30f3\u30c0\u30fc)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "wayumi",
+                "wmob"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1133,
+            "prefix": "s",
+            "sname": "snanaka",
+            "name": {
+                "en": "nanaka",
+                "jp": "\u30ca\u30ca\u30ab(\u30b5\u30de\u30fc)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "snanaka",
+                "sneet",
+                "summernanaka",
+                "summerneet",
+                "wetnanaka",
+                "wetneet"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1134,
+            "prefix": "s",
+            "sname": "shatsune",
+            "name": {
+                "en": "hatsune",
+                "jp": "\u30cf\u30c4\u30cd(\u30b5\u30de\u30fc)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "shatsune",
+                "summerhatsune",
+                "wethatsune"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1137,
+            "prefix": "a",
+            "sname": "aakari",
+            "name": {
+                "en": "akari",
+                "jp": "\u30a2\u30ab\u30ea(\u30a8\u30f3\u30b8\u30a7\u30eb)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "aakari",
+                "asax",
+                "angelakari",
+                "angelsax"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1138,
+            "prefix": "a",
+            "sname": "ayori",
+            "name": {
+                "en": "yori",
+                "jp": "\u30e8\u30ea(\u30a8\u30f3\u30b8\u30a7\u30eb)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "ayori",
+                "angelyori"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1140,
+            "prefix": "h",
+            "sname": "hrei",
+            "name": {
+                "en": "rei",
+                "jp": "\u30ec\u30a4(\u30cf\u30ed\u30a6\u30a3\u30f3)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "hrei",
+                "halloweenrei",
+                "spookyrei"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1142,
+            "prefix": "m",
+            "sname": "mmonika",
+            "name": {
+                "en": "monika",
+                "jp": "\u30e2\u30cb\u30ab(\u30de\u30b8\u30ab\u30eb)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "mmonika",
+                "mmonica",
+                "magicalmonika",
+                "magicalmonica",
+                "magigalmonika",
+                "magigalmonica",
+                "magimonika",
+                "magimonica",
+                "mgmonika",
+                "mgmonica"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1143,
+            "prefix": "m",
+            "sname": "mtomo",
+            "name": {
+                "en": "tomo",
+                "jp": "\u30c8\u30e2(\u30de\u30b8\u30ab\u30eb)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "mtomo",
+                "magicaltomo",
+                "magigaltomo",
+                "magitomo",
+                "mgtomo"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1146,
+            "prefix": "x",
+            "sname": "xyukari",
+            "name": {
+                "en": "yukari",
+                "jp": "\u30e6\u30ab\u30ea(\u30af\u30ea\u30b9\u30de\u30b9)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "xyukari",
+                "xdrunk",
+                "xmasyukari",
+                "xmasdrunk"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1150,
+            "prefix": "n",
+            "sname": "nneneka",
+            "name": {
+                "en": "neneka",
+                "jp": "\u30cd\u30cd\u30ab(\u30cb\u30e5\u30fc\u30a4\u30e4\u30fc)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "nneneka",
+                "nmirror",
+                "nnnk",
+                "newyearneneka",
+                "newyearmirror",
+                "newyearnnk",
+                "nyneneka",
+                "nymirror",
+                "nynnk"
+            ]
+        },
+        {
+            "id": 116,
+            "hnid": 1805,
+            "prefix": "p",
+            "sname": "pkokkoro",
+            "name": {
+                "en": "kokkoro",
+                "jp": "\u30b3\u30c3\u30b3\u30ed(\u30d7\u30ea\u30f3\u30bb\u30b9)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "pkokkoro",
+                "pkokoro",
+                "pkkr",
+                "princesskokkoro",
+                "princesskokoro",
+                "princesskkr"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1068,
+            "prefix": null,
+            "sname": "labyrista",
+            "name": {
+                "en": "labyrista",
+                "jp": "\u30e9\u30d3\u30ea\u30b9\u30bf"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": []
+        },
+        {
+            "id": null,
+            "hnid": 1155,
+            "prefix": "cd",
+            "sname": "cdkokkoro",
+            "name": {
+                "en": "kokkoro",
+                "jp": "\u30b3\u30c3\u30b3\u30ed(\u5100\u88c5\u675f)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "cdkokkoro",
+                "cdkokoro",
+                "cdkkr",
+                "ceremonialkokkoro",
+                "ceremonialkokoro",
+                "ceremonialkkr",
+                "cerekokkoro",
+                "cerekokoro",
+                "cerekkr"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1156,
+            "prefix": "cd",
+            "sname": "cdyui",
+            "name": {
+                "en": "yui",
+                "jp": "\u30e6\u30a4(\u5100\u88c5\u675f)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "cdyui",
+                "cdgomen",
+                "ceremonialyui",
+                "ceremonialgomen",
+                "cereyui",
+                "ceregomen"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1064,
+            "prefix": null,
+            "sname": "sheffi",
+            "name": {
+                "en": "sheffi",
+                "jp": "\u30b7\u30a7\u30d5\u30a3"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": []
+        },
+        {
+            "id": 17,
+            "hnid": 1031,
+            "prefix": null,
+            "sname": "shinobu",
+            "name": {
+                "en": "shinobu",
+                "jp": "\u30b7\u30ce\u30d6"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 96,
+            "hnid": 1113,
+            "prefix": "h",
+            "sname": "hmimi",
+            "name": {
+                "en": "mimi",
+                "jp": "\u30df\u30df(\u30cf\u30ed\u30a6\u30a3\u30f3)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "hmimi",
+                "hbunny",
+                "hrabbit",
+                "halloweenmimi",
+                "halloweenbunny",
+                "halloweenrabbit",
+                "spookymimi",
+                "spookybunny",
+                "spookyrabbit"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1167,
+            "prefix": "ww",
+            "sname": "wwaoi",
+            "name": {
+                "en": "aoi",
+                "jp": "\u30a2\u30aa\u30a4(\u4f5c\u696d\u670d)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "wwaoi",
+                "workaoi"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1803,
+            "prefix": "p",
+            "sname": "prei",
+            "name": {
+                "en": "rei",
+                "jp": "\u30ec\u30a4(\u30d7\u30ea\u30f3\u30bb\u30b9)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "prei",
+                "princessrei"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1170,
+            "prefix": "s",
+            "sname": "seriko",
+            "name": {
+                "en": "eriko",
+                "jp": "\u30a8\u30ea\u30b3(\u30b5\u30de\u30fc)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "seriko",
+                "summereriko",
+                "weteriko"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1174,
+            "prefix": "s",
+            "sname": "stsumugi",
+            "name": {
+                "en": "tsumugi",
+                "jp": "\u30c4\u30e0\u30ae(\u30b5\u30de\u30fc)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "stsumugi",
+                "summertsumugi",
+                "wettsumugi"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1173,
+            "prefix": "s",
+            "sname": "schika",
+            "name": {
+                "en": "chika",
+                "jp": "\u30c1\u30ab(\u30b5\u30de\u30fc)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "schika",
+                "ssinger",
+                "summerchika",
+                "summersinger",
+                "wetchika",
+                "wetsinger"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1175,
+            "prefix": "o",
+            "sname": "omitsuki",
+            "name": {
+                "en": "mitsuki",
+                "jp": "\u30df\u30c4\u30ad(\u30aa\u30fc\u30a8\u30c9)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "omitsuki",
+                "ouedomitsuki"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1178,
+            "prefix": "h",
+            "sname": "hninon",
+            "name": {
+                "en": "ninon",
+                "jp": "\u30cb\u30ce\u30f3(\u30cf\u30ed\u30a6\u30a3\u30f3)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "hninon",
+                "hninja",
+                "halloweenninon",
+                "halloweenninja",
+                "spookyninon",
+                "spookyninja"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1192,
+            "prefix": "x",
+            "sname": "xmahiru",
+            "name": {
+                "en": "mahiru",
+                "jp": "\u30de\u30d2\u30eb(\u30af\u30ea\u30b9\u30de\u30b9)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "xmahiru",
+                "xcowgirl",
+                "xmasmahiru",
+                "xmascowgirl"
+            ]
+        },
+        {
+            "id": 1,
+            "hnid": 1040,
+            "prefix": null,
+            "sname": "aoi",
+            "name": {
+                "en": "aoi",
+                "jp": "\u30a2\u30aa\u30a4"
+            },
+            "flb": true,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 5,
+            "hnid": 1063,
+            "prefix": null,
+            "sname": "arisa",
+            "name": {
+                "en": "arisa",
+                "jp": "\u30a2\u30ea\u30b5"
+            },
+            "flb": true,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 7,
+            "hnid": 1018,
+            "prefix": null,
+            "sname": "io",
+            "name": {
+                "en": "io",
+                "jp": "\u30a4\u30aa"
+            },
+            "flb": true,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 10,
+            "hnid": 1060,
+            "prefix": null,
+            "sname": "kyaru",
+            "name": {
+                "en": "kyaru",
+                "jp": "\u30ad\u30e3\u30eb"
+            },
+            "flb": true,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 15,
+            "hnid": 1038,
+            "prefix": null,
+            "sname": "shiori",
+            "name": {
+                "en": "shiori",
+                "jp": "\u30b7\u30aa\u30ea"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 20,
+            "hnid": 1025,
+            "prefix": null,
+            "sname": "suzume",
+            "name": {
+                "en": "suzume",
+                "jp": "\u30b9\u30ba\u30e1"
+            },
+            "flb": true,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 25,
+            "hnid": 1012,
+            "prefix": null,
+            "sname": "hatsune",
+            "name": {
+                "en": "hatsune",
+                "jp": "\u30cf\u30c4\u30cd"
+            },
+            "flb": true,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 31,
+            "hnid": 1015,
+            "prefix": null,
+            "sname": "misato",
+            "name": {
+                "en": "misato",
+                "jp": "\u30df\u30b5\u30c8"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 35,
+            "hnid": 1002,
+            "prefix": null,
+            "sname": "yui",
+            "name": {
+                "en": "yui",
+                "jp": "\u30e6\u30a4"
+            },
+            "flb": true,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 37,
+            "hnid": 1008,
+            "prefix": null,
+            "sname": "yuki",
+            "name": {
+                "en": "yuki",
+                "jp": "\u30e6\u30ad"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 39,
+            "hnid": 1011,
+            "prefix": null,
+            "sname": "rino",
+            "name": {
+                "en": "rino",
+                "jp": "\u30ea\u30ce"
+            },
+            "flb": true,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 45,
+            "hnid": 1092,
+            "prefix": null,
+            "sname": "anne",
+            "name": {
+                "en": "anne",
+                "jp": "\u30a2\u30f3"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 48,
+            "hnid": 1014,
+            "prefix": null,
+            "sname": "kasumi",
+            "name": {
+                "en": "kasumi",
+                "jp": "\u30ab\u30b9\u30df"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 49,
+            "hnid": 1078,
+            "prefix": "s",
+            "sname": "skyaru",
+            "name": {
+                "en": "kyaru",
+                "jp": "\u30ad\u30e3\u30eb(\u30b5\u30de\u30fc)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "skyaru",
+                "skyarl",
+                "scal",
+                "skal",
+                "stsuncat",
+                "summerkyaru",
+                "summerkyarl",
+                "summercal",
+                "summerkal",
+                "summertsuncat",
+                "wetkyaru",
+                "wetkyarl",
+                "wetcal",
+                "wetkal",
+                "wettsuncat"
+            ]
+        },
+        {
+            "id": 50,
+            "hnid": 1036,
+            "prefix": null,
+            "sname": "kyouka",
+            "name": {
+                "en": "kyouka",
+                "jp": "\u30ad\u30e7\u30a6\u30ab"
+            },
+            "flb": true,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 58,
+            "hnid": 1016,
+            "prefix": null,
+            "sname": "suzuna",
+            "name": {
+                "en": "suzuna",
+                "jp": "\u30b9\u30ba\u30ca"
+            },
+            "flb": true,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 59,
+            "hnid": 1077,
+            "prefix": "s",
+            "sname": "ssuzume",
+            "name": {
+                "en": "suzume",
+                "jp": "\u30b9\u30ba\u30e1(\u30b5\u30de\u30fc)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "ssuzume",
+                "smaid",
+                "summersuzume",
+                "summermaid",
+                "wetsuzume",
+                "wetmaid"
+            ]
+        },
+        {
+            "id": 61,
+            "hnid": 1042,
+            "prefix": null,
+            "sname": "chika",
+            "name": {
+                "en": "chika",
+                "jp": "\u30c1\u30ab"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 62,
+            "hnid": 1084,
+            "prefix": "x",
+            "sname": "xchika",
+            "name": {
+                "en": "chika",
+                "jp": "\u30c1\u30ab(\u30af\u30ea\u30b9\u30de\u30b9)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "xchika",
+                "xsinger",
+                "xmaschika",
+                "xmassinger"
+            ]
+        },
+        {
+            "id": 64,
+            "hnid": 1013,
+            "prefix": null,
+            "sname": "nanaka",
+            "name": {
+                "en": "nanaka",
+                "jp": "\u30ca\u30ca\u30ab"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 68,
+            "hnid": 1010,
+            "prefix": null,
+            "sname": "maho",
+            "name": {
+                "en": "maho",
+                "jp": "\u30de\u30db"
+            },
+            "flb": true,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 69,
+            "hnid": 1050,
+            "prefix": null,
+            "sname": "misaki",
+            "name": {
+                "en": "misaki",
+                "jp": "\u30df\u30b5\u30ad"
+            },
+            "flb": true,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 70,
+            "hnid": 1083,
+            "prefix": "h",
+            "sname": "hmisaki",
+            "name": {
+                "en": "misaki",
+                "jp": "\u30df\u30b5\u30ad(\u30cf\u30ed\u30a6\u30a3\u30f3)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "hmisaki",
+                "halloweenmisaki",
+                "spookymisaki"
+            ]
+        },
+        {
+            "id": 77,
+            "hnid": 1088,
+            "prefix": "n",
+            "sname": "nyui",
+            "name": {
+                "en": "yui",
+                "jp": "\u30e6\u30a4(\u30cb\u30e5\u30fc\u30a4\u30e4\u30fc)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "nyui",
+                "ngomen",
+                "newyearyui",
+                "newyeargomen",
+                "nyyui",
+                "nygomen"
+            ]
+        },
+        {
+            "id": 78,
+            "hnid": 1093,
+            "prefix": null,
+            "sname": "lou",
+            "name": {
+                "en": "lou",
+                "jp": "\u30eb\u30a5"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 81,
+            "hnid": 1099,
+            "prefix": null,
+            "sname": "emilia",
+            "name": {
+                "en": "emilia",
+                "jp": "\u30a8\u30df\u30ea\u30a2"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 84,
+            "hnid": 1100,
+            "prefix": "s",
+            "sname": "ssuzuna",
+            "name": {
+                "en": "suzuna",
+                "jp": "\u30b9\u30ba\u30ca(\u30b5\u30de\u30fc)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "ssuzuna",
+                "smodel",
+                "summersuzuna",
+                "summermodel",
+                "wetsuzuna",
+                "wetmodel"
+            ]
+        },
+        {
+            "id": 85,
+            "hnid": 1101,
+            "prefix": "s",
+            "sname": "sio",
+            "name": {
+                "en": "io",
+                "jp": "\u30a4\u30aa(\u30b5\u30de\u30fc)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "sio",
+                "ssensei",
+                "summerio",
+                "summersensei",
+                "wetio",
+                "wetsensei"
+            ]
+        },
+        {
+            "id": 90,
+            "hnid": 1106,
+            "prefix": "s",
+            "sname": "smaho",
+            "name": {
+                "en": "maho",
+                "jp": "\u30de\u30db(\u30b5\u30de\u30fc)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "smaho",
+                "summermaho",
+                "wetmaho"
+            ]
+        },
+        {
+            "id": 91,
+            "hnid": 1070,
+            "prefix": null,
+            "sname": "neneka",
+            "name": {
+                "en": "neneka",
+                "jp": "\u30cd\u30cd\u30ab"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 92,
+            "hnid": 1107,
+            "prefix": "u",
+            "sname": "uaoi",
+            "name": {
+                "en": "aoi",
+                "jp": "\u30a2\u30aa\u30a4(\u7de8\u5165\u751f)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "uaoi",
+                "uniformaoi",
+                "studentaoi"
+            ]
+        },
+        {
+            "id": 94,
+            "hnid": 1111,
+            "prefix": "h",
+            "sname": "hkyouka",
+            "name": {
+                "en": "kyouka",
+                "jp": "\u30ad\u30e7\u30a6\u30ab(\u30cf\u30ed\u30a6\u30a3\u30f3)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "hkyouka",
+                "hhentai",
+                "halloweenkyouka",
+                "halloweenhentai",
+                "spookykyouka",
+                "spookyhentai"
+            ]
+        },
+        {
+            "id": 97,
+            "hnid": 1114,
+            "prefix": null,
+            "sname": "luna",
+            "name": {
+                "en": "luna",
+                "jp": "\u30eb\u30ca"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 102,
+            "hnid": 1120,
+            "prefix": "n",
+            "sname": "nkyaru",
+            "name": {
+                "en": "kyaru",
+                "jp": "\u30ad\u30e3\u30eb(\u30cb\u30e5\u30fc\u30a4\u30e4\u30fc)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "nkyaru",
+                "nkyarl",
+                "ncal",
+                "nkal",
+                "ntsuncat",
+                "newyearkyaru",
+                "newyearkyarl",
+                "newyearcal",
+                "newyearkal",
+                "newyeartsuncat",
+                "nykyaru",
+                "nykyarl",
+                "nycal",
+                "nykal",
+                "nytsuncat"
+            ]
+        },
+        {
+            "id": 103,
+            "hnid": 1121,
+            "prefix": "n",
+            "sname": "nsuzume",
+            "name": {
+                "en": "suzume",
+                "jp": "\u30b9\u30ba\u30e1(\u30cb\u30e5\u30fc\u30a4\u30e4\u30fc)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "nsuzume",
+                "nmaid",
+                "newyearsuzume",
+                "newyearmaid",
+                "nysuzume",
+                "nymaid"
+            ]
+        },
+        {
+            "id": 105,
+            "hnid": 1122,
+            "prefix": "m",
+            "sname": "mkasumi",
+            "name": {
+                "en": "kasumi",
+                "jp": "\u30ab\u30b9\u30df(\u30de\u30b8\u30ab\u30eb)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "mkasumi",
+                "mtantei",
+                "magicalkasumi",
+                "magicaltantei",
+                "magigalkasumi",
+                "magigaltantei",
+                "magikasumi",
+                "magitantei",
+                "mgkasumi",
+                "mgtantei"
+            ]
+        },
+        {
+            "id": 106,
+            "hnid": 1123,
+            "prefix": "m",
+            "sname": "mshiori",
+            "name": {
+                "en": "shiori",
+                "jp": "\u30b7\u30aa\u30ea(\u30de\u30b8\u30ab\u30eb)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "mshiori",
+                "magicalshiori",
+                "magigalshiori",
+                "magishiori",
+                "mgshiori"
+            ]
+        },
+        {
+            "id": 108,
+            "hnid": 1126,
+            "prefix": "d",
+            "sname": "dmio",
+            "name": {
+                "en": "mio",
+                "jp": "\u30df\u30aa(\u30c7\u30ec\u30de\u30b9)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "dmio",
+                "deresutemio",
+                "deremasumio",
+                "imasmio",
+                "cgmio"
+            ]
+        },
+        {
+            "id": 111,
+            "hnid": 1110,
+            "prefix": null,
+            "sname": "yuni",
+            "name": {
+                "en": "yuni",
+                "jp": "\u30e6\u30cb"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": []
+        },
+        {
+            "id": 117,
+            "hnid": 1129,
+            "prefix": "w",
+            "sname": "wrino",
+            "name": {
+                "en": "rino",
+                "jp": "\u30ea\u30ce(\u30ef\u30f3\u30c0\u30fc)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "wrino"
+            ]
+        },
+        {
+            "id": 119,
+            "hnid": 1802,
+            "prefix": "p",
+            "sname": "pyui",
+            "name": {
+                "en": "yui",
+                "jp": "\u30e6\u30a4(\u30d7\u30ea\u30f3\u30bb\u30b9)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "pyui",
+                "pgomen",
+                "princessyui",
+                "princessgomen"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1135,
+            "prefix": "s",
+            "sname": "smisato",
+            "name": {
+                "en": "misato",
+                "jp": "\u30df\u30b5\u30c8(\u30b5\u30de\u30fc)"
+            },
+            "flb": false,
+            "ue": true,
+            "enum_alias": [
+                "smisato",
+                "summermisato",
+                "wetmisato"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1157,
+            "prefix": "s",
+            "sname": "skasumi",
+            "name": {
+                "en": "kasumi",
+                "jp": "\u30ab\u30b9\u30df(\u30b5\u30de\u30fc)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "skasumi",
+                "stantei",
+                "summerkasumi",
+                "summertantei",
+                "wetkasumi",
+                "wettantei"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1806,
+            "prefix": "p",
+            "sname": "pkyaru",
+            "name": {
+                "en": "kyaru",
+                "jp": "\u30ad\u30e3\u30eb(\u30d7\u30ea\u30f3\u30bb\u30b9)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "pkyaru",
+                "pkyarl",
+                "pcal",
+                "pkal",
+                "ptsuncat",
+                "princesskyaru",
+                "princesskyarl",
+                "princesscal",
+                "princesskal",
+                "princesstsuncat"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1160,
+            "prefix": "c",
+            "sname": "cmaho",
+            "name": {
+                "en": "maho",
+                "jp": "\u30de\u30db(\u30b7\u30f3\u30c7\u30ec\u30e9)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "cmaho",
+                "cinderellamaho"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1807,
+            "prefix": "k",
+            "sname": "hatsuneshiori",
+            "name": {
+                "en": "hatsuneshiori",
+                "jp": "\u30cf\u30c4\u30cd\uff06\u30b7\u30aa\u30ea"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "khatsuneshiori",
+                "khatsune",
+                "kshiori",
+                "kizunahatsuneshiori",
+                "kizunahatsune",
+                "kizunashiori"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1176,
+            "prefix": "o",
+            "sname": "oyuki",
+            "name": {
+                "en": "yuki",
+                "jp": "\u30e6\u30ad(\u30aa\u30fc\u30a8\u30c9)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "oyuki",
+                "ouedoyuki"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1180,
+            "prefix": null,
+            "sname": "credita",
+            "name": {
+                "en": "credita",
+                "jp": "\u30af\u30ec\u30b8\u30c3\u30bf"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": []
+        },
+        {
+            "id": null,
+            "hnid": 1179,
+            "prefix": "h",
+            "sname": "hsuzuna",
+            "name": {
+                "en": "suzuna",
+                "jp": "\u30b9\u30ba\u30ca(\u30cf\u30ed\u30a6\u30a3\u30f3)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "hsuzuna",
+                "hmodel",
+                "halloweensuzuna",
+                "halloweenmodel",
+                "spookysuzuna",
+                "spookymodel"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1185,
+            "prefix": null,
+            "sname": "karin",
+            "name": {
+                "en": "karin",
+                "jp": "\u30ab\u30ea\u30f3"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": []
+        },
+        {
+            "id": null,
+            "hnid": 1067,
+            "prefix": null,
+            "sname": "homare",
+            "name": {
+                "en": "homare",
+                "jp": "\u30db\u30de\u30ec"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": []
+        },
+        {
+            "id": null,
+            "hnid": 1190,
+            "prefix": "no",
+            "sname": "noio",
+            "name": {
+                "en": "io",
+                "jp": "\u30a4\u30aa(\u30ce\u30ef\u30fc\u30eb)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "noio",
+                "nosensei",
+                "noireio",
+                "noiresensei"
+            ]
+        },
+        {
+            "id": null,
+            "hnid": 1199,
+            "prefix": "x",
+            "sname": "xmiyako",
+            "name": {
+                "en": "miyako",
+                "jp": "\u30df\u30e4\u30b3(\u30af\u30ea\u30b9\u30de\u30b9)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "xmiyako",
+                "xpudding",
+                "xmasmiyako",
+                "xmaspudding"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,49 @@
+{
+    "debug"             : 0,
+    "fag_port"          : 8000,
+
+    "bot_prefix"        : ".",
+    "private"           : "data/_private/private.json",
+    "version"           : "version",
+    "developers"        : [
+        235361069202145280
+    ],
+
+    "cog_prefix"        : "cog_",
+    "cog_prefix_full"   : "data.cog_",
+    "cogs": {
+        "data.cog_core":        true,
+        "data.cog_hatsune":     true,
+        "data.cog_hatsucb":     true,
+        "data.cog_twitter":     true
+    },
+    "cogs_disabled": [
+
+    ],
+
+    "intents": {
+        "guilds"        : true,
+        "members"       : true,
+        "emojis"        : true,
+        "messages"      : true,
+        "reactions"     : true,
+        "typing"        : true
+    },
+    
+    "configs": {
+        "emotes"        : "data/_configs/emotes.json",
+        "server_scope"  : "data/_configs/server_scope.json",
+        "guilds"        : "data/_configs/guilds",
+        "hatsune"       : "data/_hatsune/",
+        "hatsune_cb"    : "data/_hatsune/cb",
+        "twitter"       : "data/_twitter"
+    },
+    "perm_positions":   [
+        "admin"
+    ],
+
+    "REPO_LINK"         : "https://github.com/tigertiggs/bot_ames",
+    "DEV_SERVER_INVITE" : "https://discord.gg/fYF8hurRt4",
+    "ADD_BOT_LINK"      : "https://discord.com/api/oauth2/authorize?client_id=599290654878597140&permissions=1342565456&scope=bot"
+
+}
