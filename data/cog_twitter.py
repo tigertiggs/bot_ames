@@ -412,16 +412,20 @@ class twitterCog(commands.Cog):
         
     def make_twitter_embeds(self, userObj, tweetObj, author=None):
         main_embed, tweetObj = self.embed_twitter_main(userObj, tweetObj, author)
-        embeds = [main_embed]
-        links = []
+        items = [{'payload': main_embed, 'type': 'embed'}]
+        #embeds = [main_embed]
+        #links = []
 
         for media in tweetObj['media']:
             if media['type'] == 'photo':
-                embeds.append(self.embed_twitter_image(userObj, tweetObj, media['url'], author))
+                #embeds.append(self.embed_twitter_image(userObj, tweetObj, media['url'], author))
+                items.append({'payload': self.embed_twitter_image(userObj, tweetObj, media['url'], author), 'type': 'embed'})
             elif media['type'] in ['video', 'animated_gif']:
-                links.append(media['url'])
+                #links.append(media['url'])
+                items.append({'payload': media['url'], 'type': 'url'})
         
-        return embeds, links
+        #return embeds, links
+        return items
 
     def embed_twitter_main(self, userObj, tweetObj, author=None):
         embed = {
@@ -439,6 +443,7 @@ class twitterCog(commands.Cog):
         if tweetObj['media']:
             if tweetObj['media'][0]['type'] == 'photo':
                 embed['image'] = tweetObj["media"].pop(0)["url"]
+
         return ut.embed_contructor(**embed), tweetObj # {'type': 'embed', 'payload': ut.embed_contructor(**embed)}, tweetObj
     
     def construct_tweet_text(self, tweet):
@@ -460,13 +465,21 @@ class twitterCog(commands.Cog):
         }
         return ut.embed_contructor(**embed) #{"type":"embed","payload":ut.embed_contructor(**embed)}
     
-    async def send_tw_embeds(self, embeds, links, channel):
-        if embeds:
-            #await channel.send(embeds=embeds)
-            for em in embeds:
-                await channel.send(embed=em)
-        elif links:
-            await channel.send('\n'.join(links))
+    #async def send_tw_embeds(self, embeds, links, channel):
+    #    if embeds:
+    #        #await channel.send(embeds=embeds)
+    #        for em in embeds:
+    #            await channel.send(embed=em)
+    #    elif links:
+    #        await channel.send('\n'.join(links))
+
+    async def send_tw_embeds(self, items, channel):
+        main_embed = await channel.send(embed=items.pop(0)['payload'])
+        for item in items:
+            if item['type'] == 'embed':
+                await main_embed.reply(embed=item['payload'])
+            else:
+                await main_embed.reply(item['payload'])
     
     @tasks.loop(seconds=TIMER)
     async def listener(self):
@@ -509,7 +522,8 @@ class twitterCog(commands.Cog):
 
                 for tweet in payload['result']['tweets'][::-1]:
                     if not tweet['tweet_id'] in cl['idv']:
-                        embeds, links = self.make_twitter_embeds(payload['result']['user'], tweet)
+                        #embeds, links = self.make_twitter_embeds(payload['result']['user'], tweet)
+                        items = self.make_twitter_embeds(payload['result']['user'], tweet)
 
                         cl['idv'].append(tweet['tweet_id'])
                         if len(cl['idv']) > self.twitter_cf['cache_depth']:
@@ -525,9 +539,11 @@ class twitterCog(commands.Cog):
                                 guild = self.client.get_guild(int(guild.split('\\')[-1].split('.')[0]))
                                 channel = guild.get_channel(int(glp['channel']))
                                 if channel:
-                                    await channel.send(embeds=embeds)
-                                    if links: 
-                                        await channel.send('\n'.join(links))
+                                    await self.send_tw_embeds(items, channel)
+                                    #await channel.send(embeds=embeds)
+                                    #if links: 
+                                    #    await channel.send('\n'.join(links))
+                                    
                     
                 with open(ut.full_path(self.rel_path, self.twitter_cf['caches'], cln), 'w+') as f:
                     f.write(json.dumps(cl,indent=4))
@@ -577,9 +593,11 @@ class twitterCog(commands.Cog):
                     return
                 
                 if payload['status'] == 200:
-                    embeds, links = self.make_twitter_embeds(payload['result']['user'], payload['result']['tweet'], message.author)
+                    #embeds, links = self.make_twitter_embeds(payload['result']['user'], payload['result']['tweet'], message.author)
+                    items = self.make_twitter_embeds(payload['result']['user'], payload['result']['tweet'], message.author)
                     await message.delete()
-                    await self.send_tw_embeds(embeds, links, message.channel)
+                    #await self.send_tw_embeds(embeds, links, message.channel)
+                    await self.send_tw_embeds(items, message.channel)
 
     #@twitter.command()
     #async def test(self, ctx):
