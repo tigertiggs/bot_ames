@@ -1,4 +1,5 @@
 import json, asyncio, datetime, pytz
+import nextcord
 from discord import NotFound
 from nextcord.ext import commands, tasks
 from glob import glob
@@ -498,6 +499,48 @@ class hatsucbCog(commands.Cog):
         gp['active_channels'] = ac
         gp['active_names'] = an
         return gp
+
+    class guild_prop_modal(nextcord.ui.Modal):
+        def __init__(self, mode, cp):
+            super().__init__("Set Clan Properties", custom_id='ames_gp_modal')
+
+            self.make_modal(mode, cp)
+
+        def make_modal(self, mode, cp):
+            if mode == 'clan':
+                super().add_item(nextcord.ui.TextInput(
+                    'Clan name : text',
+                    custom_id='cp_name',
+                    min_length=3,
+                    max_length=20,
+                    required=True,
+                    default_value=cp['name']
+                ))
+                super().add_item(nextcord.ui.TextInput(
+                    'Clan Manager Role: discord@role',
+                    custom_id='cp_manager',
+                    required=True,
+                    default_value=f"<@&{cp['role_leader']}>" if cp['role_leader'] else None
+                ))
+                super().add_item(nextcord.ui.TextInput(
+                    'Clan Member Role: discord@role',
+                    custom_id='cp_member',
+                    default_value=f"<@&{cp['role_member']}>" if cp['role_member'] else None
+                ))
+                super().add_item(nextcord.ui.TextInput(
+                    'Clan CB Channel: discord#channel',
+                    custom_id='cp_main_ch',
+                    default_value=f"<#{cp['channel_primary']}>" if cp['channel_primary'] else None
+                ))
+                super().add_item(nextcord.ui.TextInput(
+                    'Clan CB Notice Channel: discord#channel',
+                    custom_id='cp_notice_ch',
+                    default_value=f"<#{cp['channel_notice']}>" if cp['channel_notice'] else None
+                ))
+            else:
+                pass
+
+
 
     @commands.group(invoke_without_command=True, aliases=['ot', 'q'])
     async def queue(self, ctx, *, options=None):
@@ -1851,8 +1894,23 @@ class hatsucbCog(commands.Cog):
                     if not ql.get('reset', False):
                         ql['done']  = []
                         ql['reset'] = True
+
+                        # update
+                        try:
+                            with open(ut.full_path(self.rel_path, self.hatsucb_cf['guilds'], gid+'.json')) as gpf:
+                                gp = json.loads(gpf.read())
+
+                            gid, sgid = qlfn.split('/')[-1].split('.')[0].split('-')
+                            guild = self.client.get_guild(int(gid))
+
+                            await self.update_notice(gp['clans'][sgid], ql, gp, guild, qlfn, False)
+                        
+                        except Exception as e:
+                            await self.logger.report('error in updating new day', qlfn, e)
+                            
                     else:
                         continue
+
                 else:
                     if not ql.get('reset', True):
                         continue
@@ -1872,6 +1930,7 @@ class hatsucbCog(commands.Cog):
         IS_VALID, IS_LEADER, clan_prop, queue_list, guild_prop, ql_fn = self.validate_queue_request(ctx)
 
         if not IS_LEADER:
+            await channel.send('missing perms' + self.client.emotes['ames'])
             return
         
         # process options
