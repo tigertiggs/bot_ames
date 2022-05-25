@@ -1897,11 +1897,10 @@ class hatsucbCog(commands.Cog):
 
                         # update
                         try:
-                            with open(ut.full_path(self.rel_path, self.hatsucb_cf['guilds'], gid+'.json')) as gpf:
-                                gp = json.loads(gpf.read())
-
                             gid, sgid = qlfn.split('/')[-1].split('.')[0].split('-')
                             guild = self.client.get_guild(int(gid))
+                            with open(ut.full_path(self.rel_path, self.hatsucb_cf['guilds'], gid+'.json')) as gpf:
+                                gp = json.loads(gpf.read())
 
                             await self.update_notice(gp['clans'][sgid], ql, gp, guild, qlfn, False)
                         
@@ -1927,10 +1926,17 @@ class hatsucbCog(commands.Cog):
     @commands.command()
     async def boss(self, ctx, *, options):
         channel = ctx.channel
-        IS_VALID, IS_LEADER, clan_prop, queue_list, guild_prop, ql_fn = self.validate_queue_request(ctx)
+        #IS_VALID, IS_LEADER, clan_prop, queue_list, guild_prop, ql_fn = self.validate_queue_request(ctx)
 
-        if not IS_LEADER:
+        if not (self.is_admin(ctx.message.author, ctx.guild.id) or self.client.check_perm(ctx.message.author)):
             await channel.send('missing perms' + self.client.emotes['ames'])
+            return
+        
+        try:
+            with open(ut.full_path(self.rel_path, self.hatsucb_cf['guilds'], str(ctx.guild.id)+'.json')) as gpf:
+                guild_prop = json.loads(gpf.read())
+        except:
+            await channel.send('Failed to open server properties')
             return
         
         # process options
@@ -1965,3 +1971,18 @@ class hatsucbCog(commands.Cog):
                 continue
 
             await self.update_notice(clan, ql, guild_prop, ctx.guild, ql_fn, False)
+
+    def is_admin(self, member, gid):
+        try:
+            with open(ut.full_path(self.rel_path, self.hatsucb_cf['guilds'], str(gid)+'.json')) as gpf:
+                gp = json.loads(gpf.read())
+        except:
+            return False
+        
+        member_roles = [str(role.id) for role in member.roles]
+        for cp in gp['clans'].values():
+            if cp['role_leader'] in member_roles:
+                return True
+        
+        return False
+    
