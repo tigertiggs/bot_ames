@@ -680,7 +680,7 @@ class hatsucbCog(commands.Cog):
                     # unqueue all
                     for entry in active:
                         queue_list['queue'].pop(queue_list['queue'].index(entry))
-                        if not entry['is_ot']:
+                        if not entry['payload']['is_ot']:
                             queue_list['done'].append(str(author.id))
                     
                     msg = f"Unqueued {(author.name+' ' if DELEGATE_MODE else '')}from all bosses"
@@ -1138,7 +1138,12 @@ class hatsucbCog(commands.Cog):
         queues = []
         ot = []
         for entry in ql['queue']:
-            entry['name'] = guild.get_member(int(entry['id'])).name
+            entry['name'] = guild.get_member(int(entry['id']))
+            if not entry['name']:
+                entry['name'] = f"Unknown member ID: {entry['name']}"
+            else:
+                entry['name'] = entry['name'].name
+
             if entry['type'] == 'queue':
                 queues.append(entry)
             else:
