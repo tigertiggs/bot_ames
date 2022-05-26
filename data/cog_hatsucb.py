@@ -787,14 +787,16 @@ class hatsucbCog(commands.Cog):
                                     return
                                 
                                 await alert.delete()
-                            
-                            # make changes
-                            queue_list['cwave'][boss-1] += 1
-                            queue_list['queue'].pop(queue_list['queue'].index(request_active))
-                            queue_list['done'].append(str(author.id))
 
                             # ready message
                             msg = f"Boss {boss} wave {wave} down.\n"
+
+                            # make changes
+                            queue_list['cwave'][boss-1] += 1
+                            queue_list['queue'].pop(queue_list['queue'].index(request_active))
+                            if not request_active['payload']['is_ot']:
+                                queue_list['done'].append(str(author.id))
+
                             standby = [f"<@{entry['id']}>" for entry in queue_list['queue'] 
                                 if entry['payload']['boss'] == boss 
                                 and entry['payload']['wave'] == wave + 1
@@ -805,12 +807,12 @@ class hatsucbCog(commands.Cog):
                         else:
                             # unqueue
                             queue_list['queue'].pop(queue_list['queue'].index(request_active))
-                            if not Q_OT: 
+                            if not request_active['payload']['is_ot']: 
                                 queue_list['done'].append(str(author.id))
 
                             msg = f"Unqueued {(author.name+' ') if DELEGATE_MODE else ''}from boss {boss} " + (f"wave {wave}" if SETTINGS['b_wave'] else '')
                         
-                        if not Q_OT: await channel.send(f'Incrememted {author.name if DELEGATE_MODE else "your"} daily hit count.')
+                        if not request_active['payload']['is_ot']: await channel.send(f'Incremented {author.name if DELEGATE_MODE else "your"} daily hit count.')
                             
                     elif Q_CANCEL:
                         if not request_active:
@@ -847,7 +849,7 @@ class hatsucbCog(commands.Cog):
 
                         queue_list['queue'].append(entry)
 
-                        msg = f"Queued {(author.name+' ') if DELEGATE_MODE else ''}for boss {boss}" + (f" wave {wave}" if SETTINGS['b_wave'] else '')
+                        msg = f"Queued {(author.name+' ') if DELEGATE_MODE else ''}for boss {boss}" + (f" wave {wave}" if SETTINGS['b_wave'] else '') + (' using OT' if Q_OT else '')
 
                         if (len(active) + 1) > 3:
                             await channel.send(f"Note: {author.name if DELEGATE_MODE else 'you'} have more than 3 active non-OT queues", delete_after=15.0)
