@@ -1483,7 +1483,7 @@ class hatsuneCog(commands.Cog):
             # check flb
             if chara['flb'] and not (chara['sname']+'6') in local:
                 name = chara['sname'] + '6'
-                success = self.grab_estertion_asset(chara['img'], ut.full_path(self.rel_path, self.hatsu_cf['assets'], f"{name}.png"))
+                success = self.grab_estertion_asset(chara['img6'], ut.full_path(self.rel_path, self.hatsu_cf['assets'], f"{name}.png"))
                 if success:
                     await ctx.channel.send(f"Grabbed `{name}`")
                 else:

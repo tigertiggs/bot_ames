@@ -211,7 +211,7 @@ class Ames_nextcord(commands.AutoShardedBot):
             
     # welcome message when joining a guild
     async def on_guild_join(self, guild):
-        await self.log.send(self.name, 'joined', guild.name)
+        await self.logger.send(self.name, 'joined', guild.name)
         if guild.id == 598450517253029888:
             hello = self.emotes['sarenh']+'Thanks for having me here!\nMy prefix is `.` (but all blueoath commands will start with `.bo`) - Please use `.bo help` to get started!'
         else:
@@ -225,7 +225,7 @@ class Ames_nextcord(commands.AutoShardedBot):
                 if channel.permissions_for(guild.me).send_messages:
                     await channel.send(hello)
                     return
-        await self.log.send(self.name,'no available channel found!')
+        await self.logger.send(self.name,'no available channel found!')
     
     # welcome message when a member joins a guild
     async def on_member_join(self, member):
