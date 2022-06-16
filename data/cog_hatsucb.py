@@ -226,6 +226,113 @@ class hatsucbCog(commands.Cog):
         }
         return ut.embed_contructor(**embed)
 
+    def embed_clan_prop_split(self, cp, g):
+        embed1 = {
+            'title': 'Hatsune clan admin settings',
+            'descr': 'Admin parameters below. See: `.guild set`',
+            'footer': {'text': 'Clan properties 1/2', 'url': self.client.user.avatar.url},
+            'fields': [
+                {
+                    'name': 'Name',
+                    'value': (cp['name'] if cp['name'] else 'not set'),# + \
+                        #"\nThe clan's name. Used for indexing, search, and display purposes.",
+                    'inline': True
+                },
+                {
+                    'name': 'ID',
+                    'value': (cp['subguild_id'] if cp['subguild_id'] else 'to be set'),# + \
+                        #"\nThe clan's ID. Used for indexing, search, and display purposes.",
+                    'inline': True
+                },
+                {
+                    'name': 'Members',
+                    'value': (str(len(self.get_members(g, cp['role_member']))) if cp['role_member'] else 'N/A'),
+                    'inline': True
+                },
+                {
+                    'name': 'CB Settings',
+                    'value': 'General CB settings',
+                    'inline': False
+                },
+                {
+                    'name': ut.SPACE,#'Clan Leader Role',
+                    'value': '> **Clan Manager Role:** ' + (f"<@&{cp['role_leader']}>" if cp['role_leader'] else 'not set') + \
+                        "\nThe clan manager role. Only users with this role can edit clan parameters and use restricted CB commands.",
+                    'inline': False
+                },
+                {
+                    'name': ut.SPACE,#'Clan Member Role',
+                    'value': '> **Clan Member Role:** ' + (f"<@&{cp['role_member']}>" if cp['role_member'] else 'not set') + \
+                        "\nThe clan member role. Used to identify clan members. Clan managers must also have this role.",
+                    'inline': False
+                },
+                {
+                    'name': ut.SPACE,#'Notice Channel',
+                    'value': '> **Notice Channel:** ' + (f"<#{cp['channel_notice']}>" if cp['channel_notice'] else 'not set') + \
+                        "\nThe clan's notice channel. Ames will post and update overview CB data in this channel. "\
+                            "Clan leaders/subleads will find this info helpful. Ames will not perform updates if this is not set.",
+                    'inline': False
+                },
+                {
+                    'name': ut.SPACE,#'Primary Channel',
+                    'value': '> **Primary Channel:** ' + (f"<#{cp['channel_primary']}>" if cp['channel_primary'] else 'not set') + \
+                        "\nThe clan's primary channel for invoking CB commands. This channel is unique and cannot be shared among multiple clans. "\
+                            "CB commands invoked outside this channel will be ignored.",
+                    'inline': False
+                }
+            ]
+        }
+
+        embed2 = {
+            'title': 'Hatsune clan CB settings',
+            'descr': 'Queue settings below. Tailor the complexity of the CB queue to your clan\'s needs. See: `.guild set`',
+            'footer': {'text': 'Clan properties 2/2', 'url': self.client.user.avatar.url},
+            'fields': [
+                {
+                    'name': ut.SPACE,
+                    'value': '> **Auto-increment Hits:** ' + ('True' if cp['settings']['b_autoincr'] else 'False') + \
+                        "\nAuto increment member's daily hit counter when resolving valid non-OT hits.",
+                    'inline': False
+                },
+                {
+                    'name': ut.SPACE,#'Track OT',
+                    'value': '> **Track OT:** ' + ('True' if cp['settings']['b_ot'] else 'False') + \
+                        "\nEnables the ability to track OT via the `.ot` command.",
+                    'inline': False
+                },
+                {
+                    'name': ut.SPACE,#'Track Wave',
+                    'value': '> **Track Wave:** ' + ('True' if cp['settings']['b_wave'] else 'False') + \
+                        "\nEnables the ability to track waves. Enabling this allows the following functions:\n"\
+                            "1) Allows members to queue for specific waves via `.q [boss_num] [wave]`\n"\
+                                "2) Allows members to announce boss kills for automatic wave incrememt via `.q [boss_num] x`",
+                    'inline': False
+                },
+                {
+                    'name': ut.SPACE,#'Track Timeout',
+                    'value': '> **Track Timeout:** ' + ('True' if cp['settings']['b_timeout'] else 'False') + \
+                        "\nEnables the ability automatically prune member queues if they are not resolved within a set time period."\
+                            " Enabling this means all queues will be timestamped and their elapsed time will be displayed.",
+                    'inline': False
+                },
+                {
+                    'name': ut.SPACE,#'Timeout Time',
+                    'value': '> **Timeout Time:** ' + f"{str(cp['settings']['timeout'])}min" + \
+                        "\nThe time in minutes window where queues are valid. Queues outside this window will be automatically pruned."\
+                            " Only used if `Track Timeout` is active.",
+                    'inline': False
+                },
+                {
+                    'name': ut.SPACE,#'Empty queue quick message',
+                    'value': '> **Empty queue quick message:** ' + ('True' if cp['settings']['b_emptyq'] else 'False') + \
+                        "\nHave Ames reply a quick message instead of a embed report if the queue is empty (for the current wave). "\
+                            "Disregards active OTs (if applicable).",
+                    'inline': False
+                }
+            ]
+        }
+        return ut.embed_contructor(**embed1), ut.embed_contructor(**embed2)
+
     def get_members(self, guild, role_id):
         role_id = int(role_id)
         temp = []
@@ -257,8 +364,8 @@ class hatsucbCog(commands.Cog):
 
         return found
 
-    @guild.command(aliases=['new'])
-    async def set(self, ctx, option=None):
+    #@guild.command(aliases=['new'])
+    async def set_old(self, ctx, option=None):
         channel = ctx.channel
         author = ctx.author
 
@@ -432,6 +539,210 @@ class hatsucbCog(commands.Cog):
         await embed.delete()
         await status.edit(content='Saved')
 
+    @guild.command(aliases=['new'])
+    async def set(self, ctx, option=None):
+        channel = ctx.channel
+        author = ctx.author
+        mode = ctx.invoked_with
+
+        # load guild data
+        guild_id = ctx.guild.id
+        try:
+            with open(ut.full_path(self.rel_path, self.hatsucb_cf['guilds'], f"{guild_id}.json")) as f:
+                guild_prop = json.load(f)
+        except:
+            guild_prop = tem.fetch('hcb_guild')
+        
+        if mode == 'new':
+            if not self.client.check_perm(author):
+                await channel.send('Restricted command '+self.client.emotes['ames'])
+                return
+            clan_prop = tem.fetch('hcb_clan')
+
+        elif mode == 'set':
+            try:
+                req = str(int(option))
+            except:
+                req = None
+
+            if req:
+                if not self.client.check_perm(author):
+                    await channel.send('Restricted command '+self.client.emotes['ames'])
+                    return
+                if not req in guild_prop['clans']:
+                    await channel.send('Failed to find clan')
+                    return
+                else:
+                    clan_prop = guild_prop['clans'][req]
+            else:
+                found = self.check_roles(guild_prop['index'].keys(), author, channel, guild_prop)
+                if not found:
+                    await channel.send('Restricted command '+self.client.emotes['ames'])
+                    return
+                else:
+                    clan_prop = guild_prop['clans'][guild_prop['index'][str(found[0].id)]]
+        
+        MODE = 0
+        EXIT = False
+        edit_mode = '> Currently editing **{}**. Switch by entering `admin` or `cb`. Enter `exit` to finalize and save, or enter `cancel` to cancel.'
+        edit_mode_options = ['Admin Settings', 'CB Settings']
+        instr_admin = \
+            'Valid keys: `name`, `admin`, `member`, `channel`, `notice`\n'\
+            '> **Input forms:**\n'\
+            '`name`: string\n'\
+            '`admin`, `member`: discord@role\n'\
+            '`channel`, `notice`: discord#channel\n'
+        instr_cb = \
+            'Valid keys: `autoincr`, `ot`, `wave`, `timeout`, `timeout_min`, `emptyq`\n'\
+            '> **Input forms**\n'\
+            '`autoincr`, `ot`, `wave`, `timeout`, `emptyq`: 0 or 1, t or f\n'\
+            '`timeout_min`: integer\n'
+        syntax = \
+            '> **Input syntax**\n'\
+            '`key1: value, key2: value`\n'\
+            'i.e. `name: littlelyricals, ot: 1, emptyq: 1`'
+        instr_options = [instr_admin+syntax, instr_cb+syntax]
+        msg = 'Awaiting input...\n'
+
+        active_embed = await ctx.send(embed=self.embed_clan_prop_split(clan_prop, ctx.guild)[MODE])
+        active_edit_mode = await ctx.send(edit_mode.format(edit_mode_options[MODE]))
+        active_instr = await ctx.send(instr_options[MODE])
+        received = await ctx.send(msg)
+
+        def check(msg):
+            return msg.author == ctx.message.author and \
+                msg.channel == ctx.channel and \
+                    not msg.content.startswith('--')
+
+        while True:
+            inp = await self.client.wait_for('message', check=check)
+            content = inp.content
+            await inp.delete()
+
+            st = []
+            for cmd in content.split(','):
+                cmd = cmd.strip()
+                k, _, v, = cmd.partition(':')
+                k = k.strip().lower()
+                v = v.strip().lower()
+                is_none = not bool(v)
+
+                print(cmd, k, v, sep='|')
+
+                if k == 'exit':
+                    if clan_prop['role_leader'] is None:
+                        st.append(f'`[{cmd}]` **Failed: Cannot exit if clan manager role is not set**')
+                        EXIT = False
+                    else:
+                        EXIT = True
+                        break
+                
+                elif k == 'cancel':
+                    await active_embed.delete()
+                    await active_edit_mode.delete()
+                    await active_instr.delete()
+                    await received.edit(content='Cancelled')
+                    return
+            
+                elif k == 'name':
+                    if v in guild_prop.get('active_names', []):
+                        st.append(f"`[{cmd}]` Failed: Clan name already taken by another clan in the same server")
+                        continue
+                    elif [i.strip() for i in v.lower().split() if i.strip()][-1] == 'admin':
+                        st.append(f"`[{cmd}]` Failed: Clan name cannot end in 'admin'")
+                        continue
+                    elif v.isnumeric():
+                        st.append(f"`[{cmd}]` Failed: Clan name cannot be purely numeric")
+                        continue
+                    clan_prop['name'] = v if not is_none else None
+                
+                elif k in ['leader', 'member']:
+                    if not v.startswith('<@&') and not v.endswith('>'):
+                        st.append(f"`[{cmd}]` Failed: Invalid discord role")
+                        continue
+                    else: 
+                        clan_prop['role_'+k] = v[3:-1] if not is_none else None
+                
+                elif k in ['channel', 'notice']:
+                    if not v.startswith('<#') and not v.endswith('>'):
+                        st.append(f"`[{cmd}]` Failed: Invalid discord channel")
+                        continue
+                    else: 
+                        cid = v[2:-1] if not is_none else None
+                        if cid in guild_prop['active_channels'] and k == 'channel':
+                            st.append(f"`[{cmd}]` Failed: Channel already taken by another clan")
+                            continue
+                        clan_prop['channel_primary' if k == 'channel' else 'channel_notice'] = cid
+                
+                elif k in ['autoincr', 'ot', 'wave', 'timeout', 'emptyq']:
+                    if v.startswith('0') or v.startswith('f'):
+                        v = False
+                    elif v.startswith('1') or v.startswith('t'):
+                        v = True
+                    else:
+                        st.append(f"`[{cmd}]` Failed: Invalid value")
+                        continue
+
+                    clan_prop['settings']['b_'+k] = v
+                
+                elif k == 'timeout_min':
+                    try:
+                        v = int(v)
+                    except:
+                        st.append(f"`[{cmd}]` Failed to read value")
+                        continue
+                    else:
+                        if v < 5 or v > 120:
+                            st.append(f"`[{cmd}]` Failed: Value too extreme (must be between 5 and 120 min)")
+                            continue
+
+                    clan_prop['settings']['timeout'] = v
+                
+                elif k == 'admin':
+                    MODE = 0
+                
+                elif k == 'cb':
+                    MODE = 1
+                
+                else:
+                    st.append(f"`[{cmd}]` Failed: Unknown key")
+                    continue
+                
+                if not k in ['admin', 'cb']:
+                    st.append(f"`[{cmd}]` Setting {k} to {v}")
+
+            await active_embed.edit(embed=self.embed_clan_prop_split(clan_prop, ctx.guild)[MODE])
+            await active_edit_mode.edit(edit_mode.format(edit_mode_options[MODE]))
+            await active_instr.edit(instr_options[MODE])
+
+            if st:
+                await received.edit(content=msg + '\n'.join(st))
+            if EXIT:
+                break
+            
+        if mode == 'new':
+        # subguild_id is designed to be sequencial but this can be disrupted by deleting the clan profile
+        # hence we iterate through IDs starting at 1 until we find an unused ID
+            temp_id = 0
+            while True:
+                temp_id += 1
+                if str(temp_id) in guild_prop['clans']:
+                    continue
+                else:
+                    clan_prop['subguild_id'] = str(temp_id)
+                    break
+        
+        guild_prop['clans'][clan_prop['subguild_id']] = clan_prop
+        guild_prop = self.validate_guild_prop(guild_prop)
+
+        with open(ut.full_path(self.rel_path, self.hatsucb_cf['guilds'], f"{guild_id}.json"), 'w+') as f:
+            f.write(json.dumps(guild_prop,indent=4))
+
+        await active_embed.delete()
+        await active_edit_mode.delete()
+        await active_instr.delete()
+        await received.edit(content='Saved')
+
     @guild.command(aliases=['del'])
     async def delete(self, ctx, option):
         channel = ctx.channel
@@ -476,6 +787,30 @@ class hatsucbCog(commands.Cog):
 
         await channel.send('Saved')
 
+    @guild.command()
+    async def update(self, ctx):
+        if not self.client.check_perm(ctx.author):
+            await ctx.send('Restricted command '+self.client.emotes['ames'])
+            return
+        
+        # update guild and clan prop
+        for fp in glob(ut.full_path(self.rel_path, self.hatsucb_cf['guilds'], '*.json')):
+            with open(fp) as f:
+                gp = json.loads(f.read())
+            all_clans = gp['clans']
+            gp['clans'] = {}
+
+            gp = ut.update(tem.fetch('hcb_guild'), gp)
+            for key in all_clans.keys():
+                all_clans[key] = ut.update(tem.fetch('hcb_clan'), all_clans[key])
+            
+            gp['clans'] = all_clans
+
+            with open(fp, 'w+') as f:
+                f.write(json.dumps(gp, indent=4))
+        
+        await ctx.send('Updated format')
+
     def validate_guild_prop(self, gp):
         """
         links channel_primary, role_leader, role_member, name to subguild_id in index
@@ -499,48 +834,6 @@ class hatsucbCog(commands.Cog):
         gp['active_channels'] = ac
         gp['active_names'] = an
         return gp
-
-    class guild_prop_modal(nextcord.ui.Modal):
-        def __init__(self, mode, cp):
-            super().__init__("Set Clan Properties", custom_id='ames_gp_modal')
-
-            self.make_modal(mode, cp)
-
-        def make_modal(self, mode, cp):
-            if mode == 'clan':
-                super().add_item(nextcord.ui.TextInput(
-                    'Clan name : text',
-                    custom_id='cp_name',
-                    min_length=3,
-                    max_length=20,
-                    required=True,
-                    default_value=cp['name']
-                ))
-                super().add_item(nextcord.ui.TextInput(
-                    'Clan Manager Role: discord@role',
-                    custom_id='cp_manager',
-                    required=True,
-                    default_value=f"<@&{cp['role_leader']}>" if cp['role_leader'] else None
-                ))
-                super().add_item(nextcord.ui.TextInput(
-                    'Clan Member Role: discord@role',
-                    custom_id='cp_member',
-                    default_value=f"<@&{cp['role_member']}>" if cp['role_member'] else None
-                ))
-                super().add_item(nextcord.ui.TextInput(
-                    'Clan CB Channel: discord#channel',
-                    custom_id='cp_main_ch',
-                    default_value=f"<#{cp['channel_primary']}>" if cp['channel_primary'] else None
-                ))
-                super().add_item(nextcord.ui.TextInput(
-                    'Clan CB Notice Channel: discord#channel',
-                    custom_id='cp_notice_ch',
-                    default_value=f"<#{cp['channel_notice']}>" if cp['channel_notice'] else None
-                ))
-            else:
-                pass
-
-
 
     @commands.group(invoke_without_command=True, aliases=['ot', 'q'])
     async def queue(self, ctx, *, options=None):
@@ -679,8 +972,8 @@ class hatsucbCog(commands.Cog):
                 if Q_DONE and len(options) == 0:
                     # unqueue all
                     for entry in active:
-                        queue_list['queue'].pop(queue_list['queue'].index(entry))
-                        if not entry['payload']['is_ot']:
+                        queue_list.pop(queue_list['queue'].index(entry))
+                        if not entry['is_ot'] and SETTINGS['autoincr']:
                             queue_list['done'].append(str(author.id))
                     
                     msg = f"Unqueued {(author.name+' ' if DELEGATE_MODE else '')}from all bosses"
@@ -787,16 +1080,15 @@ class hatsucbCog(commands.Cog):
                                     return
                                 
                                 await alert.delete()
-
-                            # ready message
-                            msg = f"Boss {boss} wave {wave} down.\n"
-
+                            
                             # make changes
                             queue_list['cwave'][boss-1] += 1
                             queue_list['queue'].pop(queue_list['queue'].index(request_active))
-                            if not request_active['payload']['is_ot']:
+                            if SETTINGS['autoincr']:
                                 queue_list['done'].append(str(author.id))
 
+                            # ready message
+                            msg = f"Boss {boss} wave {wave} down.\n"
                             standby = [f"<@{entry['id']}>" for entry in queue_list['queue'] 
                                 if entry['payload']['boss'] == boss 
                                 and entry['payload']['wave'] == wave + 1
@@ -807,12 +1099,12 @@ class hatsucbCog(commands.Cog):
                         else:
                             # unqueue
                             queue_list['queue'].pop(queue_list['queue'].index(request_active))
-                            if not request_active['payload']['is_ot']: 
+                            if not Q_OT: 
                                 queue_list['done'].append(str(author.id))
 
                             msg = f"Unqueued {(author.name+' ') if DELEGATE_MODE else ''}from boss {boss} " + (f"wave {wave}" if SETTINGS['b_wave'] else '')
                         
-                        if not request_active['payload']['is_ot']: await channel.send(f'Incremented {author.name if DELEGATE_MODE else "your"} daily hit count.')
+                        if not Q_OT and SETTINGS['autoincr']: await channel.send(f'Incrememted {author.name if DELEGATE_MODE else "your"} daily hit count.')
                             
                     elif Q_CANCEL:
                         if not request_active:
@@ -849,7 +1141,7 @@ class hatsucbCog(commands.Cog):
 
                         queue_list['queue'].append(entry)
 
-                        msg = f"Queued {(author.name+' ') if DELEGATE_MODE else ''}for boss {boss}" + (f" wave {wave}" if SETTINGS['b_wave'] else '') + (' using OT' if Q_OT else '')
+                        msg = f"Queued {(author.name+' ') if DELEGATE_MODE else ''}for boss {boss}" + (f" wave {wave}" if SETTINGS['b_wave'] else '')
 
                         if (len(active) + 1) > 3:
                             await channel.send(f"Note: {author.name if DELEGATE_MODE else 'you'} have more than 3 active non-OT queues", delete_after=15.0)
@@ -1140,12 +1432,7 @@ class hatsucbCog(commands.Cog):
         queues = []
         ot = []
         for entry in ql['queue']:
-            entry['name'] = guild.get_member(int(entry['id']))
-            if not entry['name']:
-                entry['name'] = f"Unknown member ID: {entry['name']}"
-            else:
-                entry['name'] = entry['name'].name
-
+            entry['name'] = guild.get_member(int(entry['id'])).name
             if entry['type'] == 'queue':
                 queues.append(entry)
             else:
@@ -1901,22 +2188,8 @@ class hatsucbCog(commands.Cog):
                     if not ql.get('reset', False):
                         ql['done']  = []
                         ql['reset'] = True
-
-                        # update
-                        try:
-                            gid, sgid = qlfn.split('/')[-1].split('.')[0].split('-')
-                            guild = self.client.get_guild(int(gid))
-                            with open(ut.full_path(self.rel_path, self.hatsucb_cf['guilds'], gid+'.json')) as gpf:
-                                gp = json.loads(gpf.read())
-
-                            await self.update_notice(gp['clans'][sgid], ql, gp, guild, qlfn, False)
-                        
-                        except Exception as e:
-                            await self.logger.report('error in updating new day', qlfn, e)
-                            
                     else:
                         continue
-
                 else:
                     if not ql.get('reset', True):
                         continue
@@ -1933,17 +2206,9 @@ class hatsucbCog(commands.Cog):
     @commands.command()
     async def boss(self, ctx, *, options):
         channel = ctx.channel
-        #IS_VALID, IS_LEADER, clan_prop, queue_list, guild_prop, ql_fn = self.validate_queue_request(ctx)
+        IS_VALID, IS_LEADER, clan_prop, queue_list, guild_prop, ql_fn = self.validate_queue_request(ctx)
 
-        if not (self.is_admin(ctx.message.author, ctx.guild.id) or self.client.check_perm(ctx.message.author)):
-            await channel.send('missing perms' + self.client.emotes['ames'])
-            return
-        
-        try:
-            with open(ut.full_path(self.rel_path, self.hatsucb_cf['guilds'], str(ctx.guild.id)+'.json')) as gpf:
-                guild_prop = json.loads(gpf.read())
-        except:
-            await channel.send('Failed to open server properties')
+        if not IS_LEADER:
             return
         
         # process options
@@ -1978,18 +2243,3 @@ class hatsucbCog(commands.Cog):
                 continue
 
             await self.update_notice(clan, ql, guild_prop, ctx.guild, ql_fn, False)
-
-    def is_admin(self, member, gid):
-        try:
-            with open(ut.full_path(self.rel_path, self.hatsucb_cf['guilds'], str(gid)+'.json')) as gpf:
-                gp = json.loads(gpf.read())
-        except:
-            return False
-        
-        member_roles = [str(role.id) for role in member.roles]
-        for cp in gp['clans'].values():
-            if cp['role_leader'] in member_roles:
-                return True
-        
-        return False
-    

@@ -12,6 +12,7 @@ data/_hatsune/cb/queues/*
 data/_hatsune/data/assets/*
 data/_hatsune/data/chara_data_OLD.json
 data/_hatsune/data/alises_local.json
+data/_hatsune/data/gacha/gresult.jpg
 
 
 data/_twitter/cache/*

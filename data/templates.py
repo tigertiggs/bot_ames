@@ -48,7 +48,7 @@ hatsu_chara_stats = {
 hatsu_ue = {
     'hnid':         None,
     'img':          None,
-    'stats':        None,
+    'stats':        {},
     'name': {
         'en':           None,
         'jp':           None
@@ -174,6 +174,7 @@ hatsucb_clan =  {
     "channel_notice"    : None,
     "notice_msg"        : None,
     "settings": {
+        "b_autoincr": True,
         "b_ot"      : False,
         "b_wave"    : False,
         "b_timeout" : False,
@@ -245,8 +246,8 @@ def fetch(template_name):
     elif    template_name == 'hatsu_chara':
         return copy.deepcopy(hatsu_chara_base)
     elif    template_name == 'hatsu_index':
-
         return copy.deepcopy(hatsu_index)
+
     elif    template_name == 'hcb_guild':
         return copy.deepcopy(hatsucb_guild)
     elif    template_name == 'hcb_clan':
@@ -265,6 +266,5 @@ def fetch(template_name):
     elif    template_name == 'tw_guild_lis':
         return copy.deepcopy(twit_guild_listener)
     
-
     else:
         return None

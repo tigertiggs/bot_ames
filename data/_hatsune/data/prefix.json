@@ -1,123 +1,151 @@
 {
     "prefixes": {
         "n": {
-            "full":     "New Year", 
-            "short":    "NYear"
+            "full": "New Year",
+            "short": "NYear"
         },
         "x": {
-            "full":     "Christmas",
-            "short":    "Xmas"
+            "full": "Christmas",
+            "short": "Xmas"
         },
         "o": {
-            "full":     "Ouedo",
-            "short":    null
+            "full": "Ouedo",
+            "short": null
         },
         "v": {
-            "full":     "Valentines",
-            "short":    "Valen."
+            "full": "Valentines",
+            "short": "Valen."
         },
         "s": {
-            "full":     "Summer",
-            "short":    "Sum."
+            "full": "Summer",
+            "short": "Sum."
         },
         "h": {
-            "full":     "Halloween",
-            "short":    "Hallo."
+            "full": "Halloween",
+            "short": "Hallo."
         },
         "u": {
-            "full":     "Student",
-            "short":    "Stud."
+            "full": "Student",
+            "short": "Stud."
         },
         "m": {
-            "full":     "Magical Girl",
-            "short":    "MagiGal"
+            "full": "Magical Girl",
+            "short": "MagiGal"
         },
         "p": {
-            "full":     "Princess",
-            "short":    "Princ."
+            "full": "Princess",
+            "short": "Princ."
         },
         "d": {
-            "full":     "Cinderella Girls",
-            "short":    "Cind.G."
+            "full": "Cinderella Girls",
+            "short": "Cind.G."
         },
         "r": {
-            "full":     "Ranger",
-            "short":    null
+            "full": "Ranger",
+            "short": null
         },
         "w": {
-            "full":     "Wonderland",
-            "short":    "Wond."
-        }, 
+            "full": "Wonderland",
+            "short": "Wond."
+        },
         "a": {
-            "full":     "Angel",
-            "short":    null
+            "full": "Angel",
+            "short": null
         },
         "cd": {
-            "full":     "Ceremonial Dress",
-            "short":    "C.Dress"
+            "full": "Ceremonial Dress",
+            "short": "C.Dress"
         },
         "c": {
-            "full":     "Cinderella",
-            "short":    "Cind."
+            "full": "Cinderella",
+            "short": "Cind."
         },
         "f": {
-            "full":     "School Festival",
-            "short":    "Fes."
+            "full": "School Festival",
+            "short": "Fes."
         },
         "tt": {
-            "full":     "Time Traveller",
-            "short":    "Time T."
+            "full": "Time Traveller",
+            "short": "Time T."
         },
         "ww": {
-            "full":     "Workwear",
-            "short":    "Workw."
+            "full": "Workwear",
+            "short": "Workw."
         },
         "k": {
-            "full":     "Kizuna",
-            "short":    "Kzn"
+            "full": "Kizuna",
+            "short": "Kzn"
         },
         "no": {
-            "full":     "Noire",
-            "short":    null
+            "full": "Noire",
+            "short": null
+        },
+        "ca": {
+            "full": "Camp",
+            "short": null
+        },
+        "ol": {
+            "full": "Overlord",
+            "short": "Overl."
+        },
+        "st": {
+            "full": "Stage",
+            "short": null
+        },
+        "t": {
+            "full": "Phantom Thief",
+            "short": "Thief"
+        },
+        "rr": {
+            "full": "Pirate",
+            "short": null
         }
     },
     "prefix_alias": {
-        "newyear":      "n",
-        "ny":           "n",
-        "xmas":         "x",
-        "ouedo":        "o",
-        "valentine":    "v",
-        "valentines":   "v",
-        "summer":       "s",
-        "wet":          "s",
-        "halloween":    "h",
-        "spooky":       "h",
-        "uniform":      "u",
-        "student":      "u",
-        "princess":     "p",
-        "deresute":     "d",
-        "deremasu":     "d",
-        "imas":         "d",
-        "cg":           "d",
-        "dm":           "dm",
-        "ranger":       "r",
-        "angel":        "a",
-		"ceremonial":   "cd",
-        "cere":         "cd",
-        "magical":      "m",
-        "magigal":      "m",
-        "magi":         "m",
-        "mg":           "m",
-        "cinderella":   "c",
-        "fes":          "f",
-        "festival":     "f",
-        "school":       "f",
-        "sf":           "f",
-        "sc":           "sc",
-        "time":         "tt",
-        "traveler":     "tt",
-        "work":         "ww",
-        "kizuna":       "k",
-		"noire":        "no"
+        "newyear": "n",
+        "ny": "n",
+        "xmas": "x",
+        "ouedo": "o",
+        "valentine": "v",
+        "valentines": "v",
+        "summer": "s",
+        "wet": "s",
+        "halloween": "h",
+        "spooky": "h",
+        "uniform": "u",
+        "student": "u",
+        "princess": "p",
+        "deresute": "d",
+        "deremasu": "d",
+        "imas": "d",
+        "cg": "d",
+        "dm": "dm",
+        "ranger": "r",
+        "angel": "a",
+        "ceremonial": "cd",
+        "cere": "cd",
+        "magical": "m",
+        "magigal": "m",
+        "magi": "m",
+        "mg": "m",
+        "cinderella": "c",
+        "fes": "f",
+        "festival": "f",
+        "school": "f",
+        "sf": "f",
+        "sc": "sc",
+        "time": "tt",
+        "traveler": "tt",
+        "work": "ww",
+        "kizuna": "k",
+        "noire": "no",
+        "camp": "ca",
+        "overload": "ol",
+        "stage": "st",
+        "phantom": "t",
+        "thief": "t",
+        "pt": "t",
+        "pirate": "rr",
+        "pi": "rr"
     }
 }

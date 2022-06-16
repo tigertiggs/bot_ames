@@ -27,16 +27,16 @@ def _prefix(client, message):
 
 class Ames_nextcord(commands.AutoShardedBot):
     def __init__(self):
-        self.dir    = dir_path
         self._start_log()
         self.name   = '[Ames_NC]'
         self.footer = 'Ames Nextcord'
+        self.dir    = dir_path
         #self.prefix = BOT_PREFIX
         self.logger = ut.Ames_logger(self.name, self.Log)
 
         # read main config file
         self.logger.log('reading main config')
-        with open(ut.full_path(self.dir, MAIN_CONFIG)) as cf:
+        with open(MAIN_CONFIG) as cf:
             self.config = json.load(cf)
 
         # append private
@@ -53,7 +53,7 @@ class Ames_nextcord(commands.AutoShardedBot):
         self.prefix = self.config['bot_prefix']
 
         # version
-        with open(ut.full_path(self.dir, self.config['version'])) as vf:
+        with open(self.config['version']) as vf:
             self.version = json.load(vf)
 
         # init parent
@@ -70,7 +70,7 @@ class Ames_nextcord(commands.AutoShardedBot):
     def _start_log(self):
         self.Log    = logging.getLogger('nextcord')
         self.Log.setLevel(logging.DEBUG)
-        handler     = logging.FileHandler(filename=ut.full_path(self.dir, 'ames_nextcord.log'), encoding='utf-8', mode='w')
+        handler     = logging.FileHandler(filename='ames_nextcord.log', encoding='utf-8', mode='w')
         handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
         self.Log.addHandler(handler)
 
@@ -117,7 +117,7 @@ class Ames_nextcord(commands.AutoShardedBot):
                 return True
             # check if user has perm role
             try:
-                with open(ut.full_path(self.dir, self.config['configs']['guilds'], f"{user.guild.id}.json")) as c:
+                with open(ut.full_path(self.dir, self.config['guilds'], f"{user.guild.id}.json")) as c:
                     cf = json.loads(c.read())
             except:
                 #cf = tem.fetch('guild')
@@ -127,7 +127,7 @@ class Ames_nextcord(commands.AutoShardedBot):
                 return False
             else:
                 for role in user.roles:
-                    if role.id == cf['role_admin']:
+                    if role.id in cf['admin']:
                         return True
                 return False
             
@@ -233,7 +233,7 @@ class Ames_nextcord(commands.AutoShardedBot):
 
         # attempt to fetch welcome config
         try:
-            with open(ut.full_path(self.dir, self.config['configs']['guids'], f"{guild.id}.json")) as gcf:
+            with open(os.path.join(self.dir, self.config['configs']['guids'], f"{guild.id}.json")) as gcf:
                 guild_welcome = json.load(gcf).get("welcome", None)
         except:
             guild_welcome = None

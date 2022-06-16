@@ -257,7 +257,7 @@ class hatsuneCog(commands.Cog):
             await self.make_index(channel)
 
         elif option[0] == 'db':
-            await self.update_database(channel, option)
+            await self.update_database(ctx, option[-1] if len(option) > 1 else None)
 
         elif option[0] == 'exskills':
             with open(ut.full_path(self.rel_path, self.hatsu_cf['database'])) as db:
@@ -289,16 +289,15 @@ class hatsuneCog(commands.Cog):
         elif option[0] == 'prefix':
             await self.update_prefix(ctx)
 
-        elif option[0] == 'gacha': # FIXME
-            #await self.update_gacha(ctx)
-            pass
+        elif option[0] == 'gacha':
+            await self.update_gacha(ctx)
 
         elif option[0] == 'all': #FIXME
             # update prefix
             await self.update_prefix(ctx)
 
             # update db
-            await self.update_database(ctx, 'all' if option[-1] == 'f' else '')
+            await self.update_database(ctx, option[-1] if len(option) > 1 else None)
 
             # update assets
             await self.update_assets(ctx)
@@ -349,7 +348,7 @@ class hatsuneCog(commands.Cog):
             index = tem.fetch('hatsu_index')
 
             index['id']         = unit['id']
-            index['hnid']       = unit['base']['hnid']
+            index['hnid']       = unit['hnid']
             index['prefix']     = unit['prefix']
             index['name']['en'] = unit['name']['en']
             index['name']['jp'] = unit['name']['jp']
@@ -357,6 +356,7 @@ class hatsuneCog(commands.Cog):
             index['ue']         = unit['base']['ue']
             index['sname']      = unit['sname']
             index['enum_alias'] = self.enum_alias(index['name']['en'], index['prefix'], unit['kizuna'])
+            index['kizuna']     = unit['kizuna']
 
             temp.append(index)
         
@@ -397,7 +397,7 @@ class hatsuneCog(commands.Cog):
         return [p+a for p in alias_prefixes for a in alias_names]
 
     def fetch_index_diff(self):
-        with open(self.hatsu_cf['fag_index']) as ind:
+        with open(self.hatsu_cf['fag_index'], encoding='utf-8') as ind:
             fag_ind = json.load(ind)
         
         for chara in self.hatsu_cf['blacklist']:
@@ -405,11 +405,11 @@ class hatsuneCog(commands.Cog):
             if not flag:
                 print("diff - failed to remove from blacklist:", chara)
 
-        with open(ut.full_path(self.rel_path, self.hatsu_cf['index'])) as ind:
+        with open(ut.full_path(self.rel_path, self.hatsu_cf['index']), encoding='utf-8') as ind:
             hatsu_ind = [chara['name']['jp'] for chara in json.load(ind)['index']]
         
         for chara in hatsu_ind:
-            flag = fag_ind.pop(hatsu_ind, None)
+            flag = fag_ind.pop(chara, None)
             if not flag:
                 print("diff - failed to remove from fag_ind:", chara)
         
@@ -447,6 +447,9 @@ class hatsuneCog(commands.Cog):
             return raw
     
     async def update_fag_data(self, data, raw):
+        # soft reset
+        data['flb']['active']   = False
+
         # conversions
         with open(ut.full_path(self.hatsu_cf['fag_conversion'])) as conv:
             conversion = json.load(conv)
@@ -461,7 +464,7 @@ class hatsuneCog(commands.Cog):
         profile                 = raw['data']['unit_profile']
         data['hnid']                = int(profile['id'])
         data['guild']               = profile['guild']
-        data['name']['jp']          = profile['name']
+        data['name']['jp']          = profile['name'].replace('（', '(').replace('）', ')')
         data['name_alt']['jp']      = profile['name_alt']
         data['name_irl']['jp']      = profile['name_irl']
         data['race']                = profile['race']
@@ -475,7 +478,7 @@ class hatsuneCog(commands.Cog):
 
         # unit pattern
         for pattern in raw['data']['unit_pattern']:
-            patNo       = pattern.pop('PatternNo.')
+            patNo       = pattern.pop('PatternNo')
             loop, pat   = self.fag_proc_pattern(pattern)
             if patNo == '1':
                 data['base']['normal']['pattern']['all']    = pat
@@ -507,11 +510,12 @@ class hatsuneCog(commands.Cog):
             data['base']['ue_data']['text']['jp']   = ue.pop('ue_description')
             data['base']['ue_data']['stats']        = ue
         
-        # skill data
-        data['base']['active'] = True
-        for key, value in raw['data']['skill_data'].items():
-            # complete character conversion on FLB
-            if key.startswith('conversion_skill_data'):
+        # check for special conversion
+        if 'conversion_skill_data' in raw['data']:
+            for key, value in raw['data']['conversion_skill_data'].items():
+                # complete character conversion on FLB
+            #if key.startswith('conversion_skill_data'):
+                print('here')
                 OVERRIDE = 'flb'
                 data[OVERRIDE]['hnid'] = int(conversion[str(data['hnid'])])
                 # UB
@@ -612,126 +616,125 @@ class hatsuneCog(commands.Cog):
                         data['name']['jp'], 
                         json.dumps(spec_data, indent=4)
                     )
-    
-            else:
-                # UB
-                if key.startswith('Union Burst'):
-                    k3 = 'ub'
-                    if key.endswith('Alt+'):
-                        k1 = 'flb'
-                        k2 = 'alt'
-                        data['flb']['b_alt']    = True
-                        data['flb']['active']   = True
-                    elif key.endswith('Alt'):
-                        k1 = 'base'
-                        k2 = 'alt'
-                        data['base']['b_alt']   = True
-                    elif key.endswith('+'):
-                        k1 = 'flb'
-                        k2 = 'normal'
-                        data['flb']['active']   = True
-                    else:
-                        k1 = 'base'
-                        k2 = 'normal'
 
-                    data[k1][k2][k3]['name']['jp'] = value['skill_name']
-                    data[k1][k2][k3]['jp']         = value['description']
-                    data[k1][k2][k3]['actions']    = value['actions']
-
-                # skills
-                elif key.startswith('Skill 1'):
-                    k1 = 'sk1'
-                    if key.endswith('Alt+'):
-                        data['base']['b_alt'] = True
-                        data['base']['alt']['ue'][k1]['name']['jp'] = value['skill_name']
-                        data['base']['alt']['ue'][k1]['jp']         = value['description']
-                        data['base']['alt']['ue'][k1]['actions']    = value['actions']
-                    elif key.endswith('Alt'):
-                        data['base']['b_alt'] = True
-                        data['base']['alt'][k1]['name']['jp'] = value['skill_name']
-                        data['base']['alt'][k1]['jp']         = value['description']
-                        data['base']['alt'][k1]['actions']    = value['actions']
-                    elif key.endswith('+'):
-                        data['base']['normal']['ue'][k1]['name']['jp'] = value['skill_name']
-                        data['base']['normal']['ue'][k1]['jp']         = value['description']
-                        data['base']['normal']['ue'][k1]['actions']    = value['actions']
-                    else:
-                        data['base']['normal'][k1]['name']['jp'] = value['skill_name']
-                        data['base']['normal'][k1]['jp']         = value['description']
-                        data['base']['normal'][k1]['actions']    = value['actions']
-                elif key.startswith('Skill 2'):
-                    k1 = 'sk2'
-                    if key.endswith('Alt+'):
-                        raise Exception('Unhandled skill key:', key, data['name']['jp'])
-                    elif key.endswith('Alt'):
-                        data['base']['b_alt'] = True
-                        data['base']['alt'][k1]['name']['jp'] = value['skill_name']
-                        data['base']['alt'][k1]['jp']         = value['description']
-                        data['base']['alt'][k1]['actions']    = value['actions']
-                    elif key.endswith('+'):
-                        raise Exception('Unhandled skill key:', key, data['name']['jp'])
-                    else:
-                        data['base']['normal'][k1]['name']['jp'] = value['skill_name']
-                        data['base']['normal'][k1]['jp']         = value['description']
-                        data['base']['normal'][k1]['actions']    = value['actions']
-                elif key.startswith('Skill 3'):
-                    k1 = 'sk3'
-                    if key.endswith('Alt+'):
-                        raise Exception('Unhandled skill key:', key, data['name']['jp'])
-                    elif key.endswith('Alt'):
-                        data['base']['b_alt'] = True
-                        data['base']['alt'][k1]['name']['jp'] = value['skill_name']
-                        data['base']['alt'][k1]['jp']         = value['description']
-                        data['base']['alt'][k1]['actions']    = value['actions']
-                    elif key.endswith('+'):
-                        raise Exception('Unhandled skill key:', key, data['name']['jp'])
-                    else:
-                        data['base']['normal'][k1]['name']['jp'] = value['skill_name']
-                        data['base']['normal'][k1]['jp']         = value['description']
-                        data['base']['normal'][k1]['actions']    = value['actions']
-                
-                # EX skills
-                elif key.startswith('EX Skill'):
-                    k1 = 'ex'
-                    if key.endswith('+'):
-                        k2 = 'flb'
-                        data['flb']['active']    = True
-                    else:
-                        k2 = 'base'
-                    
-                    data[k2][k1]['name']['jp'] = value['skill_name']
-                    data[k2][k1]['jp']         = value['description']
-                    data[k2][k1]['actions']    = value['actions']
+        # skill data
+        data['base']['active'] = True
+        for key, value in raw['data']['skill_data'].items():
+            #else:
+            # UB
+            if key.startswith('Union Burst'):
+                k3 = 'ub'
+                if key.endswith('Alt+'):
+                    k1 = 'flb'
+                    k2 = 'alt'
+                    data['flb']['b_alt']    = True
+                    data['flb']['active']   = True
+                elif key.endswith('Alt'):
+                    k1 = 'base'
+                    k2 = 'alt'
+                    data['base']['b_alt']   = True
+                elif key.endswith('+'):
+                    k1 = 'flb'
+                    k2 = 'normal'
+                    data['flb']['active']   = True
                 else:
-                    spec_data = {
-                        'type':     'skill',
-                        'key':      key,
-                        'data':     value
-                    }
-                    data['special'].append(spec_data)
-                    await self.logger.report(
-                        'Unknown attack skill encountered for', 
-                        data['name']['jp'], 
-                        json.dumps(spec_data, indent=4)
-                    )
+                    k1 = 'base'
+                    k2 = 'normal'
+
+                data[k1][k2][k3]['name']['jp'] = value['skill_name']
+                data[k1][k2][k3]['jp']         = value['description']
+                data[k1][k2][k3]['actions']    = value['actions']
+
+            # skills
+            elif key.startswith('Skill 1'):
+                k1 = 'sk1'
+                if key.endswith('Alt+'):
+                    data['base']['b_alt'] = True
+                    data['base']['alt']['ue'][k1]['name']['jp'] = value['skill_name']
+                    data['base']['alt']['ue'][k1]['jp']         = value['description']
+                    data['base']['alt']['ue'][k1]['actions']    = value['actions']
+                elif key.endswith('Alt'):
+                    data['base']['b_alt'] = True
+                    data['base']['alt'][k1]['name']['jp'] = value['skill_name']
+                    data['base']['alt'][k1]['jp']         = value['description']
+                    data['base']['alt'][k1]['actions']    = value['actions']
+                elif key.endswith('+'):
+                    data['base']['normal']['ue'][k1]['name']['jp'] = value['skill_name']
+                    data['base']['normal']['ue'][k1]['jp']         = value['description']
+                    data['base']['normal']['ue'][k1]['actions']    = value['actions']
+                else:
+                    data['base']['normal'][k1]['name']['jp'] = value['skill_name']
+                    data['base']['normal'][k1]['jp']         = value['description']
+                    data['base']['normal'][k1]['actions']    = value['actions']
+            elif key.startswith('Skill 2'):
+                k1 = 'sk2'
+                if key.endswith('Alt+'):
+                    raise Exception('Unhandled skill key:', key, data['name']['jp'])
+                elif key.endswith('Alt'):
+                    data['base']['b_alt'] = True
+                    data['base']['alt'][k1]['name']['jp'] = value['skill_name']
+                    data['base']['alt'][k1]['jp']         = value['description']
+                    data['base']['alt'][k1]['actions']    = value['actions']
+                elif key.endswith('+'):
+                    raise Exception('Unhandled skill key:', key, data['name']['jp'])
+                else:
+                    data['base']['normal'][k1]['name']['jp'] = value['skill_name']
+                    data['base']['normal'][k1]['jp']         = value['description']
+                    data['base']['normal'][k1]['actions']    = value['actions']
+            elif key.startswith('Skill 3'):
+                k1 = 'sk3'
+                if key.endswith('Alt+'):
+                    raise Exception('Unhandled skill key:', key, data['name']['jp'])
+                elif key.endswith('Alt'):
+                    data['base']['b_alt'] = True
+                    data['base']['alt'][k1]['name']['jp'] = value['skill_name']
+                    data['base']['alt'][k1]['jp']         = value['description']
+                    data['base']['alt'][k1]['actions']    = value['actions']
+                elif key.endswith('+'):
+                    raise Exception('Unhandled skill key:', key, data['name']['jp'])
+                else:
+                    data['base']['normal'][k1]['name']['jp'] = value['skill_name']
+                    data['base']['normal'][k1]['jp']         = value['description']
+                    data['base']['normal'][k1]['actions']    = value['actions']
+            
+            # EX skills
+            elif key.startswith('EX Skill'):
+                k1 = 'ex'
+                if key.endswith('+'):
+                    k2 = 'flb'
+                    #data['flb']['active']    = True
+                else:
+                    k2 = 'base'
+                
+                data[k2][k1]['name']['jp'] = value['skill_name']
+                data[k2][k1]['jp']         = value['description']
+                data[k2][k1]['actions']    = value['actions']
+            else:
+                spec_data = {
+                    'type':     'skill',
+                    'key':      key,
+                    'data':     value
+                }
+                data['special'].append(spec_data)
+                await self.logger.report(
+                    'Unknown attack skill encountered for', 
+                    data['name']['jp'], 
+                    json.dumps(spec_data, indent=4)
+                )
             
         # stats
         if 'stats' in raw['data']:
             k1 = 'stats'
             k2 = 'base'
 
-            data[k2][k1] = value
-            data[k2][k1] = value
-            data[k2][k1] = value
+            data[k2][k1] = raw['data']['stats']
 
         if 'stats_flb' in raw['data']:
             k1 = 'stats'
             k2 = 'flb'
             data['flb']['active']   = True
 
-            data[k2][k1] = value
-            data[k2][k1] = value
-            data[k2][k1] = value
+            data[k2][k1] =  raw['data']['stats_flb']
 
         # make img links
         data = self.update_img(data)            
@@ -768,26 +771,39 @@ class hatsuneCog(commands.Cog):
     # sub update function
     async def update_database(self, ctx, option):
         channel = ctx.channel
+
         fag_ind_diff = self.fetch_index_diff()
-        with open(self.hatsu_cf['fag_index']) as ind:
+        with open(self.hatsu_cf['fag_index'], encoding='utf-8') as ind:
             fag_ind_full = json.load(ind)
-        
-        if option[-1] == 'all':
-            await channel.send('Updating all database entries')
-            target = fag_ind_full
-        else:
-            await channel.send('Updating new database entries')
-            target = fag_ind_diff
-        
         with open(ut.full_path(self.rel_path, self.hatsu_cf['database'])) as db:
             dbf = json.load(db)
             units = dbf['units']
+        
+        if option == 'all':
+            await channel.send('Updating all database entries')
+            target = fag_ind_full
+        elif option == 'ue':
+            await channel.send('Updating all UE characters')
+            target = dict(
+                [(chara['name']['jp'],str(chara['hnid'])) for chara in units 
+                if chara['base']['ue_data']['name']['jp'] and not chara['base']['ue_data']['name']['en']]
+            )
+        elif option == 'flb':
+            await channel.send('Updating all FLB characters')
+            target = dict(
+                [(chara['name']['jp'],str(chara['hnid'])) for chara in units 
+                if chara['flb']['active'] and not chara['flb']['normal']['ub']['en']]
+            )
+        else:
+            await channel.send('Updating new database entries')
+            target = fag_ind_diff
         
         ten_pcent = len(target)//10
         counter = 1
         status_str = 'Starting Update...'
         status = await channel.send(status_str)
         #updated = []
+
         for chara, hnid in target.items():
             if counter < ten_pcent:
                 counter += 1
@@ -817,18 +833,20 @@ class hatsuneCog(commands.Cog):
             
             # add TLs
             if new:
-                data = await self.update_tl(channel, data)
-                data, units = await self.update_pos(channel, data, units)
+                data = await self.update_tl(ctx, data)
+                data, units = await self.update_pos(ctx, data, units)
+            elif option in ['ue', 'flb']:
+                data = await self.update_tl(ctx, data)
 
             units.append(data)
         
-        dbf['units'] = await self.update_exskills(channel, units)
+        dbf['units'] = await self.update_exskills(ctx, units)
 
         with open(ut.full_path(self.rel_path, self.hatsu_cf['database']), 'w+') as db:
             db.write(json.dumps(dbf, indent=4))
             await status.edit(content="Finished DB update")
         
-        await self.make_index()
+        await self.make_index(ctx.channel)
 
     async def update_tl(self, ctx, data):
         channel = ctx.channel
@@ -860,7 +878,7 @@ class hatsuneCog(commands.Cog):
             await inp.delete()
 
             if content == 'exit':
-                if not data['name']['en'] or data['prefix']:
+                if not data['name']['en'] or not data['prefix']:
                     if exit_confirm:
                         break
                     warn_msg = await channel.send(warn)
@@ -945,15 +963,14 @@ class hatsuneCog(commands.Cog):
             data[key]['en']     = self.update_tl_clean_val(new, null, 2)
 
         elif key == 'prefix':
-
             old                 = self.update_tl_clean_val(data[key], null)
             new                 = value.lower()
             data[key]           = self.update_tl_clean_val(new, null, 2)
 
-        elif key == 'ue_name':
-            old                                     = self.update_tl_clean_val(data['base']['ue_stats']['name']['en'], null)
-            new                                     = value.title()
-            data['base']['ue_stats']['name']['en']  = self.update_tl_clean_val(new, null, 2)
+        elif key == 'uename':
+            old                                     = self.update_tl_clean_val(data['base']['ue_data']['name']['en'], null)
+            new                                     = value#.title()
+            data['base']['ue_data']['name']['en']   = self.update_tl_clean_val(new, null, 2)
 
         elif key in [
                 'ub', 'uba', 'ubp', 'ubap',
@@ -969,12 +986,12 @@ class hatsuneCog(commands.Cog):
                 k3 = key
 
             old                     = self.update_tl_clean_val(data[k1][k2][k3]['en'], null)
-            new                     = value.capitalize()
+            new                     = value#.capitalize()
             data[k1][k2][k3]['en']  = self.update_tl_clean_val(new, null, 2)
         
         elif key in ['sk1p', 'sk1ap']:
             old                             = self.update_tl_clean_val(data[k1][k2]['ue']['sk1']['en'], null)
-            new                             = value.capitalize()
+            new                             = value#.capitalize()
             data[k1][k2]['ue']['sk1']['en'] = self.update_tl_clean_val(new, null, 2)
         
         elif key == 'tags':
@@ -984,7 +1001,7 @@ class hatsuneCog(commands.Cog):
         
         elif key == 'kizuna':
             old = data[key]
-            new = [i.strip() for i in content.lower().split(',')]
+            new = [i.strip() for i in value.lower().split(',')]
             data[key] = new
             
         else:
@@ -1031,15 +1048,15 @@ class hatsuneCog(commands.Cog):
 
         # grab target pos field
         target_pos_field = target['pos_field']
-        if target_pos_field:
+        if target_pos_field != None:
             field = list(filter(lambda x: x['pos_field'] == target_pos_field, data_all))
         else:
             field = []
         field.append(target)
-        field.sort(key=lambda x: x['pos'])
+        field.sort(key=lambda x: x['pos'] if not x['pos'] == None else -1)
 
         active_embed = await channel.send(embed=self.make_pos_embed(target, field))
-        await channel.send('Editing character positions. Set `pos_field` via `tags:`. Set `pos` via `set:pos`')
+        await channel.send('Editing character positions. Set `pos_field` via `tags:`. Set `pos` via `insert:`')
 
         while True:
             inp = await self.client.wait_for('message', check=check)
@@ -1063,25 +1080,31 @@ class hatsuneCog(commands.Cog):
                     target['pos_field'] = 2
         
             elif content.startswith('insert') and len(field) > 1:
-                new = int(content.split(':'))
+                new = int(content.split(':')[-1])
+                current_ind = field.index(target)
+
+                if current_ind <= new: new -= 1
+                field.pop(current_ind)
+
                 field = field[:new] + [target] + field[new:]
                 for i, chara in enumerate(field):
-                    i -= 1
+                    #i -= 1
                     if chara != target:
-                        data_all[data_all.index(chara)]['pos'] = i
+                        ind = data_all.index(chara)
+                        data_all[ind]['pos'] = i if data_all[ind]['pos'] != None else None
                     else:
                         target['pos'] = i
 
             else:
                 continue
 
-            if target['pos_field']:
+            if target['pos_field'] != None:
                 field = list(filter(lambda x: x['pos_field'] == target['pos_field'], data_all))
             else:
                 field = []
 
             field.append(target)
-            field.sort(key=lambda x: x['pos'])
+            field.sort(key=lambda x: x['pos'] if not x['pos'] == None else -1)
 
             await active_embed.edit(embed=self.make_pos_embed(target, field))
             
@@ -1108,34 +1131,34 @@ class hatsuneCog(commands.Cog):
                 },
                 {
                     'name': 'pos_field',
-                    'value': str(data['pos_field']) if data['pos_field'] else 'unknown',
+                    'value': str(data['pos_field']) if data['pos_field'] != None else 'unknown',
                     'inline': False
                 },
                 {
                     'name': 'pos',
-                    'value': str(data['pos']) if data['pos'] else 'unknown',
+                    'value': str(data['pos']) if data['pos'] != None else 'unknown',
                     'inline': False
                 }
             ]
         }
-        if len(field > 1):
+        if len(field) > 1:
             embed_values = []
             for i, chara in enumerate(field):
-                i -= 1
-                if not chara['pos']:
+                #i -= 1
+                if chara['pos'] == None:
                     i = f"{i}?"
 
                 if chara != data:
-                    embed_values.append(f":{chara['sname']}: {i} {self.get_full_name(chara['name']['en'], chara['prefix'], True)}")
+                    embed_values.append(f"{self.client.hatsu_res[chara['sname']]['full'] if self.client.hatsu_res.get(chara['sname'], None) else '❓'} {i} {self.get_full_name(chara['name']['en'], chara['prefix'], True)}")
                 else:
-                    embed_values.append(f"> :{chara['sname']}: **{i} {self.get_full_name(chara['name']['en'], chara['prefix'], True)}**")
+                    embed_values.append(f"> {self.client.hatsu_res[chara['sname']]['full'] if self.client.hatsu_res.get(chara['sname'], None) else '❓'} **{i} {self.get_full_name(chara['name']['en'], chara['prefix'], True)}**")
                 
             for chunk in ut.chunks(embed_values, 20):
                 embed['fields'].append(
                     {
                         'name': 'lineup',
                         'value': '\n'.join(chunk),
-                        'inline': False
+                        'inline': True
                     }
                 )
         else:
@@ -1143,7 +1166,7 @@ class hatsuneCog(commands.Cog):
                 {
                     'name': 'lineup',
                     'value': 'unknown field_pos',
-                    'inline': False
+                    'inline': True
                 }
             )
         
@@ -1172,6 +1195,11 @@ class hatsuneCog(commands.Cog):
                     {
                         'name':     'name_en',
                         'value':    data['name']['en'],
+                        'inline':   True
+                    },
+                    {
+                        'name':     'prefix',
+                        'value':    data['prefix'],
                         'inline':   True
                     },
                     {
@@ -1616,8 +1644,8 @@ class hatsuneCog(commands.Cog):
             prefixes = json.load(p)
         
         msg = "Updating prefixes. Command keys: `prefix`, `alias`, `exit`.\n"\
-            "`prefix` -> `prefix:p,full,short(SINGLE)\n"\
-            "`alias` -> `alias:prefix_alias:prefix(SINGLE)\n"\
+            "`prefix` -> `prefix:p,full,short(SINGLE)`\n"\
+            "`alias` -> `alias:prefix_alias:prefix(SINGLE)`\n"\
             "Commands will always append unless entry is a duplicate\n"
         status = await channel.send(msg)
         overwrite = False
@@ -1799,7 +1827,7 @@ class hatsuneCog(commands.Cog):
         # fetch similar characters... unless the chara is kizuna... or a collab chara (CGirls)
         if target['prefix'] != 'k':
             others = list(filter(
-                lambda x: x['name']['en'] == target['name']['en'] and x['prefix'] != target['prefix'] and x['prefix'] != 'd',
+                lambda x: (x['name']['en'] == target['name']['en'] or target['name']['en'] in x['kizuna']) and x['prefix'] != target['prefix'] and x['prefix'] != 'd',
                 index['index']
             ))
         else:

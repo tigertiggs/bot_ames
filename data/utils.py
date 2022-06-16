@@ -2,12 +2,21 @@
 import os
 import datetime as dt
 import nextcord
+import collections.abc
 
 SPACE = '\u200B'
 EMPTY = nextcord.Embed.Empty
 
 def full_path(*args):
     return os.path.join(*args)
+
+def update(d, u):
+    for k, v in u.items():
+        if isinstance(v, collections.abc.Mapping):
+            d[k] = update(d.get(k, {}), v)
+        else:
+            d[k] = v
+    return d
 
 # handy function to split list l into chunks of length n
 def chunks(l, n):
