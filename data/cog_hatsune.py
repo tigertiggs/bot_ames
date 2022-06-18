@@ -2098,7 +2098,7 @@ class hatsuneCog(commands.Cog):
         # process
         request = self.process_request(options)
         charas = self.fetch_chara(request)
-        if request is None:
+        if request is None or charas is None:
             await channel.send(f"Failed to find `{options}`")
             return
         
