@@ -346,13 +346,13 @@ class hatsucbCog(commands.Cog):
 
     def check_roles(self, role_list, member, channel=None, gp=None):
         found = []
-        if channel:
+        if channel and gp:
             ind = gp['index'].get(str(channel.id), None)
             cp = gp['clans'].get(ind, None)
             if cp:
                 cm = cp.get('role_leader', None)
                 if cm:
-                    role_list = [cm] + list(role_list)
+                    role_list = [cm] + role_list
     
         for role_id in role_list:
             if role_id.isnumeric():
@@ -566,16 +566,17 @@ class hatsucbCog(commands.Cog):
                 req = None
 
             if req:
-                if not self.client.check_perm(author):
-                    await channel.send('Restricted command '+self.client.emotes['ames'])
-                    return
-                if not req in guild_prop['clans']:
+                cp = guild_prop.get(req, None)
+                if cp:
                     await channel.send('Failed to find clan')
                     return
                 else:
-                    clan_prop = guild_prop['clans'][req]
+                    found = self.check_roles([cp['role_leader']], author, channel, guild_prop)
+                    if not found or not self.client.check_perm(author):
+                        await channel.send('Restricted command '+self.client.emotes['ames'])
+                        return
             else:
-                found = self.check_roles(guild_prop['index'].keys(), author, channel, guild_prop)
+                found = self.check_roles([cp['role_leader'] for cp in guild_prop['clans'].values()], author, channel, guild_prop)
                 if not found:
                     await channel.send('Restricted command '+self.client.emotes['ames'])
                     return
