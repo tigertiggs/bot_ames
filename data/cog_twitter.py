@@ -21,6 +21,8 @@ class twitterCog(commands.Cog):
 
         with open(ut.full_path(self.rel_path, 'twitter_config.json')) as f:
             self.twitter_cf = json.load(f)
+            # override with main config port
+            self.twitter_cf['port'] = self.client.config['fag_port']
         
         if not self.twitter_cf['port']:
             self.api = self.twitter_cf['api']
