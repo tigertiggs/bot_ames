@@ -973,7 +973,7 @@ class hatsucbCog(commands.Cog):
                 if Q_DONE and len(options) == 0:
                     # unqueue all
                     for entry in active:
-                        queue_list.pop(queue_list['queue'].index(entry))
+                        queue_list['queue'].pop(queue_list['queue'].index(entry))
                         if not entry['is_ot'] and SETTINGS['autoincr']:
                             queue_list['done'].append(str(author.id))
                     
@@ -1461,7 +1461,10 @@ class hatsucbCog(commands.Cog):
                     members.append(f"{entry['name']}")
 
                 if SETTINGS['b_wave']:
-                    wave.append(str(entry['payload']['wave']) + (" (Curr.)" if entry['payload']['wave'] == cw else '') + (" (Past)" if entry['payload']['wave'] < cw else ''))
+                    if entry['payload']['wave'] is None:
+                        wave.append('N/A')
+                    else:
+                        wave.append(str(entry['payload']['wave']) + (" (Curr.)" if entry['payload']['wave'] == cw else '') + (" (Past)" if entry['payload']['wave'] < cw else ''))
                 if SETTINGS['b_timeout']:
                     ts.append(f"<t:{entry['timestamp']}:R>")
             
@@ -1598,49 +1601,53 @@ class hatsucbCog(commands.Cog):
                 return
             
             options = [i.strip() for i in options.lower().split() if i.strip()]
-            BOSS = 'ALL'
-            WAVE = 'ALL'
-            for option in options:
-                try:
-                    if option.startswith('w'):
-                        option = option[1:]
-                        mode = 'w'
-                    elif option.startswith('b'):
-                        option = option[1:]
-                        mode = 'b'
-                    else:
-                        await channel.send(f"invalid option: {option}")
+            if options[0].startswith('a'):
+                to_remove = queue_list['queue'].copy()
+                queue_list['queue'] = []
+            else:
+                BOSS = 'ALL'
+                WAVE = 'ALL'
+                for option in options:
+                    try:
+                        if option.startswith('w'):
+                            option = option[1:]
+                            mode = 'w'
+                        elif option.startswith('b'):
+                            option = option[1:]
+                            mode = 'b'
+                        else:
+                            await channel.send(f"invalid option: {option}")
+                            return
+                        
+                        if option:
+                            n = int(option)
+                            if mode == 'w':
+                                WAVE = n
+                                if WAVE < 0:
+                                    await channel.send("Failed to reset: invalid wave")
+                                    return
+                            else:
+                                BOSS = n
+                                if BOSS < 0 or BOSS > 5:
+                                    await channel.send("Failed to reset: boss number out of range")
+                                    return
+                    
+                    except ValueError:
+                        await channel.send('Could not reset: Failed to read boss or wave number')
                         return
                     
-                    if option:
-                        n = int(option)
-                        if mode == 'w':
-                            WAVE = n
-                            if WAVE < 0:
-                                await channel.send("Failed to reset: invalid wave")
-                                return
-                        else:
-                            BOSS = n
-                            if BOSS < 0 or BOSS > 5:
-                                await channel.send("Failed to reset: boss number out of range")
-                                return
-                
-                except ValueError:
-                    await channel.send('Could not reset: Failed to read boss or wave number')
-                    return
-                
-            to_remove = []
-            if BOSS == 'ALL' and WAVE == 'ALL':
-                to_remove = [i for i in queue_list['queue'] if i['type'] == 'queue']
-            elif BOSS == 'ALL':
-                to_remove = [i for i in queue_list['queue'] if i['type'] == 'queue' and i['payload']['wave'] == WAVE]
-            elif WAVE == 'ALL':
-                to_remove = [i for i in queue_list['queue'] if i['type'] == 'queue' and i['payload']['boss'] == BOSS]
-            else:
-                to_remove = [i for i in queue_list['queue'] if i['type'] == 'queue' and i['payload']['boss'] == BOSS and i['payload']['wave'] == WAVE]
+                to_remove = []
+                if BOSS == 'ALL' and WAVE == 'ALL':
+                    to_remove = [i for i in queue_list['queue'] if i['type'] == 'queue']
+                elif BOSS == 'ALL':
+                    to_remove = [i for i in queue_list['queue'] if i['type'] == 'queue' and i['payload']['wave'] == WAVE]
+                elif WAVE == 'ALL':
+                    to_remove = [i for i in queue_list['queue'] if i['type'] == 'queue' and i['payload']['boss'] == BOSS]
+                else:
+                    to_remove = [i for i in queue_list['queue'] if i['type'] == 'queue' and i['payload']['boss'] == BOSS and i['payload']['wave'] == WAVE]
 
-            for item in to_remove:
-                queue_list['queue'].pop(queue_list['queue'].index(item))
+                for item in to_remove:
+                    queue_list['queue'].pop(queue_list['queue'].index(item))
             
             await channel.send(f"Removed {len(to_remove)} entries from queue")
 
