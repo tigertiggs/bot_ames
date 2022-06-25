@@ -1085,7 +1085,7 @@ class hatsucbCog(commands.Cog):
                             # make changes
                             queue_list['cwave'][boss-1] += 1
                             queue_list['queue'].pop(queue_list['queue'].index(request_active))
-                            if SETTINGS['autoincr']:
+                            if SETTINGS['b_autoincr']:
                                 queue_list['done'].append(str(author.id))
 
                             # ready message
@@ -1105,7 +1105,7 @@ class hatsucbCog(commands.Cog):
 
                             msg = f"Unqueued {(author.name+' ') if DELEGATE_MODE else ''}from boss {boss} " + (f"wave {wave}" if SETTINGS['b_wave'] else '')
                         
-                        if not Q_OT and SETTINGS['autoincr']: await channel.send(f'Incrememted {author.name if DELEGATE_MODE else "your"} daily hit count.')
+                        if not Q_OT and SETTINGS['b_autoincr']: await channel.send(f'Incrememted {author.name if DELEGATE_MODE else "your"} daily hit count.')
                             
                     elif Q_CANCEL:
                         if not request_active:
@@ -2102,6 +2102,138 @@ class hatsucbCog(commands.Cog):
             admin['fields'] += queue_admin
         
         return [ut.embed_contructor(**standard), ut.embed_contructor(**admin)]
+
+    @queue.command()
+    async def test(self, ctx, *, option=None):
+        channel = ctx.channel
+        author = ctx.author
+
+        # load guild prefs
+        try:
+            with open(ut.full_path(self.rel_path, self.hatsucb_cf['guilds'], f"{ctx.guild.id}.json")) as gpf:
+                gp = json.load(gpf)
+        except:
+            await channel.send("Did not find/failed to open guild preferences. Use `.guild` to see all subguilds in this guild\n"\
+                "Set them via `.guild set (subguild_id)` or create a new guild profile via `.guild new`.")
+            return
+        
+        # parse input options and check whether to set ADMIN or not
+        ADMIN_MODE = False
+        if option:
+            option = [i.strip() for i in option.lower().split() if i.strip()]
+            if option[-1] == 'admin':
+                ADMIN_MODE = True
+                option.pop(-1)
+        
+        # check which clan property to load
+        # explicit clan ID given
+        if option:
+            cp = gp['clans'].get(option[0], None)
+            if not cp:
+                await channel.send(f"Failed to fetch help via subguild ID {option[0]}")
+                return
+        # if not provided, match channel then all indicies
+        else:
+            found = self.check_roles(list(gp['index'].keys()), author, channel, gp)
+            if not found:
+                await channel.send("Failed to load clan-specific help: Could not determine your clan affiliation!")
+                return
+            else:
+                cp = gp['clans'][gp['index'][str(found[0].id)]]
+            
+        # if admin mode, check perm
+        if ADMIN_MODE and not self.check_roles([cp['role_leader']], author):
+            await channel.send("You do not have permission to view extra commands")
+            return
+        
+        # fetch embeds and send
+        await channel.send(embed=self.test_make_q_embed(cp, ADMIN_MODE))
+
+    def test_make_q_embed(self, cp, admin):
+        embed = {
+            'title': f"CB Queue Help - {cp['name']} (Clan #{cp['subguild_id']})",
+            'descr': "Queue help for CB. This page is tailored to your clan's set CB parameters. Access this via `.q help <subguild id>`. Append `admin` to the end to view the admin version.",
+            'footer': {'text': 'CB Queue'},
+            'fields': []
+        }
+        if not admin:
+            fields = [
+                {
+                    'name': 'Command Syntax: Queue',
+                    'value': 
+                        '`.queue [mode]`\n'\
+                        'Aliases: `q`',
+                    'inline': False
+                },
+                {
+                    'name': '> [mode] default',
+                    'value': 
+                        '`.queue [boss number] [wave] [suffixes]`\n'\
+                        'Primary queue command. Queues/unqueues from bosses. Use `.q` to view current queues. Any number of valid `[suffix]` can be entered but makes sure they make sense.',
+                    'inline': False
+                },
+                {
+                    'name': '`[boss number]` (optional)',
+                    'value': 
+                        'The requested boss number. Can be omitted depending on the intent.',
+                    'inline': True
+                },
+                {
+                    'name': '`[wave]` (optional)',
+                    'value': 
+                        'The requested wave number. Can be omitted. If omitted, will default to current active wave. Accepts relative wave numbers, e.g. `+1`, `-1` for the next wave and previous wave respectively.',
+                    'inline': True
+                },
+                {
+                    'name': '[suffix] `done` (optional)',
+                    'value': 
+                        'Alias: `d`\n'\
+                        'Resolve the requested hit. If `[boss number]` and `[wave]` are omitted, resolve all active queues. If auto increment is set, you will be incremented once for each valid hit.',
+                    'inline': True
+                },
+                {
+                    'name': '[suffix] `cancel` (optional)',
+                    'value': 
+                        'Alias: `c`\n'\
+                        'Cancel the requested hit. If `[boss number]` and `[wave]` are omitted, cancel all active queues. This will not increment any hits.',
+                    'inline': True
+                },
+                {
+                    'name': '[suffix] `kill` (optional)',
+                    'value': 
+                        'Alias: `k`, `x`\n'\
+                        'Increment the wave for the boss. `[boss number]` is required. This will increment your hit count if its valid and will ping all members queued for the next wave.',
+                    'inline': True
+                },
+                {
+                    'name': '[suffix] `ot` (optional)',
+                    'value': 
+                        'Flag the request as using overtime. Anytime you resolve a hit or hits, all hits with `ot` flag will not increment your hit counter. This must be done for both initial queue and queue resolve actions.',
+                    'inline': True
+                },
+                {
+                    'name': '> [mode] `list`',
+                    'value': 
+                        '`.queue list`\n'\
+                        'Alias: `l`\n'\
+                        'Display all your active queues.',
+                    'inline': False
+                },
+                {
+                    'name': '> [mode] `hit`',
+                    'value': 
+                        '`.queue hit [hits]`\n'\
+                        'Alias: `h`\n'\
+                        'Increment your daily hit counter `[hit]` __number of times__ (not your hit number), e.g. `.q h 3` means +3 to your hit counter. `[hit]` will default to 1 if omitted.',
+                    'inline': False
+                }
+            ]
+
+
+            embed['fields'] += fields
+            return ut.embed_contructor(**embed)
+        
+
 
     def cog_unload(self):
         self.timeout_checker.cancel()
