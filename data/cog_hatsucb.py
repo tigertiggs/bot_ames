@@ -974,8 +974,13 @@ class hatsucbCog(commands.Cog):
                     # unqueue all
                     for entry in active:
                         queue_list['queue'].pop(queue_list['queue'].index(entry))
-                        if not entry['payload']['is_ot'] and SETTINGS['b_autoincr']:
-                            queue_list['done'].append(str(author.id))
+                        try:
+                            if not entry['payload']['is_ot'] and SETTINGS['b_autoincr']:
+                                queue_list['done'].append(str(author.id))
+                        except Exception as e:
+                            print(self.name, e, entry)
+                            await channel.send("Oops - something went wrong")
+                            return
                     
                     msg = f"Unqueued {(author.name+' ' if DELEGATE_MODE else '')}from all bosses"
                 else:
