@@ -27,12 +27,13 @@ def _prefix(client, message):
 
 class Ames_nextcord(commands.AutoShardedBot):
     def __init__(self):
-        self._start_log()
         self.name   = '[Ames_NC]'
         self.footer = 'Ames Nextcord'
         self.dir    = dir_path
         #self.prefix = BOT_PREFIX
+        self._start_log()
         self.logger = ut.Ames_logger(self.name, self.Log)
+        
 
         # read main config file
         self.logger.log('reading main config')
