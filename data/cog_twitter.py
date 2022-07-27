@@ -467,7 +467,7 @@ class twitterCog(commands.Cog):
             #await channel.send(embeds=embeds)
             for em in embeds:
                 await channel.send(embed=em)
-        elif links:
+        if links:
             await channel.send('\n'.join(links))
     
     @tasks.loop(seconds=TIMER)
@@ -527,9 +527,7 @@ class twitterCog(commands.Cog):
                                 guild = self.client.get_guild(int(guild.split('\\')[-1].split('.')[0]))
                                 channel = guild.get_channel(int(glp['channel']))
                                 if channel:
-                                    await channel.send(embeds=embeds)
-                                    if links: 
-                                        await channel.send('\n'.join(links))
+                                    await self.send_tw_embeds(embeds, links, channel)
                     
                 with open(ut.full_path(self.rel_path, self.twitter_cf['caches'], cln), 'w+') as f:
                     f.write(json.dumps(cl,indent=4))
