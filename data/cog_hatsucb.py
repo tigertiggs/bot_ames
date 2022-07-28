@@ -1172,7 +1172,7 @@ class hatsucbCog(commands.Cog):
                     for entry in active:
                         queue_list['queue'].pop(queue_list['queue'].index(entry))
                     
-                    msg = f"Removed all OTs" + (f"from {author.id}" if DELEGATE_MODE else '')
+                    msg = f"Removed all OTs" + (f" from {author.name}" if DELEGATE_MODE else '')
                 else:
                     # process seconds
                     try:
@@ -2245,8 +2245,6 @@ class hatsucbCog(commands.Cog):
             embed['fields'] += fields
             return ut.embed_contructor(**embed)
         
-
-
     def cog_unload(self):
         self.timeout_checker.cancel()
         self.new_day_checker.cancel()
