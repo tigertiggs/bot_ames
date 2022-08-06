@@ -6660,7 +6660,8 @@
                 "self_buff",
                 "self_sust",
                 "matk_up",
-                "mcrit_up"
+                "mcrit_up",
+                "flb"
             ],
             "type": 0,
             "pos_field": 2,
@@ -6916,7 +6917,7 @@
                             "en": null,
                             "jp": "\u30db\u30fc\u30ea\u30fc\u30a8\u30f3\u30d6\u30ec\u30a4\u30b9"
                         },
-                        "en": null,
+                        "en": "Grant medium HP recovery on all allies; grant small magic def up; grant massive magic attack up; grant medium magic crit and crit damage up; grant continuous HP recovery.",
                         "jp": "\u5473\u65b9\u5168\u4f53\u306e\uff28\uff30\u3092\u4e2d\u56de\u5fa9\u3057\u3001\u9b54\u6cd5\u9632\u5fa1\u529b\u3092\u5c0f\u30a2\u30c3\u30d7\u3001\u9b54\u6cd5\u653b\u6483\u529b\u3092\u7279\u5927\u30a2\u30c3\u30d7\u3001\u9b54\u6cd5\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u3068\u9b54\u6cd5\u653b\u6483\u30af\u30ea\u30c6\u30a3\u30ab\u30eb\u6642\u306e\u30c0\u30e1\u30fc\u30b8\u3092\u4e2d\u30a2\u30c3\u30d7\u3055\u305b\u3001\u3055\u3089\u306b\u7d99\u7d9a\uff28\uff30\u56de\u5fa9\u72b6\u614b\u3092\u4ed8\u4e0e\u3059\u308b\u3002",
                         "actions": [
                             "Heal party for 7094 HP ",
