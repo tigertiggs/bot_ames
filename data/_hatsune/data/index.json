@@ -205,7 +205,7 @@
                 "en": "misato",
                 "jp": "\u30df\u30b5\u30c8"
             },
-            "flb": false,
+            "flb": true,
             "ue": true,
             "enum_alias": [],
             "kizuna": []
@@ -710,6 +710,20 @@
                 "jp": "\u30eb\u30ab"
             },
             "flb": false,
+            "ue": true,
+            "enum_alias": [],
+            "kizuna": []
+        },
+        {
+            "id": 19,
+            "hnid": 1057,
+            "prefix": null,
+            "sname": "djeeta",
+            "name": {
+                "en": "djeeta",
+                "jp": "\u30b8\u30fc\u30bf"
+            },
+            "flb": true,
             "ue": true,
             "enum_alias": [],
             "kizuna": []
@@ -3166,6 +3180,105 @@
         },
         {
             "id": null,
+            "hnid": 1224,
+            "prefix": "s",
+            "sname": "shiyori",
+            "name": {
+                "en": "hiyori",
+                "jp": "\u30d2\u30e8\u30ea(\u30b5\u30de\u30fc)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "shiyori",
+                "summerhiyori",
+                "wethiyori"
+            ],
+            "kizuna": []
+        },
+        {
+            "id": null,
+            "hnid": 1225,
+            "prefix": "s",
+            "sname": "srei",
+            "name": {
+                "en": "rei",
+                "jp": "\u30ec\u30a4(\u30b5\u30de\u30fc)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "srei",
+                "summerrei",
+                "wetrei"
+            ],
+            "kizuna": []
+        },
+        {
+            "id": null,
+            "hnid": 1226,
+            "prefix": "s",
+            "sname": "syui",
+            "name": {
+                "en": "yui",
+                "jp": "\u30e6\u30a4(\u30b5\u30de\u30fc)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "syui",
+                "sgomen",
+                "summeryui",
+                "summergomen",
+                "wetyui",
+                "wetgomen"
+            ],
+            "kizuna": []
+        },
+        {
+            "id": null,
+            "hnid": 1228,
+            "prefix": "s",
+            "sname": "smisogi",
+            "name": {
+                "en": "misogi",
+                "jp": "\u30df\u30bd\u30ae(\u30b5\u30de\u30fc)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "smisogi",
+                "summermisogi",
+                "wetmisogi"
+            ],
+            "kizuna": []
+        },
+        {
+            "id": null,
+            "hnid": 1229,
+            "prefix": "s",
+            "sname": "smimi",
+            "name": {
+                "en": "mimi",
+                "jp": "\u30df\u30df(\u30b5\u30de\u30fc)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "smimi",
+                "sbunny",
+                "srabbit",
+                "summermimi",
+                "summerbunny",
+                "summerrabbit",
+                "wetmimi",
+                "wetbunny",
+                "wetrabbit"
+            ],
+            "kizuna": []
+        },
+        {
+            "id": null,
             "hnid": 1801,
             "prefix": "p",
             "sname": "phiyori",
@@ -3356,20 +3469,6 @@
                 "akino",
                 "saren"
             ]
-        },
-        {
-            "id": 19,
-            "hnid": 1057,
-            "prefix": null,
-            "sname": "djeeta",
-            "name": {
-                "en": "djeeta",
-                "jp": "\u30b8\u30fc\u30bf"
-            },
-            "flb": true,
-            "ue": true,
-            "enum_alias": [],
-            "kizuna": []
         }
     ]
 }
