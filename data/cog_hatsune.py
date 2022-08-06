@@ -1528,14 +1528,24 @@ class hatsuneCog(commands.Cog):
         index = self.make_local_asset_index()
         guild_ids, res = self.make_server_asset_index()
 
+        #print(index)
+        #print(res)
+        print(guild_ids)
+
         status = None
+        full = []
         for asset in index:
-            if not asset in res:
+            if not (asset in res):
                 for id in guild_ids:
+                    
+                    if id in full:
+                        continue
+
                     guild = await self.client.fetch_guild(id)
 
                     if guild.emoji_limit == len(guild.emojis):
-                        guild_ids.pop(guild_ids.index(id))
+                        #guild_ids.pop(guild_ids.index(id))
+                        full.append(id)
                         await ctx.channel.send(f"{guild.name} - full")
                         status = None
                         continue
@@ -1558,7 +1568,7 @@ class hatsuneCog(commands.Cog):
         await ctx.channel.send("Finished updating server assets")
 
     def make_server_asset_index(self):
-        server_ids = self.client.config['resource_servers']
+        server_ids = [int(i) for i in self.client.config['resource_servers']]
         res = []
         for id in server_ids:
             guild = self.client.get_guild(id)
@@ -1601,12 +1611,12 @@ class hatsuneCog(commands.Cog):
             content = inp.content
             await inp.delete()
 
-            cmd, options = content.split(':')
-
             if content == 'exit':
                 break
 
-            elif cmd in ['prifes', 'double']:
+            cmd, options = content.split(':')
+
+            if cmd in ['prifes', 'double']:
                 try:
                     options = int(options)
                 except:
@@ -1705,6 +1715,10 @@ class hatsuneCog(commands.Cog):
         with open(ut.full_path(self.rel_path, self.hatsu_cf['database'])) as db:
             dbf = json.load(db)
         
+        # write backup in case something goes wrong
+        with open(ut.full_path(self.rel_path, self.hatsu_cf['database']+'.bak'), 'w+') as dbb:
+            dbb.write(json.dumps(dbf, indent=4))
+        
         dbf_clean = {'units':[]}
         for chara in dbf['units']:
             chara['sname'] = chara['sname'].lower()
@@ -1746,6 +1760,270 @@ class hatsuneCog(commands.Cog):
 # Hatsune Commands
 #############################################################################################################
 
+    def character_help_embed(self):
+        embed = {
+            'title': 'Character Help',
+            'descr': 'Syntax: `.character [prefix.][name] [option]`\nAliases: `c`, `chara`, `ue`, `card`, `profile`, `stats`',
+            'footer': {'text': 'Character Search', 'url': self.client.user.avatar.url},
+        }
+        temp = []
+        temp.append( 
+            {
+                'name': '`[prefix.]` optional',
+                'value': 'Specifies the character variant to fetch. If omitted, the base character will be fetched. See below for a list of all registered prefixes.',
+                'inline': False
+            }
+        )
+        all_prefixes = sorted(list(self.prefixes['prefixes'].items()), key=lambda x: x[-1]['full'])
+        
+        # experimental
+        with open(ut.full_path(self.rel_path, self.hatsu_cf['index'])) as i:
+            index = json.load(i)
+        
+        for item in all_prefixes:
+            found = False
+            for chara in index['index']:
+                if chara['prefix'] == item[0]:
+                    item[-1]['eg'] = '.'.join([item[0], chara['name']['en']])
+                    found = True
+                    break
+            
+            if not found:
+                item[-1]['eg'] = 'N/A'
+        
+        temp += [
+            {
+                'name': 'Variant',
+                'value': '\n'.join([i[-1]['full'] for i in all_prefixes]),
+                'inline': True
+            },
+            {
+                'name': 'Prefix',
+                'value': '\n'.join([i[0] for i in all_prefixes]),
+                'inline': True
+            },
+            {
+                'name': 'Example',
+                'value': '\n'.join([i[-1]['eg'] for i in all_prefixes]),
+                'inline': True
+            }
+        ]
+
+        temp.append(
+            {
+                'name': '`[name]` required',
+                'value': 'Name of the character in interest. Can be an alias. See `.alias help` for more info.',
+                'inline': False
+            }
+        )
+
+        temp.append(
+            {
+                'name': '`[option]` optional',
+                'value': 'Additional option specification. See below for a list of all valid options.',
+                'inline': False
+            }
+        )
+        temp += [
+            {
+                'name': 'Option',
+                'value': '\n'.join([
+                    'ue',
+                    'flb'
+                ]),
+                'inline': True
+            },
+            {
+                'name': 'Description',
+                'value': '\n'.join([
+                    "Access the unique weapon page",
+                    "Access the FLB (6⭐) variant."
+                ]),
+                'inline': True
+            }
+        ]
+
+        embed['fields'] = temp
+        return ut.embed_contructor(**embed)
+
+    def alias_help_embed(self):
+        embed = {
+            'title': 'Alias Help',
+            'descr': 'Usage: `.alias [mode]`',
+            'footer': {'text': 'Alias', 'url': self.client.user.avatar.url},
+            'fields': [
+                {
+                    'name': '> `[mode]` default',
+                    'value': 'Syntax: `.alias [name/alias]`\n'\
+                        'Enter in a character `name` to check for all their aliases. Likewise, enter in an `alias` to see who it points to.',
+                    'inline': False
+                },
+                {
+                    'name': '> `[mode]` add',
+                    'value': 'Syntax: `.alias add [alias], [name]`\n'\
+                        'Add the following `alias` to the character `name`. `alias` must not already exist.',
+                    'inline': False
+                },
+                {
+                    'name': '> `[mode]` edit',
+                    'value': 'Syntax: `.alias edit [alias], [name]`\n'\
+                        'Change who `alias` points to. `alias` must already exist.',
+                    'inline': False
+                },
+                {
+                    'name': '> `[mode]` remove',
+                    'value': 'Syntax: `.alias remove [alias]`\n'\
+                        'Deletes the `alias`. `alias` must already exist',
+                    'inline': False
+                }
+            ]
+        }
+        return ut.embed_contructor(**embed)
+
+    def pos_help_embed(self):
+        embed = {
+            'title': 'Position Help',
+            'descr': 'Syntax: `.pos [field/character]`\n'\
+                'Enter in a `field` to see the lineup for that field. Valid fields are: `v` for vanguard, `m` for migduard, `r` for rearguard. '\
+                'Enter in a `character` to see their lineup.',
+            'footer': {'text': 'Pos', 'url': self.client.user.avatar.url}
+        }
+        return ut.embed_contructor(**embed)
+
+    def gacha_help_embed(self):
+        embed = {
+            'title': 'Gacha Help',
+            'footer': {'text': 'Gacha', 'url': self.client.user.avatar.url},
+            'fields': [ 
+                {
+                    'name': '[CMD] gacha',
+                    'value': 'Syntax: `.gacha [rolls]`\n'\
+                        'Gacha `rolls` times. Please keep the number sensible.',
+                    'inline': False
+                },
+                {
+                    'name': '[CMD] spark',
+                    'value': 'Syntax: `.spark [character]`\n'\
+                        'Spark for a `character`. `character` must be in the rateup pool. Functions like `gacha` but will stop when you get your spark target. Will automatically stop at 200 unless you add the `nl` option.',
+                    'inline': False
+                }
+            ]
+        }
+        return ut.embed_contructor(**embed)
+    
+    def tag_help_embed(self):
+        pass
+
+    async def hatsune_help(self, ctx, mode):
+        # make all help embeds
+        pages = {
+            'chara': self.character_help_embed(),
+            'alias': self.alias_help_embed(),
+            'pos': self.pos_help_embed(),
+            'gacha': self.gacha_help_embed(),
+            'tag': None
+        }
+
+        page = self.hatsunehelpPage(ctx, pages, mode, self.hatsunehelpView(), self.client.emotes['derp'])
+        await page.start()
+
+    class hatsunehelpView(ut.baseViewHandler):
+        def __init__(self, timeout=90):
+            super().__init__(timeout)
+
+        def remake_buttons(self):
+            super().clear_items()
+            for button in self.pageHandler.make_buttons():
+                super().add_item(button)
+
+        async def clean_up(self):
+            super().stop()
+            await self.pageHandler.main_message.edit(content=self.pageHandler.derp, embed=None, view=None)
+        
+        async def interaction_check(self, interaction: nextcord.Interaction) -> bool:
+            if interaction.user != self.pageHandler.ctx.author:
+                return True
+
+            inter_id = interaction.data.get('custom_id', None)
+            if inter_id.startswith(self.pageHandler.base_id):
+                _id = inter_id.split('_')[-1]
+
+                if _id == 'del':
+                    await self.clean_up()
+                else:
+                    await self.pageHandler.refresh(_id)
+                
+                return True
+
+        async def on_timeout(self):
+            await self.clean_up()
+
+    class hatsunehelpPage(ut.basePageHandler):
+        def __init__(self, ctx, pages, mode, view, derp):
+            self.base_id    = 'hatsuhelp_'
+            self.ctx        = ctx
+            self.pages      = pages
+            self.mode       = mode
+            self.view       = view
+            self.derp       = derp
+
+            super().__init__(ctx.channel)
+            self.view.pass_pageHandler(self)
+
+        def make_buttons(self):
+            button_chara = nextcord.ui.Button(
+                custom_id=self.base_id+'chara',
+                label='character',
+                disabled=self.mode=='chara',
+                style=nextcord.ButtonStyle.secondary if not self.mode=='chara' else nextcord.ButtonStyle.success
+            )
+            button_alias = nextcord.ui.Button(
+                custom_id=self.base_id+'alias',
+                label='alias',
+                disabled=self.mode=='alias',
+                style=nextcord.ButtonStyle.secondary if not self.mode=='alias' else nextcord.ButtonStyle.success
+            )
+            button_pos = nextcord.ui.Button(
+                custom_id=self.base_id+'pos',
+                label='position',
+                disabled=self.mode=='pos',
+                style=nextcord.ButtonStyle.secondary if not self.mode=='pos' else nextcord.ButtonStyle.success
+            )
+            button_gacha = nextcord.ui.Button(
+                custom_id=self.base_id+'gacha',
+                label='gacha',
+                disabled=self.mode=='gacha',
+                style=nextcord.ButtonStyle.secondary if not self.mode=='gacha' else nextcord.ButtonStyle.success
+            )
+            button_tags = nextcord.ui.Button(
+                custom_id=self.base_id+'tags',
+                label='tags',
+                disabled=True, #self.mode=='chara',
+                style=nextcord.ButtonStyle.secondary #if not self.mode=='tags' else nextcord.ButtonStyle.success
+            )
+            button_del = nextcord.ui.Button(
+                custom_id=self.base_id+'del',
+                label='\u00D7',
+                style=nextcord.ButtonStyle.danger
+            )
+            return [
+                button_chara,
+                button_pos,
+                button_tags,
+                button_alias,
+                button_gacha,
+                button_del
+            ]
+
+        async def start(self):
+            self.view.remake_buttons()
+            await super().main_message_send(embed=self.pages[self.mode], view=self.view)
+
+        async def refresh(self, mode):
+            self.mode = mode     
+            self.view.remake_buttons()
+            await self.main_message.edit(embed=self.pages[self.mode], view=self.view)
+        
     def process_request(self, cmd:str):
         """
         Processes command input and if successful returns:
@@ -2087,6 +2365,9 @@ class hatsuneCog(commands.Cog):
 
         if not options:
             await channel.send('No input')
+            return
+        elif options.split()[0].lower() == 'help':
+            await self.hatsune_help(ctx, 'chara')
             return
         
         # find landing page
@@ -2701,6 +2982,11 @@ class hatsuneCog(commands.Cog):
         
         # try to determine a target
         option = option.lower()
+
+        if option == 'help':
+            await self.hatsune_help(ctx, 'pos')
+            return
+
         request = self.process_request(option)
         request = self.fetch_chara(request)
         if request:
@@ -2783,6 +3069,10 @@ class hatsuneCog(commands.Cog):
         channel = ctx.channel
         if not tags:
             await channel.send('no input')
+            return
+
+        if tags.split()[0].lower() == 'help':
+            #await self.hatsune_help(ctx, 'tags')
             return
         
         # try to determine a target
@@ -2878,6 +3168,10 @@ class hatsuneCog(commands.Cog):
             if not option:
                 await channel.send('no input')
                 return
+            elif option.split()[0].lower() == 'help':
+                await self.hatsune_help(ctx, 'alias')
+                return
+            
             
             # check if request is an alias
             if option in self.aliases:
@@ -3026,6 +3320,10 @@ class hatsuneCog(commands.Cog):
     @commands.command(aliases=['spark'])
     async def gacha(self, ctx, *, options='10'):
         channel = ctx.channel
+
+        if options.split()[0].lower() == 'help':
+            await self.hatsune_help(ctx, 'gacha')
+            return
         
         with open(ut.full_path(self.rel_path, self.hatsu_cf['gacha'])) as f:
             gacha_config = json.load(f)
