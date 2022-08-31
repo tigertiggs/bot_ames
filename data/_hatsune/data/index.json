@@ -3469,6 +3469,41 @@
                 "akino",
                 "saren"
             ]
+        },
+        {
+            "id": null,
+            "hnid": 1227,
+            "prefix": "s",
+            "sname": "skyouka",
+            "name": {
+                "en": "kyouka",
+                "jp": "\u30ad\u30e7\u30a6\u30ab(\u30b5\u30de\u30fc)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "skyouka",
+                "shentai",
+                "summerkyouka",
+                "summerhentai",
+                "wetkyouka",
+                "wethentai"
+            ],
+            "kizuna": []
+        },
+        {
+            "id": null,
+            "hnid": 1230,
+            "prefix": null,
+            "sname": "ames",
+            "name": {
+                "en": "ames",
+                "jp": "\u30a2\u30e1\u30b9"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [],
+            "kizuna": []
         }
     ]
 }

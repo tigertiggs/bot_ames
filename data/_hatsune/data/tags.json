@@ -1,0 +1,305 @@
+{
+    "parts": {
+        "アップ":       "_up",
+        "ダウン":       "_down",
+        "低下":         "_down",
+        "失わせる":     "_down",
+        "消費":         "_down",
+        "回復":         "_rec",
+        "物理":         "p",
+        "魔法":         "m",
+        "攻撃":         "atk",
+        "防御":         "def",
+        "クリティカルを受けた際のダメージ": "critdmgrecv",
+        "クリティカル時":"critdmg",
+        "クリティカル": "crit",
+        "無効バリア":   "shield",
+        "吸収バリア":   "barrier",
+        "行動速度":     "atkspd",
+        "移動速度":     "atkspd",
+        "最大ＨＰ":     "hp",
+        "ＨＰ":         "hp",
+        "ＴＰ":         "tp",
+        "上昇":         "gain",
+        "回避":         "eva",
+        "命中":         "acc"
+    },
+    "compound": {
+        "物理攻撃力アップ": {
+            "tag": "patk_up",
+            "flag": 3,
+            "descr": "Physical attack up"
+        },
+        "物理攻撃力ダウン": {
+            "tag": "patk_down",
+            "flag": 3,
+            "descr": "Physcial attack down"
+        },
+        "物理防御力アップ": {
+            "tag": "pdef_up",
+            "flag": 3,
+            "descr": "Physical defense up"
+        },
+        "物理防御力ダウン": {
+            "tag": "pdef_down",
+            "flag": 3,
+            "descr": "Physical def down"
+        },
+        "物理クリティカルアップ": {
+            "tag": "pcrit_up",
+            "flag": 3,
+            "descr": "Physical critical chance up"
+        },
+        "物理クリティカルダウン": {
+            "tag": "pcrit_down",
+            "flag": 3,
+            "descr": "Physical critical chance down"
+        },
+        "物理攻撃クリティカル時のダメージアップ": {
+            "tag": "pcritdmg_up",
+            "flag": 3,
+            "descr": "Physical critical damage up"
+        },
+        "物理無効バリア": {
+            "tag": "pshield",
+            "flag": 3,
+            "descr": "Physical damage nullification shield"
+        },
+
+        "魔法攻撃力アップ": {
+            "tag": "matk_up",
+            "flag": 3,
+            "descr": "Magic attack up"
+        },
+        "魔法攻撃力ダウン": {
+            "tag": "matk_down",
+            "flag": 3,
+            "descr": "Magic attack down"
+        },
+        "魔法防御力アップ": {
+            "tag": "mdef_up",
+            "flag": 3,
+            "descr": "Magic def up"
+        },
+        "魔法防御力ダウン": {
+            "tag": "mdef_down",
+            "flag": 3,
+            "descr": "Magic def down"
+        },
+        "魔法クリティカルアップ": {
+            "tag": "mcrit_up",
+            "flag": 3,
+            "descr": "Magic critical chance up"
+        },
+        "魔法クリティカルダウン": {
+            "tag": "mcrit_down",
+            "flag": 3,
+            "descr": "Magic critical chance down"
+        },
+        "魔法クリティカル時のダメージアップ": {
+            "tag": "mcritdmg_up",
+            "flag": 3,
+            "descr": "Magic critical damage up"
+        },
+        "魔法無効バリア": {
+            "tag": "mshield",
+            "flag": 3,
+            "descr": "Magic damage nullification shield"
+        },
+        "魔法吸収バリア": {
+            "tag": "mbarrier",
+            "flag": 3,
+            "descr": "Magic damage to HP barrier"
+        },
+
+        "ＨＰ回復": {
+            "tag": "hp_rec",
+            "flag": 3,
+            "descr": "HP recovery"
+        },
+        "最大ＨＰアップ": {
+            "tag": "hp_up",
+            "flag": 3,
+            "descr": "Max HP up"
+        },
+        "ＨＰ消費": {
+            "tag": "hp_down",
+            "flag": 3,
+            "descr": "Lose HP"
+        },
+
+        "ＴＰ回復": {
+            "tag": "tp_rec",
+            "flag": 3,
+            "descr": "TP recovery"
+        },
+        "ＴＰ上昇ダウン": {
+            "tag": "tpgain_down",
+            "flag": 3,
+            "descr": "TP gain down"
+        },
+        "ＴＰ失わせる": {
+            "tag": "tp_down",
+            "flag": 3,
+            "descr": "Lose TP"
+        },
+
+        "行動速度アップ": {
+            "tag": "atkspd_up",
+            "flag": 3,
+            "descr": "Action speed up"
+        },
+        "行動速度低下させる": {
+            "tag": "atkspd_down",
+            "flag": 3,
+            "descr": "Action speed down"
+        },
+        "移動速度低下させる": {
+            "tag": "atkspd_down",
+            "flag": 3,
+            "descr": "Action speed down"
+        },
+        "回避アップ": {
+            "tag": "eva_up",
+            "flag": 3,
+            "descr": "Evasion up"
+        },
+        "命中ダウン": {
+            "tag": "acc_down",
+            "flag": 3,
+            "descr": "Accuracy down"
+        },
+        "クリティカルを受けた際のダメージアップ": {
+            "tag": "critdmgrecv_up",
+            "flag": 3,
+            "descr": "Critical damage received up"
+        },
+        "クリティカル時のダメージダウン": {
+            "tag": "crit_down",
+            "flag": 3,
+            "descr": "All critical chance down"
+        }
+    },
+    "meta": {
+        "物理": {
+            "en": "phys",
+            "flag": 0,
+            "descr": "Physical attacker"
+        },
+        "魔法": {
+            "tag": "magic",
+            "flag": 0,
+            "descr": "Magic attacker"
+        },
+
+        "前衛": {
+            "tag": "front",
+            "flag": 1,
+            "descr": "Vanguard position"
+        },
+        "中衛": {
+            "tag": "mid",
+            "flag": 1,
+            "descr": "Midguard position"
+        },
+        "後衛": {
+            "tag": "rear",
+            "flag": 1,
+            "descr": "Rearguard position"
+        },
+
+        "ue": {
+            "tag": "ue",
+            "flag": 2,
+            "descr": "Unique equipment available"
+        },
+        "flb": {
+            "tag": "flb",
+            "flag": 2,
+            "descr": "FLB available"
+        }
+    },
+    "full": {
+        "範囲内": {
+            "tag": "aoe",
+            "flag": 4,
+            "descr": "Skills/UB are AOE"
+        },
+        "敵全体" : {
+            "tag": "aoe",
+            "flag": 4,
+            "descr": "Skills/UB are AOE"
+        },
+
+        "暗闇": {
+            "tag": "blind",
+            "flag": 4,
+            "descr": "Inflict blind (ACC down)"
+        },
+        "行動不能": {
+            "tag": "paralyze",
+            "flag": 4,
+            "descr": "Unable to take action"
+        },
+        "無敵": {
+            "tag": "invul",
+            "flag": 4,
+            "descr": "Invincibility"
+        },
+        "誘惑": {
+            "tag": "charm",
+            "flag": 4,
+            "descr": "Charm (target allies)"
+        },
+        "混乱": {
+            "tag": "confuse",
+            "flag": 4,
+            "descr": "Confuse (may attack allies)"
+        },
+        "猛毒": {
+            "tag": "poison2",
+            "flag": 4,
+            "descr": "Higher poison"
+        },
+        "毒": {
+            "tag": "poison",
+            "flag": 4,
+            "descr": "Poison (DOT)"
+        },
+        "呪い": {
+            "tag": "curse",
+            "flag": 4,
+            "descr": "Curse"
+        },
+        "呪詛": {
+            "tag": "curse2",
+            "flag": 4,
+            "descr": "Higher curse"
+        },
+        "挑発": {
+            "tag": "taunt",
+            "flag": 4,
+            "descr": "Taunt"
+        },
+        "唱喚": {
+            "tag": "summon",
+            "flag": 4,
+            "descr": "Summon allies"
+        },
+        "恐慌": {
+            "tag": "fear",
+            "flag": 4,
+            "descr": "Fear"
+        },
+        "スタン": {
+            "tag": "stun",
+            "flag": 4,
+            "descr": "Stun"
+        },
+        "火傷": {
+            "tag": "burn",
+            "flag": 4,
+            "descr": "Burn"
+        }
+    }
+}

@@ -1603,7 +1603,7 @@ class hatsuneCog(commands.Cog):
         
         msg = "Updating gacha. Command keys: `prifes`, `double`, `lim`, `ssr`, `sr`, `r`, `exit`\n"\
             "`prifes/double` -> `prifes/double:0|1\n"\
-            "`pools` -> `pools:sname,...\n"\
+            "`pools` -> `pools:sname,...`\n"\
             "`lim` will always replace while the rest will always append\n"
         status = await channel.send(msg)
         while True:

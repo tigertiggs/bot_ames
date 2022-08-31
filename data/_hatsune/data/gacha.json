@@ -10,11 +10,11 @@
     "ssr_rate_up": 0.007,
     "sr_rate_up": 0,
     "r_rate_up": 0,
-    "prifes": false,
+    "prifes": true,
     "double": false,
     "pools": {
         "lim": [
-            "smimi"
+            "ames"
         ],
         "prifes": [
             "muimi",
