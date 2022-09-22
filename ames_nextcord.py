@@ -70,7 +70,7 @@ class Ames_nextcord(commands.AutoShardedBot):
 
     def _start_log(self):
         self.Log    = logging.getLogger('nextcord')
-        self.Log.setLevel(logging.DEBUG)
+        self.Log.setLevel(logging.WARNING)
         handler     = logging.FileHandler(filename=ut.full_path(self.dir,'ames_nextcord.log'), encoding='utf-8', mode='w')
         handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
         self.Log.addHandler(handler)
