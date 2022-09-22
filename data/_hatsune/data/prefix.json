@@ -99,6 +99,10 @@
         "rr": {
             "full": "Pirate",
             "short": null
+        },
+        "e": {
+            "full": "Explorer",
+            "short": "Expl."
         }
     },
     "prefix_alias": {
@@ -146,6 +150,8 @@
         "thief": "t",
         "pt": "t",
         "pirate": "rr",
-        "pi": "rr"
+        "pi": "rr",
+        "explorer": "e",
+        "explore": "e"
     }
 }

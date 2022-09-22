@@ -345,7 +345,7 @@
                 "en": "eriko",
                 "jp": "\u30a8\u30ea\u30b3"
             },
-            "flb": false,
+            "flb": true,
             "ue": true,
             "enum_alias": [],
             "kizuna": []
@@ -401,7 +401,7 @@
                 "en": "shinobu",
                 "jp": "\u30b7\u30ce\u30d6"
             },
-            "flb": false,
+            "flb": true,
             "ue": true,
             "enum_alias": [],
             "kizuna": []
@@ -541,7 +541,7 @@
                 "en": "ilya",
                 "jp": "\u30a4\u30ea\u30e4"
             },
-            "flb": false,
+            "flb": true,
             "ue": true,
             "enum_alias": [],
             "kizuna": []
@@ -3237,6 +3237,27 @@
         },
         {
             "id": null,
+            "hnid": 1227,
+            "prefix": "s",
+            "sname": "skyouka",
+            "name": {
+                "en": "kyouka",
+                "jp": "\u30ad\u30e7\u30a6\u30ab(\u30b5\u30de\u30fc)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "skyouka",
+                "shentai",
+                "summerkyouka",
+                "summerhentai",
+                "wetkyouka",
+                "wethentai"
+            ],
+            "kizuna": []
+        },
+        {
+            "id": null,
             "hnid": 1228,
             "prefix": "s",
             "sname": "smisogi",
@@ -3274,6 +3295,56 @@
                 "wetmimi",
                 "wetbunny",
                 "wetrabbit"
+            ],
+            "kizuna": []
+        },
+        {
+            "id": null,
+            "hnid": 1230,
+            "prefix": null,
+            "sname": "ames",
+            "name": {
+                "en": "ames",
+                "jp": "\u30a2\u30e1\u30b9"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [],
+            "kizuna": []
+        },
+        {
+            "id": null,
+            "hnid": 1231,
+            "prefix": "e",
+            "sname": "emaho",
+            "name": {
+                "en": "maho",
+                "jp": "\u30de\u30db(\u30a8\u30af\u30b9\u30d7\u30ed\u30fc\u30e9\u30fc)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "emaho",
+                "explorermaho",
+                "exploremaho"
+            ],
+            "kizuna": []
+        },
+        {
+            "id": null,
+            "hnid": 1232,
+            "prefix": "e",
+            "sname": "eayane",
+            "name": {
+                "en": "ayane",
+                "jp": "\u30a2\u30e4\u30cd(\u30a8\u30af\u30b9\u30d7\u30ed\u30fc\u30e9\u30fc)"
+            },
+            "flb": false,
+            "ue": false,
+            "enum_alias": [
+                "eayane",
+                "explorerayane",
+                "exploreayane"
             ],
             "kizuna": []
         },
@@ -3469,41 +3540,6 @@
                 "akino",
                 "saren"
             ]
-        },
-        {
-            "id": null,
-            "hnid": 1227,
-            "prefix": "s",
-            "sname": "skyouka",
-            "name": {
-                "en": "kyouka",
-                "jp": "\u30ad\u30e7\u30a6\u30ab(\u30b5\u30de\u30fc)"
-            },
-            "flb": false,
-            "ue": false,
-            "enum_alias": [
-                "skyouka",
-                "shentai",
-                "summerkyouka",
-                "summerhentai",
-                "wetkyouka",
-                "wethentai"
-            ],
-            "kizuna": []
-        },
-        {
-            "id": null,
-            "hnid": 1230,
-            "prefix": null,
-            "sname": "ames",
-            "name": {
-                "en": "ames",
-                "jp": "\u30a2\u30e1\u30b9"
-            },
-            "flb": false,
-            "ue": false,
-            "enum_alias": [],
-            "kizuna": []
         }
     ]
 }
