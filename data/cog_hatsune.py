@@ -515,7 +515,7 @@ class hatsuneCog(commands.Cog):
             for key, value in raw['data']['conversion_skill_data'].items():
                 # complete character conversion on FLB
             #if key.startswith('conversion_skill_data'):
-                print('here')
+                #print('here')
                 OVERRIDE = 'flb'
                 data[OVERRIDE]['hnid'] = int(conversion[str(data['hnid'])])
                 # UB
@@ -1602,7 +1602,7 @@ class hatsuneCog(commands.Cog):
             gacha = json.load(p)
         
         msg = "Updating gacha. Command keys: `prifes`, `double`, `lim`, `ssr`, `sr`, `r`, `exit`\n"\
-            "`prifes/double` -> `prifes/double:0|1\n"\
+            "`prifes/double` -> `prifes/double:0|1`\n"\
             "`pools` -> `pools:sname,...`\n"\
             "`lim` will always replace while the rest will always append\n"
         status = await channel.send(msg)
