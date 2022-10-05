@@ -2361,7 +2361,7 @@ class hatsuneCog(commands.Cog):
         )
     async def character(self, ctx, *, options):
         channel = ctx.channel
-        author = ctx.author
+        #author = ctx.author
 
         if not options:
             await channel.send('No input')
@@ -2875,12 +2875,17 @@ class hatsuneCog(commands.Cog):
             # sk1, sk1+, sk1a, sk1a+
             sk1 = self.make_skill('sk1', data['base']['normal']['sk1'], False, False, False)
             sk1p = self.make_skill('sk1', data['base']['normal']['ue']['sk1'], False, False, True)
-            base_embed['fields'] += [*sk1, *sk1p]
+            #base_embed['fields'] += [*sk1, *sk1p]
+            base_embed['fields'] += sk1
+            if sk1p: base_embed['fields'] += sk1p
 
             if data['base']['b_alt']:
                 sk1a = self.make_skill('sk1', data['base']['alt']['sk1'], False, True, False)
                 sk1ap = self.make_skill('sk1', data['base']['alt']['ue']['sk1'], False, True, True)
-                base_embed['fields'] += [*sk1a, *sk1ap]
+                #base_embed['fields'] += [*sk1a, *sk1ap]
+                base_embed['fields'] += sk1a
+                if sk1ap: base_embed['fields'] += sk1ap
+
                 #for i in [sk1a, sk1ap]:
                 #    if i:
                 #        base_embed['fields'] += i
