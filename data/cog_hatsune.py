@@ -3218,7 +3218,7 @@ class hatsuneCog(commands.Cog):
             await channel.send(f"Alias `{alias}` already exists: `{alias}` \u21D2 `{self.get_full_name(index['name']['en'], index['prefix'])}`")
             return
         
-        request = self.validate_alias_request(chara)
+        request = self.process_request(chara)
         request = self.fetch_chara(request)
         if request:
             if request['success'] and not request['fallback']:
@@ -3250,7 +3250,7 @@ class hatsuneCog(commands.Cog):
             await channel.send(f"Could not edit: alias name `{alias}` is a master alias and cannot be editted")
             return
         
-        request = self.validate_alias_request(chara)
+        request = self.process_request(chara)
         request = self.fetch_chara(request)
 
         if request:
