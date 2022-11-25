@@ -3226,6 +3226,8 @@ class hatsuneCog(commands.Cog):
                 await channel.send(f"Added alias `{alias}` \u21D2 `{self.get_full_name(request['target']['name']['en'], request['target']['prefix'])}`")
                 with open(ut.full_path(self.rel_path, self.hatsu_cf['aliases_loc']), 'w+') as i:
                     i.write(json.dumps(local, indent=4))
+
+                self.load_aliases()
                 return
 
         await channel.send(f"Did not find `{chara}` in database to alias")
@@ -3259,6 +3261,8 @@ class hatsuneCog(commands.Cog):
                 await channel.send(f"Changed alias to `{alias}` \u21D2 `{self.get_full_name(request['target']['name']['en'], request['target']['prefix'])}`")
                 with open(ut.full_path(self.rel_path, self.hatsu_cf['aliases_loc']), 'w+') as i:
                     i.write(json.dumps(local, indent=4))
+
+                self.load_aliases()
                 return
 
         await channel.send(f"Did not find `{chara}` in database to alias")
@@ -3282,6 +3286,8 @@ class hatsuneCog(commands.Cog):
         local.pop(alias)
         with open(ut.full_path(self.rel_path, self.hatsu_cf['aliases_loc']), 'w+') as i:
             i.write(json.dumps(local, indent=4))
+        
+        self.load_aliases()
         await channel.send(f"Removed alias `{alias}`")
 
     def validate_alias_request(self, alias:str):
