@@ -3228,6 +3228,7 @@ class hatsuneCog(commands.Cog):
                     i.write(json.dumps(local, indent=4))
 
                 self.load_aliases()
+                await self.make_index(None, False)
                 return
 
         await channel.send(f"Did not find `{chara}` in database to alias")
@@ -3263,6 +3264,7 @@ class hatsuneCog(commands.Cog):
                     i.write(json.dumps(local, indent=4))
 
                 self.load_aliases()
+                await self.make_index(None, False)
                 return
 
         await channel.send(f"Did not find `{chara}` in database to alias")
@@ -3288,6 +3290,7 @@ class hatsuneCog(commands.Cog):
             i.write(json.dumps(local, indent=4))
         
         self.load_aliases()
+        await self.make_index(None, False)
         await channel.send(f"Removed alias `{alias}`")
 
     def validate_alias_request(self, alias:str):
