@@ -202,6 +202,19 @@ hatsucb_qentry = {
     }
 }
 
+hatsucb_room = {
+    'creators'  : [],
+    'rooms'     : {}
+}
+
+hatsucb_roomentry = {
+    "description"   : None,
+    "message_id"    : None,
+    "target"        : None,
+    "creator"       : None,
+    "members"       : []
+}
+
 ###################### twitter ######################
 twit_listener = {
     'id'    : None,
@@ -256,6 +269,10 @@ def fetch(template_name):
         return copy.deepcopy(hatsucb_q)
     elif    template_name == 'hcb_qentry':
         return copy.deepcopy(hatsucb_qentry)
+    elif    template_name == 'hcb_rooms':
+        return copy.deepcopy(hatsucb_room)
+    elif    template_name == 'hcb_roomsentry':
+        return copy.deepcopy(hatsucb_roomentry)
 
     elif    template_name == 'tw_listener':
         return copy.deepcopy(twit_listener)

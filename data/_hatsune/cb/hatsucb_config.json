@@ -1,4 +1,5 @@
 {
     "guilds"        : "guilds",
-    "queues"        : "queues"
+    "queues"        : "queues",
+    "rooms"         : "rooms"
 }

@@ -1,4 +1,4 @@
-import json, asyncio, datetime, pytz
+import json, asyncio, datetime, pytz, re
 import nextcord
 from discord import NotFound
 from nextcord.ext import commands, tasks
@@ -30,8 +30,8 @@ class hatsucbCog(commands.Cog):
         with open(ut.full_path(self.rel_path, 'hatsucb_config.json')) as f:
             self.hatsucb_cf = json.load(f)
         
-        self.timeout_checker.start()
-        self.new_day_checker.start()
+        #self.timeout_checker.start()
+        #self.new_day_checker.start()
     
     @commands.group(invoke_without_command=True)
     async def guild(self, ctx, option=None):
@@ -1228,9 +1228,11 @@ class hatsucbCog(commands.Cog):
         """
         channel = ctx.channel
         author = ctx.author
-
-        # fetch guild
         guild = ctx.guild
+
+        return self.validate_queue_request_new(guild, channel, author)
+    
+    def validate_queue_request_new(self, guild, channel, author):
         try:
             with open(ut.full_path(self.rel_path, self.hatsucb_cf['guilds'], f"{guild.id}.json")) as f:
                 guild_prop = json.load(f)
@@ -2386,3 +2388,538 @@ class hatsucbCog(commands.Cog):
                 continue
 
             await self.update_notice(clan, ql, guild_prop, ctx.guild, ql_fn, False)
+
+    @commands.group(invoke_without_command=True, aliases=['r', 'wr'])
+    async def room(self, ctx, *, option=None):
+        channel = ctx.channel
+        author = ctx.author
+
+        # validate
+        IS_VALID, _, clan_prop, _, _, _ = self.validate_queue_request(ctx)
+        if not IS_VALID:
+            return
+        # load room file
+        fpath = ut.full_path(self.rel_path, self.hatsucb_cf['rooms'], f"{channel.guild.id}-{clan_prop['subguild_id']}.json")
+        try:
+            with open(fpath) as f:
+                rooms = json.load(f)
+        except:
+            rooms = tem.fetch('hcb_rooms')
+            with open(fpath, 'w+') as f:
+                f.write(json.dumps(rooms, indent=4))
+
+        if ctx.invoked_subcommand is None:
+            # check author's active rooms 
+            if not option:  
+                creator, member = self.author_active_rooms(author.id, rooms)
+
+                if not creator and not member:
+                    await channel.send("You are currently not in any active rooms. You may create one with: \n`.r [description] ; [damage goal in millions(optional)] ; [your estimated damage in millions(optional)]`")
+                else:
+                    embed = {
+                        'title': f"{author.name}'s active rooms.",
+                        'fields': [
+                            {
+                                'name': 'Room Creator',
+                                'value': f"[{creator[0][0]}](https://discord.com/channels/{channel.guild.id}/{channel.id}/{creator[0][1]})" if creator else "-",
+                                'inline': False
+                            },
+                            {
+                                'name': 'Room Member',
+                                'value': "\n".join([f"[{description}](https://discord.com/channels/{channel.guild.id}/{channel.id}/{message_id})" for description,message_id in member]) \
+                                    if member else "-"
+                            }
+                        ]
+                    }
+                    await channel.send(embed=ut.embed_contructor(**embed), delete_after=30)
+            # new room creation
+            else:
+                # check if the author is already a room creator
+                if author.id in rooms['creators']:
+                    await channel.send("You are already a creator of a room! You can only create 1 room at a time. Use `.r` to see your active rooms.")
+                    return
+                
+                option = [i.strip() for i in option.split(';') if i.strip()]
+                description = option[0]
+                if len(option) == 1:
+                    goal = None
+                    est = None
+                elif len(option) == 2:
+                    est = None
+                    goal = option[-1].lower().replace('m','').replace('k','')
+                    try:
+                        goal = float(goal)
+                    except:
+                        await channel.send("Failed to read goal!")
+                        return
+                elif len(option) == 3:
+                    est = option[-1].lower().replace('m','').replace('k','')
+                    goal = option[-2].lower().replace('m','').replace('k','')
+                    try:
+                        goal = float(goal)
+                        est = float(est)
+                    except:
+                        await channel.send("Failed to read goal or estimated damage!")
+                        return
+                else:
+                    await channel.send("Too many inputs!")
+                    return
+                
+                new_room = tem.fetch('hcb_roomsentry')
+                new_room['description'] = description
+                new_room['goal'] = goal
+                new_room['creator'] = (author.id, False, est)
+
+                message = await channel.send(
+                    embed=self.make_room_embed(new_room), 
+                    view=self.roomPageView(fpath, self.make_room_embed, self.roomModal, self.validate_queue_request_new, self.client.emotes['bonk'])
+                )
+                new_room['message_id'] = message.id
+
+                rooms['rooms'][str(message.id)] = new_room
+                rooms['creators'] = [room['creator'][0] for room in rooms['rooms'].values()]
+
+                with open(fpath, 'w+') as f:
+                    f.write(json.dumps(rooms, indent=4))
+
+    @room.command()
+    async def purge(self, ctx):
+        channel = ctx.channel
+
+        # validate
+        IS_VALID, IS_LEADER, clan_prop, _, _, _ = self.validate_queue_request(ctx)
+        if not IS_VALID or not IS_LEADER:
+            return
+        
+        # load room file
+        fpath = ut.full_path(self.rel_path, self.hatsucb_cf['rooms'], f"{channel.guild.id}-{clan_prop['subguild_id']}.json")
+        try:
+            with open(fpath) as f:
+                rooms = json.load(f)
+        except:
+            rooms = tem.fetch('hcb_rooms')
+            with open(fpath, 'w+') as f:
+                f.write(json.dumps(rooms, indent=4))
+        
+        # delete rooms
+        for room in rooms['rooms'].values():
+            try:
+                message = await channel.fetch_message(room['message_id'])
+            except:
+                continue
+            else:
+                await message.edit(content='This room has been purged '+self.client.emotes['bonk'], embed=None, view=None)
+                
+        with open(fpath, 'w+') as f:
+            f.write(json.dumps(tem.fetch('hcb_rooms'), indent=4))
+        
+        await channel.send(self.client.emotes['bonk'])
+    
+    @room.command(alias=['rl'])
+    async def relist(self, ctx):
+        channel = ctx.channel
+        author = ctx.author
+
+        # validate
+        IS_VALID, _, clan_prop, _, _, _ = self.validate_queue_request(ctx)
+        if not IS_VALID:
+            return
+        
+        # load room file
+        fpath = ut.full_path(self.rel_path, self.hatsucb_cf['rooms'], f"{channel.guild.id}-{clan_prop['subguild_id']}.json")
+        try:
+            with open(fpath) as f:
+                rooms = json.load(f)
+        except:
+            rooms = tem.fetch('hcb_rooms')
+            with open(fpath, 'w+') as f:
+                f.write(json.dumps(rooms, indent=4))
+        
+        if not author.id in rooms['creators']:
+            await channel.send("Could not relist: You are not the creator of any rooms!")
+            return
+        else:
+            target_room = None
+            for room in rooms['rooms'].values():
+                if room['creator'][0] == author.id:
+                    target_room = room
+                    break
+            
+            if not target_room:
+                return
+            
+            print(rooms['rooms'])
+            target_room = rooms['rooms'].pop(str(target_room['message_id']))
+
+            try:
+                message = await channel.fetch_message(room['message_id'])
+            except:
+                pass
+            else:
+                await message.edit(content='This room has been moved '+self.client.emotes['bonk'], embed=None, view=None)
+            
+            message = await channel.send(
+                embed=self.make_room_embed(target_room), 
+                view=self.roomPageView(fpath, self.make_room_embed, self.roomModal, self.validate_queue_request_new, self.client.emotes['bonk'])
+            )
+            target_room['message_id'] = message.id
+            rooms['rooms'][str(message.id)] = target_room
+            with open(fpath, 'w+') as f:
+                f.write(json.dumps(rooms, indent=4))
+
+
+    def make_room_embed(self, room):
+        creator_prefix = '👑'
+        member_prefix_r = '🟢'
+        member_prefix_nr = '⚫'
+
+        members = [creator_prefix + f"<@{room['creator'][0]}>"]
+        all_dmg = [room['creator'][-1]]
+
+        for member, ready, estdmg in room['members']:
+            members.append((member_prefix_r if ready else member_prefix_nr)+f"<@{member}>")
+            all_dmg.append(estdmg)
+
+        embed = {
+            'title': 'Ready Room',
+            'descr': room['description'],
+            "fields": [
+                {
+                    'name': 'Target',
+                    'value': f"{sum([i for i in all_dmg if i])} / {room['goal'] if room['goal'] else '-'}",
+                    'inline': False
+                },
+                {
+                    'name': 'Members',
+                    'value': '\n'.join(members),
+                    'inline': True
+                },
+                {
+                    'name': 'Estimated Dmg.',
+                    'value': '\n'.join([str(i) if i else '-' for i in all_dmg]),
+                    'inline': 'True'
+                }
+            ]
+        }
+
+        return ut.embed_contructor(**embed)
+    
+    def author_active_rooms(self, author_id, rooms):
+        creator = []
+        member = []
+        for room in rooms['rooms'].values():
+            if room['creator'][0] == author_id:
+                creator.append((room['description'], room['message_id']))
+            elif author_id in [i[0] for i in room['members']]:
+                member.append((room['description'], room['message_id']))
+        
+        return creator, member
+
+    class roomPageView(ut.baseViewHandler):
+        def __init__(self, fpath, embed, modal, validator, bonk):
+            super().__init__(None)
+            self.base_id = 'ames_cbRoomPageView_'
+            self.bonk = bonk
+            self.room = None
+            self.fpath = fpath
+            self.modal_maker = modal
+            self.embed_maker = embed
+            self.validator = validator
+            self.make_buttons()
+
+        def make_buttons(self):
+            buttons = [
+                nextcord.ui.Button(
+                    custom_id=self.base_id+'join',
+                    label='Join',
+                    style=nextcord.ButtonStyle.success
+                ),
+                nextcord.ui.Button(
+                    custom_id=self.base_id+'leave',
+                    label='Leave',
+                    style=nextcord.ButtonStyle.danger
+                ),
+                nextcord.ui.Button(
+                    custom_id=self.base_id+'toggle',
+                    label='Un/Ready',
+                    style=nextcord.ButtonStyle.primary
+                ),
+                nextcord.ui.Button(
+                    custom_id=self.base_id+'edit',
+                    label='Edit',
+                    style=nextcord.ButtonStyle.secondary
+                ),
+                nextcord.ui.Button(
+                    custom_id=self.base_id+'muster',
+                    label='Muster',
+                    style=nextcord.ButtonStyle.success,
+                    row=2
+                ),
+                nextcord.ui.Button(
+                    custom_id=self.base_id+'disband',
+                    label='Disband',
+                    style=nextcord.ButtonStyle.danger,
+                    row=2
+                )
+            ]
+            for button in buttons:
+                super().add_item(button)
+
+        def roomsf_io(self, room=None):
+            try:
+                with open(self.fpath) as f:
+                    rooms = json.load(f)
+            except:
+                return None, None
+
+            if not room:
+                return rooms['rooms'].get(str(self.message_id), None), rooms
+            else:
+                rooms['rooms'][str(self.message_id)] = room
+                with open(self.fpath, 'w+') as f:
+                    f.write(json.dumps(rooms, indent=4))
+
+
+        async def interaction_check(self, interaction:nextcord.Interaction):
+            inter_id = interaction.data.get('custom_id', None)
+            action = inter_id.split('_')[-1]
+
+            # validate
+            author = interaction.user
+            guild = interaction.guild
+            channel = interaction.channel
+            message = interaction.message
+
+            self.message_id = message.id
+
+            IS_VALID, _, _, _, _, _ = self.validator(guild, channel, author)
+            if not IS_VALID:
+                return False
+                
+            # load the room file
+            room, rooms = self.roomsf_io()
+            if not room or not rooms:
+                return False
+
+            # check membership
+            IS_CREATOR = author.id == room['creator'][0]
+            IS_MEMBER = author.id in [i[0] for i in room['members']]
+
+            ### actions
+            # join
+            # leave
+            # toggle
+            # muster
+            # disband
+            # edit
+
+            if action == 'join' and not (IS_CREATOR or IS_MEMBER):
+                await interaction.response.send_modal(self.modal_maker(room, 'join', self))
+
+            elif action == 'leave' and not IS_CREATOR and IS_MEMBER:
+                room['members'] = [i for i in room['members'] if i[0] != author.id]
+
+            elif action == 'muster' and IS_CREATOR:
+                text = f"Muster call for room: **{room['description']}**\n<@{room['creator'][0]}> " + " ".join([f"<@{member}>" for member, _ in room['members']])
+                await interaction.response.send_message(text)
+                return True
+
+            elif action == 'disband' and IS_CREATOR:
+                await message.edit(content='Room disbanded '+self.bonk, embed=None, view=None)
+                rooms['rooms'].pop(str(message.id))
+                rooms['creators'] = [room['creator'] for room in rooms['rooms'].values()]
+                with open(self.fpath, 'w+') as f:
+                    f.write(json.dumps(rooms, indent=4))
+                return True
+            
+            elif action == 'edit':
+                if IS_CREATOR:
+                    await interaction.response.send_modal(self.modal_maker(room, 'edit_creator', self))
+
+                elif IS_MEMBER:
+                    await interaction.response.send_modal(self.modal_maker(room, 'edit_member', self))
+
+                else:
+                    return True
+            
+            elif action == 'toggle' and IS_MEMBER:
+                target_index = room['members'].index([i for i in room['members'] if i[0] == author.id][0])
+                room['members'][target_index][1] = not room['members'][target_index][1]
+
+            else:
+                return True
+            
+            self.roomsf_io(room)
+            await self.update(room, message)
+            return True
+
+        async def modal_response(self, message, user_id, result_dict):
+            room, _ = self.roomsf_io()
+
+            IS_CREATOR = user_id == room['creator'][0]
+            for key, value in result_dict.items():
+                if key == 'description':
+                    room['description'] = value
+                else:
+                    if value:
+                        try:
+                            value = float(value.lower().replace('m','').replace('k',''))
+                        except:
+                            continue
+                        else:
+                            if key == 'est':
+                                if IS_CREATOR:
+                                    room['creator'][-1] = value
+                                else:
+                                    target_index = room['members'].index([i for i in room['members'] if i[0] == user_id][0])
+                                    room['members'][target_index][-1] = value
+                            elif key == 'goal':
+                                room['goal'] = value
+
+            self.roomsf_io(room)
+            await self.update(room, message)
+        
+        async def update(self, room, message):
+            await message.edit(embed=self.embed_maker(room))
+    
+    class roomModal(nextcord.ui.Modal):
+        def __init__(self, room, mode, view):
+            self.view = view
+            super().__init__(room['description'], timeout=45)
+            self.base_id = 'ames_roomModal_'
+
+            self.make_items(room, mode)
+
+        def make_items(self, room, mode):
+            edit_descr = nextcord.ui.TextInput(
+                custom_id=self.base_id+'description',
+                label='Room Description',
+                default_value=room['description'],
+                required=True,
+                style=nextcord.TextInputStyle.short,
+                placeholder="Required",
+                max_length=200
+                )
+            edit_goal = nextcord.ui.TextInput(
+                custom_id=self.base_id+'target',
+                label='Target Damage',
+                required=False,
+                style=nextcord.TextInputStyle.short,
+                placeholder="unchanged"
+            )
+            edit_estdmg = nextcord.ui.TextInput(
+                custom_id=self.base_id+'est',
+                label='Your Estimated Damage',
+                required=False,
+                style=nextcord.TextInputStyle.short,
+                placeholder="unchanged"
+            )
+            
+            if mode == 'edit_creator':
+                items = [
+                    edit_descr,
+                    edit_goal,
+                    edit_estdmg
+                ]
+
+            elif mode == 'edit_member':
+                items = [ 
+                    edit_estdmg
+                ]
+            
+            elif mode == 'join':
+                items = [ 
+                    edit_estdmg
+                ]
+            
+            for item in items:
+                super().add_item(item)
+
+        async def callback(self, interaction:nextcord.Interaction):
+            results = {}
+            for container in interaction.data['components']:
+                action = container['components'][0]['custom_id'].split('_')[-1]
+                value = container['components'][0]['value']
+                results[action] = value
+            
+            await self.view.modal_response(interaction.message, interaction.user.id, results)
+            return True
+
+    @commands.command(aliases=['tl'])
+    async def shift_time(self, ctx, *, payload):
+# attempt to read the delta time
+        # delta time should always be the the first thing following the command
+        total_time = 90
+        delta = payload.split()[0]
+        delta_len = len(delta)
+        if '.' in delta or ':' in delta:
+            if '.' in delta:
+                m, s = delta.split('.')
+            else:
+                m, s = delta.split(':')
+            try:
+                m = int(m)
+                s = int(s)
+                delta = m*60 + s
+            except:
+                ctx.channel.send('Failed to read remaining time!')
+                return
+        else:
+            try:
+                delta = int(delta)
+            except:
+                ctx.channel.send('Failed to read remaining time!')
+                return
+        
+        temp = []
+        # split payload into newline segments (I hope the format follows newlines)
+        # recover the original payload without the delta
+        payload = payload[delta_len:]
+
+        pattern = '\d*:\d+'
+        times = re.findall(pattern, payload)
+        line = re.sub(pattern, '{}', payload)
+
+        shifted = []
+        for time in times:
+            m, s = time.split(':')
+            try:
+                m = int(m)
+            except:
+                m = 0
+            try:
+                s = int(s)
+            except:
+                ctx.channel.send('Failed to read one of the times within instructions!')
+                return
+            
+            remaining_time = total_time - (m*60 + s)
+            shifted_time = delta - remaining_time
+
+            if shifted_time < 0:
+                shifted.append('-:--')
+            else:
+                m = shifted_time//60
+                s = shifted_time%60
+                if not s//10:
+                    shifted.append(f"{m}:0{s}")
+                else:
+                    shifted.append(f"{m}:{s}")
+
+        await ctx.channel.send('```'+line.format(*shifted)+'```')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
