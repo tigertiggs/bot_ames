@@ -1386,6 +1386,7 @@ class hatsucbCog(commands.Cog):
             return
         
         await self.update_notice(clan_prop, queue_list, guild_prop, ctx.guild, ql_fn, True)
+        await ctx.channel.send('Notice has been updated')
 
     async def update_notice(self, cp, ql, gp, guild, ql_fn, is_new):
         # fetch channel
@@ -1593,7 +1594,7 @@ class hatsucbCog(commands.Cog):
 
     @queue.command(aliases=['r'])
     async def reset(self, ctx, *, options=None):
-        # .q reset (boss) (wave) | (all)
+        # .q reset (boss) (wave) (hits) | (all)
         # .ot reset all
         channel = ctx.channel
         IS_VALID, IS_LEADER, clan_prop, queue_list, guild_prop, ql_fn = self.validate_queue_request(ctx)
@@ -1611,6 +1612,14 @@ class hatsucbCog(commands.Cog):
             if options[0].startswith('a'):
                 to_remove = queue_list['queue'].copy()
                 queue_list['queue'] = []
+            elif options[0].startswith('h'):
+                queue_list['done'] = []
+                with open(ut.full_path(self.rel_path, self.hatsucb_cf['queues'], ql_fn), 'w+') as f:
+                    f.write(json.dumps(queue_list, indent=4))
+        
+                await self.update_notice(clan_prop, queue_list, guild_prop, ctx.guild, ql_fn, False)
+                await channel.send('Successfully reset registered hits')
+                return
             else:
                 BOSS = 'ALL'
                 WAVE = 'ALL'
@@ -2333,6 +2342,17 @@ class hatsucbCog(commands.Cog):
                     if not ql.get('reset', False):
                         ql['done']  = []
                         ql['reset'] = True
+
+                        # attempt to notify main channel
+                        #try:
+                        #    guild_id, subguild_id = qlfn.split('/')[-1].split('.')[0].split('-')
+                        #    with open(ut.full_path(self.rel_path, self.hatsucb_cf['guilds'], guild_id+'.json')) as gcf:
+                        #        gc = json.load(gcf)
+                        #    
+                        #    clan_config = gc['clans'][subguild_id]
+                        #    requested_channel = await self.client.fetch_channel(int(gc['channel_primary']))
+                        #    await requested_channel.send('')
+
                     else:
                         continue
                 else:
