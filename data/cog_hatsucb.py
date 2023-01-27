@@ -2353,6 +2353,8 @@ class hatsucbCog(commands.Cog):
                         #    requested_channel = await self.client.fetch_channel(int(gc['channel_primary']))
                         #    await requested_channel.send('')
 
+                        await self.logger.report('[reset] successfully reset queues for', qlfn)
+
                     else:
                         continue
                 else:
