@@ -5,7 +5,7 @@
 data/_private/*
 
 # configs
-data/_configs/*
+data/_configs/guilds/*
 
 data/_hatsune/cb/guilds/*
 data/_hatsune/cb/queues/*
