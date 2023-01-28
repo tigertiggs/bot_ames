@@ -532,7 +532,7 @@ class twitterCog(commands.Cog):
                 with open(ut.full_path(self.rel_path, self.twitter_cf['caches'], cln), 'w+') as f:
                     f.write(json.dumps(cl,indent=4))
                 
-            elif payload['status'] != 401:
+            elif not payload['status'] in [401,404] :
                 await self.logger.report('return code', payload["status"], payload, f"```{acc}```")
     
     def cog_unload(self):
