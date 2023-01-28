@@ -31,7 +31,7 @@ class hatsucbCog(commands.Cog):
             self.hatsucb_cf = json.load(f)
         
         #self.timeout_checker.start()
-        #self.new_day_checker.start()
+        self.new_day_checker.start()
     
     @commands.group(invoke_without_command=True)
     async def guild(self, ctx, option=None):
@@ -2327,10 +2327,13 @@ class hatsucbCog(commands.Cog):
 
             # 0500 - 0505 JST
             threshold_min = 5 * 60 * 60
+            #threshold_min = (11 + 55/60) * 60 * 60
             threshold_max = threshold_min + 5 * 60
 
             ct_jp = datetime.datetime.now(pytz.timezone('Asia/Tokyo'))
             ct_jp_relative = ct_jp.hour*60*60 + ct_jp.minute*60 + ct_jp.second
+
+            #print('current', ct_jp_relative, 'target', threshold_min)
 
             # iterate through queues
             for qlfn in glob(ut.full_path(self.rel_path, self.hatsucb_cf['queues'], '*.json')):
@@ -2338,6 +2341,7 @@ class hatsucbCog(commands.Cog):
                     ql = json.load(qlf)
 
                 if ct_jp_relative >= threshold_min and ct_jp_relative < threshold_max:
+                    #print('threshold reached')
                     # reset 
                     if not ql.get('reset', False):
                         ql['done']  = []
