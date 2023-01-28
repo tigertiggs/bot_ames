@@ -197,7 +197,7 @@ class hatsucbCog(commands.Cog):
                     'value': '> **Track Wave:** ' + ('True' if cp['settings']['b_wave'] else 'False') + \
                         "\nEnables the ability to track waves. Enabling this allows the following functions:\n"\
                             "1) Allows members to queue for specific waves via `.q [boss_num] [wave]`\n"\
-                                "2) Allows members to announce boss kills for automatic wave incrememt via `.q [boss_num] x`",
+                                "2) Allows members to announce boss kills for automatic wave increment via `.q [boss_num] x`",
                     'inline': False
                 },
                 {
@@ -305,7 +305,7 @@ class hatsucbCog(commands.Cog):
                     'value': '> **Track Wave:** ' + ('True' if cp['settings']['b_wave'] else 'False') + \
                         "\nEnables the ability to track waves. Enabling this allows the following functions:\n"\
                             "1) Allows members to queue for specific waves via `.q [boss_num] [wave]`\n"\
-                                "2) Allows members to announce boss kills for automatic wave incrememt via `.q [boss_num] x`",
+                                "2) Allows members to announce boss kills for automatic wave increment via `.q [boss_num] x`",
                     'inline': False
                 },
                 {
@@ -1110,7 +1110,7 @@ class hatsucbCog(commands.Cog):
 
                             msg = f"Unqueued {(author.name+' ') if DELEGATE_MODE else ''}from boss {boss} " + (f"wave {wave}" if SETTINGS['b_wave'] else '')
                         
-                        if not Q_OT and SETTINGS['b_autoincr']: await channel.send(f'Incrememted {author.name if DELEGATE_MODE else "your"} daily hit count.')
+                        if not Q_OT and SETTINGS['b_autoincr']: await channel.send(f'incremented {author.name if DELEGATE_MODE else "your"} daily hit count.')
                             
                     elif Q_CANCEL:
                         if not request_active:
@@ -2602,6 +2602,12 @@ class hatsucbCog(commands.Cog):
         members = [creator_prefix + f"<@{room['creator'][0]}>"]
         all_dmg = [room['creator'][-1]]
 
+        user = self.client.get_user(room['creator'][0])
+        if user:
+            avatar = user.display_avatar.url
+        else:
+            avatar = None
+
         for member, ready, estdmg in room['members']:
             members.append((member_prefix_r if ready else member_prefix_nr)+f"<@{member}>")
             all_dmg.append(estdmg)
@@ -2627,6 +2633,9 @@ class hatsucbCog(commands.Cog):
                 }
             ]
         }
+        
+        if avatar:
+            embed['thumb'] = avatar
 
         return ut.embed_contructor(**embed)
     
@@ -2705,7 +2714,6 @@ class hatsucbCog(commands.Cog):
                 with open(self.fpath, 'w+') as f:
                     f.write(json.dumps(rooms, indent=4))
 
-
         async def interaction_check(self, interaction:nextcord.Interaction):
             inter_id = interaction.data.get('custom_id', None)
             action = inter_id.split('_')[-1]
@@ -2746,7 +2754,7 @@ class hatsucbCog(commands.Cog):
                 room['members'] = [i for i in room['members'] if i[0] != author.id]
 
             elif action == 'muster' and IS_CREATOR:
-                text = f"Muster call for room: **{room['description']}**\n<@{room['creator'][0]}> " + " ".join([f"<@{member}>" for member, _ in room['members']])
+                text = f"Muster call for room **{room['description']}**\n<@{room['creator'][0]}> " + " ".join([f"<@{member}>" for member, ready, _ in room['members'] if ready])
                 await interaction.response.send_message(text)
                 return True
 
@@ -2783,24 +2791,35 @@ class hatsucbCog(commands.Cog):
             room, _ = self.roomsf_io()
 
             IS_CREATOR = user_id == room['creator'][0]
-            for key, value in result_dict.items():
+
+            print(result_dict)
+
+            for og_key, value in result_dict.items():
+                
+                key, mode = og_key.split(':')
+
+
                 if key == 'description':
                     room['description'] = value
                 else:
-                    if value:
-                        try:
+                    try:
+                        if value:
                             value = float(value.lower().replace('m','').replace('k',''))
-                        except:
-                            continue
                         else:
-                            if key == 'est':
-                                if IS_CREATOR:
-                                    room['creator'][-1] = value
-                                else:
-                                    target_index = room['members'].index([i for i in room['members'] if i[0] == user_id][0])
-                                    room['members'][target_index][-1] = value
-                            elif key == 'goal':
-                                room['goal'] = value
+                            value = None
+                    except:
+                        continue
+                    else:
+                        if key == 'est':
+                            if IS_CREATOR:
+                                room['creator'][-1] = value
+                            elif mode == 'join':
+                                room['members'].append([user_id, False, value])
+                            else:
+                                target_index = room['members'].index([i for i in room['members'] if i[0] == user_id][0])
+                                room['members'][target_index][-1] = value
+                        elif key == 'goal':
+                            room['goal'] = value
 
             self.roomsf_io(room)
             await self.update(room, message)
@@ -2817,6 +2836,28 @@ class hatsucbCog(commands.Cog):
             self.make_items(room, mode)
 
         def make_items(self, room, mode):
+            edit_descr_dict = {
+                'label': 'Room Description',
+                'default_value': room['description'],
+                'required': True,
+                'style': nextcord.TextInputStyle.short,
+                'placeholder': "Required",
+                'max_length': 256
+            }
+            edit_goal_dict = {
+                'label': 'Target Damage',
+                'required': False,
+                'style': nextcord.TextInputStyle.short,
+                'placeholder': "unchanged"
+            }
+            edit_estdmg_dict = {
+                'label': 'Your Estimated Damage',
+                'required': False,
+                'style': nextcord.TextInputStyle.short,
+                'placeholder': "unchanged"
+            }
+
+            """
             edit_descr = nextcord.ui.TextInput(
                 custom_id=self.base_id+'description',
                 label='Room Description',
@@ -2840,26 +2881,36 @@ class hatsucbCog(commands.Cog):
                 style=nextcord.TextInputStyle.short,
                 placeholder="unchanged"
             )
+            """
             
             if mode == 'edit_creator':
+                code = ':editCreator'
+                edit_descr_dict['custom_id'] = self.base_id+'description'+code
+                edit_goal_dict['custom_id'] = self.base_id+'target'+code
+                edit_estdmg_dict['custom_id'] = self.base_id+'est'+code
+
                 items = [
-                    edit_descr,
-                    edit_goal,
-                    edit_estdmg
+                    edit_descr_dict,
+                    edit_goal_dict,
+                    edit_estdmg_dict
                 ]
 
             elif mode == 'edit_member':
+                code = ':editMember'
+                edit_estdmg_dict['custom_id'] = self.base_id+'est'+code
                 items = [ 
-                    edit_estdmg
+                    edit_estdmg_dict
                 ]
             
             elif mode == 'join':
+                code = ':join'
+                edit_estdmg_dict['custom_id'] = self.base_id+'est'+code
                 items = [ 
-                    edit_estdmg
+                    edit_estdmg_dict
                 ]
             
             for item in items:
-                super().add_item(item)
+                super().add_item(nextcord.ui.TextInput(**item))
 
         async def callback(self, interaction:nextcord.Interaction):
             results = {}
@@ -2933,19 +2984,5 @@ class hatsucbCog(commands.Cog):
                     shifted.append(f"{m}:{s}")
 
         await ctx.channel.send('```'+line.format(*shifted)+'```')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
