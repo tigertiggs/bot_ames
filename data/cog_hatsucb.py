@@ -2574,7 +2574,7 @@ class hatsucbCog(commands.Cog):
             if not target_room:
                 return
             
-            print(rooms['rooms'])
+            #print(rooms['rooms'])
             target_room = rooms['rooms'].pop(str(target_room['message_id']))
 
             try:
@@ -2610,7 +2610,8 @@ class hatsucbCog(commands.Cog):
 
         for member, ready, estdmg in room['members']:
             members.append((member_prefix_r if ready else member_prefix_nr)+f"<@{member}>")
-            all_dmg.append(estdmg)
+            if ready:
+                all_dmg.append(estdmg)
 
         embed = {
             'title': 'Ready Room',
@@ -2792,7 +2793,7 @@ class hatsucbCog(commands.Cog):
 
             IS_CREATOR = user_id == room['creator'][0]
 
-            print(result_dict)
+            #print(result_dict)
 
             for og_key, value in result_dict.items():
                 
@@ -2818,7 +2819,7 @@ class hatsucbCog(commands.Cog):
                             else:
                                 target_index = room['members'].index([i for i in room['members'] if i[0] == user_id][0])
                                 room['members'][target_index][-1] = value
-                        elif key == 'goal':
+                        elif key == 'target':
                             room['goal'] = value
 
             self.roomsf_io(room)
