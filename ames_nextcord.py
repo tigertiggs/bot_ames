@@ -111,6 +111,8 @@ class Ames_nextcord(commands.AutoShardedBot):
     def check_perm(self, user, mode='admin'):
         if user.id in self.config['developers']:
             return True
+        if mode == 'devs':
+            return False
 
         if mode == "admin":
             # server owner always have admin perm
