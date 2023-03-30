@@ -1,7 +1,9 @@
 from nextcord.ext import commands, tasks
+from nextcord import File
 import utils as ut
 import templates as tem
 import json, requests, traceback, re
+from datetime import datetime, timezone
 from io import BytesIO
 from glob import iglob
 
@@ -32,6 +34,9 @@ class twitterCog(commands.Cog):
         self.t = re.compile(
             "^(?:https?:\/\/(?:(?:mobile|web).)?)?twitter\.com(?:(?:\/i\/web)?|(?:\/[a-zA-Z\d_]+))\/status\/(?P<tweet_id>[\d]+)(?:\?s=\d+|\/photo\/\d+)?(?:(?:&|\?|\/)[^\s]*)?$")
             #, re.DEBUG)
+
+        self.p1 = re.compile("^(?:https?:\/\/)?(?:www\.)?(?:pixiv.net\/)?(?:member[^\s]+illust_id=)?(?P<Illust_ID>\d+)(?:[^\s]+)?$")
+        self.p2 = re.compile("^(?:https?:\/\/)?(?:www\.)?(?:pixiv.net\/)?(?:.+\/)?(?:artworks\/)?(?P<Illust_ID>\d+)(?:[^\s]+)?$")
 
         self.listener.start()
     
@@ -169,7 +174,7 @@ class twitterCog(commands.Cog):
             glp = gp['services'].get(index, tem.fetch('tw_guild_lis'))
         
         msg = self.twit_set_msg(lp, glp, SET_MODE)
-        msgctx = "> Command keys: `active`, `channel`, `exit`, `cancel`\n"\
+        msgctx = "> Command keys: `active[0 or 1]`, `channel[#channel]`, `exit`, `cancel`\n"\
             "Syntax: `key1:value1, key2:value2, ...`\n"
         
         msg += msgctx
@@ -239,7 +244,7 @@ class twitterCog(commands.Cog):
             gpf.write(json.dumps(gp, indent=4))
         
         await status.edit(content='Saved')
-    
+
     def twit_set_msg(self, lp, glp, set_mode):
         if not set_mode:
             msg = f"> [Twitter] Setting `{lp['name']}`\n"\
@@ -259,8 +264,7 @@ class twitterCog(commands.Cog):
         author = ctx.author
         channel = ctx.channel
 
-        if not self.client.check_perm(author):
-            await channel.send('Insufficent permissions '+self.client.emotes['ames'])
+        if not self.client.check_perm(author, 'devs'):
             return
 
         SET_MODE = ctx.invoked_with == 'edit'
@@ -447,7 +451,7 @@ class twitterCog(commands.Cog):
         text = tweet["text"]
         for replacement in tweet["replacements"]:
             text = text.replace(replacement["marker"],
-            f"[{replacement['text']}]({replacement['link']})")
+            f"[{replacement['text']}]({replacement['link']})" if replacement.get('link', False) else replacement['text'])
         while "{br}" in text:
             text = text.replace("{br}", "\n")
         return text
@@ -462,13 +466,20 @@ class twitterCog(commands.Cog):
         }
         return ut.embed_contructor(**embed) #{"type":"embed","payload":ut.embed_contructor(**embed)}
     
-    async def send_tw_embeds(self, embeds, links, channel):
-        if embeds:
-            #await channel.send(embeds=embeds)
-            for em in embeds:
-                await channel.send(embed=em)
+    async def send_tw_embeds(self, embeds, links, channel, base_link, quoted_tweet_payload=None, quoted_link=None):
+        parent = await channel.send(("[Quotes a Tweet]\n" if quoted_tweet_payload else "") + f"<{base_link}>", embed=embeds[0])
+        for em in embeds[1:]:
+            await parent.reply(embed=em)
         if links:
-            await channel.send('\n'.join(links))
+            await parent.reply('\n'.join(links))
+        
+        if quoted_tweet_payload:
+            quoted_embeds, quoted_links = quoted_tweet_payload
+            quoted = await parent.reply(f"[Quoted Tweet]\n<{quoted_link}>", embed=quoted_embeds[0])
+            for em in quoted_embeds[1:]:
+                await quoted.reply(embed=em)
+            if quoted_links:
+                await quoted.reply("\n".join(quoted_links))
     
     @tasks.loop(seconds=TIMER)
     async def listener(self):
@@ -510,13 +521,29 @@ class twitterCog(commands.Cog):
             if payload['status'] == 200:
 
                 for tweet in payload['result']['tweets'][::-1]:
+                    base_link = f"https://twitter.com/{payload['result']['user']['screen_name']}/status/"
+
                     if not tweet['tweet_id'] in cl['idv']:
                         embeds, links = self.make_twitter_embeds(payload['result']['user'], tweet)
+
+                        # check quoted status
+                        quoted = tweet.get('quoted_status', None)
+                        quoted_link = None
+                        if quoted:
+                            quoted_link = f"https://twitter.com/{quoted['user']['screen_name']}/status/{quoted['tweet']['tweet_id']}"
+                            quoted = self.make_twitter_embeds(quoted['user'], quoted['tweet'])
 
                         cl['idv'].append(tweet['tweet_id'])
                         if len(cl['idv']) > self.twitter_cf['cache_depth']:
                             cl['idv'].pop(0)
-                        
+
+                        # do timeframe check - only post tweets done in the past 24hrs
+                        # example time string
+                        # 'Tue May 03 16:49:30 +0000 2022'
+                        tweet_date = datetime.strptime(tweet['date'], "%a %b %d %H:%M:%S %z %Y")
+                        if (datetime.now(timezone.utc) - tweet_date).seconds > (24*60*60):
+                            continue
+ 
                         for guild in iglob(ut.full_path(self.rel_path, self.twitter_cf['guilds'], '*.json')):
                             with open(guild) as f:
                                 gp = json.load(f)
@@ -527,7 +554,7 @@ class twitterCog(commands.Cog):
                                 guild = self.client.get_guild(int(guild.split('\\')[-1].split('.')[0]))
                                 channel = guild.get_channel(int(glp['channel']))
                                 if channel:
-                                    await self.send_tw_embeds(embeds, links, channel)
+                                    await self.send_tw_embeds(embeds, links, channel, base_link + str(tweet['tweet_id']), quoted, quoted_link)
                     
                 with open(ut.full_path(self.rel_path, self.twitter_cf['caches'], cln), 'w+') as f:
                     f.write(json.dumps(cl,indent=4))
@@ -548,7 +575,7 @@ class twitterCog(commands.Cog):
     async def on_message(self, message):
         if message.author.bot:
             return
-        
+           
         # load gp
         try:
             with open(ut.full_path(self.rel_path,self.twitter_cf['guilds'],f"{message.guild.id}.json")) as f:
@@ -558,8 +585,6 @@ class twitterCog(commands.Cog):
         
         if gp['convert']:
             # parse twit link
-            # test: https://twitter.com/xToir/status/1511573039754137600
-
             match = self.t.search(message.content.strip())
 
             if match:
@@ -578,8 +603,90 @@ class twitterCog(commands.Cog):
                 
                 if payload['status'] == 200:
                     embeds, links = self.make_twitter_embeds(payload['result']['user'], payload['result']['tweet'], message.author)
+                    
+                    # check quoted status
+                    quoted = payload['result']['tweet'].get('quoted_status', None)
+                    quoted_link = None
+                    if quoted:
+                        quoted_link = f"https://twitter.com/{quoted['user']['screen_name']}/status/{quoted['tweet']['tweet_id']}"
+                        quoted = self.make_twitter_embeds(quoted['user'], quoted['tweet'], message.author)
+
                     await message.delete()
-                    await self.send_tw_embeds(embeds, links, message.channel)
+                    await self.send_tw_embeds(embeds, links, message.channel, match.group(), quoted, quoted_link)
+        
+        # pixiv addition
+        match1 = self.p1.search(message.content.strip())
+        match2 = self.p2.search(message.content.strip())
+        if match1 or match2:
+            if match2:
+                match = match2
+            else:
+                match = match1
+
+            try:
+                params = {
+                    "cmd": "pixiv.get.illust",
+                    "query": match.groupdict()['Illust_ID']
+                }
+                result = requests.get(self.api, params=params)
+                payload = json.load(BytesIO(result.content))
+
+            except Exception as e:
+                await self.logger.report(self.name, e)
+                await self.logger.report(''.join(traceback.format_exception(type(e), e, e.__traceback__)))
+                return
+
+            if payload['Status'] == 200:
+                await message.delete()
+                parent, children = self.make_pixiv_embeds(payload['Result'], message.content.strip(), message.author)
+
+                main = await message.channel.send(f"<{message.content.strip()}>", embed=parent[0], file=parent[1])
+                for child in children:
+                    await main.reply(embed=child[0], file=child[1])
+            
+    def make_pixiv_embeds(self, payload, link, author):
+        TAG = "[{}](https://www.pixiv.net/en/tags/{}/artworks)"
+
+        parent = {
+            "title": payload['Data']['title'],
+            'url': link,
+            'descr': self.construct_tweet_text(payload['Data']['caption']),
+            'author': {'text': payload['User']['name']},
+            'image': "attachment://temp.png", #self.stream_image(payload['Illust'][0]['original']),
+            'footer': {
+                'text': f"Pixiv | sent by {author.name}",
+                'url': author.avatar.url
+            },
+            'fields': [
+                {
+                    'name': '> Tags',
+                    'value': ', '.join([TAG.format(item['altname'] if item['altname'] else item['tag_name'], item['tag_name']) for item in payload['Tags']])
+                }
+            ]
+        }
+
+        children = []
+        for i, child in enumerate(payload['Illust'][1:6]):
+            children.append(
+                (self.make_pixiv_child(len(payload['Illust']), i+2, child, link), self.stream_image(child['original']))
+            )
+        
+        return (ut.embed_contructor(**parent), self.stream_image(payload['Illust'][0]['original'])), children
+
+    def stream_image(self, url):
+        HEADERS = {'referer': 'https://www.pixiv.net/'}
+
+        #return Image.open(BytesIO(requests.get(url, headers=HEADERS).content))
+        return File(BytesIO(requests.get(url, headers=HEADERS).content), filename='temp.png')
+
+    def make_pixiv_child(self, total, i, url, link):
+        embed = {
+            'title': f"Image {i} of {total}",
+            'url': link,
+            'image': "attachment://temp.png", #self.stream_image(url)
+            'footer': {'text':'Pixiv'}
+        }
+        return ut.embed_contructor(**embed)
 
     #@twitter.command()
     #async def test(self, ctx):
