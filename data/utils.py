@@ -77,7 +77,7 @@ def embed_contructor(**kwargs):
         title       = kwargs.get('title', EMPTY),
         url         = kwargs.get('url', EMPTY),
         description = kwargs.get('descr', EMPTY),
-        timestamp   = kwargs.get('ts', dt.datetime.utcnow()),
+        timestamp   = kwargs.get('ts', dt.datetime.now(dt.timezone.utc)),
         color       = nextcord.Colour.from_rgb(*kwargs['colour']) if kwargs.get('colour', False) else EMPTY
     )
     if kwargs.get('thumb', False):
