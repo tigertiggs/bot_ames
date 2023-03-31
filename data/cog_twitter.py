@@ -35,8 +35,8 @@ class twitterCog(commands.Cog):
             "^(?:https?:\/\/(?:(?:mobile|web).)?)?twitter\.com(?:(?:\/i\/web)?|(?:\/[a-zA-Z\d_]+))\/status\/(?P<tweet_id>[\d]+)(?:\?s=\d+|\/photo\/\d+)?(?:(?:&|\?|\/)[^\s]*)?$")
             #, re.DEBUG)
 
-        self.p1 = re.compile("^(?:https?:\/\/)?(?:www\.)?(?:pixiv.net\/)?(?:member[^\s]+illust_id=)?(?P<Illust_ID>\d+)(?:[^\s]+)?$")
-        self.p2 = re.compile("^(?:https?:\/\/)?(?:www\.)?(?:pixiv.net\/)?(?:.+\/)?(?:artworks\/)?(?P<Illust_ID>\d+)(?:[^\s]+)?$")
+        self.p1 = re.compile("^(?:https?:\/\/)?(?:www\.)?(?:pixiv\.net\/){1}(?:member[^\s]+illust_id=)?(?P<Illust_ID>\d+)(?:[^\s]+)?$")
+        self.p2 = re.compile("^(?:https?:\/\/)?(?:www\.)?(?:pixiv\.net\/){1}(?:.+\/)?(?:artworks\/)?(?P<Illust_ID>\d+)(?:[^\s]+)?$")
 
         self.listener.start()
     

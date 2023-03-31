@@ -1,0 +1,217 @@
+{
+    "timer": 60,
+    "active": true,
+    "cache_limit": 100,
+    "accounts": {
+        "pcrd_en": {
+            "active": true,
+            "includeRT": true,
+            "id": 962090120370376704,
+            "name": "Princess Connect! Re:Dive (EN)",
+            "guilds": {
+                "419624511189811201": {
+                    "id": 419624511189811201,
+                    "active": true,
+                    "channel": 610834758519357471
+                },
+                "346971107510714369": {
+                    "id": 346971107510714369,
+                    "active": true,
+                    "channel": null
+                }
+            }
+        },
+        "pcrd_jp": {
+            "active": true,
+            "includeRT": true,
+            "id": 765105291633405954,
+            "name": "Princess Connect! Re:Dive (JP)",
+            "guilds": {
+                "419624511189811201": {
+                    "id": 419624511189811201,
+                    "active": true,
+                    "channel": 610834758519357471
+                },
+                "346971107510714369": {
+                    "id": 346971107510714369,
+                    "active": true,
+                    "channel": 639646345501868043
+                }
+            }
+        },
+        "bo_jp": {
+            "active": true,
+            "includeRT": false,
+            "id": 1189182974849249286,
+            "name": "Blue Oath (JP)",
+            "guilds": {
+                "599479580272885781": {
+                    "id": 599479580272885781,
+                    "active": false,
+                    "channel": 644081058811346966
+                }
+            }
+        },
+        "gfl_en": {
+            "active": true,
+            "includeRT": false,
+            "id": 958921874523607040,
+            "name": "Girls' Frontline (EN)",
+            "guilds": {}
+        },
+        "azl_jp": {
+            "active": true,
+            "includeRT": true,
+            "id": 864400939125415936,
+            "name": "Azur Lane (JP)",
+            "guilds": {
+                "599479580272885781": {
+                    "id": 599479580272885781,
+                    "active": true,
+                    "channel": 644081058811346966
+                }
+            }
+        },
+        "bandori_jp": {
+            "active": true,
+            "includeRT": true,
+            "id": 775280864674525184,
+            "name": "Bang Dream (JP)",
+            "guilds": {}
+        },
+        "genshin_en": {
+            "name": "Genshin Impact (EN)",
+            "id": 1072404907230060544,
+            "active": true,
+            "includeRT": true,
+            "guilds": {
+                "599479580272885781": {
+                    "id": 599479580272885781,
+                    "active": false,
+                    "channel": 644081058811346966
+                }
+            }
+        },
+        "genshin_jp": {
+            "name": "Genshin Impact (JP)",
+            "id": 1070960596357509121,
+            "active": true,
+            "includeRT": true,
+            "guilds": {
+                "419624511189811201": {
+                    "id": 419624511189811201,
+                    "active": true,
+                    "channel": 452693390811987968
+                },
+                "599479580272885781": {
+                    "id": 599479580272885781,
+                    "active": true,
+                    "channel": 644081058811346966
+                }
+            }
+        },
+        "ak_jp": {
+            "name": "Arknights (JP)",
+            "id": 1027065272371372033,
+            "active": true,
+            "includeRT": true,
+            "guilds": {
+                "419624511189811201": {
+                    "id": 419624511189811201,
+                    "active": true,
+                    "channel": 497009652685602817
+                }
+            }
+        },
+        "ak_en": {
+            "name": "Arknights (EN)",
+            "id": 1126470462777610241,
+            "active": true,
+            "includeRT": true,
+            "guilds": {}
+        },
+        "barchivejp": {
+            "name": "Blue Archive(JP)",
+            "id": 1237586987969687555,
+            "active": true,
+            "includeRT": true,
+            "guilds": {
+                "419624511189811201": {
+                    "id": 419624511189811201,
+                    "active": true,
+                    "channel": 601000693519613953
+                },
+                "599479580272885781": {
+                    "id": 599479580272885781,
+                    "active": true,
+                    "channel": 644081058811346966
+                }
+            }
+        },
+        "umamusu_jp": {
+            "name": "Uma Musume (JP)",
+            "id": 769070659943235584,
+            "active": true,
+            "includeRT": true,
+            "guilds": {
+                "419624511189811201": {
+                    "id": 419624511189811201,
+                    "active": true,
+                    "channel": 813283549058564126
+                }
+            }
+        },
+        "umamusu_en": {
+            "name": "Uma Musume (EN unofficial)",
+            "id": 796741372187381760,
+            "active": true,
+            "includeRT": true,
+            "guilds": {
+                "419624511189811201": {
+                    "id": 419624511189811201,
+                    "active": true,
+                    "channel": 813283549058564126
+                }
+            }
+        },
+        "NSGEmgAlert_jp": {
+            "name": "NGSEmgAlertBot",
+            "id": 1407577828116234242,
+            "active": true,
+            "includeRT": true,
+            "guilds": {
+                "419624511189811201": {
+                    "id": 419624511189811201,
+                    "active": false,
+                    "channel": 852920335384444928
+                }
+            }
+        },
+        "pso2_emg_hr_jp": {
+            "name": "pso2_emg_hour",
+            "id": 2689735002,
+            "active": true,
+            "includeRT": true,
+            "guilds": {
+                "419624511189811201": {
+                    "id": 419624511189811201,
+                    "active": false,
+                    "channel": 852920335384444928
+                }
+            }
+        },
+        "bluearchive_en": {
+            "name": "Blue Archive (EN)",
+            "id": 1419538139392090112,
+            "active": true,
+            "includeRT": true,
+            "guilds": {
+                "419624511189811201": {
+                    "id": 419624511189811201,
+                    "active": true,
+                    "channel": 601000693519613953
+                }
+            }
+        }
+    }
+}

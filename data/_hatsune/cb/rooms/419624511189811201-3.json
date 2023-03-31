@@ -1,4 +1,19 @@
 {
-    "creators": [],
-    "rooms": {}
+    "creators": [
+        235361069202145280
+    ],
+    "rooms": {
+        "1068902056485728256": {
+            "description": "<:gayzm:1064277768679989320> enthusiasts",
+            "message_id": 1068902056485728256,
+            "target": null,
+            "creator": [
+                235361069202145280,
+                false,
+                null
+            ],
+            "members": [],
+            "goal": null
+        }
+    }
 }
