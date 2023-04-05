@@ -486,6 +486,7 @@ class twitterCog(commands.Cog):
         await self.func_listener()
     
     async def func_listener(self):
+        return # twitter api going p2w 5/4/23
         # load listeners
         with open(ut.full_path(self.rel_path, self.twitter_cf['listeners'])) as f:
             lp = json.load(f)['account']
@@ -587,7 +588,7 @@ class twitterCog(commands.Cog):
             # parse twit link
             match = self.t.search(message.content.strip())
 
-            if match:
+            if False: #match: twitter api going p2w 5/4/23
                 # fetch
                 try:
                     params = {
