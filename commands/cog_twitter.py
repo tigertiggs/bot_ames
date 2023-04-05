@@ -32,6 +32,7 @@ class twitterCog(commands.Cog):
 
     @tasks.loop(seconds=timer)
     async def listener(self):
+        return
         #with open(os.path.join(self.client.dir, self.client.config['twitter_config_path'])) as tf:
         #    config = json.load(tf)
 
