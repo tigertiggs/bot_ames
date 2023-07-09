@@ -1235,6 +1235,9 @@ class hatsucbCog(commands.Cog):
         return self.validate_queue_request_new(guild, channel, author)
     
     def validate_queue_request_new(self, guild, channel, author):
+        """
+        returns: is_valid, is_leader, cp, ql, gp, fn
+        """
         try:
             with open(ut.full_path(self.rel_path, self.hatsucb_cf['guilds'], f"{guild.id}.json")) as f:
                 guild_prop = json.load(f)
@@ -1395,12 +1398,14 @@ class hatsucbCog(commands.Cog):
         if not cp['channel_notice']:
             return
         channel = guild.get_channel(int(cp['channel_notice']))
+        primary_channel = guild.get_channel(int(cp['channel_primary']))
         if not channel:
             return
         
         embeds = [
             self.embed_hits(guild, cp, ql),
-            self.embed_q_ot(guild, gp, cp, ql)
+            self.embed_q_ot(guild, gp, cp, ql),
+            await self.make_room_notice(cp, gp, primary_channel)
         ]
         
         msg = None
@@ -2442,13 +2447,54 @@ class hatsucbCog(commands.Cog):
 
             await self.update_notice(clan, ql, guild_prop, ctx.guild, ql_fn, False)
 
+    async def make_room_notice(self, cp, gp, channel):
+        fpath = ut.full_path(self.rel_path, self.hatsucb_cf['rooms'], f"{channel.guild.id}-{cp['subguild_id']}.json")
+        try:
+            with open(fpath) as f:
+                rooms = json.load(f)
+        except:
+            rooms = tem.fetch('hcb_rooms')
+            with open(fpath, 'w+') as f:
+                f.write(json.dumps(rooms, indent=4))
+        
+        target_bosses = [f"Boss {i+1} {bossname}" for i, bossname in enumerate(gp['bosses'])]
+        target_creators = [self.client.get_user(id).mention if id != None else 'No Room Created' for id in rooms['creators']]
+        target_messages = ['-']*5
+        for k,v in sorted(list(rooms['rooms'].items()), key=lambda x: x[-1]['boss']):
+            target_message = await channel.fetch_message(int(k))
+            target_messages[v['boss']-1] = target_message.jump_url if target_message else 'Broken Message Link'
+
+        embed = {
+            'title': f"{cp['name']} clan Active Rooms",
+            'descr': "You can create a room with `.r [boss num]; [description (optional)]`",
+            'fields': [
+                {
+                    'name': 'Boss',
+                    'value': '\n'.join(target_bosses),
+                    'inline': True
+                },
+                {
+                    'name': 'Room Creator',
+                    'value': '\n'.join(target_creators),
+                    'inline': True
+                },
+                {
+                    'name': 'Message Link',
+                    'value': '\n'.join(target_messages),
+                    'inline': True
+                }
+            ]
+        }
+
+        return ut.embed_contructor(**embed)
+
     @commands.group(invoke_without_command=True, aliases=['r', 'wr'])
     async def room(self, ctx, *, option=None):
         channel = ctx.channel
         author = ctx.author
 
         # validate
-        IS_VALID, _, clan_prop, _, gp, _ = self.validate_queue_request(ctx)
+        IS_VALID, _, clan_prop, ql, gp, _ = self.validate_queue_request(ctx)
         if not IS_VALID:
             return
         # load room file
@@ -2464,35 +2510,7 @@ class hatsucbCog(commands.Cog):
         if ctx.invoked_subcommand is None:
             # Check active rooms
             if not option:  
-                target_bosses = [f"Boss {i+1} {bossname}" for i, bossname in enumerate(gp['bosses'])]
-                target_creators = [self.client.get_user(id).mention if id != None else 'No Room Created' for id in rooms['creators']]
-                target_messages = ['-']*5
-                for k,v in sorted(list(rooms['rooms'].items()), key=lambda x: x[-1]['boss']):
-                    target_message = await channel.fetch_message(int(k))
-                    target_messages[v['boss']-1] = target_message.jump_url if target_message else 'Broken Message Link'
-
-                embed = {
-                    'title': f"{clan_prop['name']} clan Active Rooms",
-                    'descr': "You can create a room with `.r [boss num]; [description (optional)]`",
-                    'fields': [
-                        {
-                            'name': 'Boss',
-                            'value': '\n'.join(target_bosses),
-                            'inline': True
-                        },
-                        {
-                            'name': 'Room Creator',
-                            'value': '\n'.join(target_creators),
-                            'inline': True
-                        },
-                        {
-                            'name': 'Message Link',
-                            'value': '\n'.join(target_messages),
-                            'inline': True
-                        }
-                    ]
-                }
-                await channel.send(embed=ut.embed_contructor(**embed), delete_after=30)
+                await channel.send(embed=await self.make_room_notice(clan_prop, gp, channel), delete_after=30)
 
             # new room creation
             # syntax: .r [boss num]; [description (optional)]
@@ -2517,7 +2535,10 @@ class hatsucbCog(commands.Cog):
 
                 # validate creator and boss num
                 if rooms['creators'][boss_num-1] != None:
-                    await channel.send('A ready room for this boss already exists - use `.r` for more details')
+                    # get the room 
+                    message_id = [room for room in rooms['rooms'].values() if room['boss'] == boss_num][0]['message_id']
+                    target_room = await channel.fetch_message(int(message_id))
+                    await channel.send(f"A ready room for this boss already exists here: {target_room.jump_url}")
                     return
 
                 new_room = tem.fetch('hcb_roomsentry')
@@ -2528,7 +2549,7 @@ class hatsucbCog(commands.Cog):
 
                 message = await channel.send(
                     embed=self.make_room_embed(new_room, gp), 
-                    view=self.roomPageView(fpath, self.make_room_embed, self.roomModal, self.validate_queue_request_new, self.client.emotes['bonk'], boss_num, gp)
+                    view=self.roomPageView(fpath, self.make_room_embed, self.roomModal, self.validate_queue_request_new, self.client.emotes['bonk'], boss_num, gp, self.update_notice)
                 )
                 new_room['message_id'] = message.id
 
@@ -2537,7 +2558,11 @@ class hatsucbCog(commands.Cog):
                     rooms['creators'][room['boss']-1] = room['creator'][0]
 
                 with open(fpath, 'w+') as f:
-                    f.write(json.dumps(rooms, indent=4))
+                    f.write(json.dumps(rooms, indent=4)) 
+                
+                # update notice
+                await self.update_notice(clan_prop, ql, gp, ctx.guild, None, False)
+
 
     @room.command()
     async def purge(self, ctx):
@@ -2578,7 +2603,7 @@ class hatsucbCog(commands.Cog):
         author = ctx.author
 
         # validate
-        IS_VALID, _, clan_prop, _, guild_prop, _ = self.validate_queue_request(ctx)
+        IS_VALID, _, clan_prop, ql, guild_prop, _ = self.validate_queue_request(ctx)
         if not IS_VALID:
             return
         
@@ -2596,33 +2621,36 @@ class hatsucbCog(commands.Cog):
             await channel.send("Could not relist: You are not the creator of any rooms!")
             return
         else:
-            target_room = None
-            for room in rooms['rooms'].values():
+            target_rooms = []
+            for key, room in rooms['rooms'].items():
                 if room['creator'][0] == author.id:
-                    target_room = room
-                    break
+                    target_rooms.append(key)
             
-            if not target_room:
+            if not target_rooms:
                 return
             
-            #print(rooms['rooms'])
-            target_room = rooms['rooms'].pop(str(target_room['message_id']))
+            #print(target_rooms)
+            target_rooms = [rooms['rooms'].pop(room_id) for room_id in target_rooms]
 
-            try:
-                message = await channel.fetch_message(room['message_id'])
-            except:
-                pass
-            else:
-                await message.edit(content='This room has been moved '+self.client.emotes['bonk'], embed=None, view=None)
-            
-            message = await channel.send(
-                embed=self.make_room_embed(target_room, guild_prop), 
-                view=self.roomPageView(fpath, self.make_room_embed, self.roomModal, self.validate_queue_request_new, self.client.emotes['bonk'], target_room['boss'], guild_prop)
-            )
-            target_room['message_id'] = message.id
-            rooms['rooms'][str(message.id)] = target_room
+            for target_room in target_rooms:
+                try:
+                    message = await channel.fetch_message(target_room['message_id'])
+                except:
+                    pass
+                else:
+                    await message.edit(content='This room has been moved '+self.client.emotes['bonk'], embed=None, view=None)
+                
+                message = await channel.send(
+                    embed=self.make_room_embed(target_room, guild_prop), 
+                    view=self.roomPageView(fpath, self.make_room_embed, self.roomModal, self.validate_queue_request_new, self.client.emotes['bonk'], target_room['boss'], guild_prop, self.update_notice)
+                )
+                target_room['message_id'] = message.id
+                rooms['rooms'][str(message.id)] = target_room
+
             with open(fpath, 'w+') as f:
                 f.write(json.dumps(rooms, indent=4))
+            
+            await self.update_notice(clan_prop, ql, guild_prop, ctx.guild, None, False)
 
 
     def make_room_embed(self, room, gp):
@@ -2678,7 +2706,7 @@ class hatsucbCog(commands.Cog):
         return creator, member
 
     class roomPageView(ut.baseViewHandler):
-        def __init__(self, fpath, embed, modal, validator, bonk, boss, gp):
+        def __init__(self, fpath, embed, modal, validator, bonk, boss, gp, update_notice):
             super().__init__(None)
             self.base_id = 'ames_cbRoomPageView_'
             self.bonk = bonk
@@ -2689,6 +2717,7 @@ class hatsucbCog(commands.Cog):
             self.modal_maker = modal
             self.embed_maker = embed
             self.validator = validator
+            self.update_notice = update_notice
             self.make_buttons()
 
         def make_buttons(self):
@@ -2755,7 +2784,7 @@ class hatsucbCog(commands.Cog):
 
             self.message_id = message.id
 
-            IS_VALID, _, _, _, _, _ = self.validator(guild, channel, author)
+            IS_VALID, _, cp, ql, gp, _ = self.validator(guild, channel, author)
             if not IS_VALID:
                 return False
                 
@@ -2794,6 +2823,7 @@ class hatsucbCog(commands.Cog):
                 rooms['creators'][self.boss_num-1] = None
                 with open(self.fpath, 'w+') as f:
                     f.write(json.dumps(rooms, indent=4))
+                await self.update_notice(cp, ql, gp, guild, None, False)
                 return True
             
             elif action == 'edit':
