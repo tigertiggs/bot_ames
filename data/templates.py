@@ -203,16 +203,17 @@ hatsucb_qentry = {
 }
 
 hatsucb_room = {
-    'creators'  : [],
+    'creators'  : [None, None, None, None, None],
     'rooms'     : {}
 }
 
 hatsucb_roomentry = {
     "description"   : None,
     "message_id"    : None,
-    "target"        : None,
+    "boss"          : None,
     "creator"       : None,
-    "members"       : []
+    "members"       : [],
+    "timestamp"     : None
 }
 
 ###################### twitter ######################

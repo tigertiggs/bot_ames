@@ -1,4 +1,6 @@
 import json, asyncio, datetime, pytz, re
+from nextcord.interactions import Interaction
+from nextcord.ui.item import Item
 import nextcord
 from discord import NotFound
 from nextcord.ext import commands, tasks
@@ -1571,7 +1573,7 @@ class hatsucbCog(commands.Cog):
             
             embed['fields'].append({
                 'name': ut.SPACE,
-                'value': f"> **{hits_rem} Hits remaining ({len(bracket)}/{len(t_members)})**\n残{hits_rem}凸 {len(t_members)}人",
+                'value': f"> **{hits_rem} Hits remaining ({len(bracket)}/{len(t_members)})**\n残{hits_rem}凸 {len(bracket)}人",
                 'inline': False
             })
             if members:
@@ -2289,33 +2291,58 @@ class hatsucbCog(commands.Cog):
                     if not notice_channel:
                         continue
                     
-                    # load queue
+                    ct = int(datetime.datetime.now(datetime.timezone.utc).timestamp())
+
+                    # load queue(s)
                     qlfn = f"{guild.id}-{cp['subguild_id']}.json"
                     try:
                         with open(ut.full_path(self.rel_path, self.hatsucb_cf['queues'], qlfn)) as qlf:
                             ql = json.load(qlf)
                     except:
-                        continue
+                        pass
+                    else:
+                        # prune
+                        to_remove = []
+                        threshold = SETTINGS['timeout'] * 60
+                        for entry in ql['queue']:
+                            if not entry['type'] == 'queue':
+                                continue
+                            elif (ct - entry['timestamp']) > threshold:
+                                to_remove.append(entry)
 
-                    # prune
-                    to_remove = []
-                    ct = int(datetime.datetime.now(datetime.timezone.utc).timestamp())
-                    threshold = SETTINGS['timeout'] * 60
-                    for entry in ql['queue']:
-                        if not entry['type'] == 'queue':
-                            continue
-                        elif (ct - entry['timestamp']) > threshold:
-                            to_remove.append(entry)
+                        for entry in to_remove:
+                            ql['queue'].pop(ql['queue'].index(entry))
+                        
+                        # save and update channel
+                        with open(ut.full_path(self.rel_path, self.hatsucb_cf['queues'], qlfn), 'w+') as qlf:
+                            qlf.write(json.dumps(ql, indent=4))
 
-                    for entry in to_remove:
-                        ql['queue'].pop(ql['queue'].index(entry))
+                        await self.update_notice(cp, ql, gp, guild, qlfn, False)
+
+                    # room timeout
+                    try:
+                        with open(ut.full_path(self.rel_path, self.hatsucb_cf['rooms'], qlfn)) as rlf:
+                            rooms = json.load(rlf)
+                    except:
+                        pass
+                    else:
+                        for key, room in rooms['rooms'].items():
+                            if (ct - room['timestamp']) > threshold:
+                                try:
+                                    message = await guild.get_channel(int(cp['channel_primary'])).fetch_message(int(room['message_id']))
+                                except:
+                                    continue
+                                else:
+                                    await message.edit(content='This room has timed out '+self.client.emotes['bonk'], embed=None, view=None)
+                                
+                                rooms['rooms'].pop(key)
                     
-                    # save and update channel
-                    with open(ut.full_path(self.rel_path, self.hatsucb_cf['queues'], qlfn), 'w+') as qlf:
-                        qlf.write(json.dumps(ql, indent=4))
+                    for room in rooms['rooms'].values():
+                        rooms['creators'][room['boss']-1] = room['creator'][0]
 
-                    await self.update_notice(cp, ql, gp, guild, qlfn, False)
-        
+                    with open(ut.full_path(self.rel_path, self.hatsucb_cf['rooms'], qlfn), 'w+') as rlf:
+                            rlf.write(json.dumps(rooms, indent=4))
+
         except Exception as e:
             await self.logger.report("[timeout] process failed:", e)
                 
@@ -2421,7 +2448,7 @@ class hatsucbCog(commands.Cog):
         author = ctx.author
 
         # validate
-        IS_VALID, _, clan_prop, _, _, _ = self.validate_queue_request(ctx)
+        IS_VALID, _, clan_prop, _, gp, _ = self.validate_queue_request(ctx)
         if not IS_VALID:
             return
         # load room file
@@ -2435,75 +2462,79 @@ class hatsucbCog(commands.Cog):
                 f.write(json.dumps(rooms, indent=4))
 
         if ctx.invoked_subcommand is None:
-            # check author's active rooms 
+            # Check active rooms
             if not option:  
-                creator, member = self.author_active_rooms(author.id, rooms)
+                target_bosses = [f"Boss {i+1} {bossname}" for i, bossname in enumerate(gp['bosses'])]
+                target_creators = [self.client.get_user(id).mention if id != None else 'No Room Created' for id in rooms['creators']]
+                target_messages = ['-']*5
+                for k,v in sorted(list(rooms['rooms'].items()), key=lambda x: x[-1]['boss']):
+                    target_message = await channel.fetch_message(int(k))
+                    target_messages[v['boss']-1] = target_message.jump_url if target_message else 'Broken Message Link'
 
-                if not creator and not member:
-                    await channel.send("You are currently not in any active rooms. You may create one with: \n`.r [description] ; [damage goal in millions(optional)] ; [your estimated damage in millions(optional)]`")
-                else:
-                    embed = {
-                        'title': f"{author.name}'s active rooms.",
-                        'fields': [
-                            {
-                                'name': 'Room Creator',
-                                'value': f"[{creator[0][0]}](https://discord.com/channels/{channel.guild.id}/{channel.id}/{creator[0][1]})" if creator else "-",
-                                'inline': False
-                            },
-                            {
-                                'name': 'Room Member',
-                                'value': "\n".join([f"[{description}](https://discord.com/channels/{channel.guild.id}/{channel.id}/{message_id})" for description,message_id in member]) \
-                                    if member else "-"
-                            }
-                        ]
-                    }
-                    await channel.send(embed=ut.embed_contructor(**embed), delete_after=30)
+                embed = {
+                    'title': f"{clan_prop['name']} clan Active Rooms",
+                    'descr': "You can create a room with `.r [boss num]; [description (optional)]`",
+                    'fields': [
+                        {
+                            'name': 'Boss',
+                            'value': '\n'.join(target_bosses),
+                            'inline': True
+                        },
+                        {
+                            'name': 'Room Creator',
+                            'value': '\n'.join(target_creators),
+                            'inline': True
+                        },
+                        {
+                            'name': 'Message Link',
+                            'value': '\n'.join(target_messages),
+                            'inline': True
+                        }
+                    ]
+                }
+                await channel.send(embed=ut.embed_contructor(**embed), delete_after=30)
+
             # new room creation
+            # syntax: .r [boss num]; [description (optional)]
             else:
-                # check if the author is already a room creator
-                if author.id in rooms['creators']:
-                    await channel.send("You are already a creator of a room! You can only create 1 room at a time. Use `.r` to see your active rooms.")
-                    return
-                
+                description = "Nothin'"
                 option = [i.strip() for i in option.split(';') if i.strip()]
-                description = option[0]
-                if len(option) == 1:
-                    goal = None
-                    est = None
-                elif len(option) == 2:
-                    est = None
-                    goal = option[-1].lower().replace('m','').replace('k','')
-                    try:
-                        goal = float(goal)
-                    except:
-                        await channel.send("Failed to read goal!")
-                        return
-                elif len(option) == 3:
-                    est = option[-1].lower().replace('m','').replace('k','')
-                    goal = option[-2].lower().replace('m','').replace('k','')
-                    try:
-                        goal = float(goal)
-                        est = float(est)
-                    except:
-                        await channel.send("Failed to read goal or estimated damage!")
-                        return
-                else:
-                    await channel.send("Too many inputs!")
+                if len(option) > 2 or len(option) < 1:
+                    await channel.send('Invalid number or arguments!')
                     return
-                
+                if len(option) >= 1:
+                    try:
+                        boss_num = int(option[0])
+                    except:
+                        await channel.send('Failed to read boss number!')
+                        return
+                    else:
+                        if boss_num < 0 or boss_num > 5:
+                            await channel.send('Invalid boss number!')
+                            return
+                if len(option) == 2:
+                    description = option[-1] 
+
+                # validate creator and boss num
+                if rooms['creators'][boss_num-1] != None:
+                    await channel.send('A ready room for this boss already exists - use `.r` for more details')
+                    return
+
                 new_room = tem.fetch('hcb_roomsentry')
                 new_room['description'] = description
-                new_room['goal'] = goal
-                new_room['creator'] = (author.id, False, est)
+                new_room['creator'] = (author.id, False)
+                new_room['boss'] = boss_num
+                new_room['timestamp'] = int(datetime.datetime.now(datetime.timezone.utc).timestamp())
 
                 message = await channel.send(
-                    embed=self.make_room_embed(new_room), 
-                    view=self.roomPageView(fpath, self.make_room_embed, self.roomModal, self.validate_queue_request_new, self.client.emotes['bonk'])
+                    embed=self.make_room_embed(new_room, gp), 
+                    view=self.roomPageView(fpath, self.make_room_embed, self.roomModal, self.validate_queue_request_new, self.client.emotes['bonk'], boss_num, gp)
                 )
                 new_room['message_id'] = message.id
 
                 rooms['rooms'][str(message.id)] = new_room
-                rooms['creators'] = [room['creator'][0] for room in rooms['rooms'].values()]
+                for room in rooms['rooms'].values():
+                    rooms['creators'][room['boss']-1] = room['creator'][0]
 
                 with open(fpath, 'w+') as f:
                     f.write(json.dumps(rooms, indent=4))
@@ -2541,13 +2572,13 @@ class hatsucbCog(commands.Cog):
         
         await channel.send(self.client.emotes['bonk'])
     
-    @room.command(alias=['rl'])
+    @room.command(aliases=['rl'])
     async def relist(self, ctx):
         channel = ctx.channel
         author = ctx.author
 
         # validate
-        IS_VALID, _, clan_prop, _, _, _ = self.validate_queue_request(ctx)
+        IS_VALID, _, clan_prop, _, guild_prop, _ = self.validate_queue_request(ctx)
         if not IS_VALID:
             return
         
@@ -2585,8 +2616,8 @@ class hatsucbCog(commands.Cog):
                 await message.edit(content='This room has been moved '+self.client.emotes['bonk'], embed=None, view=None)
             
             message = await channel.send(
-                embed=self.make_room_embed(target_room), 
-                view=self.roomPageView(fpath, self.make_room_embed, self.roomModal, self.validate_queue_request_new, self.client.emotes['bonk'])
+                embed=self.make_room_embed(target_room, guild_prop), 
+                view=self.roomPageView(fpath, self.make_room_embed, self.roomModal, self.validate_queue_request_new, self.client.emotes['bonk'], target_room['boss'], guild_prop)
             )
             target_room['message_id'] = message.id
             rooms['rooms'][str(message.id)] = target_room
@@ -2594,7 +2625,7 @@ class hatsucbCog(commands.Cog):
                 f.write(json.dumps(rooms, indent=4))
 
 
-    def make_room_embed(self, room):
+    def make_room_embed(self, room, gp):
         creator_prefix = '👑'
         member_prefix_r = '🟢'
         member_prefix_nr = '⚫'
@@ -2608,30 +2639,25 @@ class hatsucbCog(commands.Cog):
         else:
             avatar = None
 
-        for member, ready, estdmg in room['members']:
+        for member, ready in room['members']:
             members.append((member_prefix_r if ready else member_prefix_nr)+f"<@{member}>")
-            if ready:
-                all_dmg.append(estdmg)
+            #if ready:
+            #    all_dmg.append(estdmg)
 
         embed = {
-            'title': 'Ready Room',
+            'title': f"Boss {room['boss']} {gp['bosses'][room['boss']-1]} Ready Room",
             'descr': room['description'],
             "fields": [
                 {
-                    'name': 'Target',
-                    'value': f"{sum([i for i in all_dmg if i])} / {room['goal'] if room['goal'] else '-'}",
-                    'inline': False
+                    'name': 'Time Elapsed',
+                    'value': f"<t:{room['timestamp']}:R>",
+                    'inline': True
                 },
                 {
                     'name': 'Members',
                     'value': '\n'.join(members),
-                    'inline': True
+                    'inline': False
                 },
-                {
-                    'name': 'Estimated Dmg.',
-                    'value': '\n'.join([str(i) if i else '-' for i in all_dmg]),
-                    'inline': 'True'
-                }
             ]
         }
         
@@ -2652,12 +2678,14 @@ class hatsucbCog(commands.Cog):
         return creator, member
 
     class roomPageView(ut.baseViewHandler):
-        def __init__(self, fpath, embed, modal, validator, bonk):
+        def __init__(self, fpath, embed, modal, validator, bonk, boss, gp):
             super().__init__(None)
             self.base_id = 'ames_cbRoomPageView_'
             self.bonk = bonk
             self.room = None
             self.fpath = fpath
+            self.gp = gp
+            self.boss_num = boss
             self.modal_maker = modal
             self.embed_maker = embed
             self.validator = validator
@@ -2748,21 +2776,22 @@ class hatsucbCog(commands.Cog):
             # disband
             # edit
 
-            if action == 'join' and not (IS_CREATOR or IS_MEMBER):
-                await interaction.response.send_modal(self.modal_maker(room, 'join', self))
+            if action == 'join' and not IS_MEMBER: #(IS_CREATOR or IS_MEMBER):
+                #await interaction.response.send_modal(self.modal_maker(room, 'join', self))
+                room['members'].append([author.id, False])
 
-            elif action == 'leave' and not IS_CREATOR and IS_MEMBER:
+            elif action == 'leave' and IS_MEMBER: # and not IS_CREATOR:
                 room['members'] = [i for i in room['members'] if i[0] != author.id]
 
             elif action == 'muster' and IS_CREATOR:
-                text = f"Muster call for room **{room['description']}**\n<@{room['creator'][0]}> " + " ".join([f"<@{member}>" for member, ready, _ in room['members'] if ready])
+                text = f"Muster call for boss {self.boss_num} ready room **{room['description']}**\n<@{room['creator'][0]}> " + " ".join([f"<@{member}>" for member, ready in room['members'] if ready])
                 await interaction.response.send_message(text)
                 return True
 
             elif action == 'disband' and IS_CREATOR:
                 await message.edit(content='Room disbanded '+self.bonk, embed=None, view=None)
                 rooms['rooms'].pop(str(message.id))
-                rooms['creators'] = [room['creator'] for room in rooms['rooms'].values()]
+                rooms['creators'][self.boss_num-1] = None
                 with open(self.fpath, 'w+') as f:
                     f.write(json.dumps(rooms, indent=4))
                 return True
@@ -2770,10 +2799,6 @@ class hatsucbCog(commands.Cog):
             elif action == 'edit':
                 if IS_CREATOR:
                     await interaction.response.send_modal(self.modal_maker(room, 'edit_creator', self))
-
-                elif IS_MEMBER:
-                    await interaction.response.send_modal(self.modal_maker(room, 'edit_member', self))
-
                 else:
                     return True
             
@@ -2815,7 +2840,7 @@ class hatsucbCog(commands.Cog):
                             if IS_CREATOR:
                                 room['creator'][-1] = value
                             elif mode == 'join':
-                                room['members'].append([user_id, False, value])
+                                room['members'].append([user_id, False])
                             else:
                                 target_index = room['members'].index([i for i in room['members'] if i[0] == user_id][0])
                                 room['members'][target_index][-1] = value
@@ -2826,7 +2851,7 @@ class hatsucbCog(commands.Cog):
             await self.update(room, message)
         
         async def update(self, room, message):
-            await message.edit(embed=self.embed_maker(room))
+            await message.edit(embed=self.embed_maker(room, self.gp))
     
     class roomModal(nextcord.ui.Modal):
         def __init__(self, room, mode, view):
@@ -2845,18 +2870,18 @@ class hatsucbCog(commands.Cog):
                 'placeholder': "Required",
                 'max_length': 256
             }
-            edit_goal_dict = {
-                'label': 'Target Damage',
-                'required': False,
-                'style': nextcord.TextInputStyle.short,
-                'placeholder': "unchanged"
-            }
-            edit_estdmg_dict = {
-                'label': 'Your Estimated Damage',
-                'required': False,
-                'style': nextcord.TextInputStyle.short,
-                'placeholder': "unchanged"
-            }
+#            edit_goal_dict = {
+#                'label': 'Target Damage',
+#                'required': False,
+#                'style': nextcord.TextInputStyle.short,
+#                'placeholder': "unchanged"
+#            }
+#            edit_estdmg_dict = {
+#                'label': 'Your Estimated Damage',
+#                'required': False,
+#                'style': nextcord.TextInputStyle.short,
+#                'placeholder': "unchanged"
+#            }
 
             """
             edit_descr = nextcord.ui.TextInput(
@@ -2887,28 +2912,28 @@ class hatsucbCog(commands.Cog):
             if mode == 'edit_creator':
                 code = ':editCreator'
                 edit_descr_dict['custom_id'] = self.base_id+'description'+code
-                edit_goal_dict['custom_id'] = self.base_id+'target'+code
-                edit_estdmg_dict['custom_id'] = self.base_id+'est'+code
+#               edit_goal_dict['custom_id'] = self.base_id+'target'+code
+#                edit_estdmg_dict['custom_id'] = self.base_id+'est'+code
 
                 items = [
-                    edit_descr_dict,
-                    edit_goal_dict,
-                    edit_estdmg_dict
+                    edit_descr_dict#,
+#                    edit_goal_dict,
+#                    edit_estdmg_dict
                 ]
 
-            elif mode == 'edit_member':
-                code = ':editMember'
-                edit_estdmg_dict['custom_id'] = self.base_id+'est'+code
-                items = [ 
-                    edit_estdmg_dict
-                ]
+#            elif mode == 'edit_member':
+#                code = ':editMember'
+#                edit_estdmg_dict['custom_id'] = self.base_id+'est'+code
+#                items = [ 
+#                    edit_estdmg_dict
+#                ]
             
-            elif mode == 'join':
-                code = ':join'
-                edit_estdmg_dict['custom_id'] = self.base_id+'est'+code
-                items = [ 
-                    edit_estdmg_dict
-                ]
+#            elif mode == 'join':
+#                code = ':join'
+#                edit_estdmg_dict['custom_id'] = self.base_id+'est'+code
+#                items = [ 
+#                    edit_estdmg_dict
+#                ]
             
             for item in items:
                 super().add_item(nextcord.ui.TextInput(**item))
