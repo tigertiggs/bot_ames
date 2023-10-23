@@ -2732,11 +2732,11 @@ class hatsucbCog(commands.Cog):
                     label='Leave',
                     style=nextcord.ButtonStyle.danger
                 ),
-                nextcord.ui.Button(
-                    custom_id=self.base_id+'toggle',
-                    label='Un/Ready',
-                    style=nextcord.ButtonStyle.primary
-                ),
+                #nextcord.ui.Button(
+                #    custom_id=self.base_id+'toggle',
+                #    label='Un/Ready',
+                #    style=nextcord.ButtonStyle.primary
+                #),
                 nextcord.ui.Button(
                     custom_id=self.base_id+'edit',
                     label='Edit',
@@ -2807,7 +2807,7 @@ class hatsucbCog(commands.Cog):
 
             if action == 'join' and not IS_MEMBER: #(IS_CREATOR or IS_MEMBER):
                 #await interaction.response.send_modal(self.modal_maker(room, 'join', self))
-                room['members'].append([author.id, False])
+                room['members'].append([author.id, True])
 
             elif action == 'leave' and IS_MEMBER: # and not IS_CREATOR:
                 room['members'] = [i for i in room['members'] if i[0] != author.id]
