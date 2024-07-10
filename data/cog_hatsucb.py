@@ -3041,4 +3041,50 @@ class hatsucbCog(commands.Cog):
 
         await ctx.channel.send('```'+line.format(*shifted)+'```')
 
+    @commands.command()
+    async def done(self, ctx):
+        # validate
+        IS_VALID, IS_LEADER, clan_prop, queue_list, guild_prop, ql_fn = self.validate_queue_request(ctx)
+        if not IS_VALID:
+            return
+        
+        queue_list['done'] += [str(ctx.author.id)] * 3
+        with open(ut.full_path(self.rel_path, self.hatsucb_cf['queues'], ql_fn), 'w+') as f:
+            f.write(json.dumps(queue_list, indent=4))
 
+        await ctx.channel.send('Otsu o/')
+        await self.update_notice(clan_prop, queue_list, guild_prop, ctx.guild, ql_fn, False)
+
+    @commands.command()
+    async def notdl(self, ctx):
+        # validate
+        IS_VALID, IS_LEADER, clan_prop, queue_list, guild_prop, ql_fn = self.validate_queue_request(ctx)
+        if not IS_VALID:
+            return
+        
+        t_members = self.get_members(ctx.guild, clan_prop['role_member'])
+
+        notdone = []
+        for member in t_members:
+            if queue_list['done'].count(str(member.id)) < 3:
+                notdone.append(member)
+        
+        notdone.sort(key=lambda x: x.name)
+
+        embed = {
+            "title": f"Ready list",
+            "descr": (f"Clan #{clan_prop['subguild_id']}'s" if not clan_prop['name'] else f"{clan_prop['name'].title()}'s") + \
+                f" members with valid hits left. There are **{len(notdone)}** member(s).",
+            "footer": {'text': 'Ready list'},
+            "fields": []
+        }
+
+        for chunk in ut.chunks(notdone, 10):
+            temp = {
+                'name': 'Name',
+                'value': "\n".join(["<@{}>".format(member.id) for member in chunk]),
+                'inline': True
+            }
+            embed['fields'].append(temp)
+
+        await ctx.channel.send(embed=ut.embed_contructor(**embed))
