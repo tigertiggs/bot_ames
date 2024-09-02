@@ -631,6 +631,7 @@ class twitterCog(commands.Cog):
                 }
                 result = requests.get(self.api, params=params)
                 payload = json.load(BytesIO(result.content))
+                print(json.dumps(payload))
 
             except Exception as e:
                 await self.logger.report(self.name, e)
@@ -642,6 +643,7 @@ class twitterCog(commands.Cog):
                 parent, children = self.make_pixiv_embeds(payload['Result'], message.content.strip(), message.author)
 
                 main = await message.channel.send(f"<{message.content.strip()}>", embed=parent[0], file=parent[1])
+                #main = await message.channel.send(file=parent[1])
                 for child in children:
                     await main.reply(embed=child[0], file=child[1])
             
@@ -675,10 +677,17 @@ class twitterCog(commands.Cog):
         return (ut.embed_contructor(**parent), self.stream_image(payload['Illust'][0]['original'])), children
 
     def stream_image(self, url):
-        HEADERS = {'referer': 'https://www.pixiv.net/'}
+        HEADERS = {'referer': 'https://www.pixiv.net/',
+                   'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"}
 
         #return Image.open(BytesIO(requests.get(url, headers=HEADERS).content))
-        return File(BytesIO(requests.get(url, headers=HEADERS).content), filename='temp.png')
+        #_temp = requests.Request('get', url, HEADERS)
+        #ready = _temp.prepare()
+        #print(ready.body)
+
+        temp = requests.get(url, headers=HEADERS)
+        #print(temp.json)
+        return File(BytesIO(temp.content), filename='temp.png')
 
     def make_pixiv_child(self, total, i, url, link):
         embed = {
