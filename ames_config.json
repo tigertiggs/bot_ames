@@ -15,7 +15,10 @@
         "data.cog_core":        true,
         "data.cog_hatsune":     true,
         "data.cog_hatsucb":     true,
-        "data.cog_twitter":     true
+        "data.cog_hatsucbNew":  false,
+        "data.cog_twitter":     true,
+        "data.cog_shen":        true,
+        "data.cog_shenp":       true
     },
     "cogs_disabled": [
 
@@ -27,7 +30,8 @@
         "emojis"        : true,
         "messages"      : true,
         "reactions"     : true,
-        "typing"        : true
+        "typing"        : true,
+        "message_content": true
     },
     
     "configs": {
@@ -36,7 +40,8 @@
         "guilds"        : "data/_configs/guilds",
         "hatsune"       : "data/_hatsune/",
         "hatsune_cb"    : "data/_hatsune/cb",
-        "twitter"       : "data/_twitter"
+        "twitter"       : "data/_twitter",
+        "shen"          : "data/assets/shen"
     },
     "perm_positions":   [
         "admin"

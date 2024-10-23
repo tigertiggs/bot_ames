@@ -3042,17 +3042,48 @@ class hatsucbCog(commands.Cog):
         await ctx.channel.send('```'+line.format(*shifted)+'```')
 
     @commands.command()
-    async def done(self, ctx):
+    async def done(self, ctx, *, proxy=''):
+        channel = ctx.channel 
+        author = ctx.author
+        proxy = [i.strip().lower() for i in proxy.split() if i.strip()]
+
         # validate
         IS_VALID, IS_LEADER, clan_prop, queue_list, guild_prop, ql_fn = self.validate_queue_request(ctx)
         if not IS_VALID:
             return
         
-        queue_list['done'] += [str(ctx.author.id)] * 3
+        # check if delegate mode
+        DELEGATE_MODE = False
+        if proxy[0].startswith('<@') or len(proxy) != 0:
+            if not IS_LEADER:
+                await channel.send("Could not proxy: Missing manager role "+self.client.emotes['ames'])
+                return
+
+            try:
+                proxy = int(proxy.pop(0)[2:-1])
+            except:
+                await channel.send('Could not proxy: Failed to fetch target member '+self.client.emotes['ames'])
+                return
+
+            proxy = ctx.guild.get_member(proxy)
+            if not proxy:
+                await channel.send('Could not proxy: Failed to fetch target member '+self.client.emotes['ames'])
+                return
+            
+            # check if proxy is part of the guild
+            IS_VALID = bool(self.check_roles([clan_prop['role_member']], proxy))
+            if not IS_VALID:
+                await channel.send('Could not proxy: Target member is not part of clan '+self.client.emotes['ames'])
+                return
+            
+            DELEGATE_MODE = True
+            author = proxy
+        
+        queue_list['done'] += [str(author.id)] * 3
         with open(ut.full_path(self.rel_path, self.hatsucb_cf['queues'], ql_fn), 'w+') as f:
             f.write(json.dumps(queue_list, indent=4))
 
-        await ctx.channel.send('Otsu o/')
+        await ctx.channel.send('Otsu o/' + (f' <@{author.id}>' if DELEGATE_MODE else ''))
         await self.update_notice(clan_prop, queue_list, guild_prop, ctx.guild, ql_fn, False)
 
     @commands.command()
