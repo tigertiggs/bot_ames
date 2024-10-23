@@ -74,11 +74,11 @@ def embed_contructor(**kwargs):
         ]
     """
     embed = nextcord.Embed(
-        title       = kwargs.get('title', EMPTY),
-        url         = kwargs.get('url', EMPTY),
-        description = kwargs.get('descr', EMPTY),
+        title       = kwargs.get('title', SPACE),
+        url         = kwargs.get('url', None),
+        description = kwargs.get('descr', SPACE),
         timestamp   = kwargs.get('ts', dt.datetime.now(dt.timezone.utc)),
-        color       = nextcord.Colour.from_rgb(*kwargs['colour']) if kwargs.get('colour', False) else EMPTY
+        color       = nextcord.Colour.from_rgb(*kwargs['colour']) if kwargs.get('colour', False) else None
     )
     if kwargs.get('thumb', False):
         embed.set_thumbnail(url=kwargs['thumb'])
@@ -86,7 +86,7 @@ def embed_contructor(**kwargs):
     if kwargs.get('footer', False):
         embed.set_footer(
             text=kwargs['footer']['text'], 
-            icon_url=kwargs['footer']['url'] if kwargs['footer'].get('url', False) else EMPTY)
+            icon_url=kwargs['footer']['url'] if kwargs['footer'].get('url', False) else None)
     
     if kwargs.get('image', False):
         embed.set_image(url=kwargs['image'])
@@ -94,8 +94,8 @@ def embed_contructor(**kwargs):
     if kwargs.get('author', False):
         embed.set_author(
             name    = kwargs['author']['text'],
-            url     = kwargs['author']['url'] if kwargs['author'].get('url', False) else EMPTY,
-            icon_url= kwargs['author']['icon'] if kwargs['author'].get('icon', False) else EMPTY
+            url     = kwargs['author']['url'] if kwargs['author'].get('url', False) else None,
+            icon_url= kwargs['author']['icon'] if kwargs['author'].get('icon', False) else None
         )
     
     for field in kwargs.get('fields', []):
