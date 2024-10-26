@@ -3054,9 +3054,12 @@ class hatsucbCog(commands.Cog):
         
         # check if delegate mode
         DELEGATE_MODE = False
-        if proxy[0].startswith('<@') or len(proxy) != 0:
+        if len(proxy) > 0:
             if not IS_LEADER:
                 await channel.send("Could not proxy: Missing manager role "+self.client.emotes['ames'])
+                return
+            if not proxy[0].startswith('<@'):
+                await channel.send("Could not proxy: target member needs to be a discord @ping")
                 return
 
             try:
