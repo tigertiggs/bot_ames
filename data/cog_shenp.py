@@ -87,7 +87,7 @@ class shenpCog(commands.Cog):
         if user != None:
             target = await self.client.find_user(ctx.message.guild, user)
             if target == None:
-                await channel.send('https://cdn.nextcordapp.com/emojis/617546206662623252.png')
+                await channel.send('https://cdn.discordapp.com/emojis/617546206662623252.png')
                 return False
             #check = await self.ames_check(target, channel)
             if ames:
