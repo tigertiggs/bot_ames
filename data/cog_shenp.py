@@ -400,6 +400,10 @@ class shenpCog(commands.Cog):
             bg = base
         
         path = ut.full_path(self.post_path, "muimi.png")
+
+        # attempt to remove empty space
+        bg = bg.crop(bg.getbbox())
+
         bg.save(path)
         bg.close()
         muimi_fg.close()
