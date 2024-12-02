@@ -178,7 +178,7 @@ class shenCog(commands.Cog):
         #if not self.client.check_perm(author) and not author.id == 88285348102164480:
         #    await channel.send(self.client.emotes['ames'])
         #    return
-        cmd = dict([c.split(":") for c in cmd.split(";")])
+        cmd = dict([c.split("::") for c in cmd.split(";")])
         #name=key&link=a,b,c
         if not "name" in cmd:
             await channel.send("missing name")
@@ -242,7 +242,7 @@ class shenCog(commands.Cog):
             await channel.send(self.client.emotes['ames'])
             return
         #name=str&seq=0&default=0&tags=a,b,c
-        cmd = dict([c.split(":") for c in cmd.split(";")])
+        cmd = dict([c.split("::") for c in cmd.split(";")])
         if not 'name' in cmd:
             await channel.send("missing name")
             return
@@ -277,7 +277,7 @@ class shenCog(commands.Cog):
         if not self.client.check_perm(author):
             await channel.send(self.client.emotes['ames'])
             return
-        cmd = dict([c.split(":") for c in cmd.split(";")])
+        cmd = dict([c.split("::") for c in cmd.split(";")])
         #name=key&seq=0&tags=a,+b,-c&default=0
         if not "name" in cmd:
             await channel.send("missing name")
@@ -338,7 +338,7 @@ class shenCog(commands.Cog):
         #if not self.client.check_perm(author):
         #    await channel.send(self.client.emotes['ames'])
         #    return
-        cmd = dict([c.split(":") for c in cmd.split(";")])
+        cmd = dict([c.split("::") for c in cmd.split(";")])
         #name=str&index=1,2,3,4...
         if not "name" in cmd:
             await channel.send("missing name")
