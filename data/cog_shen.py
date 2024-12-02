@@ -208,7 +208,8 @@ class shenCog(commands.Cog):
             try:
                 
                 im = Image.open(BytesIO(requests.get(link).content))
-                path = os.path.join(self.client.dir, self.client.config['shen_path'], "other", "temp."+im.format.lower())
+                #path = os.path.join(self.client.dir, self.client.config['shen_path'], "other", "temp."+im.format.lower())
+                path = ut.full_path(self.rel_path, 'other', 'temp.'+im.format.lower())
                 im.save(path)
 
                 response = self.imgur.image_upload(
@@ -228,7 +229,8 @@ class shenCog(commands.Cog):
                 await msg.edit(content=msg.content+str(e))
                 continue
 
-        with open(os.path.join(self.client.config['shen_path'],"other","_config.json"), "w+") as c:
+        #with open(os.path.join(self.client.config['shen_path'],"other","_config.json"), "w+") as c:
+        with open(ut.full_path(self.rel_path, 'other', '_config.json'), 'w+') as c:
             c.write(json.dumps(self.config,indent=4))
         await channel.send("saved")
         
@@ -263,7 +265,8 @@ class shenCog(commands.Cog):
                 temp['mods'] = [int(user[3:-1]) for user in v.split(",")]
         
         self.config[cmd['name']] = temp
-        with open(os.path.join(self.client.config['shen_path'],"other","_config.json"), "w+") as c:
+        #with open(os.path.join(self.client.config['shen_path'],"other","_config.json"), "w+") as c:
+        with open(ut.full_path(self.rel_path, 'other', '_config.json'), 'w+') as c:
             c.write(json.dumps(self.config,indent=4))
         await channel.send("saved")
     
@@ -323,7 +326,8 @@ class shenCog(commands.Cog):
                 if arr:
                     active['mods'] = arr
 
-        with open(os.path.join(self.client.config['shen_path'],"other","_config.json"), "w+") as c:
+        #with open(os.path.join(self.client.config['shen_path'],"other","_config.json"), "w+") as c:
+        with open(ut.full_path(self.rel_path, 'other', '_config.json'), 'w+') as c:
             c.write(json.dumps(self.config,indent=4))
         await channel.send("saved")
     
@@ -377,7 +381,8 @@ class shenCog(commands.Cog):
             await channel.send(f"failed to read indicies: {e}")
             return
 
-        with open(os.path.join(self.client.config['shen_path'],"other","_config.json"), "w+") as c:
+        #with open(os.path.join(self.client.config['shen_path'],"other","_config.json"), "w+") as c:
+        with open(ut.full_path(self.rel_path, 'other', '_config.json'), 'w+') as c:
             c.write(json.dumps(self.config,indent=4))
         await channel.send("saved")
 
