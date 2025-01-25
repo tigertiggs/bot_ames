@@ -18,7 +18,8 @@
         "data.cog_hatsucbNew":  false,
         "data.cog_twitter":     true,
         "data.cog_shen":        true,
-        "data.cog_shenp":       true
+        "data.cog_shenp":       true,
+        "data.cog_manage":      true
     },
     "cogs_disabled": [
 
