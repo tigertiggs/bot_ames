@@ -2,7 +2,7 @@ import nextcord
 from nextcord.ext import commands
 import utils as ut
 import templates
-import json, datetime, re, argparse, shlex
+import json, datetime, re, argparse, shlex, math, itertools
 #from zoneinfo import ZoneInfo
 
 def setup(client):
@@ -24,6 +24,9 @@ class emotetrackerCog(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message):
         if message.author.bot:
+            return
+        # Ignore etrack calls
+        elif message.content.startswith('.etrack') or message.content.startswith('.emotetrack'):
             return
 
         # Check if the server is tracking emotes
@@ -136,6 +139,7 @@ class emotetrackerCog(commands.Cog):
         parser.add_argument('-x', dest='external', action='store_true', default=False)
         parser.add_argument('-t', dest='time', type=int, default=30)
         parser.add_argument('-h', dest='head', type=int, default=10)
+        parser.add_argument('-r', dest='reverse', action='store_true', default=False)
         
         try:
             options = parser.parse_args(shlex.split(options.strip()))
@@ -151,9 +155,7 @@ class emotetrackerCog(commands.Cog):
                 if len(statsf['history']) == 0:
                     await channel.send('There is no emote data at the moment: data file is empty.')
                     return
-                
                 stats = statsf['history']
-
         except:
             await channel.send('There is no emote data at the moment: data file is missing.')
             return
@@ -252,7 +254,12 @@ class emotetrackerCog(commands.Cog):
                 return
         
         # Aggregate data
-        stats = self.aggregate_stats(stats, channel.guild, options.head)
+        stats = self.aggregate_stats(stats, channel.guild)
+
+        if options.reverse:
+            stats.sort(key=lambda x: x['count'])
+        
+        stats = stats[:options.head]
 
         if len(stats) == 0:
             await channel.send('0 records match the applied filters.')
@@ -273,7 +280,7 @@ class emotetrackerCog(commands.Cog):
                     )
             )))
             
-    def aggregate_stats(self, stats, guild, limit):
+    def aggregate_stats(self, stats, guild):
         agg = {}
         for item in stats:
             if item['id'] in agg:
@@ -307,7 +314,7 @@ class emotetrackerCog(commands.Cog):
                     'count': 1
                 }
 
-        return sorted(agg.values(), key=lambda x: x['count'], reverse=True)[:limit]
+        return sorted(agg.values(), key=lambda x: x['count'], reverse=True)
         
     def make_emotestat_embed(self, stats, guild, TARGET_MEMBER, FILTER_TIME_DAYS, FILTER_FLAG):
         embed = {
@@ -347,7 +354,8 @@ class emotetrackerCog(commands.Cog):
             "> `-l`\nFilters the stats for only emotes on the current server.\n"\
             "> `-x`\nFilters the stats for only emotes not on the current server. Ignored if `-l` is present.\n"\
             "> `-t <days=30>`\nFilters the stats to the last `<days>` days. Must be between 1 and 364.\n"\
-            "> `-h <limit=10>`\nTruncates the stats to contain a maximum of `<limit>` emotes. Must be between 1 and 20."
+            "> `-h <limit=10>`\nTruncates the stats to contain a maximum of `<limit>` emotes. Must be between 1 and 20.\n"\
+            "> `-r`\nReverses the sort so its ascending. If you're looking for zero use emotes, use `.etrack report <numRecords=30>` instead."
         )
     
     @emotetrack.command()
@@ -375,5 +383,86 @@ class emotetrackerCog(commands.Cog):
         self.write_gp(author.guild.id, gp)
         await channel.send('Server preferences saved')
 
+    @emotetrack.command()
+    async def report(self, ctx, MAX_ZERO_USE_LENGTH=30):
+        channel = ctx.channel
+        guild = ctx.channel.guild
+
+        try:
+            with open(ut.full_path(self.stat_path, f'{guild.id}.json')) as f:
+                statsf = json.load(f)
+                if len(statsf['history']) == 0:
+                    await channel.send('Unable to make report: there is no emote data at the moment: data file is empty.')
+                    return
+                stats = statsf['history']
+        except:
+            await channel.send('Unable to make report: there is no emote data at the moment: data file is missing.')
+            return
+
+        # Formulate stats        
+        stats = self.aggregate_stats(stats, guild)
+        stats = [i for i in stats if i['local'] == 1]
+        stats_idv = [i['id'] for i in stats]
+        quarter = round(len(stats)/4)
+        upper_quarter = stats[:quarter]
+        lower_quarter = stats[-quarter:]
+
+        # Grab emotes and with 0 use
+        zero_use_emojis = [{'name': emote.name, 'id':emote.id, 'type':0} for emote in guild.emojis if not emote.id in stats_idv]
+        zero_use_emojis.sort(key=lambda x: x['name'])
+
+        zero_use_stickers = [{'name': emote.name, 'id':emote.id, 'type':1} for emote in guild.stickers if not emote.id in stats_idv]
+        zero_use_stickers.sort(key=lambda x: x['name'])
+
+        msg_top_quarter1 = f"> Top 25% Use\nTop-most: {upper_quarter[0]['count']}\nBottom-most: {upper_quarter[-1]['count']}\n"
+        msg_top_quarter2 = "".join([i['disp'] for i in upper_quarter])
+
+        msg_bot_quarter1 = f"> Bottom 25% Use\nTop-most: {lower_quarter[0]['count']}\nBottom-most: {lower_quarter[-1]['count']}\n"
+        msg_bot_quarter2 = "".join([i['disp'] for i in lower_quarter])
+            
+        msg_zero_use_emojis = f"> Emojis with zero use ({MAX_ZERO_USE_LENGTH if MAX_ZERO_USE_LENGTH < len(zero_use_emojis) else len(zero_use_emojis)} of {len(zero_use_emojis)} shown)\n```" + self.columize([i['name'] for i in zero_use_emojis][:MAX_ZERO_USE_LENGTH]) + '```'
+
+        msg_zero_use_stickers = f"> Stickers with zero use ({MAX_ZERO_USE_LENGTH if MAX_ZERO_USE_LENGTH < len(zero_use_stickers) else len(zero_use_stickers)} of {len(zero_use_stickers)} shown)\n```" + self.columize([i['name'] for i in zero_use_stickers][:MAX_ZERO_USE_LENGTH]) + '```'
+
+        await channel.send('# Report on *all* logged *local* records')
+        await channel.send(msg_top_quarter1)
+        await channel.send(msg_top_quarter2)
+        await channel.send(msg_bot_quarter1)
+        await channel.send(msg_bot_quarter2)
+        try:
+            await channel.send(msg_zero_use_emojis)
+            await channel.send(msg_zero_use_stickers)
+        except:
+            await channel.send("Ames couldn't send the complete report due to it exceeding message length. Try reducing the number of records with `.etrack report <records>`")
+            return
+
+    def columize(self, list, n_cols=0):
+        # Auto determine number of cols.
+        if n_cols == 0:
+            if len(list) > 20:
+                n_cols = 3
+            elif len(list) > 10:
+                n_cols = 2
+            else:
+                n_cols = 1
+
+        n_col_items = math.ceil(len(list)/n_cols)
+        cols = []
+        for col in ut.chunks(list, n_col_items):
+            ideal_len = max([len(i) for i in col]) + 2
+            cols.append([i + ' '*(ideal_len-len(i)) for i in col])
         
+        rows = []
+        if n_cols > 1:
+            for row_items in itertools.zip_longest(*cols, fillvalue=''):
+                rows.append("".join(row_items))
+        else:
+            rows = cols
+        
+        return "\n".join(rows)
+
+
+        
+
+
     
