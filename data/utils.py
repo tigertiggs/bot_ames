@@ -42,7 +42,9 @@ class Ames_logger():
         return ' '.join([self.name, *msg])
 
     async def send(self, *msg):
-        await self.logc.send(self._clean_msg(msg))
+        for chunk in chunks(self._clean_msg(msg), 1800):
+            #await self.logc.send(self._clean_msg(msg))
+            await self.logc.send(chunk)
     
     def log(self, *msg):
         self.logf.info(self._clean_msg(msg))
