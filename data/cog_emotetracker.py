@@ -1,8 +1,9 @@
 import nextcord
-from nextcord.ext import commands, tasks
+from nextcord.ext import commands
 import utils as ut
 import templates
 import json, datetime, re, argparse, shlex
+from zoneinfo import ZoneInfo
 
 def setup(client):
     client.add_cog(emotetrackerCog(client))
@@ -240,7 +241,7 @@ class emotetrackerCog(commands.Cog):
                 return
             
             # Get target time to filter from
-            target_time = datetime.datetime.utcnow() - datetime.timedelta(days=options.time)
+            target_time = datetime.datetime.now(ZoneInfo('UTC')) - datetime.timedelta(days=options.time)
             #target_time = datetime.datetime.now(datetime.UTC) - datetime.timedelta(days=options.time) # python3.12
             stats = [i for i in stats if target_time <= datetime.datetime.strptime(i['date'], self.datetime_format)]
 
