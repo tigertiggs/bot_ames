@@ -67,7 +67,7 @@ class emotetrackerCog(commands.Cog):
             with open(stat_path) as f:
                 jf = json.loads(f.read())
 
-        except json.decoder.JSONDecodeError as e:
+        except Exception as e:
             print(e)
             jf = {'history':[]}
         
