@@ -5,7 +5,7 @@ import nextcord
 import collections.abc
 
 SPACE = '\u200B'
-EMPTY = nextcord.Embed.Empty
+EMPTY = None #nextcord.Embed.Empty
 
 def full_path(*args):
     return os.path.join(*args)
