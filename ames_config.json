@@ -19,7 +19,8 @@
         "data.cog_twitter":     true,
         "data.cog_shen":        true,
         "data.cog_shenp":       true,
-        "data.cog_manage":      true
+        "data.cog_manage":      true,
+        "data.cog_emotetracker":true
     },
     "cogs_disabled": [
 
@@ -42,7 +43,8 @@
         "hatsune"       : "data/_hatsune/",
         "hatsune_cb"    : "data/_hatsune/cb",
         "twitter"       : "data/_twitter",
-        "shen"          : "data/assets/shen"
+        "shen"          : "data/assets/shen",
+        "emotetracker"  : "data/_emotetracker"
     },
     "perm_positions":   [
         "admin"

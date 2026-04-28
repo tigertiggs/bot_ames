@@ -11,7 +11,8 @@ guild = {
     "pins": {
             "active":   False,
             "no_pin":   []
-    }
+    },
+    "emotetracker": False
 }
 
 ###################### hatsune ######################
